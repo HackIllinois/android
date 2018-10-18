@@ -1,4 +1,4 @@
-package org.hackillinois.hackillinois
+package org.hackillinois.android
 
 import org.junit.Test
 

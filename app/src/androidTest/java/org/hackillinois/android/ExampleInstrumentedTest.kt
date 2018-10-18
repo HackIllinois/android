@@ -1,4 +1,4 @@
-package org.hackillinois.hackillinois
+package org.hackillinois.android
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
