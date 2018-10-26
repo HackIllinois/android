@@ -1,6 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/default_name_text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        app:fontFamily="@font/montserrat" />
+
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameTextView"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="1dp"
+        android:text="@string/default_email_text"
+        android:textColor="#909395"
+        android:textSize="14sp"
+        app:fontFamily="@font/montserrat"
+        />
+
+    <TextView
+        android:id="@+id/homeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailTextView"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/nav_home_text"
+        android:paddingLeft="7dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        app:fontFamily="@font/montserrat"
+        android:background="#8ce3f6ff"
+        />
+
+    <TextView
+        android:id="@+id/scheduleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/homeTextView"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="8dp"
+        android:background="#8ce3f6ff"
+        android:paddingLeft="7dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        android:text="@string/nav_schedule_text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        app:fontFamily="@font/montserrat" />
+
+    <TextView
+        android:id="@+id/outdoorMapsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scheduleTextView"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="8dp"
+        android:background="#8ce3f6ff"
+        android:paddingLeft="7dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        android:text="@string/nav_outdoor_text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        app:fontFamily="@font/montserrat" />
+
+    <TextView
+        android:id="@+id/indoorMapsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/outdoorMapsTextView"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="8dp"
+        android:background="#8ce3f6ff"
+        android:paddingLeft="7dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        android:text="@string/nav_indoor_text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        app:fontFamily="@font/montserrat" />
+
+    <TextView
+        android:id="@+id/profileTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/indoorMapsTextView"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="8dp"
+        android:background="#8ce3f6ff"
+        android:paddingLeft="7dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        android:text="@string/nav_profile_text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        app:fontFamily="@font/montserrat" />
+
+</RelativeLayout>
