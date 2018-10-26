@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <FrameLayout
-        android:id="@+id/contentFrame"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -17,7 +17,12 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/AppToolbar" />
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/contentFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/navMenu"
