@@ -7,6 +7,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_nav_menu.*
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_menu)
+            title = "HOME"
         }
 
         val startFragment = HomeFragment()
@@ -53,6 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         v.setBackgroundColor(ContextCompat.getColor(baseContext, R.color.selectedMenuItemColor))
+        supportActionBar?.title = (v as TextView).text
 
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).commit()
         drawerLayout.closeDrawer(GravityCompat.START)
