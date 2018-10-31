@@ -1,4 +1,4 @@
-package org.hackillinois.android
+package org.hackillinois.android.ui
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_nav_menu.*
+import org.hackillinois.android.R
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
