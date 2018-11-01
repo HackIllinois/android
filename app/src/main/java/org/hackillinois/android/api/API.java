@@ -11,4 +11,7 @@ public interface API {
 
     @GET("event/{name}/")
     Call<Event> getEvent(@Path("name") String name);
+
+    @GET("event/")
+    Call<Event> getAllEvents();
 }
