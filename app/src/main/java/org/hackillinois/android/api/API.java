@@ -1,6 +1,7 @@
 package org.hackillinois.android.api;
 
 import org.hackillinois.android.model.Event;
+import org.hackillinois.android.model.EventsList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,5 +14,5 @@ public interface API {
     Call<Event> getEvent(@Path("name") String name);
 
     @GET("event/")
-    Call<Event> getAllEvents();
+    Call<EventsList> getAllEvents();
 }
