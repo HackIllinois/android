@@ -7,4 +7,5 @@
     <color name="selectedMenuItemColor">#8ce3f6ff</color>
 
     <color name="homeClockBackground">#E3F6FF</color>
+    <color name="adjacentTimesTextColor">#321C055E</color>
 </resources>
