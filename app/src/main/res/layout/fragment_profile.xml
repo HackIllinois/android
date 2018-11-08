@@ -1,24 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E3F6FF">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Welcome to the Profile Fragment!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="24dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <TextView
+            android:id="@+id/universityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_university_text"
+            android:textColor="#1F84A5"
+            android:textSize="14sp"
+            app:fontFamily="@font/montserrat" />
+
+        <TextView
+            android:id="@+id/university"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:textColor="#1F84A5"
+            android:textSize="12sp"
+            app:fontFamily="@font/montserrat"
+            tools:text="University of Illinois at Urbana-Champaign" />
+
+        <TextView
+            android:id="@+id/majorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_major_text"
+            android:textColor="#1F84A5"
+            app:fontFamily="@font/montserrat" />
+
+        <TextView
+            android:id="@+id/major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:text="TextView"
+            android:textColor="#1F84A5"
+            android:textSize="12sp"
+            app:fontFamily="@font/montserrat"
+            tools:text="Computer Science" />
+
+        <TextView
+            android:id="@+id/emergencyContactTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_emergency_contact_text"
+            android:textColor="#1F84A5"
+            app:fontFamily="@font/montserrat" />
+
+        <TextView
+            android:id="@+id/emergencyContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#1F84A5"
+            android:textSize="12sp"
+            app:fontFamily="@font/montserrat"
+            tools:text="John Doe\n888-888-8888\njohn@doe.com" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

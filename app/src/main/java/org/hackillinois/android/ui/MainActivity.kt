@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             title = "HOME"
         }
 
-        val startFragment = HomeFragment()
+        val startFragment = ProfileFragment() //HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
         navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile)
