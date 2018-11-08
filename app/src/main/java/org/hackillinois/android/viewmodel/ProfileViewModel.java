@@ -21,7 +21,8 @@ public class ProfileViewModel extends ViewModel {
                 attendee.postValue(response.body());
             }
 
-            public void onFailure(Call<Attendee> call, Throwable t) {}
+            public void onFailure(Call<Attendee> call, Throwable t) {
+            }
         });
     }
 
