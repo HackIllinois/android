@@ -3,6 +3,7 @@
 
     <string name="default_name_text">John Smith</string>
     <string name="default_email_text">john.smith@illinois.edu</string>
+
     <string name="nav_home_text">HOME</string>
     <string name="nav_schedule_text">SCHEDULE</string>
     <string name="nav_outdoor_text">OUTDOOR MAPS</string>

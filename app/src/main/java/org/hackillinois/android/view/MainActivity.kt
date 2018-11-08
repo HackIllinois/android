@@ -1,4 +1,4 @@
-package org.hackillinois.android.ui
+package org.hackillinois.android.view
 
 import android.graphics.Color
 import android.os.Bundle
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             title = "HOME"
         }
 
-        val startFragment = ProfileFragment() //HomeFragment()
+        val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
         navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile)

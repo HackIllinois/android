@@ -16,7 +16,7 @@
         android:text="@string/default_name_text"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
-        app:fontFamily="@font/montserrat" />
+        app:fontFamily="@font/montserrat_semi_bold" />
 
     <TextView
         android:id="@+id/emailTextView"
@@ -28,7 +28,7 @@
         android:text="@string/default_email_text"
         android:textColor="#909395"
         android:textSize="14sp"
-        app:fontFamily="@font/montserrat"
+        app:fontFamily="@font/montserrat_semi_bold"
         />
 
     <TextView
@@ -45,7 +45,7 @@
         android:paddingBottom="9dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
-        app:fontFamily="@font/montserrat"
+        app:fontFamily="@font/montserrat_semi_bold"
         android:background="@color/selectedMenuItemColor"
         />
 
@@ -63,7 +63,7 @@
         android:text="@string/nav_schedule_text"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
-        app:fontFamily="@font/montserrat" />
+        app:fontFamily="@font/montserrat_semi_bold" />
 
     <TextView
         android:id="@+id/navOutdoorMaps"
@@ -79,7 +79,7 @@
         android:text="@string/nav_outdoor_text"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
-        app:fontFamily="@font/montserrat" />
+        app:fontFamily="@font/montserrat_semi_bold" />
 
     <TextView
         android:id="@+id/navIndoorMaps"
@@ -95,7 +95,7 @@
         android:text="@string/nav_indoor_text"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
-        app:fontFamily="@font/montserrat" />
+        app:fontFamily="@font/montserrat_semi_bold" />
 
     <TextView
         android:id="@+id/navProfile"
@@ -111,6 +111,6 @@
         android:text="@string/nav_profile_text"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
-        app:fontFamily="@font/montserrat" />
+        app:fontFamily="@font/montserrat_semi_bold" />
 
 </RelativeLayout>

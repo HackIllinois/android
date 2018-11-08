@@ -1,4 +1,4 @@
-package org.hackillinois.android.ui
+package org.hackillinois.android.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
