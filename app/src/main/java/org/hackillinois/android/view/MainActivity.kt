@@ -1,4 +1,4 @@
-package org.hackillinois.android.ui
+package org.hackillinois.android.view
 
 import android.graphics.Color
 import android.os.Bundle
