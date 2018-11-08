@@ -1,5 +1,0 @@
-package org.hackillinois.android.api;
-
-public class Secret {
-    public static final String JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFybmF2c2Fua2FyYW5AZ21haWwuY29tIiwiZXhwIjoyNTM4MzIzMTIyLCJpZCI6ImdpdGh1YjYwOTkzNTciLCJyb2xlcyI6WyJVc2VyIiwiU3RhZmYiLCJBcHBsaWNhbnQiLCJBdHRlbmRlZSIsIkFkbWluIl19.7jR5mEyCa9VDBM77fVbiTLTAC16jsHV9OT-jHWNWzjY";
-}
