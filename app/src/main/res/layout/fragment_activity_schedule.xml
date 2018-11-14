@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_schedule$PlaceholderFragment">
+    tools:context=".activity_schedule$DayFragment">
 
     <TextView
         android:id="@+id/section_label"
@@ -19,5 +19,10 @@
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_schedule_recyclerview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>
