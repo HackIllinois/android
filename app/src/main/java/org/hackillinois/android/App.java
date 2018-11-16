@@ -1,15 +1,12 @@
 package org.hackillinois.android;
 
 import android.app.Application;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import org.hackillinois.android.api.API;
 import org.hackillinois.android.api.Secret;
 
 import java.io.IOException;
 
-import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
