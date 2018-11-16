@@ -9,6 +9,7 @@ import org.hackillinois.android.api.Secret;
 
 import java.io.IOException;
 
+import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -47,6 +48,7 @@ public class App extends Application {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        return retrofit.create(API.class);
+        api = retrofit.create(API.class);
+        return api;
     }
 }
