@@ -3,6 +3,7 @@ package org.hackillinois.android;
 import android.app.Application;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import org.hackillinois.android.api.API;
 import org.hackillinois.android.api.Secret;
@@ -47,6 +48,7 @@ public class App extends Application {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        return retrofit.create(API.class);
+        api = retrofit.create(API.class);
+        return api;
     }
 }

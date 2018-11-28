@@ -8,12 +8,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.model.EventsList
+import org.hackillinois.android.utils.TimeInfo
 import org.hackillinois.android.viewmodels.home.HomeViewModel
+import java.util.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CountdownManager.CountDownListener {
 
     private val eventsAdapter = EventsListAdapter(mutableListOf())
 
@@ -31,6 +34,12 @@ class HomeFragment : Fragment() {
 
         viewModel.fetchEvents()
 
+        val time = Calendar.getInstance().apply {
+            set(2018, Calendar.NOVEMBER, 28, 20, 0, 0)
+        }
+
+        CountdownManager(this).startTimer(time)
+
         view.eventsList.apply {
             layoutManager = LinearLayoutManager(container?.context)
             adapter = eventsAdapter
@@ -42,6 +51,31 @@ class HomeFragment : Fragment() {
     private fun updateEventsList(eventsList: EventsList?) {
         eventsList?.let {
             eventsAdapter.updateEventsList(it.events)
+        }
+    }
+
+    override fun updateTime(timeInfo: TimeInfo) {
+
+        previousHourTextView.text = padNumber((timeInfo.hours + 24 + 1) % 24)
+        nextHourTextView.text = padNumber((timeInfo.hours + 24 - 1) % 24)
+
+        previousMinuteTextView.text = padNumber((timeInfo.minutes + 60 + 1) % 60)
+        nextMinuteTextView.text = padNumber((timeInfo.minutes + 60 - 1) % 60)
+
+        previousSecondTextView.text = padNumber((timeInfo.seconds + 60 + 1) % 60)
+        nextSecondTextView.text = padNumber((timeInfo.seconds + 60 - 1) % 60)
+
+        currentHourTextView.text = padNumber(timeInfo.hours)
+        currentMinuteTextView.text = padNumber(timeInfo.minutes)
+        currentSecondTextVIew.text = padNumber(timeInfo.seconds)
+    }
+
+    private fun padNumber(number: Long): String {
+        val temp = number.toString()
+        return when (temp.length) {
+            0 -> "00"
+            1 -> "0$temp"
+            else -> temp
         }
     }
 }
