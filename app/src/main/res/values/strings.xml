@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">hackillinois</string>
+    <string name="app_name">HackIllinois</string>
 
     <string name="default_name_text">John Smith</string>
     <string name="default_email_text">john.smith@illinois.edu</string>
