@@ -44,6 +44,7 @@ public class App extends Application {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        return retrofit.create(API.class);
+        api = retrofit.create(API.class);
+        return api;
     }
 }
