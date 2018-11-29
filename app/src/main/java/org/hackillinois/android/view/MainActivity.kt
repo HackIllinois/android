@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.layout_nav_menu.*
 import kotlinx.android.synthetic.main.layout_nav_menu.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.viewmodel.MainViewModel
+import org.hackillinois.android.view.home.HomeFragment
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
