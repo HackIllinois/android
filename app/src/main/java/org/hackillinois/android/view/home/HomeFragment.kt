@@ -22,11 +22,11 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
     private lateinit var viewModel: HomeViewModel
     private val countDownManager = CountdownManager(this)
 
-    private var title = "Title"
-
     private val SECONDS_IN_MINUTE = 60
     private val MINUTES_IN_HOUR = 60
     private val HOURS_IN_DAY = 24
+
+    private var isActive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,26 +39,36 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         viewModel.fetchEvents()
-        countDownManager.start()
 
         view.eventsList.apply {
             layoutManager = LinearLayoutManager(container?.context)
             adapter = eventsAdapter
         }
 
-        view.titleMessage.text = title
-
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        isActive = true
+        countDownManager.start()
     }
 
     override fun onPause() {
         super.onPause()
+        isActive = false
         countDownManager.onPause()
     }
 
     override fun onResume() {
         super.onResume()
+        isActive = true
         countDownManager.onResume()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        isActive = false
     }
 
     private fun updateEventsList(eventsList: EventsList?) {
@@ -70,7 +80,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
     override fun updateTime(timeUntil: Long) {
         val timeInfo = TimeInfo(timeUntil)
 
-        if (isVisible) {
+        if (isActive) {
             if (timeInfo.days > 0L) {
                 dayLayout.visibility = View.VISIBLE
                 dayLabel.visibility = View.VISIBLE
@@ -98,8 +108,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
     }
 
     override fun updateTitle(newTitle: String) {
-        title = newTitle
-        if (isVisible) {
+        if (isActive) {
             titleMessage.text = newTitle
         }
     }
