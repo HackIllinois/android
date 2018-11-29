@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.model.EventsList
+import org.hackillinois.android.utils.StartTimes
 import org.hackillinois.android.utils.TimeInfo
 import org.hackillinois.android.viewmodels.home.HomeViewModel
 import java.util.*
@@ -20,8 +22,13 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
 
     private val eventsAdapter = EventsListAdapter(mutableListOf())
 
+    private val eventTimes = listOf(StartTimes.eventStartTime, StartTimes.hackingStartTime, StartTimes.hackingEndTime)
+    private val titles = listOf("EVENT STARTS IN", "HACKING STARTS IN", "HACKING ENDS IN", "THANKS FOR COMING!")
+
     private lateinit var viewModel: HomeViewModel
-    private lateinit var countDownManager: CountdownManager
+    private val countDownManager = CountdownManager(this, eventTimes)
+
+    private var title = "Title"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,18 +41,14 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         viewModel.fetchEvents()
-
-        val time = Calendar.getInstance().apply {
-            set(2018, Calendar.NOVEMBER, 28, 20, 0, 0)
-        }
-
-        countDownManager = CountdownManager(this, time)
-        countDownManager.startTimer()
+        countDownManager.start()
 
         view.eventsList.apply {
             layoutManager = LinearLayoutManager(container?.context)
             adapter = eventsAdapter
         }
+
+        view.titleMessage.text = title
 
         return view
     }
@@ -80,6 +83,13 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
             currentHourTextView.text = padNumber(timeInfo.hours)
             currentMinuteTextView.text = padNumber(timeInfo.minutes)
             currentSecondTextVIew.text = padNumber(timeInfo.seconds)
+        }
+    }
+
+    override fun updateTimer(index: Int) {
+        title = titles[index]
+        if (isVisible) {
+            titleMessage.text = titles[index]
         }
     }
 

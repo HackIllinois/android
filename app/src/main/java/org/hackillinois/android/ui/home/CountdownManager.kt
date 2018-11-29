@@ -5,36 +5,53 @@ import android.util.Log
 import org.hackillinois.android.utils.TimeInfo
 import java.util.*
 
-class CountdownManager(val listener: CountDownListener, val time: Calendar) {
+class CountdownManager(val listener: CountDownListener, val times: List<Calendar>) {
 
-    private lateinit var timer: CountDownTimer
+    private var timer: CountDownTimer? = null
+    private var index = 0
 
-    fun startTimer() {
-        val millisTillTimerFinishes = time.timeInMillis - Calendar.getInstance().timeInMillis
+    fun start() {
+        while (index < times.size && times[index].timeInMillis < Calendar.getInstance().timeInMillis) {
+            index++
+        }
+        startTimer()
+    }
+
+    private fun startTimer() {
+        if (index >= times.size) {
+            listener.updateTimer(index)
+            return
+        }
+        listener.updateTimer(index)
+
+        val millisTillTimerFinishes = times[index].timeInMillis - Calendar.getInstance().timeInMillis
         timer = object : CountDownTimer(millisTillTimerFinishes, 500) {
             override fun onTick(millisUntilFinished: Long) {
-                val diff = time.timeInMillis - Calendar.getInstance().timeInMillis
-
+                val diff = times[index].timeInMillis - Calendar.getInstance().timeInMillis
                 val diffTimeInfo = TimeInfo(diff)
                 listener.updateTime(diffTimeInfo)
             }
 
             override fun onFinish() {
-
+                index++
+                startTimer()
             }
         }.start()
     }
 
     fun onPause() {
-        timer.cancel()
+        timer?.cancel()
+        timer = null
     }
 
     fun onResume() {
-        startTimer()
+        if (timer == null) {
+            start()
+        }
     }
 
     interface CountDownListener {
         fun updateTime(timeInfo: TimeInfo)
+        fun updateTimer(index: Int)
     }
-
 }
