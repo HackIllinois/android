@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.model.EventsList
 import org.hackillinois.android.utils.TimeInfo
-import org.hackillinois.android.viewmodels.home.HomeViewModel
+import org.hackillinois.android.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment(), CountdownManager.CountDownListener {
 

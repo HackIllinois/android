@@ -1,4 +1,4 @@
-package org.hackillinois.android.viewmodels.home
+package org.hackillinois.android.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
