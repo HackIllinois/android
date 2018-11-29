@@ -5,13 +5,13 @@ import android.util.Log
 import org.hackillinois.android.utils.TimeInfo
 import java.util.*
 
-class CountdownManager(val listener: CountDownListener) {
+class CountdownManager(val listener: CountDownListener, val time: Calendar) {
 
-    fun startTimer(time: Calendar) {
-        Log.d("CountdownManager", "Starting")
+    private lateinit var timer: CountDownTimer
+
+    fun startTimer() {
         val millisTillTimerFinishes = time.timeInMillis - Calendar.getInstance().timeInMillis
-        Log.d("CountdownManager", millisTillTimerFinishes.toString())
-        val countDownTimer = object : CountDownTimer(millisTillTimerFinishes, 500) {
+        timer = object : CountDownTimer(millisTillTimerFinishes, 500) {
             override fun onTick(millisUntilFinished: Long) {
                 val diff = time.timeInMillis - Calendar.getInstance().timeInMillis
 
@@ -23,6 +23,14 @@ class CountdownManager(val listener: CountDownListener) {
 
             }
         }.start()
+    }
+
+    fun onPause() {
+        timer.cancel()
+    }
+
+    fun onResume() {
+        startTimer()
     }
 
     interface CountDownListener {

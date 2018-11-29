@@ -21,6 +21,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
     private val eventsAdapter = EventsListAdapter(mutableListOf())
 
     private lateinit var viewModel: HomeViewModel
+    private lateinit var countDownManager: CountdownManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +39,8 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
             set(2018, Calendar.NOVEMBER, 28, 20, 0, 0)
         }
 
-        CountdownManager(this).startTimer(time)
+        countDownManager = CountdownManager(this, time)
+        countDownManager.startTimer()
 
         view.eventsList.apply {
             layoutManager = LinearLayoutManager(container?.context)
@@ -48,6 +50,16 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
         return view
     }
 
+    override fun onPause() {
+        super.onPause()
+        countDownManager.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        countDownManager.onResume()
+    }
+
     private fun updateEventsList(eventsList: EventsList?) {
         eventsList?.let {
             eventsAdapter.updateEventsList(it.events)
@@ -55,19 +67,20 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
     }
 
     override fun updateTime(timeInfo: TimeInfo) {
+        if (isVisible) {
+            previousHourTextView.text = padNumber((timeInfo.hours + 24 + 1) % 24)
+            nextHourTextView.text = padNumber((timeInfo.hours + 24 - 1) % 24)
 
-        previousHourTextView.text = padNumber((timeInfo.hours + 24 + 1) % 24)
-        nextHourTextView.text = padNumber((timeInfo.hours + 24 - 1) % 24)
+            previousMinuteTextView.text = padNumber((timeInfo.minutes + 60 + 1) % 60)
+            nextMinuteTextView.text = padNumber((timeInfo.minutes + 60 - 1) % 60)
 
-        previousMinuteTextView.text = padNumber((timeInfo.minutes + 60 + 1) % 60)
-        nextMinuteTextView.text = padNumber((timeInfo.minutes + 60 - 1) % 60)
+            previousSecondTextView.text = padNumber((timeInfo.seconds + 60 + 1) % 60)
+            nextSecondTextView.text = padNumber((timeInfo.seconds + 60 - 1) % 60)
 
-        previousSecondTextView.text = padNumber((timeInfo.seconds + 60 + 1) % 60)
-        nextSecondTextView.text = padNumber((timeInfo.seconds + 60 - 1) % 60)
-
-        currentHourTextView.text = padNumber(timeInfo.hours)
-        currentMinuteTextView.text = padNumber(timeInfo.minutes)
-        currentSecondTextVIew.text = padNumber(timeInfo.seconds)
+            currentHourTextView.text = padNumber(timeInfo.hours)
+            currentMinuteTextView.text = padNumber(timeInfo.minutes)
+            currentSecondTextVIew.text = padNumber(timeInfo.seconds)
+        }
     }
 
     private fun padNumber(number: Long): String {
