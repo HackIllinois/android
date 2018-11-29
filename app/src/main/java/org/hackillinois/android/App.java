@@ -1,9 +1,6 @@
 package org.hackillinois.android;
 
 import android.app.Application;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import org.hackillinois.android.api.API;
 import org.hackillinois.android.api.Secret;
