@@ -71,6 +71,9 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
 
     override fun updateTime(timeInfo: TimeInfo) {
         if (isVisible) {
+            previousDayTextView.text = padNumber(timeInfo.days + 1)
+            nextDayTextView.text = padNumber(timeInfo.days - 1)
+
             previousHourTextView.text = padNumber((timeInfo.hours + 24 + 1) % 24)
             nextHourTextView.text = padNumber((timeInfo.hours + 24 - 1) % 24)
 
@@ -80,6 +83,12 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
             previousSecondTextView.text = padNumber((timeInfo.seconds + 60 + 1) % 60)
             nextSecondTextView.text = padNumber((timeInfo.seconds + 60 - 1) % 60)
 
+            if (timeInfo.days == 0L) {
+                dayLayout.visibility = View.GONE
+                dayLabel.visibility = View.GONE
+            }
+
+            currentDayTextView.text = padNumber(timeInfo.days)
             currentHourTextView.text = padNumber(timeInfo.hours)
             currentMinuteTextView.text = padNumber(timeInfo.minutes)
             currentSecondTextVIew.text = padNumber(timeInfo.seconds)
