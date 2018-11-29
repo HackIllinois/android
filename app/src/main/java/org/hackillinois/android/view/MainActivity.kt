@@ -11,6 +11,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_nav_menu.*
 import org.hackillinois.android.R
+import org.hackillinois.android.view.home.HomeFragment
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
