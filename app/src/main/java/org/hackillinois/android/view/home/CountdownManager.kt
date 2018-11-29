@@ -4,35 +4,55 @@ import android.os.CountDownTimer
 import org.hackillinois.android.utils.TimeInfo
 import java.util.*
 
-class CountdownManager(val listener: CountDownListener, val times: List<Calendar>) {
+class CountdownManager(val listener: CountDownListener) {
+
+    private val eventStartTime: Calendar = Calendar.getInstance().apply {
+        timeZone = TimeZone.getTimeZone("America/Chicago")
+        set(2019, Calendar.FEBRUARY, 22, 17, 0, 0)
+    }
+
+    private val hackingStartTime: Calendar = Calendar.getInstance().apply {
+        timeZone = TimeZone.getTimeZone("America/Chicago")
+        set(2019, Calendar.FEBRUARY, 22, 23, 0, 0)
+    }
+
+    private val hackingEndTime: Calendar = Calendar.getInstance().apply {
+        timeZone = TimeZone.getTimeZone("America/Chicago")
+        set(2019, Calendar.FEBRUARY, 24, 11, 0, 0)
+    }
+
+    private val times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
+    private val titles = listOf("EVENT STARTS IN", "HACKING STARTS IN", "HACKING ENDS IN", "THANKS FOR COMING!")
 
     private var timer: CountDownTimer? = null
-    private var index = 0
+    private var state = 0
+
+    private val refreshRateMs = 500L
 
     fun start() {
-        while (index < times.size && times[index].timeInMillis < Calendar.getInstance().timeInMillis) {
-            index++
+        while (state < times.size && getTimeUntilMs(times[state]) < 0) {
+            state++
         }
         startTimer()
     }
 
     private fun startTimer() {
-        if (index >= times.size) {
-            listener.updateTimer(index)
+        if (state >= times.size) {
+            listener.updateTitle(titles[state])
             return
         }
-        listener.updateTimer(index)
+        listener.updateTitle(titles[state])
 
-        val millisTillTimerFinishes = times[index].timeInMillis - Calendar.getInstance().timeInMillis
-        timer = object : CountDownTimer(millisTillTimerFinishes, 500) {
+        val millisTillTimerFinishes = getTimeUntilMs(times[state])
+
+        timer = object : CountDownTimer(millisTillTimerFinishes, refreshRateMs) {
             override fun onTick(millisUntilFinished: Long) {
-                val diff = times[index].timeInMillis - Calendar.getInstance().timeInMillis
-                val diffTimeInfo = TimeInfo(diff)
-                listener.updateTime(diffTimeInfo)
+                val timeUntil = getTimeUntilMs(times[state])
+                listener.updateTime(timeUntil)
             }
 
             override fun onFinish() {
-                index++
+                state++
                 startTimer()
             }
         }.start()
@@ -49,8 +69,10 @@ class CountdownManager(val listener: CountDownListener, val times: List<Calendar
         }
     }
 
+    private fun getTimeUntilMs(time: Calendar) = time.timeInMillis - Calendar.getInstance().timeInMillis
+
     interface CountDownListener {
-        fun updateTime(timeInfo: TimeInfo)
-        fun updateTimer(index: Int)
+        fun updateTime(timeUntil: Long)
+        fun updateTitle(newTitle: String)
     }
 }

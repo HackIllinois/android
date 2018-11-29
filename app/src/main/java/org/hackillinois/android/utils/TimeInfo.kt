@@ -1,21 +1,28 @@
 package org.hackillinois.android.utils
 
-class TimeInfo(val millis: Long) {
+class TimeInfo(millis: Long) {
     val days: Long
     val hours: Long
     val minutes: Long
     val seconds: Long
 
+    private val MILLIS_IN_SECOND = 1000
+    private val SECONDS_IN_MINUTE = 60
+    private val MINUTES_IN_HOUR = 60
+    private val HOURS_IN_DAY = 24
+
     init {
-        var leftOver = millis
-        days = leftOver / 86400000
-        leftOver -= days * 86400000
-        hours = leftOver / 3600000
-        leftOver -= hours * 3600000
-        minutes = leftOver / 60000
-        leftOver -= minutes * 60000
-        seconds = leftOver / 1000
-        leftOver -= seconds * 1000
+        var time = millis / MILLIS_IN_SECOND
+        seconds = time % SECONDS_IN_MINUTE
+        time /= SECONDS_IN_MINUTE
+
+        minutes = time % MINUTES_IN_HOUR
+        time /= MINUTES_IN_HOUR
+
+        hours = time % HOURS_IN_DAY
+        time /= HOURS_IN_DAY
+
+        days = time
     }
 
 }

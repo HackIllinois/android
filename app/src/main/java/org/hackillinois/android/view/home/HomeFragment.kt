@@ -12,22 +12,21 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.model.EventsList
-import org.hackillinois.android.utils.StartTimes
 import org.hackillinois.android.utils.TimeInfo
 import org.hackillinois.android.viewmodels.home.HomeViewModel
-import java.util.*
 
 class HomeFragment : Fragment(), CountdownManager.CountDownListener {
 
     private val eventsAdapter = EventsListAdapter(mutableListOf())
 
-    private val eventTimes = listOf(StartTimes.eventStartTime, StartTimes.hackingStartTime, StartTimes.hackingEndTime)
-    private val titles = listOf("EVENT STARTS IN", "HACKING STARTS IN", "HACKING ENDS IN", "THANKS FOR COMING!")
-
     private lateinit var viewModel: HomeViewModel
-    private val countDownManager = CountdownManager(this, eventTimes)
+    private val countDownManager = CountdownManager(this)
 
     private var title = "Title"
+
+    private val SECONDS_IN_MINUTE = 60
+    private val MINUTES_IN_HOUR = 60
+    private val HOURS_IN_DAY = 24
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,45 +67,43 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
         }
     }
 
-    override fun updateTime(timeInfo: TimeInfo) {
+    override fun updateTime(timeUntil: Long) {
+        val timeInfo = TimeInfo(timeUntil)
+
         if (isVisible) {
-            previousDayTextView.text = padNumber(timeInfo.days + 1)
-            nextDayTextView.text = padNumber(timeInfo.days - 1)
+            if (timeInfo.days > 0L) {
+                dayLayout.visibility = View.VISIBLE
+                dayLabel.visibility = View.VISIBLE
 
-            previousHourTextView.text = padNumber((timeInfo.hours + 24 + 1) % 24)
-            nextHourTextView.text = padNumber((timeInfo.hours + 24 - 1) % 24)
-
-            previousMinuteTextView.text = padNumber((timeInfo.minutes + 60 + 1) % 60)
-            nextMinuteTextView.text = padNumber((timeInfo.minutes + 60 - 1) % 60)
-
-            previousSecondTextView.text = padNumber((timeInfo.seconds + 60 + 1) % 60)
-            nextSecondTextView.text = padNumber((timeInfo.seconds + 60 - 1) % 60)
-
-            if (timeInfo.days == 0L) {
+                previousDayTextView.text = padNumber(timeInfo.days + 1)
+                currentDayTextView.text = padNumber(timeInfo.days)
+                nextDayTextView.text = padNumber(timeInfo.days - 1)
+            } else {
                 dayLayout.visibility = View.GONE
                 dayLabel.visibility = View.GONE
             }
 
-            currentDayTextView.text = padNumber(timeInfo.days)
+            previousHourTextView.text = padNumber(modularAdd(timeInfo.hours, 1, HOURS_IN_DAY))
             currentHourTextView.text = padNumber(timeInfo.hours)
+            nextHourTextView.text = padNumber(modularAdd(timeInfo.hours, -1, HOURS_IN_DAY))
+
+            previousMinuteTextView.text = padNumber(modularAdd(timeInfo.minutes, 1, MINUTES_IN_HOUR))
             currentMinuteTextView.text = padNumber(timeInfo.minutes)
+            nextMinuteTextView.text = padNumber(modularAdd(timeInfo.minutes, -1, MINUTES_IN_HOUR))
+
+            previousSecondTextView.text = padNumber(modularAdd(timeInfo.seconds, 1, SECONDS_IN_MINUTE))
             currentSecondTextVIew.text = padNumber(timeInfo.seconds)
+            nextSecondTextView.text = padNumber(modularAdd(timeInfo.seconds, -1, SECONDS_IN_MINUTE))
         }
     }
 
-    override fun updateTimer(index: Int) {
-        title = titles[index]
+    override fun updateTitle(newTitle: String) {
+        title = newTitle
         if (isVisible) {
-            titleMessage.text = titles[index]
+            titleMessage.text = newTitle
         }
     }
 
-    private fun padNumber(number: Long): String {
-        val temp = number.toString()
-        return when (temp.length) {
-            0 -> "00"
-            1 -> "0$temp"
-            else -> temp
-        }
-    }
+    private fun padNumber(number: Long) = String.format("%02d", number)
+    private fun modularAdd(number: Long, add: Int, mod: Int) = (number + add + mod) % mod
 }
