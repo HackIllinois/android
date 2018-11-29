@@ -3,7 +3,6 @@ package org.hackillinois.android;
 import android.app.Application;
 
 import org.hackillinois.android.api.API;
-import org.hackillinois.android.api.Secret;
 
 import java.io.IOException;
 
@@ -29,7 +28,7 @@ public class App extends Application {
         Interceptor interceptor = new Interceptor() {
             public Response intercept(Chain chain) throws IOException {
                 Request newRequest = chain.request().newBuilder()
-                        .addHeader("Authorization", Secret.JWT)
+                        .addHeader("Authorization", BuildConfig.HACKILLINOIS_API_JWT)
                         .build();
                 return chain.proceed(newRequest);
             }

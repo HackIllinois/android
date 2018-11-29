@@ -16,9 +16,15 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "HACKILLINOIS_API_JWT", HACKILLINOIS_API_JWT
+            resValue "string", "google_maps_api_key", GOOGLE_MAPS_API_KEY
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            resValue "string", "google_maps_api_key", GOOGLE_MAPS_API_KEY
         }
     }
 }
@@ -36,6 +42,6 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-
     implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
 }
