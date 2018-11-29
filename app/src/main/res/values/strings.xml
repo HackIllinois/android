@@ -9,14 +9,11 @@
     <string name="nav_outdoor_text">OUTDOOR MAPS</string>
     <string name="nav_indoor_text">INDOOR MAPS</string>
     <string name="nav_profile_text">PROFILE</string>
-<<<<<<< HEAD
+
     <string name="title_activity_schedule">activity_schedule</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="tab_friday_text">FRIDAY</string>
     <string name="tab_saturday_text">SATURDAY</string>
     <string name="tab_sunday_text">SUNDAY</string>
-=======
 
     <string name="map_dcl">DCL</string>
     <string name="map_eceb">ECEB</string>
@@ -26,5 +23,4 @@
     <string name="profile_university_text">UNIVERSITY</string>
     <string name="profile_major_text">MAJOR</string>
     <string name="profile_emergency_contact_text">EMERGENCY CONTACT</string>
->>>>>>> development
 </resources>
