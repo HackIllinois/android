@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_nav_menu.*
 import kotlinx.android.synthetic.main.layout_nav_menu.view.*
 import org.hackillinois.android.R
+import org.hackillinois.android.model.Attendee
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
 
@@ -40,8 +41,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         navViews.forEach { it.setOnClickListener(this) }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.name.observe(this, Observer { updateName(it) })
-        viewModel.email.observe(this, Observer{ updateEmail(it) })
+        viewModel.attendee.observe(this, Observer { updateAttendeeInfo(it) })
     }
 
     override fun onStart() {
@@ -78,6 +78,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         drawerLayout.closeDrawer(GravityCompat.START)
     }
 
-    private fun updateName(name: String?) = name?.let { navMenu.nameTextView.text = it }
-    private fun updateEmail(email: String?) = email?.let { navMenu.emailTextView.text = it }
+    private fun updateAttendeeInfo(attendee: Attendee?) {
+        attendee?.let {
+            navMenu.nameTextView.text = it.name
+            navMenu.emailTextView.text = it.email
+        }
+    }
 }

@@ -11,8 +11,7 @@ import retrofit2.Response
 
 class MainViewModel : ViewModel() {
 
-    val name = MutableLiveData<String>()
-    val email = MutableLiveData<String>()
+    val attendee = MutableLiveData<Attendee>()
 
     fun getNameAndEmail() {
         App.getAPI().attendee.enqueue(object : Callback<Attendee> {
@@ -21,9 +20,7 @@ class MainViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<Attendee>, response: Response<Attendee>) {
-                val attendee = response.body()
-                name.postValue(attendee?.name)
-                email.postValue(attendee?.email)
+                attendee.postValue(response.body())
             }
         })
     }
