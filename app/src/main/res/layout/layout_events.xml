@@ -16,7 +16,7 @@
         android:layout_marginBottom="52dp"
         android:background="@android:color/transparent"
         android:contentDescription="star"
-        app:srcCompat="@drawable/ic_star_border_20dp"
+        app:srcCompat="@drawable/selector_star_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

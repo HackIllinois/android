@@ -1,9 +1,9 @@
 package org.hackillinois.android;
 
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +15,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -33,7 +31,7 @@ public class activity_schedule extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -62,45 +60,20 @@ public class activity_schedule extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        // TODO: get rid of floating action button
-
-        // TODO: add recycler view
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_schedule_recyclerview);
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
+        // TODO: Get the dataset
         mAdapter = new MyAdapter(dataset);
         recyclerView.setAdapter(mAdapter);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_schedule, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
      * A placeholder fragment containing a simple view.
      */
     public static class DayFragment extends Fragment {
+        // TODO: fix this to fit dates
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -118,18 +91,21 @@ public class activity_schedule extends AppCompatActivity {
             DayFragment fragment = new DayFragment();
             Bundle args = new Bundle();
 
-            // Depending on the section number, filter out dates from the JSON
+            // TODO: Depending on the section number, filter out dates from the JSON
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_activity_schedule, container, false);
+
+            // TODO: delete this part? what does it do
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
             return rootView;
         }
     }
@@ -208,7 +184,26 @@ public class activity_schedule extends AppCompatActivity {
             holder.tv_eventTitle.setText();
             holder.tv_eventDetail.setText();
             holder.tv_eventLocation.setText();
+            holder.imageButton_star.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View button) {
+                    // TODO: toggle the button
+                    // Can you use checked instead of selected?
+                    button.setSelected(!button.isSelected());
 
+                    if (button.isSelected()) {
+                        // TODO: pop up a snackbar? when they click the notification star
+                        // make sure they don't stack up when they go through and get a lot of notifications?
+                        // also make sure you can just use this instead of findviewbyid
+                        // TODO: come up with a string
+                        Snackbar.make(this, R.string.email_sent,
+                                Snackbar.LENGTH_SHORT)
+                                .show();
+                        //Handle selected state change
+                    } else {
+                        //Handle de-select state change
+                    }
+                }
+            });
         }
 
         // Return the size of your dataset (invoked by the layout manager)
