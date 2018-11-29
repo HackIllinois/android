@@ -1,7 +1,6 @@
-package org.hackillinois.android.ui.home
+package org.hackillinois.android.view.home
 
 import android.os.CountDownTimer
-import android.util.Log
 import org.hackillinois.android.utils.TimeInfo
 import java.util.*
 

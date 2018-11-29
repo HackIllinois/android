@@ -1,10 +1,21 @@
 <resources>
-    <string name="app_name">hackillinois</string>
+    <string name="app_name">HackIllinois</string>
+
     <string name="default_name_text">John Smith</string>
     <string name="default_email_text">john.smith@illinois.edu</string>
+
     <string name="nav_home_text">HOME</string>
     <string name="nav_schedule_text">SCHEDULE</string>
     <string name="nav_outdoor_text">OUTDOOR MAPS</string>
     <string name="nav_indoor_text">INDOOR MAPS</string>
     <string name="nav_profile_text">PROFILE</string>
+
+    <string name="map_dcl">DCL</string>
+    <string name="map_eceb">ECEB</string>
+    <string name="map_siebel">Siebel</string>
+    <string name="map_union">Union</string>
+
+    <string name="profile_university_text">UNIVERSITY</string>
+    <string name="profile_major_text">MAJOR</string>
+    <string name="profile_emergency_contact_text">EMERGENCY CONTACT</string>
 </resources>

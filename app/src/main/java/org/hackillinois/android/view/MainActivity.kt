@@ -1,4 +1,4 @@
-package org.hackillinois.android.ui
+package org.hackillinois.android.view
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,7 +11,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_nav_menu.*
 import org.hackillinois.android.R
-import org.hackillinois.android.ui.home.HomeFragment
+import org.hackillinois.android.view.home.HomeFragment
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)

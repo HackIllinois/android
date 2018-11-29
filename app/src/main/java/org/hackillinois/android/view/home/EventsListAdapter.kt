@@ -1,4 +1,4 @@
-package org.hackillinois.android.ui.home
+package org.hackillinois.android.view.home
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

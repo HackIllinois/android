@@ -28,7 +28,7 @@
             android:text="Event Name"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
-            app:fontFamily="@font/montserrat"
+            app:fontFamily="@font/montserrat_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +42,7 @@
             android:text="East Entrance, Siebel Center"
             android:textColor="@color/colorPrimary"
             android:textSize="10sp"
-            app:fontFamily="@font/montserrat"
+            app:fontFamily="@font/montserrat_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventName" />
 
