@@ -29,7 +29,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
 
     private var isActive = false
 
-    private val refreshIconSize = 30
+    private val refreshIconSize = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
