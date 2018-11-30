@@ -23,17 +23,17 @@ public class CustomRefreshView extends View implements IRefreshStatus {
     private static final int DEFAULT_START_DEGREES = 285;
     private static final int DEFAULT_STROKE_WIDTH = 2;
 
-    private final RectF mArcBounds = new RectF();
-    private final Paint mPaint = new Paint();
+    private final RectF arcBounds = new RectF();
+    private final Paint paint = new Paint();
 
-    private float mStartDegrees;
-    private float mSwipeDegrees;
+    private float startDegrees;
+    private float swipeDegrees;
 
-    private float mStrokeWidth;
+    private float strokeWidth;
 
-    private boolean mHasTriggeredRefresh;
+    private boolean hasTriggeredRefresh;
 
-    private ValueAnimator mRotateAnimator;
+    private ValueAnimator rotateAnimator;
 
     public CustomRefreshView(Context context) {
         this(context, null);
@@ -52,42 +52,42 @@ public class CustomRefreshView extends View implements IRefreshStatus {
 
     private void initData() {
         float density = getResources().getDisplayMetrics().density;
-        mStrokeWidth = density * DEFAULT_STROKE_WIDTH;
+        strokeWidth = density * DEFAULT_STROKE_WIDTH;
 
-        mStartDegrees = DEFAULT_START_DEGREES;
-        mSwipeDegrees = 0.0f;
+        startDegrees = DEFAULT_START_DEGREES;
+        swipeDegrees = 0.0f;
     }
 
     private void initPaint() {
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(mStrokeWidth);
-        mPaint.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(strokeWidth);
+        paint.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
     }
 
     private void startAnimator() {
-        mRotateAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
-        mRotateAnimator.setInterpolator(new LinearInterpolator());
-        mRotateAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        rotateAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
+        rotateAnimator.setInterpolator(new LinearInterpolator());
+        rotateAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float rotateProgress = (float) animation.getAnimatedValue();
                 setStartDegrees(DEFAULT_START_DEGREES + rotateProgress * 360);
             }
         });
-        mRotateAnimator.setRepeatMode(ValueAnimator.RESTART);
-        mRotateAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        mRotateAnimator.setDuration(ANIMATION_DURATION);
+        rotateAnimator.setRepeatMode(ValueAnimator.RESTART);
+        rotateAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        rotateAnimator.setDuration(ANIMATION_DURATION);
 
-        mRotateAnimator.start();
+        rotateAnimator.start();
     }
 
     private void resetAnimator() {
-        if (mRotateAnimator != null) {
-            mRotateAnimator.cancel();
-            mRotateAnimator.removeAllUpdateListeners();
+        if (rotateAnimator != null) {
+            rotateAnimator.cancel();
+            rotateAnimator.removeAllUpdateListeners();
 
-            mRotateAnimator = null;
+            rotateAnimator = null;
         }
     }
 
@@ -104,16 +104,16 @@ public class CustomRefreshView extends View implements IRefreshStatus {
     }
 
     private void drawArc(Canvas canvas) {
-        canvas.drawArc(mArcBounds, mStartDegrees, mSwipeDegrees, false, mPaint);
+        canvas.drawArc(arcBounds, startDegrees, swipeDegrees, false, paint);
     }
 
     private void setStartDegrees(float startDegrees) {
-        mStartDegrees = startDegrees;
+        this.startDegrees = startDegrees;
         postInvalidate();
     }
 
     public void setSwipeDegrees(float swipeDegrees) {
-        this.mSwipeDegrees = swipeDegrees;
+        this.swipeDegrees = swipeDegrees;
         postInvalidate();
     }
 
@@ -124,23 +124,23 @@ public class CustomRefreshView extends View implements IRefreshStatus {
         float centerX = w / 2.0f;
         float centerY = h / 2.0f;
 
-        mArcBounds.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
-        mArcBounds.inset(mStrokeWidth / 2.0f, mStrokeWidth / 2.0f);
+        arcBounds.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
+        arcBounds.inset(strokeWidth / 2.0f, strokeWidth / 2.0f);
     }
 
     @Override
     public void reset() {
         resetAnimator();
 
-        mHasTriggeredRefresh = false;
-        mStartDegrees = DEFAULT_START_DEGREES;
-        mSwipeDegrees = 0.0f;
+        hasTriggeredRefresh = false;
+        startDegrees = DEFAULT_START_DEGREES;
+        swipeDegrees = 0.0f;
     }
 
     @Override
     public void refreshing() {
-        mHasTriggeredRefresh = true;
-        mSwipeDegrees = MAX_ARC_DEGREE;
+        hasTriggeredRefresh = true;
+        swipeDegrees = MAX_ARC_DEGREE;
 
         startAnimator();
     }
@@ -156,7 +156,7 @@ public class CustomRefreshView extends View implements IRefreshStatus {
 
     @Override
     public void pullProgress(float pullDistance, float pullProgress) {
-        if (!mHasTriggeredRefresh) {
+        if (!hasTriggeredRefresh) {
             float swipeProgress = Math.min(1.0f, pullProgress);
             setSwipeDegrees(swipeProgress * MAX_ARC_DEGREE);
         }
