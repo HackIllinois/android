@@ -27,11 +27,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".view.ScheduleActivity"
-            android:label="@string/title_activity_schedule"
-            android:theme="@style/AppTheme"></activity>
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />

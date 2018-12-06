@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,7 +22,7 @@ import android.widget.TextView;
 
 import org.hackillinois.android.R;
 
-public class ScheduleActivity extends AppCompatActivity {
+public class ScheduleFragment extends Fragment {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -42,33 +41,41 @@ public class ScheduleActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
+    }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) view.findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_schedule_recyclerview);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.activity_schedule_recyclerview);
+        mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        // TODO: Get the dataset
-        mAdapter = new MyAdapter(dataset);
+        // TODO: Get the dataset using API call
+
+        // TODO: fix differences between fragments and activities; convert xml from activity to fragment
+        mAdapter = new RecyclerViewAdapter(dataset);
         recyclerView.setAdapter(mAdapter);
+
+        return view;
     }
 
     /**
@@ -98,8 +105,8 @@ public class ScheduleActivity extends AppCompatActivity {
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_activity_schedule, container, false);
+                Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_schedule_fragment, container, false);
 
             return rootView;
         }
@@ -131,7 +138,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
     // Adapter for RecyclerView
     // TODO: adapt to schedule view
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+    public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
         private String[] mDataset;
 
         // Provide a reference to the views for each data item
@@ -139,35 +146,35 @@ public class ScheduleActivity extends AppCompatActivity {
         // you provide access to all the views for a data item in a view holder
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
-            // each data item is just a string in this case
-            TextView tv_eventTitle;
-            TextView tv_eventDetail;
-            TextView tv_eventLocation;
-            ImageButton imageButton_star;
-            ConstraintLayout constraintLayout_recyclerView;
+        // each data item is just a string in this case
+        TextView tv_eventTitle;
+        TextView tv_eventDetail;
+        TextView tv_eventLocation;
+        ImageButton imageButton_star;
+        ConstraintLayout constraintLayout_recyclerView;
 
-            public MyViewHolder(View parent) {
-                super(parent);
-                tv_eventTitle = itemView.findViewById(R.id.eventTitle);
-                tv_eventDetail = itemView.findViewById(R.id.eventDetail);
-                tv_eventLocation = itemView.findViewById(R.id.eventLocation);
-                imageButton_star = itemView.findViewById(R.id.star);
-                constraintLayout_recyclerView = itemView.findViewById(R.id.constraintLayout);
-            }
+        public MyViewHolder(View parent) {
+            super(parent);
+            tv_eventTitle = itemView.findViewById(R.id.eventTitle);
+            tv_eventDetail = itemView.findViewById(R.id.eventDetail);
+            tv_eventLocation = itemView.findViewById(R.id.eventLocation);
+            imageButton_star = itemView.findViewById(R.id.star);
+            constraintLayout_recyclerView = itemView.findViewById(R.id.constraintLayout);
         }
+    }
 
         // Provide a suitable constructor (depends on the kind of dataset)
         // TODO: get JSON data for this
-        public MyAdapter(String[] myDataset) {
+        public RecyclerViewAdapter(String[] myDataset) {
             mDataset = myDataset;
         }
 
         // Create new views (invoked by the layout manager)
         @Override
-        public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                         int viewType) {
+        public RecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_events, parent, false);
-            MyAdapter.MyViewHolder viewHolder = new MyAdapter.MyViewHolder(view);
+            RecyclerViewAdapter.MyViewHolder viewHolder = new RecyclerViewAdapter.MyViewHolder(view);
             return viewHolder;
         }
 
