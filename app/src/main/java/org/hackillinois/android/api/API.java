@@ -2,6 +2,7 @@ package org.hackillinois.android.api;
 
 import org.hackillinois.android.model.Attendee;
 import org.hackillinois.android.model.Event;
+import org.hackillinois.android.model.EventsList;
 import org.hackillinois.android.model.QR;
 
 import retrofit2.Call;
