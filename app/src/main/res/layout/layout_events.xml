@@ -32,7 +32,7 @@
         android:textColor="#1F84A5"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:fontFamily="@font/montserrat"
+        app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintStart_toEndOf="@+id/star"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +46,7 @@
         android:text="Event Detail"
         android:textColor="#1F84A5"
         android:textSize="12sp"
-        app:fontFamily="@font/montserrat"
+        app:fontFamily="@font/montserrat_regular"
         app:layout_constraintStart_toEndOf="@+id/star"
         app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
 
@@ -61,6 +61,7 @@
         android:text="Event Location, Location Name"
         android:textColor="#FF766F"
         android:textSize="12sp"
+        app:fontFamily="@font/montserrat_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/star"
         app:layout_constraintTop_toBottomOf="@+id/eventDetail"

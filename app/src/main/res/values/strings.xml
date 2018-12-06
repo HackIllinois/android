@@ -14,6 +14,7 @@
     <string name="tab_friday_text">FRIDAY</string>
     <string name="tab_saturday_text">SATURDAY</string>
     <string name="tab_sunday_text">SUNDAY</string>
+    <string name="snackbar_notifications_on_text">You turned notifications on for this event</string>
 
     <string name="map_dcl">DCL</string>
     <string name="map_eceb">ECEB</string>

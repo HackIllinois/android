@@ -1,4 +1,4 @@
-package org.hackillinois.android;
+package org.hackillinois.android.view;
 
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -21,7 +21,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class activity_schedule extends AppCompatActivity {
+import org.hackillinois.android.R;
+
+public class ScheduleActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -80,9 +82,6 @@ public class activity_schedule extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public DayFragment() {
-        }
-
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -101,10 +100,6 @@ public class activity_schedule extends AppCompatActivity {
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_activity_schedule, container, false);
-
-            // TODO: delete this part? what does it do
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             return rootView;
         }
@@ -195,7 +190,7 @@ public class activity_schedule extends AppCompatActivity {
                         // make sure they don't stack up when they go through and get a lot of notifications?
                         // also make sure you can just use this instead of findviewbyid
                         // TODO: come up with a string
-                        Snackbar.make(this, R.string.email_sent,
+                        Snackbar.make(button, R.string.snackbar_notifications_on_text,
                                 Snackbar.LENGTH_SHORT)
                                 .show();
                         //Handle selected state change

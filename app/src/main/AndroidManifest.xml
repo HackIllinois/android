@@ -28,7 +28,7 @@
         </activity>
 
         <activity
-            android:name=".activity_schedule"
+            android:name=".view.ScheduleActivity"
             android:label="@string/title_activity_schedule"
             android:theme="@style/AppTheme"></activity>
 
