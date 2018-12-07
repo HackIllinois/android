@@ -24,5 +24,4 @@ class TimeInfo(millis: Long) {
 
         days = time
     }
-
 }

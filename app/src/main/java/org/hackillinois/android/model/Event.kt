@@ -2,6 +2,7 @@ package org.hackillinois.android.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.util.*
 
 data class Event(
     val name: String,
@@ -47,4 +48,9 @@ data class Event(
             return arrayOfNulls(size)
         }
     }
+
+    private val MILLIS_IN_SECONDS = 1000
+
+    fun getStart(): Calendar = Calendar.getInstance().apply { timeInMillis = startTime * MILLIS_IN_SECONDS }
+    fun getEnd(): Calendar = Calendar.getInstance().apply { timeInMillis = endTime * MILLIS_IN_SECONDS }
 }
