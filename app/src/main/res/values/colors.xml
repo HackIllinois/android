@@ -7,5 +7,5 @@
     <color name="selectedMenuItemColor">#8ce3f6ff</color>
 
     <color name="tabBackground">#5DB4D6</color>
-    <color name="tabTextColor">#C6D9E0</color>
+    <color name="lightTextColor">#C6D9E0</color>
 </resources>
