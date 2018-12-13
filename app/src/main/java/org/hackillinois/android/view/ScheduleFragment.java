@@ -45,7 +45,6 @@ public class ScheduleFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
@@ -72,7 +71,7 @@ public class ScheduleFragment extends Fragment {
         // TODO: Get the dataset using API call
 
         // TODO: fix differences between fragments and activities; convert xml from activity to fragment
-        mAdapter = new RecyclerViewAdapter(dataset);
+        mAdapter = new ScheduleAdapter(dataset);
         recyclerView.setAdapter(mAdapter);
 
         return view;
@@ -138,7 +137,7 @@ public class ScheduleFragment extends Fragment {
 
     // Adapter for RecyclerView
     // TODO: adapt to schedule view
-    public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+    public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyViewHolder> {
         private String[] mDataset;
 
         // Provide a reference to the views for each data item
@@ -165,16 +164,16 @@ public class ScheduleFragment extends Fragment {
 
         // Provide a suitable constructor (depends on the kind of dataset)
         // TODO: get JSON data for this
-        public RecyclerViewAdapter(String[] myDataset) {
+        public ScheduleAdapter(String[] myDataset) {
             mDataset = myDataset;
         }
 
         // Create new views (invoked by the layout manager)
         @Override
-        public RecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                int viewType) {
+        public ScheduleAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                               int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_events, parent, false);
-            RecyclerViewAdapter.MyViewHolder viewHolder = new RecyclerViewAdapter.MyViewHolder(view);
+            ScheduleAdapter.MyViewHolder viewHolder = new ScheduleAdapter.MyViewHolder(view);
             return viewHolder;
         }
 
