@@ -7,7 +7,8 @@ import kotlinx.android.synthetic.main.home_event_list_item.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.model.Event
 
-class EventsListAdapter(var eventsList: List<Event>) : RecyclerView.Adapter<EventsListViewHolder>() {
+class EventsListAdapter(var eventsList: List<Event>, private val eventClickListener: EventClickListener) : RecyclerView.Adapter<EventsListViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.home_event_list_item, parent, false)
         return EventsListViewHolder(view)
@@ -21,10 +22,18 @@ class EventsListAdapter(var eventsList: List<Event>) : RecyclerView.Adapter<Even
             eventName.text = event.name
             location.text = event.locationDescription
         }
+
+        holder.view.setOnClickListener {
+            eventClickListener.openEventInfoActivity(eventsList[position])
+        }
     }
 
     fun updateEventsList(newEventsList: List<Event>) {
         eventsList = newEventsList
         notifyDataSetChanged()
+    }
+
+    interface EventClickListener {
+        fun openEventInfoActivity(event: Event)
     }
 }
