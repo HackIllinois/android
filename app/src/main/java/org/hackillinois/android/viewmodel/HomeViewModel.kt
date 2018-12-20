@@ -4,8 +4,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
 import org.hackillinois.android.App
-import org.hackillinois.android.extensions.isAfterNow
-import org.hackillinois.android.extensions.isBeforeNow
+import org.hackillinois.android.common.isAfterNow
+import org.hackillinois.android.common.isBeforeNow
 import org.hackillinois.android.model.Event
 import org.hackillinois.android.model.EventsList
 import retrofit2.Call

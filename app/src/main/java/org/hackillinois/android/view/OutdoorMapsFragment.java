@@ -1,13 +1,13 @@
 package org.hackillinois.android.view;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.common.DirectionsOnClickListener;
 
 public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback {
     private static final String[] BUILDING_NAMES = {
@@ -36,6 +37,8 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
     private static final int ZOOM = 18;
 
     private GoogleMap map;
+    private int index;
+
     private TextView building;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
             mapFragment.getMapAsync(this);
 
             building = view.findViewById(R.id.building);
+
+            FloatingActionButton directions = view.findViewById(R.id.directions);
+            directions.setOnClickListener(new DirectionsOnClickListener(BUILDING_LOCATIONS[index], BUILDING_NAMES[index]));
         }
 
         return view;
@@ -62,14 +68,15 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
         this.map = map;
         map.getUiSettings().setIndoorLevelPickerEnabled(false);
 
-        map.addMarker(new MarkerOptions().position(BUILDING_LOCATIONS[0]));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATIONS[0], ZOOM));
-        building.setText(BUILDING_NAMES[0]);
+        index = 0;
+        map.addMarker(new MarkerOptions().position(BUILDING_LOCATIONS[index]));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATIONS[index], ZOOM));
+        building.setText(BUILDING_NAMES[index]);
     }
 
     private class TabListener implements TabLayout.OnTabSelectedListener {
         public void onTabSelected(TabLayout.Tab tab) {
-            int index = tab.getPosition();
+            index = tab.getPosition();
             map.addMarker(new MarkerOptions().position(BUILDING_LOCATIONS[index]));
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATIONS[index], ZOOM));
             building.setText(BUILDING_NAMES[index]);
@@ -80,7 +87,7 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
         }
 
         public void onTabReselected(TabLayout.Tab tab) {
-            int index = tab.getPosition();
+            index = tab.getPosition();
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATIONS[index], ZOOM));
         }
     }

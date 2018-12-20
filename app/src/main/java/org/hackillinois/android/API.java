@@ -1,4 +1,4 @@
-package org.hackillinois.android.api;
+package org.hackillinois.android;
 
 import org.hackillinois.android.model.Attendee;
 import org.hackillinois.android.model.Event;

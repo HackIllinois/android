@@ -1,9 +1,8 @@
 package org.hackillinois.android.view.home
 
 import android.os.CountDownTimer
-import org.hackillinois.android.extensions.isBeforeNow
-import org.hackillinois.android.extensions.timeUntilMs
-import org.hackillinois.android.utils.TimeInfo
+import org.hackillinois.android.common.isBeforeNow
+import org.hackillinois.android.common.timeUntilMs
 import java.util.*
 
 class CountdownManager(val listener: CountDownListener) {
