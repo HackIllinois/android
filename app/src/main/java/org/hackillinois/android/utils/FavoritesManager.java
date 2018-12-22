@@ -17,7 +17,7 @@ public class FavoritesManager {
     }
 
     public static boolean isFavorited(Context context, Event event) {
-        return getBoolean(context, event.getName(), false);
+        return getBoolean(context, event.getName());
     }
 
     private static void setBoolean(Context context, String key, boolean value) {
@@ -26,8 +26,8 @@ public class FavoritesManager {
         editor.apply();
     }
 
-    private static boolean getBoolean(Context context, String key, boolean defValue) {
-        return getFavoritesPrefs(context).getBoolean(key, defValue);
+    private static boolean getBoolean(Context context, String key) {
+        return getFavoritesPrefs(context).getBoolean(key, false);
     }
 
     private static SharedPreferences getFavoritesPrefs(Context context) {
