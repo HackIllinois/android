@@ -1,4 +1,4 @@
-package org.hackillinois.android.custom;
+package org.hackillinois.android.view.custom;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

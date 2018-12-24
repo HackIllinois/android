@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.model.Event
-import org.hackillinois.android.custom.CustomRefreshView
-import org.hackillinois.android.utils.TimeInfo
+import org.hackillinois.android.view.custom.CustomRefreshView
+import org.hackillinois.android.common.TimeInfo
 import org.hackillinois.android.view.EventInfoActivity
 import org.hackillinois.android.viewmodel.HomeViewModel
 

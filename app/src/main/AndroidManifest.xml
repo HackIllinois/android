@@ -3,6 +3,7 @@
     package="org.hackillinois.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".App"
@@ -13,10 +14,6 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.MainActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".view.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -25,7 +22,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.EventInfoActivity" />
+        <activity
+            android:name=".view.MainActivity" />
+
+        <activity
+            android:name=".view.EventInfoActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
