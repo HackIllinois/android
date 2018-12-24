@@ -23,6 +23,7 @@ import org.hackillinois.android.R;
 import org.hackillinois.android.model.Event;
 import org.hackillinois.android.model.EventsList;
 import org.hackillinois.android.viewmodel.HomeViewModel;
+import org.hackillinois.android.viewmodel.ScheduleViewModel;
 
 public class ScheduleFragment extends Fragment {
 
@@ -43,7 +44,6 @@ public class ScheduleFragment extends Fragment {
     private static List<Event> mEventList;
     private ViewPager mViewPager;
 
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -59,11 +59,11 @@ public class ScheduleFragment extends Fragment {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        HomeViewModel viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        viewModel.getEventsListLiveData().observe(this, new Observer<EventsList>() {
+        ScheduleViewModel viewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
+        viewModel.getEventsListLiveData().observe(this, new Observer<List<Event>>() {
             @Override
-            public void onChanged(@Nullable EventsList eventsList) {
-                mEventList = eventsList.getEvents();
+            public void onChanged(@Nullable List<Event> events) {
+                mEventList = events;
                 // TODO: include loading bar?
                 mViewPager.setAdapter(mSectionsPagerAdapter);
             }
@@ -75,7 +75,7 @@ public class ScheduleFragment extends Fragment {
     }
 
     /**
-     * A placeholder fragment containing a simple view.
+     * A fragment that contains the events for each day.
      */
     public static class DayFragment extends Fragment {
 
@@ -83,10 +83,6 @@ public class ScheduleFragment extends Fragment {
         private RecyclerView.Adapter mAdapter;
         private RecyclerView.LayoutManager mLayoutManager;
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         public static DayFragment newInstance(int sectionNumber) {
             DayFragment fragment = new DayFragment();
             Bundle args = new Bundle();
