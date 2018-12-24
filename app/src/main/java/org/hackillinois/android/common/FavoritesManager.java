@@ -1,4 +1,4 @@
-package org.hackillinois.android.utils;
+package org.hackillinois.android.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;

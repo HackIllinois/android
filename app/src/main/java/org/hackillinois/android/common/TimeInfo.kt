@@ -1,4 +1,4 @@
-package org.hackillinois.android.utils
+package org.hackillinois.android.common
 
 class TimeInfo(millis: Long) {
     val days: Long

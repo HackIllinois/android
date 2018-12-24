@@ -7,9 +7,9 @@ import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_event_info.*
 import org.hackillinois.android.R
 import org.hackillinois.android.model.Event
-import android.content.Intent
-import android.net.Uri
 import org.hackillinois.android.viewmodel.EventInfoViewModel
+import com.google.android.gms.maps.model.LatLng
+import org.hackillinois.android.common.DirectionsOnClickListener
 
 class EventInfoActivity : AppCompatActivity() {
 
@@ -26,11 +26,8 @@ class EventInfoActivity : AppCompatActivity() {
         eventLocation.text = event.locationDescription
         eventDescription.text = event.description
 
-        directionsButton.setOnClickListener {
-            val geoUri = "http://maps.google.com/maps?q=loc:${event.latitude},${event.longitude} (${event.locationDescription})"
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
-            startActivity(intent)
-        }
+        val location = LatLng(event.latitude, event.longitude)
+        directionsButton.setOnClickListener(DirectionsOnClickListener(location, event.name))
 
         favoriteEventImageView.setOnClickListener {
             viewModel.changeFavoritedState(event)

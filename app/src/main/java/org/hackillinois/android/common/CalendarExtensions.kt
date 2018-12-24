@@ -1,4 +1,4 @@
-package org.hackillinois.android.extensions
+package org.hackillinois.android.common
 
 import java.util.*
 

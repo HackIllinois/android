@@ -2,8 +2,6 @@ package org.hackillinois.android;
 
 import android.app.Application;
 
-import org.hackillinois.android.api.API;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;

@@ -4,7 +4,7 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import org.hackillinois.android.model.Event
-import org.hackillinois.android.utils.FavoritesManager
+import org.hackillinois.android.common.FavoritesManager
 
 class EventInfoViewModel(val app: Application): AndroidViewModel(app) {
     val isFavorited = MutableLiveData<Boolean>()
