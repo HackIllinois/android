@@ -1,7 +1,8 @@
 package org.hackillinois.android.view.home
 
 import android.os.CountDownTimer
-import org.hackillinois.android.utils.TimeInfo
+import org.hackillinois.android.common.isBeforeNow
+import org.hackillinois.android.common.timeUntilMs
 import java.util.*
 
 class CountdownManager(val listener: CountDownListener) {
@@ -30,7 +31,7 @@ class CountdownManager(val listener: CountDownListener) {
     private val refreshRateMs = 500L
 
     fun start() {
-        while (state < times.size && getTimeUntilMs(times[state]) < 0) {
+        while (state < times.size && times[state].isBeforeNow()) {
             state++
         }
         startTimer()
@@ -43,11 +44,11 @@ class CountdownManager(val listener: CountDownListener) {
         }
         listener.updateTitle(titles[state])
 
-        val millisTillTimerFinishes = getTimeUntilMs(times[state])
+        val millisTillTimerFinishes = times[state].timeUntilMs()
 
         timer = object : CountDownTimer(millisTillTimerFinishes, refreshRateMs) {
             override fun onTick(millisUntilFinished: Long) {
-                val timeUntil = getTimeUntilMs(times[state])
+                val timeUntil = times[state].timeUntilMs()
                 listener.updateTime(timeUntil)
             }
 
@@ -68,8 +69,6 @@ class CountdownManager(val listener: CountDownListener) {
             start()
         }
     }
-
-    private fun getTimeUntilMs(time: Calendar) = time.timeInMillis - Calendar.getInstance().timeInMillis
 
     interface CountDownListener {
         fun updateTime(timeUntil: Long)
