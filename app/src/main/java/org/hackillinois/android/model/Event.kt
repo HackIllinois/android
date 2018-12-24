@@ -49,8 +49,8 @@ data class Event(
         }
     }
 
-    private val MILLIS_IN_SECONDS = 1000
-
     fun getStart(): Calendar = Calendar.getInstance().apply { timeInMillis = startTime * MILLIS_IN_SECONDS }
     fun getEnd(): Calendar = Calendar.getInstance().apply { timeInMillis = endTime * MILLIS_IN_SECONDS }
 }
+
+private const val MILLIS_IN_SECONDS = 1000L
