@@ -1,5 +1,7 @@
 package org.hackillinois.android.view.schedule;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,8 @@ import android.widget.TextView;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.model.Event;
+import org.hackillinois.android.view.EventInfoActivity;
+
 import java.util.List;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHolder> {
@@ -52,7 +56,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Event event = mEventList.get(position);
+        final Event event = mEventList.get(position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, EventInfoActivity.class);
+                intent.putExtra("event", event);
+                context.startActivity(intent);
+            }
+        });
 
         holder.tv_eventName.setText(event.getName());
         holder.tv_eventDescription.setText(event.getDescription());
