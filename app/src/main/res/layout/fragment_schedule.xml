@@ -12,9 +12,11 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabBackground="@color/colorPrimary"
+        app:tabBackground="@color/tabBackground"
         app:tabIndicatorColor="@color/colorAccent"
-        app:tabTextColor="#FFFFFF">
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="@color/lightTextColor">
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabFriday"
@@ -40,6 +42,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/homeClockBackground"
         android:layout_height="match_parent" />
 
 </LinearLayout>

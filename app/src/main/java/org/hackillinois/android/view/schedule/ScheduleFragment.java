@@ -17,59 +17,67 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.model.Event;
-import org.hackillinois.android.model.EventsList;
-import org.hackillinois.android.viewmodel.HomeViewModel;
 import org.hackillinois.android.viewmodel.ScheduleViewModel;
 
 public class ScheduleFragment extends Fragment {
 
-    // TODO: these aren't in the right timezone?
+    ScheduleViewModel mViewModel;
+    SectionsPagerAdapter mSectionsPagerAdapter;
+    private static ArrayList<ArrayList<Event>> sortedEvents;
+
+    // Are these in the right timezone?
     final static long FRIDAY_END = Timestamp.valueOf("2019-02-23 00:00:00").getTime();
     final static long SATURDAY_END = Timestamp.valueOf("2019-02-24 00:00:00").getTime();
     final static long SUNDAY_END = Timestamp.valueOf("2019-02-25 00:00:00").getTime();
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    SectionsPagerAdapter mSectionsPagerAdapter;
-    private static List<Event> mEventList;
-    private ViewPager mViewPager;
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
 
-        mViewPager = (ViewPager) view.findViewById(R.id.container);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        final ViewPager mViewPager = (ViewPager) view.findViewById(R.id.container);
         final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-        ScheduleViewModel viewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
-        viewModel.getEventsListLiveData().observe(this, new Observer<List<Event>>() {
+        mViewModel.getEventsListLiveData().observe(this, new Observer<List<Event>>() {
             @Override
             public void onChanged(@Nullable List<Event> events) {
-                mEventList = events;
+                sortedEvents = new ArrayList<>();
+
+                for (int i = 0; i < 3; i++) {
+                    sortedEvents.add(new ArrayList<Event>());
+                }
+
+                for (Event event : events) {
+                    if (event.getStartTime() < FRIDAY_END) {
+                        sortedEvents.get(0).add(event);
+                    } else if (event.getStartTime() < SATURDAY_END) {
+                        sortedEvents.get(1).add(event);
+                    } else {
+                        sortedEvents.get(2).add(event);
+                        // TODO: will there be events without start times? what about events happening now
+                    }
+                }
+
                 // TODO: include loading bar?
+                // TODO: make sure that it will still display when you restart the activity
                 mViewPager.setAdapter(mSectionsPagerAdapter);
             }
         });
 
-        viewModel.fetchEvents();
+        mViewModel.fetchEvents();
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         return view;
     }
@@ -78,8 +86,8 @@ public class ScheduleFragment extends Fragment {
      * A fragment that contains the events for each day.
      */
     public static class DayFragment extends Fragment {
+        private static final String ARG_SECTION_NUM = "section_number";
 
-        private static final String ARG_SECTION_DATE = "section_date";
         private RecyclerView.Adapter mAdapter;
         private RecyclerView.LayoutManager mLayoutManager;
 
@@ -87,19 +95,7 @@ public class ScheduleFragment extends Fragment {
             DayFragment fragment = new DayFragment();
             Bundle args = new Bundle();
 
-            long date = 0;
-            switch (sectionNumber) {
-                case 0:
-                    date = FRIDAY_END;
-                    break;
-                case 1:
-                    date = SATURDAY_END;
-                    break;
-                case 2:
-                    date = SUNDAY_END;
-            }
-
-            args.putLong(ARG_SECTION_DATE, date);
+            args.putInt(ARG_SECTION_NUM, sectionNumber);
             fragment.setArguments(args);
 
             return fragment;
@@ -107,30 +103,22 @@ public class ScheduleFragment extends Fragment {
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_schedule_fragment, container, false);
 
-
-            long date = getArguments() != null ? getArguments().getLong(ARG_SECTION_DATE) : 0;
-            if (date == 0) {
-                throw new IllegalArgumentException();
-            }
-            // TODO: filter out events by date
+            int sectionNumber = getArguments() != null ? getArguments().getInt(ARG_SECTION_NUM) : 0;
 
             final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.activity_schedule_recyclerview);
             mLayoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(mLayoutManager);
 
-            // and then filter the mEventList to the date
-            // need to pass eventlist to dayfragment class
-            // sort events by date and then separate them into each day; you're already given the date
-
-            mAdapter = new EventsAdapter(mEventList);
+            mAdapter = new EventsAdapter(sortedEvents.get(sectionNumber));
             recyclerView.setAdapter(mAdapter);
 
             return view;
         }
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

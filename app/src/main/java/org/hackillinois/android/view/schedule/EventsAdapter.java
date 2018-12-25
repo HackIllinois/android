@@ -22,16 +22,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        TextView tv_eventTitle;
-        TextView tv_eventDetail;
+        TextView tv_eventName;
+        TextView tv_eventDescription;
         TextView tv_eventLocation;
         ImageButton imageButton_star;
         ConstraintLayout constraintLayout_recyclerView;
 
         public MyViewHolder(View parent) {
             super(parent);
-            tv_eventTitle = itemView.findViewById(R.id.eventTitle);
-            tv_eventDetail = itemView.findViewById(R.id.eventDetail);
+            tv_eventName = itemView.findViewById(R.id.eventTitle);
+            tv_eventDescription = itemView.findViewById(R.id.eventDetail);
             tv_eventLocation = itemView.findViewById(R.id.eventLocation);
             imageButton_star = itemView.findViewById(R.id.star);
             constraintLayout_recyclerView = itemView.findViewById(R.id.constraintLayout);
@@ -45,35 +45,29 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     @Override
     public EventsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_events, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_event_list_item, parent, false);
         EventsAdapter.MyViewHolder viewHolder = new EventsAdapter.MyViewHolder(view);
         return viewHolder;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         Event event = mEventList.get(position);
 
-        holder.tv_eventTitle.setText(event.getName());
-        holder.tv_eventDetail.setText(event.getDescription());
+        holder.tv_eventName.setText(event.getName());
+        holder.tv_eventDescription.setText(event.getDescription());
         holder.tv_eventLocation.setText(event.getLocationDescription());
         holder.imageButton_star.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 button.setSelected(!button.isSelected());
 
                 if (button.isSelected()) {
-                    // TODO: pop up a snackbar? when they click the notification star
-                    // make sure they don't stack up when they go through and get a lot of notifications?
-                    // also make sure you can just use this instead of findviewbyid
                     // TODO: come up with a string
                     Snackbar.make(button, R.string.snackbar_notifications_on_text,
                             Snackbar.LENGTH_SHORT)
                             .show();
                 } else {
-                    //TODO: Handle de-select state change
+                    // TODO: Handle de-select state change
                 }
             }
         });
