@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_nav_menu.*
 import kotlinx.android.synthetic.main.layout_nav_menu.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.model.Attendee
+import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
 
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun updateAttendeeInfo(attendee: Attendee?) {
         attendee?.let {
-            navMenu.nameTextView.text = it.name
+            navMenu.nameTextView.text = it.getFullName()
             navMenu.emailTextView.text = it.email
         }
     }
