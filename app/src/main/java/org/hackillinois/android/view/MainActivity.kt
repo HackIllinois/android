@@ -41,12 +41,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         navViews.forEach { it.setOnClickListener(this) }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel.init()
         viewModel.attendee.observe(this, Observer { updateAttendeeInfo(it) })
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.getNameAndEmail()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
