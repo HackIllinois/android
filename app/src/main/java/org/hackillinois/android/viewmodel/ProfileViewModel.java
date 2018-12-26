@@ -1,30 +1,27 @@
 package org.hackillinois.android.viewmodel;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import org.hackillinois.android.App;
 import org.hackillinois.android.model.Attendee;
-import org.hackillinois.android.model.QR;
+import org.hackillinois.android.database.entity.QR;
+import org.hackillinois.android.repository.QRRepository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileViewModel extends ViewModel {
-    private MutableLiveData<QR> qr = new MutableLiveData<>();
+    private LiveData<QR> qr;
     private MutableLiveData<Attendee> attendee = new MutableLiveData<>();
 
-    public void fetchQR() {
-        App.getAPI().getQRCode().enqueue(new Callback<QR>() {
-            @Override
-            public void onResponse(Call<QR> call, Response<QR> response) {
-                qr.postValue(response.body());
-            }
+    private QRRepository qrRepository;
 
-            @Override
-            public void onFailure(Call<QR> call, Throwable t) {}
-        });
+    public void init() {
+        qrRepository = QRRepository.Companion.getInstance();
+        qr = qrRepository.fetchQR();
     }
 
     public void fetchAttendee() {
@@ -37,7 +34,7 @@ public class ProfileViewModel extends ViewModel {
         });
     }
 
-    public MutableLiveData<QR> getQR() {
+    public LiveData<QR> getQR() {
         return qr;
     }
 

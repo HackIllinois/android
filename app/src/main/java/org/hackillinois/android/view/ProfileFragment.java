@@ -21,7 +21,7 @@ import com.google.zxing.common.BitMatrix;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.model.Attendee;
-import org.hackillinois.android.model.QR;
+import org.hackillinois.android.database.entity.QR;
 import org.hackillinois.android.viewmodel.ProfileViewModel;
 
 import java.util.EnumMap;
@@ -39,6 +39,8 @@ public class ProfileFragment extends Fragment {
 
         ProfileViewModel viewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
 
+        viewModel.init();
+
         viewModel.getQR().observe(this, new Observer<QR>() {
             public void onChanged(QR qr) {
                 String text = qr.getQrInfo();
@@ -46,8 +48,6 @@ public class ProfileFragment extends Fragment {
                 qrImageView.setImageBitmap(bitmap);
             }
         });
-
-        viewModel.fetchQR();
 
         viewModel.getAttendee().observe(this, new Observer<Attendee>() {
             public void onChanged(Attendee attendee) {

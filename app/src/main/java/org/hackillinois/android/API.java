@@ -3,7 +3,7 @@ package org.hackillinois.android;
 import org.hackillinois.android.model.Attendee;
 import org.hackillinois.android.model.Event;
 import org.hackillinois.android.model.EventsList;
-import org.hackillinois.android.model.QR;
+import org.hackillinois.android.database.entity.QR;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
