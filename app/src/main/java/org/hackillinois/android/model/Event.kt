@@ -51,6 +51,32 @@ data class Event(
 
     fun getStart(): Calendar = Calendar.getInstance().apply { timeInMillis = startTime * MILLIS_IN_SECONDS }
     fun getEnd(): Calendar = Calendar.getInstance().apply { timeInMillis = endTime * MILLIS_IN_SECONDS }
+
+    fun getStartTimeMs() = startTime * 1000L
+
+    fun getStartTimeOfDay(): String {
+        val eventStartTime = Calendar.getInstance().apply {
+            timeZone = TimeZone.getTimeZone("America/Chicago")
+            timeInMillis = startTime * MILLIS_IN_SECONDS
+        }
+        val builder = StringBuilder()
+        val hour = eventStartTime.get(Calendar.HOUR_OF_DAY)
+        val minutes = eventStartTime.get(Calendar.MINUTE)
+
+        if (hour > 12) {
+            builder.append(hour % 12)
+            builder.append(":")
+            builder.append(minutes)
+            builder.append(" PM")
+        } else {
+            builder.append(hour)
+            builder.append(":")
+            builder.append(minutes)
+            builder.append(" AM")
+        }
+
+        return builder.toString()
+    }
 }
 
 private const val MILLIS_IN_SECONDS = 1000L
