@@ -1,7 +1,7 @@
 package org.hackillinois.android;
 
 import org.hackillinois.android.database.entity.Attendee;
-import org.hackillinois.android.model.Event;
+import org.hackillinois.android.database.entity.Event;
 import org.hackillinois.android.model.EventsList;
 import org.hackillinois.android.database.entity.QR;
 
