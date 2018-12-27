@@ -1,8 +1,10 @@
 package org.hackillinois.android.repository
 
 import android.arch.lifecycle.LiveData
+import android.util.Log
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
+import java.lang.Exception
 import kotlin.concurrent.thread
 
 class EventRepository {
@@ -41,7 +43,7 @@ class EventRepository {
      * replace them with a fresh set from the API
      */
     private fun attemptToRefreshAll() {
-        thread {
+        thread(name = "Refresh All Thread") {
             val timeRefreshed = eventDao.getTimeOfOldestRefreshedEvent() ?: 0L
 
             // is it time to refresh?
@@ -52,15 +54,22 @@ class EventRepository {
     }
 
     private fun refreshAll() {
-        val response = App.getAPI().allEvents.execute()
-        response?.let {
-            val eventsList = it.body()
-            val newRefreshed = System.currentTimeMillis()
-            eventDao.clearTable()
-            eventsList?.events?.forEach {
-                it.lastRefreshed = newRefreshed
-                eventDao.insert(it)
+        try {
+            val response = App.getAPI().allEvents.execute()
+
+            response?.let {
+                if (response.isSuccessful) {
+                    val eventsList = it.body()
+                    val newRefreshed = System.currentTimeMillis()
+                    eventDao.clearTable()
+                    eventsList?.events?.forEach {
+                        it.lastRefreshed = newRefreshed
+                        eventDao.insert(it)
+                    }
+                }
             }
+        } catch (exception: Exception) {
+            Log.e("EventRepository", exception.message)
         }
     }
 
@@ -74,13 +83,19 @@ class EventRepository {
     }
 
     private fun refreshEvent(name: String) {
-        val response = App.getAPI().getEvent(name).execute()
-        response?.let {
-            val event = it.body()
-            event?.let {
-                event.lastRefreshed = System.currentTimeMillis()
-                eventDao.insert(event)
+        try {
+            val response = App.getAPI().getEvent(name).execute()
+            response?.let {
+                if (response.isSuccessful) {
+                    val event = it.body()
+                    event?.let {
+                        event.lastRefreshed = System.currentTimeMillis()
+                        eventDao.insert(event)
+                    }
+                }
             }
+        } catch (exception: Exception) {
+            Log.d("EventRepository", exception.message)
         }
     }
 

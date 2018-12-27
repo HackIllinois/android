@@ -1,6 +1,7 @@
 package org.hackillinois.android.repository
 
 import android.arch.lifecycle.LiveData
+import android.util.Log
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Attendee
 import kotlin.concurrent.thread
@@ -24,14 +25,21 @@ class AttendeeRepository {
             // if not, run API query and save it in DB
             val userExists = attendeeDao.hasUpdatedAttendee(System.currentTimeMillis() - millisTillStale) != null
             if (!userExists) {
-                val response = App.getAPI().attendee.execute()
-                response?.let {
-                    val attendee = it.body()
-                    attendee?.let {
-                        attendee.lastRefreshed = System.currentTimeMillis()
-                        attendeeDao.insert(attendee)
+                try {
+                    val response = App.getAPI().attendee.execute()
+                    response?.let {
+                        if (response.isSuccessful) {
+                            val attendee = it.body()
+                            attendee?.let {
+                                attendee.lastRefreshed = System.currentTimeMillis()
+                                attendeeDao.insert(attendee)
+                            }
+                        }
                     }
+                } catch (exception: Exception) {
+                    Log.e("AttendeeRepository", exception.message)
                 }
+
             }
         }
     }

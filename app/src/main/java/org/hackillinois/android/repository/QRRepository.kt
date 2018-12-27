@@ -1,6 +1,7 @@
 package org.hackillinois.android.repository
 
 import android.arch.lifecycle.LiveData
+import android.util.Log
 
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.QR
@@ -25,13 +26,19 @@ class QRRepository {
             // if not, run API query and save it in DB
             val userExists = qrDao.hasUpdatedQr(System.currentTimeMillis() - millisTillStale) != null
             if (!userExists) {
-                val response = App.getAPI().qrCode.execute()
-                response?.let {
-                    val qr = it.body()
-                    qr?.let {
-                        qr.lastRefreshed = System.currentTimeMillis()
-                        qrDao.insert(qr)
+                try {
+                    val response = App.getAPI().qrCode.execute()
+                    response?.let {
+                        if (response.isSuccessful) {
+                            val qr = it.body()
+                            qr?.let {
+                                qr.lastRefreshed = System.currentTimeMillis()
+                                qrDao.insert(qr)
+                            }
+                        }
                     }
+                } catch (exception: Exception) {
+                    Log.e("QRRepository", exception.message)
                 }
             }
         }
