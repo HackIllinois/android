@@ -3,6 +3,12 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
+
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -18,6 +24,8 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
+
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/toggle/ic_star_black_24dp.xml" />
                                       <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_directions_walk_black_24dp.xml" />
                                     </map>
                                   </option>
@@ -28,6 +36,8 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="color" value="1f84a5" />
+                            <entry key="outputName" value="ic_full_star" />
                             <entry key="color" value="ffffff" />
                             <entry key="outputName" value="ic_directions_walk_white_24dp" />
                             <entry key="overrideSize" value="true" />

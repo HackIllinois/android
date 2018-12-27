@@ -26,4 +26,6 @@
     <string name="profile_emergency_contact_text">EMERGENCY CONTACT</string>
 
     <string name="event_info_directions_text">GET DIRECTIONS</string>
+
+    <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
 </resources>
