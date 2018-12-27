@@ -69,7 +69,7 @@ public class ScheduleFragment extends Fragment {
                 }
 
                 // TODO: include loading bar?
-                // TODO: make sure that it will still display when you restart the activity
+                // TODO: sort the events in chronological order? by what basis
                 mViewPager.setAdapter(mSectionsPagerAdapter);
             }
         });

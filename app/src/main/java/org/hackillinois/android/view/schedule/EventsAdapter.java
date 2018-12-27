@@ -20,17 +20,13 @@ import java.util.List;
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHolder> {
     private List<Event> mEventList;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
         TextView tv_eventName;
         TextView tv_eventDescription;
         TextView tv_eventLocation;
         ImageButton imageButton_star;
         ConstraintLayout constraintLayout_recyclerView;
+        ConstraintLayout constraintLayout_event_onclick;
 
         public MyViewHolder(View parent) {
             super(parent);
@@ -39,6 +35,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
             tv_eventLocation = itemView.findViewById(R.id.eventLocation);
             imageButton_star = itemView.findViewById(R.id.star);
             constraintLayout_recyclerView = itemView.findViewById(R.id.constraintLayout);
+            constraintLayout_event_onclick = itemView.findViewById(R.id.constraintLayout_event_onclick);
         }
     }
 
@@ -58,7 +55,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final Event event = mEventList.get(position);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.constraintLayout_event_onclick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
