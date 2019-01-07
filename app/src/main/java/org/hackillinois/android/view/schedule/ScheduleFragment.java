@@ -35,6 +35,13 @@ public class ScheduleFragment extends Fragment {
     final static long SATURDAY_END = Timestamp.valueOf("2019-02-24 00:00:00").getTime();
     final static long SUNDAY_END = Timestamp.valueOf("2019-02-25 00:00:00").getTime();
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
@@ -64,11 +71,8 @@ public class ScheduleFragment extends Fragment {
                         sortedEvents.get(1).add(event);
                     } else {
                         sortedEvents.get(2).add(event);
-                        // TODO: will there be events without start times? what about events happening now
                     }
                 }
-
-                // TODO: include loading bar?
                 // TODO: sort the events in chronological order? by what basis
                 mViewPager.setAdapter(mSectionsPagerAdapter);
             }
