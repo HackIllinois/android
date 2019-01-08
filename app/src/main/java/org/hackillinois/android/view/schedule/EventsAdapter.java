@@ -14,11 +14,13 @@ import android.widget.TextView;
 import org.hackillinois.android.R;
 import org.hackillinois.android.model.Event;
 import org.hackillinois.android.view.EventInfoActivity;
+import org.hackillinois.android.common.FavoritesManager;
 
 import java.util.List;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHolder> {
     private List<Event> mEventList;
+    private Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_eventName;
@@ -48,6 +50,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
                                                          int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_event_list_item, parent, false);
         EventsAdapter.MyViewHolder viewHolder = new EventsAdapter.MyViewHolder(view);
+        context = parent.getContext();
         return viewHolder;
     }
 
@@ -68,17 +71,19 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         holder.tv_eventName.setText(event.getName());
         holder.tv_eventDescription.setText(event.getDescription());
         holder.tv_eventLocation.setText(event.getLocationDescription());
+        holder.imageButton_star.setSelected(FavoritesManager.isFavorited(context, event));
+
         holder.imageButton_star.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 button.setSelected(!button.isSelected());
 
                 if (button.isSelected()) {
-                    // TODO: come up with a string
+                    FavoritesManager.favoriteEvent(context, event);
                     Snackbar.make(button, R.string.snackbar_notifications_on_text,
                             Snackbar.LENGTH_SHORT)
                             .show();
                 } else {
-                    // TODO: Handle de-select state change
+                    FavoritesManager.unfavoriteEvent(context, event);
                 }
             }
         });

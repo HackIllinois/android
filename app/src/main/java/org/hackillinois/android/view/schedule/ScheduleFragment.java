@@ -30,17 +30,8 @@ public class ScheduleFragment extends Fragment {
     SectionsPagerAdapter mSectionsPagerAdapter;
     private static ArrayList<ArrayList<Event>> sortedEvents;
 
-    // Are these in the right timezone?
     final static long FRIDAY_END = Timestamp.valueOf("2019-02-23 00:00:00").getTime();
     final static long SATURDAY_END = Timestamp.valueOf("2019-02-24 00:00:00").getTime();
-    final static long SUNDAY_END = Timestamp.valueOf("2019-02-25 00:00:00").getTime();
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
-    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +64,7 @@ public class ScheduleFragment extends Fragment {
                         sortedEvents.get(2).add(event);
                     }
                 }
-                // TODO: sort the events in chronological order? by what basis
+                // TODO: sort the events in chronological order
                 mViewPager.setAdapter(mSectionsPagerAdapter);
             }
         });
@@ -103,6 +94,12 @@ public class ScheduleFragment extends Fragment {
             fragment.setArguments(args);
 
             return fragment;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            mAdapter.notifyDataSetChanged();
         }
 
         @Override
