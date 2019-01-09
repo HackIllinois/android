@@ -27,7 +27,7 @@
             android:layout_marginTop="20dp"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
-            app:fontFamily="@font/montserrat_regular"
+            app:fontFamily="@font/montserrat_semi_bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Event Name" />

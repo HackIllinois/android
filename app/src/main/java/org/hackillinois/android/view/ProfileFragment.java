@@ -55,7 +55,7 @@ public class ProfileFragment extends Fragment {
             public void onChanged(Attendee attendee) {
                 if (attendee != null) {
                     nameTextView.setText(attendee.getFullName());
-                    dietaryRestrictionsTextView.setText(attendee.getDiet());
+                    dietaryRestrictionsTextView.setText(attendee.getDietAsString());
                     universityTextView.setText(attendee.getSchool());
                     majorTextView.setText(attendee.getMajor());
                 }
