@@ -3,6 +3,7 @@ package org.hackillinois.android.view;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -44,8 +45,9 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
     };
 
     private int index;
-    private GoogleMap map;
 
+    private GoogleMap map;
+    private FloatingActionButton directions;
     private TextView building;
     private LinearLayout locationInfo;
     private TextView time;
@@ -64,7 +66,7 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        FloatingActionButton directions = view.findViewById(R.id.directions);
+        directions = view.findViewById(R.id.directions);
         directions.setOnClickListener(new DirectionsOnClickListener(BUILDING_LOCATIONS[index], BUILDING_NAMES[index]));
 
         building = view.findViewById(R.id.building);
@@ -87,28 +89,37 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
     }
 
     private void getUserLocation() {
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            final int ONE_MINUTE = 60 * 1000;
-            userLocation = new UserLocation();
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, ONE_MINUTE, 0, userLocation);
-            locationInfo.setVisibility(View.VISIBLE);
-        } else {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+        boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!gpsEnabled) {
+            return;
         }
+
+        boolean hasPermission = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if (!hasPermission) {
+            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+            return;
+        }
+
+        final int ONE_MINUTE = 60 * 1000;
+        userLocation = new UserLocation();
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, ONE_MINUTE, 0, userLocation);
+        locationInfo.setVisibility(View.VISIBLE);
     }
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == LOCATION_REQUEST_CODE && permissions[0].equals(Manifest.permission.ACCESS_FINE_LOCATION) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == LOCATION_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getUserLocation();
-            locationInfo.setVisibility(View.VISIBLE);
         }
     }
 
     private class TabListener implements TabLayout.OnTabSelectedListener {
         public void onTabSelected(TabLayout.Tab tab) {
             index = tab.getPosition();
+
             map.addMarker(new MarkerOptions().position(BUILDING_LOCATIONS[index]));
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATIONS[index], ZOOM));
+
+            directions.setOnClickListener(new DirectionsOnClickListener(BUILDING_LOCATIONS[index], BUILDING_NAMES[index]));
 
             building.setText(BUILDING_NAMES[index]);
             if (userLocation != null) {
@@ -129,12 +140,16 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
     private class UserLocation implements android.location.LocationListener {
         private LatLng location;
 
-        public void onLocationChanged(Location location) {
-            this.location = new LatLng(location.getLatitude(), location.getLongitude());
+        public void onLocationChanged(Location loc) {
+            location = new LatLng(loc.getLatitude(), loc.getLongitude());
             update();
         }
 
         private void update() {
+            if (location == null) {
+                return;
+            }
+
             double dlat = Math.abs(BUILDING_LOCATIONS[index].latitude - location.latitude);
             double dlon = Math.abs(BUILDING_LOCATIONS[index].longitude - location.longitude);
 
