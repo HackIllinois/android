@@ -3,9 +3,9 @@ package org.hackillinois.android.view.custom;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
-import android.support.v4.content.ContextCompat;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -14,26 +14,14 @@ import com.dinuscxj.refresh.IRefreshStatus;
 
 import org.hackillinois.android.R;
 
-/**
- * Copied from library: changed it to have right color scheme
- */
 public class CustomRefreshView extends View implements IRefreshStatus {
-    private static final int MAX_ARC_DEGREE = 330;
     private static final int ANIMATION_DURATION = 888;
-    private static final int DEFAULT_START_DEGREES = 285;
-    private static final int DEFAULT_STROKE_WIDTH = 2;
 
-    private final RectF arcBounds = new RectF();
-    private final Paint paint = new Paint();
-
-    private float startDegrees;
-    private float swipeDegrees;
-
-    private float strokeWidth;
-
-    private boolean hasTriggeredRefresh;
+    private Drawable starfish;
+    private RectF bounds;
 
     private ValueAnimator rotateAnimator;
+    private float degrees;
 
     public CustomRefreshView(Context context) {
         this(context, null);
@@ -46,33 +34,19 @@ public class CustomRefreshView extends View implements IRefreshStatus {
     public CustomRefreshView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        initData();
-        initPaint();
-    }
-
-    private void initData() {
-        float density = getResources().getDisplayMetrics().density;
-        strokeWidth = density * DEFAULT_STROKE_WIDTH;
-
-        startDegrees = DEFAULT_START_DEGREES;
-        swipeDegrees = 0.0f;
-    }
-
-    private void initPaint() {
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(strokeWidth);
-        paint.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        starfish = getResources().getDrawable(R.drawable.logo);
+        bounds = new RectF();
+        degrees = 0;
     }
 
     private void startAnimator() {
-        rotateAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
+        rotateAnimator = ValueAnimator.ofFloat(0.0f, 3.0f);
         rotateAnimator.setInterpolator(new LinearInterpolator());
         rotateAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                float rotateProgress = (float) animation.getAnimatedValue();
-                setStartDegrees(DEFAULT_START_DEGREES + rotateProgress * 360);
+                float rotations = (float) animation.getAnimatedValue();
+                setDegrees(rotations * 360.0f);
             }
         });
         rotateAnimator.setRepeatMode(ValueAnimator.RESTART);
@@ -86,79 +60,52 @@ public class CustomRefreshView extends View implements IRefreshStatus {
         if (rotateAnimator != null) {
             rotateAnimator.cancel();
             rotateAnimator.removeAllUpdateListeners();
-
             rotateAnimator = null;
         }
     }
 
-    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawArc(canvas);
+
+        canvas.rotate(degrees, bounds.centerX(), bounds.centerY());
+        starfish.draw(canvas);
     }
 
-    @Override
     protected void onDetachedFromWindow() {
         resetAnimator();
         super.onDetachedFromWindow();
     }
 
-    private void drawArc(Canvas canvas) {
-        canvas.drawArc(arcBounds, startDegrees, swipeDegrees, false, paint);
-    }
-
-    private void setStartDegrees(float startDegrees) {
-        this.startDegrees = startDegrees;
+    private void setDegrees(float degrees) {
+        this.degrees = degrees;
         postInvalidate();
     }
 
-    public void setSwipeDegrees(float swipeDegrees) {
-        this.swipeDegrees = swipeDegrees;
-        postInvalidate();
-    }
-
-    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        float radius = Math.min(w, h) / 2.0f;
+
         float centerX = w / 2.0f;
         float centerY = h / 2.0f;
+        float radius = Math.min(w, h) / 2.0f;
 
-        arcBounds.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
-        arcBounds.inset(strokeWidth / 2.0f, strokeWidth / 2.0f);
+        bounds.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
+        starfish.setBounds((int) bounds.left, (int) bounds.top, (int) bounds.right, (int) bounds.bottom);
     }
 
-    @Override
     public void reset() {
         resetAnimator();
-
-        hasTriggeredRefresh = false;
-        startDegrees = DEFAULT_START_DEGREES;
-        swipeDegrees = 0.0f;
+        degrees = 0;
     }
 
-    @Override
     public void refreshing() {
-        hasTriggeredRefresh = true;
-        swipeDegrees = MAX_ARC_DEGREE;
-
         startAnimator();
     }
 
-    @Override
-    public void refreshComplete() { }
+    public void refreshComplete() {}
 
-    @Override
-    public void pullToRefresh() { }
+    public void pullToRefresh() {}
 
-    @Override
-    public void releaseToRefresh() { }
+    public void releaseToRefresh() {}
 
-    @Override
-    public void pullProgress(float pullDistance, float pullProgress) {
-        if (!hasTriggeredRefresh) {
-            float swipeProgress = Math.min(1.0f, pullProgress);
-            setSwipeDegrees(swipeProgress * MAX_ARC_DEGREE);
-        }
-    }
+    public void pullProgress(float pullDistance, float pullProgress) {}
 }
