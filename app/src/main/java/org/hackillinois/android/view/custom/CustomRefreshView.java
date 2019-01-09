@@ -120,7 +120,7 @@ public class CustomRefreshView extends View implements IRefreshStatus {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        float radius = Math.min(w, h) / 2.0f;
+        float radius = Math.min(w, h) / 3.0f;
         float centerX = w / 2.0f;
         float centerY = h / 2.0f;
 
