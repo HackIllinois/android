@@ -1,47 +1,32 @@
 package org.hackillinois.android.viewmodel;
 
-import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import org.hackillinois.android.App;
-import org.hackillinois.android.model.Attendee;
-import org.hackillinois.android.model.QR;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import org.hackillinois.android.database.entity.Attendee;
+import org.hackillinois.android.database.entity.QR;
+import org.hackillinois.android.repository.AttendeeRepository;
+import org.hackillinois.android.repository.QRRepository;
 
 public class ProfileViewModel extends ViewModel {
-    private MutableLiveData<QR> qr = new MutableLiveData<>();
-    private MutableLiveData<Attendee> attendee = new MutableLiveData<>();
+    private LiveData<QR> qr;
+    private LiveData<Attendee> attendee;
 
-    public void fetchQR() {
-        App.getAPI().getQRCode().enqueue(new Callback<QR>() {
-            @Override
-            public void onResponse(Call<QR> call, Response<QR> response) {
-                qr.postValue(response.body());
-            }
+    private QRRepository qrRepository;
+    private AttendeeRepository attendeeRepository;
 
-            @Override
-            public void onFailure(Call<QR> call, Throwable t) {}
-        });
+    public void init() {
+        qrRepository = QRRepository.Companion.getInstance();
+        attendeeRepository = AttendeeRepository.Companion.getInstance();
+        qr = qrRepository.fetchQR();
+        attendee = attendeeRepository.fetchAttendee();
     }
 
-    public void fetchAttendee() {
-        App.getAPI().getAttendee().enqueue(new Callback<Attendee>() {
-            public void onResponse(Call<Attendee> call, Response<Attendee> response) {
-                attendee.postValue(response.body());
-            }
-
-            public void onFailure(Call<Attendee> call, Throwable t) {}
-        });
-    }
-
-    public MutableLiveData<QR> getQR() {
+    public LiveData<QR> getQR() {
         return qr;
     }
 
-    public MutableLiveData<Attendee> getAttendee() {
+    public LiveData<Attendee> getAttendee() {
         return attendee;
     }
 }

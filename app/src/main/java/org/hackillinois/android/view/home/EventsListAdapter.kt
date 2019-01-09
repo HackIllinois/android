@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.home_event_list_item.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.model.Event
+import org.hackillinois.android.database.entity.Event
 
 class EventsListAdapter(var eventsList: List<Event>, private val eventClickListener: EventClickListener) : RecyclerView.Adapter<EventsListViewHolder>() {
 
