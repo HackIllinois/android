@@ -20,7 +20,9 @@ public class App extends Application {
 
     public void onCreate() {
         super.onCreate();
-        database = Room.databaseBuilder(getApplicationContext(), Database.class, "local-db").fallbackToDestructiveMigration().build();
+        database = Room.databaseBuilder(getApplicationContext(), Database.class, "local-db")
+                .fallbackToDestructiveMigration()
+                .build();
     }
 
     public static API getAPI() {
