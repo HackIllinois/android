@@ -3,7 +3,6 @@ package org.hackillinois.android.view.custom;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -40,7 +39,7 @@ public class CustomRefreshView extends View implements IRefreshStatus {
     }
 
     private void startAnimator() {
-        rotateAnimator = ValueAnimator.ofFloat(0.0f, 3.0f);
+        rotateAnimator = ValueAnimator.ofFloat(0.0f, 2.0f);
         rotateAnimator.setInterpolator(new LinearInterpolator());
         rotateAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

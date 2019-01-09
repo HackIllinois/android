@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.model.Event
+import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.view.custom.CustomRefreshView
 import org.hackillinois.android.common.TimeInfo
 import org.hackillinois.android.view.EventInfoActivity
@@ -37,13 +37,12 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventsListA
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        viewModel.init()
         viewModel.eventsListLiveData.observe(this, Observer { updateEventsList(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-        viewModel.fetchEvents()
 
         view.eventsList.apply {
             layoutManager = LinearLayoutManager(container?.context)
@@ -52,7 +51,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventsListA
 
         view.refreshLayout.setRefreshView(CustomRefreshView(context), ViewGroup.LayoutParams(refreshIconSize, refreshIconSize))
         view.refreshLayout.setOnRefreshListener {
-            viewModel.fetchEvents()
+            viewModel.refresh()
         }
 
         return view
@@ -126,7 +125,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventsListA
 
     override fun openEventInfoActivity(event: Event) {
         val intent = Intent(context, EventInfoActivity::class.java).apply {
-            putExtra("event", event)
+            putExtra("event_name", event.name)
         }
         startActivity(intent)
     }

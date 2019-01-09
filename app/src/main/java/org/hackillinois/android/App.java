@@ -1,6 +1,9 @@
 package org.hackillinois.android;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
+
+import org.hackillinois.android.database.Database;
 
 import java.io.IOException;
 
@@ -13,9 +16,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
     private static API api;
+    private static Database database;
 
     public void onCreate() {
         super.onCreate();
+        database = Room.databaseBuilder(getApplicationContext(), Database.class, "local-db")
+                .fallbackToDestructiveMigration()
+                .build();
     }
 
     public static API getAPI() {
@@ -44,5 +51,9 @@ public class App extends Application {
 
         api = retrofit.create(API.class);
         return api;
+    }
+
+    public static Database getDatabase() {
+        return database;
     }
 }

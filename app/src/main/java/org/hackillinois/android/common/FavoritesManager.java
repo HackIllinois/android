@@ -4,20 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.model.Event;
 
 public class FavoritesManager {
 
-    public static void favoriteEvent(Context context, Event event) {
-        setBoolean(context, event.getName(), true);
+    public static void favoriteEvent(Context context, String eventName) {
+        setBoolean(context, eventName, true);
     }
 
-    public static void unfavoriteEvent(Context context, Event event) {
-        setBoolean(context, event.getName(), false);
+    public static void unfavoriteEvent(Context context, String eventName) {
+        setBoolean(context, eventName, false);
     }
 
-    public static boolean isFavorited(Context context, Event event) {
-        return getBoolean(context, event.getName());
+    public static boolean isFavorited(Context context, String eventName) {
+        return getBoolean(context, eventName);
     }
 
     private static void setBoolean(Context context, String key, boolean value) {
