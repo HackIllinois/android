@@ -15,6 +15,7 @@ public class HackIllinoisNotificationManager {
 
     private static final int MINUTES_BEFORE_TO_NOTIFY = 10;
     private static final int MILLIS_IN_MINUTE = 60 * 1000;
+    private static final int REQUEST_CODE = 999999;
 
     public static void scheduleNotification(Context context, Event event) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -34,7 +35,7 @@ public class HackIllinoisNotificationManager {
         Notification notification = buildNotification(context, event);
         intent.putExtra("notification", notification);
         intent.putExtra("notification_id", 1);
-        return PendingIntent.getBroadcast(context, 999999, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        return PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
     private static Notification buildNotification(Context context, Event event) {
@@ -46,8 +47,8 @@ public class HackIllinoisNotificationManager {
         // In Oreo and above, every notification must be associated with a notification channel
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            String CHANNEL_ID = "event_notification_channel";
-            String name = "HackIllinois";
+            final String CHANNEL_ID = "event_notification_channel";
+            final String name = "HackIllinois";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             notificationManager.createNotificationChannel(channel);
