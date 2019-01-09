@@ -9,7 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import org.hackillinois.android.R;
-import org.hackillinois.android.model.Event;
+import org.hackillinois.android.database.entity.Event;
 
 public class HackIllinoisNotificationManager {
 
