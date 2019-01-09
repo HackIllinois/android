@@ -22,7 +22,7 @@ class EventInfoActivity : AppCompatActivity() {
         val eventName = intent?.getStringExtra("event_name") ?: ""
 
         favoriteEventImageView.setOnClickListener {
-            viewModel.changeFavoritedState(eventName)
+            viewModel.changeFavoritedState()
         }
 
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)

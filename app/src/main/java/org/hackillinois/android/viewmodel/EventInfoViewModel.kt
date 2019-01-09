@@ -6,6 +6,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.common.FavoritesManager
+import org.hackillinois.android.common.HackIllinoisNotificationManager
 import org.hackillinois.android.repository.EventRepository
 
 class EventInfoViewModel(val app: Application): AndroidViewModel(app) {
@@ -25,11 +26,13 @@ class EventInfoViewModel(val app: Application): AndroidViewModel(app) {
         isFavorited.postValue(localIsFavorited)
     }
 
-    fun changeFavoritedState(eventName: String) {
+    fun changeFavoritedState() {
         if (localIsFavorited) {
-            FavoritesManager.unfavoriteEvent(app.applicationContext, eventName)
+            FavoritesManager.unfavoriteEvent(app.applicationContext, event.value?.name)
+            HackIllinoisNotificationManager.cancelNotification(app.applicationContext, event.value)
         } else {
-            FavoritesManager.favoriteEvent(app.applicationContext, eventName)
+            FavoritesManager.favoriteEvent(app.applicationContext, event.value?.name)
+            HackIllinoisNotificationManager.scheduleNotification(app.applicationContext, event.value)
         }
         localIsFavorited = !localIsFavorited
         isFavorited.postValue(localIsFavorited)
