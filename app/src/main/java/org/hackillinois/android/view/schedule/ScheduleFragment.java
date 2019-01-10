@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,25 +28,27 @@ import org.hackillinois.android.viewmodel.ScheduleViewModel;
 
 public class ScheduleFragment extends Fragment {
 
-    ScheduleViewModel mViewModel;
-    SectionsPagerAdapter mSectionsPagerAdapter;
-    private static ArrayList<ArrayList<Event>> sortedEvents;
-
     final static long FRIDAY_END = Timestamp.valueOf("2019-02-23 00:00:00").getTime();
     final static long SATURDAY_END = Timestamp.valueOf("2019-02-24 00:00:00").getTime();
 
+    private ScheduleViewModel mViewModel;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private static ArrayList<ArrayList<Event>> sortedEvents;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Using this to fix an error caused when the app is restored from the background
+        if (savedInstanceState != null) {
+            sortedEvents = new ArrayList<>();
+            sortedEvents.add(savedInstanceState.<Event>getParcelableArrayList("fridayEvents"));
+            sortedEvents.add(savedInstanceState.<Event>getParcelableArrayList("saturdayEvents"));
+            sortedEvents.add(savedInstanceState.<Event>getParcelableArrayList("sundayEvents"));
+        }
+
         mViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
-
-        final ViewPager mViewPager = (ViewPager) view.findViewById(R.id.container);
-        final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
 
         mViewModel.getEventsListLiveData().observe(this, new Observer<List<Event>>() {
             @Override
@@ -70,16 +73,37 @@ public class ScheduleFragment extends Fragment {
                     Collections.sort(arrayList);
                 }
 
+                mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
                 mViewPager.setAdapter(mSectionsPagerAdapter);
             }
         });
 
         mViewModel.fetchEvents();
+    }
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+        mViewPager = (ViewPager) view.findViewById(R.id.container);
+        mTabLayout = (TabLayout) view.findViewById(R.id.tabs);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // Using this to fix an error caused when the app is restored from the background
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("fridayEvents", sortedEvents.get(0));
+        bundle.putParcelableArrayList("saturdayEvents", sortedEvents.get(1));
+        bundle.putParcelableArrayList("sundayEvents", sortedEvents.get(2));
+        onSaveInstanceState(bundle);
     }
 
 
@@ -110,13 +134,14 @@ public class ScheduleFragment extends Fragment {
                                  Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_schedule_fragment, container, false);
 
-            int sectionNumber = getArguments() != null ? getArguments().getInt(ARG_SECTION_NUM) : 0;
+            int sectionNumber = getArguments().getInt(ARG_SECTION_NUM);
 
             final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.activity_schedule_recyclerview);
             mLayoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(mLayoutManager);
 
             mAdapter = new EventsAdapter(sortedEvents.get(sectionNumber));
+
             recyclerView.setAdapter(mAdapter);
 
             return view;
