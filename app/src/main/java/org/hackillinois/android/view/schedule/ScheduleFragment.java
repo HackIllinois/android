@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.hackillinois.android.R;
@@ -64,7 +65,11 @@ public class ScheduleFragment extends Fragment {
                         sortedEvents.get(2).add(event);
                     }
                 }
-                // TODO: sort the events in chronological order
+
+                for (ArrayList<Event> arrayList : sortedEvents) {
+                    Collections.sort(arrayList);
+                }
+
                 mViewPager.setAdapter(mSectionsPagerAdapter);
             }
         });
@@ -77,9 +82,7 @@ public class ScheduleFragment extends Fragment {
         return view;
     }
 
-    /**
-     * A fragment that contains the events for each day.
-     */
+
     public static class DayFragment extends Fragment {
         private static final String ARG_SECTION_NUM = "section_number";
 
@@ -120,10 +123,7 @@ public class ScheduleFragment extends Fragment {
         }
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {

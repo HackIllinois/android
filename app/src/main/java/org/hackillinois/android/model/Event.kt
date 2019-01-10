@@ -12,7 +12,12 @@ data class Event(
     val locationDescription: String,
     val latitude: Double,
     val longitude: Double
-) : Parcelable {
+) : Parcelable, Comparable<Event> {
+
+    override fun compareTo(other: Event): Int {
+        return startTime.compareTo(other.startTime)
+    }
+
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
