@@ -33,13 +33,13 @@ public class CustomRefreshView extends View implements IRefreshStatus {
     public CustomRefreshView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        starfish = getResources().getDrawable(R.drawable.logo);
+        starfish = getResources().getDrawable(R.drawable.starfish);
         bounds = new RectF();
         degrees = 0;
     }
 
     private void startAnimator() {
-        rotateAnimator = ValueAnimator.ofFloat(0.0f, 2.0f);
+        rotateAnimator = ValueAnimator.ofFloat(0.0f, 1.0f);
         rotateAnimator.setInterpolator(new LinearInterpolator());
         rotateAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -85,7 +85,7 @@ public class CustomRefreshView extends View implements IRefreshStatus {
 
         float centerX = w / 2.0f;
         float centerY = h / 2.0f;
-        float radius = Math.min(w, h) / 2.0f;
+        float radius = Math.min(w, h) / 3.0f;
 
         bounds.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
         starfish.setBounds((int) bounds.left, (int) bounds.top, (int) bounds.right, (int) bounds.bottom);
