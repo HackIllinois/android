@@ -53,9 +53,9 @@ public class ScheduleFragment extends Fragment {
 
                 assert events != null;
                 for (Event event : events) {
-                    if (event.getStartTime() < FRIDAY_END) {
+                    if (event.getStartTimeMs() < FRIDAY_END) {
                         sortedEvents.get(0).add(event);
-                    } else if (event.getStartTime() < SATURDAY_END) {
+                    } else if (event.getStartTimeMs() < SATURDAY_END) {
                         sortedEvents.get(1).add(event);
                     } else {
                         sortedEvents.get(2).add(event);
