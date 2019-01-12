@@ -34,19 +34,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
+            android:textAllCaps="true"
             android:textColor="#1F84A5"
             android:textSize="16sp"
             app:fontFamily="@font/montserrat_semi_bold"
-            tools:text="BRIAN STRAUCH" />
+            tools:text="@string/default_name_text" />
 
         <TextView
             android:id="@+id/dietaryRestrictions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="true"
             android:textColor="#1F84A5"
             android:textSize="12sp"
             app:fontFamily="@font/montserrat_regular"
-            tools:text="NO DIETARY RESTRICTIONS" />
+            tools:text="No Dietary Restrictions" />
     </LinearLayout>
 
     <LinearLayout

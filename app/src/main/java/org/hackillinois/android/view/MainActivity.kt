@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_nav_menu.*
 import kotlinx.android.synthetic.main.layout_nav_menu.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.model.Attendee
+import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
@@ -42,12 +42,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         navViews.forEach { it.setOnClickListener(this) }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel.init()
         viewModel.attendee.observe(this, Observer { updateAttendeeInfo(it) })
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.getNameAndEmail()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -81,7 +77,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun updateAttendeeInfo(attendee: Attendee?) {
         attendee?.let {
-            navMenu.nameTextView.text = it.name
+            navMenu.nameTextView.text = it.getFullName()
             navMenu.emailTextView.text = it.email
         }
     }

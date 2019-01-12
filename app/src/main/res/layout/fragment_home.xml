@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,7 +28,7 @@
             android:text="HACKING ENDS IN"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
-            app:fontFamily="@font/montserrat_regular"
+            app:fontFamily="@font/montserrat_semi_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +70,7 @@
                     android:text="03"
                     android:textColor="@color/adjacentTimesTextColor"
                     android:textSize="22sp"
-                    app:fontFamily="@font/montserrat_regular"
+                    app:fontFamily="@font/montserrat_light"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +99,7 @@
                     android:text="01"
                     android:textColor="@color/adjacentTimesTextColor"
                     android:textSize="22sp"
-                    app:fontFamily="@font/montserrat_regular"
+                    app:fontFamily="@font/montserrat_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -118,6 +117,7 @@
                 android:text="D"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
+                app:fontFamily="@font/montserrat_light"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/hourLayout"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -144,7 +144,7 @@
                     android:text="02"
                     android:textColor="@color/adjacentTimesTextColor"
                     android:textSize="22sp"
-                    app:fontFamily="@font/montserrat_regular"
+                    app:fontFamily="@font/montserrat_light"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +173,7 @@
                     android:text="00"
                     android:textColor="@color/adjacentTimesTextColor"
                     android:textSize="22sp"
-                    app:fontFamily="@font/montserrat_regular"
+                    app:fontFamily="@font/montserrat_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -190,6 +190,7 @@
                 android:text="H"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
+                app:fontFamily="@font/montserrat_light"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/minuteLayout"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -216,7 +217,7 @@
                     android:text="03"
                     android:textColor="@color/adjacentTimesTextColor"
                     android:textSize="22sp"
-                    app:fontFamily="@font/montserrat_regular"
+                    app:fontFamily="@font/montserrat_light"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -245,7 +246,7 @@
                     android:text="01"
                     android:textColor="@color/adjacentTimesTextColor"
                     android:textSize="22sp"
-                    app:fontFamily="@font/montserrat_regular"
+                    app:fontFamily="@font/montserrat_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -263,7 +264,7 @@
                 android:text="M"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
-                app:fontFamily="@font/montserrat_regular"
+                app:fontFamily="@font/montserrat_light"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/secondLayout"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -290,7 +291,7 @@
                     android:text="04"
                     android:textColor="@color/adjacentTimesTextColor"
                     android:textSize="22sp"
-                    app:fontFamily="@font/montserrat_regular"
+                    app:fontFamily="@font/montserrat_light"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -319,7 +320,7 @@
                     android:text="02"
                     android:textColor="@color/adjacentTimesTextColor"
                     android:textSize="22sp"
-                    app:fontFamily="@font/montserrat_regular"
+                    app:fontFamily="@font/montserrat_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -334,7 +335,7 @@
                 android:text="S"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
-                app:fontFamily="@font/montserrat_regular"
+                app:fontFamily="@font/montserrat_light"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -353,7 +354,7 @@
             android:text="HAPPENING NOW"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp"
-            app:fontFamily="@font/montserrat_regular"
+            app:fontFamily="@font/montserrat_semi_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -371,7 +372,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/eventsList"
             android:layout_width="0dp"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:background="@android:color/white" />
 
     </com.dinuscxj.refresh.RecyclerRefreshLayout>
 
