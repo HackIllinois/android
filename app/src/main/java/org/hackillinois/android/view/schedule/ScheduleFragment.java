@@ -13,16 +13,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.model.Event;
+import org.hackillinois.android.database.entity.Event;
 import org.hackillinois.android.viewmodel.ScheduleViewModel;
 
 public class ScheduleFragment extends Fragment {
@@ -39,15 +42,9 @@ public class ScheduleFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Using this to fix an error caused when the app is restored from the background
-        if (savedInstanceState != null) {
-            sortedEvents = new ArrayList<>();
-            sortedEvents.add(savedInstanceState.<Event>getParcelableArrayList("fridayEvents"));
-            sortedEvents.add(savedInstanceState.<Event>getParcelableArrayList("saturdayEvents"));
-            sortedEvents.add(savedInstanceState.<Event>getParcelableArrayList("sundayEvents"));
-        }
-
         mViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
+
+        mViewModel.init();
 
         mViewModel.getEventsListLiveData().observe(this, new Observer<List<Event>>() {
             @Override
@@ -76,8 +73,6 @@ public class ScheduleFragment extends Fragment {
                 mViewPager.setAdapter(mSectionsPagerAdapter);
             }
         });
-
-        mViewModel.fetchEvents();
     }
 
     @Override
@@ -91,18 +86,6 @@ public class ScheduleFragment extends Fragment {
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         return view;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        // Using this to fix an error caused when the app is restored from the background
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("fridayEvents", sortedEvents.get(0));
-        bundle.putParcelableArrayList("saturdayEvents", sortedEvents.get(1));
-        bundle.putParcelableArrayList("sundayEvents", sortedEvents.get(2));
-        onSaveInstanceState(bundle);
     }
 
 
@@ -139,9 +122,10 @@ public class ScheduleFragment extends Fragment {
             mLayoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(mLayoutManager);
 
-            mAdapter = new EventsAdapter(sortedEvents.get(sectionNumber));
-
-            recyclerView.setAdapter(mAdapter);
+            if (sortedEvents != null) {
+                mAdapter = new EventsAdapter(sortedEvents.get(sectionNumber));
+                recyclerView.setAdapter(mAdapter);
+            }
 
             return view;
         }
