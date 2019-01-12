@@ -2,6 +2,7 @@ package org.hackillinois.android.view.schedule;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +23,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     private List<Event> mEventList;
     private Context context;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_eventName;
         TextView tv_eventDescription;
         TextView tv_eventLocation;
@@ -30,7 +31,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         ConstraintLayout constraintLayout_recyclerView;
         ConstraintLayout constraintLayout_event_onclick;
 
-        public ViewHolder(View parent) {
+        ViewHolder(View parent) {
             super(parent);
             tv_eventName = itemView.findViewById(R.id.eventTitle);
             tv_eventDescription = itemView.findViewById(R.id.eventDetail);
@@ -41,12 +42,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         }
     }
 
-    public EventsAdapter(List<Event> eventsList) {
+    EventsAdapter(List<Event> eventsList) {
         mEventList = eventsList;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent,
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                          int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_event_list_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
@@ -55,7 +57,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Event event = mEventList.get(position);
 
         holder.constraintLayout_event_onclick.setOnClickListener(new View.OnClickListener() {

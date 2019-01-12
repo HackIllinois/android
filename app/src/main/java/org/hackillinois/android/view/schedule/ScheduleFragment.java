@@ -13,12 +13,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,20 +31,18 @@ public class ScheduleFragment extends Fragment {
     final static long FRIDAY_END = Timestamp.valueOf("2019-02-23 00:00:00").getTime();
     final static long SATURDAY_END = Timestamp.valueOf("2019-02-24 00:00:00").getTime();
 
-    private ScheduleViewModel mViewModel;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static ArrayList<ArrayList<Event>> sortedEvents;
     private ViewPager mViewPager;
-    private TabLayout mTabLayout;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
+        ScheduleViewModel viewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
 
-        mViewModel.init();
+        viewModel.init();
 
-        mViewModel.getEventsListLiveData().observe(this, new Observer<List<Event>>() {
+        viewModel.getEventsListLiveData().observe(this, new Observer<List<Event>>() {
             @Override
             public void onChanged(@Nullable List<Event> events) {
                 sortedEvents = new ArrayList<>();
@@ -55,6 +51,7 @@ public class ScheduleFragment extends Fragment {
                     sortedEvents.add(new ArrayList<Event>());
                 }
 
+                assert events != null;
                 for (Event event : events) {
                     if (event.getStartTime() < FRIDAY_END) {
                         sortedEvents.get(0).add(event);
@@ -79,11 +76,11 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
 
-        mViewPager = (ViewPager) view.findViewById(R.id.container);
-        mTabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        mViewPager = view.findViewById(R.id.container);
+        TabLayout tabLayout = view.findViewById(R.id.tabs);
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         return view;
     }
@@ -116,9 +113,9 @@ public class ScheduleFragment extends Fragment {
                                  Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_schedule_fragment, container, false);
 
-            int sectionNumber = getArguments().getInt(ARG_SECTION_NUM);
+            int sectionNumber = getArguments() == null ? 0 : getArguments().getInt(ARG_SECTION_NUM);
 
-            final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.activity_schedule_recyclerview);
+            final RecyclerView recyclerView = view.findViewById(R.id.activity_schedule_recyclerview);
             mLayoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(mLayoutManager);
 
@@ -134,7 +131,7 @@ public class ScheduleFragment extends Fragment {
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
