@@ -20,30 +20,30 @@ import org.hackillinois.android.common.FavoritesManager;
 import java.util.List;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
-    private List<Event> mEventList;
+    private List<Event> eventList;
     private Context context;
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_eventName;
-        TextView tv_eventDescription;
-        TextView tv_eventLocation;
-        ImageButton imageButton_star;
-        ConstraintLayout constraintLayout_recyclerView;
-        ConstraintLayout constraintLayout_event_onclick;
+        TextView eventNameTextView;
+        TextView eventDescriptionTextView;
+        TextView eventLocationTextView;
+        ImageButton starImageButton;
+        ConstraintLayout constraintLayoutRecyclerView;
+        ConstraintLayout constraintLayoutEventOnClick;
 
         ViewHolder(View parent) {
             super(parent);
-            tv_eventName = itemView.findViewById(R.id.eventTitle);
-            tv_eventDescription = itemView.findViewById(R.id.eventDetail);
-            tv_eventLocation = itemView.findViewById(R.id.eventLocation);
-            imageButton_star = itemView.findViewById(R.id.star);
-            constraintLayout_recyclerView = itemView.findViewById(R.id.constraintLayout);
-            constraintLayout_event_onclick = itemView.findViewById(R.id.constraintLayout_event_onclick);
+            eventNameTextView = itemView.findViewById(R.id.eventTitle);
+            eventDescriptionTextView = itemView.findViewById(R.id.eventDetail);
+            eventLocationTextView = itemView.findViewById(R.id.eventLocation);
+            starImageButton = itemView.findViewById(R.id.star);
+            constraintLayoutRecyclerView = itemView.findViewById(R.id.constraintLayout);
+            constraintLayoutEventOnClick = itemView.findViewById(R.id.constraintLayout_event_onclick);
         }
     }
 
     EventsAdapter(List<Event> eventsList) {
-        mEventList = eventsList;
+        eventList = eventsList;
     }
 
     @NonNull
@@ -58,9 +58,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Event event = mEventList.get(position);
+        final Event event = eventList.get(position);
 
-        holder.constraintLayout_event_onclick.setOnClickListener(new View.OnClickListener() {
+        holder.constraintLayoutEventOnClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
@@ -70,12 +70,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             }
         });
 
-        holder.tv_eventName.setText(event.getName());
-        holder.tv_eventDescription.setText(event.getDescription());
-        holder.tv_eventLocation.setText(event.getLocationDescription());
-        holder.imageButton_star.setSelected(FavoritesManager.isFavorited(context, event.getName()));
+        holder.eventNameTextView.setText(event.getName());
+        holder.eventDescriptionTextView.setText(event.getDescription());
+        // TODO: put character limit on event description
+        holder.eventLocationTextView.setText(event.getLocationDescription());
+        holder.starImageButton.setSelected(FavoritesManager.isFavorited(context, event.getName()));
 
-        holder.imageButton_star.setOnClickListener(new View.OnClickListener() {
+        holder.starImageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 button.setSelected(!button.isSelected());
 
@@ -93,6 +94,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mEventList.size();
+        return eventList.size();
     }
 }

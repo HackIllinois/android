@@ -15,9 +15,7 @@ data class Event(
     val longitude: Double
 ) : BaseEntity(), Comparable<Event> {
 
-    override fun compareTo(other: Event): Int {
-        return startTime.compareTo(other.startTime)
-    }
+    override fun compareTo(other: Event) = startTime.compareTo(other.startTime);
 
     fun getStartTimeMs() = startTime * 1000L
     fun getStartTimeOfDay(): String {

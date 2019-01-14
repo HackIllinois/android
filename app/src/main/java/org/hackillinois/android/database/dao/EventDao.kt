@@ -15,6 +15,9 @@ interface EventDao {
     @Query("SELECT * FROM events WHERE startTime <= :time AND endTime >= :time")
     fun getAllEventsHappeningAtTime(time: Long): LiveData<List<Event>>
 
+    @Query("SELECT * FROM events WHERE startTime >= :startTime AND startTime < :endTime")
+    fun getEventsHappeningBetweenTimes(startTime: Long, endTime: Long): LiveData<List<Event>>
+
     @Query("SELECT * FROM events WHERE last_refreshed > :lastRefreshMax AND name LIKE :name LIMIT 1")
     fun hasUpdatedEvent(name: String, lastRefreshMax: Long): Event?
 

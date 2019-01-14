@@ -25,6 +25,11 @@ class EventRepository {
         return eventDao.getAllEventsHappeningAtTime(time / 1000L)
     }
 
+    fun fetchEventsHappeningBetweenTimes(startTime: Long, endTime: Long) : LiveData<List<Event>> {
+        attemptToRefreshAll()
+        return eventDao.getEventsHappeningBetweenTimes(startTime / 1000L, endTime / 1000L)
+    }
+
     fun fetchEvent(name: String): LiveData<Event> {
         attemptToRefreshSpecific(name)
         return eventDao.getEvent(name)
