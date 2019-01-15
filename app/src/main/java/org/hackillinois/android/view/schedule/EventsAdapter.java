@@ -72,7 +72,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         holder.eventNameTextView.setText(event.getName());
         holder.eventDescriptionTextView.setText(event.getDescription());
-        // TODO: put character limit on event description
         holder.eventLocationTextView.setText(event.getLocationDescription());
         holder.starImageButton.setSelected(FavoritesManager.isFavorited(context, event.getName()));
 
