@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             else -> return
         }
 
-        v.setBackgroundColor(ContextCompat.getColor(baseContext, R.color.selectedMenuItemColor))
+        v.setBackgroundColor(ContextCompat.getColor(baseContext, R.color.selectedMenuItem))
         supportActionBar?.title = (v as TextView).text
 
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).commit()

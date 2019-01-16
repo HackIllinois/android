@@ -38,7 +38,7 @@
         android:layout_marginLeft="9dp"
         android:layout_marginTop="21dp"
         android:layout_marginRight="8dp"
-        android:background="@color/selectedMenuItemColor"
+        android:background="@color/selectedMenuItem"
         android:paddingLeft="7dp"
         android:paddingTop="9dp"
         android:paddingBottom="9dp"
