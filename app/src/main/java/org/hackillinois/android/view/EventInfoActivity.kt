@@ -46,9 +46,9 @@ class EventInfoActivity : AppCompatActivity() {
     private fun updateFavoritedUi(isFavorited: Boolean?) {
         isFavorited?.let {
             if (isFavorited) {
-                favoriteEventImageView.setImageResource(R.drawable.ic_full_star)
+                favoriteEventImageView.setImageResource(R.drawable.ic_star_filled)
             } else {
-                favoriteEventImageView.setImageResource(R.drawable.ic_hollow_star)
+                favoriteEventImageView.setImageResource(R.drawable.ic_star_border)
             }
         }
     }

@@ -71,5 +71,5 @@
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_hollow_star" />
+        app:srcCompat="@drawable/ic_star_border" />
 </android.support.constraint.ConstraintLayout>
