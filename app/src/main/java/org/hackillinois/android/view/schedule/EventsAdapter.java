@@ -81,7 +81,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
                 if (button.isSelected()) {
                     FavoritesManager.favoriteEvent(context, event.getName());
-                    Snackbar.make(button, R.string.snackbar_notifications_on_text,
+                    Snackbar.make(button, R.string.snackbar_notifications_on,
                             Snackbar.LENGTH_SHORT)
                             .show();
                 } else {

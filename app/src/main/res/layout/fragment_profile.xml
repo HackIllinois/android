@@ -38,7 +38,7 @@
             android:textColor="#1F84A5"
             android:textSize="16sp"
             app:fontFamily="@font/montserrat_semi_bold"
-            tools:text="@string/default_name_text" />
+            tools:text="@string/default_name" />
 
         <TextView
             android:id="@+id/dietaryRestrictions"
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="@string/profile_university_text"
+            android:text="@string/profile_university"
             android:textColor="#1F84A5"
             android:textSize="14sp"
             app:fontFamily="@font/montserrat_semi_bold" />
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="@string/profile_major_text"
+            android:text="@string/profile_major"
             android:textColor="#1F84A5"
             app:fontFamily="@font/montserrat_semi_bold" />
 

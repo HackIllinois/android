@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="18dp"
-        android:text="@string/default_name_text"
+        android:text="@string/default_name"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
         app:fontFamily="@font/montserrat_regular" />
@@ -25,7 +25,7 @@
         android:layout_below="@id/nameTextView"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="1dp"
-        android:text="@string/default_email_text"
+        android:text="@string/default_email"
         android:textColor="#909395"
         android:textSize="14sp"
         app:fontFamily="@font/montserrat_regular" />
@@ -42,7 +42,7 @@
         android:paddingLeft="7dp"
         android:paddingTop="9dp"
         android:paddingBottom="9dp"
-        android:text="@string/nav_home_text"
+        android:text="@string/nav_home"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
         app:fontFamily="@font/montserrat_regular" />
@@ -58,7 +58,7 @@
         android:paddingLeft="7dp"
         android:paddingTop="9dp"
         android:paddingBottom="9dp"
-        android:text="@string/nav_schedule_text"
+        android:text="@string/nav_schedule"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
         app:fontFamily="@font/montserrat_regular" />
@@ -74,7 +74,7 @@
         android:paddingLeft="7dp"
         android:paddingTop="9dp"
         android:paddingBottom="9dp"
-        android:text="@string/nav_outdoor_text"
+        android:text="@string/nav_outdoor"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
         app:fontFamily="@font/montserrat_regular" />
@@ -90,7 +90,7 @@
         android:paddingLeft="7dp"
         android:paddingTop="9dp"
         android:paddingBottom="9dp"
-        android:text="@string/nav_indoor_text"
+        android:text="@string/nav_indoor"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
         app:fontFamily="@font/montserrat_regular" />
@@ -106,7 +106,7 @@
         android:paddingLeft="7dp"
         android:paddingTop="9dp"
         android:paddingBottom="9dp"
-        android:text="@string/nav_profile_text"
+        android:text="@string/nav_profile"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
         app:fontFamily="@font/montserrat_regular" />
