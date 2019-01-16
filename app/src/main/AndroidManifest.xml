@@ -18,8 +18,10 @@
         <activity
             android:name=".view.SplashScreenActivity"
             android:theme="@style/SplashTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,6 +35,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
