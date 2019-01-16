@@ -32,7 +32,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/selector_star_button" />
+            app:srcCompat="@drawable/selector_star_button"
+            tools:srcCompat="@drawable/ic_star_border" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout_event_onclick"
@@ -59,7 +60,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Event" />
+                tools:text="Title" />
 
             <TextView
                 android:id="@+id/eventDetail"
