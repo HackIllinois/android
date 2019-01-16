@@ -19,7 +19,7 @@
             app:tabIndicatorHeight="3dp"
             app:tabSelectedTextColor="@android:color/white"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            app:tabTextColor="@color/lightTextColor">
+            app:tabTextColor="@color/tabText">
 
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
-                    android:textColor="@color/lightTextColor"
+                    android:textColor="@color/tabText"
                     android:textSize="12sp"
                     app:fontFamily="@font/montserrat_light"
                     tools:text="0.4 miles" />

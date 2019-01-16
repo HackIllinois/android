@@ -15,11 +15,6 @@ class EventRepository {
     private val millisInSecond: Long = 1000
     private val millisTillStale = minutesTillStale * secondsInMinute * millisInSecond
 
-    fun fetchAllEvents(): LiveData<List<Event>> {
-        attemptToRefreshAll()
-        return eventDao.getAllEvents()
-    }
-
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
         attemptToRefreshAll()
         return eventDao.getAllEventsHappeningAtTime(time / 1000L)

@@ -32,7 +32,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/selector_star_button" />
+            app:srcCompat="@drawable/selector_star_button"
+            tools:srcCompat="@drawable/ic_star_border" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout_event_onclick"
@@ -58,7 +59,8 @@
                 app:fontFamily="@font/montserrat_semi_bold"
                 app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Title" />
 
             <TextView
                 android:id="@+id/eventDetail"
@@ -74,7 +76,8 @@
                 app:fontFamily="@font/montserrat_regular"
                 app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/eventTitle"
+                tools:text="Details" />
 
             <TextView
                 android:id="@+id/eventLocation"
@@ -92,7 +95,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventDetail" />
+                app:layout_constraintTop_toBottomOf="@+id/eventDetail"
+                tools:text="Location" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -106,7 +110,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_chevron_right_22dp" />
+                app:srcCompat="@drawable/ic_right_arrow_primary" />
 
         </android.support.constraint.ConstraintLayout>
 

@@ -1,30 +1,29 @@
 <resources>
     <string name="app_name">HackIllinois</string>
 
-    <string name="default_name_text">Hacker</string>
-    <string name="default_email_text">hacker@hackillinois.org</string>
+    <string name="default_name">Hacker</string>
+    <string name="default_email">hacker@hackillinois.org</string>
 
-    <string name="nav_home_text">HOME</string>
-    <string name="nav_schedule_text">SCHEDULE</string>
-    <string name="nav_outdoor_text">OUTDOOR MAPS</string>
-    <string name="nav_indoor_text">INDOOR MAPS</string>
-    <string name="nav_profile_text">PROFILE</string>
+    <string name="nav_home">HOME</string>
+    <string name="nav_schedule">SCHEDULE</string>
+    <string name="nav_outdoor">OUTDOOR MAPS</string>
+    <string name="nav_indoor">INDOOR MAPS</string>
+    <string name="nav_profile">PROFILE</string>
 
-    <string name="title_activity_schedule">activity_schedule</string>
-    <string name="tab_friday_text">FRIDAY</string>
-    <string name="tab_saturday_text">SATURDAY</string>
-    <string name="tab_sunday_text">SUNDAY</string>
-    <string name="snackbar_notifications_on_text">Notifications are on for this event</string>
+    <string name="tab_friday">FRIDAY</string>
+    <string name="tab_saturday">SATURDAY</string>
+    <string name="tab_sunday">SUNDAY</string>
+    <string name="snackbar_notifications_on">Notifications are on for this event</string>
 
     <string name="map_dcl">DCL</string>
     <string name="map_eceb">ECEB</string>
     <string name="map_siebel">Siebel</string>
     <string name="map_gym">Gym</string>
 
-    <string name="profile_university_text">UNIVERSITY</string>
-    <string name="profile_major_text">MAJOR</string>
+    <string name="profile_university">UNIVERSITY</string>
+    <string name="profile_major">MAJOR</string>
 
-    <string name="event_info_directions_text">GET DIRECTIONS</string>
+    <string name="event_info_directions">GET DIRECTIONS</string>
 
     <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
 </resources>

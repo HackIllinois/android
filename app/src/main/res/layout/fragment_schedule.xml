@@ -16,25 +16,25 @@
         app:tabIndicatorColor="@color/colorAccent"
         app:tabIndicatorHeight="3dp"
         app:tabSelectedTextColor="#FFFFFF"
-        app:tabTextColor="@color/lightTextColor">
+        app:tabTextColor="@color/tabText">
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabFriday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_friday_text" />
+            android:text="@string/tab_friday" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabSaturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_saturday_text" />
+            android:text="@string/tab_saturday" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabSunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_sunday_text" />
+            android:text="@string/tab_sunday" />
 
     </android.support.design.widget.TabLayout>
 
@@ -42,7 +42,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@color/homeClockBackground"
+        android:background="@color/colorPrimaryLight"
         android:layout_height="match_parent" />
 
 </LinearLayout>
