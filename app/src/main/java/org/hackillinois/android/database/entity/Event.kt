@@ -24,16 +24,17 @@ data class Event(
         val builder = StringBuilder()
         val hour = eventStartTime.get(Calendar.HOUR_OF_DAY)
         val minutes = eventStartTime.get(Calendar.MINUTE)
+        val minutesString = String.format("%02d", minutes)
 
         if (hour > 12) {
             builder.append(hour % 12)
             builder.append(":")
-            builder.append(minutes)
+            builder.append(minutesString)
             builder.append(" PM")
         } else {
             builder.append(hour)
             builder.append(":")
-            builder.append(minutes)
+            builder.append(minutesString)
             builder.append(" AM")
         }
 
