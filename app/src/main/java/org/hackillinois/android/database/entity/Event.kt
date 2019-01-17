@@ -21,23 +21,14 @@ data class Event(
             timeZone = TimeZone.getTimeZone("America/Chicago")
             timeInMillis = startTime * 1000L
         }
-        val builder = StringBuilder()
         val hour = eventStartTime.get(Calendar.HOUR_OF_DAY)
         val minutes = eventStartTime.get(Calendar.MINUTE)
-        val minutesString = String.format("%02d", minutes)
 
-        if (hour > 12) {
-            builder.append(hour % 12)
-            builder.append(":")
-            builder.append(minutesString)
-            builder.append(" PM")
-        } else {
-            builder.append(hour)
-            builder.append(":")
-            builder.append(minutesString)
-            builder.append(" AM")
+        return when {
+            hour == 0 -> String.format("12:%02d AM", minutes)
+            hour < 12 -> String.format("%d:%02d AM", hour, minutes)
+            hour == 12 -> String.format("12:%02d PM", minutes)
+            else -> String.format("%d:%02d PM", hour % 12, minutes)
         }
-
-        return builder.toString()
     }
 }
