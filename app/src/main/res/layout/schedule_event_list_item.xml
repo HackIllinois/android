@@ -42,7 +42,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/star">
+            app:layout_constraintStart_toEndOf="@+id/star"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/eventTitle"
