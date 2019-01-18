@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.viewmodel.ScheduleViewModel;
 
 public class ScheduleFragment extends Fragment {
 
@@ -27,6 +28,17 @@ public class ScheduleFragment extends Fragment {
         viewPager.setAdapter(sectionsPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+
+        ScheduleViewModel scheduleViewModel = new ScheduleViewModel();
+        long time = System.currentTimeMillis();
+
+        if (time < scheduleViewModel.getFRIDAY_END()) {
+            viewPager.setCurrentItem(0);
+        } else if (time < scheduleViewModel.getSATURDAY_END()) {
+            viewPager.setCurrentItem(1);
+        } else {
+            viewPager.setCurrentItem(2);
+        }
 
         return view;
     }

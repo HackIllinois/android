@@ -9,15 +9,15 @@ import java.util.Calendar
 class ScheduleViewModel : ViewModel() {
     private val eventRepository = EventRepository.instance
 
-    private val FRIDAY_END = Calendar.getInstance().apply {
+    val FRIDAY_END = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         set(2019, Calendar.FEBRUARY, 23, 0, 0, 0)
     }.timeInMillis
-    private val SATURDAY_END = Calendar.getInstance().apply {
+    val SATURDAY_END = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         set(2019, Calendar.FEBRUARY, 24, 0, 0, 0)
     }.timeInMillis
-    private val SUNDAY_END = Calendar.getInstance().apply {
+    val SUNDAY_END = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         set(2019, Calendar.FEBRUARY, 25, 0, 0, 0)
     }.timeInMillis
