@@ -29,24 +29,15 @@ class LoginActivity : AppCompatActivity() {
         recruiterLogin = findViewById(R.id.recruiterLoginBtn)
 
         attendeeLogin.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.setData(Uri.parse("https://api.hackillinois.org/auth/github/?redirect_uri=https://hackillinois.org/auth/?isAndroid=1"))
-            setOAuthProvider("github")
-            startActivity(intent)
+            redirectToOAuthProvider("github")
         }
 
         staffLogin.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.setData(Uri.parse("https://api.hackillinois.org/auth/google/?redirect_uri=https://hackillinois.org/auth/?isAndroid=1"))
-            setOAuthProvider("google")
-            startActivity(intent)
+            redirectToOAuthProvider("google")
         }
 
         recruiterLogin.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.setData(Uri.parse("https://api.hackillinois.org/auth/linkedin/?redirect_uri=https://hackillinois.org/auth/?isAndroid=1"))
-            setOAuthProvider("linkedin")
-            startActivity(intent)
+            redirectToOAuthProvider("linkedin")
         }
     }
 
@@ -82,6 +73,13 @@ class LoginActivity : AppCompatActivity() {
         var mainIntent = Intent(this, MainActivity::class.java)
         startActivity(mainIntent)
         finish()
+    }
+
+    fun redirectToOAuthProvider(provider: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setData(Uri.parse("https://api.hackillinois.org/auth/$provider/?redirect_uri=https://hackillinois.org/auth/?isAndroid=1"))
+        setOAuthProvider(provider)
+        startActivity(intent)
     }
 
     fun setOAuthProvider(provider: String) {
