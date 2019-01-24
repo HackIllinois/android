@@ -18,6 +18,7 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
     private lateinit var attendeeLogin: Button
     private lateinit var staffLogin: Button
+    private lateinit var recruiterLogin: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
         attendeeLogin = findViewById(R.id.attendeeLoginBtn)
         staffLogin = findViewById(R.id.staffLoginBtn)
+        recruiterLogin = findViewById(R.id.recruiterLoginBtn)
 
         attendeeLogin.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
@@ -37,6 +39,13 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.setData(Uri.parse("https://api.hackillinois.org/auth/google/?redirect_uri=https://hackillinois.org/auth/?isAndroid=1"))
             setOAuthProvider("google")
+            startActivity(intent)
+        }
+
+        recruiterLogin.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setData(Uri.parse("https://api.hackillinois.org/auth/linkedin/?redirect_uri=https://hackillinois.org/auth/?isAndroid=1"))
+            setOAuthProvider("linkedin")
             startActivity(intent)
         }
     }
