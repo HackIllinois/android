@@ -1,5 +1,6 @@
 package org.hackillinois.android.view
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -28,12 +29,14 @@ class LoginActivity : AppCompatActivity() {
         attendeeLogin.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.setData(Uri.parse("https://api.hackillinois.org/auth/github/?redirect_uri=https://hackillinois.org/auth/?isAndroid=1"))
+            setOAuthProvider("github")
             startActivity(intent)
         }
 
         staffLogin.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.setData(Uri.parse("https://api.hackillinois.org/auth/google/?redirect_uri=https://hackillinois.org/auth/?isAndroid=1"))
+            setOAuthProvider("google")
             startActivity(intent)
         }
     }
@@ -50,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
                 var code = uri.getQueryParameter("code")
                 Log.e("LoginActivity", code)
                 var api = getAPI()
-                api.getJWT("github", "https://hackillinois.org/auth/?isAndroid=1", Code(code)).enqueue(object: Callback<JWT> {
+                api.getJWT(getOAuthProvider(), "https://hackillinois.org/auth/?isAndroid=1", Code(code)).enqueue(object: Callback<JWT> {
                     override fun onFailure(call: Call<JWT>, t: Throwable) {
                         Log.e("LoginActivity", "Failed to get JWT")
                     }
@@ -70,5 +73,18 @@ class LoginActivity : AppCompatActivity() {
         var mainIntent = Intent(this, MainActivity::class.java)
         startActivity(mainIntent)
         finish()
+    }
+
+    fun setOAuthProvider(provider: String) {
+        var editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
+        editor.putString("provider", provider)
+        editor.apply()
+    }
+
+    fun getOAuthProvider(): String {
+        applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")?.let {
+            return it
+        }
+        return ""
     }
 }
