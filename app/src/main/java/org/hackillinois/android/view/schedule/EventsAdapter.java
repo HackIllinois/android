@@ -48,8 +48,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
-                                         int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_event_list_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         context = parent.getContext();
@@ -73,19 +72,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.eventNameTextView.setText(event.getName());
         holder.eventDescriptionTextView.setText(event.getDescription());
         holder.eventLocationTextView.setText(event.getLocationDescription());
-        holder.starImageButton.setSelected(FavoritesManager.isFavorited(context, event.getName()));
 
+        holder.starImageButton.setSelected(FavoritesManager.isFavorited(context, event.getName()));
         holder.starImageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 button.setSelected(!button.isSelected());
 
                 if (button.isSelected()) {
-                    FavoritesManager.favoriteEvent(context, event.getName());
-                    Snackbar.make(button, R.string.snackbar_notifications_on,
-                            Snackbar.LENGTH_SHORT)
-                            .show();
+                    FavoritesManager.favoriteEvent(context, event);
+                    Snackbar.make(button, R.string.snackbar_notifications_on, Snackbar.LENGTH_SHORT).show();
                 } else {
-                    FavoritesManager.unfavoriteEvent(context, event.getName());
+                    FavoritesManager.unfavoriteEvent(context, event);
                 }
             }
         });
