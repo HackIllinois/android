@@ -26,4 +26,7 @@
     <string name="event_info_directions">GET DIRECTIONS</string>
 
     <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

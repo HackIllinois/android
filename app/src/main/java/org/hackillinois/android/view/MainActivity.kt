@@ -17,6 +17,9 @@ import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
+import org.hackillinois.android.view.navigationdrawer.IndoorMapsFragment
+import org.hackillinois.android.view.navigationdrawer.OutdoorMapsFragment
+import org.hackillinois.android.view.navigationdrawer.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
