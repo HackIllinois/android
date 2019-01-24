@@ -18,6 +18,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/logo" />
+
         <Button
             android:id="@+id/attendeeLoginBtn"
             android:layout_width="fill_parent"
@@ -29,7 +34,7 @@
             android:layout_marginBottom="50dp"
             android:background="@drawable/rounded_button_background"
             android:textColor="@android:color/white"
-            android:text="Attendee Login"
+            android:text="@string/attendee_login"
             app:fontFamily="@font/montserrat_regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +51,7 @@
             android:layout_marginBottom="50dp"
             android:background="@drawable/rounded_button_background"
             android:textColor="@android:color/white"
-            android:text="Staff Login"
+            android:text="@string/staff_login"
             app:fontFamily="@font/montserrat_regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +68,7 @@
             android:layout_marginBottom="50dp"
             android:background="@drawable/rounded_button_background"
             android:textColor="@android:color/white"
-            android:text="Recruiter Login"
+            android:text="@string/recruiter_login"
             app:fontFamily="@font/montserrat_regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
