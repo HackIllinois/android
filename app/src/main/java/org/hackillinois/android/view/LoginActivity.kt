@@ -39,6 +39,13 @@ class LoginActivity : AppCompatActivity() {
         recruiterLogin.setOnClickListener {
             redirectToOAuthProvider("linkedin")
         }
+
+        var jwt = loadJWT();
+
+        if(jwt != "") {
+            getAPI(jwt)
+            launchMainActivity()
+        }
     }
 
     override fun onResume() {
@@ -58,11 +65,15 @@ class LoginActivity : AppCompatActivity() {
                         Log.e("LoginActivity", "Failed to get JWT")
                     }
                     override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
-                        Log.e("LoginActivity", response.body()?.token)
-                        api = getAPI(response.body()?.token)
-                        runOnUiThread {
-                            launchMainActivity()
+                        response.body()?.token?.let {
+                            Log.e("LoginActivity", it)
+                            api = getAPI(it)
+                            storeJWT(it)
+                            runOnUiThread {
+                                launchMainActivity()
+                            }
                         }
+                        Log.e("LoginActivity", "Error logging in")
                     }
                 })
             }
@@ -89,6 +100,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun getOAuthProvider(): String {
+        applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")?.let {
+            return it
+        }
+        return ""
+    }
+
+    fun storeJWT(jwt: String) {
+        var editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
+        editor.putString("jwt", jwt)
+        editor.apply()
+    }
+
+    fun loadJWT(): String {
         applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")?.let {
             return it
         }
