@@ -75,7 +75,7 @@ public class DayFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_schedule_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_schedule_day, container, false);
 
         recyclerView = view.findViewById(R.id.activity_schedule_recyclerview);
         layoutManager = new LinearLayoutManager(getContext());
