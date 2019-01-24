@@ -30,10 +30,14 @@ public class App extends Application {
             return api;
         }
 
+        return getAPI("");
+    }
+
+    public static API getAPI(final String token) {
         Interceptor interceptor = new Interceptor() {
             public Response intercept(Chain chain) throws IOException {
                 Request newRequest = chain.request().newBuilder()
-                        .addHeader("Authorization", BuildConfig.HACKILLINOIS_API_JWT)
+                        .addHeader("Authorization", token)
                         .build();
                 return chain.proceed(newRequest);
             }

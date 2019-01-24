@@ -32,6 +32,18 @@
         <activity
             android:name=".view.EventInfoActivity" />
 
+        <activity android:name=".view.LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="org.hackillinois.android"
+                    android:pathPrefix="/auth"
+                    android:scheme="hackillinois" />
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
