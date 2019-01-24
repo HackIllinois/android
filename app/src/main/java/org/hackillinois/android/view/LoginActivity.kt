@@ -40,25 +40,6 @@ class LoginActivity : AppCompatActivity() {
         recruiterLogin.setOnClickListener {
             redirectToOAuthProvider("linkedin")
         }
-
-        var jwt = loadJWT();
-
-        if(jwt != "") {
-            var api = getAPI(jwt)
-            api.user.enqueue(object: Callback<User> {
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    Log.e("LoginActivity", "Failed to check is jwt is valid")
-                }
-
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if(response.code() == 200) {
-                        runOnUiThread {
-                            launchMainActivity()
-                        }
-                    }
-                }
-            })
-        }
     }
 
     override fun onResume() {
@@ -123,12 +104,5 @@ class LoginActivity : AppCompatActivity() {
         var editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
         editor.putString("jwt", jwt)
         editor.apply()
-    }
-
-    fun loadJWT(): String {
-        applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("jwt", "")?.let {
-            return it
-        }
-        return ""
     }
 }
