@@ -11,6 +11,7 @@ import org.hackillinois.android.App.getAPI
 import org.hackillinois.android.R
 import org.hackillinois.android.model.Code
 import org.hackillinois.android.model.JWT
+import org.hackillinois.android.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,8 +44,20 @@ class LoginActivity : AppCompatActivity() {
         var jwt = loadJWT();
 
         if(jwt != "") {
-            getAPI(jwt)
-            launchMainActivity()
+            var api = getAPI(jwt)
+            api.user.enqueue(object: Callback<User> {
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Log.e("LoginActivity", "Failed to check is jwt is valid")
+                }
+
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if(response.code() == 200) {
+                        runOnUiThread {
+                            launchMainActivity()
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -113,7 +126,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun loadJWT(): String {
-        applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")?.let {
+        applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("jwt", "")?.let {
             return it
         }
         return ""

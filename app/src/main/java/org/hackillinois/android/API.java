@@ -6,6 +6,7 @@ import org.hackillinois.android.model.EventsList;
 import org.hackillinois.android.database.entity.QR;
 import org.hackillinois.android.model.JWT;
 import org.hackillinois.android.model.Code;
+import org.hackillinois.android.model.User;
 
 import java.util.List;
 
@@ -27,6 +28,9 @@ public interface API {
 
     @GET("registration/attendee/")
     Call<Attendee> getAttendee();
+
+    @GET("user/")
+    Call<User> getUser();
 
     @GET("user/qr/")
     Call<QR> getQRCode();
