@@ -2,6 +2,7 @@ package org.hackillinois.android;
 
 import org.hackillinois.android.database.entity.Attendee;
 import org.hackillinois.android.database.entity.Event;
+import org.hackillinois.android.firebase.DeviceToken;
 import org.hackillinois.android.model.EventsList;
 import org.hackillinois.android.database.entity.QR;
 import org.hackillinois.android.model.JWT;
@@ -34,7 +35,10 @@ public interface API {
 
     @GET("user/qr/")
     Call<QR> getQRCode();
-
+    
     @POST("auth/code/{provider}/")
     Call<JWT> getJWT(@Path("provider") String provider, @Query("redirect_uri") String redirect, @Body Code code);
+
+    @POST("notifications/device/")
+    Call<DeviceToken> sendUserToken(@Body DeviceToken token);
 }
