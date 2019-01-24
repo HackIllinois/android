@@ -13,10 +13,12 @@ class ScheduleViewModel : ViewModel() {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         set(2019, Calendar.FEBRUARY, 23, 0, 0, 0)
     }.timeInMillis
+
     val SATURDAY_END = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         set(2019, Calendar.FEBRUARY, 24, 0, 0, 0)
     }.timeInMillis
+
     val SUNDAY_END = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         set(2019, Calendar.FEBRUARY, 25, 0, 0, 0)

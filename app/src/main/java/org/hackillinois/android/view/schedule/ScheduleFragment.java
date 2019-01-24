@@ -30,6 +30,7 @@ public class ScheduleFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
         ScheduleViewModel scheduleViewModel = new ScheduleViewModel();
+
         long time = System.currentTimeMillis();
 
         if (time < scheduleViewModel.getFRIDAY_END()) {
