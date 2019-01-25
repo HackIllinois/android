@@ -15,12 +15,14 @@ import retrofit2.Response
 
 class SplashScreenActivity : AppCompatActivity() {
 
+    private val defaultJWT: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         var jwt = loadJWT();
 
-        if(jwt != "") {
+        if(jwt != defaultJWT) {
             var api = App.getAPI(jwt)
             api.user.enqueue(object: Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
@@ -53,6 +55,6 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     fun loadJWT(): String {
-        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("jwt", "")?: ""
+        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("jwt", defaultJWT)?: defaultJWT
     }
 }

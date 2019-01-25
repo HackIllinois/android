@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_login.*
 import org.hackillinois.android.App.getAPI
 import org.hackillinois.android.R
 import org.hackillinois.android.model.Code
@@ -18,10 +19,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var attendeeLogin: Button
-    private lateinit var staffLogin: Button
-    private lateinit var recruiterLogin: Button
-
     private val redirectUri: String = "https://hackillinois.org/auth/?isAndroid=1"
     private val authUriTemplate: String = "https://api.hackillinois.org/auth/%s/?redirect_uri=%s"
 
@@ -29,19 +26,15 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        attendeeLogin = findViewById(R.id.attendeeLoginBtn)
-        staffLogin = findViewById(R.id.staffLoginBtn)
-        recruiterLogin = findViewById(R.id.recruiterLoginBtn)
-
-        attendeeLogin.setOnClickListener {
+        attendeeLoginBtn.setOnClickListener {
             redirectToOAuthProvider("github")
         }
 
-        staffLogin.setOnClickListener {
+        staffLoginBtn.setOnClickListener {
             redirectToOAuthProvider("google")
         }
 
-        recruiterLogin.setOnClickListener {
+        recruiterLoginBtn.setOnClickListener {
             redirectToOAuthProvider("linkedin")
         }
     }
