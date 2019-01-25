@@ -42,35 +42,36 @@ class LoginActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        var intent = getIntent()
+        val intent = getIntent()
 
-        if(intent != null && intent.action != null) {
-            var uri = intent.data
+        intent?: return
+        intent.action?: return
 
-            if(uri != null) {
-                var code = uri.getQueryParameter("code")
-                Log.e("LoginActivity", code)
-                var api = getAPI()
-                api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object: Callback<JWT> {
-                    override fun onFailure(call: Call<JWT>, t: Throwable) {
-                        Toast.makeText(applicationContext, "Failed to login", Toast.LENGTH_SHORT).show()
-                    }
-                    override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
-                        response.body()?.token?.let {
-                            api = getAPI(it)
-                            storeJWT(it)
-                            runOnUiThread {
-                                launchMainActivity()
-                            }
-                        }
-                    }
-                })
+        val uri = intent.data
+
+        uri?: return
+
+        val code = uri.getQueryParameter("code")
+        var api = getAPI()
+
+        api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object: Callback<JWT> {
+            override fun onFailure(call: Call<JWT>, t: Throwable) {
+                Toast.makeText(applicationContext, "Failed to login", Toast.LENGTH_SHORT).show()
             }
-        }
+            override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
+                response.body()?.token?.let {
+                    api = getAPI(it)
+                    storeJWT(it)
+                    runOnUiThread {
+                        launchMainActivity()
+                    }
+                }
+            }
+        })
     }
 
     fun launchMainActivity() {
-        var mainIntent = Intent(this, MainActivity::class.java)
+        val mainIntent = Intent(this, MainActivity::class.java)
         startActivity(mainIntent)
         finish()
     }
@@ -83,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun setOAuthProvider(provider: String) {
-        var editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
+        val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
         editor.putString("provider", provider)
         editor.apply()
     }
@@ -93,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun storeJWT(jwt: String) {
-        var editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
+        val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
         editor.putString("jwt", jwt)
         editor.apply()
     }
