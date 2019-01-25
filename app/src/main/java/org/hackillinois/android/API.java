@@ -35,6 +35,6 @@ public interface API {
     @GET("user/qr/")
     Call<QR> getQRCode();
 
-    @POST("/auth/code/{provider}/")
+    @POST("auth/code/{provider}/")
     Call<JWT> getJWT(@Path("provider") String provider, @Query("redirect_uri") String redirect, @Body Code code);
 }

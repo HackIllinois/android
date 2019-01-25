@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import org.hackillinois.android.App.getAPI
 import org.hackillinois.android.R
 import org.hackillinois.android.model.Code
@@ -20,6 +21,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var attendeeLogin: Button
     private lateinit var staffLogin: Button
     private lateinit var recruiterLogin: Button
+
+    private val redirectUri: String = "https://hackillinois.org/auth/?isAndroid=1"
+    private val authUriTemplate: String = "https://api.hackillinois.org/auth/%s/?redirect_uri=%s"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,20 +58,18 @@ class LoginActivity : AppCompatActivity() {
                 var code = uri.getQueryParameter("code")
                 Log.e("LoginActivity", code)
                 var api = getAPI()
-                api.getJWT(getOAuthProvider(), "https://hackillinois.org/auth/?isAndroid=1", Code(code)).enqueue(object: Callback<JWT> {
+                api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object: Callback<JWT> {
                     override fun onFailure(call: Call<JWT>, t: Throwable) {
-                        Log.e("LoginActivity", "Failed to get JWT")
+                        Toast.makeText(applicationContext, "Failed to login", Toast.LENGTH_SHORT).show()
                     }
                     override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
                         response.body()?.token?.let {
-                            Log.e("LoginActivity", it)
                             api = getAPI(it)
                             storeJWT(it)
                             runOnUiThread {
                                 launchMainActivity()
                             }
                         }
-                        Log.e("LoginActivity", "Error logging in")
                     }
                 })
             }
@@ -82,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun redirectToOAuthProvider(provider: String) {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.setData(Uri.parse("https://api.hackillinois.org/auth/$provider/?redirect_uri=https://hackillinois.org/auth/?isAndroid=1"))
+        intent.setData(Uri.parse(authUriTemplate.format(provider, redirectUri)))
         setOAuthProvider(provider)
         startActivity(intent)
     }
@@ -94,10 +96,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun getOAuthProvider(): String {
-        applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")?.let {
-            return it
-        }
-        return ""
+        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")?: ""
     }
 
     fun storeJWT(jwt: String) {

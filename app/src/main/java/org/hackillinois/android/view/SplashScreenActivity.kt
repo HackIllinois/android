@@ -53,9 +53,6 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     fun loadJWT(): String {
-        applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("jwt", "")?.let {
-            return it
-        }
-        return ""
+        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("jwt", "")?: ""
     }
 }
