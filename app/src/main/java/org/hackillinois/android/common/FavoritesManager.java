@@ -4,15 +4,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.database.entity.Event;
 
 public class FavoritesManager {
 
-    public static void favoriteEvent(Context context, String eventName) {
-        setBoolean(context, eventName, true);
+    public static void favoriteEvent(Context context, Event event) {
+        setBoolean(context, event.getName(), true);
+        HackIllinoisNotificationManager.scheduleNotification(context, event);
     }
 
-    public static void unfavoriteEvent(Context context, String eventName) {
-        setBoolean(context, eventName, false);
+    public static void unfavoriteEvent(Context context, Event event) {
+        setBoolean(context, event.getName(), false);
+        HackIllinoisNotificationManager.cancelNotification(context, event);
     }
 
     public static boolean isFavorited(Context context, String eventName) {

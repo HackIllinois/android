@@ -21,18 +21,17 @@ class EventInfoActivity : AppCompatActivity() {
 
         val eventName = intent?.getStringExtra("event_name") ?: ""
 
-        favoriteEventImageView.setOnClickListener {
-            viewModel.changeFavoritedState()
-        }
-
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventName)
-        viewModel.isFavorited.observe(this, Observer { updateFavoritedUi(it) })
-        viewModel.event.observe(this, Observer { updateEventUi(it) })
-        viewModel.getIsFavorited(eventName)
+        viewModel.event.observe(this, Observer { updateEventUI(it) })
+
+        viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
+        favoriteButton.setOnClickListener {
+            viewModel.changeFavoritedState()
+        }
     }
 
-    private fun updateEventUi(event: Event?) {
+    private fun updateEventUI(event: Event?) {
         event?.let {
             eventTitle.text = it.name
             eventLocation.text = it.locationDescription
@@ -43,13 +42,9 @@ class EventInfoActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateFavoritedUi(isFavorited: Boolean?) {
+    private fun updateFavoritedUI(isFavorited: Boolean?) {
         isFavorited?.let {
-            if (isFavorited) {
-                favoriteEventImageView.setImageResource(R.drawable.ic_star_filled)
-            } else {
-                favoriteEventImageView.setImageResource(R.drawable.ic_star_border)
-            }
+            favoriteButton.isSelected = isFavorited
         }
     }
 }
