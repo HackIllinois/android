@@ -369,11 +369,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/eventsList"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@android:color/white" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/emptyLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/emptyView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Empty"
+                    />
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/eventsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white" />
+        </FrameLayout>
+
+
 
     </com.dinuscxj.refresh.RecyclerRefreshLayout>
 
