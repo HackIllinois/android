@@ -371,29 +371,36 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/emptyLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:background="@android:color/white">
 
                 <TextView
                     android:id="@+id/emptyView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Empty"
+                    app:fontFamily="@font/montserrat_bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:text="@string/home_empty_events"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     />
 
-            </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
 
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/eventsList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@android:color/white" />
         </FrameLayout>
 
