@@ -2,11 +2,11 @@ package org.hackillinois.android;
 
 import org.hackillinois.android.database.entity.Attendee;
 import org.hackillinois.android.database.entity.Event;
+import org.hackillinois.android.database.entity.User;
 import org.hackillinois.android.model.EventsList;
 import org.hackillinois.android.database.entity.QR;
 import org.hackillinois.android.model.JWT;
 import org.hackillinois.android.model.Code;
-import org.hackillinois.android.model.User;
 
 import java.util.List;
 
