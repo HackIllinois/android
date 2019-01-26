@@ -30,7 +30,12 @@ class EventRepository {
         return eventDao.getEvent(name)
     }
 
-    fun forceRefreshAll() {
+    fun forceFetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
+        forceRefreshAll()
+        return eventDao.getAllEventsHappeningAtTime(time / 1000L)
+    }
+
+    private fun forceRefreshAll() {
         thread {
             refreshAll()
         }
