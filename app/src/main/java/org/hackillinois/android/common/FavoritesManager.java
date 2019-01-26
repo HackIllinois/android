@@ -10,12 +10,12 @@ public class FavoritesManager {
 
     public static void favoriteEvent(Context context, Event event) {
         setBoolean(context, event.getName(), true);
-        HackIllinoisNotificationManager.scheduleNotification(context, event);
+        HackIllinoisNotificationManager.scheduleEventNotification(context, event);
     }
 
     public static void unfavoriteEvent(Context context, Event event) {
         setBoolean(context, event.getName(), false);
-        HackIllinoisNotificationManager.cancelNotification(context, event);
+        HackIllinoisNotificationManager.cancelEventNotification(context, event);
     }
 
     public static boolean isFavorited(Context context, String eventName) {
