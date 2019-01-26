@@ -35,6 +35,9 @@ public class ProfileFragment extends Fragment {
     private TextView universityTextView;
     private TextView majorTextView;
 
+    private TextView universityLabel;
+    private TextView majorLabel;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -63,9 +66,15 @@ public class ProfileFragment extends Fragment {
         viewModel.getAttendee().observe(this, new Observer<Attendee>() {
             public void onChanged(Attendee attendee) {
                 if (attendee != null) {
+                    universityLabel.setVisibility(View.VISIBLE);
+                    majorLabel.setVisibility(View.VISIBLE);
+
                     dietaryRestrictionsTextView.setText(attendee.getDietAsString());
                     universityTextView.setText(attendee.getSchool());
                     majorTextView.setText(attendee.getMajor());
+                } else {
+                    universityLabel.setVisibility(View.INVISIBLE);
+                    majorLabel.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -105,6 +114,9 @@ public class ProfileFragment extends Fragment {
         dietaryRestrictionsTextView = view.findViewById(R.id.dietaryRestrictions);
         universityTextView = view.findViewById(R.id.university);
         majorTextView = view.findViewById(R.id.major);
+
+        universityLabel = view.findViewById(R.id.universityTitle);
+        majorLabel = view.findViewById(R.id.majorTitle);
 
         return view;
     }
