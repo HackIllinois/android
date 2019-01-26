@@ -82,7 +82,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventsListA
     }
 
     private fun updateEventsList(events: List<Event>?) {
-        Log.d("HomeFragment", events?.toString())
         if (events?.isEmpty() == true) {
             eventsList.visibility = View.GONE
             emptyLayout.visibility = View.VISIBLE
