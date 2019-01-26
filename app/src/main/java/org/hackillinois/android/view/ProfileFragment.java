@@ -22,6 +22,7 @@ import com.google.zxing.common.BitMatrix;
 import org.hackillinois.android.R;
 import org.hackillinois.android.database.entity.Attendee;
 import org.hackillinois.android.database.entity.QR;
+import org.hackillinois.android.database.entity.User;
 import org.hackillinois.android.viewmodel.ProfileViewModel;
 
 import java.util.EnumMap;
@@ -51,10 +52,17 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        viewModel.getUser().observe(this, new Observer<User>() {
+            public void onChanged(User user) {
+                if (user != null) {
+                    nameTextView.setText(user.getFullName());
+                }
+            }
+        });
+
         viewModel.getAttendee().observe(this, new Observer<Attendee>() {
             public void onChanged(Attendee attendee) {
                 if (attendee != null) {
-                    nameTextView.setText(attendee.getFullName());
                     dietaryRestrictionsTextView.setText(attendee.getDietAsString());
                     universityTextView.setText(attendee.getSchool());
                     majorTextView.setText(attendee.getMajor());

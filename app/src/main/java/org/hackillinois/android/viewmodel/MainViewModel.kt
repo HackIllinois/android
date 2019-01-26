@@ -2,15 +2,15 @@ package org.hackillinois.android.viewmodel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import org.hackillinois.android.database.entity.Attendee
-import org.hackillinois.android.repository.AttendeeRepository
+import org.hackillinois.android.database.entity.User
+import org.hackillinois.android.repository.UserRepository
 
 class MainViewModel : ViewModel() {
 
-    private val attendeeRepository = AttendeeRepository.instance
-    lateinit var attendee: LiveData<Attendee>
+    private val userRepository = UserRepository.instance
+    lateinit var user: LiveData<User>
 
     fun init() {
-        attendee = attendeeRepository.fetchAttendee()
+        user = userRepository.fetchUser()
     }
 }
