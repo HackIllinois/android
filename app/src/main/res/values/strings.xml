@@ -30,4 +30,5 @@
     <string name="attendee_login">Attendee Login</string>
     <string name="staff_login">Staff Login</string>
     <string name="recruiter_login">Recruiter Login</string>
+    <string name="nav_logout">LOGOUT</string>
 </resources>

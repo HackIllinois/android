@@ -2,25 +2,34 @@ package org.hackillinois.android.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_nav_menu.*
 import kotlinx.android.synthetic.main.layout_nav_menu.view.*
+import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.hackillinois.android.database.Database
+import org.hackillinois.android.database.Database_Impl
 import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    private val defaultJWT: String = ""
 
     private lateinit var navViews: List<View>
     private lateinit var viewModel: MainViewModel
@@ -39,7 +48,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile)
+        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout)
         navViews.forEach { it.setOnClickListener(this) }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
@@ -59,6 +68,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         navViews.forEach { it.setBackgroundColor(Color.WHITE) }
+
+        if (v == navLogout) {
+            logout()
+            return
+        }
 
         val fragment = when (v) {
             navHome -> HomeFragment()
@@ -81,5 +95,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             navMenu.nameTextView.text = it.getFullName()
             navMenu.emailTextView.text = it.email
         }
+    }
+
+    private fun logout() {
+        clearJWT()
+
+        thread {
+            App.getDatabase().clearAllTables()
+
+            runOnUiThread {
+                val loginIntent = Intent(this, LoginActivity::class.java)
+                loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(loginIntent)
+                finish()
+            }
+        }
+    }
+
+    private fun clearJWT() {
+        val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
+        editor.putString("jwt", defaultJWT)
+        editor.apply()
     }
 }
