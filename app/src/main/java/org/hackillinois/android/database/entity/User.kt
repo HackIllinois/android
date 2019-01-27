@@ -6,7 +6,6 @@ import android.arch.persistence.room.TypeConverters
 import org.hackillinois.android.database.Converters
 
 @Entity(tableName = "users")
-@TypeConverters(Converters::class)
 data class User(
     var id: String,
     var firstName: String,
