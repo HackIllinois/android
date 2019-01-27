@@ -2,12 +2,12 @@ package org.hackillinois.android;
 
 import org.hackillinois.android.database.entity.Attendee;
 import org.hackillinois.android.database.entity.Event;
+import org.hackillinois.android.database.entity.User;
 import org.hackillinois.android.firebase.DeviceToken;
 import org.hackillinois.android.model.EventsList;
 import org.hackillinois.android.database.entity.QR;
 import org.hackillinois.android.model.JWT;
 import org.hackillinois.android.model.Code;
-import org.hackillinois.android.model.User;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public interface API {
 
     @GET("user/qr/")
     Call<QR> getQRCode();
-    
+
     @POST("auth/code/{provider}/")
     Call<JWT> getJWT(@Path("provider") String provider, @Query("redirect_uri") String redirect, @Body Code code);
 

@@ -22,6 +22,7 @@ import com.google.zxing.common.BitMatrix;
 import org.hackillinois.android.R;
 import org.hackillinois.android.database.entity.Attendee;
 import org.hackillinois.android.database.entity.QR;
+import org.hackillinois.android.database.entity.User;
 import org.hackillinois.android.viewmodel.ProfileViewModel;
 
 import java.util.EnumMap;
@@ -33,6 +34,9 @@ public class ProfileFragment extends Fragment {
     private TextView dietaryRestrictionsTextView;
     private TextView universityTextView;
     private TextView majorTextView;
+
+    private TextView universityLabel;
+    private TextView majorLabel;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +55,26 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        viewModel.getUser().observe(this, new Observer<User>() {
+            public void onChanged(User user) {
+                if (user != null) {
+                    nameTextView.setText(user.getFullName());
+                }
+            }
+        });
+
         viewModel.getAttendee().observe(this, new Observer<Attendee>() {
             public void onChanged(Attendee attendee) {
                 if (attendee != null) {
-                    nameTextView.setText(attendee.getFullName());
+                    universityLabel.setVisibility(View.VISIBLE);
+                    majorLabel.setVisibility(View.VISIBLE);
+
                     dietaryRestrictionsTextView.setText(attendee.getDietAsString());
                     universityTextView.setText(attendee.getSchool());
                     majorTextView.setText(attendee.getMajor());
+                } else {
+                    universityLabel.setVisibility(View.INVISIBLE);
+                    majorLabel.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -97,6 +114,9 @@ public class ProfileFragment extends Fragment {
         dietaryRestrictionsTextView = view.findViewById(R.id.dietaryRestrictions);
         universityTextView = view.findViewById(R.id.university);
         majorTextView = view.findViewById(R.id.major);
+
+        universityLabel = view.findViewById(R.id.universityTitle);
+        majorLabel = view.findViewById(R.id.majorTitle);
 
         return view;
     }

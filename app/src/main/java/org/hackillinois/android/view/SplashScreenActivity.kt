@@ -8,7 +8,7 @@ import android.util.Log
 import org.hackillinois.android.App
 
 import org.hackillinois.android.R
-import org.hackillinois.android.model.User
+import org.hackillinois.android.database.entity.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

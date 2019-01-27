@@ -5,15 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.widget.Button
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import org.hackillinois.android.App.getAPI
 import org.hackillinois.android.R
 import org.hackillinois.android.model.Code
 import org.hackillinois.android.model.JWT
-import org.hackillinois.android.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
