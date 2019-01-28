@@ -38,4 +38,25 @@
     <string name="tab_notifications">Notifications</string>
     <string name="query_stats">Query Stats</string>
     <string name="nav_admin">ADMIN TOOLS</string>
+    <string name="create">Create</string>
+    <string name="event_name">Event Name</string>
+    <string name="event_description">Event Description</string>
+    <string name="event_start">Event Start</string>
+    <string name="event_end">Event End</string>
+    <string name="event_sponsor">Event Sponsor</string>
+    <string name="event_location">Event Location</string>
+    <string name="event_type">Event Type</string>
+    <string name="event_room">Event Room</string>
+
+    <string-array name="event_location_options">
+        <item>Siebel Center</item>
+        <item>ECE Building</item>
+    </string-array>
+    <string-array name="event_type_options">
+        <item>MEAL</item>
+        <item>SPEAKER</item>
+        <item>WORKSHOP</item>
+        <item>MINIEVENT</item>
+        <item>OTHER</item>
+    </string-array>
 </resources>
