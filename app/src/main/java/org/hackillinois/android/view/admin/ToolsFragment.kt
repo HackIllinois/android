@@ -40,7 +40,7 @@ class ToolsFragment : Fragment() {
 
         when (sectionNumber) {
             0 -> view = createStatsView(inflater, container, savedInstanceState)
-            1 -> return null
+            1 -> view = createEventsView(inflater, container, savedInstanceState)
             else -> return null
         }
 
@@ -62,6 +62,13 @@ class ToolsFragment : Fragment() {
                 }
             }
         }
+
+        return view
+    }
+
+    fun createEventsView(inflater: LayoutInflater, container: ViewGroup?,
+                         savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_admin_events, container, false)
 
         return view
     }

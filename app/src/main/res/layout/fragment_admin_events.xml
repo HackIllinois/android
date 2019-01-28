@@ -5,159 +5,188 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/eventNameLabel"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/event_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp" >
 
-    <EditText
-        android:id="@+id/eventNameInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventNameLabel" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/eventDescriptionLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/event_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventNameInput" />
+            <TextView
+                android:id="@+id/eventNameLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/event_name"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/eventDescriptionInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventDescriptionLabel" />
+            <EditText
+                android:id="@+id/eventNameInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventNameLabel" />
 
-    <TextView
-        android:id="@+id/eventStartLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/event_start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventDescriptionInput" />
+            <TextView
+                android:id="@+id/eventDescriptionLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/event_description"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventNameInput" />
 
-    <EditText
-        android:id="@+id/eventStartInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventStartLabel" />
+            <EditText
+                android:id="@+id/eventDescriptionInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventDescriptionLabel" />
 
-    <TextView
-        android:id="@+id/eventEndLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/event_end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventStartInput" />
+            <TextView
+                android:id="@+id/eventStartLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/event_start"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventDescriptionInput" />
 
-    <EditText
-        android:id="@+id/eventEndInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventEndLabel" />
+            <EditText
+                android:id="@+id/eventStartInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventStartLabel" />
 
-    <TextView
-        android:id="@+id/eventSponsorLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/event_sponsor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventEndInput" />
+            <TextView
+                android:id="@+id/eventEndLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/event_end"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventStartInput" />
 
-    <EditText
-        android:id="@+id/eventSponsorInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventSponsorLabel" />
+            <EditText
+                android:id="@+id/eventEndInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventEndLabel" />
 
-    <TextView
-        android:id="@+id/eventLocationLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/event_location"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventSponsorInput" />
+            <TextView
+                android:id="@+id/eventSponsorLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/event_sponsor"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventEndInput" />
 
-    <Spinner
-        android:id="@+id/eventLocationInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventLocationLabel"
-        android:entries="@array/event_location_options" />
+            <EditText
+                android:id="@+id/eventSponsorInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventSponsorLabel" />
 
-    <TextView
-        android:id="@+id/eventLocationRoomLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/event_room"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventLocationInput" />
+            <TextView
+                android:id="@+id/eventLocationLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/event_location"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventSponsorInput" />
 
-    <EditText
-        android:id="@+id/eventLocationRoomInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventLocationRoomLabel" />
+            <Spinner
+                android:id="@+id/eventLocationInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventLocationLabel"
+                android:entries="@array/event_location_options" />
 
-    <TextView
-        android:id="@+id/eventTypeLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/event_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventLocationRoomInput" />
+            <TextView
+                android:id="@+id/eventLocationRoomLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/event_room"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventLocationInput" />
 
-    <Spinner
-        android:id="@+id/eventTypeInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventTypeLabel"
-        android:entries="@array/event_type_options" />
+            <EditText
+                android:id="@+id/eventLocationRoomInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventLocationRoomLabel" />
 
-    <Button
-        android:id="@+id/eventCreateBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/rounded_button_background"
-        android:textColor="@android:color/white"
-        android:text="@string/create"
-        app:fontFamily="@font/montserrat_regular"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent" />
+            <TextView
+                android:id="@+id/eventTypeLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/event_type"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventLocationRoomInput" />
+
+            <Spinner
+                android:id="@+id/eventTypeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventTypeLabel"
+                android:entries="@array/event_type_options" />
+
+            <Button
+                android:id="@+id/eventCreateBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginLeft="36dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/rounded_button_background"
+                android:textColor="@android:color/white"
+                android:text="@string/create"
+                app:fontFamily="@font/montserrat_regular"
+                app:layout_constraintTop_toBottomOf="@id/eventTypeInput"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
