@@ -12,6 +12,7 @@ import org.hackillinois.android.model.Code;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -45,4 +46,7 @@ public interface API {
 
     @GET("auth/roles/")
     Call<Roles> getRoles();
+
+    @GET("stat/")
+    Call<ResponseBody> getStats();
 }

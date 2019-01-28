@@ -5,7 +5,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_admin_stats.*
+import kotlinx.android.synthetic.main.fragment_admin_stats.view.*
+import org.hackillinois.android.App
 import org.hackillinois.android.R
+import kotlin.concurrent.thread
 
 class ToolsFragment : Fragment() {
     private val ARG_SECTION_NUM = "section_number"
@@ -33,9 +37,27 @@ class ToolsFragment : Fragment() {
         val sectionNumber = if (arguments == null) 0 else arguments!!.getInt(ARG_SECTION_NUM)
 
         when (sectionNumber) {
-            0 -> view = inflater.inflate(R.layout.fragment_admin_stats, container, false)
+            0 -> view = createStatsView(inflater, container, savedInstanceState)
             1 -> return null
             else -> return null
+        }
+
+        return view
+    }
+
+    fun createStatsView(inflater: LayoutInflater, container: ViewGroup?,
+                        savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_admin_stats, container, false)
+
+        view.queryBtn.setOnClickListener {
+            thread {
+                val response = App.getAPI().stats.execute()
+                response.body()?.let {
+                    activity?.runOnUiThread {
+                        statsText.text = it.string()
+                    }
+                }
+            }
         }
 
         return view
