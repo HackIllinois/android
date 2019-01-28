@@ -2,6 +2,7 @@ package org.hackillinois.android.view.admin
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import kotlinx.android.synthetic.main.fragment_admin_stats.*
 import kotlinx.android.synthetic.main.fragment_admin_stats.view.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.json.JSONObject
 import kotlin.concurrent.thread
 
 class ToolsFragment : Fragment() {
@@ -54,7 +56,8 @@ class ToolsFragment : Fragment() {
                 val response = App.getAPI().stats.execute()
                 response.body()?.let {
                     activity?.runOnUiThread {
-                        statsText.text = it.string()
+                        val data = JSONObject(it.string()).toString(4)
+                        statsText.text = data
                     }
                 }
             }
