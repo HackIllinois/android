@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -18,11 +17,9 @@ import kotlinx.android.synthetic.main.layout_nav_menu.*
 import kotlinx.android.synthetic.main.layout_nav_menu.view.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
-import org.hackillinois.android.database.Database
-import org.hackillinois.android.database.Database_Impl
-import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
+import org.hackillinois.android.view.admin.AdminFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
