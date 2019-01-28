@@ -2,6 +2,7 @@ package org.hackillinois.android;
 
 import org.hackillinois.android.database.entity.Attendee;
 import org.hackillinois.android.database.entity.Event;
+import org.hackillinois.android.database.entity.Roles;
 import org.hackillinois.android.database.entity.User;
 import org.hackillinois.android.firebase.DeviceToken;
 import org.hackillinois.android.model.EventsList;
@@ -41,4 +42,7 @@ public interface API {
 
     @POST("notifications/device/")
     Call<DeviceToken> sendUserToken(@Body DeviceToken token);
+
+    @GET("auth/roles/")
+    Call<Roles> getRoles();
 }

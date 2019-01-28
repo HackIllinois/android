@@ -21,6 +21,7 @@ import org.hackillinois.android.R
 import org.hackillinois.android.database.Database
 import org.hackillinois.android.database.Database_Impl
 import org.hackillinois.android.database.entity.Attendee
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.init()
         viewModel.user.observe(this, Observer { updateUserInfo(it) })
+        viewModel.roles.observe(this, Observer { updateRoles(it) })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -94,6 +96,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         user?.let {
             navMenu.nameTextView.text = it.getFullName()
             navMenu.emailTextView.text = it.email
+        }
+    }
+
+    private fun updateRoles(roles: Roles?) {
+        roles?.let {
+            // Modify the available options in the nav menu
         }
     }
 
