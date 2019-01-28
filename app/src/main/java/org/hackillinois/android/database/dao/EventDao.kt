@@ -10,6 +10,9 @@ interface EventDao {
     @Query("SELECT * FROM events")
     fun getAllEvents(): LiveData<List<Event>>
 
+    @Query("SELECT * FROM events")
+    fun getAllEventsList(): List<Event>
+
     @Query("SELECT * FROM events WHERE name LIKE :name LIMIT 1")
     fun getEvent(name: String): LiveData<Event>
 
