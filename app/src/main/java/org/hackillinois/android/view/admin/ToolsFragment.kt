@@ -45,17 +45,13 @@ class ToolsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view: View?
-
         val sectionNumber = if (arguments == null) 0 else arguments!!.getInt(ARG_SECTION_NUM)
 
-        when (sectionNumber) {
-            0 -> view = createStatsView(inflater, container, savedInstanceState)
-            1 -> view = createEventsView(inflater, container, savedInstanceState)
-            else -> view = createNotifcationsView(inflater, container, savedInstanceState)
+        return when (sectionNumber) {
+            0 -> createStatsView(inflater, container, savedInstanceState)
+            1 -> createEventsView(inflater, container, savedInstanceState)
+            else -> createNotifcationsView(inflater, container, savedInstanceState)
         }
-
-        return view
     }
 
     fun createStatsView(inflater: LayoutInflater, container: ViewGroup?,

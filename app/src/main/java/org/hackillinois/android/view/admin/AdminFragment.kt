@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_admin.*
+import kotlinx.android.synthetic.main.fragment_admin.view.*
 import org.hackillinois.android.R
 
 class AdminFragment : Fragment() {
@@ -16,13 +18,11 @@ class AdminFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_admin, container, false)
 
-        val viewPager = view.findViewById<ViewPager>(R.id.container)
-        val tabLayout = view.findViewById<TabLayout>(R.id.tabs)
         val sectionsPagerAdapter = AdminFragment().SectionsPagerAdapter(childFragmentManager)
 
-        viewPager.adapter = sectionsPagerAdapter
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-        tabLayout.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(viewPager))
+        view.adminContainer.adapter = sectionsPagerAdapter
+        view.adminContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.tabs))
+        view.tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.adminContainer))
 
         return view
     }
@@ -33,8 +33,6 @@ class AdminFragment : Fragment() {
             return ToolsFragment.newInstance(position)
         }
 
-        override fun getCount(): Int {
-            return 3
-        }
+        override fun getCount() = 3
     }
 }
