@@ -33,4 +33,9 @@
     <string name="staff_login">Staff Login</string>
     <string name="recruiter_login">Recruiter Login</string>
     <string name="nav_logout">LOGOUT</string>
+    <string name="tab_stats">Stats</string>
+    <string name="tab_events">Events</string>
+    <string name="tab_notifications">Notifications</string>
+    <string name="query_stats">Query Stats</string>
+    <string name="nav_admin">ADMIN TOOLS</string>
 </resources>

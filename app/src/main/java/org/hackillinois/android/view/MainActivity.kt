@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout)
+        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout, navAdmin)
         navViews.forEach { it.setOnClickListener(this) }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             navOutdoorMaps -> OutdoorMapsFragment()
             navIndoorMaps -> IndoorMapsFragment()
             navProfile -> ProfileFragment()
+            navAdmin -> AdminFragment()
             else -> return
         }
 
@@ -102,6 +103,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun updateRoles(roles: Roles?) {
         roles?.let {
             // Modify the available options in the nav menu
+            navAdmin.visibility = if (it.roles.contains("Admin")) View.VISIBLE else View.INVISIBLE
         }
     }
 
