@@ -49,6 +49,7 @@
     <string name="event_room">Event Room</string>
     <string name="notification_topic">Notification Topic</string>
     <string name="notification_content">Notification Content</string>
+    <string name="notification_title">Notification Title</string>
 
     <string-array name="event_location_options">
         <item>Siebel Center</item>

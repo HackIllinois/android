@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_admin_events.*
 import kotlinx.android.synthetic.main.fragment_admin_events.view.*
@@ -14,10 +15,7 @@ import kotlinx.android.synthetic.main.fragment_admin_stats.*
 import kotlinx.android.synthetic.main.fragment_admin_stats.view.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
-import org.hackillinois.android.model.EceBuilding
-import org.hackillinois.android.model.Event
-import org.hackillinois.android.model.EventLocation
-import org.hackillinois.android.model.SiebelCenter
+import org.hackillinois.android.model.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -130,8 +128,42 @@ class ToolsFragment : Fragment() {
                          savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_admin_notifications, container, false)
 
+        val api = App.getAPI()
+
+        api.notificationTopics.enqueue(object: Callback<NotificationTopics> {
+            override fun onFailure(call: Call<NotificationTopics>, t: Throwable) {
+                Toast.makeText(activity?.applicationContext, "Failed to retrieve notification topics", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<NotificationTopics>, response: Response<NotificationTopics>) {
+                response.body()?.let {
+                    val adapter = ArrayAdapter<String>(activity?.applicationContext!!, android.R.layout.simple_spinner_dropdown_item, it.topics)
+                    notificationTopicInput.adapter = adapter
+                }
+            }
+        })
+
         view.notificationCreateBtn.setOnClickListener {
-            // Create notification
+            val topic = notificationTopicInput.selectedItem.toString()
+            val title = notificationTitleInput.text.toString()
+            val body = notificationContentInput.text.toString()
+
+            val notification = Notification(title, body)
+
+            api.createNotification(topic, notification).enqueue(object: Callback<Notification> {
+                override fun onFailure(call: Call<Notification>, t: Throwable) {
+                    Toast.makeText(activity?.applicationContext, "Failed to create notification", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onResponse(call: Call<Notification>, response: Response<Notification>) {
+                    if (response.code() == 200) {
+                        Toast.makeText(activity?.applicationContext, "Created notification", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(activity?.applicationContext, "Failed to create notification", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            })
         }
 
         return view

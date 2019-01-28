@@ -9,6 +9,8 @@ import org.hackillinois.android.model.EventsList;
 import org.hackillinois.android.database.entity.QR;
 import org.hackillinois.android.model.JWT;
 import org.hackillinois.android.model.Code;
+import org.hackillinois.android.model.Notification;
+import org.hackillinois.android.model.NotificationTopics;
 
 import java.util.List;
 
@@ -52,4 +54,10 @@ public interface API {
 
     @POST("event/")
     Call<org.hackillinois.android.model.Event> createEvent(@Body org.hackillinois.android.model.Event event);
+
+    @GET("notifications/")
+    Call<NotificationTopics> getNotificationTopics();
+
+    @POST("notifications/{topic}/")
+    Call<Notification> createNotification(@Path("topic") String topic, @Body Notification notification);
 }
