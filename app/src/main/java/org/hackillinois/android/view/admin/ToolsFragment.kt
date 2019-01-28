@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_admin_events.*
 import kotlinx.android.synthetic.main.fragment_admin_events.view.*
+import kotlinx.android.synthetic.main.fragment_admin_notifications.*
+import kotlinx.android.synthetic.main.fragment_admin_notifications.view.*
 import kotlinx.android.synthetic.main.fragment_admin_stats.*
 import kotlinx.android.synthetic.main.fragment_admin_stats.view.*
 import org.hackillinois.android.App
@@ -52,7 +54,7 @@ class ToolsFragment : Fragment() {
         when (sectionNumber) {
             0 -> view = createStatsView(inflater, container, savedInstanceState)
             1 -> view = createEventsView(inflater, container, savedInstanceState)
-            else -> return null
+            else -> view = createNotifcationsView(inflater, container, savedInstanceState)
         }
 
         return view
@@ -119,6 +121,17 @@ class ToolsFragment : Fragment() {
             } catch (e: ParseException) {
                 Toast.makeText(activity?.applicationContext, "Failed to parse date time", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        return view
+    }
+
+    fun createNotifcationsView(inflater: LayoutInflater, container: ViewGroup?,
+                         savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_admin_notifications, container, false)
+
+        view.notificationCreateBtn.setOnClickListener {
+            // Create notification
         }
 
         return view
