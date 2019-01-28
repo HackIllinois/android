@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,6 +82,14 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventsListA
     }
 
     private fun updateEventsList(events: List<Event>?) {
+        if (events?.isEmpty() == true) {
+            eventsList.visibility = View.GONE
+            emptyLayout.visibility = View.VISIBLE
+        } else {
+            eventsList.visibility = View.VISIBLE
+            emptyLayout.visibility = View.GONE
+        }
+
         events?.let {
             eventsAdapter.updateEventsList(it)
         }

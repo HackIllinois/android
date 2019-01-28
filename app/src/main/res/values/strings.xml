@@ -10,6 +10,8 @@
     <string name="nav_indoor">INDOOR MAPS</string>
     <string name="nav_profile">PROFILE</string>
 
+    <string name="home_empty_events">Please Check Back Later</string>
+
     <string name="tab_friday">FRIDAY</string>
     <string name="tab_saturday">SATURDAY</string>
     <string name="tab_sunday">SUNDAY</string>
