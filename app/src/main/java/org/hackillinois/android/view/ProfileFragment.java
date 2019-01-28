@@ -31,12 +31,12 @@ import java.util.Map;
 public class ProfileFragment extends Fragment {
     private ImageView qrImageView;
     private TextView nameTextView;
-    private TextView dietaryRestrictionsTextView;
-    private TextView universityTextView;
-    private TextView majorTextView;
+    private TextView dietTextView;
 
     private TextView universityLabel;
+    private TextView universityTextView;
     private TextView majorLabel;
+    private TextView majorTextView;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,16 +66,21 @@ public class ProfileFragment extends Fragment {
         viewModel.getAttendee().observe(this, new Observer<Attendee>() {
             public void onChanged(Attendee attendee) {
                 if (attendee != null) {
-                    universityLabel.setVisibility(View.VISIBLE);
-                    majorLabel.setVisibility(View.VISIBLE);
-
-                    dietaryRestrictionsTextView.setText(attendee.getDietAsString());
+                    String diet = attendee.getDietAsString();
+                    if (diet != null) {
+                        dietTextView.setText(diet);
+                        dietTextView.setVisibility(View.VISIBLE);
+                    } else {
+                        dietTextView.setVisibility(View.INVISIBLE);
+                    }
                     universityTextView.setText(attendee.getSchool());
                     majorTextView.setText(attendee.getMajor());
-                } else {
-                    universityLabel.setVisibility(View.INVISIBLE);
-                    majorLabel.setVisibility(View.INVISIBLE);
                 }
+
+                int visibility = (attendee != null) ? View.VISIBLE : View.INVISIBLE;
+                dietTextView.setVisibility(visibility);
+                universityLabel.setVisibility(visibility);
+                majorLabel.setVisibility(visibility);
             }
         });
     }
@@ -111,12 +116,12 @@ public class ProfileFragment extends Fragment {
 
         qrImageView = view.findViewById(R.id.qr);
         nameTextView = view.findViewById(R.id.name);
-        dietaryRestrictionsTextView = view.findViewById(R.id.dietaryRestrictions);
-        universityTextView = view.findViewById(R.id.university);
-        majorTextView = view.findViewById(R.id.major);
+        dietTextView = view.findViewById(R.id.dietaryRestrictions);
 
         universityLabel = view.findViewById(R.id.universityTitle);
+        universityTextView = view.findViewById(R.id.university);
         majorLabel = view.findViewById(R.id.majorTitle);
+        majorTextView = view.findViewById(R.id.major);
 
         return view;
     }

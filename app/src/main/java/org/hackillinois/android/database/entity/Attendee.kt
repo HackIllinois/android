@@ -20,11 +20,9 @@ data class Attendee(
     // TODO: fix like QR on login
     @PrimaryKey var key = 1
 
-    fun getFullName() = String.format("%s %s", firstName, lastName)
-
-    fun getDietAsString(): String {
+    fun getDietAsString(): String? {
         if (diet.isEmpty()) {
-            return "No Dietary Restrictions"
+            return null
         }
 
         var list = diet[0]
