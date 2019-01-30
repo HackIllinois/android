@@ -70,7 +70,7 @@ class AdminViewModel : ViewModel() {
 
     fun createNotification(topic: String, title: String, body: String) {
         val notification = Notification(title, body)
-        
+
         App.getAPI().createNotification(topic, notification).enqueue(object: Callback<Notification> {
             override fun onFailure(call: Call<Notification>, t: Throwable) {
                 notificationCreated.postValue(false)
