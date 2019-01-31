@@ -36,8 +36,8 @@ class AdminViewModel : ViewModel() {
                     eventRoom: String, startTime: Long, endTime: Long, locationName: String) {
         var location: EventLocation? = null
         when(locationName) {
-            "Siebel Center" -> location = EventLocation(SiebelCenter.description + " " + eventRoom, SiebelCenter.latitude, SiebelCenter.longitude)
-            "ECE Building" -> location = EventLocation(EceBuilding.description + " " + eventRoom, EceBuilding.latitude, EceBuilding.longitude)
+            "Siebel Center" -> location = EventLocation("${SiebelCenter.description} $eventRoom", SiebelCenter.latitude, SiebelCenter.longitude)
+            "ECE Building" -> location = EventLocation("${EceBuilding.description} $eventRoom", EceBuilding.latitude, EceBuilding.longitude)
         }
 
         location?.let {
