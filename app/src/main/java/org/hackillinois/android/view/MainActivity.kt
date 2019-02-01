@@ -133,6 +133,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (token != defaultToken) {
             thread {
                 App.getAPI().sendUserToken(DeviceToken(token)).execute()
+
+                val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
+                editor.putString("firebaseToken", defaultToken)
+                editor.apply()
             }
         }
     }
