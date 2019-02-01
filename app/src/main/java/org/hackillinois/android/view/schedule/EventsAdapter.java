@@ -71,7 +71,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         holder.eventNameTextView.setText(event.getName());
         holder.eventDescriptionTextView.setText(event.getDescription());
-        holder.eventLocationTextView.setText(event.getLocationDescription());
+        holder.eventLocationTextView.setText(event.getLocationDescriptionsAsString());
 
         holder.starImageButton.setSelected(FavoritesManager.isFavorited(context, event.getName()));
         holder.starImageButton.setOnClickListener(new View.OnClickListener() {

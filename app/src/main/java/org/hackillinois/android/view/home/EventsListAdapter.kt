@@ -20,7 +20,7 @@ class EventsListAdapter(var eventsList: List<Event>, private val eventClickListe
         val event = eventsList[position]
         holder.view.apply {
             eventName.text = event.name
-            location.text = event.locationDescription
+            location.text = event.getLocationDescriptionsAsString()
         }
 
         holder.view.setOnClickListener {
