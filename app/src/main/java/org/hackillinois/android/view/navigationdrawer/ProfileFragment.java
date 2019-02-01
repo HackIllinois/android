@@ -22,6 +22,7 @@ import com.google.zxing.common.BitMatrix;
 import org.hackillinois.android.R;
 import org.hackillinois.android.database.entity.Attendee;
 import org.hackillinois.android.database.entity.QR;
+import org.hackillinois.android.database.entity.User;
 import org.hackillinois.android.viewmodel.ProfileViewModel;
 
 import java.util.EnumMap;
@@ -30,8 +31,11 @@ import java.util.Map;
 public class ProfileFragment extends Fragment {
     private ImageView qrImageView;
     private TextView nameTextView;
-    private TextView dietaryRestrictionsTextView;
+    private TextView dietTextView;
+
+    private TextView universityLabel;
     private TextView universityTextView;
+    private TextView majorLabel;
     private TextView majorTextView;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -51,14 +55,32 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        viewModel.getUser().observe(this, new Observer<User>() {
+            public void onChanged(User user) {
+                if (user != null) {
+                    nameTextView.setText(user.getFullName());
+                }
+            }
+        });
+
         viewModel.getAttendee().observe(this, new Observer<Attendee>() {
             public void onChanged(Attendee attendee) {
                 if (attendee != null) {
-                    nameTextView.setText(attendee.getFullName());
-                    dietaryRestrictionsTextView.setText(attendee.getDietAsString());
+                    String diet = attendee.getDietAsString();
+                    if (diet != null) {
+                        dietTextView.setText(diet);
+                        dietTextView.setVisibility(View.VISIBLE);
+                    } else {
+                        dietTextView.setVisibility(View.INVISIBLE);
+                    }
                     universityTextView.setText(attendee.getSchool());
                     majorTextView.setText(attendee.getMajor());
                 }
+
+                int visibility = (attendee != null) ? View.VISIBLE : View.INVISIBLE;
+                dietTextView.setVisibility(visibility);
+                universityLabel.setVisibility(visibility);
+                majorLabel.setVisibility(visibility);
             }
         });
     }
@@ -94,8 +116,11 @@ public class ProfileFragment extends Fragment {
 
         qrImageView = view.findViewById(R.id.qr);
         nameTextView = view.findViewById(R.id.name);
-        dietaryRestrictionsTextView = view.findViewById(R.id.dietaryRestrictions);
+        dietTextView = view.findViewById(R.id.dietaryRestrictions);
+
+        universityLabel = view.findViewById(R.id.universityTitle);
         universityTextView = view.findViewById(R.id.university);
+        majorLabel = view.findViewById(R.id.majorTitle);
         majorTextView = view.findViewById(R.id.major);
 
         return view;

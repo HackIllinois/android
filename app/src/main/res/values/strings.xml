@@ -10,6 +10,8 @@
     <string name="nav_indoor">INDOOR MAPS</string>
     <string name="nav_profile">PROFILE</string>
 
+    <string name="home_empty_events">Please Check Back Later</string>
+
     <string name="tab_friday">FRIDAY</string>
     <string name="tab_saturday">SATURDAY</string>
     <string name="tab_sunday">SUNDAY</string>
@@ -26,7 +28,38 @@
     <string name="event_info_directions">GET DIRECTIONS</string>
 
     <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
+    <string name="authorization_pref_file_key">org.hackillinois.android.authorization</string>
+    <string name="attendee_login">Attendee Login</string>
+    <string name="staff_login">Staff Login</string>
+    <string name="recruiter_login">Recruiter Login</string>
+    <string name="nav_logout">LOGOUT</string>
+    <string name="tab_stats">Stats</string>
+    <string name="tab_events">Events</string>
+    <string name="tab_notifications">Notifications</string>
+    <string name="query_stats">Query Stats</string>
+    <string name="nav_admin">ADMIN TOOLS</string>
+    <string name="create">Create</string>
+    <string name="event_name">Event Name</string>
+    <string name="event_description">Event Description</string>
+    <string name="event_start">Event Start</string>
+    <string name="event_end">Event End</string>
+    <string name="event_sponsor">Event Sponsor</string>
+    <string name="event_location">Event Location</string>
+    <string name="event_type">Event Type</string>
+    <string name="event_room">Event Room</string>
+    <string name="notification_topic">Notification Topic</string>
+    <string name="notification_content">Notification Content</string>
+    <string name="notification_title">Notification Title</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="event_location_options">
+        <item>Siebel Center</item>
+        <item>ECE Building</item>
+    </string-array>
+    <string-array name="event_type_options">
+        <item>MEAL</item>
+        <item>SPEAKER</item>
+        <item>WORKSHOP</item>
+        <item>MINIEVENT</item>
+        <item>OTHER</item>
+    </string-array>
 </resources>

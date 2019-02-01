@@ -30,7 +30,12 @@ class EventRepository {
         return eventDao.getEvent(name)
     }
 
-    fun forceRefreshAll() {
+    fun forceFetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
+        forceRefreshAll()
+        return eventDao.getAllEventsHappeningAtTime(time / 1000L)
+    }
+
+    private fun forceRefreshAll() {
         thread {
             refreshAll()
         }
@@ -43,7 +48,7 @@ class EventRepository {
      * replace them with a fresh set from the API
      */
     private fun attemptToRefreshAll() {
-        thread(name = "Refresh All Thread") {
+        thread {
             val timeRefreshed = eventDao.getTimeOfOldestRefreshedEvent() ?: 0L
 
             // is it time to refresh?
@@ -61,10 +66,11 @@ class EventRepository {
                 if (response.isSuccessful) {
                     val eventsList = it.body()
                     val newRefreshed = System.currentTimeMillis()
-                    eventDao.clearTable()
-                    eventsList?.events?.forEach {
-                        it.lastRefreshed = newRefreshed
-                        eventDao.insert(it)
+                    eventsList?.events?.forEach { event ->
+                        event.lastRefreshed = newRefreshed
+                    }
+                    eventsList?.events?.let { events ->
+                        eventDao.clearTableAndInsertEvents(events)
                     }
                 }
             }
