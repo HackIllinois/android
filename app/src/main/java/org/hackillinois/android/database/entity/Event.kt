@@ -16,11 +16,7 @@ data class Event(
     val endTime: Long,
     val locations: List<EventLocation>
 ) : BaseEntity() {
-
-    init {
-        Log.d("Event", locations.toString())
-    }
-
+    
     fun getStartTimeMs() = startTime * 1000L
     fun getStartTimeOfDay(): String {
         val eventStartTime = Calendar.getInstance().apply {
