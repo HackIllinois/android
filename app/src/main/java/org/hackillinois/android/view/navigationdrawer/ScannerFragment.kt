@@ -1,9 +1,11 @@
 package org.hackillinois.android.view.navigationdrawer
 
+import android.Manifest
 import android.R
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -28,16 +30,20 @@ class ScannerFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ScannerViewModel::class.java)
         viewModel.eventsListLiveData.observe(this, Observer { updateEventList(it) })
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-//                && activity!!.checkSelfPermission(Manifest.permission.CAMERA)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            requestPermissions(arrayOf(Manifest.permission.CAMERA),
-//                    PERMISSIONS_REQUEST_ACCESS_CAMERA)
-//        } else {
-//            qrScanner.decodeContinuous(onQrCodeScan)
-//        }
+        // Ensure the Camera permission is granted
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && activity!!.checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.CAMERA),
+                    PERMISSIONS_REQUEST_ACCESS_CAMERA)
+        } else {
+            qrScanner.decodeContinuous(onQrCodeScan)
+        }
     }
 
+    /**
+     * Event handler on successful scan.
+     */
     private var onQrCodeScan: BarcodeCallback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
             // Prevent duplicate scans
@@ -46,6 +52,14 @@ class ScannerFragment : Fragment() {
             }
 
             lastScannedUser = result.text
+
+            TODO("Get selected event from the Spinner")
+
+            TODO("Make API call to add user to event, differentiating between check-in" +
+                    "and other events." +
+                    "On successful API request, show the toast." +
+                    "QR scanner is set-up to continuously scan QRs, but can be made to wait until" +
+                    "after the last network request was completed, before attempting to scan.")
 
             Toast.makeText(context, lastScannedUser, Toast.LENGTH_LONG)
         }
@@ -71,6 +85,11 @@ class ScannerFragment : Fragment() {
         return inflater.inflate(org.hackillinois.android.R.layout.fragment_scanner, container, false)
     }
 
+    /**
+     * Takes a list of events, grabs all of the name fields, creates an adapter with the list of
+     * names, and uses that to populate the Spinner.
+     * @param eventList the list of events from the latest publish event (local DB / API call)
+     */
     private fun updateEventList(eventList: List<org.hackillinois.android.database.entity.Event>?) {
         var eventNameList: List<String> = eventList!!.map { it.name }
 
@@ -81,19 +100,11 @@ class ScannerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        resume()
+        qrScanner.resume()
     }
 
     override fun onPause() {
         super.onPause()
-        pause()
-    }
-
-    fun pause() {
         qrScanner.pause()
-    }
-
-    fun resume() {
-        qrScanner.resume()
     }
 }
