@@ -19,6 +19,7 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
+import org.hackillinois.android.firebase.DeviceToken
 import org.hackillinois.android.view.admin.AdminFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
@@ -27,7 +28,7 @@ import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private val defaultJWT: String = ""
+    private val defaultToken: String = ""
 
     private lateinit var navViews: List<View>
     private lateinit var viewModel: MainViewModel
@@ -53,6 +54,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         viewModel.init()
         viewModel.user.observe(this, Observer { updateUserInfo(it) })
         viewModel.roles.observe(this, Observer { updateRoles(it) })
+
+        updateDeviceToken()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -121,7 +124,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun clearJWT() {
         val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
-        editor.putString("jwt", defaultJWT)
+        editor.putString("jwt", defaultToken)
         editor.apply()
+    }
+
+    private fun updateDeviceToken() {
+        val token = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("firebaseToken", defaultToken)?: defaultToken
+        if (token != defaultToken) {
+            thread {
+                App.getAPI().sendUserToken(DeviceToken(token)).execute()
+            }
+        }
     }
 }

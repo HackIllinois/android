@@ -20,19 +20,26 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val jwt = loadJWT();
+        val jwt = loadJWT()
 
         if(jwt != defaultJWT) {
             val api = App.getAPI(jwt)
             api.user.enqueue(object: Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     Log.e("LoginActivity", "Failed to check is jwt is valid")
+                    runOnUiThread {
+                        launchLoginActivity()
+                    }
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if(response.code() == 200) {
                         runOnUiThread {
                             launchMainActivity()
+                        }
+                    } else {
+                        runOnUiThread {
+                            launchLoginActivity()
                         }
                     }
                 }
