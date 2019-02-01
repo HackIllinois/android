@@ -112,7 +112,7 @@
         app:fontFamily="@font/montserrat_regular" />
 
     <TextView
-        android:id="@+id/navLogout"
+        android:id="@+id/navScanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/navProfile"
@@ -122,16 +122,17 @@
         android:paddingLeft="7dp"
         android:paddingTop="9dp"
         android:paddingBottom="9dp"
-        android:text="@string/nav_logout"
+        android:text="@string/nav_scanner"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
+        android:visibility="visible"
         app:fontFamily="@font/montserrat_regular" />
 
     <TextView
         android:id="@+id/navAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/navLogout"
+        android:layout_below="@id/navScanner"
         android:layout_marginLeft="9dp"
         android:layout_marginTop="14dp"
         android:layout_marginRight="8dp"
@@ -141,7 +142,23 @@
         android:text="@string/nav_admin"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
-        android:visibility="invisible"
+        android:visibility="gone"
+        app:fontFamily="@font/montserrat_regular" />
+
+    <TextView
+        android:id="@+id/navLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/navAdmin"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="8dp"
+        android:paddingLeft="7dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        android:text="@string/nav_logout"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
         app:fontFamily="@font/montserrat_regular" />
 
 </RelativeLayout>

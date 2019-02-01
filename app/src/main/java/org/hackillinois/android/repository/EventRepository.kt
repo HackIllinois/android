@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData
 import android.util.Log
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
-import java.lang.Exception
 import kotlin.concurrent.thread
 
 class EventRepository {
@@ -33,6 +32,11 @@ class EventRepository {
     fun forceFetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
         forceRefreshAll()
         return eventDao.getAllEventsHappeningAtTime(time / 1000L)
+    }
+
+    fun fetchAllEvents(): LiveData<List<Event>> {
+        attemptToRefreshAll()
+        return eventDao.getAllEvents()
     }
 
     private fun forceRefreshAll() {

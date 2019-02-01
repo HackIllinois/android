@@ -20,12 +20,13 @@ import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.view.admin.AdminFragment
-import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.navigationdrawer.IndoorMapsFragment
 import org.hackillinois.android.view.navigationdrawer.OutdoorMapsFragment
 import org.hackillinois.android.view.navigationdrawer.ProfileFragment
+import org.hackillinois.android.view.navigationdrawer.ScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
+import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout, navAdmin)
+        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout, navAdmin, navScanner)
         navViews.forEach { it.setOnClickListener(this) }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
@@ -83,6 +84,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             navIndoorMaps -> IndoorMapsFragment()
             navProfile -> ProfileFragment()
             navAdmin -> AdminFragment()
+            navScanner -> ScannerFragment()
             else -> return
         }
 
