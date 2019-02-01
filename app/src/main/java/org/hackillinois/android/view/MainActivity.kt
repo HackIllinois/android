@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -18,10 +17,9 @@ import kotlinx.android.synthetic.main.layout_nav_menu.*
 import kotlinx.android.synthetic.main.layout_nav_menu.view.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
-import org.hackillinois.android.database.Database
-import org.hackillinois.android.database.Database_Impl
-import org.hackillinois.android.database.entity.Attendee
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
+import org.hackillinois.android.view.admin.AdminFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
@@ -48,12 +46,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout)
+        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout, navAdmin)
         navViews.forEach { it.setOnClickListener(this) }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.init()
         viewModel.user.observe(this, Observer { updateUserInfo(it) })
+        viewModel.roles.observe(this, Observer { updateRoles(it) })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -80,6 +79,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             navOutdoorMaps -> OutdoorMapsFragment()
             navIndoorMaps -> IndoorMapsFragment()
             navProfile -> ProfileFragment()
+            navAdmin -> AdminFragment()
             else -> return
         }
 
@@ -94,6 +94,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         user?.let {
             navMenu.nameTextView.text = it.getFullName()
             navMenu.emailTextView.text = it.email
+        }
+    }
+
+    private fun updateRoles(roles: Roles?) {
+        roles?.let {
+            // Modify the available options in the nav menu
+            navAdmin.visibility = if (it.roles.contains("Admin")) View.VISIBLE else View.INVISIBLE
         }
     }
 

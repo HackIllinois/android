@@ -2,19 +2,14 @@ package org.hackillinois.android.database
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
-import org.hackillinois.android.database.dao.AttendeeDao
-import org.hackillinois.android.database.dao.EventDao
-import org.hackillinois.android.database.dao.QRDao
-import org.hackillinois.android.database.dao.UserDao
-import org.hackillinois.android.database.entity.Attendee
-import org.hackillinois.android.database.entity.User
-import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.QR
+import org.hackillinois.android.database.dao.*
+import org.hackillinois.android.database.entity.*
 
-@Database(entities = [QR::class, Attendee::class, User::class, Event::class], version = 4)
+@Database(entities = [QR::class, Attendee::class, User::class, Event::class, Roles::class], version = 5)
 abstract class Database : RoomDatabase() {
     abstract fun qrDao(): QRDao
     abstract fun attendeeDao(): AttendeeDao
     abstract fun userDao(): UserDao
     abstract fun eventDao(): EventDao
+    abstract fun rolesDao(): RolesDao
 }
