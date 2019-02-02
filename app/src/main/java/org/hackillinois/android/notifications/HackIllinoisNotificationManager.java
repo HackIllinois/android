@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 
 import org.hackillinois.android.R;
@@ -65,6 +66,7 @@ public class HackIllinoisNotificationManager {
         builder.setContentTitle(title);
         builder.setContentText(body);
         builder.setSmallIcon(R.drawable.logo);
+        builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.logo));
 
         // In Oreo and above, every notification must be associated with a notification channel
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
