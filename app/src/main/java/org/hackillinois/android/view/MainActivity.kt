@@ -19,6 +19,7 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
+import org.hackillinois.android.firebase.DeviceToken
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.navigationdrawer.IndoorMapsFragment
 import org.hackillinois.android.view.navigationdrawer.OutdoorMapsFragment
@@ -142,7 +143,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun updateDeviceToken() {
-        val token = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("firebaseToken", defaultToken)?: defaultToken
+        val token = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("firebaseToken", defaultToken)
+                ?: defaultToken
         if (token != defaultToken) {
             thread {
                 App.getAPI().sendUserToken(DeviceToken(token)).execute()
