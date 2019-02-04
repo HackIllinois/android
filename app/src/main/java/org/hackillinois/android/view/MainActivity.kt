@@ -102,10 +102,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    /**
+     * Modify the available options in the nav menu
+     * Staff: Can access the scanner
+     * Admins: Can access scanner and admin tools
+     */
     private fun updateRoles(roles: Roles?) {
-        roles?.let {
-            // Modify the available options in the nav menu
-            navAdmin.visibility = if (it.roles.contains("Admin")) View.VISIBLE else View.INVISIBLE
+        var listOfRoles: List<String>? = roles?.roles ?: return
+        if (listOfRoles!!.contains("Admin")) {
+            navAdmin.visibility = View.VISIBLE
+            navScanner.visibility = View.VISIBLE
+        }
+        if (listOfRoles!!.contains("Staff")) {
+            navScanner.visibility = View.VISIBLE
         }
     }
 
