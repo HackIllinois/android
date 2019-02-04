@@ -12,21 +12,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.android.synthetic.main.fragment_scanner.*
-import org.hackillinois.android.App
-import org.hackillinois.android.model.CheckIn
-import org.hackillinois.android.model.UserEventPair
+import kotlinx.android.synthetic.main.fragment_scanner.view.*
+import org.hackillinois.android.model.CheckIn.CheckIn
+import org.hackillinois.android.model.Event.UserEventPair
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
 
 class ScannerFragment : Fragment() {
     var lastSuccessfullyScannedUser: String = ""
-    var lastScannedUser: String = ""
     val PERMISSIONS_REQUEST_ACCESS_CAMERA = 0
     lateinit var viewModel: ScannerViewModel
 
@@ -35,14 +35,30 @@ class ScannerFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ScannerViewModel::class.java)
         viewModel.init()
         viewModel.eventsListLiveData.observe(this, Observer { updateEventList(it) })
+
+        // We will only observe the change in lastScanWasSuccessful, as if that changes,
+        // so will the scanned userId
+        viewModel.lastScanWasSuccessful.observe(this, Observer { processLastScan(it) })
+
+        viewModel.shouldDisplayOverrideSwitch.observe(this, Observer { updateOverrideSwitchVisibility(it) })
     }
 
     /**
-     * Event handler on successful scan.
+     * Make the switch invisible when not relevant to the event.
+     */
+    private fun updateOverrideSwitchVisibility(it: Boolean?) {
+        staffOverrideSwitch.visibility = when (it) {
+            true -> AdapterView.VISIBLE
+            false -> AdapterView.GONE
+            null -> AdapterView.GONE
+        }
+    }
+
+    /**
+     * Called when scanner scans something.
      */
     private var onQrCodeScan: BarcodeCallback = object : BarcodeCallback {
         override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun barcodeResult(result: BarcodeResult) {
@@ -51,59 +67,59 @@ class ScannerFragment : Fragment() {
                 return
             }
 
-            lastScannedUser = result.text
+            if (lastSuccessfullyScannedUser == "") {
+                lastSuccessfullyScannedUser = result.text
+            }
+
+            Log.d("ScanEvent", "Scanned text: ${result.text}")
+            Toast.makeText(context, lastSuccessfullyScannedUser, Toast.LENGTH_LONG).show()
 
             // Event that user is being scanned in for
             var eventName: String = eventListView.selectedItem.toString()
 
             // User's ID
-            var userId: String? = getUserIdFromQrString(lastScannedUser)
-
-            Log.d("ScanEvent", eventName)
-
-            try {
-                // Check-in is a special event in the HackIllinois API
-                if (eventName == "Check In") {
-                    var override = true
-                    var hasCheckedIn = true
-                    var hasPickedUpSwag = true
-                    var checkIn = CheckIn(userId!!, override, hasCheckedIn, hasPickedUpSwag)
-
-                    val response = App.getAPI().checkInUser(checkIn).execute()
-
-                    response?.let {
-                        if (response.isSuccessful) {
-                            lastSuccessfullyScannedUser = lastScannedUser
-                            // Prevent duplicate scans
-                            Toast.makeText(context, lastSuccessfullyScannedUser, Toast.LENGTH_LONG)
-                                    .show()
-                        } else {
-                            Toast.makeText(context, "Error processing request.",
-                                    Toast.LENGTH_LONG).show()
-                        }
-                    }
-                } else {
-                    var userEventPair = UserEventPair(eventName, userId!!)
-                    val response = App.getAPI()
-                            .markUserAsAttendingEvent(userEventPair).execute()
-
-                    response?.let {
-                        if (response.isSuccessful) {
-                            lastSuccessfullyScannedUser = lastScannedUser
-                            // Prevent duplicate scans
-                            Toast.makeText(context, lastSuccessfullyScannedUser, Toast.LENGTH_LONG).show()
-                        } else {
-                            Toast.makeText(context, "Error processing request.",
-                                    Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
+            var userId: String = getUserIdFromQrString(lastSuccessfullyScannedUser)
 
 
-            } catch (exception: Exception) {
-                Log.e("AttendeeRepository", exception.message)
+            Log.d("ScanEvent", "User ID: ${userId}")
+            Log.d("ScanEvent", "Event: ${eventName}")
+
+            // Check-in is a special event in the HackIllinois API
+            if (eventName == "Check In") {
+                var override = staffOverrideSwitch.isChecked
+                var hasCheckedIn = true
+                var hasPickedUpSwag = true
+                var checkIn = CheckIn(userId, override, hasCheckedIn, hasPickedUpSwag)
+
+                viewModel.checkInUser(checkIn)
+
+            } else {
+                var userEventPair = UserEventPair(eventName, userId)
+
+                viewModel.markUserAsAttendingEvent(userEventPair)
             }
         }
+    }
+
+    /**
+     * A callback that is called when the status of the last scan request changes.
+     */
+    fun processLastScan(lastScanWasSuccessful: Boolean?) {
+        when (lastScanWasSuccessful) {
+            false -> {
+                Toast.makeText(context, "Try again!", Toast.LENGTH_LONG).show()
+            }
+            true -> {
+                lastSuccessfullyScannedUser = viewModel.lastUserIdScannedIn.value.toString()
+                Toast.makeText(context, "Success: ${lastSuccessfullyScannedUser}",
+                        Toast.LENGTH_LONG).show()
+                staffOverrideSwitch.isChecked = false
+            }
+            null -> {
+                return
+            }
+        }
+
     }
 
     /**
@@ -114,7 +130,7 @@ class ScannerFragment : Fragment() {
      * If the URI becomes more complex, we can use actual URI decoders.
      * @return the userId from a QR String
      */
-    private fun getUserIdFromQrString(qrString: String): String? {
+    private fun getUserIdFromQrString(qrString: String): String {
         var splitOnEquals = qrString.split("=")
         return splitOnEquals.last()
     }
@@ -132,11 +148,9 @@ class ScannerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(org.hackillinois.android.R.layout.fragment_scanner, container, false)
-    }
+        var view = inflater.inflate(org.hackillinois.android.R.layout.fragment_scanner, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        view.eventListView.onItemSelectedListener = viewModel.onEventSelected
 
         // Ensure the Camera permission is granted
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
@@ -145,8 +159,14 @@ class ScannerFragment : Fragment() {
             requestPermissions(arrayOf(Manifest.permission.CAMERA),
                     PERMISSIONS_REQUEST_ACCESS_CAMERA)
         } else {
-            qrScanner.decodeContinuous(onQrCodeScan)
+            view.qrScanner.decodeContinuous(onQrCodeScan)
         }
+
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
     }
 
     /**

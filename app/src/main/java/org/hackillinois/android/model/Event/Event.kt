@@ -1,4 +1,4 @@
-package org.hackillinois.android.model
+package org.hackillinois.android.model.Event
 
 data class Event (val name: String,
                   val description: String,

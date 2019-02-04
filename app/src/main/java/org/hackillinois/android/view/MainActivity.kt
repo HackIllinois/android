@@ -19,12 +19,12 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
-import org.hackillinois.android.view.admin.AdminFragment
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.navigationdrawer.IndoorMapsFragment
 import org.hackillinois.android.view.navigationdrawer.OutdoorMapsFragment
 import org.hackillinois.android.view.navigationdrawer.ProfileFragment
 import org.hackillinois.android.view.navigationdrawer.ScannerFragment
+import org.hackillinois.android.view.navigationdrawer.admin.AdminFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread

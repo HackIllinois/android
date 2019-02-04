@@ -6,13 +6,14 @@ import org.hackillinois.android.database.entity.QR;
 import org.hackillinois.android.database.entity.Roles;
 import org.hackillinois.android.database.entity.User;
 import org.hackillinois.android.firebase.DeviceToken;
-import org.hackillinois.android.model.CheckIn;
-import org.hackillinois.android.model.Code;
-import org.hackillinois.android.model.EventsList;
-import org.hackillinois.android.model.JWT;
-import org.hackillinois.android.model.Notification;
-import org.hackillinois.android.model.NotificationTopics;
-import org.hackillinois.android.model.UserEventPair;
+import org.hackillinois.android.model.Auth.Code;
+import org.hackillinois.android.model.Auth.JWT;
+import org.hackillinois.android.model.CheckIn.CheckIn;
+import org.hackillinois.android.model.Event.EventsList;
+import org.hackillinois.android.model.Event.TrackerContainer;
+import org.hackillinois.android.model.Event.UserEventPair;
+import org.hackillinois.android.model.Notification.Notification;
+import org.hackillinois.android.model.Notification.NotificationTopics;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -53,7 +54,7 @@ public interface API {
     Call<ResponseBody> getStats();
 
     @POST("event/")
-    Call<org.hackillinois.android.model.Event> createEvent(@Body org.hackillinois.android.model.Event event);
+    Call<org.hackillinois.android.model.Event.Event> createEvent(@Body org.hackillinois.android.model.Event.Event event);
 
     @GET("notifications/")
     Call<NotificationTopics> getNotificationTopics();
@@ -61,9 +62,9 @@ public interface API {
     @POST("notifications/{topic}/")
     Call<Notification> createNotification(@Path("topic") String topic, @Body Notification notification);
 
-    @POST("event/track")
-    Call<UserEventPair> markUserAsAttendingEvent(@Body UserEventPair userEventPair);
+    @POST("event/track/")
+    Call<TrackerContainer> markUserAsAttendingEvent(@Body UserEventPair userEventPair);
 
-    @POST("checkin")
+    @POST("checkin/")
     Call<CheckIn> checkInUser(@Body CheckIn checkIn);
 }
