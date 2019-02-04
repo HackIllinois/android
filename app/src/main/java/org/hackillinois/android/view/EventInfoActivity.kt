@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import kotlinx.android.synthetic.main.activity_event_info.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
@@ -34,11 +35,17 @@ class EventInfoActivity : AppCompatActivity() {
     private fun updateEventUI(event: Event?) {
         event?.let {
             eventTitle.text = it.name
-            eventLocation.text = it.locationDescription
+            eventLocation.text = it.getLocationDescriptionsAsString()
             eventDescription.text = it.description
 
-            val location = LatLng(it.latitude, it.longitude)
-            directionsButton.setOnClickListener(DirectionsOnClickListener(location, event.name))
+            if (it.locations.isEmpty()) {
+                directionsButton.visibility = View.GONE
+            } else {
+                directionsButton.visibility = View.VISIBLE
+                val location = LatLng(it.locations[0].latitude, it.locations[0].longitude)
+                directionsButton.setOnClickListener(DirectionsOnClickListener(location, event.name))
+            }
+
         }
     }
 
