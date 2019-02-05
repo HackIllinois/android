@@ -53,7 +53,7 @@ public interface API {
     Call<ResponseBody> getStats();
 
     @POST("event/")
-    Call<org.hackillinois.android.model.Event> createEvent(@Body org.hackillinois.android.model.Event event);
+    Call<Event> createEvent(@Body Event event);
 
     @GET("notifications/")
     Call<NotificationTopics> getNotificationTopics();
