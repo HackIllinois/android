@@ -21,7 +21,7 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
 
-        ViewPager viewPager = view.findViewById(R.id.container);
+        ViewPager viewPager = view.findViewById(R.id.adminContainer);
         TabLayout tabLayout = view.findViewById(R.id.tabs);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 

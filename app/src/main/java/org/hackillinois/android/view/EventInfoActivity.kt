@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import kotlinx.android.synthetic.main.activity_event_info.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
@@ -21,35 +22,36 @@ class EventInfoActivity : AppCompatActivity() {
 
         val eventName = intent?.getStringExtra("event_name") ?: ""
 
-        favoriteEventImageView.setOnClickListener {
-            viewModel.changeFavoritedState()
-        }
-
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventName)
-        viewModel.isFavorited.observe(this, Observer { updateFavoritedUi(it) })
-        viewModel.event.observe(this, Observer { updateEventUi(it) })
-        viewModel.getIsFavorited(eventName)
-    }
+        viewModel.event.observe(this, Observer { updateEventUI(it) })
 
-    private fun updateEventUi(event: Event?) {
-        event?.let {
-            eventTitle.text = it.name
-            eventLocation.text = it.locationDescription
-            eventDescription.text = it.description
-
-            val location = LatLng(it.latitude, it.longitude)
-            directionsButton.setOnClickListener(DirectionsOnClickListener(location, event.name))
+        viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
+        favoriteButton.setOnClickListener {
+            viewModel.changeFavoritedState()
         }
     }
 
-    private fun updateFavoritedUi(isFavorited: Boolean?) {
-        isFavorited?.let {
-            if (isFavorited) {
-                favoriteEventImageView.setImageResource(R.drawable.ic_star_filled)
+    private fun updateEventUI(event: Event?) {
+        event?.let {
+            eventTitle.text = it.name
+            eventLocation.text = it.getLocationDescriptionsAsString()
+            eventDescription.text = it.description
+
+            if (it.locations.isEmpty()) {
+                directionsButton.visibility = View.GONE
             } else {
-                favoriteEventImageView.setImageResource(R.drawable.ic_star_border)
+                directionsButton.visibility = View.VISIBLE
+                val location = LatLng(it.locations[0].latitude, it.locations[0].longitude)
+                directionsButton.setOnClickListener(DirectionsOnClickListener(location, event.name))
             }
+
+        }
+    }
+
+    private fun updateFavoritedUI(isFavorited: Boolean?) {
+        isFavorited?.let {
+            favoriteButton.isSelected = isFavorited
         }
     }
 }

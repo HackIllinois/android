@@ -2,6 +2,8 @@ package org.hackillinois.android.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -13,13 +15,20 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_nav_menu.*
 import kotlinx.android.synthetic.main.layout_nav_menu.view.*
+import org.hackillinois.android.App
 import org.hackillinois.android.R
-import org.hackillinois.android.database.entity.Attendee
+import org.hackillinois.android.database.entity.Roles
+import org.hackillinois.android.database.entity.User
+import org.hackillinois.android.firebase.DeviceToken
+import org.hackillinois.android.view.admin.AdminFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    private val defaultToken: String = ""
 
     private lateinit var navViews: List<View>
     private lateinit var viewModel: MainViewModel
@@ -38,12 +47,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile)
+        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout, navAdmin)
         navViews.forEach { it.setOnClickListener(this) }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.init()
-        viewModel.attendee.observe(this, Observer { updateAttendeeInfo(it) })
+        viewModel.user.observe(this, Observer { updateUserInfo(it) })
+        viewModel.roles.observe(this, Observer { updateRoles(it) })
+
+        updateDeviceToken()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -59,12 +71,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         navViews.forEach { it.setBackgroundColor(Color.WHITE) }
 
+        if (v == navLogout) {
+            logout()
+            return
+        }
+
         val fragment = when (v) {
             navHome -> HomeFragment()
             navSchedule -> ScheduleFragment()
             navOutdoorMaps -> OutdoorMapsFragment()
             navIndoorMaps -> IndoorMapsFragment()
             navProfile -> ProfileFragment()
+            navAdmin -> AdminFragment()
             else -> return
         }
 
@@ -75,10 +93,51 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         drawerLayout.closeDrawer(GravityCompat.START)
     }
 
-    private fun updateAttendeeInfo(attendee: Attendee?) {
-        attendee?.let {
+    private fun updateUserInfo(user: User?) {
+        user?.let {
             navMenu.nameTextView.text = it.getFullName()
             navMenu.emailTextView.text = it.email
+        }
+    }
+
+    private fun updateRoles(roles: Roles?) {
+        roles?.let {
+            // Modify the available options in the nav menu
+            navAdmin.visibility = if (it.roles.contains("Admin")) View.VISIBLE else View.INVISIBLE
+        }
+    }
+
+    private fun logout() {
+        clearJWT()
+
+        thread {
+            App.getDatabase().clearAllTables()
+
+            runOnUiThread {
+                val loginIntent = Intent(this, LoginActivity::class.java)
+                loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(loginIntent)
+                finish()
+            }
+        }
+    }
+
+    private fun clearJWT() {
+        val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
+        editor.putString("jwt", defaultToken)
+        editor.apply()
+    }
+
+    private fun updateDeviceToken() {
+        val token = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("firebaseToken", defaultToken)?: defaultToken
+        if (token != defaultToken) {
+            thread {
+                App.getAPI().sendUserToken(DeviceToken(token)).execute()
+
+                val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
+                editor.putString("firebaseToken", defaultToken)
+                editor.apply()
+            }
         }
     }
 }

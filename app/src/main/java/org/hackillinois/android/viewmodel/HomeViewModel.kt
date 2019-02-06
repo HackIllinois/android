@@ -15,6 +15,6 @@ class HomeViewModel : ViewModel() {
     }
 
     fun refresh() {
-        eventRepository.forceRefreshAll()
+        eventsListLiveData = eventRepository.forceFetchEventsHappeningAtTime(System.currentTimeMillis())
     }
 }
