@@ -24,6 +24,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     private Context context;
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        TextView eventTimeTextView;
         TextView eventNameTextView;
         TextView eventDescriptionTextView;
         TextView eventLocationTextView;
@@ -33,6 +34,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         ViewHolder(View parent) {
             super(parent);
+            eventTimeTextView = itemView.findViewById(R.id.eventTime);
             eventNameTextView = itemView.findViewById(R.id.eventTitle);
             eventDescriptionTextView = itemView.findViewById(R.id.eventDetail);
             eventLocationTextView = itemView.findViewById(R.id.eventLocation);
@@ -70,6 +72,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             }
         });
 
+        holder.eventTimeTextView.setText(event.getStartTimeOfDay());
         holder.eventNameTextView.setText(event.getName());
         holder.eventDescriptionTextView.setText(event.getDescription());
         holder.eventLocationTextView.setText(event.getLocationDescription());
