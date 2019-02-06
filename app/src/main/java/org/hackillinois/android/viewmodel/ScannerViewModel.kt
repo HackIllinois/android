@@ -26,7 +26,6 @@ class ScannerViewModel : ViewModel() {
 
     val CHECK_IN_TEXT = "Check In"
 
-
     fun init() {
         eventsListLiveData = eventRepository.fetchAllEvents()
         // Hidden by default
@@ -50,7 +49,6 @@ class ScannerViewModel : ViewModel() {
                     Log.d("ScanEvent", "Request: ${call.request().body()}")
                     Log.d("ScanEvent", "Response: ${response.raw()}")
                 } else {
-                    // Log error
                     lastScanWasSuccessful.postValue(false)
                     Log.e("ScanEvent", "Request: ${call.request().body()}")
                     Log.e("ScanEvent", "Response: ${response.raw()}")
@@ -73,10 +71,9 @@ class ScannerViewModel : ViewModel() {
                     // User marked as attending the event
                     lastUserIdScannedIn.postValue(response.body()?.userTracker?.userId)
                     lastScanWasSuccessful.postValue(true)
-                    Log.e("ScanEvent", "Request: ${call.request().body()}")
-                    Log.e("ScanEvent", "Response: ${response.raw()}")
+                    Log.d("ScanEvent", "Request: ${call.request().body()}")
+                    Log.d("ScanEvent", "Response: ${response.raw()}")
                 } else {
-                    // Log error?
                     lastScanWasSuccessful.postValue(false)
                     Log.e("ScanEvent", "Request: ${call.request().body()}")
                     Log.e("ScanEvent", "Response: ${response.raw()}")

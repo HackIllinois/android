@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,20 +15,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
+import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.model.CheckIn.CheckIn
 import org.hackillinois.android.model.Event.UserEventPair
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
 
 class ScannerFragment : Fragment() {
-    var lastSuccessfullyScannedUser: String = ""
+    val INITIAL_SCANNED_USERID = ""
     val PERMISSIONS_REQUEST_ACCESS_CAMERA = 0
+    val CHECK_IN_TEXT = "Check In"
+
+    var lastSuccessfullyScannedUser: String = INITIAL_SCANNED_USERID
     lateinit var viewModel: ScannerViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,17 +71,18 @@ class ScannerFragment : Fragment() {
                 return
             }
 
-            if (lastSuccessfullyScannedUser == "") {
+            if (lastSuccessfullyScannedUser == INITIAL_SCANNED_USERID) {
                 lastSuccessfullyScannedUser = result.text
             }
 
             Log.d("ScanEvent", "Scanned text: ${result.text}")
-            Toast.makeText(context, lastSuccessfullyScannedUser, Toast.LENGTH_LONG).show()
+            Snackbar.make(scannerLayout, lastSuccessfullyScannedUser, Snackbar.LENGTH_LONG)
+                    .setAction("CLOSE") { }
+                    .setActionTextColor(resources.getColor(android.R.color.holo_red_light))
+                    .show()
 
-            // Event that user is being scanned in for
             var eventName: String = eventListView.selectedItem.toString()
 
-            // User's ID
             var userId: String = getUserIdFromQrString(lastSuccessfullyScannedUser)
 
 
@@ -85,11 +90,11 @@ class ScannerFragment : Fragment() {
             Log.d("ScanEvent", "Event: ${eventName}")
 
             // Check-in is a special event in the HackIllinois API
-            if (eventName == "Check In") {
-                var override = staffOverrideSwitch.isChecked
+            if (eventName == CHECK_IN_TEXT) {
+                var staffOverride = staffOverrideSwitch.isChecked
                 var hasCheckedIn = true
                 var hasPickedUpSwag = true
-                var checkIn = CheckIn(userId, override, hasCheckedIn, hasPickedUpSwag)
+                var checkIn = CheckIn(userId, staffOverride, hasCheckedIn, hasPickedUpSwag)
 
                 viewModel.checkInUser(checkIn)
 
@@ -107,12 +112,19 @@ class ScannerFragment : Fragment() {
     fun processLastScan(lastScanWasSuccessful: Boolean?) {
         when (lastScanWasSuccessful) {
             false -> {
-                Toast.makeText(context, "Try again!", Toast.LENGTH_LONG).show()
+                Snackbar.make(scannerLayout, "Try again!",
+                        Snackbar.LENGTH_LONG)
+                        .setAction("CLOSE") { }
+                        .setActionTextColor(resources.getColor(android.R.color.holo_red_light))
+                        .show()
             }
             true -> {
                 lastSuccessfullyScannedUser = viewModel.lastUserIdScannedIn.value.toString()
-                Toast.makeText(context, "Success: ${lastSuccessfullyScannedUser}",
-                        Toast.LENGTH_LONG).show()
+                Snackbar.make(scannerLayout, "Success: ${lastSuccessfullyScannedUser}",
+                        Snackbar.LENGTH_LONG)
+                        .setAction("CLOSE") { }
+                        .setActionTextColor(resources.getColor(android.R.color.holo_red_light))
+                        .show()
                 staffOverrideSwitch.isChecked = false
             }
             null -> {
@@ -174,7 +186,7 @@ class ScannerFragment : Fragment() {
      * names, and uses that to populate the Spinner.
      * @param eventList the list of events from the latest publish event (local DB / API call)
      */
-    private fun updateEventList(eventList: List<org.hackillinois.android.database.entity.Event>?) {
+    private fun updateEventList(eventList: List<Event>?) {
         var eventNameList: List<String> = eventList!!.map { it.name }
 
         var spinnerAdapter: ArrayAdapter<String> = ArrayAdapter(context, R.layout.simple_dropdown_item_1line, eventNameList)
