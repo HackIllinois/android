@@ -33,9 +33,9 @@ public class ScheduleFragment extends Fragment {
 
         long time = System.currentTimeMillis();
 
-        if (time < scheduleViewModel.getFRIDAY_END()) {
+        if (time < scheduleViewModel.getFridayEnd()) {
             viewPager.setCurrentItem(0);
-        } else if (time < scheduleViewModel.getSATURDAY_END()) {
+        } else if (time < scheduleViewModel.getSaturdayEnd()) {
             viewPager.setCurrentItem(1);
         } else {
             viewPager.setCurrentItem(2);
