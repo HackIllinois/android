@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.database.entity.Event;
+import org.hackillinois.android.notifications.HackIllinoisNotificationManager;
 
 public class FavoritesManager {
 
