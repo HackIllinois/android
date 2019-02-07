@@ -24,9 +24,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     private Context context;
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView eventTimeTextView;
         TextView eventNameTextView;
-        TextView eventDescriptionTextView;
+        TextView eventTimeTextView;
         TextView eventLocationTextView;
         ImageButton starImageButton;
         ConstraintLayout constraintLayoutRecyclerView;
@@ -34,9 +33,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         ViewHolder(View parent) {
             super(parent);
-            eventTimeTextView = itemView.findViewById(R.id.eventTime);
             eventNameTextView = itemView.findViewById(R.id.eventTitle);
-            eventDescriptionTextView = itemView.findViewById(R.id.eventDetail);
+            eventTimeTextView = itemView.findViewById(R.id.eventTime);
             eventLocationTextView = itemView.findViewById(R.id.eventLocation);
             starImageButton = itemView.findViewById(R.id.star);
             constraintLayoutRecyclerView = itemView.findViewById(R.id.constraintLayout);
@@ -72,9 +70,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             }
         });
 
-        holder.eventTimeTextView.setText(event.getStartTimeOfDay());
         holder.eventNameTextView.setText(event.getName());
-        holder.eventDescriptionTextView.setText(event.getDescription());
+        holder.eventTimeTextView.setText(event.getStartTimeOfDay());
         holder.eventLocationTextView.setText(event.getLocationDescription());
         holder.starImageButton.setSelected(FavoritesManager.isFavorited(context, event.getName()));
 

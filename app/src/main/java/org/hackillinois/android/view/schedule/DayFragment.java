@@ -65,7 +65,6 @@ public class DayFragment extends Fragment {
             @Override
             public void onChanged(List<Event> events) {
                 sortedEvents = events;
-
                 adapter = new EventsAdapter(sortedEvents);
                 recyclerView.setAdapter(adapter);
             }
