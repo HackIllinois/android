@@ -16,7 +16,7 @@ data class Event(
     val locations: List<EventLocation>,
     val sponsor: String,
     val eventType: String
-) : BaseEntity() {
+) {
     
     fun getStartTimeMs() = startTime * 1000L
     fun getStartTimeOfDay(): String {

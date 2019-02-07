@@ -12,7 +12,7 @@ data class User(
     var lastName: String,
     var email: String,
     var username: String
-): BaseEntity() {
+) {
     @PrimaryKey var key = 1
 
     fun getFullName() = String.format("%s %s", firstName, lastName)

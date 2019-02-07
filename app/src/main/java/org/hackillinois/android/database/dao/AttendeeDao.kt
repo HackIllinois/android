@@ -9,9 +9,6 @@ interface AttendeeDao {
     @Query("SELECT * FROM attendees LIMIT 1")
     fun getAttendee(): LiveData<Attendee>
 
-    @Query("SELECT * FROM attendees WHERE last_refreshed > :lastRefreshMax LIMIT 1")
-    fun hasUpdatedAttendee(lastRefreshMax: Long): Attendee?
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(attendee: Attendee)
 

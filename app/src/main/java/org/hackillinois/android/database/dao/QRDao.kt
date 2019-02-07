@@ -9,9 +9,6 @@ interface QRDao {
     @Query("SELECT * FROM qr_codes LIMIT 1")
     fun getQr(): LiveData<QR>
 
-    @Query("SELECT * FROM qr_codes WHERE last_refreshed > :lastRefreshMax LIMIT 1")
-    fun hasUpdatedQr(lastRefreshMax: Long): QR?
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(qr: QR)
 

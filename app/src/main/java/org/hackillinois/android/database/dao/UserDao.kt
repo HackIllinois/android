@@ -9,9 +9,6 @@ interface UserDao {
     @Query("SELECT * FROM Users LIMIT 1")
     fun getUser(): LiveData<User>
 
-    @Query("SELECT * FROM Users WHERE last_refreshed > :lastRefreshMax LIMIT 1")
-    fun hasUpdatedUser(lastRefreshMax: Long): User?
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(User: User)
 

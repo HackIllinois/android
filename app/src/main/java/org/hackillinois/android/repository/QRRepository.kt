@@ -10,11 +10,6 @@ import kotlin.concurrent.thread
 class QRRepository {
     private val qrDao = App.getDatabase().qrDao()
 
-    private val minutesTillStale: Long = 2
-    private val secondsInMinute: Long = 60
-    private val millisInSecond: Long = 1000
-    private val millisTillStale = minutesTillStale * secondsInMinute * millisInSecond
-
     fun fetchQR(): LiveData<QR> {
         refreshQr()
         return qrDao.getQr()
@@ -22,24 +17,18 @@ class QRRepository {
 
     private fun refreshQr() {
         thread {
-            // checks to see if an updated version of the qr code is in the database
-            // if not, run API query and save it in DB
-            val userExists = qrDao.hasUpdatedQr(System.currentTimeMillis() - millisTillStale) != null
-            if (!userExists) {
-                try {
-                    val response = App.getAPI().qrCode.execute()
-                    response?.let {
-                        if (response.isSuccessful) {
-                            val qr = it.body()
-                            qr?.let {
-                                qr.lastRefreshed = System.currentTimeMillis()
-                                qrDao.insert(qr)
-                            }
+            try {
+                val response = App.getAPI().qrCode.execute()
+                response?.let {
+                    if (response.isSuccessful) {
+                        val qr = it.body()
+                        qr?.let {
+                            qrDao.insert(qr)
                         }
                     }
-                } catch (exception: Exception) {
-                    Log.e("QRRepository", exception.message)
                 }
+            } catch (exception: Exception) {
+                Log.e("QRRepository", exception.message)
             }
         }
     }
