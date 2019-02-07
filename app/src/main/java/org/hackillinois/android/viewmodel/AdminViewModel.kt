@@ -5,6 +5,10 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import okhttp3.ResponseBody
 import org.hackillinois.android.App
+import org.hackillinois.android.database.entity.EceBuilding
+import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.database.entity.EventLocation
+import org.hackillinois.android.database.entity.SiebelCenter
 import org.hackillinois.android.model.*
 import org.json.JSONObject
 import retrofit2.Call
