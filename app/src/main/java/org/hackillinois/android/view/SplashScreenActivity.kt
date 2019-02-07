@@ -22,7 +22,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         val jwt = loadJWT()
 
-        if(jwt != defaultJWT) {
+        if (jwt != defaultJWT) {
             val api = App.getAPI(jwt)
             api.user.enqueue(object: Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
@@ -33,7 +33,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if(response.code() == 200) {
+                    if (response.code() == 200) {
                         runOnUiThread {
                             launchMainActivity()
                         }

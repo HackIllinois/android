@@ -3,7 +3,6 @@ package org.hackillinois.android.database.entity
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.arch.persistence.room.TypeConverters
-import android.util.Log
 import org.hackillinois.android.database.Converters
 import java.util.*
 
@@ -14,7 +13,9 @@ data class Event(
     val description: String,
     val startTime: Long,
     val endTime: Long,
-    val locations: List<EventLocation>
+    val locations: List<EventLocation>,
+    val sponsor: String,
+    val eventType: String
 ) : BaseEntity() {
     
     fun getStartTimeMs() = startTime * 1000L
@@ -74,3 +75,6 @@ data class EventLocation (
     val latitude: Double,
     val longitude: Double
 )
+
+val SiebelCenter = EventLocation("Siebel Center", 40.1138, -88.2249)
+val EceBuilding = EventLocation("ECE Building", 40.1148, -88.2280)

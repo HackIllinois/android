@@ -13,6 +13,7 @@ class TimeInfo(millis: Long) {
 
     init {
         var time = millis / MILLIS_IN_SECOND
+
         seconds = time % SECONDS_IN_MINUTE
         time /= SECONDS_IN_MINUTE
 

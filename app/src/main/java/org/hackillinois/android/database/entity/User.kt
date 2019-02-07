@@ -13,8 +13,6 @@ data class User(
     var email: String,
     var username: String
 ): BaseEntity() {
-    // again makes the User a singleton in the database
-    // TODO: fix like QR on login
     @PrimaryKey var key = 1
 
     fun getFullName() = String.format("%s %s", firstName, lastName)
