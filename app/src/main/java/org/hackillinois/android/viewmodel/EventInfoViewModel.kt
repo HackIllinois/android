@@ -15,26 +15,24 @@ class EventInfoViewModel(val app: Application): AndroidViewModel(app) {
     lateinit var event: LiveData<Event>
 
     val isFavorited = MutableLiveData<Boolean>()
-    var localIsFavorited = false
 
     fun init(name: String) {
         event = eventRepository.fetchEvent(name)
-    }
 
-    fun getIsFavorited(eventName: String) {
-        localIsFavorited = FavoritesManager.isFavorited(app.applicationContext, eventName)
-        isFavorited.postValue(localIsFavorited)
+        val favorited = FavoritesManager.isFavorited(app.applicationContext, name)
+        isFavorited.postValue(favorited)
     }
 
     fun changeFavoritedState() {
-        if (localIsFavorited) {
-            FavoritesManager.unfavoriteEvent(app.applicationContext, event.value?.name)
-            HackIllinoisNotificationManager.cancelNotification(app.applicationContext, event.value)
+        var favorited = isFavorited.value ?: false
+        favorited = !favorited
+
+        isFavorited.postValue(favorited)
+
+        if (favorited) {
+            FavoritesManager.favoriteEvent(app.applicationContext, event.value)
         } else {
-            FavoritesManager.favoriteEvent(app.applicationContext, event.value?.name)
-            HackIllinoisNotificationManager.scheduleNotification(app.applicationContext, event.value)
+            FavoritesManager.unfavoriteEvent(app.applicationContext, event.value)
         }
-        localIsFavorited = !localIsFavorited
-        isFavorited.postValue(localIsFavorited)
     }
 }
