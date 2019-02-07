@@ -5,6 +5,10 @@ import android.util.Log
 
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Roles
+import org.hackillinois.android.database.entity.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.concurrent.thread
 
 class RolesRepository {
@@ -16,21 +20,18 @@ class RolesRepository {
     }
 
     private fun refreshRoles() {
-        thread {
-            try {
-                val response = App.getAPI().roles.execute()
-                response?.let {
-                    if (response.isSuccessful) {
-                        val roles = it.body()
-                        roles?.let {
-                            rolesDao.insert(roles)
-                        }
+        App.getAPI().roles.enqueue(object : Callback<Roles> {
+            override fun onResponse(call: Call<Roles>, response: Response<Roles>) {
+                if (response.isSuccessful) {
+                    val roles = response.body()
+                    thread {
+                        roles?.let { rolesDao.insert(it) }
                     }
                 }
-            } catch (exception: Exception) {
-                Log.e("RolesRepository", exception.message)
             }
-        }
+
+            override fun onFailure(call: Call<Roles>, t: Throwable) { }
+        })
     }
 
     companion object {

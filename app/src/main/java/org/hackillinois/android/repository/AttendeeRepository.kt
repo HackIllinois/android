@@ -4,6 +4,10 @@ import android.arch.lifecycle.LiveData
 import android.util.Log
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Attendee
+import org.hackillinois.android.database.entity.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.concurrent.thread
 
 class AttendeeRepository {
@@ -15,21 +19,18 @@ class AttendeeRepository {
     }
 
     private fun refreshAttendee() {
-        thread {
-            try {
-                val response = App.getAPI().attendee.execute()
-                response?.let {
-                    if (response.isSuccessful) {
-                        val attendee = it.body()
-                        attendee?.let {
-                            attendeeDao.insert(attendee)
-                        }
+        App.getAPI().attendee.enqueue(object : Callback<Attendee> {
+            override fun onResponse(call: Call<Attendee>, response: Response<Attendee>) {
+                if (response.isSuccessful) {
+                    val attendee = response.body()
+                    thread {
+                        attendee?.let { attendeeDao.insert(it) }
                     }
                 }
-            } catch (exception: Exception) {
-                Log.e("AttendeeRepository", exception.message)
             }
-        }
+
+            override fun onFailure(call: Call<Attendee>, t: Throwable) { }
+        })
     }
 
     companion object {

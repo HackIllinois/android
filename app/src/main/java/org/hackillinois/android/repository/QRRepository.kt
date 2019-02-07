@@ -5,6 +5,10 @@ import android.util.Log
 
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.QR
+import org.hackillinois.android.database.entity.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.concurrent.thread
 
 class QRRepository {
@@ -16,21 +20,18 @@ class QRRepository {
     }
 
     private fun refreshQr() {
-        thread {
-            try {
-                val response = App.getAPI().qrCode.execute()
-                response?.let {
-                    if (response.isSuccessful) {
-                        val qr = it.body()
-                        qr?.let {
-                            qrDao.insert(qr)
-                        }
+        App.getAPI().qrCode.enqueue(object : Callback<QR> {
+            override fun onResponse(call: Call<QR>, response: Response<QR>) {
+                if (response.isSuccessful) {
+                    val qr = response.body()
+                    thread {
+                        qr?.let { qrDao.insert(qr) }
                     }
                 }
-            } catch (exception: Exception) {
-                Log.e("QRRepository", exception.message)
             }
-        }
+
+            override fun onFailure(call: Call<QR>, t: Throwable) { }
+        })
     }
 
     companion object {

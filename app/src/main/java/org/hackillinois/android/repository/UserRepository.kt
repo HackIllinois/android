@@ -4,6 +4,9 @@ import android.arch.lifecycle.LiveData
 import android.util.Log
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.concurrent.thread
 
 class UserRepository {
@@ -15,22 +18,18 @@ class UserRepository {
     }
 
     private fun refreshUser() {
-        thread {
-            try {
-                val response = App.getAPI().user.execute()
-                response?.let {
-                    if (response.isSuccessful) {
-                        val user = it.body()
-                        user?.let {
-                            userDao.insert(user)
-                        }
+        App.getAPI().user.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    thread {
+                        user?.let { userDao.insert(it) }
                     }
                 }
-            } catch (exception: Exception) {
-                Log.e("UserRepository", exception.message)
             }
 
-        }
+            override fun onFailure(call: Call<User>, t: Throwable) { }
+        })
     }
 
     companion object {
