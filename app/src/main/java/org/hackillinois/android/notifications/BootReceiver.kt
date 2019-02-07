@@ -1,9 +1,10 @@
-package org.hackillinois.android.common
+package org.hackillinois.android.notifications
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import org.hackillinois.android.App
+import org.hackillinois.android.common.FavoritesManager
 import kotlin.concurrent.thread
 
 class BootReceiver : BroadcastReceiver() {

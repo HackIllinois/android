@@ -1,4 +1,4 @@
-package org.hackillinois.android.common
+package org.hackillinois.android.notifications
 
 import android.app.Notification
 import android.content.BroadcastReceiver

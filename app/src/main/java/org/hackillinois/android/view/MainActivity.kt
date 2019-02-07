@@ -19,7 +19,7 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
-import org.hackillinois.android.firebase.DeviceToken
+import org.hackillinois.android.notifications.DeviceToken
 import org.hackillinois.android.view.admin.AdminFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
