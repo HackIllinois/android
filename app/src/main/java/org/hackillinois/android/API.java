@@ -4,15 +4,13 @@ import org.hackillinois.android.database.entity.Attendee;
 import org.hackillinois.android.database.entity.Event;
 import org.hackillinois.android.database.entity.Roles;
 import org.hackillinois.android.database.entity.User;
-import org.hackillinois.android.firebase.DeviceToken;
+import org.hackillinois.android.notifications.DeviceToken;
 import org.hackillinois.android.model.EventsList;
 import org.hackillinois.android.database.entity.QR;
 import org.hackillinois.android.model.JWT;
 import org.hackillinois.android.model.Code;
 import org.hackillinois.android.model.Notification;
 import org.hackillinois.android.model.NotificationTopics;
-
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

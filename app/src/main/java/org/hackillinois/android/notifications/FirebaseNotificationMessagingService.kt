@@ -1,12 +1,9 @@
-package org.hackillinois.android.firebase
+package org.hackillinois.android.notifications
 
 import android.content.Context
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import org.hackillinois.android.App
 import org.hackillinois.android.R
-import org.hackillinois.android.common.HackIllinoisNotificationManager
-import kotlin.concurrent.thread
 
 class FirebaseNotificationMessagingService: FirebaseMessagingService() {
     override fun onNewToken(token: String) {

@@ -15,8 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
 
-        <receiver android:name=".common.NotificationReceiver" />
-        <receiver android:name=".common.BootReceiver"
+        <receiver android:name=".notifications.NotificationReceiver" />
+        <receiver android:name=".notifications.BootReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
@@ -61,7 +61,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <service android:name=".firebase.FirebaseNotificationMessagingService">
+        <service android:name=".notifications.FirebaseNotificationMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
