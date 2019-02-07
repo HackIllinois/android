@@ -71,8 +71,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         holder.eventNameTextView.setText(event.getName());
         holder.eventTimeTextView.setText(event.getStartTimeOfDay());
-        holder.eventLocationTextView.setText(event.getLocationDescription());
-        holder.eventDescriptionTextView.setText(event.getDescription());
         holder.eventLocationTextView.setText(event.getLocationDescriptionsAsString());
 
         holder.starImageButton.setSelected(FavoritesManager.isFavorited(context, event.getName()));
@@ -82,7 +80,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
                 if (button.isSelected()) {
                     FavoritesManager.favoriteEvent(context, event);
-                    Snackbar.make(button, R.string.snackbar_notifications_on, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(button, R.string.schedule_snackbar_notifications_on, Snackbar.LENGTH_SHORT).show();
                 } else {
                     FavoritesManager.unfavoriteEvent(context, event);
                 }
