@@ -4,10 +4,10 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import okhttp3.ResponseBody
 import org.hackillinois.android.App
-import org.hackillinois.android.model.Event.EceBuilding
-import org.hackillinois.android.model.Event.Event
-import org.hackillinois.android.model.Event.EventLocation
-import org.hackillinois.android.model.Event.SiebelCenter
+import org.hackillinois.android.database.entity.EceBuilding
+import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.database.entity.EventLocation
+import org.hackillinois.android.database.entity.SiebelCenter
 import org.hackillinois.android.model.Notification.Notification
 import org.hackillinois.android.model.Notification.NotificationTopics
 import org.json.JSONObject

@@ -9,11 +9,11 @@ import org.hackillinois.android.firebase.DeviceToken;
 import org.hackillinois.android.model.Auth.Code;
 import org.hackillinois.android.model.Auth.JWT;
 import org.hackillinois.android.model.CheckIn.CheckIn;
-import org.hackillinois.android.model.Event.EventsList;
-import org.hackillinois.android.model.Event.TrackerContainer;
-import org.hackillinois.android.model.Event.UserEventPair;
 import org.hackillinois.android.model.Notification.Notification;
 import org.hackillinois.android.model.Notification.NotificationTopics;
+import org.hackillinois.android.model.event.EventsList;
+import org.hackillinois.android.model.event.TrackerContainer;
+import org.hackillinois.android.model.event.UserEventPair;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -54,7 +54,7 @@ public interface API {
     Call<ResponseBody> getStats();
 
     @POST("event/")
-    Call<org.hackillinois.android.model.Event.Event> createEvent(@Body org.hackillinois.android.model.Event.Event event);
+    Call<Event> createEvent(@Body Event event);
 
     @GET("notifications/")
     Call<NotificationTopics> getNotificationTopics();
