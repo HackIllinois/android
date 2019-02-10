@@ -35,6 +35,8 @@ class EventInfoActivity : AppCompatActivity() {
     private fun updateEventUI(event: Event?) {
         event?.let {
             eventTitle.text = it.name
+            eventStartTime.text = it.getStartTimeOfDay()
+            eventEndTime.text = it.getEndTimeOfDay()
             eventLocation.text = it.getLocationDescriptionsAsString()
             eventDescription.text = it.description
 
