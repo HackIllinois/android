@@ -36,9 +36,11 @@ public class IndoorMapsFragment extends Fragment {
             setImage(index);
         }
 
-        public void onTabUnselected(TabLayout.Tab tab) {}
+        public void onTabUnselected(TabLayout.Tab tab) {
+        }
 
-        public void onTabReselected(TabLayout.Tab tab) {}
+        public void onTabReselected(TabLayout.Tab tab) {
+        }
     }
 
     private void setImage(int index) {

@@ -20,8 +20,8 @@ import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.DeviceToken
-import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.admin.AdminFragment
+import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread

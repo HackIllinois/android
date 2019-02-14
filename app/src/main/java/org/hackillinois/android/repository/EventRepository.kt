@@ -30,7 +30,7 @@ class EventRepository {
 
     fun forceFetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
         refreshAll()
-        return eventDao.getAllEventsHappeningAtTime(time / 1000L)
+        return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
     }
 
     fun fetchAllEvents(): LiveData<List<Event>> {

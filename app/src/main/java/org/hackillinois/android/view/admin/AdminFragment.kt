@@ -26,7 +26,6 @@ class AdminFragment : Fragment() {
     }
 
     inner class SectionsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-
         override fun getItem(position: Int): Fragment {
             return ToolsFragment.newInstance(position)
         }

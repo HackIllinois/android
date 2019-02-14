@@ -97,8 +97,7 @@ class ToolsFragment : Fragment() {
         return view
     }
 
-    fun createNotificationsView(inflater: LayoutInflater, container: ViewGroup?,
-                         savedInstanceState: Bundle?): View? {
+    fun createNotificationsView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_admin_notifications, container, false)
 
         viewModel.getNotificationTopics()

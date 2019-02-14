@@ -22,7 +22,7 @@ class AdminViewModel : ViewModel() {
     var notificationCreated = MutableLiveData<Boolean>()
 
     fun queryStats() {
-        App.getAPI().stats.enqueue(object: Callback<ResponseBody> {
+        App.getAPI().stats.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 stats.postValue(null)
             }
@@ -39,14 +39,14 @@ class AdminViewModel : ViewModel() {
     fun createEvent(name: String, description: String, sponsor: String, eventType: String,
                     eventRoom: String, startTime: Long, endTime: Long, locationName: String) {
         var location: EventLocation? = null
-        when(locationName) {
+        when (locationName) {
             "Siebel Center" -> location = EventLocation("${SiebelCenter.description} $eventRoom", SiebelCenter.latitude, SiebelCenter.longitude)
             "ECE Building" -> location = EventLocation("${EceBuilding.description} $eventRoom", EceBuilding.latitude, EceBuilding.longitude)
         }
 
         location?.let {
             val event = Event(name, description, startTime, endTime, listOf(location), sponsor, eventType)
-            App.getAPI().createEvent(event).enqueue(object: Callback<Event> {
+            App.getAPI().createEvent(event).enqueue(object : Callback<Event> {
                 override fun onFailure(call: Call<Event>, t: Throwable) {
                     eventCreated.postValue(false)
                 }
@@ -59,7 +59,7 @@ class AdminViewModel : ViewModel() {
     }
 
     fun getNotificationTopics() {
-        App.getAPI().notificationTopics.enqueue(object: Callback<NotificationTopics> {
+        App.getAPI().notificationTopics.enqueue(object : Callback<NotificationTopics> {
             override fun onFailure(call: Call<NotificationTopics>, t: Throwable) {
                 notificationTopics.postValue(null)
             }
@@ -75,7 +75,7 @@ class AdminViewModel : ViewModel() {
     fun createNotification(topic: String, title: String, body: String) {
         val notification = Notification(title, body)
 
-        App.getAPI().createNotification(topic, notification).enqueue(object: Callback<Notification> {
+        App.getAPI().createNotification(topic, notification).enqueue(object : Callback<Notification> {
             override fun onFailure(call: Call<Notification>, t: Throwable) {
                 notificationCreated.postValue(false)
             }

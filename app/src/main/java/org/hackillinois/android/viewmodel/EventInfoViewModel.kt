@@ -8,7 +8,7 @@ import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.repository.EventRepository
 
-class EventInfoViewModel(val app: Application): AndroidViewModel(app) {
+class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val eventRepository = EventRepository.instance
     lateinit var event: LiveData<Event>

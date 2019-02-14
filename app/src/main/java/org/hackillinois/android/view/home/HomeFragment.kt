@@ -6,17 +6,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.view.custom.CustomRefreshView
 import org.hackillinois.android.common.TimeInfo
+import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.view.EventInfoActivity
+import org.hackillinois.android.view.custom.CustomRefreshView
 import org.hackillinois.android.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventsListAdapter.EventClickListener {

@@ -54,11 +54,14 @@ public class DayFragment extends Fragment {
         LiveData<List<Event>> liveData;
 
         switch (sectionNumber) {
-            case 0: liveData = viewModel.getFridayEventsLiveData();
+            case 0:
+                liveData = viewModel.getFridayEventsLiveData();
                 break;
-            case 1: liveData = viewModel.getSaturdayEventsLiveData();
+            case 1:
+                liveData = viewModel.getSaturdayEventsLiveData();
                 break;
-            default: liveData = viewModel.getSundayEventsLiveData();
+            default:
+                liveData = viewModel.getSundayEventsLiveData();
         }
 
         liveData.observe(this, new Observer<List<Event>>() {

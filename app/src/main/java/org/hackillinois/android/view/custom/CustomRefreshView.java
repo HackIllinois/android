@@ -100,11 +100,15 @@ public class CustomRefreshView extends View implements IRefreshStatus {
         startAnimator();
     }
 
-    public void refreshComplete() {}
+    public void refreshComplete() {
+    }
 
-    public void pullToRefresh() {}
+    public void pullToRefresh() {
+    }
 
-    public void releaseToRefresh() {}
+    public void releaseToRefresh() {
+    }
 
-    public void pullProgress(float pullDistance, float pullProgress) {}
+    public void pullProgress(float pullDistance, float pullProgress) {
+    }
 }

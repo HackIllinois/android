@@ -12,5 +12,7 @@ data class Roles(
         @ColumnInfo(name = "id") var id: String,
         @ColumnInfo(name = "roles") var roles: List<String>
 ) {
-    @PrimaryKey @ColumnInfo(name = "key") var key = 1
+    @PrimaryKey
+    @ColumnInfo(name = "key")
+    var key = 1
 }
