@@ -45,7 +45,7 @@ public class ProfileFragment extends Fragment {
 
         viewModel.init();
 
-        viewModel.getQR().observe(this, new Observer<QR>() {
+        viewModel.getQr().observe(this, new Observer<QR>() {
             public void onChanged(QR qr) {
                 if (qr != null) {
                     String text = qr.getQrInfo();
