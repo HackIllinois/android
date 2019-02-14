@@ -3,7 +3,6 @@ package org.hackillinois.android.database.dao
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import org.hackillinois.android.database.entity.Event
-import android.arch.persistence.room.Transaction
 
 @Dao
 interface EventDao {
@@ -21,12 +20,6 @@ interface EventDao {
 
     @Query("SELECT * FROM events WHERE startTime >= :startTime AND startTime < :endTime ORDER BY startTime")
     fun getEventsHappeningBetweenTimes(startTime: Long, endTime: Long): LiveData<List<Event>>
-
-    @Query("SELECT * FROM events WHERE last_refreshed > :lastRefreshMax AND name LIKE :name LIMIT 1")
-    fun hasUpdatedEvent(name: String, lastRefreshMax: Long): Event?
-
-    @Query("SELECT MIN(last_refreshed) FROM events")
-    fun getTimeOfOldestRefreshedEvent(): Long?
 
     @Query("DELETE FROM events")
     fun clearTable()

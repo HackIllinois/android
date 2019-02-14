@@ -21,19 +21,19 @@
             android:id="@+id/tabFriday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_friday" />
+            android:text="@string/schedule_tab_friday" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabSaturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_saturday" />
+            android:text="@string/schedule_tab_saturday" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabSunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_sunday" />
+            android:text="@string/schedule_tab_sunday" />
 
     </android.support.design.widget.TabLayout>
 

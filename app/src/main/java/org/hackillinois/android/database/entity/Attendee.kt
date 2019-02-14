@@ -15,9 +15,7 @@ data class Attendee(
     var diet: List<String>,
     var school: String,
     var major: String
-): BaseEntity() {
-    // again makes the Attendee a singleton in the database
-    // TODO: fix like QR on login
+) {
     @PrimaryKey var key = 1
 
     fun getDietAsString(): String? {

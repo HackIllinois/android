@@ -1,115 +1,70 @@
 package org.hackillinois.android.repository
 
 import android.arch.lifecycle.LiveData
-import android.util.Log
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.model.event.EventsList
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.concurrent.thread
 
 class EventRepository {
     private val eventDao = App.getDatabase().eventDao()
-
-    private val minutesTillStale: Long = 2
-    private val secondsInMinute: Long = 60
-    private val millisInSecond: Long = 1000
-    private val millisTillStale = minutesTillStale * secondsInMinute * millisInSecond
+    private val MILLIS_IN_SECOND = 1000L
 
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
-        attemptToRefreshAll()
-        return eventDao.getAllEventsHappeningAtTime(time / 1000L)
+        refreshAll()
+        return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
     }
 
-    fun fetchEventsHappeningBetweenTimes(startTime: Long, endTime: Long) : LiveData<List<Event>> {
-        attemptToRefreshAll()
-        return eventDao.getEventsHappeningBetweenTimes(startTime / 1000L, endTime / 1000L)
+    fun fetchEventsHappeningBetweenTimes(startTime: Long, endTime: Long): LiveData<List<Event>> {
+        refreshAll()
+        return eventDao.getEventsHappeningBetweenTimes(startTime / MILLIS_IN_SECOND, endTime / MILLIS_IN_SECOND)
     }
 
     fun fetchEvent(name: String): LiveData<Event> {
-        attemptToRefreshSpecific(name)
+        refreshEvent(name)
         return eventDao.getEvent(name)
     }
 
     fun forceFetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
-        forceRefreshAll()
+        refreshAll()
         return eventDao.getAllEventsHappeningAtTime(time / 1000L)
     }
 
     fun fetchAllEvents(): LiveData<List<Event>> {
-        attemptToRefreshAll()
+        refreshAll()
         return eventDao.getAllEvents()
     }
 
-    private fun forceRefreshAll() {
-        thread {
-            refreshAll()
-        }
-    }
-
-    /**
-     * This method determines, on a separate thread, if we need to update the entire events table
-     * We decide to update when the least recently updated event has reached a "stale" state
-     * In this case, we clear the table entirely (in case events were removed on the web side) and
-     * replace them with a fresh set from the API
-     */
-    private fun attemptToRefreshAll() {
-        thread {
-            val timeRefreshed = eventDao.getTimeOfOldestRefreshedEvent() ?: 0L
-
-            // is it time to refresh?
-            if (timeRefreshed < System.currentTimeMillis() - millisTillStale) {
-                refreshAll()
-            }
-        }
-    }
-
     private fun refreshAll() {
-        try {
-            val response = App.getAPI().allEvents.execute()
-
-            response?.let {
+        App.getAPI().allEvents.enqueue(object : Callback<EventsList> {
+            override fun onResponse(call: Call<EventsList>, response: Response<EventsList>) {
                 if (response.isSuccessful) {
-                    val eventsList = it.body()
-                    val newRefreshed = System.currentTimeMillis()
-                    eventsList?.events?.forEach { event ->
-                        event.lastRefreshed = newRefreshed
-                    }
-                    eventsList?.events?.let { events ->
-                        eventDao.clearTableAndInsertEvents(events)
-                    }
+                    val eventsList: List<Event> = response.body()?.events ?: return
+                    thread { eventDao.clearTableAndInsertEvents(eventsList) }
                 }
             }
-        } catch (exception: Exception) {
-            Log.e("EventRepository", exception.message)
-        }
-    }
 
-    private fun attemptToRefreshSpecific(name: String) {
-        thread {
-            val eventExists = eventDao.hasUpdatedEvent(name, System.currentTimeMillis() - millisTillStale) != null
-            if (!eventExists) {
-                refreshEvent(name)
-            }
-        }
+            override fun onFailure(call: Call<EventsList>, t: Throwable) {}
+        })
     }
 
     private fun refreshEvent(name: String) {
-        try {
-            val response = App.getAPI().getEvent(name).execute()
-            response?.let {
+        App.getAPI().getEvent(name).enqueue(object : Callback<Event> {
+            override fun onResponse(call: Call<Event>, response: Response<Event>) {
                 if (response.isSuccessful) {
-                    val event = it.body()
-                    event?.let {
-                        event.lastRefreshed = System.currentTimeMillis()
-                        eventDao.insert(event)
-                    }
+                    val event: Event = response.body() ?: return
+                    thread { eventDao.insert(event) }
                 }
             }
-        } catch (exception: Exception) {
-            Log.d("EventRepository", exception.message)
-        }
+
+            override fun onFailure(call: Call<Event>, t: Throwable) {}
+        })
     }
 
     companion object {
-        val instance = EventRepository()
+        val instance: EventRepository by lazy { EventRepository() }
     }
 }

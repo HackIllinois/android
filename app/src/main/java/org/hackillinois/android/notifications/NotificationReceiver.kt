@@ -1,10 +1,10 @@
-package org.hackillinois.android.common
+package org.hackillinois.android.notifications
 
 import android.app.Notification
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.app.NotificationManager
 
 /**
  * This class receives a broadcast from the Android alarm system with the notification packaged into the intent

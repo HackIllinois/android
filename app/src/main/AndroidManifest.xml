@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/logo" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -16,8 +20,9 @@
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true">
 
-        <receiver android:name=".common.NotificationReceiver" />
-        <receiver android:name=".common.BootReceiver"
+        <receiver android:name=".notifications.NotificationReceiver" />
+        <receiver
+            android:name=".notifications.BootReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
@@ -62,7 +67,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <service android:name=".firebase.FirebaseNotificationMessagingService">
+        <service android:name=".notifications.FirebaseNotificationMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

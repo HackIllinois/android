@@ -16,16 +16,25 @@ data class Event(
         val locations: List<EventLocation>,
         val sponsor: String,
         val eventType: String
-) : BaseEntity() {
-    
+) {
+
     fun getStartTimeMs() = startTime * 1000L
+
     fun getStartTimeOfDay(): String {
-        val eventStartTime = Calendar.getInstance().apply {
+        return getTimeOfDay(startTime)
+    }
+
+    fun getEndTimeOfDay(): String {
+        return getTimeOfDay(endTime)
+    }
+
+    private fun getTimeOfDay(time: Long): String {
+        val eventEndTime = Calendar.getInstance().apply {
             timeZone = TimeZone.getTimeZone("America/Chicago")
-            timeInMillis = startTime * 1000L
+            timeInMillis = time * 1000L
         }
-        val hour = eventStartTime.get(Calendar.HOUR_OF_DAY)
-        val minutes = eventStartTime.get(Calendar.MINUTE)
+        val hour = eventEndTime.get(Calendar.HOUR_OF_DAY)
+        val minutes = eventEndTime.get(Calendar.MINUTE)
 
         return when {
             hour == 0 -> String.format("12:%02d AM", minutes)
@@ -54,10 +63,10 @@ data class Event(
     }
 }
 
-data class EventLocation (
-    val description: String,
-    val latitude: Double,
-    val longitude: Double
+data class EventLocation(
+        val description: String,
+        val latitude: Double,
+        val longitude: Double
 )
 
 val SiebelCenter = EventLocation("Siebel Center", 40.1138, -88.2249)

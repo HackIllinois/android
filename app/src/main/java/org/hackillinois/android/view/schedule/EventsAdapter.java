@@ -13,9 +13,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.common.FavoritesManager;
 import org.hackillinois.android.database.entity.Event;
 import org.hackillinois.android.view.EventInfoActivity;
-import org.hackillinois.android.common.FavoritesManager;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView eventNameTextView;
-        TextView eventDescriptionTextView;
+        TextView eventTimeTextView;
         TextView eventLocationTextView;
         ImageButton starImageButton;
         ConstraintLayout constraintLayoutRecyclerView;
@@ -34,7 +34,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         ViewHolder(View parent) {
             super(parent);
             eventNameTextView = itemView.findViewById(R.id.eventTitle);
-            eventDescriptionTextView = itemView.findViewById(R.id.eventDetail);
+            eventTimeTextView = itemView.findViewById(R.id.eventTime);
             eventLocationTextView = itemView.findViewById(R.id.eventLocation);
             starImageButton = itemView.findViewById(R.id.star);
             constraintLayoutRecyclerView = itemView.findViewById(R.id.constraintLayout);
@@ -70,7 +70,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         });
 
         holder.eventNameTextView.setText(event.getName());
-        holder.eventDescriptionTextView.setText(event.getDescription());
+        holder.eventTimeTextView.setText(event.getStartTimeOfDay());
         holder.eventLocationTextView.setText(event.getLocationDescriptionsAsString());
 
         holder.starImageButton.setSelected(FavoritesManager.isFavorited(context, event.getName()));
@@ -80,7 +80,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
                 if (button.isSelected()) {
                     FavoritesManager.favoriteEvent(context, event);
-                    Snackbar.make(button, R.string.snackbar_notifications_on, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(button, R.string.schedule_snackbar_notifications_on, Snackbar.LENGTH_SHORT).show();
                 } else {
                     FavoritesManager.unfavoriteEvent(context, event);
                 }

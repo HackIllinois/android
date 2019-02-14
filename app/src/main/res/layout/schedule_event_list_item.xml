@@ -62,7 +62,7 @@
                 tools:text="Title" />
 
             <TextView
-                android:id="@+id/eventDetail"
+                android:id="@+id/eventTime"
                 android:layout_width="0dp"
                 android:layout_height="15dp"
                 android:layout_marginTop="4dp"
@@ -76,7 +76,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eventTitle"
-                tools:text="Details" />
+                tools:text="HH:MM PM" />
 
             <TextView
                 android:id="@+id/eventLocation"
@@ -94,7 +94,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventDetail"
+                app:layout_constraintTop_toBottomOf="@+id/eventTime"
                 tools:text="Location" />
 
             <ImageView

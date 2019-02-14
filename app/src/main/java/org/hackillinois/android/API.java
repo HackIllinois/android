@@ -5,7 +5,6 @@ import org.hackillinois.android.database.entity.Event;
 import org.hackillinois.android.database.entity.QR;
 import org.hackillinois.android.database.entity.Roles;
 import org.hackillinois.android.database.entity.User;
-import org.hackillinois.android.firebase.DeviceToken;
 import org.hackillinois.android.model.auth.Code;
 import org.hackillinois.android.model.auth.JWT;
 import org.hackillinois.android.model.checkin.CheckIn;
@@ -14,6 +13,7 @@ import org.hackillinois.android.model.event.TrackerContainer;
 import org.hackillinois.android.model.event.UserEventPair;
 import org.hackillinois.android.model.notification.Notification;
 import org.hackillinois.android.model.notification.NotificationTopics;
+import org.hackillinois.android.notifications.DeviceToken;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
