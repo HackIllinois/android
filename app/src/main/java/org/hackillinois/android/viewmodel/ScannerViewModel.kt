@@ -8,8 +8,8 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.model.CheckIn.CheckIn
 import org.hackillinois.android.model.ScanStatus
+import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.repository.EventRepository
@@ -34,13 +34,11 @@ class ScannerViewModel : ViewModel() {
     fun checkInUser(checkIn: CheckIn) {
         App.getAPI().checkInUser(checkIn).enqueue(object : Callback<CheckIn> {
             override fun onFailure(call: Call<CheckIn>, t: Throwable) {
-                // Request could not be made
                 var scanStatus = ScanStatus(false, "", "Request could not be made.")
                 lastScanStatus.postValue(scanStatus)
             }
 
             override fun onResponse(call: Call<CheckIn>, response: Response<CheckIn>) {
-                // Request went through
                 if (response.isSuccessful) {
                     // Check-in was a success
                     var userId = response.body()?.id.toString()
@@ -57,13 +55,11 @@ class ScannerViewModel : ViewModel() {
     fun markUserAsAttendingEvent(userEventPair: UserEventPair) {
         App.getAPI().markUserAsAttendingEvent(userEventPair).enqueue(object : Callback<TrackerContainer> {
             override fun onFailure(call: Call<TrackerContainer>, t: Throwable) {
-                // Request could not be made
                 var scanStatus = ScanStatus(false, "", "Request could not be made.")
                 lastScanStatus.postValue(scanStatus)
             }
 
             override fun onResponse(call: Call<TrackerContainer>, response: Response<TrackerContainer>) {
-                // Request went through
                 if (response.isSuccessful) {
                     // User marked as attending the event
                     var userId = response.body()?.userTracker?.userId.toString()

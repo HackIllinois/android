@@ -20,8 +20,8 @@ import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.model.CheckIn.CheckIn
 import org.hackillinois.android.model.ScanStatus
+import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
@@ -152,7 +152,7 @@ class ScannerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(org.hackillinois.android.R.layout.fragment_scanner, container, false)
+        val view = inflater.inflate(org.hackillinois.android.R.layout.fragment_scanner, container, false)
 
         view.eventListView.onItemSelectedListener = viewModel.onEventSelected
 
@@ -169,19 +169,15 @@ class ScannerFragment : Fragment() {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     /**
      * Takes a list of events, grabs all of the name fields, creates an adapter with the list of
      * names, and uses that to populate the Spinner.
      * @param eventList the list of events from the latest publish event (local DB / API call)
      */
-    private fun updateEventList(eventList: List<Event>?) {
+    private fun updateEventList(eventList: List<Event>?) = eventList.let { eventList ->
         var eventNameList: List<String> = eventList!!.map { it.name }
-
-        var spinnerAdapter: ArrayAdapter<String> = ArrayAdapter(context, R.layout.simple_dropdown_item_1line, eventNameList)
+        var spinnerAdapter: ArrayAdapter<String> = ArrayAdapter(context,
+                R.layout.simple_dropdown_item_1line, eventNameList)
 
         eventListView.adapter = spinnerAdapter
     }

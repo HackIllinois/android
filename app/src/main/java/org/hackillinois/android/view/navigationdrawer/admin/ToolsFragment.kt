@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_admin_notifications.view.*
 import kotlinx.android.synthetic.main.fragment_admin_stats.*
 import kotlinx.android.synthetic.main.fragment_admin_stats.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.model.Notification.NotificationTopics
+import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.viewmodel.AdminViewModel
 import java.text.ParseException
 import java.text.SimpleDateFormat
