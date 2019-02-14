@@ -21,7 +21,6 @@ import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.DeviceToken
 import org.hackillinois.android.view.home.HomeFragment
-import org.hackillinois.android.view.navigationdrawer.IndoorMapsFragment
 import org.hackillinois.android.view.navigationdrawer.OutdoorMapsFragment
 import org.hackillinois.android.view.navigationdrawer.ProfileFragment
 import org.hackillinois.android.view.navigationdrawer.ScannerFragment
