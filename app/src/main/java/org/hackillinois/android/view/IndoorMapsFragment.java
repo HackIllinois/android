@@ -12,12 +12,11 @@ import org.hackillinois.android.R;
 
 public class IndoorMapsFragment extends Fragment {
 
-    private int index;
+    private static final int DCL = 0;
+    private static final int ECEB = 1;
+    private static final int SIEBEL = 2;
 
-    public static final int DCL = 0;
-    public static final int ECEB = 1;
-    public static final int SIEBEL = 2;
-    public static final int GYM = 3;
+    private int index;
 
     ImageView map;
 
@@ -40,7 +39,7 @@ public class IndoorMapsFragment extends Fragment {
         public void onTabSelected(TabLayout.Tab tab) {
             index = tab.getPosition();
 
-            switch(index) {
+            switch (index) {
                 case DCL:
                     map.setImageResource(android.R.color.transparent);
                     map.setImageDrawable(getResources().getDrawable(R.drawable.ic_dcl_indoor));
@@ -54,7 +53,6 @@ public class IndoorMapsFragment extends Fragment {
                     map.setImageDrawable(getResources().getDrawable(R.drawable.ic_siebel_indoor));
                     break;
             }
-
         }
 
         public void onTabUnselected(TabLayout.Tab tab) {
