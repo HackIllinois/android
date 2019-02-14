@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.navigationdrawer
+package org.hackillinois.android.view
 
 import android.Manifest
 import android.R

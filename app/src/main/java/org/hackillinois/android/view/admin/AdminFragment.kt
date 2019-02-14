@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.navigationdrawer.admin
+package org.hackillinois.android.view.admin
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout

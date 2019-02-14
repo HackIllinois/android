@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.navigationdrawer;
+package org.hackillinois.android.view;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;

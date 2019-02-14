@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:padding="30dp"
-    tools:context=".view.navigationdrawer.ScannerFragment">
+    tools:context=".view.ScannerFragment">
 
     <Spinner
         android:id="@+id/eventListView"
