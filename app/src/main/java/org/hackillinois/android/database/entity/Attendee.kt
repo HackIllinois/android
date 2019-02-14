@@ -15,7 +15,7 @@ data class Attendee(
     var diet: List<String>,
     var school: String,
     var major: String
-): BaseEntity() {
+) {
     @PrimaryKey var key = 1
 
     fun getDietAsString(): String? {

@@ -1,6 +1,5 @@
 package org.hackillinois.android.viewmodel
 
-import android.R
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import okhttp3.ResponseBody

@@ -11,8 +11,6 @@ import org.hackillinois.android.database.Converters
 data class Roles(
         @ColumnInfo(name = "id") var id: String,
         @ColumnInfo(name = "roles") var roles: List<String>
-): BaseEntity() {
+) {
     @PrimaryKey @ColumnInfo(name = "key") var key = 1
-
-    override fun toString() = super.toString() + " " + lastRefreshed
 }

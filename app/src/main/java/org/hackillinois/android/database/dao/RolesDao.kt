@@ -9,9 +9,6 @@ interface RolesDao {
     @Query("SELECT * FROM roles LIMIT 1")
     fun getRoles(): LiveData<Roles>
 
-    @Query("SELECT * FROM roles WHERE last_refreshed > :lastRefreshMax LIMIT 1")
-    fun hasUpdatedRoles(lastRefreshMax: Long): Roles?
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(qr: Roles)
 
