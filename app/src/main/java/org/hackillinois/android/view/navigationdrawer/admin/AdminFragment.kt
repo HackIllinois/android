@@ -1,15 +1,13 @@
-package org.hackillinois.android.view.admin
+package org.hackillinois.android.view.navigationdrawer.admin
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_admin.*
 import kotlinx.android.synthetic.main.fragment_admin.view.*
 import org.hackillinois.android.R
 

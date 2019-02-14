@@ -13,9 +13,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.common.FavoritesManager;
 import org.hackillinois.android.database.entity.Event;
 import org.hackillinois.android.view.EventInfoActivity;
-import org.hackillinois.android.common.FavoritesManager;
 
 import java.util.List;
 

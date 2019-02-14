@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.admin
+package org.hackillinois.android.view.navigationdrawer.admin
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -15,17 +15,11 @@ import kotlinx.android.synthetic.main.fragment_admin_notifications.*
 import kotlinx.android.synthetic.main.fragment_admin_notifications.view.*
 import kotlinx.android.synthetic.main.fragment_admin_stats.*
 import kotlinx.android.synthetic.main.fragment_admin_stats.view.*
-import org.hackillinois.android.App
 import org.hackillinois.android.R
-import org.hackillinois.android.model.*
+import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.viewmodel.AdminViewModel
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import kotlin.concurrent.thread
 
 class ToolsFragment : Fragment() {
     private val ARG_SECTION_NUM = "section_number"

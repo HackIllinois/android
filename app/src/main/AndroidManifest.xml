@@ -17,10 +17,12 @@
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true">
 
         <receiver android:name=".notifications.NotificationReceiver" />
-        <receiver android:name=".notifications.BootReceiver"
+        <receiver
+            android:name=".notifications.BootReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>

@@ -1,4 +1,4 @@
-package org.hackillinois.android.model
+package org.hackillinois.android.model.event
 
 import org.hackillinois.android.database.entity.Event
 

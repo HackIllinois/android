@@ -2,11 +2,10 @@ package org.hackillinois.android.view
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import org.hackillinois.android.App
-
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.User
 import retrofit2.Call

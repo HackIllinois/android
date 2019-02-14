@@ -9,15 +9,15 @@ import java.util.*
 @Entity(tableName = "events")
 @TypeConverters(Converters::class)
 data class Event(
-    @PrimaryKey val name: String,
-    val description: String,
-    val startTime: Long,
-    val endTime: Long,
-    val locations: List<EventLocation>,
-    val sponsor: String,
-    val eventType: String
+        @PrimaryKey val name: String,
+        val description: String,
+        val startTime: Long,
+        val endTime: Long,
+        val locations: List<EventLocation>,
+        val sponsor: String,
+        val eventType: String
 ) {
-    
+
     fun getStartTimeMs() = startTime * 1000L
 
     fun getStartTimeOfDay(): String {
@@ -63,10 +63,10 @@ data class Event(
     }
 }
 
-data class EventLocation (
-    val description: String,
-    val latitude: Double,
-    val longitude: Double
+data class EventLocation(
+        val description: String,
+        val latitude: Double,
+        val longitude: Double
 )
 
 val SiebelCenter = EventLocation("Siebel Center", 40.1138, -88.2249)

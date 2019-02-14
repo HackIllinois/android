@@ -1,4 +1,4 @@
-package org.hackillinois.android.view
+package org.hackillinois.android.view.navigationdrawer
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

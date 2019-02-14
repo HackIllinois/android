@@ -5,12 +5,12 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_event_info.*
 import org.hackillinois.android.R
+import org.hackillinois.android.common.DirectionsOnClickListener
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.viewmodel.EventInfoViewModel
-import com.google.android.gms.maps.model.LatLng
-import org.hackillinois.android.common.DirectionsOnClickListener
 
 class EventInfoActivity : AppCompatActivity() {
 

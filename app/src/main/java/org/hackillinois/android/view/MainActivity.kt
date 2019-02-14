@@ -20,10 +20,14 @@ import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.DeviceToken
-import org.hackillinois.android.view.admin.AdminFragment
-import org.hackillinois.android.viewmodel.MainViewModel
 import org.hackillinois.android.view.home.HomeFragment
+import org.hackillinois.android.view.navigationdrawer.IndoorMapsFragment
+import org.hackillinois.android.view.navigationdrawer.OutdoorMapsFragment
+import org.hackillinois.android.view.navigationdrawer.ProfileFragment
+import org.hackillinois.android.view.navigationdrawer.ScannerFragment
+import org.hackillinois.android.view.navigationdrawer.admin.AdminFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
+import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -47,7 +51,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout, navAdmin)
+        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout, navAdmin, navScanner)
         navViews.forEach { it.setOnClickListener(this) }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
@@ -83,6 +87,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             navIndoorMaps -> IndoorMapsFragment()
             navProfile -> ProfileFragment()
             navAdmin -> AdminFragment()
+            navScanner -> ScannerFragment()
             else -> return
         }
 
@@ -100,10 +105,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun updateRoles(roles: Roles?) {
-        roles?.let {
-            // Modify the available options in the nav menu
-            navAdmin.visibility = if (it.roles.contains("Admin")) View.VISIBLE else View.INVISIBLE
+    /**
+     * Modify the available options in the nav menu
+     * Staff: Can access the scanner
+     * Admins: Can access scanner and admin tools
+     */
+    private fun updateRoles(roles: Roles?) = roles?.let { roles ->
+        var listOfRoles: List<String> = roles.roles
+        if (listOfRoles.contains("Admin")) {
+            navAdmin.visibility = View.VISIBLE
+            navScanner.visibility = View.VISIBLE
+        }
+        if (listOfRoles.contains("Staff")) {
+            navScanner.visibility = View.VISIBLE
         }
     }
 
@@ -129,7 +143,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun updateDeviceToken() {
-        val token = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("firebaseToken", defaultToken)?: defaultToken
+        val token = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("firebaseToken", defaultToken)
+                ?: defaultToken
         if (token != defaultToken) {
             thread {
                 App.getAPI().sendUserToken(DeviceToken(token)).execute()

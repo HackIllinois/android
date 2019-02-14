@@ -8,7 +8,8 @@ import org.hackillinois.android.database.entity.EceBuilding
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.EventLocation
 import org.hackillinois.android.database.entity.SiebelCenter
-import org.hackillinois.android.model.*
+import org.hackillinois.android.model.notification.Notification
+import org.hackillinois.android.model.notification.NotificationTopics
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback

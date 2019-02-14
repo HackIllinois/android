@@ -3,7 +3,7 @@ package org.hackillinois.android.repository
 import android.arch.lifecycle.LiveData
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.model.EventsList
+import org.hackillinois.android.model.event.EventsList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,7 +18,7 @@ class EventRepository {
         return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
     }
 
-    fun fetchEventsHappeningBetweenTimes(startTime: Long, endTime: Long) : LiveData<List<Event>> {
+    fun fetchEventsHappeningBetweenTimes(startTime: Long, endTime: Long): LiveData<List<Event>> {
         refreshAll()
         return eventDao.getEventsHappeningBetweenTimes(startTime / MILLIS_IN_SECOND, endTime / MILLIS_IN_SECOND)
     }
@@ -30,7 +30,12 @@ class EventRepository {
 
     fun forceFetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
         refreshAll()
-        return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
+        return eventDao.getAllEventsHappeningAtTime(time / 1000L)
+    }
+
+    fun fetchAllEvents(): LiveData<List<Event>> {
+        refreshAll()
+        return eventDao.getAllEvents()
     }
 
     private fun refreshAll() {
@@ -42,7 +47,7 @@ class EventRepository {
                 }
             }
 
-            override fun onFailure(call: Call<EventsList>, t: Throwable) { }
+            override fun onFailure(call: Call<EventsList>, t: Throwable) {}
         })
     }
 
@@ -55,7 +60,7 @@ class EventRepository {
                 }
             }
 
-            override fun onFailure(call: Call<Event>, t: Throwable) { }
+            override fun onFailure(call: Call<Event>, t: Throwable) {}
         })
     }
 

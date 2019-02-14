@@ -3,7 +3,6 @@ package org.hackillinois.android.database.dao
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import org.hackillinois.android.database.entity.Event
-import android.arch.persistence.room.Transaction
 
 @Dao
 interface EventDao {

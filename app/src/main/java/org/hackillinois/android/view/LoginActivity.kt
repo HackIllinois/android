@@ -9,8 +9,8 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import org.hackillinois.android.App.getAPI
 import org.hackillinois.android.R
-import org.hackillinois.android.model.Code
-import org.hackillinois.android.model.JWT
+import org.hackillinois.android.model.auth.Code
+import org.hackillinois.android.model.auth.JWT
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

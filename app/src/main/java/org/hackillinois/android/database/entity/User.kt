@@ -2,8 +2,6 @@ package org.hackillinois.android.database.entity
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.TypeConverters
-import org.hackillinois.android.database.Converters
 
 @Entity(tableName = "users")
 data class User(
