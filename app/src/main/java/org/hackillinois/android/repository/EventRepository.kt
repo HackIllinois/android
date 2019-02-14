@@ -1,70 +1,62 @@
 package org.hackillinois.android.repository
 
 import android.arch.lifecycle.LiveData
-import android.util.Log
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
-import java.lang.Exception
+import org.hackillinois.android.model.EventsList
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.concurrent.thread
 
 class EventRepository {
     private val eventDao = App.getDatabase().eventDao()
+    private val MILLIS_IN_SECOND = 1000L
 
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
-        thread { refreshAll() }
-        return eventDao.getAllEventsHappeningAtTime(time / 1000L)
+        refreshAll()
+        return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
     }
 
     fun fetchEventsHappeningBetweenTimes(startTime: Long, endTime: Long) : LiveData<List<Event>> {
-        thread { refreshAll() }
-        return eventDao.getEventsHappeningBetweenTimes(startTime / 1000L, endTime / 1000L)
+        refreshAll()
+        return eventDao.getEventsHappeningBetweenTimes(startTime / MILLIS_IN_SECOND, endTime / MILLIS_IN_SECOND)
     }
 
     fun fetchEvent(name: String): LiveData<Event> {
-        thread { refreshEvent(name) }
+        refreshEvent(name)
         return eventDao.getEvent(name)
     }
 
     fun forceFetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
-        forceRefreshAll()
-        return eventDao.getAllEventsHappeningAtTime(time / 1000L)
-    }
-
-    private fun forceRefreshAll() {
-        thread { refreshAll() }
+        refreshAll()
+        return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
     }
 
     private fun refreshAll() {
-        try {
-            val response = App.getAPI().allEvents.execute()
-
-            response?.let {
+        App.getAPI().allEvents.enqueue(object : Callback<EventsList> {
+            override fun onResponse(call: Call<EventsList>, response: Response<EventsList>) {
                 if (response.isSuccessful) {
-                    val eventsList = it.body()
-                    eventsList?.events?.let { events ->
-                        eventDao.clearTableAndInsertEvents(events)
-                    }
+                    val eventsList: List<Event> = response.body()?.events ?: return
+                    thread { eventDao.clearTableAndInsertEvents(eventsList) }
                 }
             }
-        } catch (exception: Exception) {
-            Log.e("EventRepository", exception.message)
-        }
+
+            override fun onFailure(call: Call<EventsList>, t: Throwable) { }
+        })
     }
 
     private fun refreshEvent(name: String) {
-        try {
-            val response = App.getAPI().getEvent(name).execute()
-            response?.let {
+        App.getAPI().getEvent(name).enqueue(object : Callback<Event> {
+            override fun onResponse(call: Call<Event>, response: Response<Event>) {
                 if (response.isSuccessful) {
-                    val event = it.body()
-                    event?.let {
-                        eventDao.insert(event)
-                    }
+                    val event: Event = response.body() ?: return
+                    thread { eventDao.insert(event) }
                 }
             }
-        } catch (exception: Exception) {
-            Log.d("EventRepository", exception.message)
-        }
+
+            override fun onFailure(call: Call<Event>, t: Throwable) { }
+        })
     }
 
     companion object {
