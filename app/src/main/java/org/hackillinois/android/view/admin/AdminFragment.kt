@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.navigationdrawer.admin
+package org.hackillinois.android.view.admin
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -26,7 +26,6 @@ class AdminFragment : Fragment() {
     }
 
     inner class SectionsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-
         override fun getItem(position: Int): Fragment {
             return ToolsFragment.newInstance(position)
         }

@@ -31,7 +31,9 @@ public class HackIllinoisNotificationManager {
         long timeToTrigger = event.getStartTimeMs() - MINUTES_BEFORE_TO_NOTIFY * MILLIS_IN_MINUTE;
 
         // don't set an alarm for an event that has already occurred
-        if (event.getStartTimeMs() < Calendar.getInstance().getTimeInMillis()) { return; }
+        if (event.getStartTimeMs() < Calendar.getInstance().getTimeInMillis()) {
+            return;
+        }
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeToTrigger, alarmIntent);
     }
 

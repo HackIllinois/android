@@ -41,20 +41,21 @@ class LoginActivity : AppCompatActivity() {
 
         val intent = getIntent()
 
-        intent?: return
-        intent.action?: return
+        intent ?: return
+        intent.action ?: return
 
         val uri = intent.data
 
-        uri?: return
+        uri ?: return
 
         val code = uri.getQueryParameter("code")
         var api = getAPI()
 
-        api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object: Callback<JWT> {
+        api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object : Callback<JWT> {
             override fun onFailure(call: Call<JWT>, t: Throwable) {
                 Toast.makeText(applicationContext, "Failed to login", Toast.LENGTH_SHORT).show()
             }
+
             override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
                 response.body()?.token?.let {
                     api = getAPI(it)
@@ -87,7 +88,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun getOAuthProvider(): String {
-        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")?: ""
+        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")
+                ?: ""
     }
 
     fun storeJWT(jwt: String) {

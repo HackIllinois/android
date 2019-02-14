@@ -23,7 +23,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         if (jwt != defaultJWT) {
             val api = App.getAPI(jwt)
-            api.user.enqueue(object: Callback<User> {
+            api.user.enqueue(object : Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     Log.e("LoginActivity", "Failed to check is jwt is valid")
                     runOnUiThread {
@@ -61,6 +61,7 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     fun loadJWT(): String {
-        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("jwt", defaultJWT)?: defaultJWT
+        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("jwt", defaultJWT)
+                ?: defaultJWT
     }
 }

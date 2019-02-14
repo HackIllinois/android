@@ -9,7 +9,6 @@ import org.hackillinois.android.repository.attendeeRepository
 import org.hackillinois.android.repository.qrRepository
 import org.hackillinois.android.repository.userRepository
 
-
 class ProfileViewModel : ViewModel() {
     lateinit var qr: LiveData<QR>
     lateinit var attendee: LiveData<Attendee>

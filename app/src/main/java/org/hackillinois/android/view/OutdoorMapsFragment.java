@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.navigationdrawer;
+package org.hackillinois.android.view;
 
 import android.Manifest;
 import android.content.Context;
@@ -95,7 +95,7 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
 
         boolean hasPermission = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
         if (!hasPermission) {
-            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
             return;
         }
 
@@ -162,9 +162,14 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
             time.setText(String.format("%d min", minutes));
         }
 
-        public void onStatusChanged(String provider, int status, Bundle extras) {}
-        public void onProviderEnabled(String provider) {}
-        public void onProviderDisabled(String provider) {}
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+
+        public void onProviderEnabled(String provider) {
+        }
+
+        public void onProviderDisabled(String provider) {
+        }
     }
 }
 
