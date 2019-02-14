@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,8 @@ import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.model.CheckIn.CheckIn
-import org.hackillinois.android.model.Event.UserEventPair
+import org.hackillinois.android.model.ScanStatus
+import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
 
@@ -32,6 +32,8 @@ class ScannerFragment : Fragment() {
     val CHECK_IN_TEXT = "Check In"
 
     var lastSuccessfullyScannedUser: String = INITIAL_SCANNED_USERID
+    var lastEventScannedFor: String = ""
+
     lateinit var viewModel: ScannerViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +44,7 @@ class ScannerFragment : Fragment() {
 
         // We will only observe the change in lastScanWasSuccessful, as if that changes,
         // so will the scanned userId
-        viewModel.lastScanWasSuccessful.observe(this, Observer { processLastScan(it) })
+        viewModel.lastScanStatus.observe(this, Observer { processLastScan(it) })
 
         viewModel.shouldDisplayOverrideSwitch.observe(this, Observer { updateOverrideSwitchVisibility(it) })
     }
@@ -66,31 +68,20 @@ class ScannerFragment : Fragment() {
         }
 
         override fun barcodeResult(result: BarcodeResult) {
+
+            var currentEvent = eventListView.selectedItem.toString()
+
             // Prevent duplicate scans
-            if (result.text == null || result.text == lastSuccessfullyScannedUser) {
+            if (getUserIdFromQrString(result.text) == lastSuccessfullyScannedUser && currentEvent == lastEventScannedFor) {
                 return
             }
 
-            if (lastSuccessfullyScannedUser == INITIAL_SCANNED_USERID) {
-                lastSuccessfullyScannedUser = result.text
-            }
+            var userId: String = getUserIdFromQrString(result.text)
 
-            Log.d("ScanEvent", "Scanned text: ${result.text}")
-            Snackbar.make(scannerLayout, lastSuccessfullyScannedUser, Snackbar.LENGTH_LONG)
-                    .setAction("CLOSE") { }
-                    .setActionTextColor(resources.getColor(android.R.color.holo_red_light))
-                    .show()
-
-            var eventName: String = eventListView.selectedItem.toString()
-
-            var userId: String = getUserIdFromQrString(lastSuccessfullyScannedUser)
-
-
-            Log.d("ScanEvent", "User ID: ${userId}")
-            Log.d("ScanEvent", "Event: ${eventName}")
+            lastEventScannedFor = eventListView.selectedItem.toString()
 
             // Check-in is a special event in the HackIllinois API
-            if (eventName == CHECK_IN_TEXT) {
+            if (lastEventScannedFor == CHECK_IN_TEXT) {
                 var staffOverride = staffOverrideSwitch.isChecked
                 var hasCheckedIn = true
                 var hasPickedUpSwag = true
@@ -99,7 +90,7 @@ class ScannerFragment : Fragment() {
                 viewModel.checkInUser(checkIn)
 
             } else {
-                var userEventPair = UserEventPair(eventName, userId)
+                var userEventPair = UserEventPair(lastEventScannedFor, userId)
 
                 viewModel.markUserAsAttendingEvent(userEventPair)
             }
@@ -109,17 +100,18 @@ class ScannerFragment : Fragment() {
     /**
      * A callback that is called when the status of the last scan request changes.
      */
-    fun processLastScan(lastScanWasSuccessful: Boolean?) {
-        when (lastScanWasSuccessful) {
+    fun processLastScan(lastScanStatus: ScanStatus?) {
+
+        when (lastScanStatus?.lastScanWasSuccessful) {
             false -> {
-                Snackbar.make(scannerLayout, "Try again!",
+                Snackbar.make(scannerLayout, "User not registered, or already scanned in for event.",
                         Snackbar.LENGTH_LONG)
                         .setAction("CLOSE") { }
                         .setActionTextColor(resources.getColor(android.R.color.holo_red_light))
                         .show()
             }
             true -> {
-                lastSuccessfullyScannedUser = viewModel.lastUserIdScannedIn.value.toString()
+                lastSuccessfullyScannedUser = lastScanStatus.userId
                 Snackbar.make(scannerLayout, "Success: ${lastSuccessfullyScannedUser}",
                         Snackbar.LENGTH_LONG)
                         .setAction("CLOSE") { }

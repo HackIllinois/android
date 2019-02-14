@@ -3,8 +3,7 @@ package org.hackillinois.android.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import org.hackillinois.android.repository.EventRepository
-import java.util.TimeZone
-import java.util.Calendar
+import java.util.*
 
 class ScheduleViewModel : ViewModel() {
     private val eventRepository = EventRepository.instance
