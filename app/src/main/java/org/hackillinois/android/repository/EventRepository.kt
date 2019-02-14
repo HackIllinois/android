@@ -60,6 +60,6 @@ class EventRepository {
     }
 
     companion object {
-        val instance = EventRepository()
+        val instance: EventRepository by lazy { EventRepository() }
     }
 }
