@@ -42,13 +42,17 @@ public class IndoorMapsFragment extends Fragment {
 
             switch(index) {
                 case DCL:
-                    map.setImageResource(R.drawable.ic_dcl_indoor);
+                    map.setImageResource(android.R.color.transparent);
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.ic_dcl_indoor));
+                    break;
                 case ECEB:
-                    map.setImageResource(R.drawable.ic_eceb_indoor);
+                    map.setImageResource(android.R.color.transparent);
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.ic_eceb_indoor));
+                    break;
                 case SIEBEL:
-                    map.setImageResource(R.drawable.ic_siebel_indoor);
-                case GYM:
-                    map.setImageResource(R.drawable.ic_kenny_indoor);
+                    map.setImageResource(android.R.color.transparent);
+                    map.setImageDrawable(getResources().getDrawable(R.drawable.ic_siebel_indoor));
+                    break;
             }
 
         }
