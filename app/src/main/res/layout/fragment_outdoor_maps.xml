@@ -18,7 +18,7 @@
             android:background="@color/tabBackground"
             app:tabIndicatorHeight="3dp"
             app:tabSelectedTextColor="@android:color/white"
-            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:tabTextAppearance="@style/TabTextAppearance"
             app:tabTextColor="@color/tabText">
 
             <android.support.design.widget.TabItem
