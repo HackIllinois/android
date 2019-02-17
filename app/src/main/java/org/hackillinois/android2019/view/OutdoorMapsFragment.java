@@ -40,7 +40,7 @@ public class OutdoorMapsFragment extends Fragment implements OnMapReadyCallback 
             new LatLng(40.1131428, -88.2265095),
             new LatLng(40.1149213, -88.2280232),
             new LatLng(40.1138194, -88.2250361),
-            new LatLng(40.1130480, -88.2283660)
+            new LatLng(40.1130590, -88.2276450)
     };
 
     private int index;
