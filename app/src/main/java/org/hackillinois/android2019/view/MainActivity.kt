@@ -127,6 +127,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         thread {
             App.getDatabase().clearAllTables()
+            App.getAPI("") // clear the token from the interceptor
 
             runOnUiThread {
                 val loginIntent = Intent(this, LoginActivity::class.java)
