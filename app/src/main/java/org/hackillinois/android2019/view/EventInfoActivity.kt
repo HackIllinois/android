@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.android.synthetic.main.activity_event_info.*
 import org.hackillinois.android2019.R
+import kotlinx.android.synthetic.main.activity_event_info.*
 import org.hackillinois.android2019.common.DirectionsOnClickListener
 import org.hackillinois.android2019.database.entity.Event
 import org.hackillinois.android2019.viewmodel.EventInfoViewModel
+import android.view.MenuItem
 
 class EventInfoActivity : AppCompatActivity() {
-
     private lateinit var viewModel: EventInfoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +21,13 @@ class EventInfoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_event_info)
 
         val eventName = intent?.getStringExtra("event_name") ?: ""
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow)
+            title = getString(R.string.event_info_title)
+        }
 
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventName)
@@ -30,6 +37,11 @@ class EventInfoActivity : AppCompatActivity() {
         favoriteButton.setOnClickListener {
             viewModel.changeFavoritedState()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        finish()
+        return super.onOptionsItemSelected(item)
     }
 
     private fun updateEventUI(event: Event?) {
