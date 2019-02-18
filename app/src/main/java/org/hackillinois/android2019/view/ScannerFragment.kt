@@ -185,6 +185,7 @@ class ScannerFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         qrScanner.resume()
+        viewModel.refresh()
     }
 
     override fun onPause() {

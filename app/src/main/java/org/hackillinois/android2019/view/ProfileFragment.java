@@ -38,10 +38,12 @@ public class ProfileFragment extends Fragment {
     private TextView majorLabel;
     private TextView majorTextView;
 
+    private ProfileViewModel viewModel;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ProfileViewModel viewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
 
         viewModel.init();
 
@@ -124,5 +126,11 @@ public class ProfileFragment extends Fragment {
         majorTextView = view.findViewById(R.id.major);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.refresh();
     }
 }

@@ -28,17 +28,12 @@ class EventRepository {
         return eventDao.getEvent(name)
     }
 
-    fun forceFetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
-        refreshAll()
-        return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
-    }
-
     fun fetchAllEvents(): LiveData<List<Event>> {
         refreshAll()
         return eventDao.getAllEvents()
     }
 
-    private fun refreshAll() {
+    fun refreshAll() {
         App.getAPI().allEvents.enqueue(object : Callback<EventsList> {
             override fun onResponse(call: Call<EventsList>, response: Response<EventsList>) {
                 if (response.isSuccessful) {
@@ -51,7 +46,7 @@ class EventRepository {
         })
     }
 
-    private fun refreshEvent(name: String) {
+    fun refreshEvent(name: String) {
         App.getAPI().getEvent(name).enqueue(object : Callback<Event> {
             override fun onResponse(call: Call<Event>, response: Response<Event>) {
                 if (response.isSuccessful) {

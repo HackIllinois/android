@@ -32,4 +32,8 @@ class ScheduleViewModel : ViewModel() {
         saturdayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayEnd, saturdayEnd)
         sundayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(saturdayEnd, sundayEnd)
     }
+
+    fun refresh() {
+        eventRepository.refreshAll()
+    }
 }

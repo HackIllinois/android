@@ -17,7 +17,7 @@ class GenericRepository<T>(
         return databaseRetrievalFunction()
     }
 
-    private fun refresh() {
+    fun refresh() {
         apiCall.clone().enqueue(object : Callback<T> {
             override fun onResponse(call: Call<T>, response: Response<T>) {
                 if (response.isSuccessful) {

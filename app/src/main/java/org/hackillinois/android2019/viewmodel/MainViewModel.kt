@@ -16,4 +16,9 @@ class MainViewModel : ViewModel() {
         user = userRepository.fetch()
         roles = rolesRepository.fetch()
     }
+
+    fun refresh() {
+        user = userRepository.fetch()
+        roles = rolesRepository.fetch()
+    }
 }

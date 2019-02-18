@@ -31,6 +31,10 @@ class ScannerViewModel : ViewModel() {
         shouldDisplayOverrideSwitch.postValue(false)
     }
 
+    fun refresh() {
+        eventRepository.refreshAll()
+    }
+
     fun checkInUser(checkIn: CheckIn) {
         App.getAPI().checkInUser(checkIn).enqueue(object : Callback<CheckIn> {
             override fun onFailure(call: Call<CheckIn>, t: Throwable) {

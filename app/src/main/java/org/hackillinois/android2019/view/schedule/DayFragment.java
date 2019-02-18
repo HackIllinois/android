@@ -26,6 +26,8 @@ public class DayFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private List<Event> sortedEvents;
 
+    private ScheduleViewModel viewModel;
+
     public static DayFragment newInstance(int sectionNumber) {
         DayFragment fragment = new DayFragment();
         Bundle args = new Bundle();
@@ -40,6 +42,7 @@ public class DayFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (adapter != null) adapter.notifyDataSetChanged();
+        viewModel.refresh();
     }
 
     @Override
@@ -48,7 +51,7 @@ public class DayFragment extends Fragment {
 
         int sectionNumber = getArguments() == null ? 0 : getArguments().getInt(ARG_SECTION_NUM);
 
-        ScheduleViewModel viewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
         viewModel.init();
 
         LiveData<List<Event>> liveData;

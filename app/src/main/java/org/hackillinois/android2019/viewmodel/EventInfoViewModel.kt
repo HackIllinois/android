@@ -12,12 +12,19 @@ class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val eventRepository = EventRepository.instance
     lateinit var event: LiveData<Event>
+    lateinit var name: String
 
     val isFavorited = MutableLiveData<Boolean>()
 
     fun init(name: String) {
+        this.name = name
         event = eventRepository.fetchEvent(name)
+        val favorited = FavoritesManager.isFavorited(app.applicationContext, name)
+        isFavorited.postValue(favorited)
+    }
 
+    fun refresh() {
+        eventRepository.refreshEvent(name)
         val favorited = FavoritesManager.isFavorited(app.applicationContext, name)
         isFavorited.postValue(favorited)
     }

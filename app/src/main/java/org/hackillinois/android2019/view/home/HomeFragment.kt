@@ -73,6 +73,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventsListA
         super.onResume()
         isActive = true
         countDownManager.onResume()
+        viewModel.refresh()
     }
 
     override fun onStop() {

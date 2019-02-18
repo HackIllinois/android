@@ -94,6 +94,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         drawerLayout.closeDrawer(GravityCompat.START)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refresh()
+    }
+
     private fun updateUserInfo(user: User?) {
         user?.let {
             navMenu.nameTextView.text = it.getFullName()
