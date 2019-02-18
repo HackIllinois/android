@@ -14,5 +14,10 @@ data class User(
     @PrimaryKey
     var key = 1
 
-    fun getFullName() = String.format("%s %s", firstName, lastName)
+    fun getFullName(): String {
+        return when (firstName != "" || lastName != "") {
+            true  -> String.format("%s %s", firstName, lastName)
+            false -> "Attendee"
+        }
+    }
 }
