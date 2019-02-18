@@ -46,13 +46,13 @@ public class IndoorMapsFragment extends Fragment {
     private void setImage(int index) {
         switch (index) {
             case DCL:
-                map.setImageResource(R.drawable.ic_dcl_indoor);
+                map.setImageResource(R.drawable.dcl_indoor);
                 break;
             case ECEB:
-                map.setImageResource(R.drawable.ic_eceb_indoor);
+                map.setImageResource(R.drawable.eceb_indoor);
                 break;
             case SIEBEL:
-                map.setImageResource(R.drawable.ic_siebel_indoor);
+                map.setImageResource(R.drawable.siebel_indoor);
                 break;
         }
     }
