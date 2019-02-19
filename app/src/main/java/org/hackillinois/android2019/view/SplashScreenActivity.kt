@@ -11,6 +11,7 @@ import org.hackillinois.android2019.database.entity.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.concurrent.thread
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -33,6 +34,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.code() == 200) {
+                        thread { api.updateNotificationTopics().execute() }
                         runOnUiThread {
                             launchMainActivity()
                         }
