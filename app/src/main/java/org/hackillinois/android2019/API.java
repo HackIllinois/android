@@ -67,4 +67,7 @@ public interface API {
 
     @POST("checkin/")
     Call<CheckIn> checkInUser(@Body CheckIn checkIn);
+
+    @POST("notifications/update/")
+    Call<NotificationTopics> updateNotificationTopics();
 }
