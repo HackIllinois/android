@@ -111,14 +111,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
      * Staff: Can access the scanner
      * Admins: Can access scanner and admin tools
      */
-    private fun updateRoles(roles: Roles?) = roles?.let { roles ->
-        var listOfRoles: List<String> = roles.roles
+    private fun updateRoles(roles: Roles?) = roles?.roles?.let { listOfRoles ->
         if (listOfRoles.contains("Admin")) {
             navAdmin.visibility = View.VISIBLE
             navScanner.visibility = View.VISIBLE
-        }
-        if (listOfRoles.contains("Staff")) {
+        } else if (listOfRoles.contains("Staff")) {
             navScanner.visibility = View.VISIBLE
+        } else {
+            navScanner.visibility = View.GONE
+            navAdmin.visibility = View.GONE
         }
     }
 

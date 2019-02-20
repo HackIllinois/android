@@ -7,17 +7,27 @@ import org.hackillinois.android2019.database.entity.Roles
 import org.hackillinois.android2019.database.entity.User
 
 val qrRepository: GenericRepository<QR> by lazy {
-    GenericRepository<QR>(App.getAPI().qrCode, App.getDatabase().qrDao()::insert, App.getDatabase().qrDao()::getQr)
+    GenericRepository(::createQrCodeCall, App.getDatabase().qrDao()::insert, App.getDatabase().qrDao()::getQr)
 }
 
 val attendeeRepository: GenericRepository<Attendee> by lazy {
-    GenericRepository<Attendee>(App.getAPI().attendee, App.getDatabase().attendeeDao()::insert, App.getDatabase().attendeeDao()::getAttendee)
+    GenericRepository(::createAttendeeCall, App.getDatabase().attendeeDao()::insert, App.getDatabase().attendeeDao()::getAttendee)
 }
 
 val rolesRepository: GenericRepository<Roles> by lazy {
-    GenericRepository<Roles>(App.getAPI().roles, App.getDatabase().rolesDao()::insert, App.getDatabase().rolesDao()::getRoles)
+    GenericRepository(::createRolesCall, App.getDatabase().rolesDao()::insert, App.getDatabase().rolesDao()::getRoles)
 }
 
 val userRepository: GenericRepository<User> by lazy {
-    GenericRepository<User>(App.getAPI().user, App.getDatabase().userDao()::insert, App.getDatabase().userDao()::getUser)
+    GenericRepository(::createUserCall, App.getDatabase().userDao()::insert, App.getDatabase().userDao()::getUser)
 }
+
+/**
+ * These functions exist so that the GenericRepository doesn't hold an instance of the call itself
+ * If it does hold an instance of a call, that call also bundles the JWT with it
+ * As a result, users logging out of one account and back into the another without closing the app will have the incorrect JWT
+ */
+private fun createQrCodeCall() = App.getAPI().qrCode
+private fun createAttendeeCall() = App.getAPI().attendee
+private fun createRolesCall() = App.getAPI().roles
+private fun createUserCall() = App.getAPI().user
