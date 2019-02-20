@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">HackIllinois</string>
 
-    <string name="default_name">Hacker</string>
-    <string name="default_email">hacker@hackillinois.org</string>
+    <string name="default_name">Attendee</string>
+    <string name="default_email">attendee@hackillinois.org</string>
 
     <string name="nav_home">HOME</string>
     <string name="nav_schedule">SCHEDULE</string>
@@ -10,7 +10,7 @@
     <string name="nav_indoor">INDOOR MAPS</string>
     <string name="nav_profile">PROFILE</string>
 
-    <string name="home_empty_events">Please Check Back Later</string>
+    <string name="home_empty_events">Check Back Later</string>
 
     <string name="schedule_tab_friday">FRIDAY</string>
     <string name="schedule_tab_saturday">SATURDAY</string>

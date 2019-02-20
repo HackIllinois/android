@@ -14,6 +14,7 @@ import org.hackillinois.android2019.model.auth.JWT
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.concurrent.thread
 
 class LoginActivity : AppCompatActivity() {
     private val redirectUri: String = "https://hackillinois.org/auth/?isAndroid=1"
@@ -59,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
                 response.body()?.token?.let {
                     api = getAPI(it)
+                    thread { api.updateNotificationTopics().execute() }
                     storeJWT(it)
                     runOnUiThread {
                         launchMainActivity()
