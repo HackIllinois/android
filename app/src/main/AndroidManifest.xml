@@ -53,7 +53,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:host="org.hackillinois.androidapp2019"
+                    android:host="org.hackillinois.android"
                     android:pathPrefix="/auth"
                     android:scheme="hackillinois" />
             </intent-filter>
