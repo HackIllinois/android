@@ -11,6 +11,7 @@ import org.hackillinois.androidapp2019.database.entity.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.SocketTimeoutException
 import kotlin.concurrent.thread
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -34,7 +35,13 @@ class SplashScreenActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.code() == 200) {
-                        thread { api.updateNotificationTopics().execute() }
+                        thread {
+                            try {
+                                api.updateNotificationTopics().execute()
+                            } catch (e: SocketTimeoutException) {
+                                Log.e("LoginActivity", "Notifications update timed out!")
+                            }
+                        }
                         runOnUiThread {
                             launchMainActivity()
                         }
