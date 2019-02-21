@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import org.hackillinois.androidapp2019.App.getAPI
@@ -14,6 +15,7 @@ import org.hackillinois.androidapp2019.model.auth.JWT
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.SocketTimeoutException
 import kotlin.concurrent.thread
 
 class LoginActivity : AppCompatActivity() {
@@ -60,7 +62,13 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
                 response.body()?.token?.let {
                     api = getAPI(it)
-                    thread { api.updateNotificationTopics().execute() }
+                    thread {
+                        try {
+                            api.updateNotificationTopics().execute()
+                        } catch (e: SocketTimeoutException) {
+                            Log.e("LoginActivity", "Notifications update timed out!")
+                        }
+                    }
                     storeJWT(it)
                     runOnUiThread {
                         launchMainActivity()
