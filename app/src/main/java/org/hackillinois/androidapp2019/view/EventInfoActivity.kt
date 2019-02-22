@@ -4,14 +4,14 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import android.view.View
 import com.google.android.gms.maps.model.LatLng
-import org.hackillinois.androidapp2019.R
 import kotlinx.android.synthetic.main.activity_event_info.*
+import org.hackillinois.androidapp2019.R
 import org.hackillinois.androidapp2019.common.DirectionsOnClickListener
 import org.hackillinois.androidapp2019.database.entity.Event
 import org.hackillinois.androidapp2019.viewmodel.EventInfoViewModel
-import android.view.MenuItem
 
 class EventInfoActivity : AppCompatActivity() {
     private lateinit var viewModel: EventInfoViewModel

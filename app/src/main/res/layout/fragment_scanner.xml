@@ -35,5 +35,3 @@
         app:layout_constraintTop_toBottomOf="@+id/qrScanner"
         tools:layout_editor_absoluteX="30dp" />
 </android.support.constraint.ConstraintLayout>
-
-
