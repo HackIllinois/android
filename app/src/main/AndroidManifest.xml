@@ -47,7 +47,7 @@
             android:name="org.hackillinois.androidapp2019.view.EventInfoActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name="org.hackillinois.androidapp2019.view.LoginActivity" >
+        <activity android:name="org.hackillinois.androidapp2019.view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

@@ -174,8 +174,8 @@ class ScannerFragment : Fragment() {
      * names, and uses that to populate the Spinner.
      * @param eventList the list of events from the latest publish event (local DB / API call)
      */
-    private fun updateEventList(eventList: List<Event>?) = eventList.let { eventList ->
-        var eventNameList: MutableList<String> = eventList!!.map { it.name }.toMutableList()
+    private fun updateEventList(eventList: List<Event>?) = eventList?.let { eventList ->
+        var eventNameList: MutableList<String> = eventList.map { it.name }.toMutableList()
         // The special element in the list that allows check in to the event, as opposed to
         // event check-in.
         eventNameList.add(CHECK_IN_TEXT)
