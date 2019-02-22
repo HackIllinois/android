@@ -19,10 +19,4 @@ class ProfileViewModel : ViewModel() {
         attendee = attendeeRepository.fetch()
         user = userRepository.fetch()
     }
-
-    fun refresh() {
-        qrRepository.refresh()
-        attendeeRepository.refresh()
-        userRepository.refresh()
-    }
 }
