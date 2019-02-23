@@ -25,10 +25,6 @@ import org.hackillinois.androidapp2019.model.ScanStatus
 import org.hackillinois.androidapp2019.model.checkin.CheckIn
 import org.hackillinois.androidapp2019.model.event.UserEventPair
 import org.hackillinois.androidapp2019.viewmodel.ScannerViewModel
-import android.support.v4.os.HandlerCompat.postDelayed
-
-
-
 
 class ScannerFragment : Fragment() {
     val INITIAL_SCANNED_USERID = ""
@@ -178,7 +174,9 @@ class ScannerFragment : Fragment() {
 
     private val updateTimerThread = object : Runnable {
         override fun run() {
-            qrScanner.decodeSingle(onQrCodeScan)
+            if (qrScanner != null) {
+                qrScanner.decodeSingle(onQrCodeScan)
+            }
             handler.postDelayed(this, 2000)
         }
     }
