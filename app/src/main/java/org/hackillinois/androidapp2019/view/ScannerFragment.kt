@@ -25,6 +25,11 @@ import org.hackillinois.androidapp2019.model.ScanStatus
 import org.hackillinois.androidapp2019.model.checkin.CheckIn
 import org.hackillinois.androidapp2019.model.event.UserEventPair
 import org.hackillinois.androidapp2019.viewmodel.ScannerViewModel
+import android.R.string.cancel
+import android.app.AlertDialog
+import android.content.DialogInterface
+
+
 
 class ScannerFragment : Fragment() {
     val INITIAL_SCANNED_USERID = ""
@@ -37,6 +42,8 @@ class ScannerFragment : Fragment() {
     lateinit var viewModel: ScannerViewModel
 
     lateinit var handler: Handler
+
+    private var shouldParseScan = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,31 +77,34 @@ class ScannerFragment : Fragment() {
         }
 
         override fun barcodeResult(result: BarcodeResult) {
+            if (shouldParseScan) {
+                // stop parsing scans until we have finished this one!
+                shouldParseScan = false
 
-            var currentEvent = eventListView.selectedItem.toString()
+                val currentEvent = eventListView.selectedItem.toString()
 
-            // Prevent duplicate scans
-            if (getUserIdFromQrString(result.text) == lastSuccessfullyScannedUser && currentEvent == lastEventScannedFor) {
-                return
-            }
+                // Prevent duplicate scans
+                if (getUserIdFromQrString(result.text) == lastSuccessfullyScannedUser && currentEvent == lastEventScannedFor) {
+                    return
+                }
 
-            var userId: String = getUserIdFromQrString(result.text)
+                val userId: String = getUserIdFromQrString(result.text)
 
-            lastEventScannedFor = eventListView.selectedItem.toString()
+                lastEventScannedFor = eventListView.selectedItem.toString()
 
-            // Check-in is a special event in the HackIllinois API
-            if (lastEventScannedFor == CHECK_IN_TEXT) {
-                var staffOverride = staffOverrideSwitch.isChecked
-                var hasCheckedIn = true
-                var hasPickedUpSwag = true
-                var checkIn = CheckIn(userId, staffOverride, hasCheckedIn, hasPickedUpSwag)
+                // Check-in is a special event in the HackIllinois API
+                if (lastEventScannedFor == CHECK_IN_TEXT) {
+                    val staffOverride = staffOverrideSwitch.isChecked
+                    val hasCheckedIn = true
+                    val hasPickedUpSwag = true
+                    val checkIn = CheckIn(userId, staffOverride, hasCheckedIn, hasPickedUpSwag)
 
-                viewModel.checkInUser(checkIn)
+                    viewModel.checkInUser(checkIn)
 
-            } else {
-                var userEventPair = UserEventPair(lastEventScannedFor, userId)
-
-                viewModel.markUserAsAttendingEvent(userEventPair)
+                } else {
+                    val userEventPair = UserEventPair(lastEventScannedFor, userId)
+                    viewModel.markUserAsAttendingEvent(userEventPair)
+                }
             }
         }
     }
@@ -106,22 +116,30 @@ class ScannerFragment : Fragment() {
 
         when (lastScanStatus?.lastScanWasSuccessful) {
             false -> {
-                Snackbar.make(scannerLayout, "User not registered, or already scanned in for event.",
-                        Snackbar.LENGTH_SHORT)
-                        .setAction("CLOSE") { }
-                        .setActionTextColor(resources.getColor(android.R.color.holo_red_light))
-                        .show()
+                AlertDialog.Builder(context).apply {
+                    setMessage("User not registered, or already scanned in for event.")
+                    setPositiveButton("Ok") { dialog, _ ->
+                        shouldParseScan = true
+                        dialog.cancel()
+                    }
+                    create()
+                }.show()
             }
             true -> {
                 lastSuccessfullyScannedUser = lastScanStatus.userId
-                Snackbar.make(scannerLayout, "Success: ${lastSuccessfullyScannedUser}",
-                        Snackbar.LENGTH_SHORT)
-                        .setAction("CLOSE") { }
-                        .setActionTextColor(resources.getColor(android.R.color.holo_red_light))
-                        .show()
+
+                AlertDialog.Builder(context).apply {
+                    setMessage("Success: $lastSuccessfullyScannedUser")
+                    setPositiveButton("Ok") { dialog, _ ->
+                        shouldParseScan = true
+                        dialog.cancel()
+                    }
+                    create()
+                }.show()
                 staffOverrideSwitch.isChecked = false
             }
             null -> {
+                shouldParseScan = true
                 return
             }
         }
@@ -137,7 +155,7 @@ class ScannerFragment : Fragment() {
      * @return the userId from a QR String
      */
     private fun getUserIdFromQrString(qrString: String): String {
-        var splitOnEquals = qrString.split("=")
+        val splitOnEquals = qrString.split("=")
         return splitOnEquals.last()
     }
 
@@ -165,20 +183,10 @@ class ScannerFragment : Fragment() {
             requestPermissions(arrayOf(Manifest.permission.CAMERA),
                     PERMISSIONS_REQUEST_ACCESS_CAMERA)
         } else {
-            handler = Handler()
-            handler.postDelayed(updateTimerThread, 0)
+            view.qrScanner.decodeContinuous(onQrCodeScan)
         }
 
         return view
-    }
-
-    private val updateTimerThread = object : Runnable {
-        override fun run() {
-            if (qrScanner != null) {
-                qrScanner.decodeSingle(onQrCodeScan)
-            }
-            handler.postDelayed(this, 2000)
-        }
     }
 
     /**
