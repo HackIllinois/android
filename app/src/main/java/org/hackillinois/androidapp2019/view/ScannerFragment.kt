@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -24,6 +25,9 @@ import org.hackillinois.androidapp2019.model.ScanStatus
 import org.hackillinois.androidapp2019.model.checkin.CheckIn
 import org.hackillinois.androidapp2019.model.event.UserEventPair
 import org.hackillinois.androidapp2019.viewmodel.ScannerViewModel
+import android.support.v4.os.HandlerCompat.postDelayed
+
+
 
 
 class ScannerFragment : Fragment() {
@@ -35,6 +39,8 @@ class ScannerFragment : Fragment() {
     var lastEventScannedFor: String = ""
 
     lateinit var viewModel: ScannerViewModel
+
+    lateinit var handler: Handler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,7 +111,7 @@ class ScannerFragment : Fragment() {
         when (lastScanStatus?.lastScanWasSuccessful) {
             false -> {
                 Snackbar.make(scannerLayout, "User not registered, or already scanned in for event.",
-                        Snackbar.LENGTH_LONG)
+                        Snackbar.LENGTH_SHORT)
                         .setAction("CLOSE") { }
                         .setActionTextColor(resources.getColor(android.R.color.holo_red_light))
                         .show()
@@ -113,7 +119,7 @@ class ScannerFragment : Fragment() {
             true -> {
                 lastSuccessfullyScannedUser = lastScanStatus.userId
                 Snackbar.make(scannerLayout, "Success: ${lastSuccessfullyScannedUser}",
-                        Snackbar.LENGTH_LONG)
+                        Snackbar.LENGTH_SHORT)
                         .setAction("CLOSE") { }
                         .setActionTextColor(resources.getColor(android.R.color.holo_red_light))
                         .show()
@@ -163,10 +169,18 @@ class ScannerFragment : Fragment() {
             requestPermissions(arrayOf(Manifest.permission.CAMERA),
                     PERMISSIONS_REQUEST_ACCESS_CAMERA)
         } else {
-            view.qrScanner.decodeContinuous(onQrCodeScan)
+            handler = Handler()
+            handler.postDelayed(updateTimerThread, 0)
         }
 
         return view
+    }
+
+    private val updateTimerThread = object : Runnable {
+        override fun run() {
+            qrScanner.decodeSingle(onQrCodeScan)
+            handler.postDelayed(this, 2000)
+        }
     }
 
     /**
