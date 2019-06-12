@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "org.hackillinois.androidapp2019"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 9
         versionName "1.7"
@@ -55,7 +55,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     // QR Code Scanning + Generation
-    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
+    //implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
