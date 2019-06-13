@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import org.hackillinois.androidapp2019.App.getAPI
+import org.hackillinois.androidapp2019.BuildConfig
 import org.hackillinois.androidapp2019.R
 import org.hackillinois.androidapp2019.model.auth.Code
 import org.hackillinois.androidapp2019.model.auth.JWT
@@ -41,8 +42,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        val intent = getIntent()
 
         intent ?: return
         intent.action ?: return
@@ -84,23 +83,20 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    fun redirectToOAuthProvider(provider: String) {
+    private fun redirectToOAuthProvider(provider: String) {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.setData(Uri.parse(authUriTemplate.format(provider, redirectUri)))
+        intent.data = Uri.parse(authUriTemplate.format(provider, redirectUri))
         setOAuthProvider(provider)
         startActivity(intent)
     }
 
-    fun setOAuthProvider(provider: String) {
+    private fun setOAuthProvider(provider: String) {
         val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
         editor.putString("provider", provider)
         editor.apply()
     }
 
-    fun getOAuthProvider(): String {
-        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")
-                ?: ""
-    }
+    private fun getOAuthProvider() = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "") ?: ""
 
     fun storeJWT(jwt: String) {
         val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
