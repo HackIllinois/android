@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.hackillinois.androidapp2019">
+    package="org.hackillinois.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -12,7 +12,7 @@
         android:resource="@drawable/logo" />
 
     <application
-        android:name="org.hackillinois.androidapp2019.App"
+        android:name="org.hackillinois.android.App"
         android:allowBackup="true"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
@@ -20,9 +20,9 @@
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true">
 
-        <receiver android:name="org.hackillinois.androidapp2019.notifications.NotificationReceiver" />
+        <receiver android:name="org.hackillinois.android.notifications.NotificationReceiver" />
         <receiver
-            android:name="org.hackillinois.androidapp2019.notifications.BootReceiver"
+            android:name="org.hackillinois.android.notifications.BootReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
@@ -30,7 +30,7 @@
         </receiver>
 
         <activity
-            android:name="org.hackillinois.androidapp2019.view.SplashScreenActivity"
+            android:name="org.hackillinois.android.view.SplashScreenActivity"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -40,14 +40,14 @@
         </activity>
 
         <activity
-            android:name="org.hackillinois.androidapp2019.view.MainActivity"
+            android:name="org.hackillinois.android.view.MainActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="org.hackillinois.androidapp2019.view.EventInfoActivity"
+            android:name="org.hackillinois.android.view.EventInfoActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name="org.hackillinois.androidapp2019.view.LoginActivity">
+        <activity android:name="org.hackillinois.android.view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -67,7 +67,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <service android:name="org.hackillinois.androidapp2019.notifications.FirebaseNotificationMessagingService">
+        <service android:name="org.hackillinois.android.notifications.FirebaseNotificationMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
