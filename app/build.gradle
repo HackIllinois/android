@@ -16,7 +16,6 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "jwt", HACKILLINOIS_API_JWT
             resValue "string", "google_maps_api_key", GOOGLE_MAPS_API_KEY
         }
         release {

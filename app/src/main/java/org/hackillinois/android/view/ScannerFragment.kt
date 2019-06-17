@@ -61,12 +61,12 @@ class ScannerFragment : Fragment() {
                     val userId: String = getUserIdFromQrString(it.text)
                     viewModel.checkUserIntoEvent(event, userId, view.staffOverrideSwitch.isChecked)
                     Handler(Looper.getMainLooper()).post {
-                        Toast.makeText(context, "Sending request to API. Please wait for a response", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Please wait", Toast.LENGTH_LONG).show()
                     }
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
-                        Toast.makeText(context, "Camera initialization error: ${it.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "${it.message}", Toast.LENGTH_LONG).show()
                     }
                 }
             }
@@ -74,12 +74,9 @@ class ScannerFragment : Fragment() {
             view.codeScannerView.setOnClickListener { codeScanner.startPreview() }
 
             // get camera permission
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (context.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                    context.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSIONS_REQUEST_ACCESS_CAMERA)
-                } else {
-                    codeScanner.startPreview()
-                }
             } else {
                 codeScanner.startPreview()
             }
@@ -104,8 +101,8 @@ class ScannerFragment : Fragment() {
     }
 
     override fun onPause() {
-        codeScanner.releaseResources()
         super.onPause()
+        codeScanner.releaseResources()
     }
 
     private fun getUserIdFromQrString(qrString: String): String {
@@ -128,16 +125,15 @@ class ScannerFragment : Fragment() {
     private fun updateOverrideSwitchVisibility(it: Boolean?) {
         staffOverrideSwitch.visibility = when (it) {
             true -> AdapterView.VISIBLE
-            false -> AdapterView.GONE
-            null -> AdapterView.GONE
+            else -> AdapterView.GONE
         }
     }
 
     private fun updateEventList(eventList: List<Event>?) = eventList?.let { eventList ->
-        var eventNameList: MutableList<String> = eventList.map { it.name }.toMutableList()
+        val eventNameList: MutableList<String> = eventList.map { it.name }.toMutableList()
         eventNameList.add(CHECK_IN_TEXT)
 
-        var spinnerAdapter: ArrayAdapter<String> = ArrayAdapter(context,
+        val spinnerAdapter: ArrayAdapter<String> = ArrayAdapter(context,
                 android.R.layout.simple_dropdown_item_1line, eventNameList)
 
         eventListView.adapter = spinnerAdapter
