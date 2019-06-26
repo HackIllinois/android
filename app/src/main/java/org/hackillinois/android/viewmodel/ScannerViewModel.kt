@@ -20,15 +20,27 @@ import retrofit2.Response
 class ScannerViewModel : ViewModel() {
     private val eventRepository = EventRepository.instance
     var eventsListLiveData: LiveData<List<Event>> = MutableLiveData<List<Event>>()
-    var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData<ScanStatus>()
+    var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
     var shouldDisplayOverrideSwitch = MutableLiveData<Boolean>()
 
-    val CHECK_IN_TEXT = "Check In"
+    private val CHECK_IN_TEXT = "Check In"
 
     fun init() {
         eventsListLiveData = eventRepository.fetchAllEvents()
         // Hidden by default
         shouldDisplayOverrideSwitch.postValue(false)
+    }
+
+    fun checkUserIntoEvent(eventName: String, userId: String, staffOverride: Boolean) {
+        if (eventName == CHECK_IN_TEXT) {
+            val hasCheckedIn = true
+            val hasPickedUpSwag = true
+            val checkIn = CheckIn(userId, staffOverride, hasCheckedIn, hasPickedUpSwag)
+            checkInUser(checkIn)
+        } else {
+            val userEventPair = UserEventPair(eventName, userId)
+            markUserAsAttendingEvent(userEventPair)
+        }
     }
 
     fun checkInUser(checkIn: CheckIn) {
