@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import org.hackillinois.android.App.getAPI
 import org.hackillinois.android.R
@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
         api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object : Callback<JWT> {
             override fun onFailure(call: Call<JWT>, t: Throwable) {
-                Toast.makeText(applicationContext, "Failed to login", Toast.LENGTH_SHORT).show()
+                Snackbar.make(findViewById(android.R.id.content), "Failed to login", Snackbar.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<JWT>, response: Response<JWT>) {

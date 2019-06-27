@@ -3,12 +3,12 @@ package org.hackillinois.android.view.admin
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_admin_events.*
 import kotlinx.android.synthetic.main.fragment_admin_events.view.*
 import kotlinx.android.synthetic.main.fragment_admin_notifications.*
@@ -90,7 +90,7 @@ class ToolsFragment : Fragment() {
 
                 viewModel.createEvent(name, description, sponsor, eventType, eventRoom, startTime, endTime, locationName)
             } catch (e: ParseException) {
-                Toast.makeText(activity?.applicationContext, "Failed to parse date time", Toast.LENGTH_SHORT).show()
+                displaySnackbar("Failed to parse date time", Snackbar.LENGTH_SHORT)
             }
         }
 
@@ -113,40 +113,44 @@ class ToolsFragment : Fragment() {
         return view
     }
 
-    fun updateStats(stats: String?) {
+    private fun updateStats(stats: String?) {
         stats?.let {
             statsText.text = stats
             return
         }
-        Toast.makeText(activity?.applicationContext, "Failed to retrieve stats", Toast.LENGTH_SHORT).show()
+        displaySnackbar("Failed to retrieve stats", Snackbar.LENGTH_SHORT)
     }
 
-    fun updateNotificationTopics(topics: NotificationTopics?) {
+    private fun updateNotificationTopics(topics: NotificationTopics?) {
         topics?.let {
             val adapter = ArrayAdapter<String>(activity?.applicationContext!!, android.R.layout.simple_spinner_dropdown_item, it.topics)
             notificationTopicInput.adapter = adapter
             return
         }
-        Toast.makeText(activity?.applicationContext, "Failed to retrieve notification topics", Toast.LENGTH_SHORT).show()
+        displaySnackbar("Failed to retrieve notification topics", Snackbar.LENGTH_SHORT)
     }
 
-    fun notifiedEventCreated(wasCreated: Boolean?) {
+    private fun notifiedEventCreated(wasCreated: Boolean?) {
         wasCreated?.let {
             if (wasCreated) {
-                Toast.makeText(activity?.applicationContext, "Created event", Toast.LENGTH_SHORT).show()
+                displaySnackbar("Created event", Snackbar.LENGTH_SHORT)
                 return
             }
         }
-        Toast.makeText(activity?.applicationContext, "Failed to create event", Toast.LENGTH_SHORT).show()
+        displaySnackbar("Failed to create event", Snackbar.LENGTH_SHORT)
     }
 
-    fun notifiedNotificationCreated(wasCreated: Boolean?) {
+    private fun notifiedNotificationCreated(wasCreated: Boolean?) {
         wasCreated?.let {
             if (wasCreated) {
-                Toast.makeText(activity?.applicationContext, "Created notification", Toast.LENGTH_SHORT).show()
+                displaySnackbar("Created notification", Snackbar.LENGTH_SHORT)
                 return
             }
         }
-        Toast.makeText(activity?.applicationContext, "Failed to create notification", Toast.LENGTH_SHORT).show()
+        displaySnackbar("Failed to create notification", Snackbar.LENGTH_SHORT)
+    }
+
+    private fun displaySnackbar(message: String, length: Int) = view?.let {
+        Snackbar.make(it.rootView, message, length).show()
     }
 }
