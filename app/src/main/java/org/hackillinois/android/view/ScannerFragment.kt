@@ -8,13 +8,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import com.budiyev.android.codescanner.*
 import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.*
@@ -61,12 +61,12 @@ class ScannerFragment : Fragment() {
                     val userId: String = getUserIdFromQrString(it.text)
                     viewModel.checkUserIntoEvent(event, userId, view.staffOverrideSwitch.isChecked)
                     Handler(Looper.getMainLooper()).post {
-                        Toast.makeText(context, "Please wait", Toast.LENGTH_LONG).show()
+                        Snackbar.make(view.rootView, "Please wait", Snackbar.LENGTH_LONG).show()
                     }
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
-                        Toast.makeText(context, "${it.message}", Toast.LENGTH_LONG).show()
+                        Snackbar.make(view.rootView, it.message.toString(), Snackbar.LENGTH_LONG).show()
                     }
                 }
             }
@@ -119,7 +119,9 @@ class ScannerFragment : Fragment() {
             false -> "User not registered, or already scanned in for event."
         }
 
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        view?.let {
+            Snackbar.make(it.rootView, message, Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     private fun updateOverrideSwitchVisibility(it: Boolean?) {
