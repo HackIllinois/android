@@ -61,12 +61,12 @@ class ScannerFragment : Fragment() {
                     val userId: String = getUserIdFromQrString(it.text)
                     viewModel.checkUserIntoEvent(event, userId, view.staffOverrideSwitch.isChecked)
                     Handler(Looper.getMainLooper()).post {
-                        Snackbar.make(view.rootView, "Please wait", Snackbar.LENGTH_LONG ).show()
+                        Snackbar.make(view.rootView, "Please wait", Snackbar.LENGTH_LONG).show()
                     }
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
-                        Snackbar.make(view.rootView, it.message.toString(), Snackbar.LENGTH_LONG ).show()
+                        Snackbar.make(view.rootView, it.message.toString(), Snackbar.LENGTH_LONG).show()
                     }
                 }
             }
