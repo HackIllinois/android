@@ -83,11 +83,9 @@ public class CustomRefreshView extends View implements IRefreshStatus {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        float centerX = w / 2.0f;
-        float centerY = h / 2.0f;
         float radius = Math.min(w, h) / 3.0f;
 
-        bounds.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
+        bounds.set(0, 0, 2 * radius, 2 * radius);
         starfish.setBounds((int) bounds.left, (int) bounds.top, (int) bounds.right, (int) bounds.bottom);
     }
 
