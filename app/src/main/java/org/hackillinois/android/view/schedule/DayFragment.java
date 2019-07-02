@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import org.hackillinois.android.viewmodel.ScheduleViewModel;
 
 import java.util.List;
 
+import androidx.annotation.Nullable;
+
 public class DayFragment extends Fragment {
     private static final String ARG_SECTION_NUM = "section_number";
 
@@ -25,6 +28,7 @@ public class DayFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<Event> sortedEvents;
+    private Parcelable listState;
 
     public static DayFragment newInstance(int sectionNumber) {
         DayFragment fragment = new DayFragment();
@@ -88,5 +92,19 @@ public class DayFragment extends Fragment {
             recyclerView.setAdapter(adapter);
         }
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (listState != null) {
+            layoutManager.onRestoreInstanceState(listState);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        listState = layoutManager.onSaveInstanceState();
     }
 }
