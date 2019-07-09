@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+
 import org.hackillinois.android.R;
 
 public class IndoorMapsFragment extends Fragment {
@@ -15,7 +18,7 @@ public class IndoorMapsFragment extends Fragment {
     private static final int ECEB = 1;
     private static final int SIEBEL = 2;
 
-    private ImageView map;
+    private SubsamplingScaleImageView map;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_indoor_maps, container, false);
@@ -24,6 +27,7 @@ public class IndoorMapsFragment extends Fragment {
         tabs.addOnTabSelectedListener(new TabListener());
 
         map = view.findViewById(R.id.map);
+        map.setMinimumTileDpi(160);
         setImage(DCL);
 
         return view;
@@ -46,13 +50,13 @@ public class IndoorMapsFragment extends Fragment {
     private void setImage(int index) {
         switch (index) {
             case DCL:
-                map.setImageResource(R.drawable.dcl_indoor);
+                map.setImage(ImageSource.resource(R.drawable.dcl_indoor));
                 break;
             case ECEB:
-                map.setImageResource(R.drawable.eceb_indoor);
+                map.setImage(ImageSource.resource(R.drawable.eceb_indoor));
                 break;
             case SIEBEL:
-                map.setImageResource(R.drawable.siebel_indoor);
+                map.setImage(ImageSource.resource(R.drawable.siebel_indoor));
                 break;
         }
     }
