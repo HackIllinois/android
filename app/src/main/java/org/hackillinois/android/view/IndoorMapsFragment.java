@@ -14,9 +14,8 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import org.hackillinois.android.R;
 
 public class IndoorMapsFragment extends Fragment {
-    private static final int DCL = 0;
-    private static final int ECEB = 1;
-    private static final int SIEBEL = 2;
+    private static final int[] imageResources =
+            new int[] {R.drawable.dcl_indoor, R.drawable.eceb_indoor, R.drawable.siebel_indoor};
 
     private SubsamplingScaleImageView map;
 
@@ -28,11 +27,10 @@ public class IndoorMapsFragment extends Fragment {
 
         map = view.findViewById(R.id.map);
         map.setMinimumTileDpi(160);
-        setImage(DCL);
+        setImage(0);
 
         return view;
     }
-
 
     private class TabListener implements TabLayout.OnTabSelectedListener {
         public void onTabSelected(TabLayout.Tab tab) {
@@ -40,25 +38,11 @@ public class IndoorMapsFragment extends Fragment {
             setImage(index);
         }
 
-        public void onTabUnselected(TabLayout.Tab tab) {
-        }
-
-        public void onTabReselected(TabLayout.Tab tab) {
-        }
+        public void onTabUnselected(TabLayout.Tab tab) { }
+        public void onTabReselected(TabLayout.Tab tab) { }
     }
 
     private void setImage(int index) {
-        switch (index) {
-            case DCL:
-                map.setImage(ImageSource.resource(R.drawable.dcl_indoor));
-                break;
-            case ECEB:
-                map.setImage(ImageSource.resource(R.drawable.eceb_indoor));
-                break;
-            case SIEBEL:
-                map.setImage(ImageSource.resource(R.drawable.siebel_indoor));
-                break;
-        }
+        map.setImage(ImageSource.resource(imageResources[index]));
     }
 }
-
