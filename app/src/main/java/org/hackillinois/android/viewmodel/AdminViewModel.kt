@@ -22,7 +22,7 @@ class AdminViewModel : ViewModel() {
     var notificationCreated = MutableLiveData<Boolean>()
 
     fun queryStats() {
-        App.getAPI().stats.enqueue(object : Callback<ResponseBody> {
+        App.getAPI().stats().enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 stats.postValue(null)
             }
@@ -59,7 +59,7 @@ class AdminViewModel : ViewModel() {
     }
 
     fun getNotificationTopics() {
-        App.getAPI().notificationTopics.enqueue(object : Callback<NotificationTopics> {
+        App.getAPI().notificationTopics().enqueue(object : Callback<NotificationTopics> {
             override fun onFailure(call: Call<NotificationTopics>, t: Throwable) {
                 notificationTopics.postValue(null)
             }

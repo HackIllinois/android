@@ -43,7 +43,7 @@ public class App extends Application {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API.BASE_URL)
+                .baseUrl(API.Companion.getBASE_URL())
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -39,7 +39,7 @@ class EventRepository {
     }
 
     private fun refreshAll() {
-        App.getAPI().allEvents.enqueue(object : Callback<EventsList> {
+        App.getAPI().allEvents().enqueue(object : Callback<EventsList> {
             override fun onResponse(call: Call<EventsList>, response: Response<EventsList>) {
                 if (response.isSuccessful) {
                     val eventsList: List<Event> = response.body()?.events ?: return

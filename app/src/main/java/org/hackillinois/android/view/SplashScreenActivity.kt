@@ -25,7 +25,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         if (jwt != defaultJWT) {
             val api = App.getAPI(jwt)
-            api.user.enqueue(object : Callback<User> {
+            api.user().enqueue(object : Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     Log.e("LoginActivity", "Failed to check is jwt is valid")
                     runOnUiThread {
