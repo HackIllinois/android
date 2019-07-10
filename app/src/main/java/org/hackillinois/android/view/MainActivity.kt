@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         clearJWT()
 
         thread {
-            App.getDatabase().clearAllTables()
+            App.database.clearAllTables()
 
             runOnUiThread {
                 val loginIntent = Intent(this, LoginActivity::class.java)

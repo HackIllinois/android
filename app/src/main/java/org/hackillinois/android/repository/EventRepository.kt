@@ -10,7 +10,7 @@ import retrofit2.Response
 import kotlin.concurrent.thread
 
 class EventRepository {
-    private val eventDao = App.getDatabase().eventDao()
+    private val eventDao = App.database.eventDao()
     private val MILLIS_IN_SECOND = 1000L
 
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
