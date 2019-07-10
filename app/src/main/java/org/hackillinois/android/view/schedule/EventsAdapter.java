@@ -73,16 +73,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.eventTimeTextView.setText(event.getStartTimeOfDay());
         holder.eventLocationTextView.setText(event.getLocationDescriptionsAsString());
 
-        holder.starImageButton.setSelected(FavoritesManager.isFavorited(context, event.getName()));
+        holder.starImageButton.setSelected(FavoritesManager.Companion.isFavorited(context, event.getName()));
         holder.starImageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 button.setSelected(!button.isSelected());
 
                 if (button.isSelected()) {
-                    FavoritesManager.favoriteEvent(context, event);
+                    FavoritesManager.Companion.favoriteEvent(context, event);
                     Snackbar.make(button, R.string.schedule_snackbar_notifications_on, Snackbar.LENGTH_SHORT).show();
                 } else {
-                    FavoritesManager.unfavoriteEvent(context, event);
+                    FavoritesManager.Companion.unfavoriteEvent(context, event);
                 }
             }
         });
