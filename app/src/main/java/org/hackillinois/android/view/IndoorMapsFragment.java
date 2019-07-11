@@ -16,6 +16,7 @@ import org.hackillinois.android.R;
 public class IndoorMapsFragment extends Fragment {
     private static final int[] imageResources =
             new int[] {R.drawable.dcl_indoor, R.drawable.eceb_indoor, R.drawable.siebel_indoor};
+    private static final int MINIMUM_TILE_DPI = 160;
 
     private SubsamplingScaleImageView map;
 
@@ -26,7 +27,7 @@ public class IndoorMapsFragment extends Fragment {
         tabs.addOnTabSelectedListener(new TabListener());
 
         map = view.findViewById(R.id.map);
-        map.setMinimumTileDpi(160);
+        map.setMinimumTileDpi(MINIMUM_TILE_DPI);
         setImage(0);
 
         return view;
