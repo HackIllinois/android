@@ -23,7 +23,7 @@ object HackIllinoisNotificationManager {
         val alarmIntent = buildNotificationPendingIntent(context, notification)
         val timeToTrigger = event.getStartTimeMs() - MINUTES_BEFORE_TO_NOTIFY * MILLIS_IN_MINUTE
 
-        // set an alarm only if the event already occurred
+        // set an alarm only if the event starts in the future
         if (event.getStartTimeMs() >= Calendar.getInstance().timeInMillis) {
             alarmManager.set(AlarmManager.RTC_WAKEUP, timeToTrigger, alarmIntent)
         }

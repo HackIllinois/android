@@ -38,7 +38,7 @@ interface API {
     @POST("checkin/")
     fun checkInUser(@Body checkIn: CheckIn): Call<CheckIn>
 
-    //EVENT
+    // EVENT
 
     @GET("event/")
     fun allEvents(): Call<EventsList>
