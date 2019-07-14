@@ -7,9 +7,9 @@ import retrofit2.Response
 import kotlin.concurrent.thread
 
 class GenericRepository<T>(
-        private val apiCall: Call<T>,
-        private val databaseInsertFunction: (T) -> Unit,
-        private val databaseRetrievalFunction: () -> LiveData<T>
+    private val apiCall: Call<T>,
+    private val databaseInsertFunction: (T) -> Unit,
+    private val databaseRetrievalFunction: () -> LiveData<T>
 ) {
 
     fun fetch(): LiveData<T> {
@@ -32,5 +32,4 @@ class GenericRepository<T>(
             override fun onFailure(call: Call<T>, t: Throwable) {}
         })
     }
-
 }

@@ -16,7 +16,6 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
-import com.google.zxing.common.BitMatrix
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 import org.hackillinois.android.R
@@ -44,8 +43,8 @@ class ProfileFragment : Fragment() {
         viewModel.init()
 
         viewModel.qr.observe(this, Observer { qr -> updateQrView(qr) })
-        viewModel.user.observe(this, Observer { user -> updateUserInformation(user)})
-        viewModel.attendee.observe(this, Observer { attendee -> updateAttendeeInformation(attendee)})
+        viewModel.user.observe(this, Observer { user -> updateUserInformation(user) })
+        viewModel.attendee.observe(this, Observer { attendee -> updateAttendeeInformation(attendee) })
     }
 
     private fun updateQrView(qr: QR?) = qr?.let {

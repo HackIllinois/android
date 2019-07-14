@@ -8,13 +8,13 @@ import org.hackillinois.android.database.Converters
 @Entity(tableName = "attendees")
 @TypeConverters(Converters::class)
 data class Attendee(
-        var id: String,
-        var firstName: String,
-        var lastName: String,
-        var email: String,
-        var diet: List<String>,
-        var school: String,
-        var major: String
+    var id: String,
+    var firstName: String,
+    var lastName: String,
+    var email: String,
+    var diet: List<String>,
+    var school: String,
+    var major: String
 ) {
     @PrimaryKey
     var key = 1

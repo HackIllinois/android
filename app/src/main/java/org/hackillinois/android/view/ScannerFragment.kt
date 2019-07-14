@@ -24,7 +24,6 @@ import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
-
 class ScannerFragment : Fragment() {
     val PERMISSIONS_REQUEST_ACCESS_CAMERA = 0
     private val CHECK_IN_TEXT = "Check In"

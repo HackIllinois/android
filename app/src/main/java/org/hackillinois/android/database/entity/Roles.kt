@@ -9,8 +9,8 @@ import org.hackillinois.android.database.Converters
 @Entity(tableName = "roles")
 @TypeConverters(Converters::class)
 data class Roles(
-        @ColumnInfo(name = "id") var id: String,
-        @ColumnInfo(name = "roles") var roles: List<String>
+    @ColumnInfo(name = "id") var id: String,
+    @ColumnInfo(name = "roles") var roles: List<String>
 ) {
     @PrimaryKey
     @ColumnInfo(name = "key")

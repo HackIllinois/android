@@ -59,7 +59,6 @@ class EventInfoActivity : AppCompatActivity() {
                 val location = LatLng(it.locations[0].latitude, it.locations[0].longitude)
                 directionsButton.setOnClickListener(DirectionsOnClickListener(location, event.name))
             }
-
         }
     }
 
