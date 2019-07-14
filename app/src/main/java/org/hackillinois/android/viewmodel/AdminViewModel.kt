@@ -36,8 +36,16 @@ class AdminViewModel : ViewModel() {
         })
     }
 
-    fun createEvent(name: String, description: String, sponsor: String, eventType: String,
-                    eventRoom: String, startTime: Long, endTime: Long, locationName: String) {
+    fun createEvent(
+        name: String,
+        description: String,
+        sponsor: String,
+        eventType: String,
+        eventRoom: String,
+        startTime: Long,
+        endTime: Long,
+        locationName: String
+    ) {
         var location: EventLocation? = null
         when (locationName) {
             "Siebel Center" -> location = EventLocation("${SiebelCenter.description} $eventRoom", SiebelCenter.latitude, SiebelCenter.longitude)
@@ -83,7 +91,6 @@ class AdminViewModel : ViewModel() {
             override fun onResponse(call: Call<Notification>, response: Response<Notification>) {
                 notificationCreated.postValue(response.code() == 200)
             }
-
         })
     }
 }

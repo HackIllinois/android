@@ -192,4 +192,3 @@ class OutdoorMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
         )
     }
 }
-
