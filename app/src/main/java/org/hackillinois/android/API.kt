@@ -25,50 +25,64 @@ import retrofit2.http.Query
 
 interface API {
 
+    // AUTH
+
+    @POST("auth/code/{provider}/")
+    fun getJWT(@Path("provider") provider: String, @Query("redirect_uri") redirect: String, @Body code: Code): Call<JWT>
+
+    @GET("auth/roles/")
+    fun roles(): Call<Roles>
+
+    // CHECK-IN
+
+    @POST("checkin/")
+    fun checkInUser(@Body checkIn: CheckIn): Call<CheckIn>
+
+    //EVENT
+
     @GET("event/")
     fun allEvents(): Call<EventsList>
 
+    @POST("event/")
+    fun createEvent(@Body event: Event): Call<Event>
+
+    @GET("event/{name}/")
+    fun getEvent(@Path("name") name: String): Call<Event>
+
+    @POST("event/track/")
+    fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): Call<TrackerContainer>
+
+    // NOTIFICATIONS
+
+    @GET("notifications/")
+    fun notificationTopics(): Call<NotificationTopics>
+
+    @POST("notifications/device/")
+    fun sendUserToken(@Body token: DeviceToken): Call<DeviceToken>
+
+    @POST("notifications/{topic}/")
+    fun createNotification(@Path("topic") topic: String, @Body notification: Notification): Call<Notification>
+
+    @POST("notifications/update/")
+    fun updateNotificationTopics(): Call<NotificationTopics>
+
+    // REGISTRATION
+
     @GET("registration/attendee/")
     fun attendee(): Call<Attendee>
+
+    // STAT
+
+    @GET("stat/")
+    fun stats(): Call<ResponseBody>
+
+    // USER
 
     @GET("user/")
     fun user(): Call<User>
 
     @GET("user/qr/")
     fun qrCode(): Call<QR>
-
-    @GET("auth/roles/")
-    fun roles(): Call<Roles>
-
-    @GET("stat/")
-    fun stats(): Call<ResponseBody>
-
-    @GET("notifications/")
-    fun notificationTopics(): Call<NotificationTopics>
-
-    @GET("event/{name}/")
-    fun getEvent(@Path("name") name: String): Call<Event>
-
-    @POST("auth/code/{provider}/")
-    fun getJWT(@Path("provider") provider: String, @Query("redirect_uri") redirect: String, @Body code: Code): Call<JWT>
-
-    @POST("notifications/device/")
-    fun sendUserToken(@Body token: DeviceToken): Call<DeviceToken>
-
-    @POST("event/")
-    fun createEvent(@Body event: Event): Call<Event>
-
-    @POST("notifications/{topic}/")
-    fun createNotification(@Path("topic") topic: String, @Body notification: Notification): Call<Notification>
-
-    @POST("event/track/")
-    fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): Call<TrackerContainer>
-
-    @POST("checkin/")
-    fun checkInUser(@Body checkIn: CheckIn): Call<CheckIn>
-
-    @POST("notifications/update/")
-    fun updateNotificationTopics(): Call<NotificationTopics>
 
     companion object {
         val BASE_URL = "https://api.hackillinois.org/"

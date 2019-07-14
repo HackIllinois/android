@@ -29,8 +29,8 @@ class EventsAdapter internal constructor(private val eventList: List<Event>) : R
         val event = eventList[position]
 
         holder.itemView.apply {
-            constraintLayout_event_onclick.setOnClickListener { v ->
-                val context = v.context
+            constraintLayout_event_onclick.setOnClickListener { view ->
+                val context = view.context
                 val intent = Intent(context, EventInfoActivity::class.java)
                 intent.putExtra("event_name", event.name)
                 context.startActivity(intent)

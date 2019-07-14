@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_admin.view.*
+import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.viewmodel.ScheduleViewModel
 
@@ -19,18 +19,19 @@ class ScheduleFragment : Fragment() {
 
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
 
-        view.adminContainer.adapter = sectionsPagerAdapter
-        view.adminContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.tabs))
-        view.tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.adminContainer))
+        view.scheduleContainer.adapter = sectionsPagerAdapter
+        view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.tabs))
+        view.tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
 
         val scheduleViewModel = ScheduleViewModel()
 
         val time = System.currentTimeMillis()
 
-        view.adminContainer.currentItem = when {
+        view.scheduleContainer.currentItem = when {
             time < scheduleViewModel.fridayEnd -> 0
             time < scheduleViewModel.saturdayEnd -> 1
-            else -> 2
+            time < scheduleViewModel.sundayEnd -> 2
+            else -> 0
         }
 
         return view

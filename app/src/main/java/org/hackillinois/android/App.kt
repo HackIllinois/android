@@ -26,33 +26,29 @@ class App : Application() {
 
         fun getAPI(token: String? = null): API {
             if (token == null) {
-                return if (apiInitialized) {
-                    apiInternal
-                } else {
-                    getAPI("")
-                }
-            } else {
-                val interceptor = { chain: Interceptor.Chain ->
-                    val newRequest = chain.request().newBuilder()
-                            .addHeader("Authorization", token)
-                            .build()
-                    chain.proceed(newRequest)
-                }
-
-                val client = OkHttpClient.Builder()
-                        .addInterceptor(interceptor)
-                        .build()
-
-                val retrofit = Retrofit.Builder()
-                        .baseUrl(API.BASE_URL)
-                        .client(client)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build()
-
-                apiInternal = retrofit.create(API::class.java)
-                apiInitialized = true
-                return apiInternal
+                return if (apiInitialized) apiInternal else getAPI("")
             }
+
+            val interceptor = { chain: Interceptor.Chain ->
+                val newRequest = chain.request().newBuilder()
+                        .addHeader("Authorization", token)
+                        .build()
+                chain.proceed(newRequest)
+            }
+
+            val client = OkHttpClient.Builder()
+                    .addInterceptor(interceptor)
+                    .build()
+
+            val retrofit = Retrofit.Builder()
+                    .baseUrl(API.BASE_URL)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+
+            apiInternal = retrofit.create(API::class.java)
+            apiInitialized = true
+            return apiInternal
         }
     }
 }

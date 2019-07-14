@@ -38,7 +38,6 @@ class CustomRefreshView constructor(
             duration = ANIMATION_DURATION.toLong()
             start()
         }
-
     }
 
     private fun resetAnimator() {
