@@ -57,12 +57,20 @@ class OutdoorMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
 
     private fun getLocationConfiguration() = LocationConfiguration.Builder()
             .keepTracking(true)
-            .askForPermission(PermissionConfiguration.Builder().rationaleMessage(rationalMessage).build())
+            .askForPermission(PermissionConfiguration.Builder()
+                    .rationaleMessage(rationalMessage)
+                    .build())
             .useGooglePlayServices(GooglePlayServicesConfiguration.Builder().build())
-            .useDefaultProviders(DefaultProviderConfiguration.Builder().gpsMessage(gpsMessage).build())
+            .useDefaultProviders(DefaultProviderConfiguration.Builder()
+                    .gpsMessage(gpsMessage)
+                    .build())
             .build()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_outdoor_maps, container, false)
 
         val tabs = view.findViewById<TabLayout>(R.id.tabs)
