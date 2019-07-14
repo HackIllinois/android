@@ -8,7 +8,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_login.*
-import org.hackillinois.android.App.getAPI
+import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
         uri ?: return
 
         val code = uri.getQueryParameter("code")
-        var api = getAPI()
+        var api = App.getAPI()
 
         api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object : Callback<JWT> {
             override fun onFailure(call: Call<JWT>, t: Throwable) {
@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
                 response.body()?.token?.let {
-                    api = getAPI(it)
+                    api = App.getAPI(it)
                     thread {
                         try {
                             api.updateNotificationTopics().execute()
