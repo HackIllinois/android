@@ -37,8 +37,8 @@ class OutdoorMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
     private var time: TextView? = null
     private var distance: TextView? = null
 
-    private val rationalMessage = "Location permissions required to show you walk times."
-    private val gpsMessage = "GPS provider required to show you walk times."
+    private val rationalMessage = "Location permissions required to show walk times."
+    private val gpsMessage = "GPS provider required to show walk times."
 
     private lateinit var locationManager: LocationManager
 
