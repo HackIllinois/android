@@ -25,7 +25,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            resValue "string", "google_maps_api_key", GOOGLE_MAPS_API_KEY
+            resValue "string", "google_maps_api_key", project.hasProperty('GOOGLE_MAPS_API_KEY') ? GOOGLE_MAPS_API_KEY : System.getenv('GOOGLE_MAPS_API_KEY')
         }
     }
     compileOptions {
