@@ -29,7 +29,7 @@ cache:
   - "$HOME/.gradle/wrapper/"
 
 script:
-- "./gradlew ktlintCheck"
+- "./gradlew clean ktlintCheck test build"
 
 before_deploy:
 - cp $TRAVIS_BUILD_DIR/hackillinois.keystore $HOME
