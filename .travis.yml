@@ -34,7 +34,8 @@ script:
 before_deploy:
 - cp $TRAVIS_BUILD_DIR/hackillinois.keystore $HOME
 - cd app/build/outputs/apk/
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/hackillinois.keystore -storepass $storepass -keypass $keypass app-release-unsigned.apk key0
+- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/hackillinois.keystore
+  -storepass $storepass -keypass $keypass app-release-unsigned.apk key0
 - jarsigner -verify app-release-unsigned.apk
 - "${ANDROID_HOME}/build-tools/28.0.3/zipalign -v 4 app-release-unsigned.apk hackillinois.apk"
 deploy:
