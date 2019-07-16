@@ -49,5 +49,5 @@ deploy:
     branch: development
 
 before_install:
-- openssl aes-256-cbc -K $encrypted_612d20e8a5bc_key -iv $encrypted_612d20e8a5bc_iv -in google-services.json.enc -out google-services.json -d
+- openssl aes-256-cbc -K $encrypted_612d20e8a5bc_key -iv $encrypted_612d20e8a5bc_iv -in $HOME/app/src/release/google-services.json.enc -out google-services.json -d
 - openssl aes-256-cbc -K $encrypted_e96e21279759_key -iv $encrypted_e96e21279759_iv -in hackillinois.keystore.enc -out hackillinois.keystore -d
