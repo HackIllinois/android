@@ -29,10 +29,12 @@ cache:
   - "$HOME/.gradle/wrapper/"
 
 script:
-- "./gradlew clean ktlintCheck test build"
+- "./gradlew clean ktlintCheck build"
 
 before_deploy:
+- mkdir $HOME/app/src/release/
 - cp $TRAVIS_BUILD_DIR/google-services.json $HOME/app/src/release/
+
 - cp $TRAVIS_BUILD_DIR/hackillinois.keystore $HOME
 - cd app/build/outputs/apk/
 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/hackillinois.keystore -storepass $storepass -keypass $keypass app-release-unsigned.apk key0
