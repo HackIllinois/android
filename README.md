@@ -14,7 +14,9 @@
     c. Select the "android" folder in the location that you cloned to.
 5. Create a `~/.gradle/gradle.properties` file at the root of your machine.
     a. If on Windows, this will be `C:\Users\username\.gradle\gradle.properties`
-6. Fill this follow with the following content
-    a. ```
+6. Fill this follow with the following content:
+    ```
     GOOGLE_MAPS_API_KEY=<API_KEY_HERE>
-    ````
+    ```
+    a. You can either create your own Google Maps API Key, or contact one of the developers for our development key.
+7. In the cloned project, create an `app/google-services.json` file. You can get a copy of this file from one of the developers.
