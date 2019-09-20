@@ -14,8 +14,9 @@ data class User(
     @PrimaryKey
     var key = 1
 
-    fun getFullName() = when (firstName != "" || lastName != "") {
-        true -> String.format("%s %s", firstName, lastName)
-        false -> "Attendee"
-    }
+    val fullName
+        get() = when {
+            firstName.isNotEmpty() || lastName.isNotEmpty() -> "$firstName $lastName".trim()
+            else -> "Attendee"
+        }
 }

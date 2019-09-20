@@ -19,21 +19,26 @@ data class Attendee(
     @PrimaryKey
     var key = 1
 
-    fun getDietAsString(): String? {
-        if (diet.isEmpty()) {
-            return null
+    val fullName: String
+        get() = when {
+            firstName.isNotEmpty() || lastName.isNotEmpty() -> "$firstName $lastName".trim()
+            else -> "Attendee"
         }
 
-        var list = diet[0]
-        if (diet.size > 2) {
-            list += ","
-        }
-        for (i in 1 until diet.size - 1) {
-            list += String.format(" %s,", diet[i])
-        }
-        if (diet.size > 1) {
-            list += String.format(" and %s", diet[diet.size - 1])
-        }
-        return list
-    }
+    val completeDiet: String?
+        get() =
+            if (diet.isEmpty()) null
+            else buildString {
+                append(diet.first())
+
+                if (diet.size > 2) {
+                    diet.subList(1, diet.size - 1).forEach {
+                        append(", $it")
+                    }
+                }
+
+                if (diet.size > 1) {
+                    append(" and ${diet.last()}")
+                }
+            }
 }

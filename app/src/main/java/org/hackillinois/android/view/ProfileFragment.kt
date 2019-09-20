@@ -54,12 +54,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateUserInformation(user: User?) = user?.let {
-        nameTextView?.text = user.getFullName()
+        nameTextView?.text = user.fullName
     }
 
     private fun updateAttendeeInformation(attendee: Attendee?) {
         attendee?.let {
-            val diet = attendee.getDietAsString()
+            val diet = attendee.completeDiet
             if (diet != null) {
                 dietTextView?.text = diet
                 dietTextView?.visibility = View.VISIBLE
