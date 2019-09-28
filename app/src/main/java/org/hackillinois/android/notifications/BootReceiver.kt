@@ -10,7 +10,7 @@ import kotlin.concurrent.thread
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         thread {
-            val events = App.getDatabase().eventDao().getAllEventsList()
+            val events = App.database.eventDao().getAllEventsList()
             events.filter {
                 FavoritesManager.isFavorited(context, it.name)
             }.forEach {

@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
 android {
     compileSdkVersion 28
@@ -16,19 +17,22 @@ android {
     }
     buildTypes {
         debug {
-            resValue "string", "google_maps_api_key", GOOGLE_MAPS_API_KEY
+            resValue "string", "google_maps_api_key", System.getenv("CI") == "true" ? System.getenv('GOOGLE_MAPS_API_KEY') : GOOGLE_MAPS_API_KEY
         }
         release {
             applicationIdSuffix ".release"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            resValue "string", "google_maps_api_key", GOOGLE_MAPS_API_KEY
+            resValue "string", "google_maps_api_key", System.getenv("CI") == "true" ? System.getenv('GOOGLE_MAPS_API_KEY') : GOOGLE_MAPS_API_KEY
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -39,6 +43,10 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
+    // Location updates
+    implementation 'com.yayandroid:LocationManager:2.0.4'
+    // Zoomable images
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     // Architecture Components
     implementation 'android.arch.lifecycle:viewmodel:1.1.1'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
@@ -63,5 +71,3 @@ dependencies {
     // Logging interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
 }
-
-apply plugin: 'com.google.gms.google-services'

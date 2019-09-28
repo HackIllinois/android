@@ -10,7 +10,7 @@ import retrofit2.Response
 import kotlin.concurrent.thread
 
 class EventRepository {
-    private val eventDao = App.getDatabase().eventDao()
+    private val eventDao = App.database.eventDao()
     private val MILLIS_IN_SECOND = 1000L
 
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
@@ -39,7 +39,7 @@ class EventRepository {
     }
 
     private fun refreshAll() {
-        App.getAPI().allEvents.enqueue(object : Callback<EventsList> {
+        App.getAPI().allEvents().enqueue(object : Callback<EventsList> {
             override fun onResponse(call: Call<EventsList>, response: Response<EventsList>) {
                 if (response.isSuccessful) {
                     val eventsList: List<Event> = response.body()?.events ?: return

@@ -22,7 +22,7 @@ class AdminViewModel : ViewModel() {
     var notificationCreated = MutableLiveData<Boolean>()
 
     fun queryStats() {
-        App.getAPI().stats.enqueue(object : Callback<ResponseBody> {
+        App.getAPI().stats().enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 stats.postValue(null)
             }
@@ -36,8 +36,16 @@ class AdminViewModel : ViewModel() {
         })
     }
 
-    fun createEvent(name: String, description: String, sponsor: String, eventType: String,
-                    eventRoom: String, startTime: Long, endTime: Long, locationName: String) {
+    fun createEvent(
+        name: String,
+        description: String,
+        sponsor: String,
+        eventType: String,
+        eventRoom: String,
+        startTime: Long,
+        endTime: Long,
+        locationName: String
+    ) {
         var location: EventLocation? = null
         when (locationName) {
             "Siebel Center" -> location = EventLocation("${SiebelCenter.description} $eventRoom", SiebelCenter.latitude, SiebelCenter.longitude)
@@ -59,7 +67,7 @@ class AdminViewModel : ViewModel() {
     }
 
     fun getNotificationTopics() {
-        App.getAPI().notificationTopics.enqueue(object : Callback<NotificationTopics> {
+        App.getAPI().notificationTopics().enqueue(object : Callback<NotificationTopics> {
             override fun onFailure(call: Call<NotificationTopics>, t: Throwable) {
                 notificationTopics.postValue(null)
             }
@@ -83,7 +91,6 @@ class AdminViewModel : ViewModel() {
             override fun onResponse(call: Call<Notification>, response: Response<Notification>) {
                 notificationCreated.postValue(response.code() == 200)
             }
-
         })
     }
 }

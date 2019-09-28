@@ -48,8 +48,11 @@ class ToolsFragment : Fragment() {
         viewModel.notificationCreated.observe(this, Observer { notifiedNotificationCreated(it) })
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val sectionNumber = if (arguments == null) 0 else arguments!!.getInt(ARG_SECTION_NUM)
 
         return when (sectionNumber) {
@@ -59,8 +62,11 @@ class ToolsFragment : Fragment() {
         }
     }
 
-    fun createStatsView(inflater: LayoutInflater, container: ViewGroup?,
-                        savedInstanceState: Bundle?): View? {
+    fun createStatsView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_admin_stats, container, false)
 
         view.queryBtn.setOnClickListener {
@@ -70,8 +76,11 @@ class ToolsFragment : Fragment() {
         return view
     }
 
-    fun createEventsView(inflater: LayoutInflater, container: ViewGroup?,
-                         savedInstanceState: Bundle?): View? {
+    fun createEventsView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_admin_events, container, false)
 
         view.eventCreateBtn.setOnClickListener {

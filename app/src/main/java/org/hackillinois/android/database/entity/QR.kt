@@ -6,8 +6,8 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "qr_codes")
 data class QR(
-        @ColumnInfo(name = "id") var id: String,
-        @ColumnInfo(name = "qr_info") var qrInfo: String
+    @ColumnInfo(name = "id") var id: String,
+    @ColumnInfo(name = "qr_info") var qrInfo: String
 ) {
     @PrimaryKey
     @ColumnInfo(name = "key")
