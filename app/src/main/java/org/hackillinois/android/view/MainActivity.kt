@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun updateUserInfo(user: User?) {
         user?.let {
-            navMenu.nameTextView.text = it.getFullName()
+            navMenu.nameTextView.text = it.fullName
             navMenu.emailTextView.text = it.email
         }
     }

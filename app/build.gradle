@@ -14,17 +14,24 @@ android {
         versionName "1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
+        def google_maps_api_key = System.getenv("CI") == "true" ?
+                (System.getenv("GOOGLE_MAPS_API_KEY") ?: "") :
+                (project.properties["GOOGLE_MAPS_API_KEY"] ?: "")
         debug {
-            resValue "string", "google_maps_api_key", System.getenv("CI") == "true" ? System.getenv('GOOGLE_MAPS_API_KEY') : GOOGLE_MAPS_API_KEY
+            resValue "string", "google_maps_api_key", google_maps_api_key
         }
         release {
             applicationIdSuffix ".release"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            resValue "string", "google_maps_api_key", System.getenv("CI") == "true" ? System.getenv('GOOGLE_MAPS_API_KEY') : GOOGLE_MAPS_API_KEY
+            resValue "string", "google_maps_api_key", google_maps_api_key
         }
     }
     compileOptions {
