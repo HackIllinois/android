@@ -21,7 +21,7 @@ import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.viewmodel.ProfileViewModel
-import java.util.*
+import java.util.EnumMap
 
 class ProfileFragment : Fragment() {
     private var qrImageView: ImageView? = null

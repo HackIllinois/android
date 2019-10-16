@@ -6,37 +6,26 @@ import org.junit.Test
 class UserTest {
 
     @Test
-    fun fullName_withoutFirstAndLastName_shouldBeAtendee() {
-        val user = buildUser(
-            firstName = "",
-            lastName = ""
-        )
-
+    fun fullName_withoutFirstAndLastName_shouldBeAttendee() {
+        val user = buildUser(firstName = "", lastName = "")
         assertEquals("Attendee", user.fullName)
     }
 
     @Test
     fun fullName_withOnlyFirstName_shouldBeFirstName() {
-        val user = buildUser(
-            lastName = ""
-        )
-
+        val user = buildUser(lastName = "")
         assertEquals("Test", user.fullName)
     }
 
     @Test
     fun fullName_withOnlyLastName_shouldBeLastName() {
-        val user = buildUser(
-            firstName = ""
-        )
-
+        val user = buildUser(firstName = "")
         assertEquals("User", user.fullName)
     }
 
     @Test
     fun fullName_withBothNames_shouldBeTheUnionOfBoth() {
         val user = buildUser()
-
         assertEquals("Test User", user.fullName)
     }
 
