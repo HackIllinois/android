@@ -1,9 +1,9 @@
 package org.hackillinois.android.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.repository.EventRepository

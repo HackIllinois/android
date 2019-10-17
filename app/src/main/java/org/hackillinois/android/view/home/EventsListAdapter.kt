@@ -1,6 +1,6 @@
 package org.hackillinois.android.view.home
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.home_event_list_item.view.*

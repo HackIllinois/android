@@ -1,6 +1,6 @@
 package org.hackillinois.android.repository
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.model.event.EventsList
