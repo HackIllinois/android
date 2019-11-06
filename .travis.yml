@@ -28,7 +28,7 @@ cache:
   - "$HOME/.gradle/wrapper/"
 
 script:
-- "./gradlew clean ktlintCheck build"
+- "./gradlew clean ktlintCheck testDebugUnitTest build"
 
 before_install:
 - openssl aes-256-cbc -K $encrypted_612d20e8a5bc_key -iv $encrypted_612d20e8a5bc_iv -in google-services.json.enc -out google-services.json  -d

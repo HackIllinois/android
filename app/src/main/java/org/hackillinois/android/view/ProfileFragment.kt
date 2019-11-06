@@ -11,19 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
+import androidx.core.content.ContextCompat
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
-import kotlinx.android.synthetic.main.fragment_profile.*
-
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.viewmodel.ProfileViewModel
-
 import java.util.EnumMap
 
 class ProfileFragment : Fragment() {
@@ -54,18 +51,23 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateUserInformation(user: User?) = user?.let {
-        nameTextView?.text = user.getFullName()
+        nameTextView?.let {
+            if (it.text.isNullOrBlank()) {
+                it.text = user.fullName
+            }
+        }
     }
 
     private fun updateAttendeeInformation(attendee: Attendee?) {
         attendee?.let {
-            val diet = attendee.getDietAsString()
+            val diet = attendee.completeDiet
             if (diet != null) {
                 dietTextView?.text = diet
                 dietTextView?.visibility = View.VISIBLE
             } else {
                 dietTextView?.visibility = View.INVISIBLE
             }
+            nameTextView?.text = attendee.fullName
             universityTextView?.text = attendee.school
             majorTextView?.text = attendee.major
         }
@@ -88,12 +90,14 @@ class ProfileFragment : Fragment() {
         try {
             val bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints)
 
-            val CLEAR = Color.WHITE
-            val SOLID = resources.getColor(R.color.colorPrimary)
+            val clear = Color.WHITE
+            val solid = context?.let {
+                ContextCompat.getColor(it, R.color.colorPrimary)
+            } ?: Color.BLACK
 
             for (x in 0 until width) {
                 for (y in 0 until height) {
-                    pixels[y * width + x] = if (bitMatrix.get(x, y)) SOLID else CLEAR
+                    pixels[y * width + x] = if (bitMatrix.get(x, y)) solid else clear
                 }
             }
         } catch (e: WriterException) {

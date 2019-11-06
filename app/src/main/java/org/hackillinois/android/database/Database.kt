@@ -5,7 +5,16 @@ import androidx.room.RoomDatabase
 import org.hackillinois.android.database.dao.*
 import org.hackillinois.android.database.entity.*
 
-@Database(entities = [QR::class, Attendee::class, User::class, Event::class, Roles::class], version = 7)
+@Database(
+    entities = [
+        QR::class,
+        Attendee::class,
+        User::class,
+        Event::class,
+        Roles::class
+    ],
+    version = 1
+)
 abstract class Database : RoomDatabase() {
     abstract fun qrDao(): QRDao
     abstract fun attendeeDao(): AttendeeDao
