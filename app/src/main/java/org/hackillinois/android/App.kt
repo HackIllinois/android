@@ -1,7 +1,7 @@
 package org.hackillinois.android
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.hackillinois.android.database.Database

@@ -1,7 +1,7 @@
 package org.hackillinois.android.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import okhttp3.ResponseBody
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.EceBuilding

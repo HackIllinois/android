@@ -1,7 +1,7 @@
 package org.hackillinois.android.database.dao
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import org.hackillinois.android.database.entity.QR
 
 @Dao
