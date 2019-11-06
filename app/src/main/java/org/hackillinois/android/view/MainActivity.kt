@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.layout_nav_menu.*
@@ -31,9 +32,8 @@ import kotlin.concurrent.thread
 class MainActivity : AppCompatActivity() {
 
     private val defaultToken: String = ""
-//
-//    private lateinit var navViews: List<View>
-//    private lateinit var viewModel: MainViewModel
+
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,66 +57,33 @@ class MainActivity : AppCompatActivity() {
             button.setOnClickListener { view ->
                 bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
                 (view as ImageButton).setColorFilter(selectedIconColor)
+
+                val newFragment = when (view) {
+                    bottomAppBar.homeButton -> HomeFragment()
+                    bottomAppBar.todayButton -> ScheduleFragment()
+                    bottomAppBar.mapButton -> OutdoorMapsFragment()
+                    bottomAppBar.groupButton -> ProfileFragment()
+                    else -> return@setOnClickListener
+                }
+
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.contentFrame, newFragment)
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                transaction.commit()
             }
         }
 
-//        setSupportActionBar(toolbar)
-//        supportActionBar?.apply {
-//            setDisplayHomeAsUpEnabled(true)
-//            setHomeAsUpIndicator(R.drawable.ic_menu)
-//            title = "HOME"
-//        }
-//
-//        val startFragment = HomeFragment()
-//        supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
-//
-//        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout, navAdmin, navScanner)
-//        navViews.forEach { it.setOnClickListener(this) }
-//
-//        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-//        viewModel.init()
-//        viewModel.user.observe(this, Observer { updateUserInfo(it) })
-//        viewModel.roles.observe(this, Observer { updateRoles(it) })
-//
-//        updateDeviceToken()
+        val startFragment = HomeFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel.init()
+        //viewModel.user.observe(this, Observer { updateUserInfo(it) })
+        //viewModel.roles.observe(this, Observer { updateRoles(it) })
+
+        updateDeviceToken()
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            android.R.id.home -> {
-//                drawerLayout.openDrawer(GravityCompat.START)
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
-
-//    override fun onClick(v: View) {
-//        navViews.forEach { it.setBackgroundColor(Color.WHITE) }
-//
-//        if (v == navLogout) {
-//            logout()
-//            return
-//        }
-//
-//        val fragment = when (v) {
-//            navHome -> HomeFragment()
-//            navSchedule -> ScheduleFragment()
-//            navOutdoorMaps -> OutdoorMapsFragment()
-//            navIndoorMaps -> IndoorMapsFragment()
-//            navProfile -> ProfileFragment()
-//            navAdmin -> AdminFragment()
-//            navScanner -> ScannerFragment()
-//            else -> return
-//        }
-//
-//        v.setBackgroundColor(ContextCompat.getColor(baseContext, R.color.selectedMenuItem))
-//        supportActionBar?.title = (v as TextView).text
-//
-//        supportFragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).commit()
-//        drawerLayout.closeDrawer(GravityCompat.START)
-//    }
-//
 //    private fun updateUserInfo(user: User?) {
 //        user?.let {
 //            navMenu.nameTextView.text = it.fullName
@@ -161,17 +128,17 @@ class MainActivity : AppCompatActivity() {
 //        editor.apply()
 //    }
 //
-//    private fun updateDeviceToken() {
-//        val token = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("firebaseToken", defaultToken)
-//                ?: defaultToken
-//        if (token != defaultToken) {
-//            thread {
-//                App.getAPI().sendUserToken(DeviceToken(token)).execute()
-//
-//                val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
-//                editor.putString("firebaseToken", defaultToken)
-//                editor.apply()
-//            }
-//        }
-//    }
+    private fun updateDeviceToken() {
+        val token = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("firebaseToken", defaultToken)
+                ?: defaultToken
+        if (token != defaultToken) {
+            thread {
+                App.getAPI().sendUserToken(DeviceToken(token)).execute()
+
+                val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
+                editor.putString("firebaseToken", defaultToken)
+                editor.apply()
+            }
+        }
+    }
 }
