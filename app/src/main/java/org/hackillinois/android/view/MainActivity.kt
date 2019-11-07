@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         // by default, home button is selected
         bottomAppBar.homeButton.setColorFilter(selectedIconColor)
-        
+
         // make all buttons unselectedColor and then set selected button to selectedColor
         bottomBarButtons.forEach { button ->
             button.setOnClickListener { view ->
@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
                 val newFragment = when (view) {
                     bottomAppBar.homeButton -> HomeFragment()
                     bottomAppBar.todayButton -> ScheduleFragment()
-                    bottomAppBar.mapButton -> OutdoorMapsFragment()
-                    bottomAppBar.groupButton -> ProfileFragment()
+                    bottomAppBar.mapButton -> MapsFragment()
+                    bottomAppBar.groupButton -> MentorFragment()
                     else -> return@setOnClickListener
                 }
 
