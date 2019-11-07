@@ -11,7 +11,6 @@ import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
-import org.hackillinois.android.model.notification.Notification
 import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.notifications.DeviceToken
 
@@ -54,14 +53,8 @@ interface API {
 
     // NOTIFICATIONS
 
-    @GET("notifications/")
-    fun notificationTopics(): Call<NotificationTopics>
-
     @POST("notifications/device/")
     fun sendUserToken(@Body token: DeviceToken): Call<DeviceToken>
-
-    @POST("notifications/{topic}/")
-    fun createNotification(@Path("topic") topic: String, @Body notification: Notification): Call<Notification>
 
     @POST("notifications/update/")
     fun updateNotificationTopics(): Call<NotificationTopics>
