@@ -90,7 +90,6 @@
         android:id="@+id/standardBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bottomAppBarColor"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <include layout="@layout/layout_qr_sheet" />

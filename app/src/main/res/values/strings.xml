@@ -53,6 +53,8 @@
     <string name="notification_topic">Notification Topic</string>
     <string name="notification_content">Notification Content</string>
     <string name="notification_title">Notification Title</string>
+    <string name="close_text">CLOSE</string>
+    <string name="logout_text">LOG OUT</string>
 
     <string-array name="event_location_options">
         <item>Siebel Center</item>
