@@ -178,7 +178,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun clearJWT() {
-        val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
+        val jwtKey = this.getString(R.string.authorization_pref_file_key)
+        val editor = this.getSharedPreferences(jwtKey, Context.MODE_PRIVATE).edit()
         editor.putString("jwt", defaultToken)
         editor.apply()
     }
