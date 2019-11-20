@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     bottomAppBar.homeButton -> HomeFragment()
                     bottomAppBar.todayButton -> ScheduleFragment()
                     bottomAppBar.mapButton -> MapsFragment()
-                    bottomAppBar.groupButton -> ProfileFragment()
+                    bottomAppBar.groupButton -> MentorFragment()
                     else -> return@setOnClickListener
                 }
 
