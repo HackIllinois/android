@@ -2,13 +2,16 @@ package org.hackillinois.android.view
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.notifications.DeviceToken
@@ -29,6 +32,11 @@ class MainActivity : AppCompatActivity() {
 
         val selectedIconColor = ContextCompat.getColor(this, R.color.selectedAppBarIcon)
         val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
+
+        val bottomSheetBehavior = BottomSheetBehavior.from(standardBottomSheet)
+
+        bottomSheetBehavior.isHideable = true
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         val bottomBarButtons = listOf(
             bottomAppBar.homeButton,
@@ -60,6 +68,23 @@ class MainActivity : AppCompatActivity() {
                 transaction.commit()
             }
         }
+
+        qr_fab.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            qr_fab.hide()
+        }
+
+        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(p0: View, p1: Float) { }
+
+            override fun onStateChanged(view: View, state: Int) {
+                when (state) {
+                    BottomSheetBehavior.STATE_HIDDEN -> qr_fab.show()
+                    BottomSheetBehavior.STATE_COLLAPSED -> qr_fab.show()
+                    BottomSheetBehavior.STATE_EXPANDED -> qr_fab.hide()
+                }
+            }
+        })
 
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
