@@ -17,12 +17,14 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import com.google.zxing.qrcode.QRCodeWriter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.layout_qr_sheet.*
 import kotlinx.android.synthetic.main.layout_qr_sheet.view.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.hackillinois.android.common.QRUtilities
 import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.database.entity.User
@@ -160,28 +162,9 @@ class MainActivity : AppCompatActivity() {
     private fun generateQR(text: String): Bitmap {
         val width = qrImageView?.width ?: 0
         val height = qrImageView?.height ?: 0
-        val pixels = IntArray(width * height)
-
-        val multiFormatWriter = MultiFormatWriter()
-        val hints = EnumMap<EncodeHintType, Any>(EncodeHintType::class.java)
-        hints[EncodeHintType.MARGIN] = 0
-
-        try {
-            val bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints)
-
-            val clear = Color.WHITE
-            val solid = ContextCompat.getColor(this, R.color.colorPrimary)
-
-            for (x in 0 until width) {
-                for (y in 0 until height) {
-                    pixels[y * width + x] = if (bitMatrix.get(x, y)) solid else clear
-                }
-            }
-        } catch (e: WriterException) {
-            e.printStackTrace()
-        }
-
-        return Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
+        val clearColor = Color.WHITE
+        val solidColor = ContextCompat.getColor(this, R.color.colorPrimary)
+        return QRUtilities.generateQRCode(text, width, height, clearColor, solidColor)
     }
 
     private fun logout() {
