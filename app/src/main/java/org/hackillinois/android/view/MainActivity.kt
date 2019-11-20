@@ -43,14 +43,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupBottomAppBar()
+        setupBottomQRSheet()
+
+        val startFragment = HomeFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java).apply {
+            init()
+            val owner = this@MainActivity
+            qr.observe(owner, Observer { updateQrView(it) })
+            user.observe(owner, Observer { user -> updateUserInformation(user) })
+            attendee.observe(owner, Observer { attendee -> updateAttendeeInformation(attendee) })
+        }
+
+        updateDeviceToken()
+    }
+
+    private fun setupBottomAppBar() {
         val selectedIconColor = ContextCompat.getColor(this, R.color.selectedAppBarIcon)
         val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
 
         val bottomBarButtons = listOf(
-            bottomAppBar.homeButton,
-            bottomAppBar.todayButton,
-            bottomAppBar.mapButton,
-            bottomAppBar.groupButton
+                bottomAppBar.homeButton,
+                bottomAppBar.todayButton,
+                bottomAppBar.mapButton,
+                bottomAppBar.groupButton
         )
 
         // by default, home button is selected
@@ -76,21 +94,6 @@ class MainActivity : AppCompatActivity() {
                 transaction.commit()
             }
         }
-
-        setupBottomQRSheet()
-
-        val startFragment = HomeFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
-
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java).apply {
-            init()
-            val owner = this@MainActivity
-            qr.observe(owner, Observer { updateQrView(it) })
-            user.observe(owner, Observer { user -> updateUserInformation(user) })
-            attendee.observe(owner, Observer { attendee -> updateAttendeeInformation(attendee) })
-        }
-
-        updateDeviceToken()
     }
 
     private fun setupBottomQRSheet() {
