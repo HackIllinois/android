@@ -115,7 +115,6 @@ class MainActivity : AppCompatActivity() {
             override fun onStateChanged(view: View, state: Int) {
                 when (state) {
                     BottomSheetBehavior.STATE_HIDDEN -> qr_fab.show()
-                    BottomSheetBehavior.STATE_COLLAPSED -> qr_fab.show()
                     BottomSheetBehavior.STATE_EXPANDED -> qr_fab.hide()
                 }
             }
