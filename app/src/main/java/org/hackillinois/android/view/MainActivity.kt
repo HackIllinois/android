@@ -138,7 +138,9 @@ class MainActivity : AppCompatActivity() {
     private fun updateQrView(qr: QR?) = qr?.let {
         val text = qr.qrInfo
         val bitmap = generateQR(text)
-        qrImageView?.setImageBitmap(bitmap)
+        bitmap?.let {
+            qrImageView?.setImageBitmap(bitmap)
+        }
     }
 
     private fun updateUserInformation(user: User?) = user?.let {
@@ -153,9 +155,10 @@ class MainActivity : AppCompatActivity() {
         standardBottomSheet.nameTextView?.text = attendee.fullName.toUpperCase()
     }
 
-    private fun generateQR(text: String): Bitmap {
+    private fun generateQR(text: String): Bitmap? {
         val width = qrImageView?.width ?: 0
         val height = qrImageView?.height ?: 0
+        if (width == 0 || height == 0) { return null }
         val clearColor = Color.WHITE
         val solidColor = ContextCompat.getColor(this, R.color.colorPrimary)
         return QRUtilities.generateQRCode(text, width, height, clearColor, solidColor)
