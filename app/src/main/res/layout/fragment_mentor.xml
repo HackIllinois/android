@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/mentor_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="129dp"
+        android:layout_marginRight="129dp"
+        android:layout_marginBottom="55dp"
+        android:text="@string/mentor_header"
+        android:textColor="#E35058"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toStartOf="@+id/fav_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/fav_button"
+        android:layout_width="117dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginRight="33dp"
+        android:background="@drawable/rounded_button_background"
+        android:text="@string/fav_button_text"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mentor_header"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginRight="33dp"
+        android:layout_marginBottom="561dp"
+        android:background="@drawable/mentor_spinner_border"
+        android:entries="@array/spinnerItems"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mentor_header" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mentor_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="20dp"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
