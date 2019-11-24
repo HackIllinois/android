@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_left="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:text="Name Here"
+                android:textColor="#6BAEC5"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/Number"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Number Here"
+                android:textColor="#6BAEC5"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/favoriteMentor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-25dp"
+                android:layout_marginLeft="340dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/star_button" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Location Here"
+                android:textColor="#6BAEC5"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
 </LinearLayout>

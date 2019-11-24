@@ -43,6 +43,10 @@
     <string name="close_text">CLOSE</string>
     <string name="logout_text">LOG OUT</string>
 
+    <string name="mentor_header">MENTORS</string>
+    <string name="fav_button_text">Favorite</string>
+    <string name="spinner_default">Select Category</string>
+
     <string-array name="event_location_options">
         <item>Siebel Center</item>
         <item>ECE Building</item>
