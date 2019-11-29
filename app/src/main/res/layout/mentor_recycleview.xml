@@ -12,12 +12,36 @@
         app:cardCornerRadius="5dp">
 
         <LinearLayout
+            android:id="@+id/mentorCardLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/favoriteMentor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="340dp"
+                android:layout_marginTop="-25dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/star_button" />
+
+
+            <TextView
+                android:id="@+id/mentorNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="Number Here"
+                android:textColor="#6BAEC5"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/mentorName"
@@ -31,36 +55,13 @@
                 android:textColor="#6BAEC5"
                 android:textStyle="bold" />
 
-
-            <TextView
-                android:id="@+id/mentorNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="Number Here"
-                android:textColor="#6BAEC5"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/favoriteMentor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-25dp"
-                android:layout_marginLeft="340dp"
-                android:background="@android:color/transparent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/star_button" />
-
             <TextView
                 android:id="@+id/mentorLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_weight="1"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:text="Location Here"
                 android:textColor="#6BAEC5"
                 android:textStyle="bold" />
