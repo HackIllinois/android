@@ -20,6 +20,18 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
+
+            <TextView
+                android:id="@+id/mentorName"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="Name Here"
+                android:textColor="#6BAEC5"
+                android:textStyle="bold" />
+
             <ImageButton
                 android:id="@+id/favoriteMentor"
                 android:layout_width="wrap_content"
@@ -31,27 +43,14 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/star_button" />
 
-
             <TextView
                 android:id="@+id/mentorNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:text="Number Here"
-                android:textColor="#6BAEC5"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/mentorName"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_left="10dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:text="Name Here"
+                android:text="Number Here"
                 android:textColor="#6BAEC5"
                 android:textStyle="bold" />
 
