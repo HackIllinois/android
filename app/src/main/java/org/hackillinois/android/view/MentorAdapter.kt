@@ -1,22 +1,17 @@
 package org.hackillinois.android.view
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.mentor_recycleview.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.model.mentor.MentorModel
 
 class MentorAdapter internal constructor(private val mentorList: ArrayList<MentorModel>) : RecyclerView.Adapter<MentorAdapter.ViewHolder>() {
 
     private lateinit var context: Context
-
 
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
 
