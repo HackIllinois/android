@@ -1,15 +1,6 @@
 <resources>
     <string name="app_name">HackIllinois</string>
 
-    <string name="default_name">Attendee</string>
-    <string name="default_email">attendee@hackillinois.org</string>
-
-    <string name="nav_home">HOME</string>
-    <string name="nav_schedule">SCHEDULE</string>
-    <string name="nav_outdoor">OUTDOOR MAPS</string>
-    <string name="nav_indoor">INDOOR MAPS</string>
-    <string name="nav_profile">PROFILE</string>
-
     <string name="home_empty_events">Check Back Later</string>
 
     <string name="schedule_tab_friday">FRIDAY</string>
@@ -22,9 +13,6 @@
     <string name="map_siebel">Siebel</string>
     <string name="map_gym">Gym</string>
 
-    <string name="profile_university">UNIVERSITY</string>
-    <string name="profile_major">MAJOR</string>
-
     <string name="event_info_directions">GET DIRECTIONS</string>
     <string name="event_info_time_dash">-</string>
     <string name="event_info_title">EVENT DETAILS</string>
@@ -34,13 +22,10 @@
     <string name="attendee_login">Attendee Login</string>
     <string name="staff_login">Staff Login</string>
     <string name="recruiter_login">Recruiter Login</string>
-    <string name="nav_logout">LOGOUT</string>
-    <string name="nav_scanner">SCANNER</string>
     <string name="tab_stats">Stats</string>
     <string name="tab_events">Events</string>
     <string name="tab_notifications">Notifications</string>
     <string name="query_stats">Query Stats</string>
-    <string name="nav_admin">ADMIN TOOLS</string>
     <string name="create">Create</string>
     <string name="event_name">Event Name</string>
     <string name="event_description">Event Description</string>
@@ -53,6 +38,8 @@
     <string name="notification_topic">Notification Topic</string>
     <string name="notification_content">Notification Content</string>
     <string name="notification_title">Notification Title</string>
+    <string name="close_text">CLOSE</string>
+    <string name="logout_text">LOG OUT</string>
 
     <string-array name="event_location_options">
         <item>Siebel Center</item>
