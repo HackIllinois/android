@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="MAPS"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/outdoorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:text="@string/outdoors_button"
+        android:textColor="@color/toggleable_rounded_button_text"
+        android:background="@drawable/toggleable_rounded_button"
+        app:layout_constraintEnd_toStartOf="@+id/indoorButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/indoorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/indoors_buttons"
+        android:textColor="@color/toggleable_rounded_button_text"
+        android:background="@drawable/toggleable_rounded_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#00000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/outdoorButton"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/TabTextAppearance"
+        app:tabTextColor="@color/colorPrimary"
+        >
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabECEB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ECEB" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabSiebel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SIEBEL" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabDCL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DCL" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabKenney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KENNEY" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <View
+        android:id="@+id/horizLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/mapsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizLine">
+
+    </androidx.viewpager.widget.ViewPager>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
