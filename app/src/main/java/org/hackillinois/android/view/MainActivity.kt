@@ -63,9 +63,9 @@ class MainActivity : AppCompatActivity() {
 
         val bottomBarButtons = listOf(
                 bottomAppBar.homeButton,
-                bottomAppBar.todayButton,
-                bottomAppBar.mapButton,
-                bottomAppBar.groupButton
+                bottomAppBar.scheduleButton,
+                bottomAppBar.mapsButton,
+                bottomAppBar.projectsButton
         )
 
         // by default, home button is selected
@@ -79,9 +79,9 @@ class MainActivity : AppCompatActivity() {
 
                 val newFragment = when (view) {
                     bottomAppBar.homeButton -> HomeFragment()
-                    bottomAppBar.todayButton -> ScheduleFragment()
-                    bottomAppBar.mapButton -> MapsFragment()
-                    bottomAppBar.groupButton -> MentorFragment()
+                    bottomAppBar.scheduleButton -> ScheduleFragment()
+                    bottomAppBar.mapsButton -> MapsFragment()
+                    bottomAppBar.projectsButton -> MentorFragment()
                     else -> return@setOnClickListener
                 }
 
