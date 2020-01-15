@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -9,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardCornerRadius="5dp">
+        app:cardCornerRadius="10dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mentorCardLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,51 +22,55 @@
             android:orientation="vertical">
 
 
-            <TextView
-                android:id="@+id/mentorName"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:text="Name Here"
-                android:textColor="#6BAEC5"
-                android:textStyle="bold" />
-
             <ImageButton
                 android:id="@+id/favoriteMentor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="340dp"
-                android:layout_marginTop="-25dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="15dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/star_button" />
 
             <TextView
+                android:id="@+id/mentorName"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:text="Name Here"
+                android:textColor="#222B5C"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/mentorNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="24dp"
                 android:layout_weight="1"
                 android:text="Number Here"
-                android:textColor="#6BAEC5"
-                android:textStyle="bold" />
+                android:textColor="#222B5C"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/mentorLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="44dp"
                 android:layout_weight="1"
                 android:text="Location Here"
-                android:textColor="#6BAEC5"
-                android:textStyle="bold" />
+                android:textColor="#222B5C"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 

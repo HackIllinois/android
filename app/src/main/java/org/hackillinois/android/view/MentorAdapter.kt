@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.mentor_recycleview.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.model.mentor.MentorModel
 
-class MentorAdapter internal constructor(private val mentorList: ArrayList<MentorModel>) : RecyclerView.Adapter<MentorAdapter.ViewHolder>() {
+class MentorAdapter internal constructor(private val mentorList: List<MentorModel>) : RecyclerView.Adapter<MentorAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
@@ -34,7 +34,7 @@ class MentorAdapter internal constructor(private val mentorList: ArrayList<Mento
             }
 
             mentorName.text = mentor.name
-            mentorNumber.text = "#" + mentor.number
+            mentorNumber.text = "#${mentor.number}"
             mentorLocation.text = mentor.location
         }
     }
