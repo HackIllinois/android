@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.mentor_recycleview.view.*
+import kotlinx.android.synthetic.main.mentor_list_item.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.model.mentor.MentorModel
 
@@ -16,7 +16,7 @@ class MentorAdapter internal constructor(private val mentorList: List<MentorMode
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.mentor_recycleview, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.mentor_list_item, parent, false)
         val viewHolder = ViewHolder(view)
         context = parent.context
         return viewHolder
