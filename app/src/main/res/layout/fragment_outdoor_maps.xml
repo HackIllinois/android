@@ -1,121 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/tabBackground"
-            app:tabIndicatorHeight="3dp"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextAppearance="@style/TabTextAppearance"
-            app:tabTextColor="@color/tabText">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/map_dcl" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/map_eceb" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/map_siebel" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/map_kenney" />
-
-        </com.google.android.material.tabs.TabLayout>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="match_parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:orientation="vertical"
-            android:paddingLeft="24dp"
-            android:paddingTop="24dp"
-            android:paddingRight="88dp"
-            android:paddingBottom="24dp">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/directions"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:fabSize="normal"
+            android:layout_alignParentEnd="true"
+            app:layout_anchor="@id/map"
+            app:layout_anchorGravity="bottom|right|end"
+            app:srcCompat="@drawable/ic_directions" />
 
-            <TextView
-                android:id="@+id/building"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                app:fontFamily="@font/montserrat_medium"
-                tools:text="Digital Computing Laboratory" />
+    </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/locationInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="12dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom"
-                    app:srcCompat="@drawable/ic_directions_walk" />
 
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    app:fontFamily="@font/montserrat_medium"
-                    tools:text="9 min" />
-
-                <TextView
-                    android:id="@+id/distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:textColor="@color/tabText"
-                    android:textSize="12sp"
-                    app:fontFamily="@font/montserrat_light"
-                    tools:text="0.4 miles" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/directions"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginRight="16dp"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:layout_anchor="@id/map"
-        app:layout_anchorGravity="bottom|right|end"
-        app:srcCompat="@drawable/ic_directions" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+<!--</androidx.coordinatorlayout.widget.CoordinatorLayout>-->

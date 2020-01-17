@@ -25,9 +25,9 @@ import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.DeviceToken
 import org.hackillinois.android.view.home.HomeFragment
+import org.hackillinois.android.view.maps.MapsFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
-import java.util.*
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {

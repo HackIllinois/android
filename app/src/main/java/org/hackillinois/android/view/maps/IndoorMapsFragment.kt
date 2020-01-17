@@ -1,4 +1,4 @@
-package org.hackillinois.android.view
+package org.hackillinois.android.view.maps
 
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
@@ -21,21 +21,14 @@ class IndoorMapsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_indoor_maps, container, false)
 
         map = view.map
-
-        view.indoor_tabs.addOnTabSelectedListener(TabListener())
         map?.setMinimumTileDpi(MINIMUM_TILE_DPI)
         setImage(0)
 
         return view
     }
 
-    private inner class TabListener : TabLayout.OnTabSelectedListener {
-        override fun onTabSelected(tab: TabLayout.Tab) {
-            setImage(tab.position)
-        }
-
-        override fun onTabUnselected(tab: TabLayout.Tab) {}
-        override fun onTabReselected(tab: TabLayout.Tab) {}
+    fun onTabSelected(index: Int) {
+        setImage(index)
     }
 
     private fun setImage(index: Int) {
@@ -43,7 +36,9 @@ class IndoorMapsFragment : Fragment() {
     }
 
     companion object {
-        private val imageResources = intArrayOf(R.drawable.dcl_indoor, R.drawable.eceb_indoor, R.drawable.siebel_indoor)
+        // TODO: get new indoor maps
+        private val imageResources = intArrayOf(R.drawable.eceb_indoor, R.drawable.siebel_indoor, R.drawable.dcl_indoor, R.drawable.dcl_indoor)
         private val MINIMUM_TILE_DPI = 160
+        fun newInstance() = IndoorMapsFragment()
     }
 }
