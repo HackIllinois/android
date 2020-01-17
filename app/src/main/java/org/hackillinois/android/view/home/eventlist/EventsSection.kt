@@ -18,8 +18,8 @@ class EventsSection(
     private val headerColor: Int,
     private val eventClickListener: EventClickListener,
     private val context: Context
-)
-    : Section(
+) :
+    Section(
         SectionParameters.builder()
                 .itemResourceId(R.layout.event_tile)
                 .headerResourceId(R.layout.event_list_header)
@@ -65,4 +65,3 @@ class EventsSection(
         eventsList = newEventsList
     }
 }
-

@@ -62,7 +62,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
             }
         }
 
-
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         viewModel.init()
         viewModel.ongoingEventsLiveData.observe(this, Observer { updateOngoingEventsList(it) })
