@@ -19,9 +19,11 @@
 
     <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
     <string name="authorization_pref_file_key">org.hackillinois.android.authorization</string>
-    <string name="attendee_login">Attendee Login</string>
-    <string name="staff_login">Staff Login</string>
-    <string name="recruiter_login">Recruiter Login</string>
+    <string name="welcome_login">WELCOME TO</string>
+    <string name="label_login">LOGIN</string>
+    <string name="attendee_login">ATTENDEE</string>
+    <string name="staff_login">STAFF</string>
+    <string name="recruiter_login">RECRUITER</string>
     <string name="tab_stats">Stats</string>
     <string name="tab_events">Events</string>
     <string name="tab_notifications">Notifications</string>
