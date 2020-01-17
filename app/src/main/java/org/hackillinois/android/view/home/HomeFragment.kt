@@ -46,15 +46,15 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 "ONGOING",
                 ongoingHeaderColor,
                 this,
-                    it
+                it
             )
             val upcomingHeaderColor = ContextCompat.getColor(it, R.color.primaryTextColor)
             upcomingEventsSection = EventsSection(
-                    mutableListOf(),
-                    "UPCOMING",
-                    upcomingHeaderColor,
-                    this,
-                    it
+                mutableListOf(),
+                "UPCOMING",
+                upcomingHeaderColor,
+                this,
+                it
             )
             eventsListAdapter = SectionedRecyclerViewAdapter().apply {
                 addSection(ongoingEventsSection)
