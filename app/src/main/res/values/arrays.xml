@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="spinnerItems">
-        <item>"Android"</item>
-        <item>"Hardware"</item>
-        <item>"Linux"</item>
-        <item>"Data Science"</item>
-    </string-array>
-</resources>

@@ -27,7 +27,7 @@
         android:layout_marginStart="27dp"
         android:layout_marginTop="54dp"
         android:layout_marginEnd="129dp"
-        android:text="@string/mentor_header"
+        android:text="@string/projects_header"
         android:fontFamily="@font/montserrat_bold"
         android:textColor="#222B5C"
         android:textSize="20dp"
@@ -57,6 +57,8 @@
         app:tabIndicatorColor="#E35058"
         app:tabSelectedTextColor="#E35058"
         app:tabTextColor="#222B5C"
+        app:tabPaddingStart="-2dp"
+        app:tabPaddingEnd="-2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fav_button">
@@ -64,19 +66,25 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/web_dev_project"
+            android:text="@string/data_sci_project"
             android:fontFamily="@font/montserrat_bold"/>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/language_project"
+            android:text="@string/languages_project"
             android:fontFamily="@font/montserrat_bold"/>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text= "@string/systems_project"
+            android:fontFamily="@font/montserrat_bold"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text= "@string/web_dev_project"
             android:fontFamily="@font/montserrat_bold"/>
     </com.google.android.material.tabs.TabLayout>
 
