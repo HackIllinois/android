@@ -47,6 +47,13 @@
     <string name="days_label">DAYS</string>
     <string name="hours_label">HOURS</string>
     <string name="minutes_label">DAYS</string>
+    <string name="projects_header">PROJECTS</string>
+    <string name="fav_button_text">Favorites</string>
+    <string name="spinner_default">Select Category</string>
+    <string name="data_sci_project">DATA SCI</string>
+    <string name="languages_project">LANGUAGES</string>
+    <string name = "systems_project">SYSTEMS</string>
+    <string name="web_dev_project">WEB DEV</string>
 
     <string-array name="event_location_options">
         <item>Siebel Center</item>
