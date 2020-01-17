@@ -21,4 +21,6 @@
 
     <color name="primaryTextColor">#222B5C</color>
     <color name="alternateTextColor">#E35058</color>
+
+    <color name="starColor">#222B5C</color>
 </resources>
