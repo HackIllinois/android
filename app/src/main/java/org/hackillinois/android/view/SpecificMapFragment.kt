@@ -15,5 +15,4 @@ class SpecificMapFragment : Fragment() {
 
         return fragment
     }
-
 }

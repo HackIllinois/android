@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.maps
 
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
