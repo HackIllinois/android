@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.mentor_list_item.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.model.mentor.MentorModel
+import org.hackillinois.android.model.projects.ProjectModel
 
-class MentorAdapter internal constructor(private val mentorList: List<MentorModel>) : RecyclerView.Adapter<MentorAdapter.ViewHolder>() {
+class ProjectAdapter internal constructor(private val mentorList: List<ProjectModel>) : RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
@@ -22,17 +22,10 @@ class MentorAdapter internal constructor(private val mentorList: List<MentorMode
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: MentorAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProjectAdapter.ViewHolder, position: Int) {
         val mentor = mentorList[position]
 
         holder.itemView.apply {
-            mentorCardLayout.setOnClickListener { view ->
-                /* val context = view.context
-                val intent = Intent(context, EventInfoActivity::class.java)
-                intent.putExtra("event_name", event.name)
-                context.startActivity(intent)*/
-            }
-
             mentorName.text = mentor.name
             mentorNumber.text = "#${mentor.number}"
             mentorLocation.text = mentor.location
