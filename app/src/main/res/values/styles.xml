@@ -16,7 +16,7 @@
     </style>
 
     <style name="TabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>
