@@ -109,7 +109,7 @@ class OutdoorMapsFragment : Fragment(), OnMapReadyCallback, LocationListener {
         locationManager.onResume()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         locationManager.onActivityResult(requestCode, resultCode, data)
     }
