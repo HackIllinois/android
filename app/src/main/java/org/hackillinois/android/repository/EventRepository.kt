@@ -7,11 +7,13 @@ import org.hackillinois.android.model.event.EventsList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import kotlin.concurrent.thread
 
 class EventRepository {
     private val eventDao = App.database.eventDao()
     private val MILLIS_IN_SECOND = 1000L
+    private val MILLIS_IN_HOUR = 60 * 60 * MILLIS_IN_SECOND
 
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
         refreshAll()
@@ -36,6 +38,12 @@ class EventRepository {
     fun fetchAllEvents(): LiveData<List<Event>> {
         refreshAll()
         return eventDao.getAllEvents()
+    }
+
+    fun fetchEventsHappeningInNextHour(): LiveData<List<Event>> {
+        val startingTime = Calendar.getInstance().timeInMillis + 1
+        val endingTime = startingTime + MILLIS_IN_HOUR
+        return fetchEventsHappeningBetweenTimes(startingTime, endingTime)
     }
 
     private fun refreshAll() {

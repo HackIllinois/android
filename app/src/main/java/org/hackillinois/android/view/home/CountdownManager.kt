@@ -9,17 +9,17 @@ class CountdownManager(val listener: CountDownListener) {
 
     private val eventStartTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        set(2019, Calendar.FEBRUARY, 22, 16, 0, 0)
+        timeInMillis = 1582927200000
     }
 
     private val hackingStartTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        set(2019, Calendar.FEBRUARY, 22, 23, 0, 0)
+        timeInMillis = 1582952400000
     }
 
     private val hackingEndTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        set(2019, Calendar.FEBRUARY, 24, 10, 0, 0)
+        timeInMillis = 1583078400000
     }
 
     private val times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
