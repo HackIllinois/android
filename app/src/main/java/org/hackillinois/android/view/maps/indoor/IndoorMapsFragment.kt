@@ -57,7 +57,7 @@ class IndoorMapsFragment : Fragment() {
             1 -> ecebIndoorFragment
             2 -> kenneyIndoorFragment
             3 -> siebelIndoorFragment
-            else -> dclIndoorFragment
+            else -> siebelIndoorFragment
         }
 
         fragmentManager?.beginTransaction()?.apply {
