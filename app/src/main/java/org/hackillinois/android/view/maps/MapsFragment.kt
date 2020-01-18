@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_maps.view.*
 import org.hackillinois.android.R
+import org.hackillinois.android.view.maps.indoor.IndoorMapsFragment
 
 class MapsFragment : Fragment() {
 

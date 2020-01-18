@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.maps
+package org.hackillinois.android.view.maps.indoor
 
 import android.content.Context
 import android.view.LayoutInflater
