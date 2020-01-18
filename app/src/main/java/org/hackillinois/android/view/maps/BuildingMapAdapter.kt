@@ -32,5 +32,4 @@ class BuildingMapAdapter(
 
         return view
     }
-
 }

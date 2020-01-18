@@ -43,5 +43,4 @@ class BuildingMapFragment : Fragment() {
             return frag
         }
     }
-
 }
