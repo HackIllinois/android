@@ -1,45 +1,72 @@
 package org.hackillinois.android.view.maps
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import com.davemorrissey.labs.subscaleview.ImageSource
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import kotlinx.android.synthetic.main.fragment_indoor_maps.view.*
-
+import androidx.fragment.app.Fragment
 import org.hackillinois.android.R
 
 class IndoorMapsFragment : Fragment() {
 
-    private var map: SubsamplingScaleImageView? = null
     private var index = 0
+
+    private val dclIndoorFragment by lazy {
+        BuildingMapFragment.newInstance(
+                listOf("FLOOR 1"),
+                listOf(R.drawable.dcl)
+        )
+    }
+
+    private val ecebIndoorFragment by lazy {
+        BuildingMapFragment.newInstance(
+                listOf("FLOOR 1", "FLOOR 2", "FLOOR 3"),
+                listOf(R.drawable.eceb_floor_1, R.drawable.eceb_floor_2, R.drawable.eceb_floor_3)
+        )
+    }
+
+    private val kenneyIndoorFragment by lazy {
+        BuildingMapFragment.newInstance(
+                listOf("FLOOR 1"),
+                listOf(R.drawable.kenney)
+        )
+    }
+
+    private val siebelIndoorFragment by lazy {
+        BuildingMapFragment.newInstance(
+                listOf("BASEMENT", "FLOOR 1", "FLOOR 2"),
+                listOf(R.drawable.siebel_floor_0, R.drawable.siebel_floor_1, R.drawable.siebel_floor_2)
+        )
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_indoor_maps, container, false)
-
-        map = view.map
-        map?.setMinimumTileDpi(MINIMUM_TILE_DPI)
-        setImage(index)
-
+        changeFragment(index)
         return view
     }
 
     fun onTabSelected(index: Int) {
-        setImage(index)
+        changeFragment(index)
     }
 
-    private fun setImage(index: Int) {
+    private fun changeFragment(index: Int) {
         this.index = index
-        map?.setImage(ImageSource.resource(imageResources[index]))
+
+        val fragment = when (index) {
+            0 -> dclIndoorFragment
+            1 -> ecebIndoorFragment
+            2 -> kenneyIndoorFragment
+            3 -> siebelIndoorFragment
+            else -> dclIndoorFragment
+        }
+
+        fragmentManager?.beginTransaction()?.apply {
+            replace(R.id.indoorMapsContentFrame, fragment)
+            commit()
+        }
     }
 
     companion object {
-        // TODO: get new indoor maps
-        private val imageResources = intArrayOf(R.drawable.dcl_indoor, R.drawable.eceb_indoor, R.drawable.siebel_indoor, R.drawable.dcl_indoor)
-        private val MINIMUM_TILE_DPI = 160
         fun newInstance() = IndoorMapsFragment()
     }
 }

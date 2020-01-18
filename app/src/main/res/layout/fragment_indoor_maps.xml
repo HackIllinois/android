@@ -6,17 +6,8 @@
     android:orientation="vertical"
     android:background="@android:color/transparent">
 
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/indoorMapsContentFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp">
-
-        <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </ScrollView>
+        android:layout_height="wrap_content" />
 </FrameLayout>
-
-
