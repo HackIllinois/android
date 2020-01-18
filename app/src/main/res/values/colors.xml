@@ -17,6 +17,10 @@
 
     <color name="fabColor">#E35058</color>
 
-    <color name="primaryTextColor">#222B5C</color>
     <color name="attendeeLoginColor">#A43B5C</color>
+
+    <color name="primaryTextColor">#222B5C</color>
+    <color name="alternateTextColor">#E35058</color>
+
+    <color name="starColor">#222B5C</color>
 </resources>
