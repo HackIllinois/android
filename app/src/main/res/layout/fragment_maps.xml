@@ -29,8 +29,9 @@
         android:textColor="@color/toggleable_rounded_button_text"
         android:fontFamily="@font/montserrat_semi_bold"
         android:background="@drawable/toggleable_rounded_button"
-        app:layout_constraintEnd_toStartOf="@+id/indoorButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
 
     <Button
         android:id="@+id/indoorButton"
@@ -42,8 +43,8 @@
         android:textColor="@color/toggleable_rounded_button_text"
         android:fontFamily="@font/montserrat_semi_bold"
         android:background="@drawable/toggleable_rounded_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/outdoorButton"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -63,31 +64,31 @@
         >
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabECEB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ECEB"
-            android:fontFamily="@font/montserrat_semi_bold"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabSiebel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SIEBEL"
-            android:fontFamily="@font/montserrat_semi_bold" />
-
-        <com.google.android.material.tabs.TabItem
             android:id="@+id/tabDCL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DCL"
+            android:text="@string/map_dcl"
             android:fontFamily="@font/montserrat_semi_bold" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabECEB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/map_eceb"
+            android:fontFamily="@font/montserrat_semi_bold"/>
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabKenney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="KENNEY"
+            android:text="@string/map_kenney"
+            android:fontFamily="@font/montserrat_semi_bold" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabSiebel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/map_siebel"
             android:fontFamily="@font/montserrat_semi_bold" />
 
     </com.google.android.material.tabs.TabLayout>
@@ -100,8 +101,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tabLayout" />
-
-
 
     <FrameLayout
         android:id="@+id/mapsContainer"

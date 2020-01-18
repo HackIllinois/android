@@ -16,12 +16,14 @@ class MapsFragment : Fragment() {
     private lateinit var outdoorMapsButton: Button
     private lateinit var indoorMapsButton: Button
 
-    private var outdoors = true
+    private var outdoors = false
 
     private lateinit var contentFrame: FrameLayout
 
-    private val outdoorMapsFragment = OutdoorMapsFragment.newInstance()
-    private val indoorMapsFragment = IndoorMapsFragment.newInstance()
+    private val outdoorMapsFragment by lazy { OutdoorMapsFragment.newInstance() }
+    private val indoorMapsFragment by lazy { IndoorMapsFragment.newInstance() }
+
+    private var index: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_maps, container, false)
@@ -34,10 +36,10 @@ class MapsFragment : Fragment() {
         indoorMapsButton.setOnClickListener(indoorMapsClickListener)
         view.tabLayout.addOnTabSelectedListener(tabListener)
 
-        outdoorMapsButton.isSelected = true
-        indoorMapsButton.isSelected = false
+        outdoorMapsButton.isSelected = false
+        indoorMapsButton.isSelected = true
         fragmentManager?.beginTransaction()?.apply {
-            replace(R.id.mapsContainer, outdoorMapsFragment)
+            replace(R.id.mapsContainer, indoorMapsFragment)
             commit()
         }
 
@@ -46,22 +48,25 @@ class MapsFragment : Fragment() {
 
     private val tabListener = object : TabLayout.OnTabSelectedListener {
         override fun onTabReselected(tab: TabLayout.Tab) {
+            index = tab.position
             if (outdoors) {
-                outdoorMapsFragment.onTabReselected(tab.position)
+                outdoorMapsFragment.onTabReselected(index)
             }
         }
 
         override fun onTabUnselected(tab: TabLayout.Tab) {
+            index = tab.position
             if (outdoors) {
-                outdoorMapsFragment.onTabUnselected(tab.position)
+                outdoorMapsFragment.onTabUnselected(index)
             }
         }
 
         override fun onTabSelected(tab: TabLayout.Tab) {
+            index = tab.position
             if (outdoors) {
-                outdoorMapsFragment.onTabSelected(tab.position)
+                outdoorMapsFragment.onTabSelected(index)
             } else {
-                indoorMapsFragment.onTabSelected(tab.position)
+                indoorMapsFragment.onTabSelected(index)
             }
         }
     }
@@ -71,6 +76,7 @@ class MapsFragment : Fragment() {
         indoorMapsButton.isSelected = false
         outdoors = true
 
+        outdoorMapsFragment.onTabSelected(index)
         fragmentManager?.beginTransaction()?.apply {
             replace(R.id.mapsContainer, outdoorMapsFragment)
             commit()
@@ -82,6 +88,7 @@ class MapsFragment : Fragment() {
         indoorMapsButton.isSelected = true
         outdoors = false
 
+        indoorMapsFragment.onTabSelected(index)
         fragmentManager?.beginTransaction()?.apply {
             replace(R.id.mapsContainer, indoorMapsFragment)
             commit()

@@ -44,6 +44,7 @@ class OutdoorMapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     fun onTabSelected(index: Int) {
+        this.index = index
         map?.addMarker(MarkerOptions().position(BUILDING_LOCATIONS[index]))
         map?.animateCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATIONS[index], ZOOM.toFloat()))
 
@@ -55,6 +56,7 @@ class OutdoorMapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     fun onTabReselected(index: Int) {
+        this.index = index
         map?.animateCamera(CameraUpdateFactory.newLatLngZoom(BUILDING_LOCATIONS[index], ZOOM.toFloat()))
     }
 
@@ -68,10 +70,10 @@ class OutdoorMapsFragment : Fragment(), OnMapReadyCallback {
             "Kenney Gym"
         )
         private val BUILDING_LOCATIONS = arrayOf(
-            LatLng(40.1149213, -88.2280232),
-            LatLng(40.1138194, -88.2250361),
             LatLng(40.1131428, -88.2265095),
-            LatLng(40.1130590, -88.2276450)
+            LatLng(40.1149213, -88.2280232),
+            LatLng(40.1130590, -88.2276450),
+            LatLng(40.1138194, -88.2250361)
         )
 
         fun newInstance() = OutdoorMapsFragment()
