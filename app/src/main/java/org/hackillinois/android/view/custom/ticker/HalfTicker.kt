@@ -1,0 +1,108 @@
+package org.hackillinois.android.view.custom.ticker
+
+import android.content.Context
+import android.graphics.*
+import android.text.TextPaint
+import android.util.AttributeSet
+import android.view.View
+import androidx.core.content.res.ResourcesCompat
+import org.hackillinois.android.R
+
+class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
+
+    private var gapHeight = 0F
+    private var tickerBackgroundColor: Int = Color.WHITE
+    private var tickerCornerRadius: Float = 0F
+    private var tickerBackgroundRectF: RectF
+    private var tickerText: String
+    private var tickerTextSize: Float = 0F
+    private var isTopHalf: Boolean = true
+    var textColor: Int = Color.WHITE
+        set(color) {
+            field = color
+            textPaint.color = color
+            invalidate()
+        }
+
+    private val textBounds = Rect()
+    private var bitmapCanvas = Canvas()
+    private var bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+
+    init {
+        context.theme.obtainStyledAttributes(
+                attributeSet,
+                R.styleable.HalfTicker,
+                0, 0).apply {
+
+            try {
+                gapHeight = getDimension(R.styleable.HalfTicker_gap_height, 0F)
+                tickerBackgroundColor = getColor(R.styleable.HalfTicker_ticker_color, Color.WHITE)
+                tickerCornerRadius = getDimension(R.styleable.HalfTicker_ticker_corner_radius, 0F)
+                tickerText = getString(R.styleable.HalfTicker_ticker_text) ?: ""
+                tickerTextSize = getDimension(R.styleable.HalfTicker_ticker_text_size, 0F)
+                isTopHalf = getBoolean(R.styleable.HalfTicker_is_top_half, true)
+            } finally {
+                recycle()
+            }
+        }
+        tickerBackgroundRectF = RectF(0F, 0F, width.toFloat(), (height - gapHeight))
+    }
+
+    private val fillPaint = Paint().apply {
+        color = tickerBackgroundColor
+        style = Paint.Style.FILL
+    }
+
+    private val textPaint = TextPaint().apply {
+        color = textColor
+        textSize = tickerTextSize
+        typeface = ResourcesCompat.getFont(context, R.font.montserrat_semi_bold)
+        isAntiAlias = true
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        bitmap = Bitmap.createBitmap(w, (h - gapHeight).toInt(), Bitmap.Config.ARGB_8888)
+        bitmapCanvas.setBitmap(bitmap)
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+
+        textPaint.getTextBounds(tickerText, 0, tickerText.length, textBounds)
+        val textWidth = textBounds.left + textBounds.width()
+        val textHeight = textBounds.bottom + textBounds.height()
+
+        if (isTopHalf) {
+            tickerBackgroundRectF.set(0F, 0F, width.toFloat(), height - gapHeight)
+
+            bitmapCanvas.drawTopRoundRect(tickerBackgroundRectF, fillPaint, tickerCornerRadius)
+
+            bitmapCanvas.drawText(tickerText, width.toFloat() / 2 - textWidth / 2, height.toFloat() + textHeight / 2, textPaint)
+
+            canvas?.drawBitmap(bitmap, 0F, 0F, null)
+        } else {
+            tickerBackgroundRectF.set(0F, 0F, width.toFloat(), height - gapHeight)
+            bitmapCanvas.drawBottomRoundRect(tickerBackgroundRectF, fillPaint, tickerCornerRadius)
+
+            bitmapCanvas.drawText(tickerText, width.toFloat() / 2 - textWidth / 2, textHeight / 2F - gapHeight, textPaint)
+
+            canvas?.drawBitmap(bitmap, 0F, gapHeight, null)
+        }
+    }
+
+    private fun Canvas.drawTopRoundRect(rect: RectF, paint: Paint, radius: Float) {
+        drawRoundRect(rect, radius, radius, paint)
+        drawRect(rect.left, rect.top + radius, rect.right, rect.bottom, paint)
+    }
+
+    private fun Canvas.drawBottomRoundRect(rect: RectF, paint: Paint, radius: Float) {
+        drawRoundRect(rect, radius, radius, paint)
+        drawRect(rect.left, rect.top, rect.right, rect.bottom - radius, paint)
+    }
+
+    fun setText(text: String) {
+        tickerText = text
+        invalidate()
+    }
+}

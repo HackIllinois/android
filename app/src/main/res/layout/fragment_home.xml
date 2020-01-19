@@ -39,14 +39,12 @@
             android:textColor="@color/primaryTextColor"
             android:textSize="14sp" />
 
-        <TextView
+        <org.hackillinois.android.view.custom.ticker.TickerView
+            xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/daysValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/default_time_homepage"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="64sp" />
+            custom:text_color="@android:color/white"/>
     </LinearLayout>
 
     <LinearLayout
@@ -69,14 +67,12 @@
             android:textColor="@color/primaryTextColor"
             android:textSize="14sp" />
 
-        <TextView
+        <org.hackillinois.android.view.custom.ticker.TickerView
+            xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/hoursValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/default_time_homepage"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="64sp" />
+            custom:text_color="@android:color/white"/>
     </LinearLayout>
 
     <LinearLayout
@@ -99,14 +95,13 @@
             android:textColor="@color/primaryTextColor"
             android:textSize="14sp" />
 
-        <TextView
+        <org.hackillinois.android.view.custom.ticker.TickerView
+            xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/minutesValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/default_time_homepage"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="64sp" />
+            custom:text_color="@color/minutesColor"
+            />
     </LinearLayout>
 
     <com.dinuscxj.refresh.RecyclerRefreshLayout
