@@ -101,8 +101,8 @@ class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, a
         drawRect(rect.left, rect.top, rect.right, rect.bottom - radius, paint)
     }
 
-    fun setText(text: String) {
-        tickerText = text
+    fun setText(text: String?) {
+        tickerText = text ?: "00"
         invalidate()
     }
 }
