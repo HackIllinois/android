@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.FirebaseApp
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.layout_qr_sheet.*
@@ -122,17 +125,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateDeviceToken() {
-        val token = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("firebaseToken", defaultToken)
-                ?: defaultToken
-        if (token != defaultToken) {
-            thread {
-                App.getAPI().sendUserToken(DeviceToken(token)).execute()
-
-                val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
-                editor.putString("firebaseToken", defaultToken)
-                editor.apply()
+        FirebaseApp.initializeApp(this)
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
+            instanceIdResult?.token?.let {
+                thread { App.getAPI().sendUserToken(DeviceToken(it)).execute() }
             }
-        }
+        };
     }
 
     private fun updateQrView(qr: QR?) = qr?.let {
