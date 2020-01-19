@@ -42,9 +42,13 @@
         <org.hackillinois.android.view.custom.ticker.TickerView
             xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/daysValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            custom:text_color="@android:color/white"/>
+            android:layout_width="92dp"
+            android:layout_height="100dp"
+            custom:ticker_text_color="@android:color/white"
+            custom:ticker_text_size="64sp"
+            custom:ticker_corner_radius="2dp"
+            custom:ticker_color="@color/tickerColor"
+            custom:gap_percentage="0.02" />
     </LinearLayout>
 
     <LinearLayout
@@ -70,9 +74,13 @@
         <org.hackillinois.android.view.custom.ticker.TickerView
             xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/hoursValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            custom:text_color="@android:color/white"/>
+            android:layout_width="92dp"
+            android:layout_height="100dp"
+            custom:ticker_text_color="@android:color/white"
+            custom:ticker_text_size="64sp"
+            custom:ticker_corner_radius="2dp"
+            custom:ticker_color="@color/tickerColor"
+            custom:gap_percentage="0.02" />
     </LinearLayout>
 
     <LinearLayout
@@ -98,10 +106,13 @@
         <org.hackillinois.android.view.custom.ticker.TickerView
             xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/minutesValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            custom:text_color="@color/minutesColor"
-            />
+            android:layout_width="92dp"
+            android:layout_height="100dp"
+            custom:ticker_text_color="@color/colorAccent"
+            custom:ticker_text_size="64sp"
+            custom:ticker_corner_radius="2dp"
+            custom:ticker_color="@color/tickerColor"
+            custom:gap_percentage="0.02" />
     </LinearLayout>
 
     <com.dinuscxj.refresh.RecyclerRefreshLayout

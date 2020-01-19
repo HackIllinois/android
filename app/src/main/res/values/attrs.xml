@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <declare-styleable name="HalfTicker">
-    <attr name="gap_height" format="dimension" />
-    <attr name="ticker_color" format="color" />
-    <attr name="ticker_corner_radius" format="dimension" />
-    <attr name="ticker_text" format="string" />
-    <attr name="ticker_text_size" format="dimension" />
     <attr name="is_top_half" format="boolean" />
+    <attr name="ticker_text" format="string" />
 </declare-styleable>
 
 <declare-styleable name="TickerView">
-    <attr name="text_color" format="color" />
+    <attr name="ticker_text_color" format="color" />
+    <attr name="ticker_color" format="color" />
+    <attr name="ticker_corner_radius" format="dimension" />
+    <attr name="ticker_text_size" format="dimension" />
+    <attr name="gap_percentage" format="float" />
 </declare-styleable>
 </resources>

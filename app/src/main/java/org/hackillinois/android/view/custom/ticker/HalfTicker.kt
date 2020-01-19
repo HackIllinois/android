@@ -10,19 +10,15 @@ import org.hackillinois.android.R
 
 class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
 
-    private var gapHeight = 0F
+    private var gapPercentage = 0F
     private var tickerBackgroundColor: Int = Color.WHITE
     private var tickerCornerRadius: Float = 0F
     private var tickerBackgroundRectF: RectF
     private var tickerText: String
     private var tickerTextSize: Float = 0F
+    private var textColor: Int = Color.WHITE
+
     private var isTopHalf: Boolean = true
-    var textColor: Int = Color.WHITE
-        set(color) {
-            field = color
-            textPaint.color = color
-            invalidate()
-        }
 
     private val textBounds = Rect()
     private var bitmapCanvas = Canvas()
@@ -35,17 +31,15 @@ class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, a
                 0, 0).apply {
 
             try {
-                gapHeight = getDimension(R.styleable.HalfTicker_gap_height, 0F)
-                tickerBackgroundColor = getColor(R.styleable.HalfTicker_ticker_color, Color.WHITE)
-                tickerCornerRadius = getDimension(R.styleable.HalfTicker_ticker_corner_radius, 0F)
                 tickerText = getString(R.styleable.HalfTicker_ticker_text) ?: ""
-                tickerTextSize = getDimension(R.styleable.HalfTicker_ticker_text_size, 0F)
                 isTopHalf = getBoolean(R.styleable.HalfTicker_is_top_half, true)
             } finally {
                 recycle()
             }
         }
-        tickerBackgroundRectF = RectF(0F, 0F, width.toFloat(), (height - gapHeight))
+
+        val gapHeight = gapPercentage * height
+        tickerBackgroundRectF = RectF(0F, 0F, width.toFloat(), height - gapHeight)
     }
 
     private val fillPaint = Paint().apply {
@@ -62,43 +56,64 @@ class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, a
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        val gapHeight = gapPercentage * h
         bitmap = Bitmap.createBitmap(w, (h - gapHeight).toInt(), Bitmap.Config.ARGB_8888)
         bitmapCanvas.setBitmap(bitmap)
+        tickerBackgroundRectF.set(0F, 0F, width.toFloat(), height - gapHeight)
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
+        val gapHeight = gapPercentage * height
         textPaint.getTextBounds(tickerText, 0, tickerText.length, textBounds)
         val textWidth = textBounds.left + textBounds.width()
         val textHeight = textBounds.bottom + textBounds.height()
 
         if (isTopHalf) {
-            tickerBackgroundRectF.set(0F, 0F, width.toFloat(), height - gapHeight)
-
             bitmapCanvas.drawTopRoundRect(tickerBackgroundRectF, fillPaint, tickerCornerRadius)
 
-            bitmapCanvas.drawText(tickerText, width.toFloat() / 2 - textWidth / 2, height.toFloat() + textHeight / 2, textPaint)
+            bitmapCanvas.drawText(
+                tickerText,
+                width.toFloat() / 2 - textWidth / 2,
+                height.toFloat() + textHeight / 2,
+                textPaint
+            )
 
             canvas?.drawBitmap(bitmap, 0F, 0F, null)
         } else {
-            tickerBackgroundRectF.set(0F, 0F, width.toFloat(), height - gapHeight)
             bitmapCanvas.drawBottomRoundRect(tickerBackgroundRectF, fillPaint, tickerCornerRadius)
 
-            bitmapCanvas.drawText(tickerText, width.toFloat() / 2 - textWidth / 2, textHeight / 2F - gapHeight, textPaint)
+            bitmapCanvas.drawText(
+                tickerText,
+                width.toFloat() / 2 - textWidth / 2,
+                textHeight / 2F - gapHeight,
+                textPaint
+            )
 
             canvas?.drawBitmap(bitmap, 0F, gapHeight, null)
         }
     }
 
-    private fun Canvas.drawTopRoundRect(rect: RectF, paint: Paint, radius: Float) {
-        drawRoundRect(rect, radius, radius, paint)
-        drawRect(rect.left, rect.top + radius, rect.right, rect.bottom, paint)
-    }
+    fun setProperties(
+        gapPercentage: Float,
+        tickerBackgroundColor: Int,
+        tickerCornerRadius: Float,
+        tickerTextSize: Float,
+        textColor: Int) {
+        this.gapPercentage = gapPercentage
+        this.tickerCornerRadius = tickerCornerRadius
 
-    private fun Canvas.drawBottomRoundRect(rect: RectF, paint: Paint, radius: Float) {
-        drawRoundRect(rect, radius, radius, paint)
-        drawRect(rect.left, rect.top, rect.right, rect.bottom - radius, paint)
+        this.tickerBackgroundColor = tickerBackgroundColor
+        this.fillPaint.color = tickerBackgroundColor
+
+        this.tickerTextSize = tickerTextSize
+        this.textColor = textColor
+        this.textPaint.apply {
+            color = textColor
+            textSize = tickerTextSize
+        }
+        invalidate()
     }
 
     fun setText(text: String?) {

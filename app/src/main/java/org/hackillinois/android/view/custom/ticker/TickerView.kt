@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import org.hackillinois.android.R
 
-class TickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
+class TickerView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
 
     private var topUnderTicker: HalfTicker
     private var topOverTicker: HalfTicker
@@ -34,7 +34,33 @@ class TickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
 
         firstAnimation = AnimationUtils.loadAnimation(context, R.anim.ticker_bottom_animation)
         secondAnimation = AnimationUtils.loadAnimation(context, R.anim.ticker_top_animation)
+        setAnimationListeners()
 
+        allTickers = listOf(topUnderTicker, topOverTicker, bottomUnderTicker, bottomOverTicker)
+
+        context.theme.obtainStyledAttributes(
+                attrs,
+                R.styleable.TickerView,
+                0, 0).apply {
+            try {
+                val textColor = getColor(R.styleable.TickerView_ticker_text_color, Color.WHITE)
+                val textSize = getDimension(R.styleable.TickerView_ticker_text_size, 0F)
+                val cornerRadius = getDimension(R.styleable.TickerView_ticker_corner_radius, 0F)
+                val gapPercentage = getFloat(R.styleable.TickerView_gap_percentage, 0F)
+                val tickerColor = getColor(R.styleable.TickerView_ticker_color, Color.WHITE)
+
+                allTickers.map {
+                    it.setProperties(gapPercentage, tickerColor, cornerRadius, textSize, textColor)
+                }
+            } finally {
+                recycle()
+            }
+        }
+
+        addView(inflatedView)
+    }
+
+    private fun setAnimationListeners() {
         firstAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {
                 bottomOverTicker.visibility = View.INVISIBLE
@@ -64,31 +90,6 @@ class TickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
                 bottomUnderTicker.setText(currentText)
             }
         })
-
-        allTickers = listOf(topUnderTicker, topOverTicker, bottomUnderTicker, bottomOverTicker)
-
-        context.theme.obtainStyledAttributes(
-                attrs,
-                R.styleable.TickerView,
-                0, 0).apply {
-            try {
-                val textColor = getColor(R.styleable.TickerView_text_color, Color.WHITE)
-                allTickers.map { it.textColor = textColor }
-            } finally {
-                recycle()
-            }
-        }
-
-        addView(inflatedView)
-    }
-
-    fun setText(text: String) {
-        if (text != currentText) {
-            currentText = text
-            if (currentText != null) {
-                startFirstAnimation()
-            }
-        }
     }
 
     private fun startFirstAnimation() {
@@ -104,6 +105,15 @@ class TickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             clearAnimation()
             animation = secondAnimation
             startAnimation(secondAnimation)
+        }
+    }
+
+    fun setText(text: String) {
+        if (text != currentText) {
+            currentText = text
+            if (currentText != null) {
+                startFirstAnimation()
+            }
         }
     }
 }
