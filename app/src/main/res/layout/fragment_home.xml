@@ -10,7 +10,7 @@
         android:id="@+id/countdownTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/primaryTextColor"
         android:textSize="24sp"
@@ -23,7 +23,7 @@
         android:id="@+id/daysUnit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/hoursUnit"
@@ -33,27 +33,27 @@
             android:id="@+id/daysLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_gravity="center"
-            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:text="@string/days_label"
             android:textColor="@color/primaryTextColor"
-            android:text="@string/days_label" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/daysValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="64sp"
-            android:textColor="@color/primaryTextColor"
             android:layout_gravity="center"
-            android:text="@string/default_time_homepage"/>
+            android:text="@string/default_time_homepage"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="64sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/hoursUnit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,19 +64,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="14sp"
-            android:textColor="@color/primaryTextColor"
             android:layout_marginTop="8dp"
-            android:text="@string/hours_label" />
+            android:text="@string/hours_label"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/hoursValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="64sp"
-            android:textColor="@color/primaryTextColor"
             android:layout_gravity="center"
-            android:text="@string/default_time_homepage"/>
+            android:text="@string/default_time_homepage"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="64sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@+id/hoursUnit"
         app:layout_constraintTop_toBottomOf="@+id/countdownTextView">
@@ -94,19 +94,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="14sp"
-            android:textColor="@color/primaryTextColor"
             android:layout_marginTop="8dp"
-            android:text="@string/minutes_label" />
+            android:text="@string/minutes_label"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/minutesValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="64sp"
-            android:textColor="@color/primaryTextColor"
             android:layout_gravity="center"
-            android:text="@string/default_time_homepage"/>
+            android:text="@string/default_time_homepage"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="64sp" />
     </LinearLayout>
 
     <com.dinuscxj.refresh.RecyclerRefreshLayout
@@ -114,7 +114,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
         android:background="#00000000"
         app:layout_constraintBottom_toBottomOf="parent"
