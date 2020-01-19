@@ -45,6 +45,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 mutableListOf(),
                 "ONGOING",
                 ongoingHeaderColor,
+                false,
                 this,
                 it
             )
@@ -53,6 +54,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 mutableListOf(),
                 "UPCOMING",
                 upcomingHeaderColor,
+                true,
                 this,
                 it
             )

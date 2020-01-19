@@ -85,7 +85,6 @@ class TickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     fun setText(text: String) {
         if (text != currentText) {
             currentText = text
-            //allTickers.map { it.setText(text) }
             if (currentText != null) {
                 startFirstAnimation()
             }
