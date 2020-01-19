@@ -35,7 +35,21 @@ class TickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         firstAnimation = AnimationUtils.loadAnimation(context, R.anim.ticker_bottom_animation)
         secondAnimation = AnimationUtils.loadAnimation(context, R.anim.ticker_top_animation)
 
-        firstAnimation.setAnimationListener(firstAnimationListener)
+        firstAnimation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
+                bottomOverTicker.visibility = View.INVISIBLE
+                topOverTicker.visibility = View.VISIBLE
+                bottomOverTicker.setText(currentText)
+                topUnderTicker.setText(currentText)
+            }
+
+            override fun onAnimationRepeat(animation: Animation) { }
+
+            override fun onAnimationEnd(animation: Animation) {
+                topOverTicker.visibility = View.INVISIBLE
+                startSecondAnimation()
+            }
+        })
 
         secondAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {
@@ -68,26 +82,10 @@ class TickerView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         addView(inflatedView)
     }
 
-    private val firstAnimationListener = object : Animation.AnimationListener {
-        override fun onAnimationStart(animation: Animation) {
-            bottomOverTicker.visibility = View.INVISIBLE
-            topOverTicker.visibility = View.VISIBLE
-            bottomOverTicker.setText(currentText)
-            topUnderTicker.setText(currentText)
-        }
-
-        override fun onAnimationRepeat(animation: Animation) { }
-
-        override fun onAnimationEnd(animation: Animation) {
-            topOverTicker.visibility = View.INVISIBLE
-            startSecondAnimation()
-        }
-    }
-
     fun setText(text: String) {
         if (text != currentText) {
             currentText = text
-            // allTickers.map { it.setText(text) }
+            //allTickers.map { it.setText(text) }
             if (currentText != null) {
                 startFirstAnimation()
             }
