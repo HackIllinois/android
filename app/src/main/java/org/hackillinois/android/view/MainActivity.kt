@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
@@ -14,8 +13,6 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.firebase.FirebaseApp
-import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.layout_qr_sheet.*
@@ -26,7 +23,7 @@ import org.hackillinois.android.common.QRUtilities
 import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.database.entity.User
-import org.hackillinois.android.notifications.DeviceToken
+import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.maps.MapsFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
@@ -57,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             attendee.observe(owner, Observer { attendee -> updateAttendeeInformation(attendee) })
         }
 
-        updateDeviceToken()
+        FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
     }
 
     private fun setupBottomAppBar() {
@@ -122,15 +119,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-    }
-
-    private fun updateDeviceToken() {
-        FirebaseApp.initializeApp(this)
-        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
-            instanceIdResult?.token?.let {
-                thread { App.getAPI().sendUserToken(DeviceToken(it)).execute() }
-            }
-        };
     }
 
     private fun updateQrView(qr: QR?) = qr?.let {
