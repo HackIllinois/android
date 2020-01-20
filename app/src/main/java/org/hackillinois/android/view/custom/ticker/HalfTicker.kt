@@ -100,7 +100,8 @@ class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, a
         tickerBackgroundColor: Int,
         tickerCornerRadius: Float,
         tickerTextSize: Float,
-        textColor: Int) {
+        textColor: Int
+    ) {
         this.gapPercentage = gapPercentage
         this.tickerCornerRadius = tickerCornerRadius
 
