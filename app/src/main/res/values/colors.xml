@@ -23,4 +23,7 @@
     <color name="alternateTextColor">#E35058</color>
 
     <color name="starColor">#222B5C</color>
+
+    <color name="tickerColor">#232A34</color>
+    <color name="minutesColor">#E28B79</color>
 </resources>

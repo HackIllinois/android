@@ -45,6 +45,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 mutableListOf(),
                 "ONGOING",
                 ongoingHeaderColor,
+                false,
                 this,
                 it
             )
@@ -53,6 +54,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 mutableListOf(),
                 "UPCOMING",
                 upcomingHeaderColor,
+                true,
                 this,
                 it
             )
@@ -127,9 +129,9 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         val timeInfo = TimeInfo(timeUntil)
 
         if (isActive) {
-            daysValue.text = padNumber(timeInfo.days)
-            hoursValue.text = padNumber(timeInfo.hours)
-            minutesValue.text = padNumber(timeInfo.minutes)
+            daysValue.setText(padNumber(timeInfo.days))
+            hoursValue.setText(padNumber(timeInfo.hours))
+            minutesValue.setText(padNumber(timeInfo.minutes))
         }
     }
 

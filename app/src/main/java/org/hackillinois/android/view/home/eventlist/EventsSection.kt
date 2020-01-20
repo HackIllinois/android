@@ -16,6 +16,7 @@ class EventsSection(
     var eventsList: List<Event>,
     private val headerText: String,
     private val headerColor: Int,
+    private val showTime: Boolean,
     private val eventClickListener: EventClickListener,
     private val context: Context
 ) :
@@ -59,6 +60,14 @@ class EventsSection(
     override fun onBindHeaderViewHolder(holder: RecyclerView.ViewHolder) {
         holder.itemView.headerText.setTextColor(headerColor)
         holder.itemView.headerText.text = headerText
+
+        if (showTime && eventsList.isNotEmpty()) {
+            holder.itemView.timeText.visibility = View.VISIBLE
+            val firstEvent = eventsList.first()
+            holder.itemView.timeText.text = firstEvent.getStartTimeOfDay()
+        } else {
+            holder.itemView.timeText.visibility = View.GONE
+        }
     }
 
     fun updateEventsList(newEventsList: List<Event>) {

@@ -46,7 +46,7 @@
     <string name="default_time_homepage">00</string>
     <string name="days_label">DAYS</string>
     <string name="hours_label">HOURS</string>
-    <string name="minutes_label">DAYS</string>
+    <string name="minutes_label">MINUTES</string>
     <string name="projects_header">PROJECTS</string>
     <string name="fav_button_text">Favorites</string>
     <string name="spinner_default">Select Category</string>

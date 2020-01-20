@@ -37,10 +37,10 @@ data class Event(
         val minutes = eventEndTime.get(Calendar.MINUTE)
 
         return when {
-            hour == 0 -> String.format("12:%02d AM", minutes)
-            hour < 12 -> String.format("%d:%02d AM", hour, minutes)
-            hour == 12 -> String.format("12:%02d PM", minutes)
-            else -> String.format("%d:%02d PM", hour % 12, minutes)
+            hour == 0 -> String.format("12:%02dam", minutes)
+            hour < 12 -> String.format("%d:%02dam", hour, minutes)
+            hour == 12 -> String.format("12:%02dpm", minutes)
+            else -> String.format("%d:%02dpm", hour % 12, minutes)
         }
     }
 
