@@ -20,9 +20,7 @@ object JWTUtilities {
     }
 
     fun clearJWT(context: Context) {
-        val editor = getSharedPreferences(context).edit()
-        editor.putString("jwt", DEFAULT_JWT)
-        editor.apply()
+        writeJWT(context, DEFAULT_JWT)
     }
 
     private fun getSharedPreferences(context: Context): SharedPreferences {
