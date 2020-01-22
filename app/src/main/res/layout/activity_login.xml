@@ -35,10 +35,10 @@
         android:id="@+id/loginLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/label_login"
-        android:textColor="@color/attendeeLoginColor"
+        android:textColor="@color/loginLabelColor"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,21 +47,34 @@
     <Button
         android:id="@+id/attendeeLoginBtn"
         android:layout_width="200dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_login_button_filled"
         android:text="@string/attendee_login"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         app:fontFamily="@font/montserrat_semi_bold"
+        app:layout_constraintBottom_toTopOf="@+id/login_or_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginLabel" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/login_or_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:text="@string/login_or_label"
+        android:textColor="@color/attendeeLoginColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/recruiterLoginBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/recruiterLoginBtn"
         android:layout_width="200dp"
-        android:layout_height="32dp"
+        android:layout_height="36dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_login_button_hollow"
         android:text="@string/recruiter_login"
@@ -74,7 +87,7 @@
     <Button
         android:id="@+id/staffLoginBtn"
         android:layout_width="200dp"
-        android:layout_height="32dp"
+        android:layout_height="36dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_login_button_hollow"
         android:text="@string/staff_login"
