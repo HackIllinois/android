@@ -18,7 +18,7 @@ object FirebaseTokenManager {
         editor.apply()
     }
 
-    private fun readToken(context: Context): String {
+    fun readToken(context: Context): String {
         val sharedPrefKey = context.getString(R.string.authorization_pref_file_key)
         val editor = context.getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE)
         return editor.getString(FIREBASE_TOKEN_KEY, DEFAULT_FIREBASE_TOKEN) ?: DEFAULT_FIREBASE_TOKEN

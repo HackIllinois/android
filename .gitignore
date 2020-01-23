@@ -7,6 +7,7 @@
 /captures
 /local.properties
 .externalNativeBuild
+app/google-services.json
 google-services.json
 .idea/workspace.xml
 .idea/tasks.xml

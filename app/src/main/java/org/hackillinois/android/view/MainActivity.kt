@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.FirebaseApp
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.layout_qr_sheet.*
@@ -54,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             attendee.observe(owner, Observer { attendee -> updateAttendeeInformation(attendee) })
         }
 
-        FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
+        updateFirebaseToken()
     }
 
     private fun setupBottomAppBar() {
@@ -148,6 +150,17 @@ class MainActivity : AppCompatActivity() {
         val clearColor = Color.WHITE
         val solidColor = ContextCompat.getColor(this, R.color.colorPrimary)
         return QRUtilities.generateQRCode(text, width, height, clearColor, solidColor)
+    }
+
+    private fun updateFirebaseToken() {
+        val existingToken = FirebaseTokenManager.readToken(applicationContext)
+        FirebaseApp.initializeApp(applicationContext)
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
+            if (instanceIdResult.token != existingToken) {
+                FirebaseTokenManager.writeToken(applicationContext, instanceIdResult.token)
+                FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
+            }
+        }
     }
 
     private fun logout() {
