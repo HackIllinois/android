@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
@@ -153,13 +154,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateFirebaseToken() {
-        val existingToken = FirebaseTokenManager.readToken(applicationContext)
         FirebaseApp.initializeApp(applicationContext)
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
-            if (instanceIdResult.token != existingToken) {
-                FirebaseTokenManager.writeToken(applicationContext, instanceIdResult.token)
-                FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
-            }
+            Log.d("MainActivity", instanceIdResult.token)
+            FirebaseTokenManager.writeToken(applicationContext, instanceIdResult.token)
+            FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
         }
     }
 
