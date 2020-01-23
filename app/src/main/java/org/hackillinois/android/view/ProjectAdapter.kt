@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.mentor_list_item.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.model.projects.ProjectModel
+import org.hackillinois.android.database.entity.ProjectModel
 
 class ProjectAdapter internal constructor(private val mentorList: List<ProjectModel>) : RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
 

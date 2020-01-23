@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
-import org.hackillinois.android.model.projects.ProjectModel
+import org.hackillinois.android.database.entity.ProjectModel
 
 class ProjectFragment : Fragment() {
 
