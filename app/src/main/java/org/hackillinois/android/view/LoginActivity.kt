@@ -10,6 +10,7 @@ import android.util.Log
 import kotlinx.android.synthetic.main.activity_login.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
 import retrofit2.Call
@@ -69,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
                             Log.e("LoginActivity", "Notifications update timed out!")
                         }
                     }
-                    storeJWT(it)
+                    JWTUtilities.writeJWT(applicationContext, it)
                     runOnUiThread {
                         launchMainActivity()
                     }
@@ -100,11 +101,5 @@ class LoginActivity : AppCompatActivity() {
     fun getOAuthProvider(): String {
         return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")
                 ?: ""
-    }
-
-    fun storeJWT(jwt: String) {
-        val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
-        editor.putString("jwt", jwt)
-        editor.apply()
     }
 }

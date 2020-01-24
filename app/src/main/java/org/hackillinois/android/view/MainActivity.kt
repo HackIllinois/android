@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.layout_qr_sheet.*
 import kotlinx.android.synthetic.main.layout_qr_sheet.view.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.common.QRUtilities
 import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.QR
@@ -163,7 +164,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        clearJWT()
+        JWTUtilities.clearJWT(applicationContext)
 
         thread {
             App.database.clearAllTables()
@@ -175,12 +176,5 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         }
-    }
-
-    private fun clearJWT() {
-        val jwtKey = this.getString(R.string.authorization_pref_file_key)
-        val editor = this.getSharedPreferences(jwtKey, Context.MODE_PRIVATE).edit()
-        editor.putString("jwt", defaultToken)
-        editor.apply()
     }
 }
