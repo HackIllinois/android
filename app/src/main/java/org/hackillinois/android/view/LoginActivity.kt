@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
 import retrofit2.Call
@@ -43,21 +44,18 @@ class LoginActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val intent = getIntent()
-
-        intent ?: return
+        val intent = intent ?: return
         intent.action ?: return
 
-        val uri = intent.data
+        val uri = intent.data ?: return
 
-        uri ?: return
-
-        val code = uri.getQueryParameter("code")
+        val code = uri.getQueryParameter("code") ?: return
         var api = App.getAPI()
 
+        // TODO: update to Retrofit 2.6.0 and use suspend functions to remove nested callbacks
         api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object : Callback<JWT> {
             override fun onFailure(call: Call<JWT>, t: Throwable) {
-                Snackbar.make(findViewById(android.R.id.content), "Failed to login", Snackbar.LENGTH_SHORT).show()
+                showFailedToLogin()
             }
 
             override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
@@ -70,13 +68,34 @@ class LoginActivity : AppCompatActivity() {
                             Log.e("LoginActivity", "Notifications update timed out!")
                         }
                     }
-                    JWTUtilities.writeJWT(applicationContext, it)
-                    runOnUiThread {
+
+                    if (getOAuthProvider() == "google") {
+                        api.roles().enqueue(object : Callback<Roles> {
+                            override fun onFailure(call: Call<Roles>, t: Throwable) {
+                                showFailedToLogin()
+                            }
+
+                            override fun onResponse(call: Call<Roles>, response: Response<Roles>) {
+                                if (response.isSuccessful) {
+                                    if (response.body()?.roles?.contains("Staff") == true) {
+                                        JWTUtilities.writeJWT(applicationContext, it)
+                                        launchMainActivity()
+                                    }
+                                }
+                                showFailedToLogin()
+                            }
+                        })
+                    } else {
+                        JWTUtilities.writeJWT(applicationContext, it)
                         launchMainActivity()
                     }
                 }
             }
         })
+    }
+
+    private fun showFailedToLogin() {
+        Snackbar.make(findViewById(android.R.id.content), "Failed to login", Snackbar.LENGTH_SHORT).show()
     }
 
     fun launchMainActivity() {
