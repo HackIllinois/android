@@ -29,4 +29,8 @@ class ProjectRepository {
             override fun onFailure(call: Call<ProjectsList>, t: Throwable) {}
         })
     }
+
+    companion object {
+        val instance: ProjectRepository by lazy { ProjectRepository() }
+    }
 }

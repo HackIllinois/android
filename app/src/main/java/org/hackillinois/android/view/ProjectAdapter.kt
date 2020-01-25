@@ -22,13 +22,13 @@ class ProjectAdapter internal constructor(private val mentorList: List<ProjectMo
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: ProjectAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val mentor = mentorList[position]
 
         holder.itemView.apply {
-            mentorName.text = mentor.name
+            mentorName.text = mentor.mentors
             mentorNumber.text = "#${mentor.number}"
-            mentorLocation.text = mentor.location
+            mentorLocation.text = mentor.room
         }
     }
 
