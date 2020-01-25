@@ -104,23 +104,34 @@
             android:textSize="14sp" />
 
         <org.hackillinois.android.view.custom.ticker.TickerView
-            xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/minutesValue"
             android:layout_width="92dp"
             android:layout_height="100dp"
-            custom:ticker_text_color="@color/colorAccent"
-            custom:ticker_text_size="64sp"
-            custom:ticker_corner_radius="2dp"
-            custom:ticker_color="@color/tickerColor"
-            custom:gap_percentage="0.02" />
+            app:ticker_text_color="@color/colorAccent"
+            app:ticker_text_size="64sp"
+            app:ticker_corner_radius="2dp"
+            app:ticker_color="@color/tickerColor"
+            app:gap_percentage="0.02" >
+
+        </org.hackillinois.android.view.custom.ticker.TickerView>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/buildingsImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hoursUnit"
+        app:srcCompat="@drawable/buildings" />
 
     <com.dinuscxj.refresh.RecyclerRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="106dp"
         android:layout_marginEnd="16dp"
         android:background="#00000000"
         app:layout_constraintBottom_toBottomOf="parent"
