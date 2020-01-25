@@ -3,10 +3,6 @@
     <item
         android:drawable="@drawable/homepage_gradient" />
     <item
-        android:top="-164dp"
-        android:gravity="center"
-        android:drawable="@drawable/buildings" />
-    <item
         android:top="-585dp"
         android:left="-315dp"
         android:gravity="center"
