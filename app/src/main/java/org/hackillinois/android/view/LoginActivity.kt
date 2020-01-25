@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_login.*
+import org.hackillinois.android.API
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
@@ -50,9 +51,13 @@ class LoginActivity : AppCompatActivity() {
         val uri = intent.data ?: return
 
         val code = uri.getQueryParameter("code") ?: return
-        var api = App.getAPI()
 
+        finishLogin(code)
+    }
+
+    private fun finishLogin(code: String) {
         // TODO: update to Retrofit 2.6.0 and use suspend functions to remove nested callbacks
+        var api = App.getAPI()
         api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object : Callback<JWT> {
             override fun onFailure(call: Call<JWT>, t: Throwable) {
                 showFailedToLogin()
@@ -70,25 +75,29 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     if (getOAuthProvider() == "google") {
-                        api.roles().enqueue(object : Callback<Roles> {
-                            override fun onFailure(call: Call<Roles>, t: Throwable) {
-                                showFailedToLogin()
-                            }
-
-                            override fun onResponse(call: Call<Roles>, response: Response<Roles>) {
-                                if (response.isSuccessful) {
-                                    if (response.body()?.roles?.contains("Staff") == true) {
-                                        JWTUtilities.writeJWT(applicationContext, it)
-                                        launchMainActivity()
-                                    }
-                                }
-                                showFailedToLogin()
-                            }
-                        })
+                        verifyStaffRole(api, it)
                     } else {
                         JWTUtilities.writeJWT(applicationContext, it)
                         launchMainActivity()
                     }
+                }
+            }
+        })
+    }
+
+    private fun verifyStaffRole(api: API, jwt: String) {
+        api.roles().enqueue(object : Callback<Roles> {
+            override fun onFailure(call: Call<Roles>, t: Throwable) {
+                showFailedToLogin()
+            }
+
+            override fun onResponse(call: Call<Roles>, response: Response<Roles>) {
+                if (response.isSuccessful &&
+                        response.body()?.roles?.contains("Staff") == true) {
+                    JWTUtilities.writeJWT(applicationContext, jwt)
+                    launchMainActivity()
+                } else {
+                    showFailedToLogin()
                 }
             }
         })
@@ -104,14 +113,14 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    fun redirectToOAuthProvider(provider: String) {
+    private fun redirectToOAuthProvider(provider: String) {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.setData(Uri.parse(authUriTemplate.format(provider, redirectUri)))
+        intent.data = Uri.parse(authUriTemplate.format(provider, redirectUri))
         setOAuthProvider(provider)
         startActivity(intent)
     }
 
-    fun setOAuthProvider(provider: String) {
+    private fun setOAuthProvider(provider: String) {
         val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
         editor.putString("provider", provider)
         editor.apply()
