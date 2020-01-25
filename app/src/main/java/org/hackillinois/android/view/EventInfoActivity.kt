@@ -52,13 +52,13 @@ class EventInfoActivity : AppCompatActivity() {
             eventLocation.text = it.getLocationDescriptionsAsString()
             eventDescription.text = it.description
 
-            if (it.locations.isEmpty()) {
-                directionsButton.visibility = View.GONE
-            } else {
-                directionsButton.visibility = View.VISIBLE
-                val location = LatLng(it.locations[0].latitude, it.locations[0].longitude)
-                directionsButton.setOnClickListener(DirectionsOnClickListener(location, event.name))
-            }
+//            if (it.locations.isEmpty()) {
+//                directionsButton.visibility = View.GONE
+//            } else {
+//                directionsButton.visibility = View.VISIBLE
+//                val location = LatLng(it.locations[0].latitude, it.locations[0].longitude)
+//                directionsButton.setOnClickListener(DirectionsOnClickListener(location, event.name))
+//            }
         }
     }
 
