@@ -26,4 +26,6 @@
 
     <color name="tickerColor">#232A34</color>
     <color name="minutesColor">#E28B79</color>
+
+    <color name="loginLabelColor">#E26856</color>
 </resources>
