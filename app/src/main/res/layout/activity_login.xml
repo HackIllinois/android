@@ -67,17 +67,17 @@
         android:text="@string/login_or_label"
         android:textColor="@color/attendeeLoginColor"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/recruiterLoginBtn"
+        app:layout_constraintBottom_toTopOf="@id/guestLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/recruiterLoginBtn"
+        android:id="@+id/guestLoginBtn"
         android:layout_width="200dp"
         android:layout_height="36dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_login_button_hollow"
-        android:text="@string/recruiter_login"
+        android:text="@string/guest_login"
         android:textColor="@color/primaryTextColor"
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toTopOf="@+id/staffLoginBtn"

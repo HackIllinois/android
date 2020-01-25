@@ -34,8 +34,8 @@ class LoginActivity : AppCompatActivity() {
             redirectToOAuthProvider("google")
         }
 
-        recruiterLoginBtn.setOnClickListener {
-            redirectToOAuthProvider("linkedin")
+        guestLoginBtn.setOnClickListener {
+            launchMainActivity()
         }
     }
 
