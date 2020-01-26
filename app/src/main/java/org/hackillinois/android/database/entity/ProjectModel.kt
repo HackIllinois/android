@@ -8,11 +8,11 @@ import org.hackillinois.android.database.Converters
 @Entity(tableName = "projects")
 @TypeConverters(Converters::class)
 data class ProjectModel(
-    val id: String,
+    @PrimaryKey val id: String,
     val name: String,
     val description: String,
-    val mentors: String,
+    val mentors: List<String>,
     val room: String,
-    @PrimaryKey val tags: String,
+    val tags: List<String>,
     val number: Int
 )

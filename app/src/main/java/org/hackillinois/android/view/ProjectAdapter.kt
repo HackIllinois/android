@@ -25,8 +25,14 @@ class ProjectAdapter internal constructor(private val mentorList: List<ProjectMo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val mentor = mentorList[position]
 
+        var mentors = ""
+        for (i in 0..mentor.mentors.lastIndex - 1) {
+            mentors += mentor.mentors[i] + ", "
+        }
+        mentors += mentor.mentors[mentor.mentors.lastIndex]
+
         holder.itemView.apply {
-            mentorName.text = mentor.mentors
+            mentorName.text = mentors
             mentorNumber.text = "#${mentor.number}"
             mentorLocation.text = mentor.room
         }

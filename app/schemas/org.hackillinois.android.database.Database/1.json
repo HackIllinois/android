@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "07c41b4c8d0b43ea9926a48bbab13b4f",
+    "identityHash": "a2782b1174f0fd2330ad4ef93041b1b2",
     "entities": [
       {
         "tableName": "qr_codes",
@@ -238,11 +238,11 @@
       },
       {
         "tableName": "projects",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tag` TEXT NOT NULL, `name` TEXT NOT NULL, `number` INTEGER NOT NULL, `location` TEXT NOT NULL, `description` TEXT NOT NULL, PRIMARY KEY(`tag`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `mentors` TEXT NOT NULL, `room` TEXT NOT NULL, `tags` TEXT NOT NULL, `number` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
-            "fieldPath": "tag",
-            "columnName": "tag",
+            "fieldPath": "id",
+            "columnName": "id",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -253,27 +253,39 @@
             "notNull": true
           },
           {
-            "fieldPath": "number",
-            "columnName": "number",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "location",
-            "columnName": "location",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mentors",
+            "columnName": "mentors",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "room",
+            "columnName": "room",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "number",
+            "columnName": "number",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "tag"
+            "id"
           ],
           "autoGenerate": false
         },
@@ -283,7 +295,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"07c41b4c8d0b43ea9926a48bbab13b4f\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a2782b1174f0fd2330ad4ef93041b1b2\")"
     ]
   }
 }

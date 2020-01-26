@@ -9,7 +9,7 @@ interface ProjectsDao {
     @Query("SELECT * from projects")
     fun getAllProjects(): LiveData<List<ProjectModel>>
 
-    @Query("SELECT * from projects where tags like :tag LIMIT 1")
+    @Query("SELECT * from projects where tags like '%' || :tag || '%'")
     fun getProjectsWithTag(tag: String): LiveData<List<ProjectModel>>
 
     @Query("DELETE FROM projects")
