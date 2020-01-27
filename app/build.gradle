@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 apply plugin: 'com.google.gms.google-services'
 
-def isRunningOnTravis = System.getenv("CI") == "true" && file('hackillinois.keystore').exists() && file('../service-account-key.exists()')
+def isRunningOnTravis = System.getenv("CI") == "true" && file('../hackillinois.keystore').exists() && file('../service-account-key.p12').exists()
 
 if (isRunningOnTravis) {
     apply plugin: 'com.github.triplet.play'
@@ -30,7 +30,7 @@ android {
     signingConfigs {
         release {
             if (isRunningOnTravis) {
-                storeFile file("hackillinois.keystore")
+                storeFile file("../hackillinois.keystore")
                 storePassword System.getenv("keystore_password")
                 keyAlias System.getenv("key_alias")
                 keyPassword System.getenv("key_password")
