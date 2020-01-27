@@ -25,6 +25,9 @@ cache:
   - "$HOME/.gradle/wrapper/"
 script:
 - "./gradlew clean ktlintCheck testDebugUnitTest build"
+- if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "alpha" ]; then
+  ./gradlew publishReleaseApk;
+  fi
 before_install:
 - openssl aes-256-cbc -K $encrypted_3efc1f8b6010_key -iv $encrypted_3efc1f8b6010_iv
   -in secrets.tar.enc -out secrets.tar -d

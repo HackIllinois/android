@@ -5,6 +5,12 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 apply plugin: 'com.google.gms.google-services'
 
+def isRunningOnTravis = System.getenv("CI") == "true"
+
+if (isRunningOnTravis) {
+    apply plugin: 'com.github.triplet.play'
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -21,8 +27,19 @@ android {
             }
         }
     }
+    signingConfigs {
+        release {
+            if (isRunningOnTravis) {
+                storeFile file("hackillinois.keystore")
+                storePassword System.getenv("keystore_password")
+                keyAlias System.getenv("key_alias")
+                keyPassword System.getenv("key_password")
+            }
+        }
+    }
+
     buildTypes {
-        def google_maps_api_key = System.getenv("CI") == "true" ?
+        def google_maps_api_key = isRunningOnTravis ?
                 (System.getenv("GOOGLE_MAPS_API_KEY") ?: "") :
                 (project.properties["GOOGLE_MAPS_API_KEY"] ?: "")
         debug {
@@ -32,6 +49,7 @@ android {
             applicationIdSuffix ".release"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
             resValue "string", "google_maps_api_key", google_maps_api_key
         }
     }
@@ -93,4 +111,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+}
+
+if (isRunningOnTravis) {
+    play {
+        track = "alpha"
+        userFraction = 1
+        serviceAccountEmail = "hackillinois-android-publishin@api-7971352790762652858-223664.iam.gserviceaccount.com"
+        serviceAccountCredentials = file("../service-account-key.p12")
+
+        resolutionStrategy = "auto"
+        outputProcessor { // this: ApkVariantOutput
+            versionNameOverride = "$versionNameOverride.$versionCode"
+        }
+    }
 }
