@@ -16,3 +16,5 @@ google-services.json
 .idea/dictionaries
 .idea/libraries
 .idea/caches
+hackillinois.keystore
+service-account-key.p12
