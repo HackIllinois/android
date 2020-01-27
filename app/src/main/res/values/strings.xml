@@ -59,14 +59,6 @@
     <string name="outdoors_button">OUTDOORS</string>
     <string name="indoors_buttons">INDOORS</string>
 
-    <string name="projects_header">PROJECTS</string>
-    <string name="fav_button_text">Favorites</string>
-    <string name="spinner_default">Select Category</string>
-    <string name="data_sci_project">DATA SCI</string>
-    <string name="languages_project">LANGUAGES</string>
-    <string name="systems_project">SYSTEMS</string>
-    <string name="web_dev_project">WEB DEV</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="event_location_options">
         <item>Siebel Center</item>
