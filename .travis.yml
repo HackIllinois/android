@@ -33,3 +33,5 @@ before_install:
   -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
 - mv secrets/google-services.json app/
+- mv secrets/hackillinois.keystore ./
+- mv secrets/service-account-key.p12 ./

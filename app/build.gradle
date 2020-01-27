@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 apply plugin: 'com.google.gms.google-services'
 
-def isRunningOnTravis = System.getenv("CI") == "true"
+def isRunningOnTravis = System.getenv("CI") == "true" && file('hackillinois.keystore').exists() && file('../service-account-key.exists()')
 
 if (isRunningOnTravis) {
     apply plugin: 'com.github.triplet.play'
