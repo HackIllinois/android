@@ -49,7 +49,9 @@ android {
             applicationIdSuffix ".release"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            if (isRunningOnTravis) {
+                signingConfig signingConfigs.release
+            }
             resValue "string", "google_maps_api_key", google_maps_api_key
         }
     }
