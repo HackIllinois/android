@@ -29,13 +29,13 @@
                 android:layout_height="48dp"
                 android:background="@color/bottomAppBarColor"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/todayButton"
+                app:layout_constraintEnd_toStartOf="@id/scheduleButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_home" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/todayButton"
+                android:id="@+id/scheduleButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@color/bottomAppBarColor"
@@ -50,40 +50,50 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@id/mapButton"
-                app:layout_constraintStart_toEndOf="@id/todayButton"
+                app:layout_constraintEnd_toStartOf="@id/mapsButton"
+                app:layout_constraintStart_toEndOf="@id/scheduleButton"
                 app:layout_constraintTop_toTopOf="@id/homeButton" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/mapButton"
+                android:id="@+id/mapsButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@color/bottomAppBarColor"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@id/groupButton"
+                app:layout_constraintEnd_toStartOf="@id/projectsButton"
                 app:layout_constraintStart_toEndOf="@id/placeholder"
                 app:srcCompat="@drawable/ic_map" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/groupButton"
+                android:id="@+id/projectsButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@color/bottomAppBarColor"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/mapButton"
+                app:layout_constraintStart_toEndOf="@+id/mapsButton"
                 app:layout_constraintTop_toTopOf="@+id/homeButton"
-                app:srcCompat="@drawable/ic_group" />
+                app:srcCompat="@drawable/ic_assignment" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/qr_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:backgroundTint="@color/fabColor"
         app:layout_anchor="@id/bottomAppBar"
         app:srcCompat="@drawable/ic_qr_code" />
+
+    <FrameLayout
+        android:id="@+id/standardBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <include layout="@layout/layout_qr_sheet" />
+
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

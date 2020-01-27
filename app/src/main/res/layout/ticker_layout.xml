@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <org.hackillinois.android.view.custom.ticker.HalfTicker
+            android:id="@+id/top_lower_ticker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            custom:ticker_text="00"
+            custom:is_top_half="true"
+            android:layout_alignParentTop="true"
+            />
+
+        <org.hackillinois.android.view.custom.ticker.HalfTicker
+            android:id="@+id/top_upper_ticker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            custom:ticker_text="00"
+            custom:is_top_half="true"
+            android:layout_alignParentTop="true"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <org.hackillinois.android.view.custom.ticker.HalfTicker
+            android:id="@+id/bottom_lower_ticker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            custom:ticker_text="00"
+            custom:is_top_half="false"
+            android:layout_alignParentTop="true"
+            />
+
+        <org.hackillinois.android.view.custom.ticker.HalfTicker
+            android:id="@+id/bottom_upper_ticker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            custom:ticker_text="00"
+            custom:is_top_half="false"
+            android:layout_alignParentTop="true"
+            />
+    </RelativeLayout>
+</LinearLayout>

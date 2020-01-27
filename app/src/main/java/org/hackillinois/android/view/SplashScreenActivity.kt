@@ -1,12 +1,11 @@
 package org.hackillinois.android.view
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import org.hackillinois.android.App
-import org.hackillinois.android.R
+import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,14 +15,12 @@ import kotlin.concurrent.thread
 
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val defaultJWT: String = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val jwt = loadJWT()
+        val jwt = JWTUtilities.readJWT(applicationContext)
 
-        if (jwt != defaultJWT) {
+        if (jwt != JWTUtilities.DEFAULT_JWT) {
             val api = App.getAPI(jwt)
             api.user().enqueue(object : Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
@@ -67,10 +64,5 @@ class SplashScreenActivity : AppCompatActivity() {
         val mainIntent = Intent(this, LoginActivity::class.java)
         startActivity(mainIntent)
         finish()
-    }
-
-    fun loadJWT(): String {
-        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("jwt", defaultJWT)
-                ?: defaultJWT
     }
 }

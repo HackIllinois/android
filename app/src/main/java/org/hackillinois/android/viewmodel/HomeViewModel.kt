@@ -8,13 +8,16 @@ import org.hackillinois.android.repository.EventRepository
 class HomeViewModel : ViewModel() {
 
     private val eventRepository = EventRepository.instance
-    lateinit var eventsListLiveData: LiveData<List<Event>>
+    lateinit var ongoingEventsLiveData: LiveData<List<Event>>
+    lateinit var upcomingEventsLiveData: LiveData<List<Event>>
 
     fun init() {
-        eventsListLiveData = eventRepository.fetchEventsHappeningAtTime(System.currentTimeMillis())
+        ongoingEventsLiveData = eventRepository.fetchEventsHappeningAtTime(System.currentTimeMillis())
+        upcomingEventsLiveData = eventRepository.fetchEventsHappeningInNextHour()
     }
 
     fun refresh() {
-        eventsListLiveData = eventRepository.forceFetchEventsHappeningAtTime(System.currentTimeMillis())
+        ongoingEventsLiveData = eventRepository.forceFetchEventsHappeningAtTime(System.currentTimeMillis())
+        upcomingEventsLiveData = eventRepository.fetchEventsHappeningInNextHour()
     }
 }

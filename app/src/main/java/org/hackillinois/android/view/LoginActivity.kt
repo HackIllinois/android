@@ -8,8 +8,11 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_login.*
+import org.hackillinois.android.API
 import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.hackillinois.android.common.JWTUtilities
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
 import retrofit2.Call
@@ -34,29 +37,30 @@ class LoginActivity : AppCompatActivity() {
             redirectToOAuthProvider("google")
         }
 
-        recruiterLoginBtn.setOnClickListener {
-            redirectToOAuthProvider("linkedin")
+        guestLoginBtn.setOnClickListener {
+            launchMainActivity()
         }
     }
 
     override fun onResume() {
         super.onResume()
 
-        val intent = getIntent()
-
-        intent ?: return
+        val intent = intent ?: return
         intent.action ?: return
 
-        val uri = intent.data
+        val uri = intent.data ?: return
 
-        uri ?: return
+        val code = uri.getQueryParameter("code") ?: return
 
-        val code = uri.getQueryParameter("code")
+        finishLogin(code)
+    }
+
+    private fun finishLogin(code: String) {
+        // TODO: update to Retrofit 2.6.0 and use suspend functions to remove nested callbacks
         var api = App.getAPI()
-
         api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object : Callback<JWT> {
             override fun onFailure(call: Call<JWT>, t: Throwable) {
-                Snackbar.make(findViewById(android.R.id.content), "Failed to login", Snackbar.LENGTH_SHORT).show()
+                showFailedToLogin()
             }
 
             override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
@@ -69,13 +73,38 @@ class LoginActivity : AppCompatActivity() {
                             Log.e("LoginActivity", "Notifications update timed out!")
                         }
                     }
-                    storeJWT(it)
-                    runOnUiThread {
+
+                    if (getOAuthProvider() == "google") {
+                        verifyStaffRole(api, it)
+                    } else {
+                        JWTUtilities.writeJWT(applicationContext, it)
                         launchMainActivity()
                     }
                 }
             }
         })
+    }
+
+    private fun verifyStaffRole(api: API, jwt: String) {
+        api.roles().enqueue(object : Callback<Roles> {
+            override fun onFailure(call: Call<Roles>, t: Throwable) {
+                showFailedToLogin()
+            }
+
+            override fun onResponse(call: Call<Roles>, response: Response<Roles>) {
+                if (response.isSuccessful &&
+                        response.body()?.roles?.contains("Staff") == true) {
+                    JWTUtilities.writeJWT(applicationContext, jwt)
+                    launchMainActivity()
+                } else {
+                    showFailedToLogin()
+                }
+            }
+        })
+    }
+
+    private fun showFailedToLogin() {
+        Snackbar.make(findViewById(android.R.id.content), "Failed to login", Snackbar.LENGTH_SHORT).show()
     }
 
     fun launchMainActivity() {
@@ -84,14 +113,14 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    fun redirectToOAuthProvider(provider: String) {
+    private fun redirectToOAuthProvider(provider: String) {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.setData(Uri.parse(authUriTemplate.format(provider, redirectUri)))
+        intent.data = Uri.parse(authUriTemplate.format(provider, redirectUri))
         setOAuthProvider(provider)
         startActivity(intent)
     }
 
-    fun setOAuthProvider(provider: String) {
+    private fun setOAuthProvider(provider: String) {
         val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
         editor.putString("provider", provider)
         editor.apply()
@@ -100,11 +129,5 @@ class LoginActivity : AppCompatActivity() {
     fun getOAuthProvider(): String {
         return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")
                 ?: ""
-    }
-
-    fun storeJWT(jwt: String) {
-        val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
-        editor.putString("jwt", jwt)
-        editor.apply()
     }
 }

@@ -1,15 +1,6 @@
 <resources>
     <string name="app_name">HackIllinois</string>
 
-    <string name="default_name">Attendee</string>
-    <string name="default_email">attendee@hackillinois.org</string>
-
-    <string name="nav_home">HOME</string>
-    <string name="nav_schedule">SCHEDULE</string>
-    <string name="nav_outdoor">OUTDOOR MAPS</string>
-    <string name="nav_indoor">INDOOR MAPS</string>
-    <string name="nav_profile">PROFILE</string>
-
     <string name="home_empty_events">Check Back Later</string>
 
     <string name="schedule_tab_friday">FRIDAY</string>
@@ -19,11 +10,8 @@
 
     <string name="map_dcl">DCL</string>
     <string name="map_eceb">ECEB</string>
-    <string name="map_siebel">Siebel</string>
-    <string name="map_gym">Gym</string>
-
-    <string name="profile_university">UNIVERSITY</string>
-    <string name="profile_major">MAJOR</string>
+    <string name="map_siebel">SIEBEL</string>
+    <string name="map_kenney">KENNEY</string>
 
     <string name="event_info_directions">GET DIRECTIONS</string>
     <string name="event_info_time_dash">-</string>
@@ -31,16 +19,16 @@
 
     <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
     <string name="authorization_pref_file_key">org.hackillinois.android.authorization</string>
-    <string name="attendee_login">Attendee Login</string>
-    <string name="staff_login">Staff Login</string>
-    <string name="recruiter_login">Recruiter Login</string>
-    <string name="nav_logout">LOGOUT</string>
-    <string name="nav_scanner">SCANNER</string>
+    <string name="welcome_login">WELCOME TO</string>
+    <string name="label_login">LOGIN</string>
+    <string name="attendee_login">ATTENDEE</string>
+    <string name="staff_login">STAFF</string>
+    <string name="guest_login">GUEST</string>
+    <string name="login_or_label">- OR -</string>
     <string name="tab_stats">Stats</string>
     <string name="tab_events">Events</string>
     <string name="tab_notifications">Notifications</string>
     <string name="query_stats">Query Stats</string>
-    <string name="nav_admin">ADMIN TOOLS</string>
     <string name="create">Create</string>
     <string name="event_name">Event Name</string>
     <string name="event_description">Event Description</string>
@@ -53,6 +41,23 @@
     <string name="notification_topic">Notification Topic</string>
     <string name="notification_content">Notification Content</string>
     <string name="notification_title">Notification Title</string>
+    <string name="close_text">CLOSE</string>
+    <string name="logout_text">LOG OUT</string>
+
+    <string name="default_time_homepage">00</string>
+    <string name="days_label">DAYS</string>
+    <string name="hours_label">HOURS</string>
+    <string name="minutes_label">MINUTES</string>
+    <string name="projects_header">PROJECTS</string>
+    <string name="fav_button_text">Favorites</string>
+    <string name="spinner_default">Select Category</string>
+    <string name="data_sci_project">DATA SCI</string>
+    <string name="languages_project">LANGUAGES</string>
+    <string name = "systems_project">SYSTEMS</string>
+    <string name="web_dev_project">WEB DEV</string>
+
+    <string name="outdoors_button">OUTDOORS</string>
+    <string name="indoors_buttons">INDOORS</string>
 
     <string name="projects_header">PROJECTS</string>
     <string name="fav_button_text">Favorites</string>
