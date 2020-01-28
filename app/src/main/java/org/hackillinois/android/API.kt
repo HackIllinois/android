@@ -15,6 +15,7 @@ import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.notifications.DeviceToken
 
 import okhttp3.ResponseBody
+import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -76,6 +77,11 @@ interface API {
 
     @GET("user/qr/")
     fun qrCode(): Call<QR>
+
+    // PROJECT
+
+    @GET("project/")
+    fun allProjects(): Call<ProjectsList>
 
     companion object {
         val BASE_URL = "https://api.hackillinois.org/"

@@ -59,10 +59,13 @@
     <string name="outdoors_button">OUTDOORS</string>
     <string name="indoors_buttons">INDOORS</string>
 
+
     <string-array name="event_location_options">
         <item>Siebel Center</item>
         <item>ECE Building</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="event_type_options">
         <item>MEAL</item>
         <item>SPEAKER</item>
