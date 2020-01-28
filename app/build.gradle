@@ -5,6 +5,12 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 apply plugin: 'com.google.gms.google-services'
 
+def isRunningOnTravis = System.getenv("CI") == "true" && file('../hackillinois.keystore').exists() && file('../service-account-key.p12').exists()
+
+if (isRunningOnTravis) {
+    apply plugin: 'com.github.triplet.play'
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -21,8 +27,19 @@ android {
             }
         }
     }
+    signingConfigs {
+        release {
+            if (isRunningOnTravis) {
+                storeFile file("../hackillinois.keystore")
+                storePassword System.getenv("keystore_password")
+                keyAlias System.getenv("key_alias")
+                keyPassword System.getenv("key_password")
+            }
+        }
+    }
+
     buildTypes {
-        def google_maps_api_key = System.getenv("CI") == "true" ?
+        def google_maps_api_key = isRunningOnTravis ?
                 (System.getenv("GOOGLE_MAPS_API_KEY") ?: "") :
                 (project.properties["GOOGLE_MAPS_API_KEY"] ?: "")
         debug {
@@ -32,6 +49,9 @@ android {
             applicationIdSuffix ".release"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (isRunningOnTravis) {
+                signingConfig signingConfigs.release
+            }
             resValue "string", "google_maps_api_key", google_maps_api_key
         }
     }
@@ -52,9 +72,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:3.1.0'
     implementation 'com.airbnb.android:lottie:3.3.1'
-
-    // Location updates
-    implementation 'com.yayandroid:LocationManager:2.0.4'
+    implementation 'androidx.fragment:fragment:1.2.0'
 
     // Zoomable images
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
@@ -87,10 +105,21 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
 
-    // Logging interceptor
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+}
+
+if (isRunningOnTravis) {
+    play {
+        track = "alpha"
+        userFraction = 1
+        serviceAccountEmail = "hackillinois-android-publishin@api-7971352790762652858-223664.iam.gserviceaccount.com"
+        serviceAccountCredentials = file("../service-account-key.p12")
+
+        resolutionStrategy = "auto"
+        outputProcessor { // this: ApkVariantOutput
+            versionNameOverride = "$versionNameOverride.$versionCode"
+        }
+    }
 }

@@ -36,8 +36,6 @@ import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
-    private val defaultToken: String = ""
-
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -168,6 +166,7 @@ class MainActivity : AppCompatActivity() {
 
         thread {
             App.database.clearAllTables()
+            App.getAPI("")
 
             runOnUiThread {
                 val loginIntent = Intent(this, LoginActivity::class.java)
