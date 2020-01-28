@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.project_list_item.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.database.entity.ProjectModel
-import org.hackillinois.android.database.entity.getMentorsString
+import org.hackillinois.android.database.entity.Project
 
-class ProjectAdapter internal constructor(private val mentorList: List<ProjectModel>) : RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
+class ProjectAdapter internal constructor(private val projectList: List<Project>) : RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
@@ -24,14 +23,14 @@ class ProjectAdapter internal constructor(private val mentorList: List<ProjectMo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val project = mentorList[position]
+        val project = projectList[position]
 
         holder.itemView.apply {
-            mentorName.text = getMentorsString(project)
+            mentorName.text = project.getMentorsString()
             mentorNumber.text = "#${project.number}"
             mentorLocation.text = project.room
         }
     }
 
-    override fun getItemCount() = mentorList.size
+    override fun getItemCount() = projectList.size
 }

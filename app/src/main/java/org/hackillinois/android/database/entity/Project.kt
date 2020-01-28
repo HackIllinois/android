@@ -7,7 +7,7 @@ import org.hackillinois.android.database.Converters
 
 @Entity(tableName = "projects")
 @TypeConverters(Converters::class)
-data class ProjectModel(
+data class Project(
     @PrimaryKey val id: String,
     val name: String,
     val description: String,
@@ -15,14 +15,14 @@ data class ProjectModel(
     val room: String,
     val tags: List<String>,
     val number: Int
-)
+) {
+    fun getMentorsString(): String {
+        var mentors = ""
+        for (i in 0..this.mentors.lastIndex - 1) {
+            mentors += this.mentors[i] + ", "
+        }
+        mentors += this.mentors[this.mentors.lastIndex]
 
-fun getMentorsString(project: ProjectModel): String {
-    var mentors = ""
-    for (i in 0..project.mentors.lastIndex - 1) {
-        mentors += project.mentors[i] + ", "
+        return mentors
     }
-    mentors += project.mentors[project.mentors.lastIndex]
-
-    return mentors
 }

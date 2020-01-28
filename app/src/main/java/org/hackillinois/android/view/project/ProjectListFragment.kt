@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
-import org.hackillinois.android.database.entity.ProjectModel
+import org.hackillinois.android.database.entity.Project
 import org.hackillinois.android.viewmodel.ProjectsViewModel
 
 class ProjectListFragment : Fragment() {
 
-    private var projectList: List<ProjectModel>? = null
+    private var projectList: List<Project>? = null
     private lateinit var projectsRecycler: RecyclerView
     private var myAdapter: ProjectAdapter? = null
     private var listState: Parcelable? = null

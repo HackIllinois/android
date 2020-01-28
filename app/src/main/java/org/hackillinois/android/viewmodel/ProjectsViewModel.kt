@@ -2,7 +2,7 @@ package org.hackillinois.android.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import org.hackillinois.android.database.entity.ProjectModel
+import org.hackillinois.android.database.entity.Project
 import org.hackillinois.android.repository.ProjectRepository
 
 class ProjectsViewModel : ViewModel() {
@@ -13,10 +13,10 @@ class ProjectsViewModel : ViewModel() {
     val systems = "Systems"
     val webDev = "Web Development"
 
-    lateinit var dataSciLiveData: LiveData<List<ProjectModel>>
-    lateinit var languageLiveData: LiveData<List<ProjectModel>>
-    lateinit var systemsLiveData: LiveData<List<ProjectModel>>
-    lateinit var webDevLiveData: LiveData<List<ProjectModel>>
+    lateinit var dataSciLiveData: LiveData<List<Project>>
+    lateinit var languageLiveData: LiveData<List<Project>>
+    lateinit var systemsLiveData: LiveData<List<Project>>
+    lateinit var webDevLiveData: LiveData<List<Project>>
 
     fun init() {
         dataSciLiveData = projectsRepository.fetchProjectsinCategory(dataScience)

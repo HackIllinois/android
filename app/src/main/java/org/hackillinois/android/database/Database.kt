@@ -12,7 +12,7 @@ import org.hackillinois.android.database.entity.*
         User::class,
         Event::class,
         Roles::class,
-        ProjectModel::class
+        Project::class
     ],
     version = 1
 )

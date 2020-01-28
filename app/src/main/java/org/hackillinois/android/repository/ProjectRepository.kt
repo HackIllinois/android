@@ -2,7 +2,7 @@ package org.hackillinois.android.repository
 
 import androidx.lifecycle.LiveData
 import org.hackillinois.android.App
-import org.hackillinois.android.database.entity.ProjectModel
+import org.hackillinois.android.database.entity.Project
 import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,7 +12,7 @@ import kotlin.concurrent.thread
 class ProjectRepository {
     private val projectsDao = App.database.projectsDao()
 
-    fun fetchProjectsinCategory(category: String): LiveData<List<ProjectModel>> {
+    fun fetchProjectsinCategory(category: String): LiveData<List<Project>> {
         refreshAll()
         return projectsDao.getProjectsWithTag(category)
     }
@@ -21,7 +21,7 @@ class ProjectRepository {
         App.getAPI().allProjects().enqueue(object : Callback<ProjectsList> {
             override fun onResponse(call: Call<ProjectsList>, response: Response<ProjectsList>) {
                 if (response.isSuccessful) {
-                    val projectsList: List<ProjectModel> = response.body()?.projects ?: return
+                    val projectsList: List<Project> = response.body()?.projects ?: return
                     thread { projectsDao.clearTableAndInsertProjects(projectsList) }
                 }
             }
