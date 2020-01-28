@@ -11,7 +11,7 @@ class ProjectsViewModel : ViewModel() {
     val dataScience = "Data Science"
     val languages = "Languages"
     val systems = "Systems"
-    val webDev = "Wev Development"
+    val webDev = "Web Development"
 
     lateinit var dataSciLiveData: LiveData<List<ProjectModel>>
     lateinit var languageLiveData: LiveData<List<ProjectModel>>

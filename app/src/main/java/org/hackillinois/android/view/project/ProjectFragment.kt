@@ -1,4 +1,4 @@
-package org.hackillinois.android.view
+package org.hackillinois.android.view.project
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_project.*
 import kotlinx.android.synthetic.main.fragment_project.view.*
 import kotlinx.android.synthetic.main.fragment_project.view.projectCategories
 import org.hackillinois.android.R

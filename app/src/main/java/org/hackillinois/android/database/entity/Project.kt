@@ -16,3 +16,13 @@ data class ProjectModel(
     val tags: List<String>,
     val number: Int
 )
+
+fun getMentorsString(project: ProjectModel): String {
+    var mentors = ""
+    for (i in 0..project.mentors.lastIndex - 1) {
+        mentors += project.mentors[i] + ", "
+    }
+    mentors += project.mentors[project.mentors.lastIndex]
+
+    return mentors
+}

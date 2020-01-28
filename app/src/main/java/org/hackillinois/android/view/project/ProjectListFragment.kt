@@ -1,4 +1,4 @@
-package org.hackillinois.android.view
+package org.hackillinois.android.view.project
 
 import android.os.Bundle
 import android.os.Parcelable
@@ -33,8 +33,7 @@ class ProjectListFragment : Fragment() {
             viewModel.dataScience -> viewModel.dataSciLiveData
             viewModel.languages -> viewModel.languageLiveData
             viewModel.systems -> viewModel.systemsLiveData
-            viewModel.webDev -> viewModel.webDevLiveData
-            else -> viewModel.dataSciLiveData
+            else -> viewModel.webDevLiveData
         }
 
         liveData.observe(this, Observer { projects -> projects?.let {

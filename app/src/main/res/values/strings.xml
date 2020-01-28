@@ -59,7 +59,7 @@
     <string name="outdoors_button">OUTDOORS</string>
     <string name="indoors_buttons">INDOORS</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string-array name="event_location_options">
         <item>Siebel Center</item>
         <item>ECE Building</item>
