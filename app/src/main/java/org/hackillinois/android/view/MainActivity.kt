@@ -167,6 +167,7 @@ class MainActivity : AppCompatActivity() {
 
         thread {
             App.database.clearAllTables()
+            App.getAPI("")
 
             runOnUiThread {
                 val loginIntent = Intent(this, LoginActivity::class.java)
