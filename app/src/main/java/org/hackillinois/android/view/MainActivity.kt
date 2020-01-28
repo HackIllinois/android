@@ -35,8 +35,6 @@ import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
-    private val defaultToken: String = ""
-
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
