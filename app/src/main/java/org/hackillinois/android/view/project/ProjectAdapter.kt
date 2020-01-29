@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.project_list_item.view.*
+import kotlinx.android.synthetic.main.project_tags.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Project
 
@@ -29,14 +30,18 @@ class ProjectAdapter(
         val project = projectList[position]
 
         holder.itemView.apply {
-            mentorName.text = project.getMentorsString()
-            mentorNumber.text = "#${project.number}"
-            mentorLocation.text = project.room
+            projectName.text = "#${project.number} ${project.name}"
+            projectLocation.text = project.room
         }
 
         holder.itemView.setOnClickListener {
             projectClickListener.onClick(project.id)
         }
+
+        if (project.tags.contains("Data Science")) holder.itemView.data_sci_tag.visibility = View.VISIBLE
+        if (project.tags.contains("Web Development")) holder.itemView.web_dev_tag.visibility = View.VISIBLE
+        if (project.tags.contains("Languages")) holder.itemView.languages_tag.visibility = View.VISIBLE
+        if (project.tags.contains("Systems")) holder.itemView.systems_tag.visibility = View.VISIBLE
     }
 
     override fun getItemCount() = projectList.size
