@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Project
+import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.viewmodel.ProjectsViewModel
 
-class ProjectListFragment : Fragment() {
+class ProjectListFragment : Fragment(), ProjectClickListener {
 
     private var projectList: List<Project>? = null
     private lateinit var projectsRecycler: RecyclerView
@@ -38,7 +39,7 @@ class ProjectListFragment : Fragment() {
 
         liveData.observe(this, Observer { projects -> projects?.let {
             projectList = projects
-            myAdapter = ProjectAdapter(projects)
+            myAdapter = ProjectAdapter(projects, this)
             projectsRecycler.adapter = myAdapter
         } })
     }
@@ -54,7 +55,7 @@ class ProjectListFragment : Fragment() {
         projectsRecycler.layoutManager = LinearLayoutManager(context)
 
         projectList?.let {
-            myAdapter = ProjectAdapter(it)
+            myAdapter = ProjectAdapter(it, this)
             projectsRecycler.adapter = myAdapter
         }
 
@@ -76,6 +77,11 @@ class ProjectListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         myAdapter?.notifyDataSetChanged()
+    }
+
+    override fun onClick(projectId: String) {
+        val newFragment = ProjectInfoFragment.newInstance(projectId)
+        (activity as MainActivity).switchFragment(newFragment, true)
     }
 
     companion object {
