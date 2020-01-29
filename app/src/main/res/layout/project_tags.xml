@@ -54,12 +54,12 @@
             android:id="@+id/systems_tag"
             android:layout_width="84dp"
             android:layout_height="20dp"
-            android:background="@drawable/rounded_orange_bg"
+            android:background="@drawable/rounded_maroon_bg"
             android:fontFamily="@font/montserrat_regular"
             android:text="@string/systems_tag"
             android:visibility="gone"
             android:gravity="center"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@android:color/white"
             android:textSize="14sp" />
     </LinearLayout>
 </HorizontalScrollView>
