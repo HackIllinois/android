@@ -36,7 +36,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_semi_bold"
-            android:text="Name Here"
+            tools:text="Name Here"
             android:textColor="#222B5C"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -50,8 +50,9 @@
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat_regular"
-            android:text="Location Here"
+            tools:text="Location Here"
             android:textColor="#222B5C"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/projectName" />
 
