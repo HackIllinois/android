@@ -9,7 +9,10 @@ import kotlinx.android.synthetic.main.project_list_item.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Project
 
-class ProjectAdapter internal constructor(private val projectList: List<Project>) : RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
+class ProjectAdapter(
+    private val projectList: List<Project>,
+    private val projectClickListener: ProjectClickListener
+) : RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
@@ -29,6 +32,10 @@ class ProjectAdapter internal constructor(private val projectList: List<Project>
             mentorName.text = project.getMentorsString()
             mentorNumber.text = "#${project.number}"
             mentorLocation.text = project.room
+        }
+
+        holder.itemView.setOnClickListener {
+            projectClickListener.onClick(project.id)
         }
     }
 

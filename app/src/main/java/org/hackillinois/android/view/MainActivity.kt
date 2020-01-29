@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
@@ -79,18 +80,13 @@ class MainActivity : AppCompatActivity() {
                 bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
                 (view as ImageButton).setColorFilter(selectedIconColor)
 
-                val newFragment = when (view) {
-                    bottomAppBar.homeButton -> HomeFragment()
-                    bottomAppBar.scheduleButton -> ScheduleFragment()
-                    bottomAppBar.mapsButton -> MapsFragment()
-                    bottomAppBar.projectsButton -> ProjectFragment()
+                when (view) {
+                    bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
+                    bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
+                    bottomAppBar.mapsButton -> switchFragment(MapsFragment(), false)
+                    bottomAppBar.projectsButton -> switchFragment(ProjectFragment(), false)
                     else -> return@setOnClickListener
                 }
-
-                val transaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.contentFrame, newFragment)
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                transaction.commit()
             }
         }
     }
@@ -112,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         logoutTextView.setOnClickListener { logout() }
 
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(view: View, p1: Float) { }
+            override fun onSlide(view: View, p1: Float) {}
 
             override fun onStateChanged(view: View, state: Int) {
                 when (state) {
@@ -121,6 +117,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    fun switchFragment(fragment: Fragment, addToBackStack: Boolean) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.contentFrame, fragment)
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
+        transaction.commit()
     }
 
     private fun updateQrView(qr: QR?) = qr?.let {
