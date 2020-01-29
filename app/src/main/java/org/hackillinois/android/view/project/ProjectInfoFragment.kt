@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.davemorrissey.labs.subscaleview.ImageSource
 import kotlinx.android.synthetic.main.fragment_project_info.*
 import kotlinx.android.synthetic.main.fragment_project_info.view.*
+import kotlinx.android.synthetic.main.project_tags.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.DirectionsOnClickListener
 import org.hackillinois.android.database.entity.Project
@@ -49,6 +50,11 @@ class ProjectInfoFragment : Fragment() {
 
         val location = it.getLatLng()
         directionsButton.setOnClickListener(DirectionsOnClickListener(location, it.getBuildingName()))
+
+        if (it.tags.contains("Data Science")) data_sci_tag.visibility = View.VISIBLE
+        if (it.tags.contains("Web Development")) web_dev_tag.visibility = View.VISIBLE
+        if (it.tags.contains("Languages")) languages_tag.visibility = View.VISIBLE
+        if (it.tags.contains("Systems")) systems_tag.visibility = View.VISIBLE
     }
 
     companion object {

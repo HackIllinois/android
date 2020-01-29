@@ -22,19 +22,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <FrameLayout
+        android:id="@+id/project_tags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/closeButton">
+
+        <include layout="@layout/project_tags" />
+    </FrameLayout>
+
     <TextView
         android:id="@+id/projectNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:textSize="24sp"
-        android:textColor="@color/primaryTextColor"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/closeButton"
-        tools:text="Project Name Here"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/project_tags"
+        tools:text="Project Name Here" />
 
     <ImageButton
         android:id="@+id/starButton"
@@ -149,8 +161,7 @@
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"
-                android:text="@string/get_directions"
-                 />
+                android:text="@string/get_directions" />
 
         </LinearLayout>
 
