@@ -13,7 +13,7 @@
     <string name="map_siebel">SIEBEL</string>
     <string name="map_kenney">KENNEY</string>
 
-    <string name="event_info_directions">GET DIRECTIONS</string>
+    <string name="get_directions">GET DIRECTIONS</string>
     <string name="event_info_time_dash">-</string>
     <string name="event_info_title">EVENT DETAILS</string>
 

@@ -131,7 +131,7 @@
             android:layout_marginStart="36dp"
             android:background="@drawable/rounded_button_background"
             app:fontFamily="@font/montserrat_regular"
-            android:text="@string/event_info_directions"
+            android:text="@string/get_directions"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

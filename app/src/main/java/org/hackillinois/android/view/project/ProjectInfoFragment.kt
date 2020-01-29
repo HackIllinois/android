@@ -5,12 +5,50 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.davemorrissey.labs.subscaleview.ImageSource
+import kotlinx.android.synthetic.main.fragment_project_info.*
+import kotlinx.android.synthetic.main.fragment_project_info.view.*
 import org.hackillinois.android.R
+import org.hackillinois.android.common.DirectionsOnClickListener
+import org.hackillinois.android.database.entity.Project
+import org.hackillinois.android.viewmodel.ProjectInfoViewModel
 
 class ProjectInfoFragment : Fragment() {
 
+    private lateinit var viewModel: ProjectInfoViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val projectId = arguments?.getString(PROJECT_ID_KEY) ?: ""
+        viewModel = ViewModelProviders.of(this).get(ProjectInfoViewModel::class.java)
+        viewModel.init(projectId)
+        viewModel.project.observe(this, Observer { updateProjectUI(it) })
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_project_info, container, false)
+        val view = inflater.inflate(R.layout.fragment_project_info, container, false)
+        view.closeButton.setOnClickListener { activity?.onBackPressed() }
+        return view
+    }
+
+    private fun updateProjectUI(project: Project?) = project?.let {
+        projectNameTextView.text = it.name
+        mentorNamesTextView.text = it.getMentorsString()
+        projectNumberTextView.text = "#${it.number}"
+        locationTextView.text = it.room
+        descriptionTextView.text = it.description
+        cardLocationTextView.text = it.room
+
+        val indoorMapResource = it.getIndoorMapResource()
+        if (indoorMapResource != 0) {
+            map_image_view.setImage(ImageSource.resource(indoorMapResource))
+        }
+
+        val location = it.getLatLng()
+        directionsButton.setOnClickListener(DirectionsOnClickListener(location, it.getBuildingName()))
     }
 
     companion object {

@@ -17,6 +17,11 @@ class ProjectRepository {
         return projectsDao.getProjectsWithTag(category)
     }
 
+    fun fetchProject(projectId: String): LiveData<Project> {
+        refreshAll()
+        return projectsDao.getProject(projectId)
+    }
+
     private fun refreshAll() {
         App.getAPI().allProjects().enqueue(object : Callback<ProjectsList> {
             override fun onResponse(call: Call<ProjectsList>, response: Response<ProjectsList>) {
