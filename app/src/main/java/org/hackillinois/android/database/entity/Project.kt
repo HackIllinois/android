@@ -44,7 +44,7 @@ data class Project(
     fun getBuildingName(): String {
         val split = room.split(" ")
         return if (split.isEmpty()) {
-            "No Name"
+            ""
         } else {
             split[0]
         }
@@ -55,19 +55,17 @@ data class Project(
 
     fun getIndoorMapResource(): Int {
         val split = room.split(" ")
-        return when {
-            split.isEmpty() -> NO_RESOURCE
-            split.size == 1 -> {
-                val buildingName = split[0]
-                mapResourceMappings[buildingName] ?: NO_RESOURCE
-            }
-            else -> {
-                val buildingName = split[0]
-                val floor = split.last()[0]
-                val name = "${buildingName}_$floor"
-                mapResourceMappings[name] ?: NO_RESOURCE
-            }
+        if (split.isEmpty()) {
+            return NO_RESOURCE
         }
+
+        var buildingKey = split[0]
+        if (split.size >= 2) {
+            val floor = split.last()[0]
+            buildingKey += "_$floor"
+        }
+
+        return mapResourceMappings[buildingKey] ?: NO_RESOURCE
     }
 
     @Ignore
@@ -78,12 +76,15 @@ data class Project(
         "Kenney" to LatLng(40.1132401, -88.2305837)
     )
 
+    @Ignore
+    private val SIEBEL_LAT_LNG = LatLng(40.113833, -88.224903)
+
     fun getLatLng(): LatLng {
         val split = room.split(" ")
         return if (split.isEmpty()) {
-            LatLng(40.113833, -88.224903)
+            SIEBEL_LAT_LNG
         } else {
-            latLngMappings[split[0]] ?: LatLng(40.113833, -88.224903)
+            latLngMappings[split[0]] ?: SIEBEL_LAT_LNG
         }
     }
 }
