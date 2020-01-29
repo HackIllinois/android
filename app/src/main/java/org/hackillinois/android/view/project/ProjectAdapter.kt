@@ -32,16 +32,14 @@ class ProjectAdapter(
         holder.itemView.apply {
             projectName.text = "#${project.number} ${project.name}"
             projectLocation.text = project.room
+            setOnClickListener { projectClickListener.onClick(project.id) }
+            project.tags.let {
+                if (it.contains("Data Science")) data_sci_tag.visibility = View.VISIBLE
+                if (it.contains("Web Development")) web_dev_tag.visibility = View.VISIBLE
+                if (it.contains("Languages")) languages_tag.visibility = View.VISIBLE
+                if (it.contains("Systems")) systems_tag.visibility = View.VISIBLE
+            }
         }
-
-        holder.itemView.setOnClickListener {
-            projectClickListener.onClick(project.id)
-        }
-
-        if (project.tags.contains("Data Science")) holder.itemView.data_sci_tag.visibility = View.VISIBLE
-        if (project.tags.contains("Web Development")) holder.itemView.web_dev_tag.visibility = View.VISIBLE
-        if (project.tags.contains("Languages")) holder.itemView.languages_tag.visibility = View.VISIBLE
-        if (project.tags.contains("Systems")) holder.itemView.systems_tag.visibility = View.VISIBLE
     }
 
     override fun getItemCount() = projectList.size
