@@ -36,9 +36,8 @@ class ProjectInfoFragment : Fragment() {
     }
 
     private fun updateProjectUI(project: Project?) = project?.let {
-        projectNameTextView.text = it.name
+        projectNameTextView.text = "#${it.number} ${it.name}"
         mentorNamesTextView.text = it.getMentorsString()
-        projectNumberTextView.text = "#${it.number}"
         locationTextView.text = it.room
         descriptionTextView.text = it.description
         cardLocationTextView.text = it.room

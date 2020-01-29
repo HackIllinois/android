@@ -73,27 +73,15 @@
         tools:text="Mentor names" />
 
     <TextView
-        android:id="@+id/projectNumberTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:textSize="14sp"
-        android:textColor="@color/primaryTextColor"
-        android:fontFamily="@font/montserrat_semi_bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mentorNamesTextView"
-        tools:text="#123456" />
-
-    <TextView
         android:id="@+id/locationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="14sp"
-        android:textColor="@color/primaryTextColor"
         android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/projectNumberTextView"
+        app:layout_constraintTop_toBottomOf="@+id/mentorNamesTextView"
         tools:text="Siebel 1214" />
 
     <TextView
