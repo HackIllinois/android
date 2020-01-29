@@ -29,24 +29,12 @@ data class Project(
         return mentors
     }
 
-    @Ignore
-    private val mapResourceMappings = mapOf(
-        "Siebel_0" to R.drawable.siebel_floor_0,
-        "Siebel_1" to R.drawable.siebel_floor_1,
-        "Siebel_2" to R.drawable.siebel_floor_2,
-        "ECEB_1" to R.drawable.eceb_floor_1,
-        "ECEB_2" to R.drawable.eceb_floor_2,
-        "ECEB_3" to R.drawable.eceb_floor_3,
-        "DCL" to R.drawable.dcl,
-        "Kenney" to R.drawable.kenney
-    )
-
     fun getBuildingName(): String {
         val split = room.split(" ")
-        return if (split.isEmpty()) {
-            ""
-        } else {
+        return if (split.isNotEmpty()) {
             split[0]
+        } else {
+            ""
         }
     }
 
@@ -59,21 +47,33 @@ data class Project(
             return NO_RESOURCE
         }
 
-        var buildingKey = split[0]
-        if (split.size >= 2) {
-            val floor = split.last()[0]
-            buildingKey += "_$floor"
-        }
+        val buildingName = split[0]
 
-        return mapResourceMappings[buildingKey] ?: NO_RESOURCE
+        return if (buildingName == "Siebel") {
+            if (split.size == 1) { R.drawable.siebel_floor_1 }
+
+            val floor = split.last()[0]
+            when (floor) {
+                '0' -> R.drawable.siebel_floor_0
+                '2' -> R.drawable.siebel_floor_2
+                else -> R.drawable.siebel_floor_1
+            }
+        } else {
+            if (split.size == 1) { R.drawable.eceb_floor_1 }
+
+            val floor = split.last()[0]
+            when (floor) {
+                '2' -> R.drawable.eceb_floor_2
+                '3' -> R.drawable.eceb_floor_3
+                else -> R.drawable.eceb_floor_1
+            }
+        }
     }
 
     @Ignore
     private val latLngMappings = mapOf(
         "Siebel" to LatLng(40.113833, -88.224903),
-        "ECEB" to LatLng(40.115071, -88.228196),
-        "DCL" to LatLng(40.113349, -88.228713),
-        "Kenney" to LatLng(40.1132401, -88.2305837)
+        "ECEB" to LatLng(40.115071, -88.228196)
     )
 
     @Ignore
@@ -81,10 +81,10 @@ data class Project(
 
     fun getLatLng(): LatLng {
         val split = room.split(" ")
-        return if (split.isEmpty()) {
-            SIEBEL_LAT_LNG
-        } else {
+        return if (split.isNotEmpty()) {
             latLngMappings[split[0]] ?: SIEBEL_LAT_LNG
+        } else {
+            SIEBEL_LAT_LNG
         }
     }
 }

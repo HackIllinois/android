@@ -7,7 +7,7 @@ import org.hackillinois.android.database.entity.Project
 @Dao
 interface ProjectsDao {
 
-    @Query("SELECT * FROM PROJECTS WHERE id = :projectId LIMIT 1")
+    @Query("SELECT * FROM PROJECTS WHERE id = :projectId")
     fun getProject(projectId: String): LiveData<Project>
 
     @Query("SELECT * from projects")
