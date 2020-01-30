@@ -20,7 +20,7 @@ class ScheduleViewModel : ViewModel() {
 
     val sundayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        set(2020, Calendar.FEBRUARY, 2, 0, 0, 0)
+        set(2020, Calendar.MARCH, 2, 0, 0, 0)
     }.timeInMillis
 
     lateinit var fridayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
