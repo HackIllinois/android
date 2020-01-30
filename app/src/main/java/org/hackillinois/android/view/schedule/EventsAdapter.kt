@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.schedule
 
 import android.content.Context
-import android.content.Intent
 import com.google.android.material.snackbar.Snackbar
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import kotlinx.android.synthetic.main.event_tile.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.view.EventInfoFragment
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 
 class EventsAdapter(

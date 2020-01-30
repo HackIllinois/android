@@ -94,24 +94,6 @@
         tools:text="Description" />
 
     <ImageView
-        android:id="@+id/locationImg"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="24dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/rounded_button_background"
-        android:text="@string/get_directions"
-        android:textColor="@android:color/white"
-        app:fontFamily="@font/montserrat_regular"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventDescription"
-        app:srcCompat="@drawable/dcl" />
-
-    <ImageView
         android:id="@+id/favoriteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -120,4 +102,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/happeningSoonTextView"
         app:srcCompat="@drawable/star_button" />
+
+    <ListView
+        android:id="@+id/mapsWithDirectionsListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

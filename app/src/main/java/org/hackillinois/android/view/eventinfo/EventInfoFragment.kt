@@ -1,4 +1,4 @@
-package org.hackillinois.android.view
+package org.hackillinois.android.view.eventinfo
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -54,6 +54,10 @@ class EventInfoFragment : Fragment() {
                 happeningSoonTextView.visibility = View.VISIBLE
             } else {
                 happeningSoonTextView.visibility = View.INVISIBLE
+            }
+
+            context?.let { context ->
+                mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
             }
         }
     }

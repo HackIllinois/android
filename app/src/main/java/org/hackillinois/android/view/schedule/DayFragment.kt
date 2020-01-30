@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_schedule_day.view.*
 
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.view.EventInfoFragment
+import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.viewmodel.ScheduleViewModel

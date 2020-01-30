@@ -46,7 +46,7 @@
             android:name=".view.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.EventInfoFragment"
+            android:name=".view.eventinfo.EventInfoFragment"
             android:screenOrientation="portrait" />
 
         <activity
