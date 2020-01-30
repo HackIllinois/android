@@ -135,6 +135,7 @@ class MainActivity : AppCompatActivity() {
         bitmap?.let {
             qrImageView?.setImageBitmap(bitmap)
         }
+        loginNoticeTextView.visibility = View.GONE
     }
 
     private fun updateUserInformation(user: User?) = user?.let {
