@@ -55,7 +55,7 @@
         android:id="@+id/loginNoticeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login to see your QR code!"
+        android:text="@string/login_notice"
         android:textSize="14sp"
         android:textColor="@android:color/white"
         android:fontFamily="@font/montserrat_semi_bold"

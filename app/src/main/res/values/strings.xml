@@ -64,6 +64,8 @@
     <string name="outdoors_button">OUTDOORS</string>
     <string name="indoors_buttons">INDOORS</string>
 
+    <string name="login_notice">Log in to see your QR code!</string>
+
 
     <string-array name="event_location_options">
         <item>Siebel Center</item>
