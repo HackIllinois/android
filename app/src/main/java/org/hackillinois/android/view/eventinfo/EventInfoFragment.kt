@@ -41,7 +41,6 @@ class EventInfoFragment : Fragment() {
         return view
     }
 
-
     private fun updateEventUI(event: Event?) {
         event?.let {
             eventTitle.text = it.name
