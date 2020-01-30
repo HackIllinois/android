@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_event_info.view.*
 import kotlinx.android.synthetic.main.activity_event_info.view.eventLocation
 import kotlinx.android.synthetic.main.activity_event_info.view.eventTitle
 import kotlinx.android.synthetic.main.event_tile.view.*
-//import kotlinx.android.synthetic.main.schedule_event_list_item.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
