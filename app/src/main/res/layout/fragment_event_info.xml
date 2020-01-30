@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/event_info_background" >
+
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
+        android:drawableStart="@drawable/ic_close_primary"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:text="@string/close_text"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/happeningSoonTextView"
+        android:layout_width="140dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/rounded_happening_soon_background"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center"
+        android:text="Happening Soon"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/closeButton" />
+
+    <TextView
+        android:id="@+id/eventTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:singleLine="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:fontFamily="@font/montserrat_semi_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/happeningSoonTextView"
+        tools:text="@string/event_name" />
+
+
+    <TextView
+        android:id="@+id/eventTimeSpan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/colorPrimary"
+        app:fontFamily="@font/montserrat_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventTitle"
+        tools:text="HH:MM AM - HH:MM PM" />
+
+    <TextView
+        android:id="@+id/eventLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:singleLine="false"
+        android:textColor="@color/colorPrimary"
+        app:fontFamily="@font/montserrat_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventTimeSpan"
+        tools:text="Location" />
+
+
+    <TextView
+        android:id="@+id/eventDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/colorPrimary"
+        app:fontFamily="@font/montserrat_regular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eventTimeSpan"
+        tools:text="Description" />
+
+    <ImageView
+        android:id="@+id/locationImg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="24dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/rounded_button_background"
+        android:text="@string/get_directions"
+        android:textColor="@android:color/white"
+        app:fontFamily="@font/montserrat_regular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eventDescription"
+        app:srcCompat="@drawable/dcl" />
+
+    <ImageView
+        android:id="@+id/favoriteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/happeningSoonTextView"
+        app:srcCompat="@drawable/star_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>

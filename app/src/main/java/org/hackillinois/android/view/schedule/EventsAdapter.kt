@@ -11,9 +11,13 @@ import kotlinx.android.synthetic.main.event_tile.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.view.EventInfoActivity
+import org.hackillinois.android.view.EventInfoFragment
+import org.hackillinois.android.view.home.eventlist.EventClickListener
 
-class EventsAdapter internal constructor(private val eventList: List<Event>) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
+class EventsAdapter(
+    private val eventList: List<Event>,
+    private val eventClickListener: EventClickListener
+) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
     private lateinit var context: Context
 
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
@@ -30,10 +34,7 @@ class EventsAdapter internal constructor(private val eventList: List<Event>) : R
 
         holder.itemView.apply {
             setOnClickListener { view ->
-                val context = view.context
-                val intent = Intent(context, EventInfoActivity::class.java)
-                intent.putExtra("event_name", event.name)
-                context.startActivity(intent)
+                eventClickListener.openEventInfoActivity(event)
             }
 
             titleTextView.text = event.name
