@@ -5,11 +5,8 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
-import android.view.View
-import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_event_info.*
 import org.hackillinois.android.R
-import org.hackillinois.android.common.DirectionsOnClickListener
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.viewmodel.EventInfoViewModel
 
@@ -52,13 +49,13 @@ class EventInfoActivity : AppCompatActivity() {
             eventLocation.text = it.getLocationDescriptionsAsString()
             eventDescription.text = it.description
 
-            if (it.locations.isEmpty()) {
-                directionsButton.visibility = View.GONE
-            } else {
-                directionsButton.visibility = View.VISIBLE
-                val location = LatLng(it.locations[0].latitude, it.locations[0].longitude)
-                directionsButton.setOnClickListener(DirectionsOnClickListener(location, event.name))
-            }
+//            if (it.locations.isEmpty()) {
+//                directionsButton.visibility = View.GONE
+//            } else {
+//                directionsButton.visibility = View.VISIBLE
+//                val location = LatLng(it.locations[0].latitude, it.locations[0].longitude)
+//                directionsButton.setOnClickListener(DirectionsOnClickListener(location, event.name))
+//            }
         }
     }
 

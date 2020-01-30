@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -39,16 +40,27 @@
                 android:layout_height="wrap_content"
                 android:singleLine="false"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 app:fontFamily="@font/montserrat_semi_bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Title" />
+                tools:text="@string/event_name" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="140dp"
+                android:layout_height="20dp"
+                android:background="@drawable/rounded_button_background"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Happening Soon"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <LinearLayout
                 android:id="@+id/eventTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -94,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="false"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 app:fontFamily="@font/montserrat_regular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eventTime"
@@ -105,45 +117,60 @@
         <TextView
             android:id="@+id/eventDescription"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="50dp"
             android:textColor="@color/colorPrimary"
             app:fontFamily="@font/montserrat_regular"
-            app:layout_constraintBottom_toTopOf="@+id/directionsButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
             tools:text="Description" />
 
-        <Button
-            android:id="@+id/directionsButton"
+        <ImageView
+            android:id="@+id/locationImg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:adjustViewBounds="true"
             android:layout_marginBottom="50dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginRight="36dp"
-            android:layout_marginStart="36dp"
             android:background="@drawable/rounded_button_background"
             app:fontFamily="@font/montserrat_regular"
             android:text="@string/get_directions"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventDescription"
+            app:layout_constraintBottom_toTopOf="@id/linearLayout2"
+            app:srcCompat="@drawable/dcl" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/locationImg"
+            android:background="@drawable/ic_event_directions">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hellow here"/>
+
+
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/favoriteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/star_button" />
