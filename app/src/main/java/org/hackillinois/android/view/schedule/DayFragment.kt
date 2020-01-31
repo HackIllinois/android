@@ -93,7 +93,7 @@ class DayFragment : Fragment(), EventClickListener {
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.name)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 

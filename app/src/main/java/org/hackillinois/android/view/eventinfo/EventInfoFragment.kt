@@ -22,10 +22,10 @@ class EventInfoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val eventName = arguments?.getString("event_name") ?: ""
+        val eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
 
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
-        viewModel.init(eventName)
+        viewModel.init(eventId)
         viewModel.event.observe(this, Observer { updateEventUI(it) })
         viewModel.roles.observe(this, Observer { updateCameraIcon(it) })
 
@@ -78,12 +78,12 @@ class EventInfoFragment : Fragment() {
     }
 
     companion object {
-        val EVENT_NAME_KEY = "event_name"
+        val EVENT_ID_KEY = "event_id"
 
-        fun newInstance(eventName: String): EventInfoFragment {
+        fun newInstance(eventId: String): EventInfoFragment {
             val fragment = EventInfoFragment()
             val args = Bundle().apply {
-                putString(EVENT_NAME_KEY, eventName)
+                putString(EVENT_ID_KEY, eventId)
             }
             fragment.arguments = args
             return fragment

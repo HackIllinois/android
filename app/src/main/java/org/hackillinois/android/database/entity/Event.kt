@@ -13,7 +13,8 @@ import java.util.*
 @Entity(tableName = "events")
 @TypeConverters(Converters::class)
 data class Event(
-    @PrimaryKey val name: String,
+    @PrimaryKey val id: String,
+    val name: String,
     val description: String,
     val startTime: Long,
     val endTime: Long,
