@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import com.google.android.gms.maps.model.LatLng
 import org.hackillinois.android.R
 import org.hackillinois.android.database.Converters
+import org.hackillinois.android.view.schedule.ScheduleListItem
 import java.util.*
 
 @Entity(tableName = "events")
@@ -18,7 +19,7 @@ data class Event(
     val locations: List<EventLocation>,
     val sponsor: String,
     val eventType: String
-) {
+) : ScheduleListItem {
 
     fun getStartTimeMs() = startTime * 1000L
 
@@ -74,6 +75,8 @@ data class Event(
             )
         )
     }
+
+    override fun getType() = 1
 }
 
 data class EventLocation(

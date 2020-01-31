@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.event_tile.view.*
+import kotlinx.android.synthetic.main.time_list_item.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 
 class EventsAdapter(
-    private val eventList: List<Event>,
+    private val itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener
 ) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
     private lateinit var context: Context
@@ -21,22 +22,39 @@ class EventsAdapter(
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.event_tile, parent, false)
+        val layoutResource = when (viewType) {
+            1 -> R.layout.event_tile
+            else -> R.layout.time_list_item
+        }
+        val view = LayoutInflater.from(parent.context).inflate(layoutResource, parent, false)
         val viewHolder = ViewHolder(view)
         context = parent.context
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val event = eventList[position]
+    override fun getItemViewType(position: Int): Int {
+        return itemList[position].getType()
+    }
 
-        holder.itemView.apply {
-            setOnClickListener { view ->
-                eventClickListener.openEventInfoActivity(event)
-            }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = itemList[position]
+
+        if (item.getType() == 1) {
+            val event = item as Event
+            bindEventItem(event, holder.itemView)
+        } else {
+            val timeListItem = item as TimeListItem
+            bindTimeItem(timeListItem, holder.itemView)
+        }
+    }
+
+    private fun bindEventItem(event: Event, itemView: View) {
+        itemView.apply {
+            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
             eventLocationTextView.text = event.getLocationDescriptionsAsString()
+            eventDescriptionTextView.text = event.description
             starButton.isSelected = FavoritesManager.isFavorited(context, event.name)
             starButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
@@ -51,5 +69,9 @@ class EventsAdapter(
         }
     }
 
-    override fun getItemCount() = eventList.size
+    private fun bindTimeItem(timeListItem: TimeListItem, itemView: View) {
+        itemView.timeTextView.text = timeListItem.timeString
+    }
+
+    override fun getItemCount() = itemList.size
 }

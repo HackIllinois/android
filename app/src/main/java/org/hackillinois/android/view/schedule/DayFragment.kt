@@ -49,7 +49,7 @@ class DayFragment : Fragment(), EventClickListener {
         liveData.observe(this, Observer { events ->
             events?.let {
                 sortedEvents = events
-                adapter = EventsAdapter(events, this)
+                adapter = EventsAdapter(insertTimeItems(it), this)
                 recyclerView.adapter = adapter
             }
         })
@@ -67,7 +67,7 @@ class DayFragment : Fragment(), EventClickListener {
         recyclerView.layoutManager = layoutManager
 
         sortedEvents?.let {
-            adapter = EventsAdapter(it, this)
+            adapter = EventsAdapter(insertTimeItems(it), this)
             recyclerView.adapter = adapter
         }
         return view
@@ -88,6 +88,22 @@ class DayFragment : Fragment(), EventClickListener {
     override fun openEventInfoActivity(event: Event) {
         val eventInfoFragment = EventInfoFragment.newInstance(event.name)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
+    }
+
+    private fun insertTimeItems(eventList: List<Event>): List<ScheduleListItem> {
+        var currentTime = -1L
+        val newList = mutableListOf<ScheduleListItem>()
+
+        eventList.forEach {
+            if (it.getStartTimeMs() != currentTime) {
+                currentTime = it.getStartTimeMs()
+                val timeListItem = TimeListItem(it.getStartTimeOfDay())
+                newList.add(timeListItem)
+            }
+            newList.add(it)
+        }
+
+        return newList
     }
 
     companion object {
