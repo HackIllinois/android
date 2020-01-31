@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<Roles>, response: Response<Roles>) {
                 if (response.isSuccessful &&
-                        response.body()?.roles?.contains("Staff") == true) {
+                        response.body()?.isStaff() == true) {
                     JWTUtilities.writeJWT(applicationContext, jwt)
                     launchMainActivity()
                 } else {

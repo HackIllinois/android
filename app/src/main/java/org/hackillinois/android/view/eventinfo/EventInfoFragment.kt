@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.viewmodel.EventInfoViewModel
 
 class EventInfoFragment : Fragment() {
@@ -26,6 +27,7 @@ class EventInfoFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventName)
         viewModel.event.observe(this, Observer { updateEventUI(it) })
+        viewModel.roles.observe(this, Observer { updateCameraIcon(it) })
 
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
@@ -58,6 +60,14 @@ class EventInfoFragment : Fragment() {
             context?.let { context ->
                 mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
             }
+        }
+    }
+
+    private fun updateCameraIcon(roles: Roles?) = roles?.let {
+        if (it.isStaff()) {
+            cameraButton.visibility = View.VISIBLE
+        } else {
+            cameraButton.visibility = View.GONE
         }
     }
 
