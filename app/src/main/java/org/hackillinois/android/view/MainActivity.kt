@@ -101,11 +101,11 @@ class MainActivity : AppCompatActivity() {
             qr_fab.hide()
         }
 
-        closeTextView.setOnClickListener {
+        closeButton.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        logoutTextView.setOnClickListener { logout() }
+        logoutButton.setOnClickListener { logout() }
 
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(view: View, p1: Float) {}
@@ -135,6 +135,7 @@ class MainActivity : AppCompatActivity() {
         bitmap?.let {
             qrImageView?.setImageBitmap(bitmap)
         }
+        loginNoticeTextView.visibility = View.GONE
     }
 
     private fun updateUserInformation(user: User?) = user?.let {
