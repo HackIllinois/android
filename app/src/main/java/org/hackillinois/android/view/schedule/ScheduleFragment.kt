@@ -8,11 +8,14 @@ import androidx.fragment.app.FragmentPagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.viewmodel.ScheduleViewModel
 
 class ScheduleFragment : Fragment() {
+
+    private lateinit var favoriteScheduleButton: Button
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
@@ -22,6 +25,10 @@ class ScheduleFragment : Fragment() {
         view.scheduleContainer.adapter = sectionsPagerAdapter
         view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
         view.scheduleDays.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
+
+        favoriteScheduleButton = view.findViewById(R.id.favScheduleButton)
+
+        favoriteScheduleButton.setOnClickListener(favScheduleClickListener)
 
         val scheduleViewModel = ScheduleViewModel()
 
@@ -40,5 +47,11 @@ class ScheduleFragment : Fragment() {
     inner class SectionsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int) = DayFragment.newInstance(position)
         override fun getCount() = 3
+    }
+
+    private val favScheduleClickListener = View.OnClickListener {
+        favoriteScheduleButton.isSelected = true
+
+
     }
 }
