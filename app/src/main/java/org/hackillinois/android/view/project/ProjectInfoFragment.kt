@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.davemorrissey.labs.subscaleview.ImageSource
 import kotlinx.android.synthetic.main.fragment_project_info.*
 import kotlinx.android.synthetic.main.fragment_project_info.view.*
+import kotlinx.android.synthetic.main.map_with_directions_card.*
 import kotlinx.android.synthetic.main.project_tags.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.DirectionsOnClickListener

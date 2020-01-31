@@ -3,6 +3,8 @@ package org.hackillinois.android.database.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import com.google.android.gms.maps.model.LatLng
+import org.hackillinois.android.R
 import org.hackillinois.android.database.Converters
 import java.util.*
 
@@ -61,12 +63,29 @@ data class Event(
         }
         return list
     }
+
+    // TODO: implement this once API is updated
+    fun getIndoorMapAndDirectionInfo(): List<IndoorMapAndDirectionInfo> {
+        return listOf(
+            IndoorMapAndDirectionInfo(
+                "Siebel 1214",
+                R.drawable.dcl,
+                LatLng(0.0, 0.0)
+            )
+        )
+    }
 }
 
 data class EventLocation(
     val description: String,
     val latitude: Double,
     val longitude: Double
+)
+
+data class IndoorMapAndDirectionInfo(
+    val locationDescription: String,
+    val indoorMapResource: Int,
+    val latLng: LatLng
 )
 
 val SiebelCenter = EventLocation("Siebel Center", 40.1138, -88.2249)

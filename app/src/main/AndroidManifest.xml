@@ -20,8 +20,6 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.EventScanner"></activity>
-        <activity android:name=".view.eventScanner" />
 
         <receiver android:name=".notifications.NotificationReceiver" />
         <receiver
@@ -44,9 +42,6 @@
         </activity>
         <activity
             android:name=".view.MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.EventInfoActivity"
             android:screenOrientation="portrait" />
 
         <activity
