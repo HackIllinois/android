@@ -10,7 +10,7 @@
         android:id="@+id/activity_schedule_recyclerview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="40dp"
+        android:paddingBottom="48dp"
         android:clipToPadding="false"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
