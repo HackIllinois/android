@@ -39,7 +39,7 @@ class EventsAdapter internal constructor(private val eventList: List<Event>) : R
             eventTitle.text = event.name
             eventTime.text = event.getStartTimeOfDay()
             eventLocation.text = event.getLocationDescriptionsAsString()
-            star.isSelected = FavoritesManager.isFavorited(context, event.name)
+            star.isSelected = FavoritesManager.isFavoritedEvent(context, event.name)
             star.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
 

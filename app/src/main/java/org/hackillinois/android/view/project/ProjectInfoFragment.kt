@@ -27,6 +27,11 @@ class ProjectInfoFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ProjectInfoViewModel::class.java)
         viewModel.init(projectId)
         viewModel.project.observe(this, Observer { updateProjectUI(it) })
+
+        viewModel.projectFavorited.observe(this, Observer { updateFavoritedUI(it) })
+        starButton.setOnClickListener {
+            viewModel.changeFavoritedState()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -67,6 +72,12 @@ class ProjectInfoFragment : Fragment() {
             }
             fragment.arguments = bundle
             return fragment
+        }
+    }
+
+    private fun updateFavoritedUI(isFavorited: Boolean?) {
+        isFavorited?.let {
+            starButton.isSelected = isFavorited
         }
     }
 }

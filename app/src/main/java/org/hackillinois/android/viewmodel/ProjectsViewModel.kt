@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import org.hackillinois.android.database.entity.Project
 import org.hackillinois.android.repository.ProjectRepository
 
-class ProjectsViewModel : ViewModel() {
+class ProjectsViewModel: ViewModel() {
     private val projectsRepository = ProjectRepository.instance
 
     val dataScience = "Data Science"
@@ -24,4 +24,5 @@ class ProjectsViewModel : ViewModel() {
         systemsLiveData = projectsRepository.fetchProjectsinCategory(systems)
         webDevLiveData = projectsRepository.fetchProjectsinCategory(webDev)
     }
+
 }
