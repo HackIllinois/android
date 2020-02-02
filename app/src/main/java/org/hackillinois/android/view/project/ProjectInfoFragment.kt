@@ -28,11 +28,18 @@ class ProjectInfoFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ProjectInfoViewModel::class.java)
         viewModel.init(projectId)
         viewModel.project.observe(this, Observer { updateProjectUI(it) })
+
+        viewModel.projectFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_project_info, container, false)
         view.closeButton.setOnClickListener { activity?.onBackPressed() }
+
+        view.starButton.setOnClickListener {
+            viewModel.changeFavoritedState()
+        }
+
         return view
     }
 
@@ -68,6 +75,12 @@ class ProjectInfoFragment : Fragment() {
             }
             fragment.arguments = bundle
             return fragment
+        }
+    }
+
+    private fun updateFavoritedUI(isFavorited: Boolean?) {
+        isFavorited?.let {
+            starButton.isSelected = isFavorited
         }
     }
 }

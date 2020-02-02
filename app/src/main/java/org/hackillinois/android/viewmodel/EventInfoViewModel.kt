@@ -18,7 +18,7 @@ class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
     fun init(name: String) {
         event = eventRepository.fetchEvent(name)
 
-        val favorited = FavoritesManager.isFavorited(app.applicationContext, name)
+        val favorited = FavoritesManager.isFavoritedEvent(app.applicationContext, name)
         isFavorited.postValue(favorited)
     }
 
