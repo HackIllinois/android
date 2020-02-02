@@ -14,7 +14,7 @@ class FavoritesManager {
         }
 
         fun favoriteProject(context: Context, project: Project?) = project?.let {
-            setBoolean(context, it.name, true)
+            setBoolean(context, it.id, true)
         }
 
         fun unfavoriteEvent(context: Context, event: Event?) = event?.let {
@@ -23,7 +23,7 @@ class FavoritesManager {
         }
 
         fun unfavoriteProject(context: Context, project: Project?) = project?.let {
-            setBoolean(context, it.name, false)
+            setBoolean(context, it.id, false)
         }
 
         fun isFavoritedEvent(context: Context, eventName: String) = getBoolean(context, eventName)
