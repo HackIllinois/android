@@ -14,9 +14,12 @@ import kotlinx.android.synthetic.main.fragment_schedule_day.view.*
 
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.view.eventinfo.EventInfoFragment
+import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.viewmodel.ScheduleViewModel
 
-class DayFragment : Fragment() {
+class DayFragment : Fragment(), EventClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private var adapter: RecyclerView.Adapter<*>? = null
@@ -46,7 +49,7 @@ class DayFragment : Fragment() {
         liveData.observe(this, Observer { events ->
             events?.let {
                 sortedEvents = events
-                adapter = EventsAdapter(events)
+                adapter = EventsAdapter(insertTimeItems(it), this)
                 recyclerView.adapter = adapter
             }
         })
@@ -64,7 +67,7 @@ class DayFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
 
         sortedEvents?.let {
-            adapter = EventsAdapter(it)
+            adapter = EventsAdapter(insertTimeItems(it), this)
             recyclerView.adapter = adapter
         }
         return view
@@ -80,6 +83,27 @@ class DayFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         listState = layoutManager.onSaveInstanceState()
+    }
+
+    override fun openEventInfoActivity(event: Event) {
+        val eventInfoFragment = EventInfoFragment.newInstance(event.name)
+        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
+    }
+
+    private fun insertTimeItems(eventList: List<Event>): List<ScheduleListItem> {
+        var currentTime = -1L
+        val newList = mutableListOf<ScheduleListItem>()
+
+        eventList.forEach {
+            if (it.getStartTimeMs() != currentTime) {
+                currentTime = it.getStartTimeMs()
+                val timeListItem = TimeListItem(it.getStartTimeOfDay())
+                newList.add(timeListItem)
+            }
+            newList.add(it)
+        }
+
+        return newList
     }
 
     companion object {

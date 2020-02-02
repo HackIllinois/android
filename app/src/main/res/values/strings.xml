@@ -6,6 +6,7 @@
     <string name="schedule_tab_friday">FRIDAY</string>
     <string name="schedule_tab_saturday">SATURDAY</string>
     <string name="schedule_tab_sunday">SUNDAY</string>
+    <string name="schedule_header">SCHEDULE</string>
     <string name="schedule_snackbar_notifications_on">Notifications are on for this event</string>
 
     <string name="map_dcl">DCL</string>
@@ -65,6 +66,8 @@
 
     <string name="outdoors_button">OUTDOORS</string>
     <string name="indoors_buttons">INDOORS</string>
+
+    <string name="login_notice">Log in to see your QR code!</string>
 
 
     <string-array name="event_location_options">

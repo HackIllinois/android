@@ -99,61 +99,15 @@
         app:layout_constraintTop_toBottomOf="@+id/locationTextView"
         tools:text="This is a sample project description and it describes the project." />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-                android:id="@+id/map_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/primaryTextColor"/>
-
-            <TextView
-                android:id="@+id/cardLocationTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="14sp"
-                tools:text="Siebel 1214" />
-
-            <Button
-                android:id="@+id/directionsButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="end"
-                android:drawableEnd="@drawable/ic_directions_primary"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="14sp"
-                android:text="@string/get_directions" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"
+        >
+        <include layout="@layout/map_with_directions_card" />
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

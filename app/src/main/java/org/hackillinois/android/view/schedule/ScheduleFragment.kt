@@ -20,8 +20,8 @@ class ScheduleFragment : Fragment() {
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
 
         view.scheduleContainer.adapter = sectionsPagerAdapter
-        view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.tabs))
-        view.tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
+        view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
+        view.scheduleDays.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
 
         val scheduleViewModel = ScheduleViewModel()
 
