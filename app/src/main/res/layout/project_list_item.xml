@@ -30,20 +30,6 @@
             app:srcCompat="@drawable/star_button" />
 
         <TextView
-            android:id="@+id/mentorName"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_weight="1"
-            android:text="Name Here"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="#222B5C"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/projectName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

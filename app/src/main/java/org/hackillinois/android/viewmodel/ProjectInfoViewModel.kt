@@ -17,6 +17,9 @@ class ProjectInfoViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun init(projectId: String) {
         project = projectRepository.fetchProject(projectId)
+
+        val favorited = FavoritesManager.isFavoritedEvent(app.applicationContext, projectId)
+        projectFavorited.postValue(favorited)
     }
 
     fun changeFavoritedState() {
