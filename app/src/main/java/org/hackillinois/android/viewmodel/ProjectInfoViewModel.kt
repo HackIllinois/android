@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Project
 import org.hackillinois.android.repository.ProjectRepository

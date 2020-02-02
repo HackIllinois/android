@@ -38,7 +38,7 @@ class ProjectInfoFragment : Fragment() {
         view.starButton.setOnClickListener {
             viewModel.changeFavoritedState()
         }
-        
+
         return view
     }
 
