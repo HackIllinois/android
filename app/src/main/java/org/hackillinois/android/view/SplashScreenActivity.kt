@@ -51,7 +51,8 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-                    needsToLogin = if (response.code() == 200) {
+                    needsToLogin = response.code() != 200
+                    if (!needsToLogin) {
                         thread {
                             try {
                                 api.updateNotificationTopics().execute()
@@ -59,9 +60,6 @@ class SplashScreenActivity : AppCompatActivity() {
                                 Log.e("LoginActivity", "Notifications update timed out!")
                             }
                         }
-                        false
-                    } else {
-                        true
                     }
                     countDownLatch.countDown()
                 }
