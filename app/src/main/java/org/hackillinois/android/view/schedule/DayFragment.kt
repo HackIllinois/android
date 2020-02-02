@@ -37,16 +37,16 @@ class DayFragment : Fragment(), EventClickListener {
 
         val sectionNumber = arguments?.getInt(ARG_SECTION_NUM) ?: 0
 
-        val viewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
-        viewModel.init()
+        val viewModel = parentFragment?.let { ViewModelProviders.of(it).get(ScheduleViewModel::class.java) }
+        viewModel?.init()
 
         val liveData = when (sectionNumber) {
-            0 -> viewModel.fridayEventsLiveData
-            1 -> viewModel.saturdayEventsLiveData
-            else -> viewModel.sundayEventsLiveData
+            0 -> viewModel?.fridayEventsLiveData
+            1 -> viewModel?.saturdayEventsLiveData
+            else -> viewModel?.sundayEventsLiveData
         }
 
-        liveData.observe(this, Observer { events ->
+        liveData?.observe(this, Observer { events ->
             events?.let {
                 sortedEvents = events
                 adapter = EventsAdapter(insertTimeItems(it), this)
