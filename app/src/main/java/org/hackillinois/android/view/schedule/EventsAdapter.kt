@@ -14,7 +14,7 @@ import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 
 class EventsAdapter(
-    private val itemList: List<ScheduleListItem>,
+    private var itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener
 ) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
     private lateinit var context: Context
@@ -74,4 +74,9 @@ class EventsAdapter(
     }
 
     override fun getItemCount() = itemList.size
+
+    fun updateEvents(list: List<ScheduleListItem>) {
+        this.itemList = list
+        notifyDataSetChanged()
+    }
 }

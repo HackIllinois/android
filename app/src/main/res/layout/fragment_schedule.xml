@@ -8,15 +8,15 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/fav_schedule_button"
+        android:id="@+id/favScheduleButton"
         android:layout_width="117dp"
         android:layout_height="34dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="27dp"
-        android:background="@drawable/favorite_button"
-        android:fontFamily="@font/montserrat_bold"
+        android:background="@drawable/toggleable_rounded_button"
+        android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/fav_button_text"
-        android:textColor="#222B5C"
+        android:textColor="@color/toggleable_rounded_button_text"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
         android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fav_schedule_button"
+        app:layout_constraintTop_toBottomOf="@+id/favScheduleButton"
         app:tabIndicatorColor="@color/colorAccent"
         app:tabIndicatorHeight="3dp"
         app:tabSelectedTextColor="@color/colorAccent"
