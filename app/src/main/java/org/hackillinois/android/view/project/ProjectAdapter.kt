@@ -13,7 +13,7 @@ import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Project
 
 class ProjectAdapter(
-    private val projectList: List<Project>,
+    private var projectList: List<Project>,
     private val projectClickListener: ProjectClickListener
 ) : RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
 
@@ -57,4 +57,9 @@ class ProjectAdapter(
     }
 
     override fun getItemCount() = projectList.size
+
+    fun updateProjects(list: List<Project>) {
+        this.projectList = list
+        notifyDataSetChanged()
+    }
 }
