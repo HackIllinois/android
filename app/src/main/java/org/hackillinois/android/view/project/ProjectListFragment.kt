@@ -30,21 +30,17 @@ class ProjectListFragment : Fragment(), ProjectClickListener {
 
         val tabName = arguments?.getString(ARG_TAB_NUM) ?: "Data Science"
 
-        val viewModel = ViewModelProviders.of(this).get(ProjectsViewModel::class.java)
-        viewModel.init()
+        val viewModel = parentFragment?.let { ViewModelProviders.of(it).get(ProjectsViewModel::class.java) }
+        viewModel?.init()
 
         val liveData = when (tabName) {
-            viewModel.dataScience -> viewModel.dataSciLiveData
-            viewModel.languages -> viewModel.languageLiveData
-            viewModel.systems -> viewModel.systemsLiveData
-            else -> viewModel.webDevLiveData
+            viewModel?.dataScience -> viewModel.dataSciLiveData
+            viewModel?.languages -> viewModel.languageLiveData
+            viewModel?.systems -> viewModel.systemsLiveData
+            else -> viewModel?.webDevLiveData
         }
 
-        liveData?.observe(this, Observer { projects -> projects?.let {
-            projectList = projects
-            myAdapter = ProjectAdapter(projects, this)
-            projectsRecycler.adapter = myAdapter
-        } })
+        myAdapter = ProjectAdapter(listOf(), this)
 
         liveData?.observe(this, Observer { projects ->
             projects?.let {
@@ -53,7 +49,7 @@ class ProjectListFragment : Fragment(), ProjectClickListener {
             }
         })
 
-        viewModel?.showFavorites.observe(this, Observer {
+        viewModel?.showFavorites?.observe(this, Observer {
             showFavorites = it
             updateProjects(projectList)
         })
@@ -68,11 +64,7 @@ class ProjectListFragment : Fragment(), ProjectClickListener {
 
         projectsRecycler = view.findViewById(R.id.project_recycler)
         projectsRecycler.layoutManager = LinearLayoutManager(context)
-
-        projectList?.let {
-            myAdapter = ProjectAdapter(it, this)
-            projectsRecycler.adapter = myAdapter
-        }
+        projectsRecycler.adapter = myAdapter
 
         return view
     }
