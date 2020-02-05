@@ -1,6 +1,8 @@
 package org.hackillinois.android.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.repository.EventRepository
@@ -11,13 +13,19 @@ class HomeViewModel : ViewModel() {
     lateinit var ongoingEventsLiveData: LiveData<List<Event>>
     lateinit var upcomingEventsLiveData: LiveData<List<Event>>
 
+    private val currentTime: MutableLiveData<Long> = MutableLiveData()
+
     fun init() {
-        ongoingEventsLiveData = eventRepository.fetchEventsHappeningAtTime(System.currentTimeMillis())
-        upcomingEventsLiveData = eventRepository.fetchEventsHappeningInNextHour()
+        ongoingEventsLiveData = Transformations.switchMap(currentTime) {
+            value -> eventRepository.fetchEventsHappeningAtTime(value)
+        }
+        upcomingEventsLiveData = Transformations.switchMap(currentTime) {
+            value -> eventRepository.fetchEventsHappeningInNextHour(value)
+        }
+        refresh()
     }
 
     fun refresh() {
-        ongoingEventsLiveData = eventRepository.forceFetchEventsHappeningAtTime(System.currentTimeMillis())
-        upcomingEventsLiveData = eventRepository.fetchEventsHappeningInNextHour()
+        currentTime.value = System.currentTimeMillis()
     }
 }

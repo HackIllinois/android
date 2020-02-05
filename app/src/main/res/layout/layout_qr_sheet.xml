@@ -6,10 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/qr_sheet_background"
+    android:clickable="true"
+    android:focusable="true"
     >
 
-    <TextView
-        android:id="@+id/closeTextView"
+    <Button
+        android:id="@+id/closeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -19,11 +21,13 @@
         android:text="@string/close_text"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/logoutTextView"
+    <Button
+        android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -31,6 +35,8 @@
         android:text="@string/logout_text"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,12 +52,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/loginNoticeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_notice"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"
+        android:fontFamily="@font/montserrat_semi_bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
+        android:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/qrImageView"

@@ -1,6 +1,7 @@
 package org.hackillinois.android.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.hackillinois.android.repository.EventRepository
 import java.util.*
@@ -20,12 +21,14 @@ class ScheduleViewModel : ViewModel() {
 
     val sundayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        set(2020, Calendar.FEBRUARY, 2, 0, 0, 0)
+        set(2020, Calendar.MARCH, 2, 0, 0, 0)
     }.timeInMillis
 
     lateinit var fridayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
     lateinit var saturdayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
     lateinit var sundayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
+
+    var showFavorites: MutableLiveData<Boolean> = MutableLiveData()
 
     fun init() {
         fridayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(0, fridayEnd)

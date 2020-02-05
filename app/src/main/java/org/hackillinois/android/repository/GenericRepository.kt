@@ -7,7 +7,7 @@ import retrofit2.Response
 import kotlin.concurrent.thread
 
 class GenericRepository<T>(
-    private val apiCall: Call<T>,
+    private val apiCallCreator: () -> Call<T>,
     private val databaseInsertFunction: (T) -> Unit,
     private val databaseRetrievalFunction: () -> LiveData<T>
 ) {
@@ -18,7 +18,7 @@ class GenericRepository<T>(
     }
 
     private fun refresh() {
-        apiCall.clone().enqueue(object : Callback<T> {
+        apiCallCreator().enqueue(object : Callback<T> {
             override fun onResponse(call: Call<T>, response: Response<T>) {
                 if (response.isSuccessful) {
                     thread {

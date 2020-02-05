@@ -13,20 +13,27 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_schedule_day.view.*
 
 import org.hackillinois.android.R
+import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.view.eventinfo.EventInfoFragment
+import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.viewmodel.ScheduleViewModel
 
-class DayFragment : Fragment() {
+class DayFragment : Fragment(), EventClickListener {
 
     private lateinit var recyclerView: RecyclerView
-    private var adapter: RecyclerView.Adapter<*>? = null
-    private lateinit var layoutManager: RecyclerView.LayoutManager
-    private var sortedEvents: List<Event>? = null
+    private lateinit var mAdapter: EventsAdapter
+    private lateinit var mLayoutManager: RecyclerView.LayoutManager
+
+    private var currentEvents: List<Event> = listOf()
+    private var showFavorites: Boolean = false
+
     private var listState: Parcelable? = null
 
     override fun onResume() {
         super.onResume()
-        adapter?.notifyDataSetChanged()
+        mAdapter.notifyDataSetChanged()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,21 +41,27 @@ class DayFragment : Fragment() {
 
         val sectionNumber = arguments?.getInt(ARG_SECTION_NUM) ?: 0
 
-        val viewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
-        viewModel.init()
+        val viewModel = parentFragment?.let { ViewModelProviders.of(it).get(ScheduleViewModel::class.java) }
+        viewModel?.init()
 
         val liveData = when (sectionNumber) {
-            0 -> viewModel.fridayEventsLiveData
-            1 -> viewModel.saturdayEventsLiveData
-            else -> viewModel.sundayEventsLiveData
+            0 -> viewModel?.fridayEventsLiveData
+            1 -> viewModel?.saturdayEventsLiveData
+            else -> viewModel?.sundayEventsLiveData
         }
 
-        liveData.observe(this, Observer { events ->
+        mAdapter = EventsAdapter(listOf(), this)
+
+        liveData?.observe(this, Observer { events ->
             events?.let {
-                sortedEvents = events
-                adapter = EventsAdapter(events)
-                recyclerView.adapter = adapter
+                currentEvents = it
+                updateEvents(currentEvents)
             }
+        })
+
+        viewModel?.showFavorites?.observe(this, Observer {
+            showFavorites = it
+            updateEvents(currentEvents)
         })
     }
 
@@ -59,13 +72,10 @@ class DayFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_day, container, false)
 
-        recyclerView = view.activity_schedule_recyclerview
-        layoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = layoutManager
-
-        sortedEvents?.let {
-            adapter = EventsAdapter(it)
-            recyclerView.adapter = adapter
+        recyclerView = view.activity_schedule_recyclerview.apply {
+            mLayoutManager = LinearLayoutManager(context)
+            this.layoutManager = mLayoutManager
+            this.adapter = mAdapter
         }
         return view
     }
@@ -73,13 +83,44 @@ class DayFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         if (listState != null) {
-            layoutManager.onRestoreInstanceState(listState)
+            mLayoutManager.onRestoreInstanceState(listState)
         }
     }
 
     override fun onPause() {
         super.onPause()
-        listState = layoutManager.onSaveInstanceState()
+        listState = mLayoutManager.onSaveInstanceState()
+    }
+
+    override fun openEventInfoActivity(event: Event) {
+        val eventInfoFragment = EventInfoFragment.newInstance(event.name)
+        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
+    }
+
+    private fun updateEvents(list: List<Event>) {
+        var listTemp = list
+        context?.let {
+            if (showFavorites) {
+                listTemp = listTemp.filter { event -> FavoritesManager.isFavoritedEvent(it, event.name) }
+            }
+        }
+        mAdapter.updateEvents(insertTimeItems(listTemp))
+    }
+
+    private fun insertTimeItems(eventList: List<Event>): List<ScheduleListItem> {
+        var currentTime = -1L
+        val newList = mutableListOf<ScheduleListItem>()
+
+        eventList.forEach {
+            if (it.getStartTimeMs() != currentTime) {
+                currentTime = it.getStartTimeMs()
+                val timeListItem = TimeListItem(it.getStartTimeOfDay())
+                newList.add(timeListItem)
+            }
+            newList.add(it)
+        }
+
+        return newList
     }
 
     companion object {

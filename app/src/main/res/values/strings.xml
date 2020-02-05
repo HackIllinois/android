@@ -6,6 +6,7 @@
     <string name="schedule_tab_friday">FRIDAY</string>
     <string name="schedule_tab_saturday">SATURDAY</string>
     <string name="schedule_tab_sunday">SUNDAY</string>
+    <string name="schedule_header">SCHEDULE</string>
     <string name="schedule_snackbar_notifications_on">Notifications are on for this event</string>
 
     <string name="map_dcl">DCL</string>
@@ -13,7 +14,7 @@
     <string name="map_siebel">SIEBEL</string>
     <string name="map_kenney">KENNEY</string>
 
-    <string name="event_info_directions">GET DIRECTIONS</string>
+    <string name="get_directions">GET DIRECTIONS</string>
     <string name="event_info_time_dash">-</string>
     <string name="event_info_title">EVENT DETAILS</string>
 
@@ -56,13 +57,25 @@
     <string name = "systems_project">SYSTEMS</string>
     <string name="web_dev_project">WEB DEV</string>
 
+    <string name="data_science_tag">Data Science</string>
+    <string name="web_dev_tag">Web Dev</string>
+    <string name="languages_tag">Languages</string>
+    <string name="systems_tag">Systems</string>
+
+    <string name="project_favorited_notif">Project added to Favorites!</string>
+
     <string name="outdoors_button">OUTDOORS</string>
     <string name="indoors_buttons">INDOORS</string>
+
+    <string name="login_notice">Log in to see your QR code!</string>
+
 
     <string-array name="event_location_options">
         <item>Siebel Center</item>
         <item>ECE Building</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="event_type_options">
         <item>MEAL</item>
         <item>SPEAKER</item>

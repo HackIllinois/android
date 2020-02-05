@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/project_bg"
+    >
 
     <Button
-        android:id="@+id/fav_button"
-        android:layout_width="117dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="27dp"
+        android:id="@+id/favorite_project_button"
+        android:layout_width="96dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/favorite_button"
+        android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/fav_button_text"
-        android:fontFamily="@font/montserrat_bold"
-        android:textColor="#222B5C"
-        android:textSize="15dp"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,76 +26,69 @@
         android:id="@+id/mentor_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="54dp"
-        android:layout_marginEnd="129dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/projects_header"
-        android:fontFamily="@font/montserrat_bold"
-        android:textColor="#222B5C"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/fav_button"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mentor_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="6dp"
-        android:background="@android:color/transparent"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/projectCategories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        app:tabIndicatorColor="#E35058"
-        app:tabSelectedTextColor="#E35058"
-        app:tabTextColor="#222B5C"
-        app:tabPaddingStart="-2dp"
-        app:tabPaddingEnd="-2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fav_button">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/data_sci_project"
-            android:fontFamily="@font/montserrat_bold"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/languages_project"
-            android:fontFamily="@font/montserrat_bold"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text= "@string/systems_project"
-            android:fontFamily="@font/montserrat_bold"/>
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text= "@string/web_dev_project"
-            android:fontFamily="@font/montserrat_bold"/>
-    </com.google.android.material.tabs.TabLayout>
 
     <View
         android:id="@+id/horizontalLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#2225BC"
+        android:background="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/projectCategories" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/projectCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mentor_header"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabPaddingEnd="-2dp"
+        app:tabPaddingStart="-2dp"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="@color/primaryTextColor">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/data_sci_project" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/languages_project" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/systems_project" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/web_dev_project" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/projectsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/projectCategories" />
 </androidx.constraintlayout.widget.ConstraintLayout>

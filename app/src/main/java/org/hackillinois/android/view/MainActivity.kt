@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
@@ -29,13 +30,12 @@ import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.maps.MapsFragment
+import org.hackillinois.android.view.project.ProjectFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
-
-    private val defaultToken: String = ""
 
     private lateinit var viewModel: MainViewModel
 
@@ -80,18 +80,13 @@ class MainActivity : AppCompatActivity() {
                 bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
                 (view as ImageButton).setColorFilter(selectedIconColor)
 
-                val newFragment = when (view) {
-                    bottomAppBar.homeButton -> HomeFragment()
-                    bottomAppBar.scheduleButton -> ScheduleFragment()
-                    bottomAppBar.mapsButton -> MapsFragment()
-                    bottomAppBar.projectsButton -> ProjectFragment()
+                when (view) {
+                    bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
+                    bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
+                    bottomAppBar.mapsButton -> switchFragment(MapsFragment(), false)
+                    bottomAppBar.projectsButton -> switchFragment(ProjectFragment(), false)
                     else -> return@setOnClickListener
                 }
-
-                val transaction = supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.contentFrame, newFragment)
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                transaction.commit()
             }
         }
     }
@@ -106,14 +101,14 @@ class MainActivity : AppCompatActivity() {
             qr_fab.hide()
         }
 
-        closeTextView.setOnClickListener {
+        closeButton.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        logoutTextView.setOnClickListener { logout() }
+        logoutButton.setOnClickListener { logout() }
 
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(view: View, p1: Float) { }
+            override fun onSlide(view: View, p1: Float) {}
 
             override fun onStateChanged(view: View, state: Int) {
                 when (state) {
@@ -124,12 +119,23 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    fun switchFragment(fragment: Fragment, addToBackStack: Boolean) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.contentFrame, fragment)
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
+        transaction.commit()
+    }
+
     private fun updateQrView(qr: QR?) = qr?.let {
         val text = qr.qrInfo
         val bitmap = generateQR(text)
         bitmap?.let {
             qrImageView?.setImageBitmap(bitmap)
         }
+        loginNoticeTextView.visibility = View.GONE
     }
 
     private fun updateUserInformation(user: User?) = user?.let {
@@ -167,6 +173,7 @@ class MainActivity : AppCompatActivity() {
 
         thread {
             App.database.clearAllTables()
+            App.getAPI("")
 
             runOnUiThread {
                 val loginIntent = Intent(this, LoginActivity::class.java)

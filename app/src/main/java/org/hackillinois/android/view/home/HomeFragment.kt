@@ -1,6 +1,5 @@
 package org.hackillinois.android.view.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,8 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.TimeInfo
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.view.EventInfoActivity
+import org.hackillinois.android.view.eventinfo.EventInfoFragment
+import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.custom.CustomRefreshView
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.view.home.eventlist.EventsSection
@@ -142,10 +142,8 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val intent = Intent(context, EventInfoActivity::class.java).apply {
-            putExtra("event_name", event.name)
-        }
-        startActivity(intent)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.name)
+        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 
     private fun padNumber(number: Long) = String.format("%02d", number)
