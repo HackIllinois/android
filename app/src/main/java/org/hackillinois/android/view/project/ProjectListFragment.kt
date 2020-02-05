@@ -11,16 +11,19 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
+import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Project
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.viewmodel.ProjectsViewModel
 
 class ProjectListFragment : Fragment(), ProjectClickListener {
 
-    private var projectList: List<Project>? = null
+    private var projectList: List<Project> = listOf()
     private lateinit var projectsRecycler: RecyclerView
     private var myAdapter: ProjectAdapter? = null
     private var listState: Parcelable? = null
+
+    private var showFavorites: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +40,23 @@ class ProjectListFragment : Fragment(), ProjectClickListener {
             else -> viewModel.webDevLiveData
         }
 
-        liveData.observe(this, Observer { projects -> projects?.let {
+        liveData?.observe(this, Observer { projects -> projects?.let {
             projectList = projects
             myAdapter = ProjectAdapter(projects, this)
             projectsRecycler.adapter = myAdapter
         } })
+
+        liveData?.observe(this, Observer { projects ->
+            projects?.let {
+                projectList = it
+                updateProjects(projectList)
+            }
+        })
+
+        viewModel?.showFavorites.observe(this, Observer {
+            showFavorites = it
+            updateProjects(projectList)
+        })
     }
 
     override fun onCreateView(
@@ -82,6 +97,16 @@ class ProjectListFragment : Fragment(), ProjectClickListener {
     override fun onClick(projectId: String) {
         val newFragment = ProjectInfoFragment.newInstance(projectId)
         (activity as MainActivity).switchFragment(newFragment, true)
+    }
+
+    private fun updateProjects(list: List<Project>) {
+        var tempList = list
+        context?.let {
+            if (showFavorites) {
+                tempList = tempList.filter { project -> FavoritesManager.isFavoritedProject(it, project.id) }
+            }
+        }
+        myAdapter?.updateProjects(tempList)
     }
 
     companion object {

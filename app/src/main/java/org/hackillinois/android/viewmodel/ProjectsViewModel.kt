@@ -1,6 +1,7 @@
 package org.hackillinois.android.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.hackillinois.android.database.entity.Project
 import org.hackillinois.android.repository.ProjectRepository
@@ -17,6 +18,8 @@ class ProjectsViewModel : ViewModel() {
     lateinit var languageLiveData: LiveData<List<Project>>
     lateinit var systemsLiveData: LiveData<List<Project>>
     lateinit var webDevLiveData: LiveData<List<Project>>
+
+    var showFavorites: MutableLiveData<Boolean> = MutableLiveData()
 
     fun init() {
         dataSciLiveData = projectsRepository.fetchProjectsinCategory(dataScience)

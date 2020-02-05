@@ -9,7 +9,7 @@
     >
 
     <Button
-        android:id="@+id/fav_button"
+        android:id="@+id/favorite_project_button"
         android:layout_width="96dp"
         android:layout_height="28dp"
         android:layout_marginTop="25dp"
