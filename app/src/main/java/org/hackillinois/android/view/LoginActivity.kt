@@ -84,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun verifyRole(api: API, jwt: String, roleString: String) {
+    private fun verifyRole(api: API, jwt: String, role: String) {
         api.roles().enqueue(object : Callback<Roles> {
             override fun onFailure(call: Call<Roles>, t: Throwable) {
                 showFailedToLogin()
@@ -92,7 +92,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<Roles>, response: Response<Roles>) {
                 if (response.isSuccessful &&
-                        response.body()?.roles?.contains(roleString) == true) {
+                        response.body()?.roles?.contains(role) == true) {
                     JWTUtilities.writeJWT(applicationContext, jwt)
                     launchMainActivity()
                 } else {
