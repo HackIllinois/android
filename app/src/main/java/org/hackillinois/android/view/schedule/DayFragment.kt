@@ -101,7 +101,7 @@ class DayFragment : Fragment(), EventClickListener {
         var listTemp = list
         context?.let {
             if (showFavorites) {
-                listTemp = listTemp.filter { event -> FavoritesManager.isFavoritedEvent(it, event.name) }
+                listTemp = listTemp.filter { event -> FavoritesManager.isFavoritedEvent(it, event.id) }
             }
         }
         mAdapter.updateEvents(insertTimeItems(listTemp))
