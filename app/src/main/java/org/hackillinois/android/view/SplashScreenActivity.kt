@@ -21,6 +21,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private val countDownLatch = CountDownLatch(2)
     private var needsToLogin = true
+    @Volatile private var hasClickedOrAnimFinish = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +33,15 @@ class SplashScreenActivity : AppCompatActivity() {
             override fun onAnimationStart(p0: Animator?) { }
 
             override fun onAnimationEnd(p0: Animator?) {
-                countDownLatch.countDown()
+                countDownLatchIfTappedOrAnimationFinished()
             }
             override fun onAnimationCancel(p0: Animator?) {
-                countDownLatch.countDown()
+                countDownLatchIfTappedOrAnimationFinished()
             }
         })
+        splashAnimationView.setOnClickListener {
+            countDownLatchIfTappedOrAnimationFinished()
+        }
 
         val jwt = JWTUtilities.readJWT(applicationContext)
 
@@ -82,13 +86,22 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
-    fun launchMainActivity() {
+    private fun countDownLatchIfTappedOrAnimationFinished() {
+        synchronized(hasClickedOrAnimFinish) {
+            if (!hasClickedOrAnimFinish) {
+                hasClickedOrAnimFinish = true
+                countDownLatch.countDown()
+            }
+        }
+    }
+
+    private fun launchMainActivity() {
         val mainIntent = Intent(this, MainActivity::class.java)
         startActivity(mainIntent)
         finish()
     }
 
-    fun launchLoginActivity() {
+    private fun launchLoginActivity() {
         val mainIntent = Intent(this, LoginActivity::class.java)
         startActivity(mainIntent)
         finish()
