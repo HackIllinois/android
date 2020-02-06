@@ -1,44 +1,35 @@
 package org.hackillinois.android.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.view.View
-import android.widget.AdapterView
-import android.widget.Spinner
 import org.hackillinois.android.App
-import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
-import org.hackillinois.android.repository.EventRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ScannerViewModel : ViewModel() {
-    private val eventRepository = EventRepository.instance
-    var eventsListLiveData: LiveData<List<Event>> = MutableLiveData<List<Event>>()
     var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
     var shouldDisplayOverrideSwitch = MutableLiveData<Boolean>()
 
-    private val CHECK_IN_TEXT = "Check In"
+    private val CHECK_IN_NAME = "Check-in"
 
-    fun init() {
-        eventsListLiveData = eventRepository.fetchAllEvents()
-        // Hidden by default
+    private lateinit var eventName: String
+
+    fun init(eventName: String) {
+        this.eventName = eventName
         shouldDisplayOverrideSwitch.postValue(false)
     }
 
-    fun checkUserIntoEvent(eventName: String, userId: String, staffOverride: Boolean) {
-        if (eventName == CHECK_IN_TEXT) {
-            val hasCheckedIn = true
-            val hasPickedUpSwag = true
-            val checkIn = CheckIn(userId, staffOverride, hasCheckedIn, hasPickedUpSwag)
+    fun checkUserIntoEvent(eventId: String, userId: String, staffOverride: Boolean) {
+        if (eventName == CHECK_IN_NAME) {
+            val checkIn = CheckIn(userId, staffOverride, hasCheckedIn = true, hasPickedUpSwag = true)
             checkInUser(checkIn)
         } else {
-            val userEventPair = UserEventPair(eventName, userId)
+            val userEventPair = UserEventPair(eventId, userId)
             markUserAsAttendingEvent(userEventPair)
         }
     }
@@ -83,20 +74,5 @@ class ScannerViewModel : ViewModel() {
                 }
             }
         })
-    }
-
-    /**
-     * Called when an event is selected from the events list.
-     */
-    var onEventSelected = object : AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View?, position: Int, id: Long) {
-            // Spinner should be displayed if the event is Check In, but not otherwise
-            val spinner = parentView as Spinner
-            shouldDisplayOverrideSwitch.postValue(spinner.selectedItem == CHECK_IN_TEXT)
-        }
-
-        override fun onNothingSelected(parentView: AdapterView<*>) {
-            // your code here
-        }
     }
 }

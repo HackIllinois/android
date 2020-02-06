@@ -12,17 +12,21 @@ import kotlinx.android.synthetic.main.fragment_event_info.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
+import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.view.ScannerFragment
 import org.hackillinois.android.viewmodel.EventInfoViewModel
 
 class EventInfoFragment : Fragment() {
     private lateinit var viewModel: EventInfoViewModel
 
     private val FIFTEEN_MINUTES_IN_MS = 1000 * 60 * 15
+    private lateinit var eventId: String
+    private lateinit var eventName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
+        eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
 
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventId)
@@ -45,6 +49,7 @@ class EventInfoFragment : Fragment() {
 
     private fun updateEventUI(event: Event?) {
         event?.let {
+            this.eventName = it.name
             eventTitle.text = it.name
             eventTimeSpan.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
             eventLocation.text = it.getLocationDescriptionsAsString()
@@ -66,6 +71,10 @@ class EventInfoFragment : Fragment() {
     private fun updateCameraIcon(roles: Roles?) = roles?.let {
         if (it.isStaff()) {
             cameraButton.visibility = View.VISIBLE
+            cameraButton.setOnClickListener {
+                val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
+                (activity as MainActivity?)?.switchFragment(scannerFragment, true)
+            }
         } else {
             cameraButton.visibility = View.GONE
         }
