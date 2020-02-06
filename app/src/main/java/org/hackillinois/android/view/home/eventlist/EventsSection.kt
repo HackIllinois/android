@@ -68,6 +68,12 @@ class EventsSection(
         } else {
             holder.itemView.timeText.visibility = View.GONE
         }
+
+        if (eventsList.isNotEmpty()) {
+            holder.itemView.headerText.visibility = View.VISIBLE
+        } else {
+            holder.itemView.headerText.visibility = View.GONE
+        }
     }
 
     fun updateEventsList(newEventsList: List<Event>) {
