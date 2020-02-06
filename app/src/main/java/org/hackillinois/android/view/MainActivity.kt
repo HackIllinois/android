@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.layout_qr_sheet.*
 import kotlinx.android.synthetic.main.layout_qr_sheet.view.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.common.QRUtilities
 import org.hackillinois.android.database.entity.Attendee
@@ -172,6 +173,7 @@ class MainActivity : AppCompatActivity() {
         JWTUtilities.clearJWT(applicationContext)
 
         thread {
+            FavoritesManager.clearFavorites(this)
             App.database.clearAllTables()
             App.getAPI("")
 
