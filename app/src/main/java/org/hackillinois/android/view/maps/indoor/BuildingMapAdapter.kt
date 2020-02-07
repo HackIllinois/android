@@ -32,4 +32,6 @@ class BuildingMapAdapter(
 
         return view
     }
+
+    override fun isEnabled(position: Int) = false
 }

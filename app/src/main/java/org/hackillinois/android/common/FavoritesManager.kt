@@ -30,6 +30,10 @@ class FavoritesManager {
 
         fun isFavoritedProject(context: Context, projectId: String) = getBoolean(context, projectId)
 
+        fun clearFavorites(context: Context) {
+            getFavoritesPrefs(context).edit().clear().apply()
+        }
+
         private fun setBoolean(context: Context, key: String, value: Boolean) {
             getFavoritesPrefs(context).edit().apply {
                 putBoolean(key, value)
