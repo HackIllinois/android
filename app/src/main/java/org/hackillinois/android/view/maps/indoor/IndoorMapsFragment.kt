@@ -11,34 +11,6 @@ class IndoorMapsFragment : Fragment() {
 
     private var index = 0
 
-    private val dclIndoorFragment by lazy {
-        BuildingMapFragment.newInstance(
-                listOf("FLOOR 1"),
-                listOf(R.drawable.dcl)
-        )
-    }
-
-    private val ecebIndoorFragment by lazy {
-        BuildingMapFragment.newInstance(
-                listOf("FLOOR 1", "FLOOR 2", "FLOOR 3"),
-                listOf(R.drawable.eceb_floor_1, R.drawable.eceb_floor_2, R.drawable.eceb_floor_3)
-        )
-    }
-
-    private val kenneyIndoorFragment by lazy {
-        BuildingMapFragment.newInstance(
-                listOf("FLOOR 1"),
-                listOf(R.drawable.kenney)
-        )
-    }
-
-    private val siebelIndoorFragment by lazy {
-        BuildingMapFragment.newInstance(
-                listOf("BASEMENT", "FLOOR 1", "FLOOR 2"),
-                listOf(R.drawable.siebel_floor_0, R.drawable.siebel_floor_1, R.drawable.siebel_floor_2)
-        )
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_indoor_maps, container, false)
         changeFragment(index)
@@ -53,11 +25,26 @@ class IndoorMapsFragment : Fragment() {
         this.index = index
 
         val fragment = when (index) {
-            0 -> dclIndoorFragment
-            1 -> ecebIndoorFragment
-            2 -> kenneyIndoorFragment
-            3 -> siebelIndoorFragment
-            else -> siebelIndoorFragment
+            0 -> BuildingMapFragment.newInstance(
+                    listOf("FLOOR 1"),
+                    listOf(R.drawable.dcl)
+            )
+            1 -> BuildingMapFragment.newInstance(
+                    listOf("FLOOR 1", "FLOOR 2", "FLOOR 3"),
+                    listOf(R.drawable.eceb_floor_1, R.drawable.eceb_floor_2, R.drawable.eceb_floor_3)
+            )
+            2 -> BuildingMapFragment.newInstance(
+                    listOf("FLOOR 1"),
+                    listOf(R.drawable.kenney)
+            )
+            3 -> BuildingMapFragment.newInstance(
+                    listOf("BASEMENT", "FLOOR 1", "FLOOR 2"),
+                    listOf(R.drawable.siebel_floor_0, R.drawable.siebel_floor_1, R.drawable.siebel_floor_2)
+            )
+            else -> BuildingMapFragment.newInstance(
+                    listOf("BASEMENT", "FLOOR 1", "FLOOR 2"),
+                    listOf(R.drawable.siebel_floor_0, R.drawable.siebel_floor_1, R.drawable.siebel_floor_2)
+            )
         }
 
         fragmentManager?.beginTransaction()?.apply {
