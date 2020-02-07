@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="200dp"
+        android:layout_marginEnd="16dp"
         android:singleLine="false"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
