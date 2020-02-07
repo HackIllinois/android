@@ -55,7 +55,7 @@ class EventsAdapter(
             titleTextView.text = event.name
             eventLocationTextView.text = event.getLocationDescriptionsAsString()
             eventDescriptionTextView.text = event.description
-            starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.name)
+            starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
             starButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
 

@@ -46,8 +46,8 @@ interface API {
     @POST("event/")
     fun createEvent(@Body event: Event): Call<Event>
 
-    @GET("event/{name}/")
-    fun getEvent(@Path("name") name: String): Call<Event>
+    @GET("event/{id}/")
+    fun getEvent(@Path("id") id: String): Call<Event>
 
     @POST("event/track/")
     fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): Call<TrackerContainer>

@@ -15,4 +15,6 @@ data class Roles(
     @PrimaryKey
     @ColumnInfo(name = "key")
     var key = 1
+
+    fun isStaff() = roles.contains("Staff")
 }

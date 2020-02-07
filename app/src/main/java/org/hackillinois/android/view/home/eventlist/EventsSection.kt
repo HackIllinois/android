@@ -41,7 +41,7 @@ class EventsSection(
             eventClickListener.openEventInfoActivity(eventsList[position])
         }
 
-        holder.itemView.starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.name)
+        holder.itemView.starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
         holder.itemView.starButton.setOnClickListener { button ->
             button.isSelected = !button.isSelected
 

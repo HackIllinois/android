@@ -6,19 +6,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.repository.EventRepository
+import org.hackillinois.android.repository.rolesRepository
 
 class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val eventRepository = EventRepository.instance
     lateinit var event: LiveData<Event>
 
+    lateinit var roles: LiveData<Roles>
+
     val isFavorited = MutableLiveData<Boolean>()
 
-    fun init(name: String) {
-        event = eventRepository.fetchEvent(name)
+    fun init(id: String) {
+        event = eventRepository.fetchEvent(id)
+        roles = rolesRepository.fetch()
 
-        val favorited = FavoritesManager.isFavoritedEvent(app.applicationContext, name)
+        val favorited = FavoritesManager.isFavoritedEvent(app.applicationContext, id)
         isFavorited.postValue(favorited)
     }
 

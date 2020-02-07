@@ -11,21 +11,27 @@ import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.database.entity.Roles
+import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.view.ScannerFragment
 import org.hackillinois.android.viewmodel.EventInfoViewModel
 
 class EventInfoFragment : Fragment() {
     private lateinit var viewModel: EventInfoViewModel
 
     private val FIFTEEN_MINUTES_IN_MS = 1000 * 60 * 15
+    private lateinit var eventId: String
+    private lateinit var eventName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val eventName = arguments?.getString("event_name") ?: ""
+        eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
 
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
-        viewModel.init(eventName)
+        viewModel.init(eventId)
         viewModel.event.observe(this, Observer { updateEventUI(it) })
+        viewModel.roles.observe(this, Observer { updateCameraIcon(it) })
 
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
@@ -43,6 +49,7 @@ class EventInfoFragment : Fragment() {
 
     private fun updateEventUI(event: Event?) {
         event?.let {
+            this.eventName = it.name
             eventTitle.text = it.name
             eventTimeSpan.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
             eventLocation.text = it.getLocationDescriptionsAsString()
@@ -61,6 +68,18 @@ class EventInfoFragment : Fragment() {
         }
     }
 
+    private fun updateCameraIcon(roles: Roles?) = roles?.let {
+        if (it.isStaff()) {
+            cameraButton.visibility = View.VISIBLE
+            cameraButton.setOnClickListener {
+                val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
+                (activity as MainActivity?)?.switchFragment(scannerFragment, true)
+            }
+        } else {
+            cameraButton.visibility = View.GONE
+        }
+    }
+
     private fun updateFavoritedUI(isFavorited: Boolean?) {
         isFavorited?.let {
             favoriteButton.isSelected = isFavorited
@@ -68,12 +87,12 @@ class EventInfoFragment : Fragment() {
     }
 
     companion object {
-        val EVENT_NAME_KEY = "event_name"
+        val EVENT_ID_KEY = "event_id"
 
-        fun newInstance(eventName: String): EventInfoFragment {
+        fun newInstance(eventId: String): EventInfoFragment {
             val fragment = EventInfoFragment()
             val args = Bundle().apply {
-                putString(EVENT_NAME_KEY, eventName)
+                putString(EVENT_ID_KEY, eventId)
             }
             fragment.arguments = args
             return fragment

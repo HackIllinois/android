@@ -142,7 +142,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.name)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 
