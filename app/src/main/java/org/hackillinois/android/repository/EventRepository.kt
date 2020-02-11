@@ -39,6 +39,11 @@ class EventRepository {
         return fetchEventsHappeningBetweenTimes(currentTime, endingTime)
     }
 
+    fun fetchEventsAfter(currentTime: Long): LiveData<List<Event>> {
+        refreshAll()
+        return eventDao.getEventsAfter(currentTime / 1000L)
+    }
+
     private fun refreshAll() {
         App.getAPI().allEvents().enqueue(object : Callback<EventsList> {
             override fun onResponse(call: Call<EventsList>, response: Response<EventsList>) {
