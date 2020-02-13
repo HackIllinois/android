@@ -40,51 +40,12 @@ class AttendeeTest {
         assertEquals("Test User", attendee.fullName)
     }
 
-    @Test
-    fun completeDiet_withEmptyList_shouldBeNull() {
-        val attendee = buildAttendee()
-
-        assertNull(attendee.completeDiet)
-    }
-
-    @Test
-    fun completeDiet_withOneItem_shouldBuildString() {
-        val attendee = buildAttendee(
-            diet = listOf("Lorem")
-        )
-
-        assertEquals("Lorem", attendee.completeDiet)
-    }
-
-    @Test
-    fun completeDiet_withTwoItem_shouldBuildString() {
-        val attendee = buildAttendee(
-            diet = listOf("Lorem", "Ipsum")
-        )
-
-        assertEquals("Lorem and Ipsum", attendee.completeDiet)
-    }
-
-    @Test
-    fun completeDiet_withThreeOrMore_shouldBuildString() {
-        val attendee = buildAttendee(
-            diet = listOf("Lorem", "Ipsum", "Dolor", "Sit", "Amet")
-        )
-
-        assertEquals("Lorem, Ipsum, Dolor, Sit and Amet", attendee.completeDiet)
-    }
-
     private fun buildAttendee(
         firstName: String = "Test",
-        lastName: String = "User",
-        diet: List<String> = emptyList()
+        lastName: String = "User"
     ) = Attendee(
         "123",
         firstName,
-        lastName,
-        "test@gmail.com",
-        diet,
-        "Some School",
-        "Some Major"
+        lastName
     )
 }
