@@ -42,7 +42,7 @@
         <org.hackillinois.android.view.custom.ticker.TickerView
             xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/daysValue"
-            android:layout_width="92dp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
             custom:ticker_text_color="@android:color/white"
             custom:ticker_text_size="64sp"
@@ -74,7 +74,7 @@
         <org.hackillinois.android.view.custom.ticker.TickerView
             xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/hoursValue"
-            android:layout_width="92dp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
             custom:ticker_text_color="@android:color/white"
             custom:ticker_text_size="64sp"
@@ -105,7 +105,7 @@
 
         <org.hackillinois.android.view.custom.ticker.TickerView
             android:id="@+id/minutesValue"
-            android:layout_width="92dp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
             app:ticker_text_color="@color/colorAccent"
             app:ticker_text_size="64sp"
