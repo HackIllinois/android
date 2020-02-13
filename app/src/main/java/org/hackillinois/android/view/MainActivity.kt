@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
 
+    private var currentSelection = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -78,15 +80,20 @@ class MainActivity : AppCompatActivity() {
         // make all buttons unselectedColor and then set selected button to selectedColor
         bottomBarButtons.forEach { button ->
             button.setOnClickListener { view ->
-                bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
-                (view as ImageButton).setColorFilter(selectedIconColor)
+                val newSelection = bottomBarButtons.indexOf(button)
+                if (newSelection != currentSelection) {
+                    currentSelection = newSelection
 
-                when (view) {
-                    bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
-                    bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
-                    bottomAppBar.mapsButton -> switchFragment(MapsFragment(), false)
-                    bottomAppBar.projectsButton -> switchFragment(ProjectFragment(), false)
-                    else -> return@setOnClickListener
+                    bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
+                    (view as ImageButton).setColorFilter(selectedIconColor)
+
+                    when (view) {
+                        bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
+                        bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
+                        bottomAppBar.mapsButton -> switchFragment(MapsFragment(), false)
+                        bottomAppBar.projectsButton -> switchFragment(ProjectFragment(), false)
+                        else -> return@setOnClickListener
+                    }
                 }
             }
         }
