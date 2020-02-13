@@ -51,6 +51,12 @@ class EventInfoFragment : Fragment() {
         event?.let {
             this.eventName = it.name
             eventTitle.text = it.name
+            if (event.sponsor.isEmpty()) {
+                sponsoredTextView.visibility = View.GONE
+            } else {
+                sponsoredTextView.visibility = View.VISIBLE
+                sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            }
             eventTimeSpan.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
             eventLocation.text = it.getLocationDescriptionsAsString()
             eventDescription.text = it.description
