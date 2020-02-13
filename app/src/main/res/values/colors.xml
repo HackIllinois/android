@@ -28,4 +28,6 @@
     <color name="minutesColor">#E28B79</color>
 
     <color name="loginLabelColor">#E26856</color>
+
+    <color name="sponsoredByColor">#A43B5C</color>
 </resources>
