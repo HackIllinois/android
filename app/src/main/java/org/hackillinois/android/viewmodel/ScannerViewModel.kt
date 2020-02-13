@@ -7,6 +7,7 @@ import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,7 +38,7 @@ class ScannerViewModel : ViewModel() {
     fun checkInUser(checkIn: CheckIn) {
         App.getAPI().checkInUser(checkIn).enqueue(object : Callback<CheckIn> {
             override fun onFailure(call: Call<CheckIn>, t: Throwable) {
-                var scanStatus = ScanStatus(false, "", "Request could not be made.")
+                var scanStatus = ScanStatus(false, "", "Request could not be made. Please try again.")
                 lastScanStatus.postValue(scanStatus)
             }
 
@@ -48,7 +49,9 @@ class ScannerViewModel : ViewModel() {
                     var scanStatus = ScanStatus(true, userId, "")
                     lastScanStatus.postValue(scanStatus)
                 } else {
-                    var scanStatus = ScanStatus(false, "", "Could not check in user.")
+                    val error = JSONObject(response.errorBody()?.string())
+                    val errorMessage = error.getString("message")
+                    var scanStatus = ScanStatus(false, "", errorMessage)
                     lastScanStatus.postValue(scanStatus)
                 }
             }
@@ -58,7 +61,7 @@ class ScannerViewModel : ViewModel() {
     fun markUserAsAttendingEvent(userEventPair: UserEventPair) {
         App.getAPI().markUserAsAttendingEvent(userEventPair).enqueue(object : Callback<TrackerContainer> {
             override fun onFailure(call: Call<TrackerContainer>, t: Throwable) {
-                var scanStatus = ScanStatus(false, "", "Request could not be made.")
+                var scanStatus = ScanStatus(false, "", "Request could not be made. Please try again.")
                 lastScanStatus.postValue(scanStatus)
             }
 
@@ -69,7 +72,9 @@ class ScannerViewModel : ViewModel() {
                     var scanStatus = ScanStatus(true, userId, "")
                     lastScanStatus.postValue(scanStatus)
                 } else {
-                    var scanStatus = ScanStatus(false, "", "Could not check in user.")
+                    val error = JSONObject(response.errorBody()?.string())
+                    val errorMessage = error.getString("message")
+                    var scanStatus = ScanStatus(false, "", errorMessage)
                     lastScanStatus.postValue(scanStatus)
                 }
             }
