@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "bfdcab372027fe3553ba975452195eef",
+    "identityHash": "2e5981dac60e0005e7bd9ee3c4fcfb25",
     "entities": [
       {
         "tableName": "qr_codes",
@@ -38,7 +38,7 @@
       },
       {
         "tableName": "attendees",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` INTEGER NOT NULL, `id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `email` TEXT NOT NULL, `diet` TEXT NOT NULL, `school` TEXT NOT NULL, `major` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` INTEGER NOT NULL, `id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
           {
             "fieldPath": "key",
@@ -61,30 +61,6 @@
           {
             "fieldPath": "lastName",
             "columnName": "lastName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "email",
-            "columnName": "email",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "diet",
-            "columnName": "diet",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "school",
-            "columnName": "school",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "major",
-            "columnName": "major",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -301,7 +277,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"bfdcab372027fe3553ba975452195eef\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"2e5981dac60e0005e7bd9ee3c4fcfb25\")"
     ]
   }
 }
