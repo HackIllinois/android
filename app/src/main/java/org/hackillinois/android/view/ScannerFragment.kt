@@ -60,9 +60,6 @@ class ScannerFragment : Fragment() {
                 decodeCallback = DecodeCallback {
                     val userId: String = getUserIdFromQrString(it.text)
                     viewModel.checkUserIntoEvent(eventId, userId, view.staffOverrideSwitch.isChecked)
-                    Handler(Looper.getMainLooper()).post {
-                        Snackbar.make(view.rootView, "Please wait", Snackbar.LENGTH_LONG).show()
-                    }
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
@@ -116,7 +113,7 @@ class ScannerFragment : Fragment() {
                 staffOverrideSwitch.isChecked = false
                 "Success: ${lastScanStatus.userId}"
             }
-            false -> "User not registered, or already scanned in for event."
+            false -> lastScanStatus.userMessage
         }
 
         view?.let {
