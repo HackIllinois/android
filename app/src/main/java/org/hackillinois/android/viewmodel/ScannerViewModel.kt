@@ -50,7 +50,12 @@ class ScannerViewModel : ViewModel() {
                     lastScanStatus.postValue(scanStatus)
                 } else {
                     val error = JSONObject(response.errorBody()?.string())
-                    val errorMessage = error.getString("message")
+                    val errorType = error.getString("type")
+                    val errorMessage = if (errorType == "ATTRIBUTE_MISMATCH_ERROR") {
+                        error.getString("message")
+                    } else {
+                        "Internal API error"
+                    }
                     var scanStatus = ScanStatus(false, "", errorMessage)
                     lastScanStatus.postValue(scanStatus)
                 }
@@ -73,7 +78,12 @@ class ScannerViewModel : ViewModel() {
                     lastScanStatus.postValue(scanStatus)
                 } else {
                     val error = JSONObject(response.errorBody()?.string())
-                    val errorMessage = error.getString("message")
+                    val errorType = error.getString("type")
+                    val errorMessage = if (errorType == "ATTRIBUTE_MISMATCH_ERROR") {
+                        error.getString("message")
+                    } else {
+                        "Internal API error"
+                    }
                     var scanStatus = ScanStatus(false, "", errorMessage)
                     lastScanStatus.postValue(scanStatus)
                 }
