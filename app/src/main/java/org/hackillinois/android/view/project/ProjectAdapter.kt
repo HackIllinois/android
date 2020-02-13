@@ -48,10 +48,10 @@ class ProjectAdapter(
                 }
             }
             project.tags.let {
-                if (it.contains("Data Science")) data_sci_tag.visibility = View.VISIBLE
-                if (it.contains("Web Development")) web_dev_tag.visibility = View.VISIBLE
-                if (it.contains("Languages")) languages_tag.visibility = View.VISIBLE
-                if (it.contains("Systems")) systems_tag.visibility = View.VISIBLE
+                data_sci_tag.visibility = if (it.contains("Data Science")) View.VISIBLE else View.GONE
+                web_dev_tag.visibility = if (it.contains("Web Development")) View.VISIBLE else View.GONE
+                languages_tag.visibility = if (it.contains("Languages")) View.VISIBLE else View.GONE
+                systems_tag.visibility = if (it.contains("Systems")) View.VISIBLE else View.GONE
             }
         }
     }
