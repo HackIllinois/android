@@ -53,12 +53,8 @@ class EventsAdapter(
             setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
-            if (event.sponsor.isBlank()) {
-                sponsoredTextView.visibility = View.GONE
-            } else {
-                sponsoredTextView.visibility = View.VISIBLE
-                sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-            }
+            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
 
             eventLocationTextView.text = event.getLocationDescriptionsAsString()
             eventDescriptionTextView.text = event.description
