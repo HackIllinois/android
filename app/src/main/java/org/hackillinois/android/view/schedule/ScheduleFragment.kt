@@ -58,6 +58,12 @@ class ScheduleFragment : Fragment() {
     inner class SectionsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int) = DayFragment.newInstance(position)
         override fun getCount() = 3
+        override fun getPageTitle(position: Int) =
+            when (position) {
+                0 -> "FRIDAY"
+                1 -> "SATURDAY"
+                else -> "SUNDAY"
+            }
     }
 
     private val favScheduleClickListener = OnClickListener {

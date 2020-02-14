@@ -39,18 +39,33 @@
 
     <TextView
         android:id="@+id/eventTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:singleLine="false"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         app:fontFamily="@font/montserrat_semi_bold"
+        app:layout_constraintEnd_toStartOf="@+id/favoriteButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/happeningSoonTextView"
         tools:text="@string/event_name" />
 
+    <TextView
+        android:id="@+id/sponsoredTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/sponsoredByColor"
+        android:textSize="20sp"
+        app:fontFamily="@font/montserrat_semi_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eventTitle"
+        tools:text="Sponsored by X" />
 
     <TextView
         android:id="@+id/eventTimeSpan"
@@ -63,7 +78,7 @@
         android:textColor="@color/colorPrimary"
         app:fontFamily="@font/montserrat_regular"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventTitle"
+        app:layout_constraintTop_toBottomOf="@id/sponsoredTextView"
         tools:text="HH:MM AM - HH:MM PM" />
 
     <TextView
@@ -97,9 +112,9 @@
 
     <ImageView
         android:id="@+id/favoriteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/happeningSoonTextView"
@@ -110,11 +125,24 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
-        android:paddingBottom="64dp"
+        android:paddingBottom="80dp"
+        android:clipToPadding="false"
         android:divider="@null"
         android:dividerHeight="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventDescription" />
+
+    <ImageButton
+        android:id="@+id/cameraButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_camera" />
 </androidx.constraintlayout.widget.ConstraintLayout>

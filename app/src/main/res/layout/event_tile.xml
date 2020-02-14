@@ -31,6 +31,19 @@
             tools:text="Title" />
 
         <TextView
+            android:id="@+id/sponsoredTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="72dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:textColor="@color/sponsoredByColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            tools:text="By Company" />
+
+        <TextView
             android:id="@+id/eventLocationTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -39,7 +52,7 @@
             android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/sponsoredTextView"
             tools:text="Location" />
 
         <TextView
@@ -63,10 +76,11 @@
             android:id="@+id/starButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_star_selectable"
+            android:layout_marginRight="20dp"
             android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_star_selectable"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_star_border" />

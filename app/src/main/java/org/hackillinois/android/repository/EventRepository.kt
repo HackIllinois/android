@@ -24,9 +24,9 @@ class EventRepository {
         return eventDao.getEventsHappeningBetweenTimes(startTime / MILLIS_IN_SECOND, endTime / MILLIS_IN_SECOND)
     }
 
-    fun fetchEvent(name: String): LiveData<Event> {
-        refreshEvent(name)
-        return eventDao.getEvent(name)
+    fun fetchEvent(id: String): LiveData<Event> {
+        refreshEvent(id)
+        return eventDao.getEvent(id)
     }
 
     fun fetchAllEvents(): LiveData<List<Event>> {
@@ -37,6 +37,11 @@ class EventRepository {
     fun fetchEventsHappeningInNextHour(currentTime: Long): LiveData<List<Event>> {
         val endingTime = currentTime + MILLIS_IN_HOUR
         return fetchEventsHappeningBetweenTimes(currentTime, endingTime)
+    }
+
+    fun fetchEventsAfter(currentTime: Long): LiveData<List<Event>> {
+        refreshAll()
+        return eventDao.getEventsAfter(currentTime / 1000L)
     }
 
     private fun refreshAll() {
@@ -52,8 +57,8 @@ class EventRepository {
         })
     }
 
-    private fun refreshEvent(name: String) {
-        App.getAPI().getEvent(name).enqueue(object : Callback<Event> {
+    private fun refreshEvent(id: String) {
+        App.getAPI().getEvent(id).enqueue(object : Callback<Event> {
             override fun onResponse(call: Call<Event>, response: Response<Event>) {
                 if (response.isSuccessful) {
                     val event: Event = response.body() ?: return

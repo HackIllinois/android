@@ -36,6 +36,8 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
 
     private val refreshIconSize = 100
 
+    private val numberOfUpcomingEvents = 2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -119,10 +121,27 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
 
     private fun updateUpcomingEventsList(events: List<Event>?) {
         events?.let {
-            upcomingEventsSection.updateEventsList(it)
+            val actualEvents = filterNextNUpcomingEvents(it, numberOfUpcomingEvents)
+            upcomingEventsSection.updateEventsList(actualEvents)
             eventsListAdapter.notifyDataSetChanged()
         }
         refreshLayout.setRefreshing(false)
+    }
+
+    private fun filterNextNUpcomingEvents(events: List<Event>, n: Int): List<Event> {
+        val actualEvents = mutableListOf<Event>()
+        var numLeft = n
+        events.forEach {
+            if (numLeft > 0) {
+                actualEvents.add(it)
+                numLeft--
+            } else {
+                if (actualEvents.isNotEmpty() && actualEvents.last().startTime == it.startTime) {
+                    actualEvents.add(it)
+                }
+            }
+        }
+        return actualEvents
     }
 
     override fun updateTime(timeUntil: Long) {
@@ -142,7 +161,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.name)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 

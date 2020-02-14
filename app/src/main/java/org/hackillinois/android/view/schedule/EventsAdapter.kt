@@ -53,9 +53,12 @@ class EventsAdapter(
             setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
+            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+
             eventLocationTextView.text = event.getLocationDescriptionsAsString()
             eventDescriptionTextView.text = event.description
-            starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.name)
+            starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
             starButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
 

@@ -33,6 +33,8 @@ class EventsSection(
         val event = eventsList[position]
         holder.itemView.apply {
             titleTextView.text = event.name
+            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventLocationTextView.text = event.getLocationDescriptionsAsString()
             eventDescriptionTextView.text = event.description
         }
@@ -41,7 +43,7 @@ class EventsSection(
             eventClickListener.openEventInfoActivity(eventsList[position])
         }
 
-        holder.itemView.starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.name)
+        holder.itemView.starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
         holder.itemView.starButton.setOnClickListener { button ->
             button.isSelected = !button.isSelected
 
@@ -67,6 +69,12 @@ class EventsSection(
             holder.itemView.timeText.text = firstEvent.getStartTimeOfDay()
         } else {
             holder.itemView.timeText.visibility = View.GONE
+        }
+
+        if (eventsList.isNotEmpty()) {
+            holder.itemView.headerText.visibility = View.VISIBLE
+        } else {
+            holder.itemView.headerText.visibility = View.GONE
         }
     }
 

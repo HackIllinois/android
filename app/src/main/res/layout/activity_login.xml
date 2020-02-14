@@ -88,7 +88,7 @@
         android:id="@+id/staffLoginBtn"
         android:layout_width="200dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="38dp"
         android:background="@drawable/rounded_login_button_hollow"
         android:text="@string/staff_login"
         android:textColor="@color/primaryTextColor"

@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.layout_qr_sheet.*
 import kotlinx.android.synthetic.main.layout_qr_sheet.view.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.common.QRUtilities
 import org.hackillinois.android.database.entity.Attendee
@@ -38,6 +39,8 @@ import kotlin.concurrent.thread
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+
+    private var currentSelection = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,15 +80,20 @@ class MainActivity : AppCompatActivity() {
         // make all buttons unselectedColor and then set selected button to selectedColor
         bottomBarButtons.forEach { button ->
             button.setOnClickListener { view ->
-                bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
-                (view as ImageButton).setColorFilter(selectedIconColor)
+                val newSelection = bottomBarButtons.indexOf(button)
+                if (newSelection != currentSelection) {
+                    currentSelection = newSelection
 
-                when (view) {
-                    bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
-                    bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
-                    bottomAppBar.mapsButton -> switchFragment(MapsFragment(), false)
-                    bottomAppBar.projectsButton -> switchFragment(ProjectFragment(), false)
-                    else -> return@setOnClickListener
+                    bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
+                    (view as ImageButton).setColorFilter(selectedIconColor)
+
+                    when (view) {
+                        bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
+                        bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
+                        bottomAppBar.mapsButton -> switchFragment(MapsFragment(), false)
+                        bottomAppBar.projectsButton -> switchFragment(ProjectFragment(), false)
+                        else -> return@setOnClickListener
+                    }
                 }
             }
         }
@@ -172,6 +180,7 @@ class MainActivity : AppCompatActivity() {
         JWTUtilities.clearJWT(applicationContext)
 
         thread {
+            FavoritesManager.clearFavorites(this)
             App.database.clearAllTables()
             App.getAPI("")
 

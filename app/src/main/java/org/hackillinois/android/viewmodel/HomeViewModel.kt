@@ -20,7 +20,7 @@ class HomeViewModel : ViewModel() {
             value -> eventRepository.fetchEventsHappeningAtTime(value)
         }
         upcomingEventsLiveData = Transformations.switchMap(currentTime) {
-            value -> eventRepository.fetchEventsHappeningInNextHour(value)
+            value -> eventRepository.fetchEventsAfter(value)
         }
         refresh()
     }
