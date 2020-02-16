@@ -33,7 +33,7 @@ class ProjectAdapter(
 
         holder.itemView.apply {
             project_name.text = project.name
-            project_location.text = "Table #${project.number}"
+            table_number.text = "Table #${project.number}"
             project_meeting_room.text = "Meeting Room: ${project.room}"
             setOnClickListener { projectClickListener.onClick(project.id) }
             favoriteProject.isSelected = FavoritesManager.isFavoritedProject(context, project.id)
