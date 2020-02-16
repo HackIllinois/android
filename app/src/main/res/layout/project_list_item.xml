@@ -31,7 +31,7 @@
             app:srcCompat="@drawable/star_button" />
 
         <TextView
-            android:id="@+id/projectName"
+            android:id="@+id/project_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -45,17 +45,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/projectLocation"
+            android:id="@+id/project_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat_regular"
-            tools:text="Location Here"
             android:textColor="#222B5C"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/projectName" />
+            app:layout_constraintTop_toBottomOf="@+id/project_name"
+            tools:text="Location Here" />
+
+        <TextView
+            android:id="@+id/project_meeting_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/project_location" />
 
         <FrameLayout
             android:id="@+id/project_tags"
@@ -66,10 +75,11 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/projectLocation">
+            app:layout_constraintTop_toBottomOf="@+id/project_meeting_room">
 
             <include layout="@layout/project_tags" />
         </FrameLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
