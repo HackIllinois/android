@@ -21,7 +21,7 @@ class ScannerViewModel : ViewModel() {
 
     fun init(eventName: String) {
         this.eventName = eventName
-        shouldDisplayOverrideSwitch.postValue(false)
+        shouldDisplayOverrideSwitch.postValue(true)
     }
 
     fun checkUserIntoEvent(eventId: String, userId: String, staffOverride: Boolean) {
