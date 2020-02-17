@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_maps.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.view.maps.indoor.IndoorMapsFragment
@@ -39,6 +40,7 @@ class MapsFragment : Fragment() {
 
         outdoorMapsButton.isSelected = false
         indoorMapsButton.isSelected = true
+        indoorMapsFragment.connectTabs(view.tabLayout)
         fragmentManager?.beginTransaction()?.apply {
             replace(R.id.mapsContainer, indoorMapsFragment)
             commit()
@@ -93,6 +95,8 @@ class MapsFragment : Fragment() {
         fragmentManager?.beginTransaction()?.apply {
             replace(R.id.mapsContainer, indoorMapsFragment)
             commit()
+        }?.runOnCommit {
+            indoorMapsFragment.connectTabs(tabLayout)
         }
     }
 }

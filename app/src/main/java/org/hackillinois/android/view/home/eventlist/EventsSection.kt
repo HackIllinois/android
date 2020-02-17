@@ -33,24 +33,28 @@ class EventsSection(
         val event = eventsList[position]
         holder.itemView.apply {
             titleTextView.text = event.name
+            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventLocationTextView.text = event.getLocationDescriptionsAsString()
             eventDescriptionTextView.text = event.description
-        }
 
-        holder.itemView.setOnClickListener {
-            eventClickListener.openEventInfoActivity(eventsList[position])
-        }
-
-        holder.itemView.starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
-        holder.itemView.starButton.setOnClickListener { button ->
-            button.isSelected = !button.isSelected
-
-            if (button.isSelected) {
-                FavoritesManager.favoriteEvent(context, event)
-                Snackbar.make(button, R.string.schedule_snackbar_notifications_on, Snackbar.LENGTH_SHORT).show()
-            } else {
-                FavoritesManager.unfavoriteEvent(context, event)
+            setOnClickListener {
+                eventClickListener.openEventInfoActivity(eventsList[position])
             }
+
+            starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
+            starButton.setOnClickListener(starClickListener(event))
+        }
+    }
+
+    private fun starClickListener(event: Event) = View.OnClickListener { button ->
+        button.isSelected = !button.isSelected
+
+        if (button.isSelected) {
+            FavoritesManager.favoriteEvent(context, event)
+            Snackbar.make(button, R.string.schedule_snackbar_notifications_on, Snackbar.LENGTH_SHORT).show()
+        } else {
+            FavoritesManager.unfavoriteEvent(context, event)
         }
     }
 
@@ -58,21 +62,13 @@ class EventsSection(
     override fun getHeaderViewHolder(view: View) = BasicViewHolder(view)
 
     override fun onBindHeaderViewHolder(holder: RecyclerView.ViewHolder) {
-        holder.itemView.headerText.setTextColor(headerColor)
-        holder.itemView.headerText.text = headerText
+        holder.itemView.apply {
+            headerText.setTextColor(headerColor)
+            headerText.text = (this@EventsSection).headerText
+            headerText.visibility = if (eventsList.isNotEmpty()) View.VISIBLE else View.GONE
 
-        if (showTime && eventsList.isNotEmpty()) {
-            holder.itemView.timeText.visibility = View.VISIBLE
-            val firstEvent = eventsList.first()
-            holder.itemView.timeText.text = firstEvent.getStartTimeOfDay()
-        } else {
-            holder.itemView.timeText.visibility = View.GONE
-        }
-
-        if (eventsList.isNotEmpty()) {
-            holder.itemView.headerText.visibility = View.VISIBLE
-        } else {
-            holder.itemView.headerText.visibility = View.GONE
+            timeText.text = eventsList.firstOrNull()?.getStartTimeOfDay()
+            timeText.visibility = if (showTime && eventsList.isNotEmpty()) View.VISIBLE else View.GONE
         }
     }
 
