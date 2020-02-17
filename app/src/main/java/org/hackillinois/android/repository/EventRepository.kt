@@ -11,8 +11,6 @@ import kotlin.concurrent.thread
 
 class EventRepository {
     private val eventDao = App.database.eventDao()
-    private val MILLIS_IN_SECOND = 1000L
-    private val MILLIS_IN_HOUR = 60 * 60 * MILLIS_IN_SECOND
 
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
         refreshAll()
@@ -25,18 +23,8 @@ class EventRepository {
     }
 
     fun fetchEvent(id: String): LiveData<Event> {
-        refreshEvent(id)
-        return eventDao.getEvent(id)
-    }
-
-    fun fetchAllEvents(): LiveData<List<Event>> {
         refreshAll()
-        return eventDao.getAllEvents()
-    }
-
-    fun fetchEventsHappeningInNextHour(currentTime: Long): LiveData<List<Event>> {
-        val endingTime = currentTime + MILLIS_IN_HOUR
-        return fetchEventsHappeningBetweenTimes(currentTime, endingTime)
+        return eventDao.getEvent(id)
     }
 
     fun fetchEventsAfter(currentTime: Long): LiveData<List<Event>> {
@@ -57,20 +45,8 @@ class EventRepository {
         })
     }
 
-    private fun refreshEvent(id: String) {
-        App.getAPI().getEvent(id).enqueue(object : Callback<Event> {
-            override fun onResponse(call: Call<Event>, response: Response<Event>) {
-                if (response.isSuccessful) {
-                    val event: Event = response.body() ?: return
-                    thread { eventDao.insert(event) }
-                }
-            }
-
-            override fun onFailure(call: Call<Event>, t: Throwable) {}
-        })
-    }
-
     companion object {
+        const val MILLIS_IN_SECOND = 1000L
         val instance: EventRepository by lazy { EventRepository() }
     }
 }

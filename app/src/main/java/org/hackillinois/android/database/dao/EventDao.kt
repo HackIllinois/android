@@ -18,7 +18,7 @@ interface EventDao {
     @Query("SELECT * FROM events WHERE startTime <= :time AND endTime >= :time")
     fun getAllEventsHappeningAtTime(time: Long): LiveData<List<Event>>
 
-    @Query("SELECT * FROM events WHERE startTime >= :startTime AND startTime < :endTime ORDER BY startTime")
+    @Query("SELECT * FROM events WHERE startTime >= :startTime AND startTime < :endTime ORDER BY startTime, name")
     fun getEventsHappeningBetweenTimes(startTime: Long, endTime: Long): LiveData<List<Event>>
 
     @Query("SELECT * FROM events WHERE startTime > :currentTime")

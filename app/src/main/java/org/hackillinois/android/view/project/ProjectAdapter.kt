@@ -32,8 +32,9 @@ class ProjectAdapter(
         val project = projectList[position]
 
         holder.itemView.apply {
-            projectName.text = "#${project.number} ${project.name}"
-            projectLocation.text = project.room
+            project_name.text = project.name
+            table_number.text = "Table #${project.number}"
+            project_meeting_room.text = "Meeting Room: ${project.room}"
             setOnClickListener { projectClickListener.onClick(project.id) }
             favoriteProject.isSelected = FavoritesManager.isFavoritedProject(context, project.id)
 
