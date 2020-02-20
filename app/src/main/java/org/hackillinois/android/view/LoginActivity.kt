@@ -108,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showFailedToLoginStaff() {
         Snackbar.make(findViewById(android.R.id.content), "You must have a valid staff account" +
-                "to log in.", Snackbar.LENGTH_SHORT).show()
+                " to log in.", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showFailedToLoginAttendee() {
