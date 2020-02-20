@@ -33,6 +33,11 @@ data class Event(
         return getTimeOfDay(endTime)
     }
 
+    fun isCurrentlyHappening(): Boolean {
+        val currentTime = System.currentTimeMillis()
+        return startTime * 1000L <= currentTime && currentTime <= endTime * 1000L
+    }
+
     private fun getTimeOfDay(time: Long): String {
         val eventEndTime = Calendar.getInstance().apply {
             timeZone = TimeZone.getTimeZone("America/Chicago")
