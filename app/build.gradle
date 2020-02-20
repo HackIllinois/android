@@ -95,7 +95,6 @@ dependencies {
 
     // Play Services
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
 
     // QR Code Scanning + Generation
     implementation 'com.budiyev.android:code-scanner:2.1.0'
