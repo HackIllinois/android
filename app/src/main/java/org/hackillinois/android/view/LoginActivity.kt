@@ -96,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
                     JWTUtilities.writeJWT(applicationContext, jwt)
                     launchMainActivity()
                 } else {
-                    if (role == "staff") {
+                    if (role == "Staff") {
                         showFailedToLoginStaff()
                     } else {
                         showFailedToLoginAttendee()
@@ -107,11 +107,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showFailedToLoginStaff() {
-        Snackbar.make(findViewById(android.R.id.content), "Failed to login", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(findViewById(android.R.id.content), "You must have a valid staff account" +
+                "to log in.", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showFailedToLoginAttendee() {
-        Snackbar.make(findViewById(android.R.id.content), "You must RSVP to log in", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(findViewById(android.R.id.content), "You must RSVP to log in.", Snackbar.LENGTH_SHORT).show()
     }
 
     fun launchMainActivity() {
