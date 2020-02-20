@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
         var api = App.getAPI()
         api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object : Callback<JWT> {
             override fun onFailure(call: Call<JWT>, t: Throwable) {
-                showFailedToLogin()
+                showFailedToLoginStaff()
             }
 
             override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
     private fun verifyRole(api: API, jwt: String, role: String) {
         api.roles().enqueue(object : Callback<Roles> {
             override fun onFailure(call: Call<Roles>, t: Throwable) {
-                showFailedToLogin()
+                showFailedToLoginStaff()
             }
 
             override fun onResponse(call: Call<Roles>, response: Response<Roles>) {
@@ -96,14 +96,22 @@ class LoginActivity : AppCompatActivity() {
                     JWTUtilities.writeJWT(applicationContext, jwt)
                     launchMainActivity()
                 } else {
-                    showFailedToLogin()
+                    if (role == "staff") {
+                        showFailedToLoginStaff()
+                    } else {
+                        showFailedToLoginAttendee()
+                    }
                 }
             }
         })
     }
 
-    private fun showFailedToLogin() {
+    private fun showFailedToLoginStaff() {
         Snackbar.make(findViewById(android.R.id.content), "Failed to login", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showFailedToLoginAttendee() {
+        Snackbar.make(findViewById(android.R.id.content), "You must RSVP to log in", Snackbar.LENGTH_SHORT).show()
     }
 
     fun launchMainActivity() {
