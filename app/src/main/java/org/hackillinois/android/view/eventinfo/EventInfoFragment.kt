@@ -1,5 +1,7 @@
 package org.hackillinois.android.view.eventinfo
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -22,6 +24,8 @@ class EventInfoFragment : Fragment() {
     private val FIFTEEN_MINUTES_IN_MS = 1000 * 60 * 15
     private lateinit var eventId: String
     private lateinit var eventName: String
+
+    private var event: Event? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +53,7 @@ class EventInfoFragment : Fragment() {
 
     private fun updateEventUI(event: Event?) {
         event?.let {
+            this.event = it
             this.eventName = it.name
             eventTitle.text = it.name
             sponsoredTextView.text = "Sponsored by ${event.sponsor}"
@@ -74,8 +79,21 @@ class EventInfoFragment : Fragment() {
         if (it.isStaff()) {
             cameraButton.visibility = View.VISIBLE
             cameraButton.setOnClickListener {
-                val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
-                (activity as MainActivity?)?.switchFragment(scannerFragment, true)
+                if (event?.isCurrentlyHappening() == true) {
+                    val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
+                    (activity as MainActivity?)?.switchFragment(scannerFragment, true)
+                } else {
+                    AlertDialog.Builder(context)
+                        .setTitle("Scanning Confirmation")
+                        .setMessage("Event is not in progress. Are you sure you want to scan?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes) { dialogInterface: DialogInterface, _: Int ->
+                            dialogInterface.dismiss()
+                            val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
+                            (activity as MainActivity?)?.switchFragment(scannerFragment, true)
+                        }
+                        .setNegativeButton(android.R.string.no, null).show()
+                }
             }
         } else {
             cameraButton.visibility = View.GONE
