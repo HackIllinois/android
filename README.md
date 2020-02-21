@@ -1,7 +1,7 @@
 # The Official HackIllinois Android App
 [![Build Status](https://travis-ci.com/HackIllinois/android.svg?branch=master)](https://travis-ci.com/HackIllinois/android)
 
-![](screenshots/home.png)![](screenshots/schedule.png)![](screenshots/indoor-maps.png)![](screenshots/projects.png)
+<img src="screenshots/home.png" width="170"/> <img src="screenshots/schedule.png" width="170"/> <img src="screenshots/indoor-maps.png" width="170"/> <img src="screenshots/projects.png" width="170"/>
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="80">](https://play.google.com/store/apps/details/?id=org.hackillinois.androidapp2019)
 
