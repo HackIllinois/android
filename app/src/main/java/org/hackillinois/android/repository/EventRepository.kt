@@ -1,6 +1,6 @@
 package org.hackillinois.android.repository
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.model.event.EventsList
@@ -11,7 +11,6 @@ import kotlin.concurrent.thread
 
 class EventRepository {
     private val eventDao = App.database.eventDao()
-    private val MILLIS_IN_SECOND = 1000L
 
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
         refreshAll()
@@ -23,19 +22,14 @@ class EventRepository {
         return eventDao.getEventsHappeningBetweenTimes(startTime / MILLIS_IN_SECOND, endTime / MILLIS_IN_SECOND)
     }
 
-    fun fetchEvent(name: String): LiveData<Event> {
-        refreshEvent(name)
-        return eventDao.getEvent(name)
+    fun fetchEvent(id: String): LiveData<Event> {
+        refreshAll()
+        return eventDao.getEvent(id)
     }
 
-    fun forceFetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
+    fun fetchEventsAfter(currentTime: Long): LiveData<List<Event>> {
         refreshAll()
-        return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
-    }
-
-    fun fetchAllEvents(): LiveData<List<Event>> {
-        refreshAll()
-        return eventDao.getAllEvents()
+        return eventDao.getEventsAfter(currentTime / 1000L)
     }
 
     private fun refreshAll() {
@@ -51,20 +45,8 @@ class EventRepository {
         })
     }
 
-    private fun refreshEvent(name: String) {
-        App.getAPI().getEvent(name).enqueue(object : Callback<Event> {
-            override fun onResponse(call: Call<Event>, response: Response<Event>) {
-                if (response.isSuccessful) {
-                    val event: Event = response.body() ?: return
-                    thread { eventDao.insert(event) }
-                }
-            }
-
-            override fun onFailure(call: Call<Event>, t: Throwable) {}
-        })
-    }
-
     companion object {
+        const val MILLIS_IN_SECOND = 1000L
         val instance: EventRepository by lazy { EventRepository() }
     }
 }

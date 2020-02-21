@@ -1,58 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
 
-    <LinearLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/indoorMapsContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/colorPrimaryLight">
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/indoor_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/tabBackground"
-            app:tabIndicatorHeight="3dp"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextAppearance="@style/TabTextAppearance"
-            app:tabTextColor="@color/tabText">
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/map_dcl" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/map_eceb" />
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/map_siebel" />
-
-        </android.support.design.widget.TabLayout>
-
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp">
-
-            <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-                android:id="@+id/map"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </ScrollView>
-
-    </LinearLayout>
-
-</android.support.design.widget.CoordinatorLayout>
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
+</FrameLayout>

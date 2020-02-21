@@ -1,38 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawerLayout"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/contentFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/AppToolbar" />
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:backgroundTint="@color/bottomAppBarColor">
 
-        <FrameLayout
-            android:id="@+id/contentFrame"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/homeButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@color/bottomAppBarColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/scheduleButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_home" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/scheduleButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@color/bottomAppBarColor"
+                app:layout_constraintBottom_toBottomOf="@id/homeButton"
+                app:layout_constraintEnd_toStartOf="@id/placeholder"
+                app:layout_constraintStart_toEndOf="@id/homeButton"
+                app:srcCompat="@drawable/ic_today" />
+
+            <View
+                android:id="@+id/placeholder"
+                android:layout_width="70dp"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/homeButton"
+                app:layout_constraintEnd_toStartOf="@id/mapsButton"
+                app:layout_constraintStart_toEndOf="@id/scheduleButton"
+                app:layout_constraintTop_toTopOf="@id/homeButton" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/mapsButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@color/bottomAppBarColor"
+                app:layout_constraintBottom_toBottomOf="@id/homeButton"
+                app:layout_constraintEnd_toStartOf="@id/projectsButton"
+                app:layout_constraintStart_toEndOf="@id/placeholder"
+                app:srcCompat="@drawable/ic_map" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/projectsButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@color/bottomAppBarColor"
+                app:layout_constraintBottom_toBottomOf="@id/homeButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mapsButton"
+                app:layout_constraintTop_toTopOf="@+id/homeButton"
+                app:srcCompat="@drawable/ic_assignment" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/qr_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/fabColor"
+        app:layout_anchor="@id/bottomAppBar"
+        app:srcCompat="@drawable/ic_qr_code" />
 
     <FrameLayout
-        android:id="@+id/navMenu"
-        android:layout_width="304dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="start"
-        android:background="#FFFFFF"
-        >
-        <include layout="@layout/layout_nav_menu" />
+        android:id="@+id/standardBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <include layout="@layout/layout_qr_sheet" />
+
     </FrameLayout>
 
-</android.support.v4.widget.DrawerLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

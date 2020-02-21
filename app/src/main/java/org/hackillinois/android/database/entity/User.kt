@@ -1,7 +1,7 @@
 package org.hackillinois.android.database.entity
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
 data class User(
@@ -14,8 +14,9 @@ data class User(
     @PrimaryKey
     var key = 1
 
-    fun getFullName() = when (firstName != "" || lastName != "") {
-        true -> String.format("%s %s", firstName, lastName)
-        false -> "Attendee"
-    }
+    val fullName
+        get() = when {
+            firstName.isNotEmpty() || lastName.isNotEmpty() -> "$firstName $lastName".trim()
+            else -> "Attendee"
+        }
 }

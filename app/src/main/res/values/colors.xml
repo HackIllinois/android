@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimaryLight">#e3f6ff</color>
-    <color name="colorPrimary">#1f84a5</color>
+    <color name="colorPrimary">#222B5C</color>
     <color name="colorPrimaryDark">#005776</color>
-    <color name="colorAccent">#ff766f</color>
+    <color name="colorAccent">#E35058</color>
 
     <color name="selectedMenuItem">#8ce3f6ff</color>
     <color name="adjacentTimesText">#321c055e</color>
 
     <color name="tabBackground">#5db4d6</color>
     <color name="tabText">#c6d9e0</color>
+
+    <color name="bottomAppBarColor">#222B5C</color>
+    <color name="selectedAppBarIcon">#6BAEC5</color>
+    <color name="unselectedAppBarIcon">#FFFFFF</color>
+
+    <color name="fabColor">#E35058</color>
+
+    <color name="attendeeLoginColor">#A43B5C</color>
+
+    <color name="primaryTextColor">#222B5C</color>
+    <color name="alternateTextColor">#E35058</color>
+
+    <color name="starColor">#222B5C</color>
+
+    <color name="tickerColor">#232A34</color>
+    <color name="minutesColor">#E28B79</color>
+
+    <color name="loginLabelColor">#E26856</color>
+
+    <color name="sponsoredByColor">#A43B5C</color>
 </resources>

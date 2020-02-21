@@ -1,26 +1,24 @@
 package org.hackillinois.android.view
 
 import android.Manifest
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import com.budiyev.android.codescanner.*
 import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
@@ -30,13 +28,19 @@ class ScannerFragment : Fragment() {
 
     lateinit var viewModel: ScannerViewModel
 
+    private lateinit var eventId: String
+    private lateinit var eventName: String
+
     private lateinit var codeScanner: CodeScanner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
+        eventName = arguments?.getString(EVENT_NAME_KEY) ?: ""
+
         viewModel = ViewModelProviders.of(this).get(ScannerViewModel::class.java).apply {
-            init()
-            eventsListLiveData.observe(this@ScannerFragment, Observer { updateEventList(it) })
+            init(eventName)
             lastScanStatus.observe(this@ScannerFragment, Observer { displayScanResult(it) })
             shouldDisplayOverrideSwitch.observe(this@ScannerFragment, Observer { updateOverrideSwitchVisibility(it) })
         }
@@ -44,8 +48,6 @@ class ScannerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_scanner, container, false)
-
-        view.eventListView.onItemSelectedListener = viewModel.onEventSelected
 
         context?.let { context ->
             codeScanner = CodeScanner(context, view.codeScannerView).apply {
@@ -56,12 +58,8 @@ class ScannerFragment : Fragment() {
                 isAutoFocusEnabled = true
                 isFlashEnabled = false
                 decodeCallback = DecodeCallback {
-                    val event = view.eventListView.selectedItem.toString()
                     val userId: String = getUserIdFromQrString(it.text)
-                    viewModel.checkUserIntoEvent(event, userId, view.staffOverrideSwitch.isChecked)
-                    Handler(Looper.getMainLooper()).post {
-                        Snackbar.make(view.rootView, "Please wait", Snackbar.LENGTH_LONG).show()
-                    }
+                    viewModel.checkUserIntoEvent(eventId, userId, view.staffOverrideSwitch.isChecked)
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
@@ -115,7 +113,7 @@ class ScannerFragment : Fragment() {
                 staffOverrideSwitch.isChecked = false
                 "Success: ${lastScanStatus.userId}"
             }
-            false -> "User not registered, or already scanned in for event."
+            false -> lastScanStatus.userMessage
         }
 
         view?.let {
@@ -130,13 +128,18 @@ class ScannerFragment : Fragment() {
         }
     }
 
-    private fun updateEventList(eventList: List<Event>?) = eventList?.let { eventList ->
-        val eventNameList: MutableList<String> = eventList.map { it.name }.toMutableList()
-        eventNameList.add(CHECK_IN_TEXT)
+    companion object {
+        val EVENT_ID_KEY = "event_id"
+        val EVENT_NAME_KEY = "event_name"
 
-        val spinnerAdapter: ArrayAdapter<String> = ArrayAdapter(context,
-                android.R.layout.simple_dropdown_item_1line, eventNameList)
-
-        eventListView.adapter = spinnerAdapter
+        fun newInstance(eventId: String, eventName: String): ScannerFragment {
+            val fragment = ScannerFragment()
+            val args = Bundle().apply {
+                putString(EVENT_ID_KEY, eventId)
+                putString(EVENT_NAME_KEY, eventName)
+            }
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

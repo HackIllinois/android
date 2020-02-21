@@ -11,11 +11,11 @@ import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
-import org.hackillinois.android.model.notification.Notification
 import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.notifications.DeviceToken
 
 import okhttp3.ResponseBody
+import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -46,22 +46,16 @@ interface API {
     @POST("event/")
     fun createEvent(@Body event: Event): Call<Event>
 
-    @GET("event/{name}/")
-    fun getEvent(@Path("name") name: String): Call<Event>
+    @GET("event/{id}/")
+    fun getEvent(@Path("id") id: String): Call<Event>
 
     @POST("event/track/")
     fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): Call<TrackerContainer>
 
     // NOTIFICATIONS
 
-    @GET("notifications/")
-    fun notificationTopics(): Call<NotificationTopics>
-
     @POST("notifications/device/")
     fun sendUserToken(@Body token: DeviceToken): Call<DeviceToken>
-
-    @POST("notifications/{topic}/")
-    fun createNotification(@Path("topic") topic: String, @Body notification: Notification): Call<Notification>
 
     @POST("notifications/update/")
     fun updateNotificationTopics(): Call<NotificationTopics>
@@ -83,6 +77,11 @@ interface API {
 
     @GET("user/qr/")
     fun qrCode(): Call<QR>
+
+    // PROJECT
+
+    @GET("project/")
+    fun allProjects(): Call<ProjectsList>
 
     companion object {
         val BASE_URL = "https://api.hackillinois.org/"

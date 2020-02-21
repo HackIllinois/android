@@ -1,8 +1,4 @@
 <resources>
-    <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
-
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -16,6 +12,7 @@
     </style>
 
     <style name="TabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

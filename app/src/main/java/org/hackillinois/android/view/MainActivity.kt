@@ -1,153 +1,194 @@
 package org.hackillinois.android.view
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
+import android.util.Log
 import android.view.View
-import android.widget.TextView
+import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.FirebaseApp
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_nav_menu.*
-import kotlinx.android.synthetic.main.layout_nav_menu.view.*
+import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.layout_qr_sheet.*
+import kotlinx.android.synthetic.main.layout_qr_sheet.view.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
-import org.hackillinois.android.database.entity.Roles
+import org.hackillinois.android.common.FavoritesManager
+import org.hackillinois.android.common.JWTUtilities
+import org.hackillinois.android.common.QRUtilities
+import org.hackillinois.android.database.entity.Attendee
+import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.database.entity.User
-import org.hackillinois.android.notifications.DeviceToken
-import org.hackillinois.android.view.admin.AdminFragment
+import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
+import org.hackillinois.android.view.maps.MapsFragment
+import org.hackillinois.android.view.project.ProjectFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
 
-    private val defaultToken: String = ""
-
-    private lateinit var navViews: List<View>
     private lateinit var viewModel: MainViewModel
+
+    private var currentSelection = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_menu)
-            title = "HOME"
-        }
+        setupBottomAppBar()
+        setupBottomQRSheet()
 
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-        navViews = listOf(navHome, navSchedule, navOutdoorMaps, navIndoorMaps, navProfile, navLogout, navAdmin, navScanner)
-        navViews.forEach { it.setOnClickListener(this) }
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java).apply {
+            init()
+            val owner = this@MainActivity
+            qr.observe(owner, Observer { updateQrView(it) })
+            user.observe(owner, Observer { user -> updateUserInformation(user) })
+            attendee.observe(owner, Observer { attendee -> updateAttendeeInformation(attendee) })
+        }
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.init()
-        viewModel.user.observe(this, Observer { updateUserInfo(it) })
-        viewModel.roles.observe(this, Observer { updateRoles(it) })
-
-        updateDeviceToken()
+        updateFirebaseToken()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                drawerLayout.openDrawer(GravityCompat.START)
-                true
+    private fun setupBottomAppBar() {
+        val selectedIconColor = ContextCompat.getColor(this, R.color.selectedAppBarIcon)
+        val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
+
+        val bottomBarButtons = listOf(
+                bottomAppBar.homeButton,
+                bottomAppBar.scheduleButton,
+                bottomAppBar.mapsButton,
+                bottomAppBar.projectsButton
+        )
+
+        // by default, home button is selected
+        bottomAppBar.homeButton.setColorFilter(selectedIconColor)
+
+        // make all buttons unselectedColor and then set selected button to selectedColor
+        bottomBarButtons.forEach { button ->
+            button.setOnClickListener { view ->
+                val newSelection = bottomBarButtons.indexOf(button)
+                if (newSelection != currentSelection) {
+                    currentSelection = newSelection
+
+                    bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
+                    (view as ImageButton).setColorFilter(selectedIconColor)
+
+                    when (view) {
+                        bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
+                        bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
+                        bottomAppBar.mapsButton -> switchFragment(MapsFragment(), false)
+                        bottomAppBar.projectsButton -> switchFragment(ProjectFragment(), false)
+                        else -> return@setOnClickListener
+                    }
+                }
             }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 
-    override fun onClick(v: View) {
-        navViews.forEach { it.setBackgroundColor(Color.WHITE) }
+    private fun setupBottomQRSheet() {
+        val bottomSheetBehavior = BottomSheetBehavior.from(standardBottomSheet)
+        bottomSheetBehavior.isHideable = true
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-        if (v == navLogout) {
-            logout()
-            return
+        qr_fab.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            qr_fab.hide()
         }
 
-        val fragment = when (v) {
-            navHome -> HomeFragment()
-            navSchedule -> ScheduleFragment()
-            navOutdoorMaps -> OutdoorMapsFragment()
-            navIndoorMaps -> IndoorMapsFragment()
-            navProfile -> ProfileFragment()
-            navAdmin -> AdminFragment()
-            navScanner -> ScannerFragment()
-            else -> return
+        closeButton.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        v.setBackgroundColor(ContextCompat.getColor(baseContext, R.color.selectedMenuItem))
-        supportActionBar?.title = (v as TextView).text
+        logoutButton.setOnClickListener { logout() }
 
-        supportFragmentManager.beginTransaction().replace(R.id.contentFrame, fragment).commit()
-        drawerLayout.closeDrawer(GravityCompat.START)
+        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(view: View, p1: Float) {}
+
+            override fun onStateChanged(view: View, state: Int) {
+                when (state) {
+                    BottomSheetBehavior.STATE_HIDDEN -> qr_fab.show()
+                    BottomSheetBehavior.STATE_EXPANDED -> qr_fab.hide()
+                }
+            }
+        })
     }
 
-    private fun updateUserInfo(user: User?) {
-        user?.let {
-            navMenu.nameTextView.text = it.getFullName()
-            navMenu.emailTextView.text = it.email
+    fun switchFragment(fragment: Fragment, addToBackStack: Boolean) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.contentFrame, fragment)
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
+        transaction.commit()
+    }
+
+    private fun updateQrView(qr: QR?) = qr?.let {
+        val text = qr.qrInfo
+        val bitmap = generateQR(text)
+        bitmap?.let {
+            qrImageView?.setImageBitmap(bitmap)
+        }
+        loginNoticeTextView.visibility = View.GONE
+    }
+
+    private fun updateUserInformation(user: User?) = user?.let {
+        standardBottomSheet.nameTextView?.let { view ->
+            if (view.text.isNullOrBlank()) {
+                view.text = user.fullName.toUpperCase()
+            }
         }
     }
 
-    /**
-     * Modify the available options in the nav menu
-     * Staff: Can access the scanner
-     * Admins: Can access scanner and admin tools
-     */
-    private fun updateRoles(roles: Roles?) = roles?.let { roles ->
-        var listOfRoles: List<String> = roles.roles
-        if (listOfRoles.contains("Admin")) {
-            navAdmin.visibility = View.VISIBLE
-            navScanner.visibility = View.VISIBLE
-        }
-        if (listOfRoles.contains("Staff")) {
-            navScanner.visibility = View.VISIBLE
+    private fun updateAttendeeInformation(attendee: Attendee?) = attendee?.let {
+        standardBottomSheet.nameTextView?.text = attendee.fullName.toUpperCase()
+    }
+
+    private fun generateQR(text: String): Bitmap? {
+        val width = qrImageView?.width ?: 0
+        val height = qrImageView?.height ?: 0
+        if (width == 0 || height == 0) { return null }
+        val clearColor = Color.WHITE
+        val solidColor = ContextCompat.getColor(this, R.color.colorPrimary)
+        return QRUtilities.generateQRCode(text, width, height, clearColor, solidColor)
+    }
+
+    private fun updateFirebaseToken() {
+        FirebaseApp.initializeApp(applicationContext)
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
+            Log.d("MainActivity", instanceIdResult.token)
+            FirebaseTokenManager.writeToken(applicationContext, instanceIdResult.token)
+            FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
         }
     }
 
     private fun logout() {
-        clearJWT()
+        JWTUtilities.clearJWT(applicationContext)
 
         thread {
+            FavoritesManager.clearFavorites(this)
             App.database.clearAllTables()
+            App.getAPI("")
 
             runOnUiThread {
                 val loginIntent = Intent(this, LoginActivity::class.java)
                 loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(loginIntent)
                 finish()
-            }
-        }
-    }
-
-    private fun clearJWT() {
-        val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
-        editor.putString("jwt", defaultToken)
-        editor.apply()
-    }
-
-    private fun updateDeviceToken() {
-        val token = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("firebaseToken", defaultToken)
-                ?: defaultToken
-        if (token != defaultToken) {
-            thread {
-                App.getAPI().sendUserToken(DeviceToken(token)).execute()
-
-                val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
-                editor.putString("firebaseToken", defaultToken)
-                editor.apply()
             }
         }
     }
