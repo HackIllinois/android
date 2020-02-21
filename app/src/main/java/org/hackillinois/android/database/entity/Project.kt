@@ -58,7 +58,7 @@ data class Project(
                 '2' -> R.drawable.siebel_floor_2
                 else -> R.drawable.siebel_floor_1
             }
-        } else if (buildingName == "ECEB"){
+        } else if (buildingName == "ECEB") {
             if (split.size == 1) { R.drawable.eceb_floor_1 }
 
             val floor = split.last()[0]
