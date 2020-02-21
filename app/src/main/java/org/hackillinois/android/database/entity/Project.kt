@@ -41,7 +41,7 @@ data class Project(
     @Ignore
     private val NO_RESOURCE = 0
 
-    fun getIndoorMapResource(): Int {
+    fun getIndoorMapResource(): Int? {
         val split = room.split(" ")
         if (split.isEmpty()) {
             return NO_RESOURCE
@@ -58,7 +58,7 @@ data class Project(
                 '2' -> R.drawable.siebel_floor_2
                 else -> R.drawable.siebel_floor_1
             }
-        } else {
+        } else if (buildingName == "ECEB"){
             if (split.size == 1) { R.drawable.eceb_floor_1 }
 
             val floor = split.last()[0]
@@ -67,6 +67,8 @@ data class Project(
                 '3' -> R.drawable.eceb_floor_3
                 else -> R.drawable.eceb_floor_1
             }
+        } else {
+            null
         }
     }
 

@@ -50,6 +50,20 @@
         app:layout_constraintTop_toBottomOf="@+id/project_tags"
         tools:text="Project Name Here" />
 
+    <TextView
+        android:id="@+id/tableTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/starButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mentorNamesTextView"
+        tools:text="Table #1" />
+
     <ImageButton
         android:id="@+id/starButton"
         android:layout_width="30dp"
@@ -68,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/sponsoredByColor"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/projectNameTextView"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +98,7 @@
         android:textColor="@color/primaryTextColor"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mentorNamesTextView"
+        app:layout_constraintTop_toBottomOf="@+id/tableTextView"
         tools:text="Siebel 1214" />
 
     <TextView
@@ -103,6 +117,7 @@
         tools:text="This is a sample project description and it describes the project." />
 
     <ScrollView
+        android:id="@+id/mapScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

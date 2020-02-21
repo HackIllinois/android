@@ -44,14 +44,18 @@ class ProjectInfoFragment : Fragment() {
     }
 
     private fun updateProjectUI(project: Project?) = project?.let {
-        projectNameTextView.text = "#${it.number} ${it.name}"
+        projectNameTextView.text = it.name
+        tableTextView.text = "Table #${it.number}"
         mentorNamesTextView.text = it.getMentorsString()
         locationTextView.text = it.room
         descriptionTextView.text = it.description
         cardLocationTextView.text = it.room
 
         val indoorMapResource = it.getIndoorMapResource()
-        if (indoorMapResource != 0) {
+        if (indoorMapResource == null) {
+            mapScrollView.visibility = View.GONE
+        } else if (indoorMapResource != 0) {
+            mapScrollView.visibility = View.VISIBLE
             map_image_view.setImage(ImageSource.resource(indoorMapResource))
         }
 
