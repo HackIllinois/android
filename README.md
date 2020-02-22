@@ -3,7 +3,7 @@
 
 <img src="screenshots/home.png" width="170"/> <img src="screenshots/schedule.png" width="170"/> <img src="screenshots/indoor-maps.png" width="170"/> <img src="screenshots/projects.png" width="170"/>
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="80">](https://play.google.com/store/apps/details/?id=org.hackillinois.androidapp2019)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="80">](https://play.google.com/store/apps/details?id=org.hackillinois.android.release)
 
 ## Development Setup
 1. Download and install [Android Studio](https://developer.android.com/studio).
