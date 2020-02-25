@@ -121,10 +121,7 @@ class ScannerFragment : Fragment() {
     }
 
     private fun updateOverrideSwitchVisibility(it: Roles?) = it?.let {
-        when (it.isAdmin()) {
-            true -> staffOverrideSwitch.visibility = View.VISIBLE
-            false -> staffOverrideSwitch.visibility = View.GONE
-        }
+        staffOverrideSwitch.visibility = if (it.isAdmin()) View.VISIBLE else View.GONE
     }
 
     companion object {
