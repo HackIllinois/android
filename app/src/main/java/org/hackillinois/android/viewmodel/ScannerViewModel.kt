@@ -1,12 +1,15 @@
 package org.hackillinois.android.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.hackillinois.android.App
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
+import org.hackillinois.android.repository.rolesRepository
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +17,7 @@ import retrofit2.Response
 
 class ScannerViewModel : ViewModel() {
     var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
-    var shouldDisplayOverrideSwitch = MutableLiveData<Boolean>()
+    lateinit var roles: LiveData<Roles>
 
     private val CHECK_IN_NAME = "Check-in"
 
@@ -22,7 +25,7 @@ class ScannerViewModel : ViewModel() {
 
     fun init(eventName: String) {
         this.eventName = eventName
-        shouldDisplayOverrideSwitch.postValue(true)
+        this.roles = rolesRepository.fetch()
     }
 
     fun checkUserIntoEvent(eventId: String, userId: String, staffOverride: Boolean) {

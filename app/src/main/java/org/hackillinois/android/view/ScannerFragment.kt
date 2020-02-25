@@ -13,18 +13,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import com.budiyev.android.codescanner.*
 import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
 class ScannerFragment : Fragment() {
     val PERMISSIONS_REQUEST_ACCESS_CAMERA = 0
-    private val CHECK_IN_TEXT = "Check In"
 
     lateinit var viewModel: ScannerViewModel
 
@@ -42,7 +41,7 @@ class ScannerFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ScannerViewModel::class.java).apply {
             init(eventName)
             lastScanStatus.observe(this@ScannerFragment, Observer { displayScanResult(it) })
-            shouldDisplayOverrideSwitch.observe(this@ScannerFragment, Observer { updateOverrideSwitchVisibility(it) })
+            roles.observe(this@ScannerFragment, Observer { updateOverrideSwitchVisibility(it) })
         }
     }
 
@@ -121,10 +120,10 @@ class ScannerFragment : Fragment() {
         }
     }
 
-    private fun updateOverrideSwitchVisibility(it: Boolean?) {
-        staffOverrideSwitch.visibility = when (it) {
-            true -> AdapterView.VISIBLE
-            else -> AdapterView.GONE
+    private fun updateOverrideSwitchVisibility(it: Roles?) = it?.let {
+        when (it.isAdmin()) {
+            true -> staffOverrideSwitch.visibility = View.VISIBLE
+            false -> staffOverrideSwitch.visibility = View.GONE
         }
     }
 
