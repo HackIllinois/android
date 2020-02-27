@@ -17,4 +17,5 @@ data class Roles(
     var key = 1
 
     fun isStaff() = roles.contains("Staff")
+    fun isAdmin() = roles.contains("Admin")
 }
