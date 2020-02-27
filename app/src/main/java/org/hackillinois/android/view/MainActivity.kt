@@ -143,6 +143,7 @@ class MainActivity : AppCompatActivity() {
         bitmap?.let {
             qrImageView?.setImageBitmap(bitmap)
         }
+        qrImageView?.setBackgroundColor(Color.WHITE)
         loginNoticeTextView.visibility = View.GONE
     }
 
