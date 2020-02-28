@@ -24,6 +24,7 @@
 
             <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
                 android:id="@+id/map_image_view"
+                android:padding="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
