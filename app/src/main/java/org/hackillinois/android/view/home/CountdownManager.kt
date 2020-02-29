@@ -3,6 +3,7 @@ package org.hackillinois.android.view.home
 import android.os.CountDownTimer
 import org.hackillinois.android.common.isBeforeNow
 import org.hackillinois.android.common.timeUntilMs
+import org.hackillinois.android.model.TimesWrapper
 import java.util.*
 
 class CountdownManager(val listener: CountDownListener) {
@@ -22,7 +23,7 @@ class CountdownManager(val listener: CountDownListener) {
         timeInMillis = 1583078400000
     }
 
-    private val times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
+    private var times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
     private val titles = listOf("EVENT STARTS IN", "HACKING STARTS IN", "HACKING ENDS IN", "THANKS FOR COMING!")
 
     private var timer: CountDownTimer? = null
@@ -68,6 +69,28 @@ class CountdownManager(val listener: CountDownListener) {
         if (timer == null) {
             start()
         }
+    }
+
+    fun setAPITimes(timesWrapper: TimesWrapper) {
+        onPause()
+        val apiEventStartTime = Calendar.getInstance().apply {
+            timeZone = TimeZone.getTimeZone("America/Chicago")
+            timeInMillis = timesWrapper.data.eventStart * 1000L
+        }
+
+        val apiHackingStartTime = Calendar.getInstance().apply {
+            timeZone = TimeZone.getTimeZone("America/Chicago")
+            timeInMillis = timesWrapper.data.hackStart * 1000L
+        }
+
+        val apiHackingEndTime = Calendar.getInstance().apply {
+            timeZone = TimeZone.getTimeZone("America/Chicago")
+            timeInMillis = timesWrapper.data.hackEnd * 1000L
+        }
+
+        times = listOf(apiEventStartTime, apiHackingStartTime, apiHackingEndTime)
+        state = 0
+        startTimer()
     }
 
     interface CountDownListener {

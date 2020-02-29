@@ -15,6 +15,7 @@ import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.notifications.DeviceToken
 
 import okhttp3.ResponseBody
+import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
 import retrofit2.http.Body
@@ -82,6 +83,9 @@ interface API {
 
     @GET("project/")
     fun allProjects(): Call<ProjectsList>
+
+    @GET("upload/blobstore/times/")
+    fun times(): Call<TimesWrapper>
 
     companion object {
         val BASE_URL = "https://api.hackillinois.org/"
