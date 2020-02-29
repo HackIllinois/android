@@ -75,17 +75,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         viewModel.init()
         viewModel.ongoingEventsLiveData.observe(this, Observer { updateOngoingEventsList(it) })
         viewModel.upcomingEventsLiveData.observe(this, Observer { updateUpcomingEventsList(it) })
-
-        App.getAPI().times().enqueue(object : Callback<TimesWrapper> {
-            override fun onFailure(call: Call<TimesWrapper>, t: Throwable) {
-            }
-
-            override fun onResponse(call: Call<TimesWrapper>, response: Response<TimesWrapper>) {
-                response.body()?.let {
-                    countDownManager.setAPITimes(it)
-                }
-            }
-        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -120,6 +109,17 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         super.onResume()
         isActive = true
         countDownManager.onResume()
+
+        App.getAPI().times().enqueue(object : Callback<TimesWrapper> {
+            override fun onFailure(call: Call<TimesWrapper>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<TimesWrapper>, response: Response<TimesWrapper>) {
+                response.body()?.let {
+                    countDownManager.setAPITimes(it)
+                }
+            }
+        })
     }
 
     override fun onStop() {
