@@ -44,6 +44,9 @@ class EventsSection(
 
             starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
             starButton.setOnClickListener(starClickListener(event))
+
+            timeText.text = eventsList[position].getStartTimeOfDay()
+            timeText.visibility = if (showTime && eventsList.isNotEmpty()) View.VISIBLE else View.GONE
         }
     }
 
@@ -66,9 +69,6 @@ class EventsSection(
             headerText.setTextColor(headerColor)
             headerText.text = (this@EventsSection).headerText
             headerText.visibility = if (eventsList.isNotEmpty()) View.VISIBLE else View.GONE
-
-            timeText.text = eventsList.firstOrNull()?.getStartTimeOfDay()
-            timeText.visibility = if (showTime && eventsList.isNotEmpty()) View.VISIBLE else View.GONE
         }
     }
 
