@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -122,7 +121,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
 
     private fun updateUpcomingEventsList(events: List<Event>?) {
         events?.let {
-            Log.d("HomeFragment", it.toString())
             val actualEvents = filterNextNUpcomingEvents(it, numberOfUpcomingEvents)
             upcomingEventsSection.updateEventsList(actualEvents)
             eventsListAdapter.notifyDataSetChanged()
