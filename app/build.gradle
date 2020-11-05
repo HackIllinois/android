@@ -15,7 +15,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "org.hackillinois.android"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 10
         versionName "1.8"
