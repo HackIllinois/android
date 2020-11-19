@@ -1,12 +1,16 @@
 package org.hackillinois.android.repository
 
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Project
 import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 import kotlin.concurrent.thread
 
 class ProjectRepository {
@@ -23,16 +27,12 @@ class ProjectRepository {
     }
 
     private fun refreshAll() {
-        App.getAPI().allProjects().enqueue(object : Callback<ProjectsList> {
-            override fun onResponse(call: Call<ProjectsList>, response: Response<ProjectsList>) {
-                if (response.isSuccessful) {
-                    val projectsList: List<Project> = response.body()?.projects ?: return
-                    thread { projectsDao.clearTableAndInsertProjects(projectsList) }
-                }
-            }
-
-            override fun onFailure(call: Call<ProjectsList>, t: Throwable) {}
-        })
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val projectsList = App.getAPI().allProjects()
+                projectsDao.clearTableAndInsertProjects(projectsList.projects)
+            } catch(e: Exception) {}
+        }
     }
 
     companion object {

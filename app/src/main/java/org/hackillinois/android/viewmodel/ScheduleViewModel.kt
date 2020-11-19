@@ -3,6 +3,8 @@ package org.hackillinois.android.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.hackillinois.android.repository.EventRepository
 import java.util.*
 
@@ -34,5 +36,8 @@ class ScheduleViewModel : ViewModel() {
         fridayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(0, fridayEnd)
         saturdayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayEnd, saturdayEnd)
         sundayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(saturdayEnd, sundayEnd)
+        viewModelScope.launch {
+            eventRepository.refreshAllEvents()
+        }
     }
 }

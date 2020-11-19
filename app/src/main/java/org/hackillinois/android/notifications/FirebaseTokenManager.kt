@@ -1,6 +1,9 @@
 package org.hackillinois.android.notifications
 
 import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import kotlin.concurrent.thread
@@ -27,10 +30,12 @@ object FirebaseTokenManager {
     fun sendTokenToServerIfNew(context: Context) {
         if (isTokenNew(context)) {
             val token = readToken(context)
-            thread {
-                App.getAPI().sendUserToken(DeviceToken(token)).execute()
-                writeToken(context, DEFAULT_FIREBASE_TOKEN)
-                setIsTokenNew(context, false)
+            GlobalScope.launch(Dispatchers.IO) {
+                try {
+                    App.getAPI().sendUserToken(DeviceToken(token))
+                    writeToken(context, DEFAULT_FIREBASE_TOKEN)
+                    setIsTokenNew(context, false)
+                } catch (e: Exception) {}
             }
         }
     }

@@ -22,7 +22,7 @@ val userRepository: GenericRepository<User> by lazy {
     GenericRepository(::createUserCall, App.database.userDao()::insert, App.database.userDao()::getUser)
 }
 
-private fun createQrCodeCall() = App.getAPI().qrCode()
-private fun createAttendeeCall() = App.getAPI().attendee()
-private fun createRolesCall() = App.getAPI().roles()
-private fun createUserCall() = App.getAPI().user()
+private suspend fun createQrCodeCall() = App.getAPI().qrCode()
+private suspend fun createAttendeeCall() = App.getAPI().attendee()
+private suspend fun createRolesCall() = App.getAPI().roles()
+private suspend fun createUserCall() = App.getAPI().user()

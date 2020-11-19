@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
@@ -20,11 +22,13 @@ class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
     val isFavorited = MutableLiveData<Boolean>()
 
     fun init(id: String) {
-        event = eventRepository.fetchEvent(id)
-        roles = rolesRepository.fetch()
+        viewModelScope.launch {
+            event = eventRepository.fetchEvent(id)
+            roles = rolesRepository.fetch()
 
-        val favorited = FavoritesManager.isFavoritedEvent(app.applicationContext, id)
-        isFavorited.postValue(favorited)
+            val favorited = FavoritesManager.isFavoritedEvent(app.applicationContext, id)
+            isFavorited.postValue(favorited)
+        }
     }
 
     fun changeFavoritedState() {

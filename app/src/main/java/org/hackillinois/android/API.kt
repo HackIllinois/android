@@ -18,6 +18,7 @@ import okhttp3.ResponseBody
 import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -29,20 +30,22 @@ interface API {
     // AUTH
 
     @POST("auth/code/{provider}/")
-    fun getJWT(@Path("provider") provider: String, @Query("redirect_uri") redirect: String, @Body code: Code): Call<JWT>
+    suspend fun getJWT(@Path("provider") provider: String,
+                       @Query("redirect_uri") redirect: String,
+                       @Body code: Code): JWT
 
     @GET("auth/roles/")
-    fun roles(): Call<Roles>
+    suspend fun roles(): Roles
 
     // CHECK-IN
 
     @POST("checkin/")
-    fun checkInUser(@Body checkIn: CheckIn): Call<CheckIn>
+    suspend fun checkInUser(@Body checkIn: CheckIn): CheckIn
 
     // EVENT
 
     @GET("event/")
-    fun allEvents(): Call<EventsList>
+    suspend fun allEvents(): EventsList
 
     @POST("event/")
     fun createEvent(@Body event: Event): Call<Event>
@@ -51,20 +54,20 @@ interface API {
     fun getEvent(@Path("id") id: String): Call<Event>
 
     @POST("event/track/")
-    fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): Call<TrackerContainer>
+    suspend fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): TrackerContainer
 
     // NOTIFICATIONS
 
     @POST("notifications/device/")
-    fun sendUserToken(@Body token: DeviceToken): Call<DeviceToken>
+    suspend fun sendUserToken(@Body token: DeviceToken): DeviceToken
 
     @POST("notifications/update/")
-    fun updateNotificationTopics(): Call<NotificationTopics>
+    suspend fun updateNotificationTopics(): NotificationTopics
 
     // REGISTRATION
 
     @GET("registration/attendee/")
-    fun attendee(): Call<Attendee>
+    suspend fun attendee(): Attendee
 
     // STAT
 
@@ -74,18 +77,18 @@ interface API {
     // USER
 
     @GET("user/")
-    fun user(): Call<User>
+    suspend fun user(): User
 
     @GET("user/qr/")
-    fun qrCode(): Call<QR>
+    suspend fun qrCode(): QR
 
     // PROJECT
 
     @GET("project/")
-    fun allProjects(): Call<ProjectsList>
+    suspend fun allProjects(): ProjectsList
 
     @GET("upload/blobstore/times/")
-    fun times(): Call<TimesWrapper>
+    suspend fun times(): TimesWrapper
 
     companion object {
         val BASE_URL = "https://api.hackillinois.org/"

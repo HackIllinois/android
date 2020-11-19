@@ -1,18 +1,22 @@
 package org.hackillinois.android.view.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.TimeInfo
@@ -27,6 +31,7 @@ import org.hackillinois.android.viewmodel.HomeViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickListener {
 
@@ -71,8 +76,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
             }
         }
 
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        viewModel.init()
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         viewModel.ongoingEventsLiveData.observe(this, Observer { updateOngoingEventsList(it) })
         viewModel.upcomingEventsLiveData.observe(this, Observer { updateUpcomingEventsList(it) })
     }
@@ -109,17 +113,12 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         super.onResume()
         isActive = true
         countDownManager.onResume()
-
-        App.getAPI().times().enqueue(object : Callback<TimesWrapper> {
-            override fun onFailure(call: Call<TimesWrapper>, t: Throwable) {
-            }
-
-            override fun onResponse(call: Call<TimesWrapper>, response: Response<TimesWrapper>) {
-                response.body()?.let {
-                    countDownManager.setAPITimes(it)
-                }
-            }
-        })
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val time = App.getAPI().times()
+                countDownManager.setAPITimes(time)
+            } catch (e: Exception) {}
+        }
     }
 
     override fun onStop() {
