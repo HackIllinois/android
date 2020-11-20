@@ -3,7 +3,6 @@ package org.hackillinois.android.view
 import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_splash_screen.*
@@ -15,10 +14,6 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.User
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.HttpException
-import retrofit2.Response
 import java.lang.Exception
 import java.net.SocketTimeoutException
 import java.util.concurrent.CountDownLatch
@@ -59,7 +54,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     val user: User = api.user()
                     // needsToLogin = response.code() != 200 (original code)
                     // if code is not 2--, a HttpException will be thrown
-                    needsToLogin = false;
+                    needsToLogin = false
                     withContext(Dispatchers.IO) {
                         try {
                             // TODO httpException 405

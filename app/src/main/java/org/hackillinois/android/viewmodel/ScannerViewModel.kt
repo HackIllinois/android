@@ -7,17 +7,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Roles
-import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.model.checkin.CheckIn
-import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.repository.rolesRepository
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.HttpException
-import retrofit2.Response
 import java.lang.Exception
 
 class ScannerViewModel : ViewModel() {

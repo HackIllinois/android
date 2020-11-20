@@ -18,7 +18,6 @@ import okhttp3.ResponseBody
 import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -30,9 +29,11 @@ interface API {
     // AUTH
 
     @POST("auth/code/{provider}/")
-    suspend fun getJWT(@Path("provider") provider: String,
-                       @Query("redirect_uri") redirect: String,
-                       @Body code: Code): JWT
+    suspend fun getJWT(
+        @Path("provider") provider: String,
+        @Query("redirect_uri") redirect: String,
+        @Body code: Code
+    ): JWT
 
     @GET("auth/roles/")
     suspend fun roles(): Roles

@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,16 +20,12 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.TimeInfo
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.custom.CustomRefreshView
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.view.home.eventlist.EventsSection
 import org.hackillinois.android.viewmodel.HomeViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.lang.Exception
 
 class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickListener {

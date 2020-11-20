@@ -2,16 +2,9 @@ package org.hackillinois.android.repository
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.model.event.EventsList
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import kotlin.concurrent.thread
 
 class EventRepository {
     private val eventDao = App.database.eventDao()

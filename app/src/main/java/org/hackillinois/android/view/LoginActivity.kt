@@ -16,14 +16,9 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.HttpException
-import retrofit2.Response
 import java.lang.Exception
 import java.net.SocketTimeoutException
-import kotlin.concurrent.thread
-import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
     private val redirectUri: String = "https://hackillinois.org/auth/?isAndroid=1"

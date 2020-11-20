@@ -6,7 +6,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.R
-import kotlin.concurrent.thread
 
 object FirebaseTokenManager {
     private const val FIREBASE_TOKEN_KEY = "firebaseToken"

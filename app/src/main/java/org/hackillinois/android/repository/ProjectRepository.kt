@@ -6,12 +6,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Project
-import org.hackillinois.android.model.projects.ProjectsList
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.lang.Exception
-import kotlin.concurrent.thread
 
 class ProjectRepository {
     private val projectsDao = App.database.projectsDao()
@@ -31,7 +26,7 @@ class ProjectRepository {
             try {
                 val projectsList = App.getAPI().allProjects()
                 projectsDao.clearTableAndInsertProjects(projectsList.projects)
-            } catch(e: Exception) {}
+            } catch (e: Exception) {}
         }
     }
 
