@@ -3,17 +3,17 @@ package org.hackillinois.android.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.model.checkin.CheckIn
-import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.repository.rolesRepository
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import retrofit2.HttpException
+import java.lang.Exception
 
 class ScannerViewModel : ViewModel() {
     var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
@@ -39,58 +39,63 @@ class ScannerViewModel : ViewModel() {
     }
 
     fun checkInUser(checkIn: CheckIn) {
-        App.getAPI().checkInUser(checkIn).enqueue(object : Callback<CheckIn> {
-            override fun onFailure(call: Call<CheckIn>, t: Throwable) {
-                var scanStatus = ScanStatus(false, "", "Request could not be made. Please try again.")
+        viewModelScope.launch {
+            try {
+                val ci: CheckIn = App.getAPI().checkInUser(checkIn)
+                // Check-in was a success
+                val userId = ci.id
+                val scanStatus = ScanStatus(true, userId, "")
                 lastScanStatus.postValue(scanStatus)
-            }
-
-            override fun onResponse(call: Call<CheckIn>, response: Response<CheckIn>) {
-                if (response.isSuccessful) {
-                    // Check-in was a success
-                    var userId = response.body()?.id.toString()
-                    var scanStatus = ScanStatus(true, userId, "")
-                    lastScanStatus.postValue(scanStatus)
-                } else {
-                    val error = JSONObject(response.errorBody()?.string())
-                    val errorType = error.getString("type")
-                    val errorMessage = if (errorType == "ATTRIBUTE_MISMATCH_ERROR") {
-                        error.getString("message")
-                    } else {
-                        "Internal API error"
+            } catch (e: Exception) {
+                when (e) {
+                    is HttpException -> {
+                        @Suppress("BlockingMethodInNonBlockingContext")
+                        val error = JSONObject(e.response()?.errorBody()?.string())
+                        val errorType = error.getString("type")
+                        val errorMessage = if (errorType == "ATTRIBUTE_MISMATCH_ERROR") {
+                            error.getString("message")
+                        } else {
+                            "Internal API error"
+                        }
+                        val scanStatus = ScanStatus(false, "", errorMessage)
+                        lastScanStatus.postValue(scanStatus)
                     }
-                    var scanStatus = ScanStatus(false, "", errorMessage)
-                    lastScanStatus.postValue(scanStatus)
+                    else -> {
+                        val scanStatus = ScanStatus(false, "", "Request could not be made. Please try again.")
+                        lastScanStatus.postValue(scanStatus)
+                    }
                 }
             }
-        })
+        }
     }
 
     fun markUserAsAttendingEvent(userEventPair: UserEventPair) {
-        App.getAPI().markUserAsAttendingEvent(userEventPair).enqueue(object : Callback<TrackerContainer> {
-            override fun onFailure(call: Call<TrackerContainer>, t: Throwable) {
-                var scanStatus = ScanStatus(false, "", "Request could not be made. Please try again.")
+        viewModelScope.launch {
+            try {
+                val trackerContainer = App.getAPI().markUserAsAttendingEvent(userEventPair)
+                val userId = trackerContainer.userTracker.userId
+                val scanStatus = ScanStatus(true, userId, "")
                 lastScanStatus.postValue(scanStatus)
-            }
-
-            override fun onResponse(call: Call<TrackerContainer>, response: Response<TrackerContainer>) {
-                if (response.isSuccessful) {
-                    // User marked as attending the event
-                    var userId = response.body()?.userTracker?.userId.toString()
-                    var scanStatus = ScanStatus(true, userId, "")
-                    lastScanStatus.postValue(scanStatus)
-                } else {
-                    val error = JSONObject(response.errorBody()?.string())
-                    val errorType = error.getString("type")
-                    val errorMessage = if (errorType == "ATTRIBUTE_MISMATCH_ERROR") {
-                        error.getString("message")
-                    } else {
-                        "Internal API error"
+            } catch (e: Exception) {
+                when (e) {
+                    is HttpException -> {
+                        val error = JSONObject(e.response()?.errorBody()?.string())
+                        val errorType = error.getString("type")
+                        val errorMessage = if (errorType == "ATTRIBUTE_MISMATCH_ERROR") {
+                            error.getString("message")
+                        } else {
+                            "Internal API error"
+                        }
+                        val scanStatus = ScanStatus(false, "", errorMessage)
+                        lastScanStatus.postValue(scanStatus)
                     }
-                    var scanStatus = ScanStatus(false, "", errorMessage)
-                    lastScanStatus.postValue(scanStatus)
+                    else -> {
+                        val scanStatus = ScanStatus(false, "",
+                                "Request could not be made. Please try again.")
+                        lastScanStatus.postValue(scanStatus)
+                    }
                 }
             }
-        })
+        }
     }
 }

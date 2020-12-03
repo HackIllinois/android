@@ -6,13 +6,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_splash_screen.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.User
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import java.lang.Exception
 import java.net.SocketTimeoutException
 import java.util.concurrent.CountDownLatch
 import kotlin.concurrent.thread
@@ -46,28 +48,28 @@ class SplashScreenActivity : AppCompatActivity() {
         val jwt = JWTUtilities.readJWT(applicationContext)
 
         if (jwt != JWTUtilities.DEFAULT_JWT) {
-            val api = App.getAPI(jwt)
-            api.user().enqueue(object : Callback<User> {
-                override fun onFailure(call: Call<User>, t: Throwable) {
+            GlobalScope.launch {
+                val api = App.getAPI(jwt)
+                try {
+                    val user: User = api.user()
+                    // needsToLogin = response.code() != 200 (original code)
+                    // if code is not 2--, a HttpException will be thrown
+                    needsToLogin = false
+                    withContext(Dispatchers.IO) {
+                        try {
+                            // TODO httpException 405
+                            // api.updateNotificationTopics()
+                        } catch (e: SocketTimeoutException) {
+                            Log.e("LoginActivity", "Notifications update timed out!")
+                        }
+                    }
+                    countDownLatch.countDown()
+                } catch (e: Exception) {
                     Log.e("LoginActivity", "Failed to check is jwt is valid")
                     needsToLogin = true
                     countDownLatch.countDown()
                 }
-
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    needsToLogin = response.code() != 200
-                    if (!needsToLogin) {
-                        thread {
-                            try {
-                                api.updateNotificationTopics().execute()
-                            } catch (e: SocketTimeoutException) {
-                                Log.e("LoginActivity", "Notifications update timed out!")
-                            }
-                        }
-                    }
-                    countDownLatch.countDown()
-                }
-            })
+            }
         } else {
             needsToLogin = true
             countDownLatch.countDown()
