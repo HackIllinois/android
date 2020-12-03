@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
-import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
 
 class EventRepository {
@@ -32,6 +31,7 @@ class EventRepository {
         withContext(Dispatchers.IO) {
             try {
                 val events = App.getAPI().allEvents().events
+                // TODO FavoritesManager.updateFavoriteNotifications(, eventDao.getAllEventsList(), events)
                 eventDao.clearTableAndInsertEvents(events)
             } catch (e: Exception) {
                 Log.e("refreshAllEvents", e.toString())

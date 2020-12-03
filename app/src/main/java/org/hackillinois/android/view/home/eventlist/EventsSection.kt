@@ -73,7 +73,6 @@ class EventsSection(
     }
 
     fun updateEventsList(newEventsList: List<Event>) {
-        FavoritesManager.updateFavoriteNotifications(context, eventsList, newEventsList)
         eventsList = newEventsList
     }
 }

@@ -49,10 +49,10 @@ class FavoritesManager {
 
         fun updateFavoriteNotifications(context: Context, oldEvents: List<Event>, newEvents: List<Event>) {
             newEvents.forEach {
-                newEvent->
+                newEvent ->
                 if (isFavoritedEvent(context, newEvent.id)) {
-                    var oldEvent = oldEvents.find{it.id == newEvent.id}
-                    oldEvent?.let{
+                    var oldEvent = oldEvents.find { it.id == newEvent.id }
+                    oldEvent?.let {
                         if (oldEvent.startTime != newEvent.startTime) {
                             cancelEventNotification(context, oldEvent)
                             scheduleEventNotification(context, newEvent)
