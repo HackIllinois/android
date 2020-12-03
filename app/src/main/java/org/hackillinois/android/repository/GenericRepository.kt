@@ -1,13 +1,15 @@
 package org.hackillinois.android.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import kotlin.concurrent.thread
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class GenericRepository<T>(
-    private val apiCallCreator: () -> Call<T>,
+    private val apiCall: suspend () -> T,
     private val databaseInsertFunction: (T) -> Unit,
     private val databaseRetrievalFunction: () -> LiveData<T>
 ) {
@@ -18,18 +20,15 @@ class GenericRepository<T>(
     }
 
     private fun refresh() {
-        apiCallCreator().enqueue(object : Callback<T> {
-            override fun onResponse(call: Call<T>, response: Response<T>) {
-                if (response.isSuccessful) {
-                    thread {
-                        response.body()?.let {
-                            databaseInsertFunction(it)
-                        }
-                    }
+        GlobalScope.launch {
+            try {
+                val t: T = apiCall()
+                withContext(Dispatchers.IO) {
+                    databaseInsertFunction(t)
                 }
+            } catch (e: Exception) {
+                Log.e("GenericRepo refresh", e.toString())
             }
-
-            override fun onFailure(call: Call<T>, t: Throwable) {}
-        })
+        }
     }
 }
