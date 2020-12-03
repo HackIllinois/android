@@ -1,5 +1,6 @@
 package org.hackillinois.android.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -31,7 +32,9 @@ class EventRepository {
             try {
                 val events = App.getAPI().allEvents().events
                 eventDao.clearTableAndInsertEvents(events)
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+                Log.e("refreshAllEvents", e.toString())
+            }
         }
     }
 

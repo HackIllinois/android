@@ -1,5 +1,6 @@
 package org.hackillinois.android.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -25,7 +26,9 @@ class GenericRepository<T>(
                 withContext(Dispatchers.IO) {
                     databaseInsertFunction(t)
                 }
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+                Log.e("GenericRepo refresh", e.toString())
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package org.hackillinois.android.notifications
 
 import android.content.Context
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -34,7 +35,9 @@ object FirebaseTokenManager {
                     App.getAPI().sendUserToken(DeviceToken(token))
                     writeToken(context, DEFAULT_FIREBASE_TOKEN)
                     setIsTokenNew(context, false)
-                } catch (e: Exception) {}
+                } catch (e: Exception) {
+                    Log.e("sendTokenToServer", e.toString())
+                }
             }
         }
     }

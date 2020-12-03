@@ -1,5 +1,6 @@
 package org.hackillinois.android.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -26,7 +27,9 @@ class ProjectRepository {
             try {
                 val projectsList = App.getAPI().allProjects()
                 projectsDao.clearTableAndInsertProjects(projectsList.projects)
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+                Log.e("Projectrepo refreshAll", e.toString())
+            }
         }
     }
 
