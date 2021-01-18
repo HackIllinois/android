@@ -83,4 +83,14 @@
         <item>MINIEVENT</item>
         <item>OTHER</item>
     </string-array>
+
+    <string-array name="skills_array">
+        <item>AWS</item>
+        <item>C++</item>
+        <item>Project Management</item>
+        <item>Scikit-learn</item>
+        <item>Python</item>
+        <item>Docker</item>
+        <item>Java</item>
+    </string-array>
 </resources>

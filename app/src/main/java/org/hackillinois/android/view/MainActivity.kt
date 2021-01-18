@@ -29,6 +29,7 @@ import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.FirebaseTokenManager
+import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.maps.MapsFragment
 import org.hackillinois.android.view.project.ProjectFragment
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                         bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
                         bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
                         bottomAppBar.mapsButton -> switchFragment(MapsFragment(), false)
-                        bottomAppBar.projectsButton -> switchFragment(ProjectFragment(), false)
+                        bottomAppBar.projectsButton -> switchFragment(GroupmatchingFragment(), false)
                         else -> return@setOnClickListener
                     }
                 }
