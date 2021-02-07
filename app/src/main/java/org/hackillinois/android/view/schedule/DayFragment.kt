@@ -20,7 +20,7 @@ import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.viewmodel.ScheduleViewModel
 
-class DayFragment : Fragment(), EventClickListener {
+class  DayFragment : Fragment(), EventClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var mAdapter: EventsAdapter

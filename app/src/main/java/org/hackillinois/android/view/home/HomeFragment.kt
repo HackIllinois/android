@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat.setBackground
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -168,6 +169,10 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         if (isActive) {
             countdownTextView.text = newTitle
         }
+    }
+
+    override fun updateBackground(newBackground: Int) {
+        layout.setBackground(ContextCompat.getDrawable(context, newBackground));
     }
 
     override fun openEventInfoActivity(event: Event) {
