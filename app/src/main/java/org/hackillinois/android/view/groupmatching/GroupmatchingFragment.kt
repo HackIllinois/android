@@ -2,6 +2,7 @@ package org.hackillinois.android.view.groupmatching
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,9 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
+import org.hackillinois.android.model.Group
 
 
 class GroupmatchingFragment : Fragment() {
@@ -30,7 +33,7 @@ class GroupmatchingFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.groupmatching_fragment, container, false)
         groupStatusButton = view.findViewById(R.id.group_status_button)
-        val width: Int = (170 * requireContext().resources.displayMetrics.density).toInt()
+        val width: Int = (158 * requireContext().resources.displayMetrics.density).toInt()
         val popupView = inflater.inflate(R.layout.group_status_popup, null)
         popupWindow = PopupWindow(popupView,
                 width,
@@ -78,6 +81,21 @@ class GroupmatchingFragment : Fragment() {
         closeButton.setOnClickListener {
             alertDialog.dismiss()
         }
+
+        val recyclerView : RecyclerView = view.findViewById(R.id.team_matching_recyclerview)
+        val groupAdapter = GroupAdapter()
+
+        val groupList = listOf<Group>(
+                Group(0, "First Last", "Looking For Team",
+                        false, "01 / 00 Profile Match", "Short tagline description - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id habitant egestas."),
+                Group(0, "First LastName", "Team Looing For Members",
+                        false, "01 / 09 Profile Match", "Short tagline description - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id habitant egestas."),
+                Group(0, "First Last", "Looking For Team",
+                        false, "00 / 00 Profile Match", "Short tagline description - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id habitant egestas.")
+        )
+        // Log.i("GroupMatching", groupList.size.toString())
+        groupAdapter.data = groupList
+        recyclerView.adapter = groupAdapter
         return view
     }
 
@@ -85,6 +103,7 @@ class GroupmatchingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(GroupmatchingViewModel::class.java)
         // TODO: Use the ViewModel
+
 
     }
 
