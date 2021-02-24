@@ -20,6 +20,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
+      - name: Make Google Services File
+        run: touch app/google-services.json
+
       - name: Setup google_services.json
         env:
           GOOGLE_SERVICES_SECRET: ${{ secrets.RAW_GOOGLE_SERVICES }}
