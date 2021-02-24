@@ -19,6 +19,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
       - name: Make Google Services File
         run: touch ./app/google-services.json
@@ -28,9 +31,6 @@ jobs:
           GOOGLE_SERVICES_SECRET: ${{ secrets.RAW_GOOGLE_SERVICES }}
 
         run: echo $GOOGLE_SERVICES_SECRET > ./app/google-services.json
-
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
       - name: Run gradew script
