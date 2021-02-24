@@ -21,19 +21,17 @@ jobs:
     steps:
       - name: Print out filepaths
         run: ls -a
-        
-      - name: Make Google Services File
-        run: touch ./app/google-services.json
 
-      - name: Setup google_services.json
-        env:
-          GOOGLE_SERVICES_SECRET: ${{ secrets.RAW_GOOGLE_SERVICES }}
 
-        run: echo $GOOGLE_SERVICES_SECRET > ./app/google-services.json
-      
 
+          
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      - uses: "finnp/create-file-action@master"
+        env:
+          FILE_NAME: "app/google-services.json"
+          FILE_DATA: {{ secrets.RAW_GOOGLE_SERVICES}}
 
       # Runs a single command using the runners shell
       - name: Run gradew script
