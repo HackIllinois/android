@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat.setBackground
 import androidx.fragment.app.Fragment
@@ -43,6 +44,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     private val refreshIconSize = 100
 
     private val numberOfUpcomingEvents = 2
+    private lateinit var layout: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +91,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         view.refreshLayout.setOnRefreshListener {
             viewModel.refresh()
         }
-
+        layout = view.home_layout
         return view
     }
 
@@ -172,7 +174,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     }
 
     override fun updateBackground(newBackground: Int) {
-        layout.setBackground(ContextCompat.getDrawable(context, newBackground));
+        layout.background = getActivity()?.let { ContextCompat.getDrawable(it.applicationContext, newBackground) };
     }
 
     override fun openEventInfoActivity(event: Event) {

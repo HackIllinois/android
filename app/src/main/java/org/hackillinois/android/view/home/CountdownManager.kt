@@ -1,5 +1,6 @@
 package org.hackillinois.android.view.home
 
+import android.graphics.drawable.Drawable
 import android.os.CountDownTimer
 import org.hackillinois.android.R
 import org.hackillinois.android.common.isBeforeNow
@@ -28,7 +29,8 @@ class CountdownManager(val listener: CountDownListener) {
     }
 
     private var times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
-    private val titles = listOf("EVENT STARTS IN", "HACKING STARTS IN", "HACKING ENDS IN", "THANKS FOR COMING!")
+    // placeholders in case design team decides to change this
+    private val titles = listOf("Countdown", "Countdown", "Countdown", "Countdown")
 
     private var timer: CountDownTimer? = null
     private var state = 0
