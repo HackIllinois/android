@@ -21,7 +21,7 @@ jobs:
     steps:
 
       - name: Setup google_services.json
-      - run: echo ${{ secrets.RAW_GOOGLE_SERVICES }} > app/google-services.json
+        run: echo ${{ secrets.RAW_GOOGLE_SERVICES }} > app/google-services.json
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
