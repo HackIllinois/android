@@ -1,0 +1,39 @@
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: 
+    - '**'
+  pull_request:
+    branches: 
+    - '**'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Print out filepaths
+        run: ls -a
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Make Google Services File
+        run: touch ./app/google-services.json
+
+      - name: Setup google_services.json
+        env:
+          GOOGLE_SERVICES_SECRET: ${{ secrets.RAW_GOOGLE_SERVICES }}
+
+        run: echo $GOOGLE_SERVICES_SECRET > ./app/google-services.json
+
+      # Runs a single command using the runners shell
+      - name: Run gradew script
+        run: ./gradlew clean ktlintCheck testDebugUnitTest build
