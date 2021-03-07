@@ -12,7 +12,8 @@ import org.hackillinois.android.database.entity.*
         User::class,
         Event::class,
         Roles::class,
-        Project::class
+        Project::class,
+        Profile::class
     ],
     version = 2
 )
@@ -23,4 +24,5 @@ abstract class Database : RoomDatabase() {
     abstract fun eventDao(): EventDao
     abstract fun rolesDao(): RolesDao
     abstract fun projectsDao(): ProjectsDao
+    abstract fun profileDao(): ProfileDao
 }

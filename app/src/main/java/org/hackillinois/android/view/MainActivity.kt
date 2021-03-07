@@ -31,6 +31,7 @@ import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.maps.MapsFragment
+import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.project.ProjectFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                     when (view) {
                         bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
                         bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
-                        bottomAppBar.mapsButton -> switchFragment(MapsFragment(), false)
+                        bottomAppBar.mapsButton -> switchFragment(ProfileFragment(), false)
                         bottomAppBar.projectsButton -> switchFragment(ProjectFragment(), false)
                         else -> return@setOnClickListener
                     }
