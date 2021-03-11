@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat.setBackground
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -174,7 +173,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     }
 
     override fun updateBackground(newBackground: Int) {
-        layout.background = getActivity()?.let { ContextCompat.getDrawable(it.applicationContext, newBackground) };
+        layout.background = getActivity()?.let { ContextCompat.getDrawable(it.applicationContext, newBackground) }
     }
 
     override fun openEventInfoActivity(event: Event) {

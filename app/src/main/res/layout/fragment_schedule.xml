@@ -73,6 +73,13 @@
             android:fontFamily="@font/montserrat_semi_bold"
             android:text="@string/schedule_tab_sunday" />
 
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/schedule_tab_monday" />
+
     </com.google.android.material.tabs.TabLayout>
 
     <View

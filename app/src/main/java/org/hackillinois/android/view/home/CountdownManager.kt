@@ -1,6 +1,5 @@
 package org.hackillinois.android.view.home
 
-import android.graphics.drawable.Drawable
 import android.os.CountDownTimer
 import org.hackillinois.android.R
 import org.hackillinois.android.common.isBeforeNow
@@ -40,9 +39,8 @@ class CountdownManager(val listener: CountDownListener) {
 
     private val refreshRateMs = 500L
 
-
-    private fun findBackground() : Int {
-        val current : Long = Calendar.getInstance().timeInMillis
+    private fun findBackground(): Int {
+        val current: Long = Calendar.getInstance().timeInMillis
         // During or after event start
         // Night background
         if (current > hackingStartTime.timeInMillis) {

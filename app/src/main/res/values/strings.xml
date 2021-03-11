@@ -3,10 +3,12 @@
 
     <string name="home_empty_events">Check Back Later</string>
 
-    <string name="schedule_tab_friday">FRIDAY</string>
-    <string name="schedule_tab_saturday">SATURDAY</string>
-    <string name="schedule_tab_sunday">SUNDAY</string>
-    <string name="schedule_header">SCHEDULE</string>
+    <string name="schedule_tab_friday">Friday</string>
+    <string name="schedule_tab_saturday">Saturday</string>
+    <string name="schedule_tab_sunday">Sunday</string>
+    <string name="schedule_tab_monday">Monday</string>
+
+    <string name="schedule_header">Schedule</string>
     <string name="schedule_snackbar_notifications_on">Notifications are on for this event</string>
 
     <string name="map_dcl">DCL</string>
