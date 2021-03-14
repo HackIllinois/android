@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.project_list_item.view.*
+import kotlinx.android.synthetic.main.project_list_item.view.favoriteProject
 import kotlinx.android.synthetic.main.project_tags.view.*
+import kotlinx.android.synthetic.main.schedule_list_item.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Project
@@ -33,8 +35,8 @@ class ProjectAdapter(
 
         holder.itemView.apply {
             project_name.text = project.name
-            table_number.text = "Table #${project.number}"
-            project_meeting_room.text = "Meeting Room: ${project.room}"
+            event_time.text = "Table #${project.number}"
+            event_description.text = "Meeting Room: ${project.room}"
             setOnClickListener { projectClickListener.onClick(project.id) }
             favoriteProject.isSelected = FavoritesManager.isFavoritedProject(context, project.id)
 

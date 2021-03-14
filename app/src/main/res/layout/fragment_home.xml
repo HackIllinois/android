@@ -5,7 +5,7 @@
     android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/homepage_bg">
+    android:background="@drawable/home_background_during">
 
     <TextView
         android:id="@+id/countdownTextView"
@@ -117,15 +117,15 @@
         </org.hackillinois.android.view.custom.ticker.TickerView>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/buildingsImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hoursUnit"
-        app:srcCompat="@drawable/buildings" />
+<!--    <ImageView-->
+<!--        android:id="@+id/buildingsImageView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/hoursUnit"-->
+<!--        app:srcCompat="@drawable/buildings" />-->
 
     <com.dinuscxj.refresh.RecyclerRefreshLayout
         android:id="@+id/refreshLayout"

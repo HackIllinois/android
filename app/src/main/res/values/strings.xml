@@ -71,6 +71,9 @@
 
     <string name="login_notice">Log in to see your QR code!</string>
 
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem cursus, nulla cras. Non in nibh vulputate pharetra, ornare mi malesuada. Id tempus amet est.</string>
+    <string name="join_stream">Join Stream!</string>
+
 
     <string-array name="event_location_options">
         <item>Siebel Center</item>
