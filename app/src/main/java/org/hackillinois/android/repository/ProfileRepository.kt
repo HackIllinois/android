@@ -14,7 +14,10 @@ class ProfileRepository {
     private val profileDao = App.database.profileDao()
 
     fun fetchCurrentProfile(): LiveData<Profile> {
-        val currentProfileId = userDao.getUser().value?.id
+        var currentProfileId = userDao.getUser().value?.id
+        if (currentProfileId == null) {
+            currentProfileId = ""
+        }
         return fetchProfile(currentProfileId)
     }
 
@@ -36,7 +39,9 @@ class ProfileRepository {
     private fun refreshAll() {
         GlobalScope.launch(Dispatchers.IO) {
             try {
+                Log.d("TAG", App.getAPI().currentProfile().firstName)
                 val profileList = App.getAPI().allProfiles()
+                Log.d("TAG", profileList.toString())
                 profileDao.clearTableAndInsertProfiles(profileList.profiles)
             } catch (e: Exception) {
                 Log.e("Profilerepo refreshAll", e.toString())

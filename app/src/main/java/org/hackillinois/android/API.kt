@@ -90,7 +90,7 @@ interface API {
     @GET("profile/")
     suspend fun currentProfile(): Profile
 
-    @GET("profile/list/")
+    @GET("profile/search/")
     suspend fun allProfiles(): ProfileList
 
     @GET("upload/blobstore/times/")
