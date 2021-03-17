@@ -42,7 +42,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp">
 
             <TextView
                 android:id="@+id/titleTextView"
@@ -53,52 +54,51 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/eventLocationTextView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Title" />
 
-            <TextView
-                android:id="@+id/sponsoredTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="72dp"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:textColor="@color/sponsoredByColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/titleTextView"
-                tools:text="By Company" />
+<!--            <TextView-->
+<!--                android:id="@+id/sponsoredTextView"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginEnd="72dp"-->
+<!--                android:fontFamily="@font/montserrat_semi_bold"-->
+<!--                android:textColor="@color/sponsoredByColor"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/titleTextView"-->
+<!--                tools:text="By Company" />-->
 
-            <TextView
-                android:id="@+id/eventLocationTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="72dp"
-                android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sponsoredTextView"
-                tools:text="Location" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/eventLocationTextView"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginEnd="72dp"-->
+<!--                android:textColor="@color/primaryTextColor"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/sponsoredTextView"-->
+<!--                tools:text="Location" />-->
 
             <TextView
                 android:id="@+id/eventDescriptionTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="72dp"
                 android:layout_marginBottom="16dp"
                 android:ellipsize="end"
-                android:maxLines="2"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventLocationTextView"
-                tools:text="Description" />
+                app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+                tools:text="@string/lorem_ipsum" />
 
             <ImageButton
                 android:id="@+id/starButton"
@@ -112,6 +112,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_star_border" />
+
+            <Button
+                android:id="@+id/joinStreamBtn"
+                android:layout_width="173dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/rounded_blue_bg"
+                android:text="Points: 42"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventDescriptionTextView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
