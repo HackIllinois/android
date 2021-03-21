@@ -26,7 +26,7 @@ class App : Application() {
 
         fun getAPI(token: String? = null): API {
             // TODO: Change back to token
-            val dummyToken = "your_token_here"
+            val dummyToken = "YOUR_TOKEN_HERE"
             if (dummyToken == null) {
                 return if (apiInitialized) apiInternal else getAPI("")
             }
