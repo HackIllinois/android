@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
 import org.hackillinois.android.model.Group
+import org.hackillinois.android.view.profile.ProfileViewModel
 
 
 class GroupmatchingFragment : Fragment() {
@@ -28,6 +30,17 @@ class GroupmatchingFragment : Fragment() {
     private var lookingForMemberFlag: Boolean = false
     private lateinit var skills : Array<String>
     private lateinit var skillsChecked : BooleanArray
+    private val groupAdapter = GroupAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(GroupmatchingViewModel::class.java)
+        viewModel.init()
+        viewModel.allProfilesLiveData.observe(this, Observer {
+            Log.i("GroupMatching", it[0].firstName)
+            groupAdapter.data = it
+        })
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -83,28 +96,11 @@ class GroupmatchingFragment : Fragment() {
         }
 
         val recyclerView : RecyclerView = view.findViewById(R.id.team_matching_recyclerview)
-        val groupAdapter = GroupAdapter()
 
-        val groupList = listOf<Group>(
-                Group(0, "First Last", "Looking For Team",
-                        false, "01 / 00 Profile Match", "Short tagline description - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id habitant egestas."),
-                Group(0, "First LastName", "Team Looing For Members",
-                        false, "01 / 09 Profile Match", "Short tagline description - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id habitant egestas."),
-                Group(0, "First Last", "Looking For Team",
-                        false, "00 / 00 Profile Match", "Short tagline description - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id habitant egestas.")
-        )
-        // Log.i("GroupMatching", groupList.size.toString())
-        groupAdapter.data = groupList
+
         recyclerView.adapter = groupAdapter
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(GroupmatchingViewModel::class.java)
-        // TODO: Use the ViewModel
-
-
-    }
 
 }

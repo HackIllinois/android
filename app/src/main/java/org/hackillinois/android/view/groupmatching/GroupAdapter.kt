@@ -8,11 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
+import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.model.Group
 
 class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
-    var data = listOf<Group>()
+    var data = listOf<Profile>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -46,10 +47,10 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
             }
         }
 
-        fun bind(item: Group) {
-            nameTextView.text = item.name
-            statusTextView.text = item.status
-            profileMatch.text = item.profileMatch
+        fun bind(item: Profile) {
+            nameTextView.text = item.firstName + " " + item.lastName
+            statusTextView.text = item.teamStatus
+            profileMatch.text = "????"
             descriptionTextView.text = item.description
         }
     }
