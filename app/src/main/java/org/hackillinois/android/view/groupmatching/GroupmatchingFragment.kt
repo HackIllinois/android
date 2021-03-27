@@ -1,6 +1,8 @@
 package org.hackillinois.android.view.groupmatching
 
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -87,6 +89,7 @@ class GroupmatchingFragment : Fragment() {
         val alertDialogBuilder = AlertDialog.Builder(context, R.style.WrapContentDialog)
         alertDialogBuilder.setView(alertDialogView)
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         skillsButton.setOnClickListener {
             alertDialog.show()
         }
