@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
@@ -32,7 +32,6 @@ import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.maps.MapsFragment
-import org.hackillinois.android.view.project.ProjectFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
