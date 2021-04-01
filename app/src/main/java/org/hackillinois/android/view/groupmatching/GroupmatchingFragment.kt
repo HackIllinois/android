@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -32,9 +33,9 @@ class GroupmatchingFragment : Fragment() {
     private var lookingForTeamFlag: Boolean = true
     private var lookingForMemberFlag: Boolean = true
     private lateinit var skills : Array<String>
-    private lateinit var skillsChecked : BooleanArray
+    private lateinit var skillsChecked : MutableLiveData<BooleanArray>
     private val groupAdapter = GroupAdapter()
-    private lateinit var allProfiles : List<Profile>
+    private var allProfiles : List<Profile> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +48,17 @@ class GroupmatchingFragment : Fragment() {
     }
 
     fun filterProfiles() {
+        skillsChecked.value!!.contains(true)
         if (lookingForTeamFlag && lookingForMemberFlag) {
-            groupAdapter.data = allProfiles
+            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!)}
         } else if (lookingForTeamFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_TEAM") }
+            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_TEAM")
+                    && profile.hasRequiredSkill(skills, skillsChecked.value!!)}
         } else if (lookingForMemberFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_MEMBERS") }
+            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_MEMBERS")
+                    && profile.hasRequiredSkill(skills, skillsChecked.value!!) }
         } else {
-            groupAdapter.data = allProfiles
+            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!)}
         }
     }
 
@@ -96,7 +100,11 @@ class GroupmatchingFragment : Fragment() {
             filterProfiles()
         }
         skills = resources.getStringArray(R.array.skills_array)
-        skillsChecked = BooleanArray(skills.size)
+        skillsChecked = MutableLiveData(BooleanArray(skills.size))
+        skillsChecked.observe(viewLifecycleOwner, Observer {
+            Log.i("GroupMatching", "skillsChecked changed")
+            filterProfiles()
+        })
 
         val skillsButton = view.findViewById<Button>(R.id.skills_button)
         val alertDialogView = inflater.inflate(R.layout.skills_alert_dialog, null)
@@ -120,6 +128,19 @@ class GroupmatchingFragment : Fragment() {
         recyclerView.adapter = groupAdapter
         return view
     }
+}
 
+fun Profile.hasRequiredSkill(skills: Array<String>, skillsChecked: BooleanArray) : Boolean {
+    Log.i("GroupMatching", skillsChecked.toString())
+    if (!skillsChecked.contains(true)) {
+        return true;
+    }
 
+    for (i in skills.indices) {
+        if (skillsChecked[i] && this.interests.contains(skills[i])) {
+            Log.i("GroupMatching", skills[i])
+            return true;
+        }
+    }
+    return false;
 }
