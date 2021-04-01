@@ -172,9 +172,9 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         }
     }
 
-    override fun updateBackground(newBackground: Int) {
-        layout.background = getActivity()?.let { ContextCompat.getDrawable(it.applicationContext, newBackground) }
-    }
+//    override fun updateBackground(newBackground: Int) {
+//        layout.background = getActivity()?.let { ContextCompat.getDrawable(it.applicationContext, newBackground) }
+//    }
 
     override fun openEventInfoActivity(event: Event) {
         val eventInfoFragment = EventInfoFragment.newInstance(event.id)

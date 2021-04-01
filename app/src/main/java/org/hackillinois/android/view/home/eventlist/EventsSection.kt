@@ -37,6 +37,7 @@ class EventsSection(
 //            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
 //            eventLocationTextView.text = event.getLocationDescriptionsAsString()
             eventDescriptionTextView.text = event.description
+            pointsView.text = "Points:  ${event.points}"
 
             setOnClickListener {
                 eventClickListener.openEventInfoActivity(eventsList[position])

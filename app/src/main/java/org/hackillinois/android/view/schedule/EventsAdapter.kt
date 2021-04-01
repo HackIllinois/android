@@ -53,6 +53,8 @@ class EventsAdapter(
             setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
+            pointsView.text = "Points:  ${event.points}"
+
 //            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
 //            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
 

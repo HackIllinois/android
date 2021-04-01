@@ -114,7 +114,7 @@
                 app:srcCompat="@drawable/ic_star_border" />
 
             <Button
-                android:id="@+id/joinStreamBtn"
+                android:id="@+id/pointsView"
                 android:layout_width="173dp"
                 android:layout_height="28dp"
                 android:layout_marginTop="8dp"
