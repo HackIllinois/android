@@ -50,7 +50,8 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
         fun bind(item: Profile) {
             nameTextView.text = item.firstName + " " + item.lastName
             statusTextView.text = item.teamStatus
-            profileMatch.text = "????"
+            // TODO: what to put here? discord username?
+            profileMatch.text = item.discord
             descriptionTextView.text = item.description
         }
     }

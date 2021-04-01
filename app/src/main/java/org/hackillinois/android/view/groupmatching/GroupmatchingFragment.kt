@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
+import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.model.Group
 import org.hackillinois.android.view.profile.ProfileViewModel
 
@@ -28,20 +29,33 @@ class GroupmatchingFragment : Fragment() {
     private lateinit var viewModel: GroupmatchingViewModel
     private lateinit var popupWindow: PopupWindow
     private lateinit var groupStatusButton: Button
-    private var lookingForTeamFlag: Boolean = false
-    private var lookingForMemberFlag: Boolean = false
+    private var lookingForTeamFlag: Boolean = true
+    private var lookingForMemberFlag: Boolean = true
     private lateinit var skills : Array<String>
     private lateinit var skillsChecked : BooleanArray
     private val groupAdapter = GroupAdapter()
+    private lateinit var allProfiles : List<Profile>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(GroupmatchingViewModel::class.java)
         viewModel.init()
         viewModel.allProfilesLiveData.observe(this, Observer {
-            Log.i("GroupMatching", it[0].firstName)
-            groupAdapter.data = it
+            allProfiles = it
+            filterProfiles()
         })
+    }
+
+    fun filterProfiles() {
+        if (lookingForTeamFlag && lookingForMemberFlag) {
+            groupAdapter.data = allProfiles
+        } else if (lookingForTeamFlag) {
+            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_TEAM") }
+        } else if (lookingForMemberFlag) {
+            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_MEMBERS") }
+        } else {
+            groupAdapter.data = allProfiles
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +82,7 @@ class GroupmatchingFragment : Fragment() {
                 lookingForTeamFlag = false
                 imageView.setImageResource(R.drawable.hollow_square)
             }
+            filterProfiles()
         }
         lookingForMemberLL.setOnClickListener {
             val imageView = it.findViewById<ImageView>(R.id.team_looking_for_members_imageview)
@@ -78,6 +93,7 @@ class GroupmatchingFragment : Fragment() {
                 lookingForMemberFlag = false
                 imageView.setImageResource(R.drawable.hollow_square)
             }
+            filterProfiles()
         }
         skills = resources.getStringArray(R.array.skills_array)
         skillsChecked = BooleanArray(skills.size)
