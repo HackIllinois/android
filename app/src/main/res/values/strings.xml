@@ -24,9 +24,9 @@
     <string name="authorization_pref_file_key">org.hackillinois.android.authorization</string>
     <string name="welcome_login">Welcome to</string>
     <string name="label_login">Login</string>
-    <string name="attendee_login">ATTENDEE</string>
-    <string name="staff_login">STAFF</string>
-    <string name="guest_login">GUEST</string>
+    <string name="attendee_login">Attendee</string>
+    <string name="staff_login">Staff</string>
+    <string name="guest_login">Guest</string>
     <string name="login_or_label">- OR -</string>
     <string name="tab_stats">Stats</string>
     <string name="tab_events">Events</string>
@@ -44,14 +44,14 @@
     <string name="notification_topic">Notification Topic</string>
     <string name="notification_content">Notification Content</string>
     <string name="notification_title">Notification Title</string>
-    <string name="close_text">CLOSE</string>
-    <string name="logout_text">LOG OUT</string>
+    <string name="close_text">Close</string>
+    <string name="logout_text">Log Out</string>
 
     <string name="default_time_homepage">00</string>
-    <string name="days_label">DAYS</string>
-    <string name="hours_label">HOURS</string>
-    <string name="minutes_label">MINUTES</string>
-    <string name="projects_header">PROJECTS</string>
+    <string name="days_label">Days</string>
+    <string name="hours_label">Hours</string>
+    <string name="minutes_label">Minutes</string>
+    <string name="projects_header">Projects</string>
     <string name="fav_button_text">Favorites</string>
     <string name="spinner_default">Select Category</string>
     <string name="data_sci_project">DATA SCI</string>

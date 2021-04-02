@@ -47,7 +47,7 @@ class TickerView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
                 val textSize = getDimension(R.styleable.TickerView_ticker_text_size, 0F)
                 val cornerRadius = getDimension(R.styleable.TickerView_ticker_corner_radius, 0F)
                 val gapPercentage = 0F
-                val tickerColor = getColor(R.styleable.TickerView_ticker_color, Color.WHITE)
+                val tickerColor = getColor(R.styleable.TickerView_ticker_color, Color.TRANSPARENT)
 
                 allTickers.map {
                     it.setProperties(gapPercentage, tickerColor, cornerRadius, textSize, textColor)

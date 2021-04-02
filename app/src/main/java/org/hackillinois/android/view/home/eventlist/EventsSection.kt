@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.home.eventlist
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -15,7 +16,7 @@ import org.hackillinois.android.database.entity.Event
 class EventsSection(
     var eventsList: List<Event>,
     private val headerText: String,
-    private val headerColor: Int,
+    private val headerColor: Int = Color.WHITE,
     private val showTime: Boolean,
     private val eventClickListener: EventClickListener,
     private val context: Context

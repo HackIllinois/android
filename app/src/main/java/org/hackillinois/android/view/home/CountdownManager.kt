@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.home
 
 import android.os.CountDownTimer
-import org.hackillinois.android.R
 import org.hackillinois.android.common.isBeforeNow
 import org.hackillinois.android.common.timeUntilMs
 import org.hackillinois.android.model.TimesWrapper
