@@ -1,6 +1,8 @@
 package org.hackillinois.android.view.groupmatching
 
 import android.content.Context
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +10,13 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.model.Group
+import java.lang.Exception
 
 class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
@@ -54,6 +58,7 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
         }
 
         fun bind(item: Profile) {
+            Log.i("GroupAdapter", "bind")
             nameTextView.text = item.firstName + " " + item.lastName
             statusTextView.text = item.teamStatus
             profileMatch.text = item.discord
@@ -67,6 +72,11 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
                 } else {
                     FavoritesManager.unfavoriteProfile(context, item)
                 }
+            }
+            try {
+                Glide.with(context).load(item.avatarUrl).centerCrop().placeholder(R.drawable.ic_star_border).into(avatarIcon)
+            } catch (e: Exception) {
+                Log.e("GroupAdapter", e.localizedMessage)
             }
         }
     }
