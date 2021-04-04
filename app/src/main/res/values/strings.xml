@@ -63,6 +63,7 @@
     <string name="systems_tag">Systems</string>
 
     <string name="project_favorited_notif">Project added to Favorites!</string>
+    <string name="profile_favorited_notif">Profile added to Favorites!</string>
 
     <string name="outdoors_button">OUTDOORS</string>
     <string name="indoors_buttons">INDOORS</string>

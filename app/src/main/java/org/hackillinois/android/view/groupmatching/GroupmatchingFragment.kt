@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
+import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.model.Group
 import org.hackillinois.android.view.profile.ProfileViewModel
@@ -36,6 +37,7 @@ class GroupmatchingFragment : Fragment() {
     private lateinit var skillsChecked : MutableLiveData<BooleanArray>
     private val groupAdapter = GroupAdapter()
     private var allProfiles : List<Profile> = listOf()
+    private lateinit var favButton : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +49,7 @@ class GroupmatchingFragment : Fragment() {
         })
     }
 
-    fun filterProfiles() {
+    private fun filterProfiles() {
         skillsChecked.value!!.contains(true)
         if (lookingForTeamFlag && lookingForMemberFlag) {
             groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!)}
@@ -59,6 +61,9 @@ class GroupmatchingFragment : Fragment() {
                     && profile.hasRequiredSkill(skills, skillsChecked.value!!) }
         } else {
             groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!)}
+        }
+        if (favButton.isSelected) {
+            groupAdapter.data = groupAdapter.data.filter { profile -> FavoritesManager.isFavoritedProfile(requireContext(), profile) }
         }
     }
 
@@ -126,12 +131,17 @@ class GroupmatchingFragment : Fragment() {
 
 
         recyclerView.adapter = groupAdapter
+
+        favButton = view.findViewById<ImageButton>(R.id.star_button)
+        favButton.setOnClickListener {
+            favButton.isSelected = !favButton.isSelected
+            filterProfiles()
+        }
         return view
     }
 }
 
 fun Profile.hasRequiredSkill(skills: Array<String>, skillsChecked: BooleanArray) : Boolean {
-    Log.i("GroupMatching", skillsChecked.toString())
     if (!skillsChecked.contains(true)) {
         return true;
     }

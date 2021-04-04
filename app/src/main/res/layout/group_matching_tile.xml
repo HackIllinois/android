@@ -70,10 +70,9 @@
                 android:layout_marginEnd="20dp"
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
-                android:src="@drawable/ic_star_selectable"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_star_border" />
+                app:srcCompat="@drawable/star_button" />
 
             <TextView
                 android:id="@+id/profile_match"

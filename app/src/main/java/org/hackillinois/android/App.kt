@@ -25,15 +25,13 @@ class App : Application() {
             private set
 
         fun getAPI(token: String? = null): API {
-            // TODO: Change back to token
-            val dummyToken = "YOUR_TOKEN_HERE"
-            if (dummyToken == null) {
+            if (token == null) {
                 return if (apiInitialized) apiInternal else getAPI("")
             }
 
             val interceptor = { chain: Interceptor.Chain ->
                 val newRequest = chain.request().newBuilder()
-                        .addHeader("Authorization", dummyToken)
+                        .addHeader("Authorization", token)
                         .build()
                 chain.proceed(newRequest)
             }
