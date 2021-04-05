@@ -13,6 +13,7 @@ class ProfileViewModel : ViewModel() {
     lateinit var currentProfileLiveData: LiveData<Profile>
 
     fun init() {
+
         allProfilesLiveData = profileRepository.fetchAllProfiles()
         currentProfileLiveData = profileRepository.fetchCurrentProfile()
 

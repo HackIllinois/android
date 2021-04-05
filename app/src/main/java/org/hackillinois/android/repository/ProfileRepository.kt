@@ -14,7 +14,7 @@ class ProfileRepository {
     private val userDao = App.database.userDao()
     private val profileDao = App.database.profileDao()
 
-//    fun fetchCurrentProfile(): LiveData<Profile> {
+    //    fun fetchCurrentProfile(): LiveData<Profile> {
 //        Log.d("profile call", "fetchcurrentprofile")
 //
 //        var currentProfileId = userDao.getUser().value?.id
