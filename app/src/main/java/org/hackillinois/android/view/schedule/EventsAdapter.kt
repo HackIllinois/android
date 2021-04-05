@@ -53,13 +53,46 @@ class EventsAdapter(
             setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
-            pointsView.text = "Points:  ${event.points}"
 
-//            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-//            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
+            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
 
 //            eventLocationTextView.text = event.getLocationDescriptionsAsString()
             eventDescriptionTextView.text = event.description
+
+            pointsView.text = "${event.getPointValue()} Points!"
+
+            // @todo sloppy, clean up
+            when(event.eventType) {
+                "MEAL" -> {
+                    eventType.setText(R.string.mealText)
+                    eventType.setTextColor(resources.getColor(R.color.mealTextColor))
+                }
+                "SPEAKER" -> {
+                    eventType.setText(R.string.speakerText)
+                    eventType.setTextColor(resources.getColor(R.color.speakerTextColor))
+                }
+                "WORKSHOP" -> {
+                    eventType.setText(R.string.workshopText)
+                    eventType.setTextColor(resources.getColor(R.color.workshopTextColor))
+                }
+                "MINIEVENT" -> {
+                    eventType.setText(R.string.miniEventText)
+                    eventType.setTextColor(resources.getColor(R.color.miniEventTextColor))
+                }
+                "QNA" -> {
+                    eventType.setText(R.string.qnaText)
+                    eventType.setTextColor(resources.getColor(R.color.qnaTextColor))
+                }
+                "OTHER" -> {
+                    eventType.setText(R.string.otherText)
+                    eventType.setTextColor(resources.getColor(R.color.otherTextColor))
+                }
+                else -> {
+                    eventType.visibility = View.GONE
+                }
+            }
             starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
             starButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
@@ -71,6 +104,7 @@ class EventsAdapter(
                     FavoritesManager.unfavoriteEvent(context, event)
                 }
             }
+
         }
     }
 

@@ -86,6 +86,15 @@
         <item>SPEAKER</item>
         <item>WORKSHOP</item>
         <item>MINIEVENT</item>
+        <item>QNA</item>
         <item>OTHER</item>
     </string-array>
+
+    <string name="mealText">Meal</string>
+    <string name="speakerText">Speaker</string>
+    <string name="workshopText">Workshop</string>
+    <string name="miniEventText">Mini-event</string>
+    <string name="qnaText">Q&amp;A</string>
+    <string name="otherText">Other</string>
+
 </resources>

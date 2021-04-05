@@ -7,17 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <ImageButton
         android:id="@+id/favScheduleButton"
-        android:layout_width="117dp"
-        android:layout_height="34dp"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_star_selectable"
-        android:background="@drawable/toggleable_rounded_button"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:text="@string/fav_button_text"
-        android:textColor="@android:color/white"
+        android:src="@drawable/ic_star_selectable_light"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
