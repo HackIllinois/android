@@ -41,4 +41,8 @@
     <color name="loginLabelColor">#E26856</color>
 
     <color name="sponsoredByColor">#A43B5C</color>
+
+    <color name="offWhiteColor">#F6F6F6</color>
+    <color name="selectedOffWhiteColor">#F3F3F3</color>
+
 </resources>

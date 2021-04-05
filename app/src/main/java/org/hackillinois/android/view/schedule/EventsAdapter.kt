@@ -50,7 +50,7 @@ class EventsAdapter(
 
     private fun bindEventItem(event: Event, itemView: View) {
         itemView.apply {
-            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
+//            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
 
@@ -64,7 +64,7 @@ class EventsAdapter(
             pointsView.text = "${event.getPointValue()} Points!"
 
             // @todo sloppy, clean up
-            when(event.eventType) {
+            when (event.eventType) {
                 "MEAL" -> {
                     eventType.setText(R.string.mealText)
                     eventType.setTextColor(resources.getColor(R.color.mealTextColor))
@@ -104,7 +104,6 @@ class EventsAdapter(
                     FavoritesManager.unfavoriteEvent(context, event)
                 }
             }
-
         }
     }
 

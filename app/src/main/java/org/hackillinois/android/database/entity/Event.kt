@@ -1,6 +1,6 @@
 package org.hackillinois.android.database.entity
 
-//import android.util.Log
+// import android.util.Log
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey

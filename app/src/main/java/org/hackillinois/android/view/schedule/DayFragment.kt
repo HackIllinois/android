@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.fragment_schedule_day.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.view.eventinfo.EventInfoFragment
-import org.hackillinois.android.view.MainActivity
+// import org.hackillinois.android.view.eventinfo.EventInfoFragment
+// import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.viewmodel.ScheduleViewModel
 
@@ -93,10 +93,11 @@ class DayFragment : Fragment(), EventClickListener {
         listState = mLayoutManager.onSaveInstanceState()
     }
 
-    override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
-        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
-    }
+// iOS doesn't have this -- Hack 2021
+//    override fun openEventInfoActivity(event: Event) {
+//        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+//        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
+//    }
 
     private fun updateEvents(list: List<Event>) {
         var listTemp = list

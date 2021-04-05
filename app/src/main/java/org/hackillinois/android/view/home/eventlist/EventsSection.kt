@@ -42,7 +42,7 @@ class EventsSection(
             pointsView.text = "${event.getPointValue()} Points!"
 
             // @todo sloppy, clean up
-            when(event.eventType) {
+            when (event.eventType) {
                 "MEAL" -> {
                     eventType.setText(R.string.mealText)
                     eventType.setTextColor(resources.getColor(R.color.mealTextColor))
