@@ -104,11 +104,11 @@
             app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
         <TextView
-            android:id="@+id/discordUsernameText"
+            android:id="@+id/discordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="Discord Username"
+            android:text="Discord"
             android:fontFamily="@font/montserrat_bold"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
@@ -158,7 +158,7 @@
             app:layout_constraintTop_toBottomOf="@+id/discordImage" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/editButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -171,11 +171,12 @@
             app:srcCompat="@drawable/edit" />
 
         <LinearLayout
-            android:id="@+id/skillsLayout"
+            android:id="@+id/skillsLinearLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
             android:gravity="left"
             android:orientation="vertical"
             android:paddingBottom="100dp"

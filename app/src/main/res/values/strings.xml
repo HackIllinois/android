@@ -83,4 +83,51 @@
         <item>MINIEVENT</item>
         <item>OTHER</item>
     </string-array>
+
+    <string-array name="skills_array">
+        <item>Adobe Illustrator</item>
+        <item>Adobe InDesign</item>
+        <item>Adobe Photoshop</item>
+        <item>Adobe XD</item>
+        <item>Android</item>
+        <item>Arduino</item>
+        <item>AWS</item>
+        <item>Azure</item>
+        <item>Blender</item>
+        <item>C</item>
+        <item>C#</item>
+        <item>C++</item>
+        <item>Canva</item>
+        <item>CSS</item>
+        <item>Digital Ocean</item>
+        <item>Figma</item>
+        <item>Firebase</item>
+        <item>Flutter</item>
+        <item>git</item>
+        <item>GitHub</item>
+        <item>Go</item>
+        <item>Godot</item>
+        <item>Google Cloud</item>
+        <item>Haskell</item>
+        <item>HTML</item>
+        <item>iOS</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>Kotlin</item>
+        <item>MongoDB</item>
+        <item>MySQL</item>
+        <item>NativeScript</item>
+        <item>Neo4J</item>
+        <item>PHP</item>
+        <item>PostgreSQL</item>
+        <item>Python</item>
+        <item>Raspberry Pi</item>
+        <item>React Native</item>
+        <item>Ruby</item>
+        <item>Rust</item>
+        <item>Swift</item>
+        <item>TypeScript</item>
+        <item>Unity</item>
+        <item>Unreal</item>
+    </string-array>
 </resources>

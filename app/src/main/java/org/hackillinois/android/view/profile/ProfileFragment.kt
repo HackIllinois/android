@@ -1,20 +1,20 @@
 package org.hackillinois.android.view.profile
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Profile
+import org.hackillinois.android.view.MainActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,12 +27,14 @@ class ProfileFragment : Fragment() {
 
     private lateinit var skillsLayout: LinearLayout
 
+    private lateinit var editButton: ImageButton
+
     private lateinit var nameText: TextView
     private lateinit var teamStatusText: TextView
     private lateinit var timezoneText: TextView
     private lateinit var timeText: TextView
     private lateinit var pointsText: TextView
-    private lateinit var discordUsernameText: TextView
+    private lateinit var discordText: TextView
     private lateinit var descriptionText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,9 +53,15 @@ class ProfileFragment : Fragment() {
         timezoneText = view.findViewById(R.id.timezoneText)
         timeText = view.findViewById(R.id.timeText)
         pointsText = view.findViewById(R.id.pointsText)
-        discordUsernameText = view.findViewById(R.id.discordUsernameText)
+        discordText = view.findViewById(R.id.discordText)
         descriptionText = view.findViewById(R.id.descriptionText)
-        skillsLayout = view.findViewById(R.id.skillsLayout)
+        skillsLayout = view.findViewById(R.id.skillsLinearLayout)
+
+        editButton = view.findViewById(R.id.editButton)
+        editButton.setOnClickListener {
+            Log.d("TAG", "click")
+            (activity as MainActivity).switchFragment(ProfileEditFragment(), false)
+        }
 
 //        Log.d("TAG", viewModel.currentProfileLiveData.value!!.firstName)
 //        Log.d("TAG", "ALL PROFILES" + viewModel.allProfilesLiveData.value!!.get(0).firstName)
@@ -62,8 +70,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
+        Log.d("TAG", "PROFILE UPDATE UI")
+
         timezoneText.text = it.timezone
-        discordUsernameText.text = it.discord
+        discordText.text = it.discord
         descriptionText.text = it.description
         pointsText.text = it.points.toString()
 
@@ -86,7 +96,8 @@ class ProfileFragment : Fragment() {
             textView.text = it
             textView.setTextColor(0xFFFFFFFF.toInt())
             textView.setBackgroundResource(R.drawable.rounded_salmon_bg)
-            textView.setPadding(20, 20, 20, 20) // in pixels (left, top, right, bottom)
+            textView.setPadding(20, 20, 20, 20)
+            textView.typeface = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.montserrat_bold) }
 
             skillsLayout.addView(textView)
         }
