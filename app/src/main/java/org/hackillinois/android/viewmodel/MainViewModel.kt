@@ -10,12 +10,12 @@ import org.hackillinois.android.repository.qrRepository
 import org.hackillinois.android.repository.userRepository
 
 class MainViewModel : ViewModel() {
-    lateinit var qr: LiveData<QR>
+//    lateinit var qr: LiveData<QR>
     lateinit var attendee: LiveData<Attendee>
     lateinit var user: LiveData<User>
 
     fun init() {
-        qr = qrRepository.fetch()
+//        qr = qrRepository.fetch()
         attendee = attendeeRepository.fetch()
         user = userRepository.fetch()
     }
