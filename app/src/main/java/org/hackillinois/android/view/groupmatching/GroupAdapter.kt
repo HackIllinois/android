@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -18,7 +19,7 @@ import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.model.Group
 import java.lang.Exception
 
-class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class GroupAdapter(val currProfile: LiveData<Profile>) : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
     var data = listOf<Profile>()
         set(value) {
@@ -27,7 +28,7 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+        return ViewHolder.from(parent, currProfile)
     }
 
     override fun getItemCount() = data.size
@@ -38,7 +39,7 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
     }
 
 
-    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder private constructor(itemView: View, private val currUser: LiveData<Profile>) : RecyclerView.ViewHolder(itemView) {
         private val avatarIcon : ImageView = itemView.findViewById(R.id.avatar_icon)
         private val nameTextView : TextView = itemView.findViewById(R.id.name_textview)
         private val statusTextView : TextView = itemView.findViewById(R.id.status_textview)
@@ -48,29 +49,32 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
         private lateinit var context: Context
 
         companion object {
-            fun from(parent: ViewGroup): ViewHolder {
+            fun from(parent: ViewGroup, profile: LiveData<Profile>): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val view = layoutInflater.inflate(R.layout.group_matching_tile, parent, false)
-                val viewHolder = ViewHolder(view)
+                val viewHolder = ViewHolder(view, profile)
                 viewHolder.context = parent.context
                 return viewHolder
             }
         }
 
         fun bind(item: Profile) {
-            Log.i("GroupAdapter", "bind")
             nameTextView.text = item.firstName + " " + item.lastName
             statusTextView.text = item.teamStatus
             profileMatch.text = item.discord
             descriptionTextView.text = item.description
             starButton.isSelected = FavoritesManager.isFavoritedProfile(context, item)
-            starButton.setOnClickListener {
-                starButton.isSelected = !starButton.isSelected
-                if (starButton.isSelected) {
-                    FavoritesManager.favoriteProfile(context, item)
-                    Snackbar.make(starButton, R.string.profile_favorited_notif, Snackbar.LENGTH_SHORT).show()
-                } else {
-                    FavoritesManager.unfavoriteProfile(context, item)
+            if (item.id == currUser.value?.id) {
+                starButton.visibility = View.GONE
+            } else {
+                starButton.setOnClickListener {
+                    starButton.isSelected = !starButton.isSelected
+                    if (starButton.isSelected) {
+                        FavoritesManager.favoriteProfile(context, item)
+                        Snackbar.make(starButton, R.string.profile_favorited_notif, Snackbar.LENGTH_SHORT).show()
+                    } else {
+                        FavoritesManager.unfavoriteProfile(context, item)
+                    }
                 }
             }
             try {

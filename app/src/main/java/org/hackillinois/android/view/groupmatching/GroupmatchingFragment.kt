@@ -11,14 +11,17 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.model.Group
+import org.hackillinois.android.repository.ProfileRepository
 import org.hackillinois.android.view.profile.ProfileViewModel
 
 
@@ -35,7 +38,8 @@ class GroupmatchingFragment : Fragment() {
     private var lookingForMemberFlag: Boolean = true
     private lateinit var skills : Array<String>
     private lateinit var skillsChecked : MutableLiveData<BooleanArray>
-    private val groupAdapter = GroupAdapter()
+    private lateinit var currentUser : LiveData<Profile>
+    private lateinit var groupAdapter : GroupAdapter
     private var allProfiles : List<Profile> = listOf()
     private lateinit var favButton : ImageButton
 
@@ -43,10 +47,6 @@ class GroupmatchingFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(GroupmatchingViewModel::class.java)
         viewModel.init()
-        viewModel.allProfilesLiveData.observe(this, Observer {
-            allProfiles = it
-            filterProfiles()
-        })
     }
 
     private fun filterProfiles() {
@@ -118,7 +118,7 @@ class GroupmatchingFragment : Fragment() {
         val alertDialogBuilder = AlertDialog.Builder(context, R.style.WrapContentDialog)
         alertDialogBuilder.setView(alertDialogView)
         val alertDialog = alertDialogBuilder.create()
-        alertDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         skillsButton.setOnClickListener {
             alertDialog.show()
         }
@@ -129,6 +129,12 @@ class GroupmatchingFragment : Fragment() {
 
         val recyclerView : RecyclerView = view.findViewById(R.id.team_matching_recyclerview)
 
+        currentUser = ProfileRepository.instance.fetchCurrentProfile()
+        groupAdapter = GroupAdapter(currentUser)
+        currentUser.observe(viewLifecycleOwner, Observer {
+            filterProfiles()
+        })
+
 
         recyclerView.adapter = groupAdapter
 
@@ -137,20 +143,25 @@ class GroupmatchingFragment : Fragment() {
             favButton.isSelected = !favButton.isSelected
             filterProfiles()
         }
+
+        viewModel.allProfilesLiveData.observe(viewLifecycleOwner, Observer {
+            allProfiles = it
+            filterProfiles()
+        })
         return view
     }
 }
 
 fun Profile.hasRequiredSkill(skills: Array<String>, skillsChecked: BooleanArray) : Boolean {
     if (!skillsChecked.contains(true)) {
-        return true;
+        return true
     }
 
     for (i in skills.indices) {
         if (skillsChecked[i] && this.interests.contains(skills[i])) {
             Log.i("GroupMatching", skills[i])
-            return true;
+            return true
         }
     }
-    return false;
+    return false
 }
