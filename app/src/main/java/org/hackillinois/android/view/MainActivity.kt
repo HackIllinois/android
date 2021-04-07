@@ -32,9 +32,7 @@ import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
-import org.hackillinois.android.view.maps.MapsFragment
 import org.hackillinois.android.view.profile.ProfileFragment
-import org.hackillinois.android.view.project.ProjectFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
