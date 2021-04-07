@@ -20,8 +20,13 @@ data class Event(
     val endTime: Long,
     val locations: List<EventLocation>,
     val sponsor: String,
-    val eventType: String
+    val eventType: String,
+    val points: Int
 ) : ScheduleListItem {
+
+    fun getPointValue(): Int {
+        return points
+    }
 
     fun getStartTimeMs() = startTime * 1000L
 

@@ -47,7 +47,8 @@ class DayFragment : Fragment(), EventClickListener {
         val liveData = when (sectionNumber) {
             0 -> viewModel?.fridayEventsLiveData
             1 -> viewModel?.saturdayEventsLiveData
-            else -> viewModel?.sundayEventsLiveData
+            2 -> viewModel?.sundayEventsLiveData
+            else -> viewModel?.mondayEventsLiveData
         }
 
         mAdapter = EventsAdapter(listOf(), this)
