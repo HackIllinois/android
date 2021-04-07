@@ -39,7 +39,7 @@ class EventsSection(
             eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
 //            eventLocationTextView.text = event.getLocationDescriptionsAsString()
             eventDescriptionTextView.text = event.description
-            pointsView.text = "${event.getPointValue()} Points!"
+            pointsView.text = "${event.points} Points!"
 
             // @todo sloppy, clean up
             when (event.eventType) {

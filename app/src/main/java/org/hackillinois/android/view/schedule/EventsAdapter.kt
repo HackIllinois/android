@@ -59,7 +59,7 @@ class EventsAdapter(
             sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventDescriptionTextView.text = event.description
 
-            pointsView.text = "${event.getPointValue()} Points!"
+            pointsView.text = "${event.points} Points!"
 
             // @todo sloppy, clean up
             when (event.eventType) {

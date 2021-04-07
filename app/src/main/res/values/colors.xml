@@ -32,6 +32,10 @@
     <color name="qnaTextColor">#E4694A</color>
     <color name="otherTextColor">#E87AA4</color>
 
+    <color name="lookingForTeamColor">#009900</color>
+    <color name="lookingForMembersColor">#FF9933</color>
+    <color name="notLookingColor">#CC0000</color>
+
     <color name="starColor">#222B5C</color>
     <color name="white">#FFFFFF</color>
 
