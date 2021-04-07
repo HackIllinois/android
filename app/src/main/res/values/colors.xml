@@ -48,5 +48,6 @@
     <color name="offWhiteBackgroundColor">#F6F6F6</color>
 
     <color name="selectedOffWhiteColor">#F3F3F3</color>
+    <color name="submitBtnColor">#F06C6F</color>
 
 </resources>

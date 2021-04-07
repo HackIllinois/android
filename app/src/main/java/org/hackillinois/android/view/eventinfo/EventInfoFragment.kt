@@ -45,7 +45,7 @@ class EventInfoFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
 
-        view.closeButton.setOnClickListener { activity?.onBackPressed() }
+        view.codeEntryClose.setOnClickListener { activity?.onBackPressed() }
         view.favoriteButton.setOnClickListener {
             viewModel.changeFavoritedState()
         }

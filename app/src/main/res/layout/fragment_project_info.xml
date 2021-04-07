@@ -8,7 +8,7 @@
     android:background="@color/colorBackgrounds" >
 
     <Button
-        android:id="@+id/closeButton"
+        android:id="@+id/codeEntryClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -30,7 +30,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/closeButton">
+        app:layout_constraintTop_toBottomOf="@+id/codeEntryClose">
 
         <include layout="@layout/project_tags" />
     </FrameLayout>
