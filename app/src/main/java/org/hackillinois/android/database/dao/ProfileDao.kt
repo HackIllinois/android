@@ -28,4 +28,22 @@ interface ProfileDao {
         clearTable()
         insertAll(profiles)
     }
+
+//    @Query("UPDATE profiles SET description = :newDescription WHERE id = :profileId")
+//    fun setDescription(profileId: String, newDescription: String)
+//
+//    @Query("UPDATE profiles SET interests = :newInterests WHERE id = :profileId")
+//    fun setInterests(profileId: String, newInterests: List<String>)
+//
+//    @Query("UPDATE profiles SET firstName = :newFirstName WHERE id = :profileId")
+//    fun setFirstName(profileId: String, newFirstName: String)
+//
+//    @Query("UPDATE profiles SET lastName = :newLastName WHERE id = :profileId")
+//    fun setLastName(profileId: String, newLastName: String)
+//
+//    @Query("UPDATE profiles SET discord = :newDiscord WHERE id = :profileId")
+//    fun setDiscord(profileId: String, newDiscord: String)
+//
+//    @Query("UPDATE profiles SET teamStatus = :newTeamStatus WHERE id = :profileId")
+//    fun setTeamStatus(profileId: String, newTeamStatus: String)
 }
