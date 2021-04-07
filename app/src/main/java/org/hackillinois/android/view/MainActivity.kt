@@ -179,7 +179,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun logout() {
+    fun logout() {
         JWTUtilities.clearJWT(applicationContext)
 
         thread {

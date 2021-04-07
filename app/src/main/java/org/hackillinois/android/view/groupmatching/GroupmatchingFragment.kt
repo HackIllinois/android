@@ -19,9 +19,11 @@ import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
+import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.model.Group
 import org.hackillinois.android.repository.ProfileRepository
+import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.profile.ProfileViewModel
 
 
@@ -45,12 +47,24 @@ class GroupmatchingFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (!hasLoggedIn()) {
+            return
+        }
         viewModel = ViewModelProvider(this).get(GroupmatchingViewModel::class.java)
         viewModel.init()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        if (!hasLoggedIn()) {
+            val view = inflater.inflate(R.layout.groupmatching_fragment_null, container, false)
+            val logoutButton = view.findViewById<Button>(R.id.logout_button)
+            logoutButton.setOnClickListener {
+                val mainActivity : MainActivity = requireActivity() as MainActivity
+                mainActivity.logout()
+            }
+            return view
+        }
         val view = inflater.inflate(R.layout.groupmatching_fragment, container, false)
         groupStatusButton = view.findViewById(R.id.group_status_button)
         val width: Int = (158 * requireContext().resources.displayMetrics.density).toInt()
@@ -131,6 +145,10 @@ class GroupmatchingFragment : Fragment() {
             filterProfiles()
         })
         return view
+    }
+
+    private fun hasLoggedIn() : Boolean {
+        return JWTUtilities.readJWT(activity!!.applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 
     private fun filterProfiles() {
