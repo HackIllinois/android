@@ -10,6 +10,10 @@ import org.hackillinois.android.database.entity.Event
 class EventRepository {
     private val eventDao = App.database.eventDao()
 
+    suspend fun eventCodeCheckIn(token: String){
+
+    }
+
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
         return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
     }

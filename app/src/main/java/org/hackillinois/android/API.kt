@@ -50,6 +50,9 @@ interface API {
     @POST("event/track/")
     suspend fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): TrackerContainer
 
+    @POST("/event/checkin/")
+    suspend fun eventCodeCheckIn(@Body token: String): String
+
     // NOTIFICATIONS
 
     @POST("notifications/device/")

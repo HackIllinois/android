@@ -17,6 +17,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.layout_event_code_dialog.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
@@ -112,6 +113,10 @@ class MainActivity : AppCompatActivity() {
             alertDialog.dismiss()
         }
 
+
+        submitCodeBtn.setOnClickListener {
+
+        }
 
     }
 

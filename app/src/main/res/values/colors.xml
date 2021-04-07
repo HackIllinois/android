@@ -12,9 +12,9 @@
     <color name="tabBackground">#5db4d6</color>
     <color name="tabText">#c6d9e0</color>
 
-    <color name="bottomAppBarColor">#222B5C</color>
-    <color name="selectedAppBarIcon">#6BAEC5</color>
-    <color name="unselectedAppBarIcon">#FFFFFF</color>
+    <color name="bottomAppBarColor">#6F8CC1</color>
+    <color name="selectedAppBarIcon">#FFFFFF</color>
+    <color name="unselectedAppBarIcon">#b7c5e0</color>
 
     <color name="fabColor">#E35058</color>
 

@@ -55,7 +55,7 @@ class GroupmatchingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         if (!hasLoggedIn()) {
-            val view = inflater.inflate(R.layout.groupmatching_fragment_null, container, false)
+            val view = inflater.inflate(R.layout.fragment_groupmatching_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
                 val mainActivity: MainActivity = requireActivity() as MainActivity
