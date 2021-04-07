@@ -42,12 +42,14 @@
                 android:id="@+id/name_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="First Lastname"
+                tools:text="First Lastname Really long long long long "
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp"
                 android:layout_marginTop="35dp"
                 android:layout_marginStart="20dp"
+                android:maxWidth="180dp"
+                android:maxLines="2"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/avatar_icon" />
 
