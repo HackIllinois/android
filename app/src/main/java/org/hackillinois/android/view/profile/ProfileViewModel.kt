@@ -18,11 +18,8 @@ class ProfileViewModel : ViewModel() {
     lateinit var currentProfileLiveData: LiveData<Profile>
 
     fun init() {
-
         allProfilesLiveData = profileRepository.fetchAllProfiles()
         currentProfileLiveData = profileRepository.fetchCurrentProfile()
-
-//        Log.d("TAG", "ALL PROFILES" + allProfilesLiveData.value!!.get(0).firstName)
     }
 
     fun updateProfile(newProfile: Profile) {
@@ -30,13 +27,12 @@ class ProfileViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = App.getAPI().updateProfile(newProfile)
-                Log.d("TAG", "RESPONSE " + response.toString())
             } catch (e: Exception) {
                 when (e) {
                     is HttpException -> {
                         val error = JSONObject(e.response()?.errorBody()?.string())
                         val errorType = error.getString("type")
-                        val errorMessage = if (errorType == "ATTRIBUTE_MISMATCH_ERROR") {
+                        if (errorType == "ATTRIBUTE_MISMATCH_ERROR") {
                             error.getString("message")
                         } else {
                             "Internal API error"

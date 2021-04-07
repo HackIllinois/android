@@ -46,8 +46,10 @@ class ProfileEditDescriptionFragment : Fragment() {
 
         doneText.setOnClickListener {
             Log.d("TAG", "current profile: " + currentProfile.toString())
-            currentProfile.description = editText.text.toString()
-            viewModel.updateProfile(currentProfile)
+            if (editText.text.toString().isNotEmpty()) {
+                currentProfile.description = editText.text.toString()
+                viewModel.updateProfile(currentProfile)
+            }
             (activity as MainActivity).switchFragment(ProfileEditFragment(), false)
         }
 

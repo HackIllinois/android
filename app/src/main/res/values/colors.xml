@@ -30,4 +30,9 @@
     <color name="loginLabelColor">#E26856</color>
 
     <color name="sponsoredByColor">#A43B5C</color>
+
+    <color name="lookingForTeamColor">#009900</color>
+    <color name="lookingForMembersColor">#FF9933</color>
+    <color name="notLookingColor">#CC0000</color>
+
 </resources>

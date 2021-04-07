@@ -3,7 +3,6 @@ package org.hackillinois.android.view.profile
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +27,7 @@ class ProfileEditSkillsFragment : Fragment() {
     private lateinit var currentProfile: Profile
 
     private lateinit var skillsArray: Array<String>
-    private lateinit var radioButtonMap: HashMap<String, RadioButton>
+    private lateinit var checkBoxMap: HashMap<String, CheckBox>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +37,8 @@ class ProfileEditSkillsFragment : Fragment() {
 
         currentProfile = Profile("", "", "", 0, "", "", "", "",
                 "", emptyList())
+        skillsArray = resources.getStringArray(R.array.skills_array)
+        checkBoxMap = HashMap()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,12 +52,29 @@ class ProfileEditSkillsFragment : Fragment() {
             (activity as MainActivity).switchFragment(ProfileEditFragment(), false)
         }
 
-        doneText.setOnClickListener {
-            Log.d("TAG", "current profile: " + currentProfile.toString())
+        skillsArray.forEach { it ->
+            val checkBox = CheckBox(activity)
+            checkBox.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            checkBox.text = it
+            checkBox.setTextColor(0xFFFFFFFF.toInt())
+            checkBox.typeface = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.montserrat_bold) }
 
+            checkBox.setPadding(20, 40, 20, 40)
+
+            val colorStateList = ColorStateList(arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf(android.R.attr.state_enabled)), intArrayOf(
+                    Color.BLACK,  //disabled
+                    Color.WHITE //enabled
+            ))
+            checkBox.buttonTintList = colorStateList
+
+            checkBoxMap[it] = checkBox
+            skillsLinearLayout.addView(checkBox)
+        }
+
+        doneText.setOnClickListener {
             var selectedSkills = mutableListOf<String>()
             skillsArray.forEach {
-                if (radioButtonMap[it]?.isChecked!!) {
+                if (checkBoxMap[it]?.isChecked!!) {
                     selectedSkills.add(it)
                 }
             }
@@ -66,34 +84,10 @@ class ProfileEditSkillsFragment : Fragment() {
             (activity as MainActivity).switchFragment(ProfileEditFragment(), false)
         }
 
-        skillsArray = resources.getStringArray(R.array.skills_array)
-        radioButtonMap = HashMap()
-
-        skillsArray.forEach { it ->
-            val radioButton = RadioButton(activity)
-            radioButton.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            radioButton.text = it
-            radioButton.setTextColor(0xFFFFFFFF.toInt())
-            radioButton.typeface = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.montserrat_bold) }
-
-            radioButton.setPadding(20, 20, 20, 20)
-
-            val colorStateList = ColorStateList(arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf(android.R.attr.state_enabled)), intArrayOf(
-                    Color.BLACK,  //disabled
-                    Color.WHITE //enabled
-            ))
-            radioButton.buttonTintList = colorStateList
-
-            radioButtonMap[it] = radioButton
-            skillsLinearLayout.addView(radioButton)
-        }
-
         return view
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
-        Log.d("TAG", "SKILLS UPDATE PROFILE UI")
-
         currentProfile.id = it.id
         currentProfile.firstName = it.firstName
         currentProfile.lastName = it.lastName
@@ -106,7 +100,7 @@ class ProfileEditSkillsFragment : Fragment() {
         currentProfile.interests = it.interests
 
         currentProfile.interests.forEach {
-            radioButtonMap[it]?.isChecked = true
+            checkBoxMap[it]?.isChecked = true
         }
     }
 }
