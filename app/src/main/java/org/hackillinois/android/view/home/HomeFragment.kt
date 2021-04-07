@@ -1,10 +1,11 @@
 package org.hackillinois.android.view.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,24 +43,25 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     private val refreshIconSize = 100
 
     private val numberOfUpcomingEvents = 2
+    private lateinit var layout: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         context?.let {
-            val ongoingHeaderColor = ContextCompat.getColor(it, R.color.alternateTextColor)
+            val ongoingHeaderColor = Color.WHITE
             ongoingEventsSection = EventsSection(
                 mutableListOf(),
-                "ONGOING",
+                "Ongoing",
                 ongoingHeaderColor,
                 false,
                 this,
                 it
             )
-            val upcomingHeaderColor = ContextCompat.getColor(it, R.color.primaryTextColor)
+            val upcomingHeaderColor = Color.WHITE
             upcomingEventsSection = EventsSection(
                 mutableListOf(),
-                "UPCOMING",
+                "Upcoming",
                 upcomingHeaderColor,
                 true,
                 this,
@@ -88,7 +90,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         view.refreshLayout.setOnRefreshListener {
             viewModel.refresh()
         }
-
+        layout = view.home_layout
         return view
     }
 
@@ -169,6 +171,10 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
             countdownTextView.text = newTitle
         }
     }
+
+//    override fun updateBackground(newBackground: Int) {
+//        layout.background = getActivity()?.let { ContextCompat.getDrawable(it.applicationContext, newBackground) }
+//    }
 
     override fun openEventInfoActivity(event: Event) {
         val eventInfoFragment = EventInfoFragment.newInstance(event.id)

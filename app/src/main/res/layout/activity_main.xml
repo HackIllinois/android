@@ -49,30 +49,30 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@id/mapsButton"
+                app:layout_constraintEnd_toStartOf="@id/profile"
                 app:layout_constraintStart_toEndOf="@id/scheduleButton"
                 app:layout_constraintTop_toTopOf="@id/homeButton" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/mapsButton"
+                android:id="@+id/profile"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@color/bottomAppBarColor"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@id/projectsButton"
+                app:layout_constraintEnd_toStartOf="@id/teamMatching"
                 app:layout_constraintStart_toEndOf="@id/placeholder"
-                app:srcCompat="@drawable/ic_map" />
+                app:srcCompat="@drawable/ic_profile" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/projectsButton"
+                android:id="@+id/teamMatching"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@color/bottomAppBarColor"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/mapsButton"
+                app:layout_constraintStart_toEndOf="@+id/profile"
                 app:layout_constraintTop_toTopOf="@+id/homeButton"
-                app:srcCompat="@drawable/ic_assignment" />
+                app:srcCompat="@drawable/ic_team_matching" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
