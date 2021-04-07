@@ -33,27 +33,7 @@ class CountdownManager(val listener: CountDownListener) {
     private var timer: CountDownTimer? = null
     private var state = 0
 
-//    private val backgrounds = listOf(R.drawable.home_background_two_weeks, R.drawable.home_background_one_week, R.drawable.home_background_during)
-//    private var homeBackgroundState = 0
-
     private val refreshRateMs = 500L
-
-//    private fun findBackground(): Int {
-//        val current: Long = Calendar.getInstance().timeInMillis
-//        // During or after event start
-//        // Night background
-//        if (current > hackingStartTime.timeInMillis) {
-//            return 2
-//        }
-//        // One week before hacking starts: 7 days * 84600 seconds / day * 1000 ms / second
-//        // Sunset background
-//        else if (current > hackingStartTime.timeInMillis - (7 * 84600000)) {
-//            return 1
-//        }
-//        // Earlier than one week before the event start
-//        // Day background
-//        return 0
-//    }
 
     fun start() {
         while (state < times.size && times[state].isBeforeNow()) {
@@ -65,13 +45,11 @@ class CountdownManager(val listener: CountDownListener) {
     private fun startTimer() {
         if (state >= times.size) {
             listener.updateTitle(titles[state])
-//            listener.updateBackground(backgrounds[findBackground()])
 
             return
         }
         listener.updateTitle(titles[state])
 
-//        listener.updateBackground(backgrounds[findBackground()])
 
         val millisTillTimerFinishes = times[state].timeUntilMs()
 
@@ -124,6 +102,5 @@ class CountdownManager(val listener: CountDownListener) {
     interface CountDownListener {
         fun updateTime(timeUntil: Long)
         fun updateTitle(newTitle: String)
-//        fun updateBackground(newBackground: Int)
     }
 }
