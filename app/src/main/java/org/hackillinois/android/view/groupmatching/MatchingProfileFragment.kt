@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.groupmatching
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
@@ -11,7 +10,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import org.hackillinois.android.R
-import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,8 +39,11 @@ class MatchingProfileFragment : Fragment() {
         teamStatusColors = arrayOf(R.color.lookingForTeamColor, R.color.lookingForMembersColor, R.color.notLookingColor)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_matching_profile, container, false)
         profileImage = view.findViewById<ImageView>(R.id.profileImage)
         nameText = view.findViewById<TextView>(R.id.nameText)
@@ -55,10 +56,9 @@ class MatchingProfileFragment : Fragment() {
         skillsLayout = view.findViewById<LinearLayout>(R.id.skillsLinearLayout)
 
         val backButton = view.findViewById<ImageButton>(R.id.backButton)
-        backButton.setOnClickListener{
+        backButton.setOnClickListener {
             (activity as MainActivity).supportFragmentManager.popBackStackImmediate()
         }
-
 
         descriptionText.viewTreeObserver.addOnGlobalLayoutListener(Listener(this, descriptionText))
         return view
@@ -72,7 +72,7 @@ class MatchingProfileFragment : Fragment() {
                 .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
                 .into(profileImage)
 
-        val index : Int? = teamStatusArray.indices.firstOrNull { i -> teamStatusArray[i] == selectedProfile.teamStatus }
+        val index: Int? = teamStatusArray.indices.firstOrNull { i -> teamStatusArray[i] == selectedProfile.teamStatus }
         index?.let {
             teamStatusText.text = "⬤ " + teamStatusVerboseArray[index]
             teamStatusText.setTextColor(resources.getColor(teamStatusColors[index]))
@@ -85,7 +85,6 @@ class MatchingProfileFragment : Fragment() {
         pointsText.text = selectedProfile.points.toString()
         discordText.text = selectedProfile.discord
         descriptionText.text = selectedProfile.description
-
 
         val maxWidth: Int = skillsLayout.measuredWidth - 100
         // Log.i("maxWidth", maxWidth.toString())
@@ -144,5 +143,4 @@ class Listener(private val frag: MatchingProfileFragment, private val view: View
         frag.updateUI()
         view.viewTreeObserver.removeOnGlobalLayoutListener(this)
     }
-
 }

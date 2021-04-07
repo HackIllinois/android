@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.groupmatching
 
 import android.content.Context
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,6 @@ import com.google.android.material.snackbar.Snackbar
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Profile
-import org.hackillinois.android.model.Group
 import org.hackillinois.android.view.MainActivity
 import java.lang.Exception
 
@@ -45,13 +43,12 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
         }
     }
 
-
     class ViewHolder private constructor(itemView: View, private val currUser: LiveData<Profile>) : RecyclerView.ViewHolder(itemView) {
-        private val avatarIcon : ImageView = itemView.findViewById(R.id.avatar_icon)
-        private val nameTextView : TextView = itemView.findViewById(R.id.name_textview)
-        private val statusTextView : TextView = itemView.findViewById(R.id.status_textview)
-        private val starButton : ImageButton = itemView.findViewById(R.id.star_button)
-        private val profileMatch : TextView = itemView.findViewById(R.id.profile_match)
+        private val avatarIcon: ImageView = itemView.findViewById(R.id.avatar_icon)
+        private val nameTextView: TextView = itemView.findViewById(R.id.name_textview)
+        private val statusTextView: TextView = itemView.findViewById(R.id.status_textview)
+        private val starButton: ImageButton = itemView.findViewById(R.id.star_button)
+        private val profileMatch: TextView = itemView.findViewById(R.id.profile_match)
         private val descriptionTextView: TextView = itemView.findViewById(R.id.description_textview)
         private lateinit var context: Context
 

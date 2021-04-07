@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -16,16 +15,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
-import org.hackillinois.android.model.Group
 import org.hackillinois.android.repository.ProfileRepository
 import org.hackillinois.android.view.MainActivity
-import org.hackillinois.android.view.profile.ProfileViewModel
-
 
 class GroupmatchingFragment : Fragment() {
 
@@ -38,12 +33,12 @@ class GroupmatchingFragment : Fragment() {
     private lateinit var groupStatusButton: Button
     private var lookingForTeamFlag: Boolean = true
     private var lookingForMemberFlag: Boolean = true
-    private lateinit var skills : Array<String>
-    private lateinit var skillsChecked : MutableLiveData<BooleanArray>
-    private lateinit var currentUser : LiveData<Profile>
-    private lateinit var groupAdapter : GroupAdapter
-    private var allProfiles : List<Profile> = listOf()
-    private lateinit var favButton : ImageButton
+    private lateinit var skills: Array<String>
+    private lateinit var skillsChecked: MutableLiveData<BooleanArray>
+    private lateinit var currentUser: LiveData<Profile>
+    private lateinit var groupAdapter: GroupAdapter
+    private var allProfiles: List<Profile> = listOf()
+    private lateinit var favButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,13 +49,16 @@ class GroupmatchingFragment : Fragment() {
         viewModel.init()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         if (!hasLoggedIn()) {
             val view = inflater.inflate(R.layout.groupmatching_fragment_null, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
-                val mainActivity : MainActivity = requireActivity() as MainActivity
+                val mainActivity: MainActivity = requireActivity() as MainActivity
                 mainActivity.logout()
             }
             return view
@@ -123,14 +121,13 @@ class GroupmatchingFragment : Fragment() {
             alertDialog.dismiss()
         }
 
-        val recyclerView : RecyclerView = view.findViewById(R.id.team_matching_recyclerview)
+        val recyclerView: RecyclerView = view.findViewById(R.id.team_matching_recyclerview)
 
         currentUser = ProfileRepository.instance.fetchCurrentProfile()
         groupAdapter = GroupAdapter(currentUser, this)
         currentUser.observe(viewLifecycleOwner, Observer {
             filterProfiles()
         })
-
 
         recyclerView.adapter = groupAdapter
 
@@ -147,22 +144,22 @@ class GroupmatchingFragment : Fragment() {
         return view
     }
 
-    private fun hasLoggedIn() : Boolean {
+    private fun hasLoggedIn(): Boolean {
         return JWTUtilities.readJWT(activity!!.applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 
     private fun filterProfiles() {
         skillsChecked.value!!.contains(true)
         if (lookingForTeamFlag && lookingForMemberFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!)}
+            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!) }
         } else if (lookingForTeamFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_TEAM")
-                    && profile.hasRequiredSkill(skills, skillsChecked.value!!)}
+            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_TEAM") &&
+                    profile.hasRequiredSkill(skills, skillsChecked.value!!) }
         } else if (lookingForMemberFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_MEMBERS")
-                    && profile.hasRequiredSkill(skills, skillsChecked.value!!) }
+            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_MEMBERS") &&
+                    profile.hasRequiredSkill(skills, skillsChecked.value!!) }
         } else {
-            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!)}
+            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!) }
         }
         if (favButton.isSelected) {
             groupAdapter.data = groupAdapter.data.filter { profile -> FavoritesManager.isFavoritedProfile(requireContext(), profile) }
@@ -170,7 +167,7 @@ class GroupmatchingFragment : Fragment() {
     }
 }
 
-fun Profile.hasRequiredSkill(skills: Array<String>, skillsChecked: BooleanArray) : Boolean {
+fun Profile.hasRequiredSkill(skills: Array<String>, skillsChecked: BooleanArray): Boolean {
     if (!skillsChecked.contains(true)) {
         return true
     }

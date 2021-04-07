@@ -15,7 +15,6 @@ import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
 
-
 class ProfileEditSkillsFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
@@ -62,8 +61,8 @@ class ProfileEditSkillsFragment : Fragment() {
             checkBox.setPadding(20, 40, 20, 40)
 
             val colorStateList = ColorStateList(arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf(android.R.attr.state_enabled)), intArrayOf(
-                    Color.BLACK,  //disabled
-                    Color.WHITE //enabled
+                    Color.BLACK, // disabled
+                    Color.WHITE // enabled
             ))
             checkBox.buttonTintList = colorStateList
 

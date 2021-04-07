@@ -17,7 +17,6 @@ import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
 
-
 class ProfileEditFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel

@@ -11,8 +11,12 @@ import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
 import org.hackillinois.android.R
 
-class SkillsAdapter(context: Context, resource: Int, private val names: Array<String>,
-                    private val checked: MutableLiveData<BooleanArray>) : ArrayAdapter<String>(context, resource, names) {
+class SkillsAdapter(
+    context: Context,
+    resource: Int,
+    private val names: Array<String>,
+    private val checked: MutableLiveData<BooleanArray>
+) : ArrayAdapter<String>(context, resource, names) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View = convertView ?: LayoutInflater.from(context).inflate(R.layout.skills_alert_dialog_item, null)
         val textView = view.findViewById<TextView>(R.id.skills_item_textview)

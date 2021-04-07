@@ -25,7 +25,6 @@ import org.hackillinois.android.view.MainActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel

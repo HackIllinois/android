@@ -35,7 +35,7 @@ class FavoritesManager {
         fun isFavoritedProject(context: Context, projectId: String) = getBoolean(context, projectId)
 
         fun favoriteProfile(context: Context, profile: Profile?) = profile?.let {
-            setBoolean(context, it.id, true);
+            setBoolean(context, it.id, true)
         }
 
         fun unfavoriteProfile(context: Context, profile: Profile?) = profile?.let {
@@ -43,7 +43,7 @@ class FavoritesManager {
         }
 
         fun isFavoritedProfile(context: Context, profile: Profile?): Boolean {
-            return profile?.let{ getBoolean(context, profile.id) } ?: false
+            return profile?.let { getBoolean(context, profile.id) } ?: false
         }
 
         fun clearFavorites(context: Context) {
