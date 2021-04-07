@@ -49,24 +49,6 @@ class GroupmatchingFragment : Fragment() {
         viewModel.init()
     }
 
-    private fun filterProfiles() {
-        skillsChecked.value!!.contains(true)
-        if (lookingForTeamFlag && lookingForMemberFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!)}
-        } else if (lookingForTeamFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_TEAM")
-                    && profile.hasRequiredSkill(skills, skillsChecked.value!!)}
-        } else if (lookingForMemberFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_MEMBERS")
-                    && profile.hasRequiredSkill(skills, skillsChecked.value!!) }
-        } else {
-            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!)}
-        }
-        if (favButton.isSelected) {
-            groupAdapter.data = groupAdapter.data.filter { profile -> FavoritesManager.isFavoritedProfile(requireContext(), profile) }
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.groupmatching_fragment, container, false)
@@ -149,6 +131,24 @@ class GroupmatchingFragment : Fragment() {
             filterProfiles()
         })
         return view
+    }
+
+    private fun filterProfiles() {
+        skillsChecked.value!!.contains(true)
+        if (lookingForTeamFlag && lookingForMemberFlag) {
+            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!)}
+        } else if (lookingForTeamFlag) {
+            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_TEAM")
+                    && profile.hasRequiredSkill(skills, skillsChecked.value!!)}
+        } else if (lookingForMemberFlag) {
+            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_MEMBERS")
+                    && profile.hasRequiredSkill(skills, skillsChecked.value!!) }
+        } else {
+            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!)}
+        }
+        if (favButton.isSelected) {
+            groupAdapter.data = groupAdapter.data.filter { profile -> FavoritesManager.isFavoritedProfile(requireContext(), profile) }
+        }
     }
 }
 
