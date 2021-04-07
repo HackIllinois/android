@@ -1,10 +1,5 @@
 package org.hackillinois.android
 
-import org.hackillinois.android.database.entity.Attendee
-import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.QR
-import org.hackillinois.android.database.entity.Roles
-import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
 import org.hackillinois.android.model.checkin.CheckIn
@@ -15,14 +10,12 @@ import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.notifications.DeviceToken
 
 import okhttp3.ResponseBody
+import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.TimesWrapper
+import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface API {
 
@@ -87,6 +80,17 @@ interface API {
 
     @GET("project/")
     suspend fun allProjects(): ProjectsList
+
+    // PROFILE
+
+    @PUT("profile/")
+    suspend fun updateProfile(@Body newProfile: Profile): Profile
+
+    @GET("profile/")
+    suspend fun currentProfile(): Profile
+
+    @GET("profile/search/")
+    suspend fun allProfiles(): ProfileList
 
     @GET("upload/blobstore/times/")
     suspend fun times(): TimesWrapper

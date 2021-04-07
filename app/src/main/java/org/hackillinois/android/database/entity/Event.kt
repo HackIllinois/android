@@ -1,6 +1,5 @@
 package org.hackillinois.android.database.entity
 
-// import android.util.Log
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -24,11 +23,6 @@ data class Event(
     val eventType: String,
     val points: String
 ) : ScheduleListItem {
-
-    fun getPointValue(): String {
-//        Log.d("POINT VALUE", "EVENT NAME: ${name}, POINTS: $points")
-        return points
-    }
 
     fun getStartTimeMs() = startTime * 1000L
 

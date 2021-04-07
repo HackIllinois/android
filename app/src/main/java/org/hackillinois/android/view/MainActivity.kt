@@ -21,10 +21,15 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
+import org.hackillinois.android.common.QRUtilities
+import org.hackillinois.android.database.entity.Attendee
+import org.hackillinois.android.database.entity.Profile
+import org.hackillinois.android.database.entity.QR
+import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.FirebaseTokenManager
+import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
-import org.hackillinois.android.view.maps.MapsFragment
-import org.hackillinois.android.view.project.ProjectFragment
+import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
@@ -34,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     private var currentSelection = 0
+
+    var groupMatchingSelectedProfile: Profile? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,8 +86,8 @@ class MainActivity : AppCompatActivity() {
                     when (view) {
                         bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
                         bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
-                        bottomAppBar.profile -> switchFragment(MapsFragment(), false)
-                        bottomAppBar.teamMatching -> switchFragment(ProjectFragment(), false)
+                        bottomAppBar.profile -> switchFragment(ProfileFragment(), false)
+                        bottomAppBar.teamMatching -> switchFragment(GroupmatchingFragment(), false)
                         else -> return@setOnClickListener
                     }
                 }
@@ -143,4 +150,20 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 //    }
+    fun logout() {
+        JWTUtilities.clearJWT(applicationContext)
+
+        thread {
+            FavoritesManager.clearFavorites(this)
+            App.database.clearAllTables()
+            App.getAPI("")
+
+            runOnUiThread {
+                val loginIntent = Intent(this, LoginActivity::class.java)
+                loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(loginIntent)
+                finish()
+            }
+        }
+    }
 }
