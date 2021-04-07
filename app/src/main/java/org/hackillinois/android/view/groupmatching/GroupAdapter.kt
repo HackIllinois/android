@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,9 +18,10 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.model.Group
+import org.hackillinois.android.view.MainActivity
 import java.lang.Exception
 
-class GroupAdapter(val currProfile: LiveData<Profile>) : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment) : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
     var data = listOf<Profile>()
         set(value) {
@@ -36,6 +38,11 @@ class GroupAdapter(val currProfile: LiveData<Profile>) : RecyclerView.Adapter<Gr
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            val mainActivity = frag.activity as MainActivity
+            mainActivity.groupMatchingSelectedProfile = data[position]
+            mainActivity.switchFragment(MatchingProfileFragment(), true)
+        }
     }
 
 

@@ -54,7 +54,7 @@
     <string name="spinner_default">Select Category</string>
     <string name="data_sci_project">DATA SCI</string>
     <string name="languages_project">LANGS</string>
-    <string name = "systems_project">SYSTEMS</string>
+    <string name="systems_project">SYSTEMS</string>
     <string name="web_dev_project">WEB</string>
 
     <string name="data_science_tag">Data Science</string>

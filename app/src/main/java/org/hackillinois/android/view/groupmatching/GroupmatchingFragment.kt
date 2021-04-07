@@ -126,7 +126,7 @@ class GroupmatchingFragment : Fragment() {
         val recyclerView : RecyclerView = view.findViewById(R.id.team_matching_recyclerview)
 
         currentUser = ProfileRepository.instance.fetchCurrentProfile()
-        groupAdapter = GroupAdapter(currentUser)
+        groupAdapter = GroupAdapter(currentUser, this)
         currentUser.observe(viewLifecycleOwner, Observer {
             filterProfiles()
         })

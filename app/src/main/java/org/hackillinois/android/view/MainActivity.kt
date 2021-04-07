@@ -26,6 +26,7 @@ import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.common.QRUtilities
 import org.hackillinois.android.database.entity.Attendee
+import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.FirebaseTokenManager
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     private var currentSelection = 0
+
+    var groupMatchingSelectedProfile : Profile? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
