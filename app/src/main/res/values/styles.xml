@@ -15,4 +15,13 @@
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="autoscroll">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
 </resources>

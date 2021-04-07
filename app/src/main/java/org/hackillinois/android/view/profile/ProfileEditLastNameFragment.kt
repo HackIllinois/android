@@ -46,8 +46,10 @@ class ProfileEditLastNameFragment : Fragment() {
 
         doneText.setOnClickListener {
             Log.d("TAG", "current profile: " + currentProfile.toString())
-            currentProfile.lastName = editText.text.toString()
-            viewModel.updateProfile(currentProfile)
+            if (editText.text.toString().isNotEmpty()) {
+                currentProfile.lastName = editText.text.toString()
+                viewModel.updateProfile(currentProfile)
+            }
             (activity as MainActivity).switchFragment(ProfileEditFragment(), false)
         }
 

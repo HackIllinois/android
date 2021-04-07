@@ -43,6 +43,7 @@
             android:layout_marginTop="8dp"
             android:text="Team Status"
             android:textColor="#FFFFFF"
+            android:fontFamily="@font/montserrat_bold"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

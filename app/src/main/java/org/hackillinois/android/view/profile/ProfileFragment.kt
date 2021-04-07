@@ -37,11 +37,19 @@ class ProfileFragment : Fragment() {
     private lateinit var discordText: TextView
     private lateinit var descriptionText: TextView
 
+    private lateinit var teamStatusArray: Array<String>
+    private lateinit var teamStatusVerboseArray: Array<String>
+    private lateinit var teamStatusColors: Array<Int>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
+
+        teamStatusArray = resources.getStringArray(R.array.team_status_array)
+        teamStatusVerboseArray = resources.getStringArray(R.array.team_status_verbose_array)
+        teamStatusColors = arrayOf(R.color.lookingForTeamColor, R.color.lookingForMembersColor, R.color.notLookingColor)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -79,7 +87,12 @@ class ProfileFragment : Fragment() {
 
         nameText.text = it.firstName + " " + it.lastName
 
-        teamStatusText.text = it.teamStatus.replace("_", " ").toLowerCase(Locale.ROOT)
+        teamStatusArray.forEachIndexed { index, s ->
+            if (s == it.teamStatus) {
+                teamStatusText.text = "⬤ " + teamStatusVerboseArray[index]
+                teamStatusText.setTextColor(resources.getColor(teamStatusColors[index]))
+            }
+        }
 
         val df = SimpleDateFormat("hh:mm aa")
         timeText.text = df.format(Calendar.getInstance().time)

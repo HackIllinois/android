@@ -33,11 +33,17 @@ class ProfileEditFragment : Fragment() {
     private lateinit var discordText: TextView
     private lateinit var skillsText: TextView
 
+    private lateinit var teamStatusArray: Array<String>
+    private lateinit var teamStatusVerboseArray: Array<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
+
+        teamStatusArray = resources.getStringArray(R.array.team_status_array)
+        teamStatusVerboseArray = resources.getStringArray(R.array.team_status_verbose_array)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,14 +70,11 @@ class ProfileEditFragment : Fragment() {
         lastNameText.setOnClickListener {
             (activity as MainActivity).switchFragment(ProfileEditLastNameFragment(), false)
         }
-        firstNameText.setOnClickListener {
-            (activity as MainActivity).switchFragment(ProfileEditFirstNameFragment(), false)
+        teamStatusText.setOnClickListener {
+            (activity as MainActivity).switchFragment(ProfileEditTeamStatusFragment(), false)
         }
         descriptionText.setOnClickListener {
             (activity as MainActivity).switchFragment(ProfileEditDescriptionFragment(), false)
-        }
-        firstNameText.setOnClickListener {
-            (activity as MainActivity).switchFragment(ProfileEditFirstNameFragment(), false)
         }
         discordText.setOnClickListener {
             (activity as MainActivity).switchFragment(ProfileEditDiscordFragment(), false)
@@ -91,7 +94,11 @@ class ProfileEditFragment : Fragment() {
         descriptionText.text = it.description
         discordText.text = it.discord
 
-        teamStatusText.text = it.teamStatus.replace("_", " ").toLowerCase(Locale.ROOT)
+        teamStatusArray.forEachIndexed { index, s ->
+            if (s == it.teamStatus) {
+                teamStatusText.text = teamStatusVerboseArray[index]
+            }
+        }
 
         skillsText.text = it.interests.toString()
 

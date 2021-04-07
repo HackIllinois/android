@@ -90,6 +90,7 @@
         <item>Adobe Photoshop</item>
         <item>Adobe XD</item>
         <item>Android</item>
+        <item>Angular</item>
         <item>Arduino</item>
         <item>AWS</item>
         <item>Azure</item>
@@ -100,6 +101,7 @@
         <item>Canva</item>
         <item>CSS</item>
         <item>Digital Ocean</item>
+        <item>Django</item>
         <item>Figma</item>
         <item>Firebase</item>
         <item>Flutter</item>
@@ -122,6 +124,7 @@
         <item>PostgreSQL</item>
         <item>Python</item>
         <item>Raspberry Pi</item>
+        <item>React</item>
         <item>React Native</item>
         <item>Ruby</item>
         <item>Rust</item>
@@ -129,5 +132,18 @@
         <item>TypeScript</item>
         <item>Unity</item>
         <item>Unreal</item>
+        <item>Vue</item>
+    </string-array>
+
+    <string-array name="team_status_array">
+        <item>LOOKING_FOR_TEAM</item>
+        <item>LOOKING_FOR_MEMBERS</item>
+        <item>NOT_LOOKING</item>
+    </string-array>
+
+    <string-array name="team_status_verbose_array">
+        <item>Looking For Team</item>
+        <item>Looking For Members</item>
+        <item>Not Looking</item>
     </string-array>
 </resources>

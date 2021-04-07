@@ -151,6 +151,7 @@
             android:textSize="18sp"
             android:maxLength="15"
             android:ellipsize="end"
+            style="@style/autoscroll"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/descriptionLabelText"
             app:layout_constraintTop_toBottomOf="@+id/teamStatusText" />
