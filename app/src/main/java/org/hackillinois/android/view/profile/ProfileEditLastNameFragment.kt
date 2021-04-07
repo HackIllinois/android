@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.profile
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +44,6 @@ class ProfileEditLastNameFragment : Fragment() {
         }
 
         doneText.setOnClickListener {
-            Log.d("TAG", "current profile: " + currentProfile.toString())
             if (editText.text.toString().isNotEmpty()) {
                 currentProfile.lastName = editText.text.toString()
                 viewModel.updateProfile(currentProfile)

@@ -3,7 +3,6 @@ package org.hackillinois.android.view.profile
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +59,7 @@ class ProfileEditSkillsFragment : Fragment() {
             checkBox.setTextColor(0xFFFFFFFF.toInt())
             checkBox.typeface = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.montserrat_bold) }
 
-            checkBox.setPadding(20, 20, 20, 20)
+            checkBox.setPadding(20, 40, 20, 40)
 
             val colorStateList = ColorStateList(arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf(android.R.attr.state_enabled)), intArrayOf(
                     Color.BLACK,  //disabled
@@ -73,8 +72,6 @@ class ProfileEditSkillsFragment : Fragment() {
         }
 
         doneText.setOnClickListener {
-            Log.d("TAG", "current profile: " + currentProfile.toString())
-
             var selectedSkills = mutableListOf<String>()
             skillsArray.forEach {
                 if (checkBoxMap[it]?.isChecked!!) {
@@ -91,8 +88,6 @@ class ProfileEditSkillsFragment : Fragment() {
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
-        Log.d("TAG", "SKILLS UPDATE PROFILE UI")
-
         currentProfile.id = it.id
         currentProfile.firstName = it.firstName
         currentProfile.lastName = it.lastName

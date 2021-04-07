@@ -37,15 +37,14 @@
 
         <TextView
             android:id="@+id/firstNameLabelText"
-            android:layout_width="110dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="First Name"
             android:textColor="#FFFFFF"
+            android:layout_marginStart="20dp"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/firstNameText"
-            app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
@@ -53,29 +52,25 @@
             android:id="@+id/firstNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Update First Name"
             android:textColor="#888888"
+            android:layout_marginEnd="20dp"
             android:textSize="18sp"
-            android:maxLength="15"
-            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/labelText"
             app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
         <TextView
-            android:id="@+id/labelText"
+            android:id="@+id/lastNameLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Last Name"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/lastNameText"
-            app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/firstNameLabelText" />
 
@@ -83,16 +78,13 @@
             android:id="@+id/lastNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Update Last Name"
             android:textColor="#888888"
+            android:layout_marginEnd="20dp"
             android:textSize="18sp"
-            android:maxLength="15"
-            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/labelText"
             app:layout_constraintTop_toBottomOf="@+id/firstNameText" />
 
         <TextView
@@ -102,27 +94,23 @@
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Team Status"
+            android:layout_marginStart="20dp"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/teamStatusText"
-            app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelText" />
+            app:layout_constraintTop_toBottomOf="@+id/lastNameLabelText" />
 
         <TextView
             android:id="@+id/teamStatusText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Update Team Status"
             android:textColor="#888888"
+            android:layout_marginEnd="20dp"
             android:textSize="18sp"
-            android:maxLength="15"
-            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/teamStatusLabelText"
             app:layout_constraintTop_toBottomOf="@+id/lastNameText" />
 
         <TextView
@@ -132,10 +120,9 @@
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Bio"
+            android:layout_marginStart="20dp"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/descriptionText"
-            app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/teamStatusLabelText" />
 
@@ -143,30 +130,25 @@
             android:id="@+id/descriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Update Bio"
+            android:layout_marginEnd="20dp"
             android:textColor="#888888"
             android:textSize="18sp"
-            android:maxLength="15"
-            android:ellipsize="end"
-            style="@style/autoscroll"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/descriptionLabelText"
             app:layout_constraintTop_toBottomOf="@+id/teamStatusText" />
 
         <TextView
             android:id="@+id/discordLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Discord"
+            android:layout_marginStart="20dp"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/discordText"
-            app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptionLabelText" />
 
@@ -174,16 +156,13 @@
             android:id="@+id/discordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
             android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Update Discord"
             android:textColor="#888888"
             android:textSize="18sp"
-            android:maxLength="15"
-            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/discordLabelText"
             app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
         <TextView
@@ -193,10 +172,9 @@
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="Skills"
+            android:layout_marginStart="20dp"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/skillsText"
-            app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/discordLabelText" />
 
@@ -204,17 +182,14 @@
             android:id="@+id/skillsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat_regular"
+            android:paddingBottom="100dp"
             android:text="Update Skills"
+            android:layout_marginEnd="20dp"
             android:textColor="#888888"
             android:textSize="18sp"
-            android:maxLength="15"
-            android:paddingBottom="100dp"
-            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/skillsLabelText"
             app:layout_constraintTop_toBottomOf="@+id/discordText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

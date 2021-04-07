@@ -3,7 +3,6 @@ package org.hackillinois.android.view.profile
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,7 +61,7 @@ class ProfileEditTeamStatusFragment : Fragment() {
             radioButton.setTextColor(0xFFFFFFFF.toInt())
             radioButton.typeface = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.montserrat_bold) }
 
-            radioButton.setPadding(20, 20, 20, 20)
+            radioButton.setPadding(20, 40, 20, 40)
 
             val colorStateList = ColorStateList(arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf(android.R.attr.state_enabled)), intArrayOf(
                     Color.BLACK,  //disabled
@@ -75,8 +74,6 @@ class ProfileEditTeamStatusFragment : Fragment() {
         }
 
         doneText.setOnClickListener {
-            Log.d("TAG", "current profile: " + currentProfile.toString())
-
             var selectedTeamStatus = ""
             teamStatusArray.forEach {
                 if (radioButtonMap[it]?.isChecked!!) {
@@ -93,8 +90,6 @@ class ProfileEditTeamStatusFragment : Fragment() {
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
-        Log.d("TAG", "SKILLS UPDATE PROFILE UI")
-
         currentProfile.id = it.id
         currentProfile.firstName = it.firstName
         currentProfile.lastName = it.lastName
