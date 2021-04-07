@@ -7,8 +7,20 @@
     android:layout_height="wrap_content"
     android:background="@drawable/enter_event_code_background"
     android:clickable="true"
-    android:focusable="true"
-    >
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/eventCodeBackgroundImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/enter_code_background_img"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="64dp"
+        android:padding="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/closeButton"
@@ -22,36 +34,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
-        android:id="@+id/enter_code_background"
-        android:layout_width="168dp"
-        android:layout_height="168dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginBottom="128dp"
-        android:padding="1dp"
-        android:src="@drawable/enter_event_code_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/collectPointsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Collect your points!"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"
         android:fontFamily="@font/montserrat_semi_bold"
+        android:text="Collect your points!"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_code_background" />
+        app:layout_constraintTop_toBottomOf="@+id/eventCodeBackgroundImg" />
 
     <EditText
         android:id="@+id/enterCodeField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:textColor="@color/primaryGrayColor"
         android:textSize="14sp"
         android:fontFamily="@font/montserrat_regular"
@@ -59,4 +59,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/collectPointsText"
         tools:text="                Enter Code...                " />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
