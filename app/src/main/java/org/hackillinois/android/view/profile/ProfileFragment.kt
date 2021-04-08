@@ -110,8 +110,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        // val df = SimpleDateFormat("hh:mm aa")
-        // timeText.text = df.format(Calendar.getInstance().time)
         // just display timezone so it looks consistent with iOS
         timezoneText.text = "time zone"
         timeText.text = it.timezone
