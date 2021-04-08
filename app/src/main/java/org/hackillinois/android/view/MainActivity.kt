@@ -145,7 +145,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             alertDialog.dismiss()
-
         }
     }
 

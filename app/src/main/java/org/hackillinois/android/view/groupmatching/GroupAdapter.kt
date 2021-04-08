@@ -32,7 +32,6 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
             notifyDataSetChanged()
         }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent, currProfile)
     }

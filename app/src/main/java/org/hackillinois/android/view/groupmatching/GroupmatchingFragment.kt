@@ -76,7 +76,6 @@ class GroupmatchingFragment : Fragment() {
             groupStatusButton.setBackgroundResource(R.drawable.rounded_blue_bg_top_corners)
             popupWindow.animationStyle = R.anim.slide_down
             popupWindow.showAsDropDown(groupStatusButton)
-
         }
         popupWindow.setOnDismissListener {
             popupWindow.animationStyle = R.anim.slide_up
