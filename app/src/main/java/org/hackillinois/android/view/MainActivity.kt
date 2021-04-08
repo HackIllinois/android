@@ -109,6 +109,7 @@ class MainActivity : AppCompatActivity() {
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val closeButton = codeEnterView.findViewById<ImageButton>(R.id.codeEntryClose)
         val submitCodeButton = codeEnterView.findViewById<Button>(R.id.submitCodeBtn)
+
         code_entry_fab.setOnClickListener {
             alertDialog.show()
         }

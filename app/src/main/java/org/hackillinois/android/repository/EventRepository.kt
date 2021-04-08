@@ -8,7 +8,6 @@ import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
 import org.json.JSONObject
 import retrofit2.HttpException
-import kotlinx.android.synthetic.main.layout_event_code_dialog.*
 import org.hackillinois.android.database.entity.EventCode
 
 class EventRepository {
@@ -46,6 +45,9 @@ class EventRepository {
     companion object {
         suspend fun checkInEvent(code: String): String {
             Log.d("send event token", code)
+
+//            var gson = Gson()
+//            var jsonString = gson.toJson((EventCode(code)))
             withContext(Dispatchers.IO) {
                 try {
                     Log.d("Sending code: ", code)

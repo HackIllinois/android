@@ -1,6 +1,7 @@
 package org.hackillinois.android
 
 import android.app.Application
+import android.util.Log
 import androidx.room.Room
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
