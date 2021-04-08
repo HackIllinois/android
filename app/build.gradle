@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "org.hackillinois.android"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 10
         versionName "1.8"
         multiDexEnabled true

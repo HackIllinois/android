@@ -39,6 +39,7 @@ class GroupmatchingFragment : Fragment() {
     private lateinit var groupAdapter: GroupAdapter
     private var allProfiles: List<Profile> = listOf()
     private lateinit var favButton: ImageButton
+    private var favFlag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +56,7 @@ class GroupmatchingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         if (!hasLoggedIn()) {
-            val view = inflater.inflate(R.layout.groupmatching_fragment_null, container, false)
+            val view = inflater.inflate(R.layout.fragment_groupmatching_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
                 val mainActivity: MainActivity = requireActivity() as MainActivity
@@ -124,7 +125,7 @@ class GroupmatchingFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.team_matching_recyclerview)
 
         currentUser = ProfileRepository.instance.fetchCurrentProfile()
-        groupAdapter = GroupAdapter(currentUser, this)
+        groupAdapter = GroupAdapter(currentUser, this, resources)
         currentUser.observe(viewLifecycleOwner, Observer {
             filterProfiles()
         })
@@ -132,8 +133,10 @@ class GroupmatchingFragment : Fragment() {
         recyclerView.adapter = groupAdapter
 
         favButton = view.findViewById<ImageButton>(R.id.star_button)
+        favButton.isSelected = favFlag
         favButton.setOnClickListener {
-            favButton.isSelected = !favButton.isSelected
+            favFlag = !favFlag
+            favButton.isSelected = favFlag
             filterProfiles()
         }
 

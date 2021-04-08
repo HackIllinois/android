@@ -87,8 +87,20 @@
         <item>SPEAKER</item>
         <item>WORKSHOP</item>
         <item>MINIEVENT</item>
+        <item>QNA</item>
         <item>OTHER</item>
     </string-array>
+
+    <string name="mealText">Meal</string>
+    <string name="speakerText">Speaker</string>
+    <string name="workshopText">Workshop</string>
+    <string name="miniEventText">Mini-event</string>
+    <string name="qnaText">Q&amp;A</string>
+    <string name="otherText">Other</string>
+    <string name="invalid_code">This code doesn\'t seem to be correct.</string>
+    <string name="fab_error_msg">You must log in to use this feature! Go to the Profile or Group matching tabs to logout.</string>
+    <string name="enter_code">Enter Code...</string>
+
 
     <string-array name="skills_array">
         <item>Adobe Illustrator</item>
@@ -152,4 +164,5 @@
         <item>Looking For Members</item>
         <item>Not Looking</item>
     </string-array>
+
 </resources>

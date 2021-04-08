@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@android:color/white"
         android:layout_gravity="center"
         android:paddingBottom="4dp"
         android:paddingTop="12dp"

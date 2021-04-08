@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.profile
+package org.hackillinois.android.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData

@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/event_info_background" >
+    android:background="@color/colorBackgrounds" >
 
     <Button
-        android:id="@+id/closeButton"
+        android:id="@+id/codeEntryClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -17,10 +17,13 @@
         android:drawableStart="@drawable/ic_close_primary"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/close_text"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/lightTextColor"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:tint="@android:color/white"/>
+<!--        -->
+
 
     <TextView
         android:id="@+id/happeningSoonTextView"
@@ -35,7 +38,7 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/closeButton" />
+        app:layout_constraintTop_toBottomOf="@id/codeEntryClose" />
 
     <TextView
         android:id="@+id/eventTitle"
@@ -45,7 +48,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:singleLine="false"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/lightTextColor"
         android:textSize="24sp"
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintEnd_toStartOf="@+id/favoriteButton"
@@ -75,7 +78,7 @@
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/lightTextColor"
         app:fontFamily="@font/montserrat_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sponsoredTextView"
@@ -88,11 +91,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:singleLine="false"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/lightTextColor"
         app:fontFamily="@font/montserrat_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventTimeSpan"
+        app:layout_constraintTop_toBottomOf="@+id/eventTimeSpanText"
         tools:text="Location" />
 
 
@@ -103,22 +106,24 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/lightTextColor"
         app:fontFamily="@font/montserrat_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventTimeSpan"
+        app:layout_constraintTop_toBottomOf="@id/eventTimeSpanText"
         tools:text="Description" />
 
     <ImageView
         android:id="@+id/favoriteButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
+
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/happeningSoonTextView"
-        app:srcCompat="@drawable/star_button" />
+        app:srcCompat="@drawable/star_button"
+        android:tint="@android:color/white"/>
 
     <ListView
         android:id="@+id/mapsWithDirectionsListView"

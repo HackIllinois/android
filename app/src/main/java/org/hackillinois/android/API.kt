@@ -8,7 +8,6 @@ import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.notifications.DeviceToken
-
 import okhttp3.ResponseBody
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.TimesWrapper
@@ -49,6 +48,9 @@ interface API {
 
     @POST("event/track/")
     suspend fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): TrackerContainer
+
+    @POST("event/checkin/")
+    suspend fun eventCodeCheckIn(@Body token: EventCode): EventCheckInResponse
 
     // NOTIFICATIONS
 
