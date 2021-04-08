@@ -88,6 +88,12 @@ class ProfileFragment : Fragment() {
             (activity as MainActivity).switchFragment(ProfileEditFragment(), false)
         }
 
+        val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
+        logoutButton1.setOnClickListener {
+            val mainActivity: MainActivity = requireActivity() as MainActivity
+            mainActivity.logout()
+        }
+
         return view
     }
 

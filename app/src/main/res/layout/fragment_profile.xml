@@ -171,6 +171,19 @@
             app:layout_constraintVertical_bias="0.05"
             app:srcCompat="@drawable/edit" />
 
+        <ImageButton
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/logout_button"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.05" />
+
         <LinearLayout
             android:id="@+id/skillsLinearLayout"
             android:layout_width="fill_parent"
