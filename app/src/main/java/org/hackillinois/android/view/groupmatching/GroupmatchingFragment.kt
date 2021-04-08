@@ -39,6 +39,7 @@ class GroupmatchingFragment : Fragment() {
     private lateinit var groupAdapter: GroupAdapter
     private var allProfiles: List<Profile> = listOf()
     private lateinit var favButton: ImageButton
+    private var favFlag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,8 +133,10 @@ class GroupmatchingFragment : Fragment() {
         recyclerView.adapter = groupAdapter
 
         favButton = view.findViewById<ImageButton>(R.id.star_button)
+        favButton.isSelected = favFlag
         favButton.setOnClickListener {
-            favButton.isSelected = !favButton.isSelected
+            favFlag = !favFlag
+            favButton.isSelected = favFlag
             filterProfiles()
         }
 

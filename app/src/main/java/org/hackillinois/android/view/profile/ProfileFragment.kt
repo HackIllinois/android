@@ -20,7 +20,6 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.viewmodel.ProfileViewModel
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ProfileFragment : Fragment() {
@@ -98,7 +97,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
-        timezoneText.text = it.timezone
         discordText.text = it.discord
         descriptionText.text = it.description
         pointsText.text = it.points.toString()
@@ -112,20 +110,22 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        val df = SimpleDateFormat("hh:mm aa")
-        timeText.text = df.format(Calendar.getInstance().time)
+        // val df = SimpleDateFormat("hh:mm aa")
+        // timeText.text = df.format(Calendar.getInstance().time)
+        // just display timezone so it looks consistent with iOS
+        timezoneText.text = "time zone"
+        timeText.text = it.timezone
 
         try {
             context?.let { it1 -> Glide.with(it1)
                     .load(it.avatarUrl)
                     .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
-                    .placeholder(R.drawable.ic_star_border)
                     .into(profileImage) }
         } catch (e: Exception) {
             Log.e("Load profile image", e.toString())
         }
 
-        val maxWidth: Int = skillsLayout.measuredWidth - 100
+        val maxWidth: Int = skillsLayout.measuredWidth - 100 - 48
 
         var params: LinearLayout.LayoutParams
         var newLL = LinearLayout(context)

@@ -11,8 +11,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import org.hackillinois.android.R
 import org.hackillinois.android.view.MainActivity
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MatchingProfileFragment : Fragment() {
 
@@ -25,7 +23,6 @@ class MatchingProfileFragment : Fragment() {
     private lateinit var pointsText: TextView
     private lateinit var discordText: TextView
     private lateinit var descriptionText: TextView
-    private var flag: Boolean = false
 
     private lateinit var teamStatusArray: Array<String>
     private lateinit var teamStatusVerboseArray: Array<String>
@@ -45,15 +42,15 @@ class MatchingProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_matching_profile, container, false)
-        profileImage = view.findViewById<ImageView>(R.id.profileImage)
-        nameText = view.findViewById<TextView>(R.id.nameText)
-        teamStatusText = view.findViewById<TextView>(R.id.teamStatusText)
-        timezoneText = view.findViewById<TextView>(R.id.timezoneText)
-        timeText = view.findViewById<TextView>(R.id.timeText)
-        pointsText = view.findViewById<TextView>(R.id.pointsText)
-        discordText = view.findViewById<TextView>(R.id.discordText)
-        descriptionText = view.findViewById<TextView>(R.id.descriptionText)
-        skillsLayout = view.findViewById<LinearLayout>(R.id.skillsLinearLayout)
+        profileImage = view.findViewById(R.id.profileImage)
+        nameText = view.findViewById(R.id.nameText)
+        teamStatusText = view.findViewById(R.id.teamStatusText)
+        timezoneText = view.findViewById(R.id.timezoneText)
+        timeText = view.findViewById(R.id.timeText)
+        pointsText = view.findViewById(R.id.pointsText)
+        discordText = view.findViewById(R.id.discordText)
+        descriptionText = view.findViewById(R.id.descriptionText)
+        skillsLayout = view.findViewById(R.id.skillsLinearLayout)
 
         val backButton = view.findViewById<ImageButton>(R.id.backButton)
         backButton.setOnClickListener {
@@ -79,14 +76,13 @@ class MatchingProfileFragment : Fragment() {
         }
 
         nameText.text = selectedProfile.firstName + " " + selectedProfile.lastName
-        timezoneText.text = selectedProfile.timezone
-        val df = SimpleDateFormat("hh:mm aa")
-        timeText.text = df.format(Calendar.getInstance().time)
+        timezoneText.text = "time zone"
+        timeText.text = selectedProfile.timezone
         pointsText.text = selectedProfile.points.toString()
         discordText.text = selectedProfile.discord
         descriptionText.text = selectedProfile.description
 
-        val maxWidth: Int = skillsLayout.measuredWidth - 100
+        val maxWidth: Int = skillsLayout.measuredWidth - 100 - 48
         // Log.i("maxWidth", maxWidth.toString())
 
         var params: LinearLayout.LayoutParams

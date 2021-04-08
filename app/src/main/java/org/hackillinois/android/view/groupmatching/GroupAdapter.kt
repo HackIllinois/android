@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
@@ -20,8 +23,8 @@ import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
 import java.lang.Exception
 
-class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources)
-    : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources) :
+    RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
     var data = listOf<Profile>()
         set(value) {
@@ -83,6 +86,7 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
             if (item.id == currUser.value?.id) {
                 starButton.visibility = View.GONE
             } else {
+                starButton.visibility = View.VISIBLE
                 starButton.setOnClickListener {
                     starButton.isSelected = !starButton.isSelected
                     if (starButton.isSelected) {
@@ -94,7 +98,11 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
                 }
             }
             try {
-                Glide.with(context).load(item.avatarUrl).centerCrop().placeholder(R.drawable.ic_star_border).into(avatarIcon)
+                Glide.with(context)
+                        .load(item.avatarUrl)
+                        .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
+                        .into(avatarIcon)
+                avatarIcon.setBackgroundResource(0)
             } catch (e: Exception) {
                 Log.e("GroupAdapter", e.localizedMessage)
             }
