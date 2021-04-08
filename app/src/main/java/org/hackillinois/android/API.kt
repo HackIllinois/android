@@ -8,11 +8,9 @@ import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.notifications.DeviceToken
-
 import okhttp3.ResponseBody
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.TimesWrapper
-import org.hackillinois.android.model.auth.EventCheckinResponse
 import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
@@ -52,7 +50,7 @@ interface API {
     suspend fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): TrackerContainer
 
     @POST("event/checkin/")
-    suspend fun eventCodeCheckIn(@Body token: EventCode): EventCheckinResponse
+    suspend fun eventCodeCheckIn(@Body token: EventCode): EventCheckInResponse
 
     // NOTIFICATIONS
 

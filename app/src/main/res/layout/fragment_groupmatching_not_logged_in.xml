@@ -15,7 +15,7 @@
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:gravity="center"
-        android:text="Team Matching"
+        android:text="Profile"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:layout_marginTop="45dp"
@@ -42,7 +42,7 @@
             android:layout_marginEnd="32dp"
             android:fontFamily="@font/montserrat_semi_bold"
             android:gravity="center"
-            android:text="You need to log out of your current account and log in as an attendee to see other profiles."
+            android:text="You need to login as an attendee to see other profiles."
             android:textColor="#ffffff"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
 
         <Button
             android:id="@+id/logout_button"
-            android:text="Log Out"
+            android:text="Login"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:fontFamily="@font/montserrat_semi_bold"
