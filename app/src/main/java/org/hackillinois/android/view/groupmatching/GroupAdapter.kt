@@ -20,8 +20,8 @@ import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
 import java.lang.Exception
 
-class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources)
-    : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources) :
+    RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
     var data = listOf<Profile>()
         set(value) {

@@ -119,12 +119,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         submitCodeButton.setOnClickListener {
+            // If not logged in
+            if (!hasLoggedIn()) {
+                Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            // Find the button
             val enterCodeFieldText = codeEnterView.findViewById<EditText>(R.id.enterCodeField).text
             val code: String = enterCodeFieldText.toString()
             if (code == null || code.isEmpty()) {
                 Snackbar.make(findViewById(android.R.id.content), R.string.invalid_code, Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            // Launch thread to send api request
             thread {
                 GlobalScope.launch(Dispatchers.IO) {
                     try {
@@ -172,5 +179,8 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+    private fun hasLoggedIn(): Boolean {
+        return JWTUtilities.readJWT(applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 }

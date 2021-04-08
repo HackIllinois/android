@@ -6,8 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Event
-import org.json.JSONObject
-import retrofit2.HttpException
+import org.hackillinois.android.database.entity.EventCheckInResponse
 import org.hackillinois.android.database.entity.EventCode
 
 class EventRepository {
@@ -43,35 +42,32 @@ class EventRepository {
     }
 
     companion object {
+        private fun getEventCodeMessage(response: EventCheckInResponse): String {
+            var responseString: String = ""
+            when (response.status) {
+                "Success" -> responseString = "Success! You received ${response.newPoints} points."
+                "InvalidCode" -> responseString = "This code doesn't seem to be correct."
+                "InvalidTime" -> responseString = "Make sure you have the right time."
+                "AlreadyCheckedIn" -> responseString = "Looks like you're already checked in."
+                else -> responseString = "Something isn't quite right."
+            }
+            return responseString
+        }
         suspend fun checkInEvent(code: String): String {
             Log.d("send event token", code)
+            var apiResponse: EventCheckInResponse = EventCheckInResponse(-1, -1, "")
 
-//            var gson = Gson()
-//            var jsonString = gson.toJson((EventCode(code)))
             withContext(Dispatchers.IO) {
                 try {
                     Log.d("Sending code: ", code)
 
-                    val response = App.getAPI().eventCodeCheckIn(EventCode(code))
-                    Log.d("code sent!", response.toString())
-                    return@withContext response
+                    apiResponse = App.getAPI().eventCodeCheckIn(EventCode(code))
+                    Log.d("code sent!", apiResponse.toString())
                 } catch (e: Exception) {
-                    when (e) {
-                        is HttpException -> {
-                            val error = JSONObject(e.response()?.errorBody()?.string())
-                            val errorType = error.getString("type")
-                            if (errorType == "ATTRIBUTE_MISMATCH_ERROR") {
-                                error.getString("message")
-                            } else {
-                                "Internal API error"
-                            }
-                        }
-
-                        else -> Log.e("Error - check in", e.toString())
-                    }
+                        Log.e("Error - check in", e.toString())
                 }
             }
-            return "Error"
+            return getEventCodeMessage(apiResponse)
         }
 
         const val MILLIS_IN_SECOND = 1000L

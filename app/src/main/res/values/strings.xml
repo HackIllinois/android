@@ -98,6 +98,7 @@
     <string name="qnaText">Q&amp;A</string>
     <string name="otherText">Other</string>
     <string name="invalid_code">This code doesn\'t seem to be correct.</string>
+    <string name="fab_error_msg">You must log in to use this feature! Go to the Profile or Group matching tabs to logout.</string>
 
 
     <string-array name="skills_array">
@@ -162,4 +163,5 @@
         <item>Looking For Members</item>
         <item>Not Looking</item>
     </string-array>
+
 </resources>
