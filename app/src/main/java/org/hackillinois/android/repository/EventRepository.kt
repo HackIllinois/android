@@ -53,7 +53,7 @@ class EventRepository {
                     Log.d("Sending code: ", code)
 
                     val response = App.getAPI().eventCodeCheckIn(EventCode(code))
-                    Log.d("code sent!", response)
+                    Log.d("code sent!", response.toString())
                     return@withContext response
                 } catch (e: Exception) {
                     when (e) {
