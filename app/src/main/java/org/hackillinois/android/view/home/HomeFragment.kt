@@ -173,6 +173,4 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     }
 
     private fun padNumber(number: Long) = String.format("%02d", number)
-
-
 }

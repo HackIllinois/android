@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.viewmodel.ProfileViewModel
 
 class ProfileEditFragment : Fragment() {
 

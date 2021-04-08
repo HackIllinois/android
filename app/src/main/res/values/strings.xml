@@ -97,6 +97,7 @@
     <string name="miniEventText">Mini-event</string>
     <string name="qnaText">Q&amp;A</string>
     <string name="otherText">Other</string>
+    <string name="invalid_code">This code doesn\'t seem to be correct.</string>
 
 
     <string-array name="skills_array">

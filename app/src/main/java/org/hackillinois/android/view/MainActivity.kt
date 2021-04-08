@@ -6,6 +6,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -13,26 +15,28 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.layout_event_code_dialog.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
-import org.hackillinois.android.common.QRUtilities
-import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.Profile
-import org.hackillinois.android.database.entity.QR
-import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.notifications.FirebaseTokenManager
+import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
+import java.lang.Exception
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -97,14 +101,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupCodeEntrySheet() {
-        val inflater : LayoutInflater = layoutInflater
+        val inflater: LayoutInflater = layoutInflater
         val codeEnterView = inflater.inflate(R.layout.layout_event_code_dialog, null)
         val alertDialogBuilder = AlertDialog.Builder(this, R.style.WrapContentDialog)
         alertDialogBuilder.setView(codeEnterView)
         val alertDialog = alertDialogBuilder.create()
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val closeButton = codeEnterView.findViewById<ImageButton>(R.id.codeEntryClose)
-
+        val submitCodeButton = codeEnterView.findViewById<Button>(R.id.submitCodeBtn)
         code_entry_fab.setOnClickListener {
             alertDialog.show()
         }
@@ -113,11 +117,24 @@ class MainActivity : AppCompatActivity() {
             alertDialog.dismiss()
         }
 
-
-        submitCodeBtn.setOnClickListener {
-
+        submitCodeButton.setOnClickListener {
+            val enterCodeFieldText = codeEnterView.findViewById<EditText>(R.id.enterCodeField).text
+            val code: String = enterCodeFieldText.toString()
+            if (code == null || code.isEmpty()) {
+                Snackbar.make(findViewById(android.R.id.content), R.string.invalid_code, Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            thread {
+                GlobalScope.launch(Dispatchers.IO) {
+                    try {
+                        val response = EventRepository.checkInEvent(code)
+                        Snackbar.make(findViewById(android.R.id.content), response, Snackbar.LENGTH_SHORT).show()
+                    } catch (e: Exception) {
+                        Log.e("Code submit", e.toString())
+                    }
+                }
+            }
         }
-
     }
 
     fun switchFragment(fragment: Fragment, addToBackStack: Boolean) {
@@ -139,22 +156,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun logout() {
-//        JWTUtilities.clearJWT(applicationContext)
-//
-//        thread {
-//            FavoritesManager.clearFavorites(this)
-//            App.database.clearAllTables()
-//            App.getAPI("")
-//
-//            runOnUiThread {
-//                val loginIntent = Intent(this, LoginActivity::class.java)
-//                loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                startActivity(loginIntent)
-//                finish()
-//            }
-//        }
-//    }
     fun logout() {
         JWTUtilities.clearJWT(applicationContext)
 

@@ -19,6 +19,7 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.viewmodel.ProfileViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 

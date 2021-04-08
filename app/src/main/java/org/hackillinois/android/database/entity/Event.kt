@@ -112,3 +112,5 @@ data class IndoorMapAndDirectionInfo(
     val indoorMapResource: Int,
     val latLng: LatLng
 )
+
+data class EventCode(val code: String)
