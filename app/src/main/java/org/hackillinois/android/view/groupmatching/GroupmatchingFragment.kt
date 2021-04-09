@@ -21,6 +21,7 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.repository.ProfileRepository
 import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.viewmodel.GroupmatchingViewModel
 
 class GroupmatchingFragment : Fragment() {
 
@@ -73,7 +74,13 @@ class GroupmatchingFragment : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 true)
         groupStatusButton.setOnClickListener {
+            groupStatusButton.setBackgroundResource(R.drawable.rounded_blue_bg_top_corners)
+            popupWindow.animationStyle = R.anim.slide_down
             popupWindow.showAsDropDown(groupStatusButton)
+        }
+        popupWindow.setOnDismissListener {
+            popupWindow.animationStyle = R.anim.slide_up
+            groupStatusButton.setBackgroundResource(R.drawable.rounded_blue_bg)
         }
         val lookingForTeamLL = popupView.findViewById<LinearLayout>(R.id.looking_for_team_linearlayout)
         val lookingForMemberLL = popupView.findViewById<LinearLayout>(R.id.team_looking_for_members_linearlayout)

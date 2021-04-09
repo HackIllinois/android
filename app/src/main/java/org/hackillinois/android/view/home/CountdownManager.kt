@@ -8,19 +8,19 @@ import java.util.*
 
 class CountdownManager(val listener: CountDownListener) {
 
-    // placeholder time: April 9th 2021, 9pm
+    // A2021-04-09 17:00:00
     private val eventStartTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         timeInMillis = 1618005600000
     }
 
-    // placeholder time: April 10th 2021, 12am
+    // 2021-04-09 18:00:00
     private val hackingStartTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         timeInMillis = 1618009200000
     }
 
-    // placeholder time: April 11th 2021 12pm
+    // 2021-04-11 18:00:00
     private val hackingEndTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         timeInMillis = 1618182000000
@@ -28,7 +28,7 @@ class CountdownManager(val listener: CountDownListener) {
 
     private var times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
     // placeholders in case design team decides to change this
-    private val titles = listOf("Countdown", "Countdown", "Countdown", "Countdown")
+    private val titles = listOf("Countdown", "Hacking Starts In", "Hacking Ends In", "Thanks for coming!")
 
     private var timer: CountDownTimer? = null
     private var state = 0

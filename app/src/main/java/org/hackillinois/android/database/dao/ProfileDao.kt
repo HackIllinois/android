@@ -10,7 +10,7 @@ interface ProfileDao {
     @Query("SELECT * FROM profiles WHERE id = :profileId")
     fun getProfile(profileId: String): LiveData<Profile>
 
-    @Query("SELECT * FROM profiles")
+    @Query("SELECT * FROM profiles ORDER BY id ASC")
     fun getAllProfiles(): LiveData<List<Profile>>
 
     // TODO: Select profiles where each interest in "interests" exists in the profile's interests

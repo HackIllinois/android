@@ -128,7 +128,8 @@ class MainActivity : AppCompatActivity() {
             // Find the button
             val enterCodeFieldText = codeEnterView.findViewById<EditText>(R.id.enterCodeField).text
             val code: String = enterCodeFieldText.toString()
-            if (code == null || code.isEmpty()) {
+            if (code.isEmpty()) {
+                alertDialog.dismiss()
                 Snackbar.make(findViewById(android.R.id.content), R.string.invalid_code, Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -143,6 +144,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+            alertDialog.dismiss()
         }
     }
 

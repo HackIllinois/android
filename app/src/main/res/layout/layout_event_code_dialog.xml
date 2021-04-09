@@ -43,11 +43,15 @@
         android:textColor="@color/primaryGrayColor"
         android:textSize="14sp"
         android:fontFamily="@font/montserrat_regular"
+        android:gravity="center"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:hint="@string/enter_code"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/collectPointsText"
         app:layout_constraintBottom_toTopOf="@id/submitCodeBtn"
-        android:hint="@string/enter_code" />
+        />
 
     <Button
         android:id="@+id/submitCodeBtn"
