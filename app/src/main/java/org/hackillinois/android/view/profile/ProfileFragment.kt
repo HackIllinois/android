@@ -61,7 +61,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (!hasLoggedIn()) {
-            val view = inflater.inflate(R.layout.fragment_groupmatching_not_logged_in, container, false)
+            val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
                 val mainActivity: MainActivity = requireActivity() as MainActivity
