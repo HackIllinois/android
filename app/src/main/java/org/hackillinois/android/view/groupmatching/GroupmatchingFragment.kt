@@ -21,6 +21,7 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.repository.ProfileRepository
 import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.viewmodel.GroupmatchingViewModel
 
 class GroupmatchingFragment : Fragment() {
 
