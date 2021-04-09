@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/project_info_background" >
+    android:background="@color/colorBackgrounds" >
 
     <Button
-        android:id="@+id/closeButton"
+        android:id="@+id/codeEntryClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -17,20 +17,20 @@
         android:drawableStart="@drawable/ic_close_primary"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/close_text"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/lightTextColor"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:id="@+id/project_tags"
+        android:id="@+id/event_tags"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/closeButton">
+        app:layout_constraintTop_toBottomOf="@+id/codeEntryClose">
 
         <include layout="@layout/project_tags" />
     </FrameLayout>
@@ -43,11 +43,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/lightTextColor"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/starButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/project_tags"
+        app:layout_constraintTop_toBottomOf="@+id/event_tags"
         tools:text="Project Name Here" />
 
     <TextView
@@ -57,7 +57,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/lightTextColor"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/starButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,7 @@
         android:background="@android:color/transparent"
         android:src="@drawable/ic_star_selectable"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/project_tags"
+        app:layout_constraintTop_toBottomOf="@+id/event_tags"
         app:srcCompat="@drawable/ic_star_border" />
 
     <TextView
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/lightTextColor"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableTextView"
@@ -109,7 +109,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/montserrat_regular"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/lightTextColor"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

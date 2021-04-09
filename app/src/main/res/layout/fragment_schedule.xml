@@ -3,21 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
-    android:background="@drawable/schedule_background"
+    android:background="@color/colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <ImageButton
         android:id="@+id/favScheduleButton"
-        android:layout_width="117dp"
-        android:layout_height="34dp"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/toggleable_rounded_button"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:text="@string/fav_button_text"
-        android:textColor="@color/toggleable_rounded_button_text"
-        android:textSize="14sp"
+        android:src="@drawable/star_button_white"
+        android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +26,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/schedule_header"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,32 +42,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schedule_header"
-        app:tabIndicatorColor="@color/colorAccent"
+        app:tabIndicatorColor="@color/selectedOffWhiteColor"
         app:tabIndicatorHeight="3dp"
-        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabSelectedTextColor="@color/selectedOffWhiteColor"
         app:tabTextAppearance="@style/TabTextAppearance"
-        app:tabTextColor="@color/colorPrimary">
+        app:tabTextColor="@android:color/white">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabFriday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:text="@string/schedule_tab_friday" />
+            android:fontFamily="@font/montserrat_light"
+            android:text="Friday\n09" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSaturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:text="@string/schedule_tab_saturday" />
+            android:fontFamily="@font/montserrat_light"
+            android:text="Saturday\n10"
+            />
+
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:text="@string/schedule_tab_sunday" />
+            android:fontFamily="@font/montserrat_light"
+            android:text="Sunday\n11" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_light"
+            android:text="Monday\n12" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -78,7 +84,7 @@
         android:id="@+id/schedule_horizLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/scheduleDays" />

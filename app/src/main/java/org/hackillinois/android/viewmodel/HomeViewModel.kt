@@ -1,21 +1,19 @@
 package org.hackillinois.android.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.repository.EventRepository
 
 class HomeViewModel : ViewModel() {
 
     private val eventRepository = EventRepository.instance
-    lateinit var ongoingEventsLiveData: LiveData<List<Event>>
-    lateinit var upcomingEventsLiveData: LiveData<List<Event>>
+    var ongoingEventsLiveData: LiveData<List<Event>>
+    var upcomingEventsLiveData: LiveData<List<Event>>
 
     private val currentTime: MutableLiveData<Long> = MutableLiveData()
 
-    fun init() {
+    init {
         ongoingEventsLiveData = Transformations.switchMap(currentTime) {
             value -> eventRepository.fetchEventsHappeningAtTime(value)
         }
@@ -27,5 +25,8 @@ class HomeViewModel : ViewModel() {
 
     fun refresh() {
         currentTime.value = System.currentTimeMillis()
+        viewModelScope.launch {
+            eventRepository.refreshAllEvents()
+        }
     }
 }

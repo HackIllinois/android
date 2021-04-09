@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.home.eventlist
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -15,7 +16,7 @@ import org.hackillinois.android.database.entity.Event
 class EventsSection(
     var eventsList: List<Event>,
     private val headerText: String,
-    private val headerColor: Int,
+    private val headerColor: Int = Color.WHITE,
     private val showTime: Boolean,
     private val eventClickListener: EventClickListener,
     private val context: Context
@@ -35,12 +36,46 @@ class EventsSection(
             titleTextView.text = event.name
             sponsoredTextView.text = "Sponsored by ${event.sponsor}"
             sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            eventLocationTextView.text = event.getLocationDescriptionsAsString()
+            eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
+//            eventLocationTextView.text = event.getLocationDescriptionsAsString()
             eventDescriptionTextView.text = event.description
+            pointsView.text = "${event.points} Points!"
 
-            setOnClickListener {
-                eventClickListener.openEventInfoActivity(eventsList[position])
+            // @todo sloppy, clean up
+            when (event.eventType) {
+                "MEAL" -> {
+                    eventType.setText(R.string.mealText)
+                    eventType.setTextColor(resources.getColor(R.color.mealTextColor))
+                }
+                "SPEAKER" -> {
+                    eventType.setText(R.string.speakerText)
+                    eventType.setTextColor(resources.getColor(R.color.speakerTextColor))
+                }
+                "WORKSHOP" -> {
+                    eventType.setText(R.string.workshopText)
+                    eventType.setTextColor(resources.getColor(R.color.workshopTextColor))
+                }
+                "MINIEVENT" -> {
+                    eventType.setText(R.string.miniEventText)
+                    eventType.setTextColor(resources.getColor(R.color.miniEventTextColor))
+                }
+                "QNA" -> {
+                    eventType.setText(R.string.qnaText)
+                    eventType.setTextColor(resources.getColor(R.color.qnaTextColor))
+                }
+                "OTHER" -> {
+                    eventType.setText(R.string.otherText)
+                    eventType.setTextColor(resources.getColor(R.color.otherTextColor))
+                }
+                else -> {
+                    eventType.visibility = View.GONE
+                }
             }
+
+            // iOS doesn't have this -- Hack 2021
+//            setOnClickListener {
+//                eventClickListener.openEventInfoActivity(eventsList[position])
+//            }
 
             starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
             starButton.setOnClickListener(starClickListener(event))

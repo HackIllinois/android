@@ -1,9 +1,9 @@
 # The Official HackIllinois Android App
-[![Build Status](https://travis-ci.com/HackIllinois/android.svg?branch=master)](https://travis-ci.com/HackIllinois/android)
+[![Build Status](https://github.com/hackillinois/android/workflows/CI/badge.svg)](https://github.com/HackIllinois/android/actions)
 
-<img src="https://raw.githubusercontent.com/HackIllinois/android/master/screenshots/home.png" width="170"/> <img src="https://raw.githubusercontent.com/HackIllinois/android/master/screenshots/schedule.png" width="170"/> <img src="https://raw.githubusercontent.com/HackIllinois/android/master/screenshots/indoor-maps.png" width="170"/> <img src="https://raw.githubusercontent.com/HackIllinois/android/master/screenshots/outdoor-maps.png" width="170"/>
+<img src="screenshots/login.png" width="170"/><img src="screenshots/home.png" width="170"/> <img src="screenshots/collect-points.png" width="170"/><img src="screenshots/schedule.png" width="170"/> <img src="screenshots/profile-notloggedin.png" width="170"/><img src="screenshots/sample-profile.png" width="170"/> <img src="screenshots/profile-matching.png" width="170"/>
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="80">](https://play.google.com/store/apps/details/?id=org.hackillinois.androidapp2019)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="80">](https://play.google.com/store/apps/details?id=org.hackillinois.android.release)
 
 ## Development Setup
 1. Download and install [Android Studio](https://developer.android.com/studio).

@@ -11,7 +11,7 @@ import org.hackillinois.android.R
 class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
 
     private var gapPercentage = 0F
-    private var tickerBackgroundColor: Int = Color.WHITE
+    private var tickerBackgroundColor: Int = Color.TRANSPARENT
     private var tickerCornerRadius: Float = 0F
     private var tickerBackgroundRectF: RectF
     private var tickerText: String
@@ -79,7 +79,7 @@ class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, a
                 height.toFloat() + textHeight / 2,
                 textPaint
             )
-
+//            canvas?.drawBitmap()
             canvas?.drawBitmap(bitmap, 0F, 0F, null)
         } else {
             bitmapCanvas.drawBottomRoundRect(tickerBackgroundRectF, fillPaint, tickerCornerRadius)
@@ -105,8 +105,8 @@ class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, a
         this.gapPercentage = gapPercentage
         this.tickerCornerRadius = tickerCornerRadius
 
-        this.tickerBackgroundColor = tickerBackgroundColor
-        this.fillPaint.color = tickerBackgroundColor
+//        this.tickerBackgroundColor = tickerBackgroundColor
+//        this.fillPaint.color = tickerBackgroundColor
 
         this.tickerTextSize = tickerTextSize
         this.textColor = textColor
@@ -118,7 +118,9 @@ class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, a
     }
 
     fun setText(text: String?) {
-        tickerText = text ?: "00"
+        if (text != null) {
+            tickerText = text
+        }
         invalidate()
     }
 }
