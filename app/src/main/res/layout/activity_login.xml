@@ -8,11 +8,12 @@
     android:background="@drawable/login_background"
     >
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="156dp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/welcome_login"
         android:textColor="@android:color/white"
@@ -20,7 +21,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <ImageView
         android:id="@+id/loginLogo"
@@ -43,7 +43,6 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/login_or_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginLogo"
         />
