@@ -40,6 +40,7 @@
         android:layout_marginEnd="16dp"
         android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schedule_header"
         app:tabIndicatorColor="@color/selectedOffWhiteColor"
@@ -53,15 +54,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_light"
-            android:text="Friday\n09" />
+            android:text="Fri\n09" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSaturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_light"
-            android:text="Saturday\n10"
-            />
+            android:text="Sat\n10" />
 
 
         <com.google.android.material.tabs.TabItem
@@ -69,14 +69,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_light"
-            android:text="Sunday\n11" />
+            android:text="Sun\n11" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabMonday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_light"
-            android:text="Monday\n12" />
+            android:text="Mon\n12" />
 
     </com.google.android.material.tabs.TabLayout>
 
