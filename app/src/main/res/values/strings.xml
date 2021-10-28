@@ -3,10 +3,12 @@
 
     <string name="home_empty_events">Check Back Later</string>
 
-    <string name="schedule_tab_friday">FRIDAY</string>
-    <string name="schedule_tab_saturday">SATURDAY</string>
-    <string name="schedule_tab_sunday">SUNDAY</string>
-    <string name="schedule_header">SCHEDULE</string>
+    <string name="schedule_tab_friday">Friday</string>
+    <string name="schedule_tab_saturday">Saturday</string>
+    <string name="schedule_tab_sunday">Sunday</string>
+    <string name="schedule_tab_monday">Monday</string>
+
+    <string name="schedule_header">Schedule</string>
     <string name="schedule_snackbar_notifications_on">Notifications are on for this event</string>
 
     <string name="map_dcl">DCL</string>
@@ -20,11 +22,11 @@
 
     <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
     <string name="authorization_pref_file_key">org.hackillinois.android.authorization</string>
-    <string name="welcome_login">WELCOME TO</string>
-    <string name="label_login">LOGIN</string>
-    <string name="attendee_login">ATTENDEE</string>
-    <string name="staff_login">STAFF</string>
-    <string name="guest_login">GUEST</string>
+    <string name="welcome_login">Welcome to</string>
+    <string name="label_login">Login</string>
+    <string name="attendee_login">Attendee</string>
+    <string name="staff_login">Staff</string>
+    <string name="guest_login">Guest</string>
     <string name="login_or_label">- OR -</string>
     <string name="tab_stats">Stats</string>
     <string name="tab_events">Events</string>
@@ -42,19 +44,19 @@
     <string name="notification_topic">Notification Topic</string>
     <string name="notification_content">Notification Content</string>
     <string name="notification_title">Notification Title</string>
-    <string name="close_text">CLOSE</string>
-    <string name="logout_text">LOG OUT</string>
+    <string name="close_text">Close</string>
+    <string name="logout_text">Log Out</string>
 
     <string name="default_time_homepage">00</string>
-    <string name="days_label">DAYS</string>
-    <string name="hours_label">HOURS</string>
-    <string name="minutes_label">MINUTES</string>
-    <string name="projects_header">PROJECTS</string>
+    <string name="days_label">Days</string>
+    <string name="hours_label">Hours</string>
+    <string name="minutes_label">Minutes</string>
+    <string name="projects_header">Projects</string>
     <string name="fav_button_text">Favorites</string>
     <string name="spinner_default">Select Category</string>
     <string name="data_sci_project">DATA SCI</string>
     <string name="languages_project">LANGS</string>
-    <string name = "systems_project">SYSTEMS</string>
+    <string name="systems_project">SYSTEMS</string>
     <string name="web_dev_project">WEB</string>
 
     <string name="data_science_tag">Data Science</string>
@@ -63,11 +65,15 @@
     <string name="systems_tag">Systems</string>
 
     <string name="project_favorited_notif">Project added to Favorites!</string>
+    <string name="profile_favorited_notif">Profile added to Favorites!</string>
 
     <string name="outdoors_button">OUTDOORS</string>
     <string name="indoors_buttons">INDOORS</string>
 
     <string name="login_notice">Log in to see your QR code!</string>
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem cursus, nulla cras. Non in nibh vulputate pharetra, ornare mi malesuada. Id tempus amet est.</string>
+    <string name="join_stream">Join Stream!</string>
 
 
     <string-array name="event_location_options">
@@ -81,6 +87,82 @@
         <item>SPEAKER</item>
         <item>WORKSHOP</item>
         <item>MINIEVENT</item>
+        <item>QNA</item>
         <item>OTHER</item>
     </string-array>
+
+    <string name="mealText">Meal</string>
+    <string name="speakerText">Speaker</string>
+    <string name="workshopText">Workshop</string>
+    <string name="miniEventText">Mini-event</string>
+    <string name="qnaText">Q&amp;A</string>
+    <string name="otherText">Other</string>
+    <string name="invalid_code">This code doesn\'t seem to be correct.</string>
+    <string name="fab_error_msg">You must log in to use this feature! Go to the Profile or Group matching tabs to logout.</string>
+    <string name="enter_code">Enter Code...</string>
+
+
+    <string-array name="skills_array">
+        <item>Adobe Illustrator</item>
+        <item>Adobe InDesign</item>
+        <item>Adobe Photoshop</item>
+        <item>Adobe XD</item>
+        <item>Android</item>
+        <item>Angular</item>
+        <item>Arduino</item>
+        <item>AWS</item>
+        <item>Azure</item>
+        <item>Blender</item>
+        <item>C</item>
+        <item>C#</item>
+        <item>C++</item>
+        <item>Canva</item>
+        <item>CSS</item>
+        <item>Digital Ocean</item>
+        <item>Django</item>
+        <item>Figma</item>
+        <item>Firebase</item>
+        <item>Flutter</item>
+        <item>Git</item>
+        <item>GitHub</item>
+        <item>Go</item>
+        <item>Godot</item>
+        <item>Google Cloud</item>
+        <item>Haskell</item>
+        <item>HTML</item>
+        <item>iOS</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>Kotlin</item>
+        <item>MongoDB</item>
+        <item>MySQL</item>
+        <item>NativeScript</item>
+        <item>Neo4J</item>
+        <item>PHP</item>
+        <item>PostgreSQL</item>
+        <item>Python</item>
+        <item>Raspberry Pi</item>
+        <item>React</item>
+        <item>React Native</item>
+        <item>Ruby</item>
+        <item>Rust</item>
+        <item>Swift</item>
+        <item>TypeScript</item>
+        <item>Unity</item>
+        <item>Unreal</item>
+        <item>Vue</item>
+    </string-array>
+
+    <string-array name="team_status_array">
+        <item>LOOKING_FOR_TEAM</item>
+        <item>LOOKING_FOR_MEMBERS</item>
+        <item>NOT_LOOKING</item>
+    </string-array>
+
+    <string-array name="team_status_verbose_array">
+        <item>Looking For Team</item>
+        <item>Looking For Members</item>
+        <item>Not Looking</item>
+    </string-array>
+
 </resources>

@@ -1,10 +1,5 @@
 package org.hackillinois.android
 
-import org.hackillinois.android.database.entity.Attendee
-import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.QR
-import org.hackillinois.android.database.entity.Roles
-import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
 import org.hackillinois.android.model.checkin.CheckIn
@@ -13,35 +8,37 @@ import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.notifications.DeviceToken
-
 import okhttp3.ResponseBody
+import org.hackillinois.android.database.entity.*
+import org.hackillinois.android.model.TimesWrapper
+import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface API {
 
     // AUTH
 
     @POST("auth/code/{provider}/")
-    fun getJWT(@Path("provider") provider: String, @Query("redirect_uri") redirect: String, @Body code: Code): Call<JWT>
+    suspend fun getJWT(
+        @Path("provider") provider: String,
+        @Query("redirect_uri") redirect: String,
+        @Body code: Code
+    ): JWT
 
     @GET("auth/roles/")
-    fun roles(): Call<Roles>
+    suspend fun roles(): Roles
 
     // CHECK-IN
 
     @POST("checkin/")
-    fun checkInUser(@Body checkIn: CheckIn): Call<CheckIn>
+    suspend fun checkInUser(@Body checkIn: CheckIn): CheckIn
 
     // EVENT
 
     @GET("event/")
-    fun allEvents(): Call<EventsList>
+    suspend fun allEvents(): EventsList
 
     @POST("event/")
     fun createEvent(@Body event: Event): Call<Event>
@@ -50,20 +47,23 @@ interface API {
     fun getEvent(@Path("id") id: String): Call<Event>
 
     @POST("event/track/")
-    fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): Call<TrackerContainer>
+    suspend fun markUserAsAttendingEvent(@Body userEventPair: UserEventPair): TrackerContainer
+
+    @POST("event/checkin/")
+    suspend fun eventCodeCheckIn(@Body token: EventCode): EventCheckInResponse
 
     // NOTIFICATIONS
 
     @POST("notifications/device/")
-    fun sendUserToken(@Body token: DeviceToken): Call<DeviceToken>
+    suspend fun sendUserToken(@Body token: DeviceToken): DeviceToken
 
     @POST("notifications/update/")
-    fun updateNotificationTopics(): Call<NotificationTopics>
+    suspend fun updateNotificationTopics(): NotificationTopics
 
     // REGISTRATION
 
     @GET("registration/attendee/")
-    fun attendee(): Call<Attendee>
+    suspend fun attendee(): Attendee
 
     // STAT
 
@@ -73,15 +73,29 @@ interface API {
     // USER
 
     @GET("user/")
-    fun user(): Call<User>
+    suspend fun user(): User
 
     @GET("user/qr/")
-    fun qrCode(): Call<QR>
+    suspend fun qrCode(): QR
 
     // PROJECT
 
     @GET("project/")
-    fun allProjects(): Call<ProjectsList>
+    suspend fun allProjects(): ProjectsList
+
+    // PROFILE
+
+    @PUT("profile/")
+    suspend fun updateProfile(@Body newProfile: Profile): Profile
+
+    @GET("profile/")
+    suspend fun currentProfile(): Profile
+
+    @GET("profile/search/")
+    suspend fun allProfiles(): ProfileList
+
+    @GET("upload/blobstore/times/")
+    suspend fun times(): TimesWrapper
 
     companion object {
         val BASE_URL = "https://api.hackillinois.org/"

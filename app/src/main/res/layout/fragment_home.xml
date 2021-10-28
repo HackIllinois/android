@@ -2,17 +2,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/homepage_bg">
+    android:background="@drawable/home_background_during">
+
+<!--    <Button-->
+<!--        android:id="@+id/logoutButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:text="@string/logout_text"-->
+<!--        android:textColor="#FFFFFF"-->
+<!--        android:textSize="14sp"-->
+<!--        android:fontFamily="@font/montserrat_semi_bold"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/countdownTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_width="330dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/montserrat_bold"
-        android:textColor="@color/primaryTextColor"
+        android:gravity="left"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,22 +49,22 @@
             android:id="@+id/daysLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
             android:layout_marginTop="8dp"
             android:text="@string/days_label"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@android:color/white"
             android:textSize="14sp" />
 
-        <org.hackillinois.android.view.custom.ticker.TickerView
-            xmlns:custom="http://schemas.android.com/apk/res-auto"
+        <TextView
             android:id="@+id/daysValue"
+            android:gravity="left"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            custom:ticker_text_color="@android:color/white"
-            custom:ticker_text_size="64sp"
-            custom:ticker_corner_radius="2dp"
-            custom:ticker_color="@color/tickerColor"
-            custom:gap_percentage="0.02" />
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:textSize="48sp"
+            android:textColor="@android:color/white"
+            />
+
     </LinearLayout>
 
     <LinearLayout
@@ -65,22 +81,21 @@
             android:id="@+id/hoursLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
             android:layout_marginTop="8dp"
             android:text="@string/hours_label"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@android:color/white"
             android:textSize="14sp" />
 
-        <org.hackillinois.android.view.custom.ticker.TickerView
-            xmlns:custom="http://schemas.android.com/apk/res-auto"
+        <TextView
             android:id="@+id/hoursValue"
+            android:gravity="left"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            custom:ticker_text_color="@android:color/white"
-            custom:ticker_text_size="64sp"
-            custom:ticker_corner_radius="2dp"
-            custom:ticker_color="@color/tickerColor"
-            custom:gap_percentage="0.02" />
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:textSize="48sp"
+            android:textColor="@android:color/white"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -97,34 +112,22 @@
             android:id="@+id/minutesLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
             android:layout_marginTop="8dp"
             android:text="@string/minutes_label"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@android:color/white"
             android:textSize="14sp" />
 
-        <org.hackillinois.android.view.custom.ticker.TickerView
+        <TextView
             android:id="@+id/minutesValue"
+            android:gravity="left"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:ticker_text_color="@color/colorAccent"
-            app:ticker_text_size="64sp"
-            app:ticker_corner_radius="2dp"
-            app:ticker_color="@color/tickerColor"
-            app:gap_percentage="0.02" >
-
-        </org.hackillinois.android.view.custom.ticker.TickerView>
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:textSize="48sp"
+            android:textColor="@android:color/white"
+            />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/buildingsImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hoursUnit"
-        app:srcCompat="@drawable/buildings" />
 
     <com.dinuscxj.refresh.RecyclerRefreshLayout
         android:id="@+id/refreshLayout"

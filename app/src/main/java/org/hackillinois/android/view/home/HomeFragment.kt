@@ -1,27 +1,31 @@
 package org.hackillinois.android.view.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.TimeInfo
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.view.eventinfo.EventInfoFragment
-import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.custom.CustomRefreshView
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.view.home.eventlist.EventsSection
 import org.hackillinois.android.viewmodel.HomeViewModel
+import java.lang.Exception
 
 class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickListener {
 
@@ -37,24 +41,25 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     private val refreshIconSize = 100
 
     private val numberOfUpcomingEvents = 2
+    private lateinit var layout: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         context?.let {
-            val ongoingHeaderColor = ContextCompat.getColor(it, R.color.alternateTextColor)
+            val ongoingHeaderColor = Color.WHITE
             ongoingEventsSection = EventsSection(
                 mutableListOf(),
-                "ONGOING",
+                "Ongoing",
                 ongoingHeaderColor,
                 false,
                 this,
                 it
             )
-            val upcomingHeaderColor = ContextCompat.getColor(it, R.color.primaryTextColor)
+            val upcomingHeaderColor = Color.WHITE
             upcomingEventsSection = EventsSection(
                 mutableListOf(),
-                "UPCOMING",
+                "Upcoming",
                 upcomingHeaderColor,
                 true,
                 this,
@@ -66,8 +71,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
             }
         }
 
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        viewModel.init()
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         viewModel.ongoingEventsLiveData.observe(this, Observer { updateOngoingEventsList(it) })
         viewModel.upcomingEventsLiveData.observe(this, Observer { updateUpcomingEventsList(it) })
     }
@@ -84,7 +88,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         view.refreshLayout.setOnRefreshListener {
             viewModel.refresh()
         }
-
+        layout = view.home_layout
         return view
     }
 
@@ -104,6 +108,12 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         super.onResume()
         isActive = true
         countDownManager.onResume()
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val time = App.getAPI().times()
+                countDownManager.setAPITimes(time)
+            } catch (e: Exception) {}
+        }
     }
 
     override fun onStop() {
@@ -158,11 +168,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         if (isActive) {
             countdownTextView.text = newTitle
         }
-    }
-
-    override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
-        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 
     private fun padNumber(number: Long) = String.format("%02d", number)

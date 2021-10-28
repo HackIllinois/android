@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.*
 import org.hackillinois.android.API
 import org.hackillinois.android.App
 import org.hackillinois.android.R
@@ -15,11 +16,9 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import retrofit2.HttpException
+import java.lang.Exception
 import java.net.SocketTimeoutException
-import kotlin.concurrent.thread
 
 class LoginActivity : AppCompatActivity() {
     private val redirectUri: String = "https://hackillinois.org/auth/?isAndroid=1"
@@ -56,43 +55,37 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun finishLogin(code: String) {
-        // TODO: update to Retrofit 2.6.0 and use suspend functions to remove nested callbacks
+        // TODO needs review
         var api = App.getAPI()
-        api.getJWT(getOAuthProvider(), redirectUri, Code(code)).enqueue(object : Callback<JWT> {
-            override fun onFailure(call: Call<JWT>, t: Throwable) {
-                showFailedToLoginStaff()
-            }
-
-            override fun onResponse(call: Call<JWT>, response: Response<JWT>) {
-                response.body()?.token?.let {
-                    api = App.getAPI(it)
-                    thread {
-                        try {
-                            api.updateNotificationTopics().execute()
-                        } catch (e: SocketTimeoutException) {
-                            Log.e("LoginActivity", "Notifications update timed out!")
-                        }
-                    }
-
-                    if (getOAuthProvider() == "google") {
-                        verifyRole(api, it, "Staff")
-                    } else {
-                        verifyRole(api, it, "Attendee")
+        GlobalScope.launch {
+            try {
+                val jwt: JWT = api.getJWT(getOAuthProvider(), redirectUri, Code(code))
+                api = App.getAPI(jwt.token)
+                withContext(Dispatchers.IO) {
+                    try {
+                        // TODO httpException 405
+                        // api.updateNotificationTopics()
+                    } catch (e: SocketTimeoutException) {
+                        Log.e("LoginActivity", "Notifications update timed out!")
                     }
                 }
+
+                if (getOAuthProvider() == "google") {
+                    verifyRole(api, jwt.token, "Staff")
+                } else {
+                    verifyRole(api, jwt.token, "Attendee")
+                }
+            } catch (e: Exception) {
+                showFailedToLoginStaff()
             }
-        })
+        }
     }
 
     private fun verifyRole(api: API, jwt: String, role: String) {
-        api.roles().enqueue(object : Callback<Roles> {
-            override fun onFailure(call: Call<Roles>, t: Throwable) {
-                showFailedToLoginStaff()
-            }
-
-            override fun onResponse(call: Call<Roles>, response: Response<Roles>) {
-                if (response.isSuccessful &&
-                        response.body()?.roles?.contains(role) == true) {
+        GlobalScope.launch {
+            try {
+                val roles: Roles = api.roles()
+                if (roles.roles.contains(role)) {
                     JWTUtilities.writeJWT(applicationContext, jwt)
                     launchMainActivity()
                 } else {
@@ -102,8 +95,21 @@ class LoginActivity : AppCompatActivity() {
                         showFailedToLoginAttendee()
                     }
                 }
+            } catch (e: Exception) {
+                when (e) {
+                    is HttpException -> {
+                        if (role == "Staff") {
+                            showFailedToLoginStaff()
+                        } else {
+                            showFailedToLoginAttendee()
+                        }
+                    }
+                    else -> {
+                        showFailedToLoginStaff()
+                    }
+                }
             }
-        })
+        }
     }
 
     private fun showFailedToLoginStaff() {

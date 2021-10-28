@@ -10,23 +10,12 @@
         android:id="@+id/headerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_gravity="left"
         android:layout_marginBottom="4dp"
-        android:textColor="@color/alternateTextColor"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
-        android:fontFamily="@font/montserrat_semi_bold"
-        tools:text="ONGOING" />
-
-    <TextView
-        android:id="@+id/timeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="14sp"
-        android:fontFamily="@font/montserrat_semi_bold"
-        tools:text="5:00pm" />
+        tools:text="Ongoing" />
 
 </LinearLayout>

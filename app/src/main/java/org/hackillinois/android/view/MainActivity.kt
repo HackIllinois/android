@@ -1,39 +1,42 @@
 package org.hackillinois.android.view
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.Observer
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.layout_qr_sheet.*
-import kotlinx.android.synthetic.main.layout_qr_sheet.view.*
+import kotlinx.android.synthetic.main.layout_event_code_dialog.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
-import org.hackillinois.android.common.QRUtilities
-import org.hackillinois.android.database.entity.Attendee
-import org.hackillinois.android.database.entity.QR
-import org.hackillinois.android.database.entity.User
+import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.notifications.FirebaseTokenManager
+import org.hackillinois.android.repository.EventRepository
+import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
-import org.hackillinois.android.view.maps.MapsFragment
-import org.hackillinois.android.view.project.ProjectFragment
+import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
+import java.lang.Exception
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -42,12 +45,14 @@ class MainActivity : AppCompatActivity() {
 
     private var currentSelection = 0
 
+    var groupMatchingSelectedProfile: Profile? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setupBottomAppBar()
-        setupBottomQRSheet()
+        setupCodeEntrySheet()
 
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
@@ -55,11 +60,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java).apply {
             init()
             val owner = this@MainActivity
-            qr.observe(owner, Observer { updateQrView(it) })
-            user.observe(owner, Observer { user -> updateUserInformation(user) })
-            attendee.observe(owner, Observer { attendee -> updateAttendeeInformation(attendee) })
         }
-
         updateFirebaseToken()
     }
 
@@ -70,8 +71,8 @@ class MainActivity : AppCompatActivity() {
         val bottomBarButtons = listOf(
                 bottomAppBar.homeButton,
                 bottomAppBar.scheduleButton,
-                bottomAppBar.mapsButton,
-                bottomAppBar.projectsButton
+                bottomAppBar.profile,
+                bottomAppBar.teamMatching
         )
 
         // by default, home button is selected
@@ -90,8 +91,8 @@ class MainActivity : AppCompatActivity() {
                     when (view) {
                         bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
                         bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
-                        bottomAppBar.mapsButton -> switchFragment(MapsFragment(), false)
-                        bottomAppBar.projectsButton -> switchFragment(ProjectFragment(), false)
+                        bottomAppBar.profile -> switchFragment(ProfileFragment(), false)
+                        bottomAppBar.teamMatching -> switchFragment(GroupmatchingFragment(), false)
                         else -> return@setOnClickListener
                     }
                 }
@@ -99,32 +100,52 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupBottomQRSheet() {
-        val bottomSheetBehavior = BottomSheetBehavior.from(standardBottomSheet)
-        bottomSheetBehavior.isHideable = true
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    private fun setupCodeEntrySheet() {
+        val inflater: LayoutInflater = layoutInflater
+        val codeEnterView = inflater.inflate(R.layout.layout_event_code_dialog, null)
+        val alertDialogBuilder = AlertDialog.Builder(this, R.style.WrapContentDialog)
+        alertDialogBuilder.setView(codeEnterView)
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val closeButton = codeEnterView.findViewById<ImageButton>(R.id.codeEntryClose)
+        val submitCodeButton = codeEnterView.findViewById<Button>(R.id.submitCodeBtn)
 
-        qr_fab.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            qr_fab.hide()
+        code_entry_fab.setOnClickListener {
+            if (!hasLoggedIn()) {
+                Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
+            } else {
+                alertDialog.show()
+            }
         }
 
         closeButton.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            alertDialog.dismiss()
         }
 
-        logoutButton.setOnClickListener { logout() }
+        submitCodeButton.setOnClickListener {
+            // If not logged in
 
-        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(view: View, p1: Float) {}
-
-            override fun onStateChanged(view: View, state: Int) {
-                when (state) {
-                    BottomSheetBehavior.STATE_HIDDEN -> qr_fab.show()
-                    BottomSheetBehavior.STATE_EXPANDED -> qr_fab.hide()
+            // Find the button
+            val enterCodeFieldText = codeEnterView.findViewById<EditText>(R.id.enterCodeField).text
+            val code: String = enterCodeFieldText.toString()
+            if (code.isEmpty()) {
+                alertDialog.dismiss()
+                Snackbar.make(findViewById(android.R.id.content), R.string.invalid_code, Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            // Launch thread to send api request
+            thread {
+                GlobalScope.launch(Dispatchers.IO) {
+                    try {
+                        val response = EventRepository.checkInEvent(code)
+                        Snackbar.make(findViewById(android.R.id.content), response, Snackbar.LENGTH_SHORT).show()
+                    } catch (e: Exception) {
+                        Log.e("Code submit", e.toString())
+                    }
                 }
             }
-        })
+            alertDialog.dismiss()
+        }
     }
 
     fun switchFragment(fragment: Fragment, addToBackStack: Boolean) {
@@ -137,36 +158,6 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    private fun updateQrView(qr: QR?) = qr?.let {
-        val text = qr.qrInfo
-        val bitmap = generateQR(text)
-        bitmap?.let {
-            qrImageView?.setImageBitmap(bitmap)
-        }
-        loginNoticeTextView.visibility = View.GONE
-    }
-
-    private fun updateUserInformation(user: User?) = user?.let {
-        standardBottomSheet.nameTextView?.let { view ->
-            if (view.text.isNullOrBlank()) {
-                view.text = user.fullName.toUpperCase()
-            }
-        }
-    }
-
-    private fun updateAttendeeInformation(attendee: Attendee?) = attendee?.let {
-        standardBottomSheet.nameTextView?.text = attendee.fullName.toUpperCase()
-    }
-
-    private fun generateQR(text: String): Bitmap? {
-        val width = qrImageView?.width ?: 0
-        val height = qrImageView?.height ?: 0
-        if (width == 0 || height == 0) { return null }
-        val clearColor = Color.WHITE
-        val solidColor = ContextCompat.getColor(this, R.color.colorPrimary)
-        return QRUtilities.generateQRCode(text, width, height, clearColor, solidColor)
-    }
-
     private fun updateFirebaseToken() {
         FirebaseApp.initializeApp(applicationContext)
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
@@ -176,7 +167,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun logout() {
+    fun logout() {
         JWTUtilities.clearJWT(applicationContext)
 
         thread {
@@ -191,5 +182,8 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+    private fun hasLoggedIn(): Boolean {
+        return JWTUtilities.readJWT(applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 }
