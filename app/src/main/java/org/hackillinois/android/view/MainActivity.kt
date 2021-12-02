@@ -33,6 +33,7 @@ import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
+import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                         bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
                         bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
                         bottomAppBar.profile -> switchFragment(ProfileFragment(), false)
-                        bottomAppBar.teamMatching -> switchFragment(GroupmatchingFragment(), false)
+                        bottomAppBar.teamMatching -> switchFragment(LeaderboardFragment(), false)
                         else -> return@setOnClickListener
                     }
                 }
