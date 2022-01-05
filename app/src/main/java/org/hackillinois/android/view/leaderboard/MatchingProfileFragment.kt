@@ -41,7 +41,7 @@ class MatchingProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_matching_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
         profileImage = view.findViewById(R.id.profileImage)
         nameText = view.findViewById(R.id.nameText)
         teamStatusText = view.findViewById(R.id.teamStatusText)

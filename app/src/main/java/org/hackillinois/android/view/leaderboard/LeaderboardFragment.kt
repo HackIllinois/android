@@ -21,7 +21,7 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.repository.ProfileRepository
 import org.hackillinois.android.view.MainActivity
-import org.hackillinois.android.viewmodel.GroupmatchingViewModel
+import org.hackillinois.android.viewmodel.LeaderboardViewModel
 
 class LeaderboardFragment : Fragment() {
 
@@ -29,7 +29,7 @@ class LeaderboardFragment : Fragment() {
         fun newInstance() = LeaderboardFragment()
     }
 
-    private lateinit var viewModel: GroupmatchingViewModel
+    private lateinit var viewModel: LeaderboardViewModel
     private lateinit var popupWindow: PopupWindow
     private lateinit var groupStatusButton: Button
     private var lookingForTeamFlag: Boolean = true
@@ -37,7 +37,7 @@ class LeaderboardFragment : Fragment() {
     private lateinit var skills: Array<String>
     private lateinit var skillsChecked: MutableLiveData<BooleanArray>
     private lateinit var currentUser: LiveData<Profile>
-    private lateinit var groupAdapter: GroupAdapter
+    private lateinit var groupAdapter: LeaderboardAdapter
     private var allProfiles: List<Profile> = listOf()
     private lateinit var favButton: ImageButton
     private var favFlag = false
@@ -47,7 +47,7 @@ class LeaderboardFragment : Fragment() {
         if (!hasLoggedIn()) {
             return
         }
-        viewModel = ViewModelProvider(this).get(GroupmatchingViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(LeaderboardViewModel::class.java)
         viewModel.init()
     }
 
@@ -65,7 +65,7 @@ class LeaderboardFragment : Fragment() {
             }
             return view
         }
-        val view = inflater.inflate(R.layout.groupmatching_fragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
         groupStatusButton = view.findViewById(R.id.group_status_button_leaderboard)
         val width: Int = (158 * requireContext().resources.displayMetrics.density).toInt()
         val popupView = inflater.inflate(R.layout.group_status_popup, null)
@@ -132,7 +132,7 @@ class LeaderboardFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.team_matching_recyclerview_leaderboard)
 
         currentUser = ProfileRepository.instance.fetchCurrentProfile()
-        groupAdapter = GroupAdapter(currentUser, this, resources)
+        groupAdapter = LeaderboardAdapter(currentUser, this, resources)
         currentUser.observe(viewLifecycleOwner, Observer {
             filterProfiles()
         })

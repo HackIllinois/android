@@ -23,8 +23,8 @@ import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
 import java.lang.Exception
 
-class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources) :
-    RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class LeaderboardAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources) :
+    RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
     var data = listOf<Profile>()
         set(value) {
