@@ -171,4 +171,8 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     }
 
     private fun padNumber(number: Long) = String.format("%02d", number)
+    override fun openEventInfoActivity(event: Event) {
+
+        TODO("Not yet implemented")
+    }
 }

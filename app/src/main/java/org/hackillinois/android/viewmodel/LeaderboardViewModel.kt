@@ -11,6 +11,6 @@ class LeaderboardViewModel : ViewModel() {
     lateinit var allProfilesLiveData: LiveData<List<Profile>>
 
     fun init() {
-        allProfilesLiveData = profileRepository.fetchAllProfiles()
+        allProfilesLiveData = profileRepository.fetchLeaderboard()
     }
 }

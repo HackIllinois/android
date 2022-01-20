@@ -113,6 +113,21 @@
             tools:text="1:00pm - 2:00pm" />
 
         <TextView
+            android:id="@+id/event_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserrat_regular"
+            android:textColor="#222B5C"
+            android:textSize="14sp"
+            android:background="@drawable/green_oval"
+            app:layout_constraintStart_toEndOf="@+id/event_time"
+            app:layout_constraintBottom_toBottomOf="@+id/event_time"
+            tools:text=" +10 pts" />
+
+        <TextView
             android:id="@+id/event_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
