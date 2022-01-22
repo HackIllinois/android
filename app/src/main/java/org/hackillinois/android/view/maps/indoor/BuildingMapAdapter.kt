@@ -15,7 +15,7 @@ class BuildingMapAdapter(
     private val namesAndImages: List<Pair<String, Int>>
 ) : ArrayAdapter<Pair<String, Int>>(contextArg, 0, namesAndImages) {
 
-    override fun getView(position: Int, convertView: View?, container: ViewGroup): View? {
+    override fun getView(position: Int, convertView: View?, container: ViewGroup): View {
         var view = convertView
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.indoor_maps_floor_item, container, false)
@@ -30,7 +30,7 @@ class BuildingMapAdapter(
         floorImageView?.setMinimumTileDpi(160)
         floorImageView?.setImage(ImageSource.resource(nameAndImageResource.second))
 
-        return view
+        return view!!
     }
 
     override fun isEnabled(position: Int) = false

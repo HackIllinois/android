@@ -100,6 +100,7 @@
     <string name="invalid_code">This code doesn\'t seem to be correct.</string>
     <string name="fab_error_msg">You must log in to use this feature! Go to the Profile or Group matching tabs to logout.</string>
     <string name="enter_code">Enter Code...</string>
+    <string name="staff_check_in_override">Staff Check-in Override</string>
 
 
     <string-array name="skills_array">
