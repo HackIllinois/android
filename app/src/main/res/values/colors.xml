@@ -54,4 +54,6 @@
     <color name="selectedOffWhiteColor">#F3F3F3</color>
     <color name="submitBtnColor">#F06C6F</color>
 
+    <color name="scannerBorderColor">#EAAD9C</color>
+
 </resources>

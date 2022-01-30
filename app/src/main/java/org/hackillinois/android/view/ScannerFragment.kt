@@ -58,7 +58,9 @@ class ScannerFragment : Fragment() {
                 isFlashEnabled = false
                 decodeCallback = DecodeCallback {
                     val userId: String = getUserIdFromQrString(it.text)
-                    viewModel.checkUserIntoEvent(eventId, userId, view.staffOverrideSwitch.isChecked)
+                    val eventId: String = getCodeFromEvent(it.text)
+//                    viewModel.checkUserIntoEvent(eventId, userId, view.staffOverrideSwitch.isChecked)
+                    viewModel.scanQrToCheckIn(eventId, userId)
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
@@ -79,6 +81,11 @@ class ScannerFragment : Fragment() {
         }
 
         return view
+    }
+
+        // TESTING FUNCTION
+    private fun getCodeFromEvent(text: String?): String {
+        return "428326"
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

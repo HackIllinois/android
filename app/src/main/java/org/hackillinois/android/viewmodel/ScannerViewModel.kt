@@ -1,15 +1,20 @@
 package org.hackillinois.android.viewmodel
 
+import android.app.PendingIntent.getActivity
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
+import org.hackillinois.android.database.entity.EventCode
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.UserEventPair
+import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.repository.rolesRepository
 import org.json.JSONObject
 import retrofit2.HttpException
@@ -35,6 +40,22 @@ class ScannerViewModel : ViewModel() {
         } else {
             val userEventPair = UserEventPair(eventId, userId)
             markUserAsAttendingEvent(userEventPair)
+        }
+    }
+
+    fun scanQrToCheckIn(eventId: String, userId: String) {
+        checkIntoEvent(eventId)
+    }
+
+    fun checkIntoEvent(code : String) {
+        viewModelScope.launch {
+            try {
+                val response = EventRepository.checkInEvent(code)
+                Log.d("CODE SUBMIT RESPONSE", response)
+            } catch (e: Exception) {
+                Log.e("Code submit", e.toString())
+            }
+
         }
     }
 

@@ -50,7 +50,7 @@ class EventsAdapter(
 
     private fun bindEventItem(event: Event, itemView: View) {
         itemView.apply {
-//            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
+            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
 
@@ -114,5 +114,10 @@ class EventsAdapter(
     fun updateEvents(list: List<ScheduleListItem>) {
         this.itemList = list
         notifyDataSetChanged()
+
+    }
+
+    fun openEventInfoActivity(event: Event) {
+
     }
 }
