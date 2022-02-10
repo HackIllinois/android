@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.event_tile.*
+import kotlinx.android.synthetic.main.event_tile.pointsView
 import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.sponsoredTextView
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
+import kotlinx.android.synthetic.main.fragment_schedule_popout.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
@@ -43,7 +45,7 @@ class EventInfoFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_event_info, container, false)
+        val view = inflater.inflate(R.layout.fragment_schedule_popout, container, false)
 
         view.codeEntryClose.setOnClickListener { activity?.onBackPressed() }
         view.favoriteButton.setOnClickListener {
@@ -57,8 +59,8 @@ class EventInfoFragment : Fragment() {
         event?.let {
             this.event = it
             this.eventName = it.name
-            eventTitle.text = it.name
-            pointsView.text = "${it.points} Points!"
+            event_name.text = it.name
+            event_points.text = "${it.points} Points!"
             sponsoredTextView.text = "Sponsored by ${event.sponsor}"
             sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventTimeSpan.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
