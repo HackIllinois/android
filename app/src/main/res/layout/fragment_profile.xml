@@ -1,208 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/profile_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/constraintLayout2"
+        android:layout_width="390dp"
+        android:layout_height="497dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/pointBlock"
+            android:layout_width="185dp"
+            android:layout_height="115dp"
+            android:translationZ="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileCircle"
+            app:layout_constraintVertical_bias="0.705"
+            app:srcCompat="@drawable/point_block" />
 
         <ImageView
             android:id="@+id/profileImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:scaleX="2.5"
+            android:scaleY="2.5"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileCircle"
+            app:layout_constraintEnd_toEndOf="@+id/profileCircle"
+            app:layout_constraintStart_toStartOf="@+id/profileCircle"
+            app:layout_constraintTop_toTopOf="@+id/profileCircle"
+            app:srcCompat="@drawable/big_cake_tiers" />
+
+        <ImageView
+            android:id="@+id/profileCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="2.5"
+            android:scaleY="2.5"
+            android:translationZ="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileBlockBackground"
+            app:layout_constraintEnd_toEndOf="@+id/profileBlockBackground"
+            app:layout_constraintHorizontal_bias="0.483"
+            app:layout_constraintStart_toStartOf="@+id/profileBlockBackground"
+            app:layout_constraintTop_toTopOf="@+id/profileBlockBackground"
+            app:layout_constraintVertical_bias="0.216"
+            app:srcCompat="@drawable/ellipse_profile" />
+
+        <ImageView
+            android:id="@+id/profileBlockBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="2.5"
+            android:scaleY="2.5"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/sym_def_app_icon" />
+            app:srcCompat="@drawable/fog_profile_block" />
 
         <TextView
             android:id="@+id/nameText"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:fontFamily="@font/montserrat_semi_bold"
             android:gravity="center"
             android:maxLines="3"
-            android:text="First Last Name"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+            android:text="Attendee Name"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/pointBlock"
+            app:layout_constraintEnd_toEndOf="@+id/profileBlockBackground"
+            app:layout_constraintStart_toStartOf="@+id/profileBlockBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.176" />
 
         <TextView
-            android:id="@+id/teamStatusText"
+            android:id="@+id/pointsLabelText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Team Status"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/montserrat_bold"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameText" />
-
-        <TextView
-            android:id="@+id/timezoneText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="time zone"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.75"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeText" />
-
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="GMT"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/timezoneText"
-            app:layout_constraintStart_toStartOf="@+id/timezoneText"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
-
-        <TextView
-            android:id="@+id/pointsLabelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="points"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pointsText" />
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Current Tier"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/pointsText"
+            app:layout_constraintEnd_toEndOf="@+id/pointsText"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="@+id/pointsText"
+            app:layout_constraintTop_toBottomOf="@+id/profileCircle"
+            app:layout_constraintVertical_bias="0.923" />
 
         <TextView
             android:id="@+id/pointsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="42"
-            android:textColor="#FFFFFF"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="Total Points"
+            android:textColor="#000000"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/pointsLabelText"
-            app:layout_constraintStart_toStartOf="@+id/pointsLabelText"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
-
-        <TextView
-            android:id="@+id/discordText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:text="Discord"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/discordImage"
-            app:layout_constraintTop_toBottomOf="@+id/pointsLabelText" />
-
-        <TextView
-            android:id="@+id/descriptionText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="216dp"
-            android:gravity="center"
-            android:text="Short description about yourself."
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:translationZ="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintVertical_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/teamStatusText" />
+            app:layout_constraintEnd_toEndOf="@+id/pointBlock"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="@+id/pointBlock"
+            app:layout_constraintTop_toTopOf="@+id/pointBlock"
+            app:layout_constraintVertical_bias="0.441" />
 
-        <ImageView
-            android:id="@+id/discordImage"
-            android:layout_width="51dp"
-            android:layout_height="47dp"
-            android:layout_marginTop="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pointsLabelText"
-            app:srcCompat="@drawable/discord_logo" />
-
-        <TextView
-            android:id="@+id/skillsLabelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="Skills"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/discordImage" />
-
-        <ImageButton
-            android:id="@+id/editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/edit" />
-
-        <ImageButton
-            android:id="@+id/logoutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/logout_button"
-            android:background="@null"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05" />
-
-        <LinearLayout
-            android:id="@+id/skillsLinearLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:gravity="left"
-            android:orientation="vertical"
-            android:paddingBottom="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/skillsLabelText"
-            app:layout_constraintVertical_bias="0.25" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+    <TextView
+        android:id="@+id/profileText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:gravity="center"
+        android:maxLines="3"
+        android:text="Profile"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/logoutButton"
+        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="24dp"
+        android:background="@null"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:scaleX="3"
+        android:scaleY="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logout_button"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

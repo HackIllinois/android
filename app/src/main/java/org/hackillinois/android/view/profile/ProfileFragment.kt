@@ -33,12 +33,12 @@ class ProfileFragment : Fragment() {
     private lateinit var editButton: ImageButton
 
     private lateinit var nameText: TextView
-    private lateinit var teamStatusText: TextView
-    private lateinit var timezoneText: TextView
-    private lateinit var timeText: TextView
+//    private lateinit var teamStatusText: TextView
+//    private lateinit var timezoneText: TextView
+//    private lateinit var timeText: TextView
     private lateinit var pointsText: TextView
-    private lateinit var discordText: TextView
-    private lateinit var descriptionText: TextView
+//    private lateinit var discordText: TextView
+//    private lateinit var descriptionText: TextView
 
     private lateinit var teamStatusArray: Array<String>
     private lateinit var teamStatusVerboseArray: Array<String>
@@ -74,18 +74,18 @@ class ProfileFragment : Fragment() {
 
         profileImage = view.findViewById(R.id.profileImage)
         nameText = view.findViewById(R.id.nameText)
-        teamStatusText = view.findViewById(R.id.teamStatusText)
-        timezoneText = view.findViewById(R.id.timezoneText)
-        timeText = view.findViewById(R.id.timeText)
+//        teamStatusText = view.findViewById(R.id.teamStatusText)
+//        timezoneText = view.findViewById(R.id.timezoneText)
+//        timeText = view.findViewById(R.id.timeText)
         pointsText = view.findViewById(R.id.pointsText)
-        discordText = view.findViewById(R.id.discordText)
-        descriptionText = view.findViewById(R.id.descriptionText)
-        skillsLayout = view.findViewById(R.id.skillsLinearLayout)
+//        discordText = view.findViewById(R.id.discordText)
+//        descriptionText = view.findViewById(R.id.descriptionText)
+//        skillsLayout = view.findViewById(R.id.skillsLinearLayout)
 
-        editButton = view.findViewById(R.id.editButton)
-        editButton.setOnClickListener {
-            (activity as MainActivity).switchFragment(ProfileEditFragment(), false)
-        }
+//        editButton = view.findViewById(R.id.editButton)
+//        editButton.setOnClickListener {
+//            (activity as MainActivity).switchFragment(ProfileEditFragment(), false)
+//        }
 
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
@@ -97,22 +97,22 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
-        discordText.text = it.discord
-        descriptionText.text = it.description
+//        discordText.text = it.discord
+//        descriptionText.text = it.description
         pointsText.text = it.points.toString()
 
         nameText.text = it.firstName + " " + it.lastName
 
         teamStatusArray.forEachIndexed { index, s ->
             if (s == it.teamStatus) {
-                teamStatusText.text = "⬤ " + teamStatusVerboseArray[index]
-                teamStatusText.setTextColor(resources.getColor(teamStatusColors[index]))
+//                teamStatusText.text = "⬤ " + teamStatusVerboseArray[index]
+//                teamStatusText.setTextColor(resources.getColor(teamStatusColors[index]))
             }
         }
 
         // just display timezone so it looks consistent with iOS
-        timezoneText.text = "time zone"
-        timeText.text = it.timezone
+//        timezoneText.text = "time zone"
+//        timeText.text = it.timezone
 
         try {
             context?.let { it1 -> Glide.with(it1)
