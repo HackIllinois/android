@@ -78,7 +78,7 @@ class ScannerFragment : Fragment() {
                 isAutoFocusEnabled = true
                 isFlashEnabled = false
                 decodeCallback = DecodeCallback {
-                    val eventId: String = getUserIdFromQrString(it.text)
+                    val eventId: String = getEventCodeFromQrString(it.text)
                     Log.d("EVENT CODE STRING", it.toString())
                     val response = viewModel.scanQrToCheckIn(eventId)
                     setScannerTextAttributes(response)
@@ -105,7 +105,7 @@ class ScannerFragment : Fragment() {
     }
 
     private fun setScannerTextAttributes(response: EventCheckInResponse) {
-        var responseString: String = ""
+        val responseString: String
         when (response.status) {
             "Success" -> responseString = "Success! You received ${response.newPoints} points."
             "InvalidCode" -> responseString = "This code doesn't seem to be correct."
@@ -161,11 +161,6 @@ class ScannerFragment : Fragment() {
             }
             false -> lastScanStatus.userMessage
         }
-
-
-//        view?.let {
-//            Snackbar.make(it.rootView, message, Snackbar.LENGTH_SHORT).show()
-//        }
     }
 
     private fun updateOverrideSwitchVisibility(it: Roles?) = it?.let {
