@@ -8,16 +8,21 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import com.budiyev.android.codescanner.*
 import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
+import org.hackillinois.android.database.entity.EventCheckInResponse
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
@@ -31,6 +36,10 @@ class ScannerFragment : Fragment() {
     private lateinit var eventName: String
 
     private lateinit var codeScanner: CodeScanner
+
+    private lateinit var scanStatusText: TextView
+    private lateinit var  scannerEventTitleView: TextView
+    private lateinit var scannerEventAttributesView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +56,18 @@ class ScannerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_scanner, container, false)
+        val closeButton = view.findViewById<ImageButton>(R.id.qrScannerClose)
+
+        scanStatusText = view.findViewById(R.id.successTextView)
+        scannerEventTitleView = view.findViewById(R.id.scannerEventTitleView)
+        scannerEventAttributesView = view.findViewById(R.id.scannerEventAttributesView)
+
+        // hide the text of scan status, event title, and attributes programmatically
+        hideStatusTextVisibility(listOf(scanStatusText, scannerEventTitleView, scannerEventAttributesView))
+
+        closeButton.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStackImmediate();
+        }
 
         context?.let { context ->
             codeScanner = CodeScanner(context, view.codeScannerView).apply {
@@ -57,10 +78,10 @@ class ScannerFragment : Fragment() {
                 isAutoFocusEnabled = true
                 isFlashEnabled = false
                 decodeCallback = DecodeCallback {
-                    val userId: String = getUserIdFromQrString(it.text)
-                    val eventId: String = getCodeFromEvent(it.text)
-//                    viewModel.checkUserIntoEvent(eventId, userId, view.staffOverrideSwitch.isChecked)
-                    viewModel.scanQrToCheckIn(eventId, userId)
+                    val eventId: String = getUserIdFromQrString(it.text)
+                    Log.d("EVENT CODE STRING", it.toString())
+                    val response = viewModel.scanQrToCheckIn(eventId)
+                    setScannerTextAttributes(response)
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
@@ -83,9 +104,24 @@ class ScannerFragment : Fragment() {
         return view
     }
 
-        // TESTING FUNCTION
-    private fun getCodeFromEvent(text: String?): String {
-        return "428326"
+    private fun setScannerTextAttributes(response: EventCheckInResponse) {
+        var responseString: String = ""
+        when (response.status) {
+            "Success" -> responseString = "Success! You received ${response.newPoints} points."
+            "InvalidCode" -> responseString = "This code doesn't seem to be correct."
+            "InvalidTime" -> responseString = "Make sure you have the right time."
+            "AlreadyCheckedIn" -> responseString = "Looks like you're already checked in."
+            else -> responseString = "Something isn't quite right."
+        }
+
+        if (responseString.equals("Success")) {
+            scanStatusText.setTextColor(R.color.successColor)
+        } else {
+            scanStatusText.setTextColor(R.color.errorColor)
+        }
+        scanStatusText.text = responseString
+        scannerEventTitleView.text = response.newPoints.toString()
+        scannerEventAttributesView.text = response.totalPoints.toString()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -112,23 +148,34 @@ class ScannerFragment : Fragment() {
         val splitOnEquals = qrString.split("=")
         return splitOnEquals.last()
     }
+    private fun getEventCodeFromQrString(qrString: String): String {
+        val splitOnEquals = qrString.split("=")
+        return splitOnEquals.first()
+    }
 
     private fun displayScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
         val message = when (it.lastScanWasSuccessful) {
             true -> {
-                staffOverrideSwitch.isChecked = false
+//                staffOverrideSwitch.isChecked = false
                 "Success: ${lastScanStatus.userId}"
             }
             false -> lastScanStatus.userMessage
         }
 
-        view?.let {
-            Snackbar.make(it.rootView, message, Snackbar.LENGTH_SHORT).show()
-        }
+
+//        view?.let {
+//            Snackbar.make(it.rootView, message, Snackbar.LENGTH_SHORT).show()
+//        }
     }
 
     private fun updateOverrideSwitchVisibility(it: Roles?) = it?.let {
-        staffOverrideSwitch.visibility = if (it.isAdmin()) View.VISIBLE else View.GONE
+//        staffOverrideSwitch.visibility = if (it.isAdmin()) View.VISIBLE else View.GONE
+    }
+
+    private fun hideStatusTextVisibility(views: List<View>) {
+        for (view in views) {
+            view.visibility = View.INVISIBLE
+        }
     }
 
     companion object {

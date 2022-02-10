@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
+import org.hackillinois.android.database.entity.EventCheckInResponse
 import org.hackillinois.android.database.entity.EventCode
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
@@ -43,20 +44,22 @@ class ScannerViewModel : ViewModel() {
         }
     }
 
-    fun scanQrToCheckIn(eventId: String, userId: String) {
-        checkIntoEvent(eventId)
+    fun scanQrToCheckIn(eventId: String) : EventCheckInResponse {
+        return checkIntoEvent(eventId)
     }
 
-    fun checkIntoEvent(code : String) {
+    fun checkIntoEvent(code : String) : EventCheckInResponse {
+        var response = EventCheckInResponse(0, 0, "SCAN FAILED")
         viewModelScope.launch {
             try {
-                val response = EventRepository.checkInEvent(code)
-                Log.d("CODE SUBMIT RESPONSE", response)
+                response = EventRepository.checkInEvent(code)
+                Log.d("CODE SUBMIT RESPONSE", response.toString())
             } catch (e: Exception) {
-                Log.e("Code submit", e.toString())
+                Log.e("CODE SUBMIT RESPONSE", e.toString())
             }
 
         }
+        return response
     }
 
     fun checkInUser(checkIn: CheckIn) {

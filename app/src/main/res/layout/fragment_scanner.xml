@@ -25,7 +25,6 @@
         app:frameCornersSize="50dp"
         app:frameSize="0.75"
         app:frameThickness="2dp"
-        app:layout_constraintBottom_toTopOf="@id/staffOverrideSwitch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,17 +36,17 @@
 
     </com.budiyev.android.codescanner.CodeScannerView>
 
-    <Switch
-        android:id="@+id/staffOverrideSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="gone"
-        android:text="@string/staff_check_in_override"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+<!--    <Switch-->
+<!--        android:id="@+id/staffOverrideSwitch"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:visibility="gone"-->
+<!--        android:text="@string/staff_check_in_override"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 
 
     <TextView
@@ -91,13 +90,13 @@
         />
 
     <ImageButton
-        android:id="@+id/codeEntryClose"
+        android:id="@+id/qrScannerClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
         android:padding="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
+        android:background="@null"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_close_dark" />

@@ -54,7 +54,7 @@ class EventRepository {
             }
             return responseString
         }
-        suspend fun checkInEvent(code: String): String {
+        suspend fun checkInEvent(code: String): EventCheckInResponse {
             Log.d("send event token", code)
             var apiResponse: EventCheckInResponse = EventCheckInResponse(-1, -1, "")
 
@@ -68,7 +68,7 @@ class EventRepository {
                     Log.e("Error - check in", e.toString())
                 }
             }
-            return getEventCodeMessage(apiResponse)
+            return apiResponse
         }
 
         const val MILLIS_IN_SECOND = 1000L
