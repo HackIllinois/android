@@ -75,7 +75,7 @@
             tools:text="Event Type" />
 
         <TextView
-            android:id="@+id/event_location"
+            android:id="@+id/event_sponsor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -86,7 +86,7 @@
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/event_type"
-            tools:text="Location" />
+            tools:text="Sponsor" />
 
         <ImageView
             android:id="@+id/event_time_icon"
@@ -96,7 +96,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_location" />
+            app:layout_constraintTop_toBottomOf="@+id/event_sponsor" />
 
         <TextView
             android:id="@+id/event_time"
@@ -109,7 +109,7 @@
             android:textColor="#222B5C"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/event_time_icon"
-            app:layout_constraintTop_toBottomOf="@+id/event_location"
+            app:layout_constraintTop_toBottomOf="@+id/event_sponsor"
             tools:text="1:00pm - 2:00pm" />
 
         <TextView

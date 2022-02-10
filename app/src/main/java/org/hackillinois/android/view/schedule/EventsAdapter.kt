@@ -11,12 +11,15 @@ import kotlinx.android.synthetic.main.time_list_item.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 
-class EventsAdapter(
+
+class EventsAdapter (
     private var itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener
-) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() , EventClickListener {
     private lateinit var context: Context
 
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
@@ -50,7 +53,7 @@ class EventsAdapter(
 
     private fun bindEventItem(event: Event, itemView: View) {
         itemView.apply {
-//            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
+            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
 
@@ -115,4 +118,13 @@ class EventsAdapter(
         this.itemList = list
         notifyDataSetChanged()
     }
+
+    override fun openEventInfoActivity(event: Event) {
+        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
+    }
+
+    // private fun onClickShowPopup(view: View) {
+    //
+    //}
 }
