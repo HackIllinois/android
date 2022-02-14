@@ -1,11 +1,11 @@
 package org.hackillinois.android.view.schedule
 
 import android.content.Context
-import com.google.android.material.snackbar.Snackbar
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.event_tile.view.*
 import kotlinx.android.synthetic.main.time_list_item.view.*
 import org.hackillinois.android.R
@@ -50,7 +50,7 @@ class EventsAdapter(
 
     private fun bindEventItem(event: Event, itemView: View) {
         itemView.apply {
-//            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
+            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
 
@@ -114,5 +114,8 @@ class EventsAdapter(
     fun updateEvents(list: List<ScheduleListItem>) {
         this.itemList = list
         notifyDataSetChanged()
+    }
+
+    fun openEventInfoActivity(event: Event) {
     }
 }

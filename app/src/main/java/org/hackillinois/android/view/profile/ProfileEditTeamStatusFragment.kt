@@ -36,8 +36,10 @@ class ProfileEditTeamStatusFragment : Fragment() {
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
 
-        currentProfile = Profile("", "", "", 0, "", "", "", "",
-                "", emptyList())
+        currentProfile = Profile(
+            "", "", "", 0, "", "", "", "",
+            "", emptyList()
+        )
         teamStatusArray = resources.getStringArray(R.array.team_status_array)
         teamStatusVerboseArray = resources.getStringArray(R.array.team_status_verbose_array)
         radioButtonMap = HashMap()
@@ -63,10 +65,13 @@ class ProfileEditTeamStatusFragment : Fragment() {
 
             radioButton.setPadding(20, 40, 20, 40)
 
-            val colorStateList = ColorStateList(arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf(android.R.attr.state_enabled)), intArrayOf(
+            val colorStateList = ColorStateList(
+                arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf(android.R.attr.state_enabled)),
+                intArrayOf(
                     Color.BLACK, // disabled
                     Color.WHITE // enabled
-            ))
+                )
+            )
             radioButton.buttonTintList = colorStateList
 
             radioButtonMap[it] = radioButton

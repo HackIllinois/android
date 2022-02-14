@@ -2,13 +2,13 @@ package org.hackillinois.android.view.eventinfo
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.event_tile.*
 import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.sponsoredTextView

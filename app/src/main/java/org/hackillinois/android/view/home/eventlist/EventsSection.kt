@@ -23,10 +23,10 @@ class EventsSection(
 ) :
     Section(
         SectionParameters.builder()
-                .itemResourceId(R.layout.event_tile)
-                .headerResourceId(R.layout.event_list_header)
-                .build()
-) {
+            .itemResourceId(R.layout.event_tile)
+            .headerResourceId(R.layout.event_list_header)
+            .build()
+    ) {
 
     override fun getContentItemsTotal() = eventsList.size
 
