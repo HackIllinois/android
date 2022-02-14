@@ -29,8 +29,10 @@ class ProfileEditFirstNameFragment : Fragment() {
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
 
-        currentProfile = Profile("", "", "", 0, "", "", "", "",
-                "", emptyList())
+        currentProfile = Profile(
+            "", "", "", 0, "", "", "", "",
+            "", emptyList()
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

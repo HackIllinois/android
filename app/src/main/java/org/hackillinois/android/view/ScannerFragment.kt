@@ -1,31 +1,32 @@
 package org.hackillinois.android.view
 
 import android.Manifest
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.transition.TransitionInflater
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.fragment.app.FragmentManager
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.budiyev.android.codescanner.*
+import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
-import org.hackillinois.android.database.entity.EventCheckInResponse
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
+// import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 
 class ScannerFragment : Fragment() {
     val PERMISSIONS_REQUEST_ACCESS_CAMERA = 0
@@ -38,11 +39,13 @@ class ScannerFragment : Fragment() {
     private lateinit var codeScanner: CodeScanner
 
     private lateinit var scanStatusText: TextView
-    private lateinit var  scannerEventTitleView: TextView
+    private lateinit var scannerEventTitleView: TextView
     private lateinit var scannerEventAttributesView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        enterTransition = inflater.inflateTransition(R.transition.slide_up_fragment)
 
         eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
         eventName = arguments?.getString(EVENT_NAME_KEY) ?: ""
@@ -56,6 +59,7 @@ class ScannerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_scanner, container, false)
+
         val closeButton = view.findViewById<ImageButton>(R.id.qrScannerClose)
 
         scanStatusText = view.findViewById(R.id.successTextView)
@@ -66,7 +70,7 @@ class ScannerFragment : Fragment() {
         hideStatusTextVisibility(listOf(scanStatusText, scannerEventTitleView, scannerEventAttributesView))
 
         closeButton.setOnClickListener {
-            activity?.supportFragmentManager?.popBackStackImmediate();
+            activity?.supportFragmentManager?.popBackStackImmediate()
         }
 
         context?.let { context ->
@@ -80,8 +84,7 @@ class ScannerFragment : Fragment() {
                 decodeCallback = DecodeCallback {
                     val eventId: String = getEventCodeFromQrString(it.text)
                     Log.d("EVENT CODE STRING", it.toString())
-                    val response = viewModel.scanQrToCheckIn(eventId)
-                    setScannerTextAttributes(response)
+                    viewModel.scanQrToCheckIn(eventId)
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
@@ -94,34 +97,15 @@ class ScannerFragment : Fragment() {
 
             // get camera permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                    context.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSIONS_REQUEST_ACCESS_CAMERA)
+                context.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSIONS_REQUEST_ACCESS_CAMERA)
             } else {
                 codeScanner.startPreview()
             }
         }
 
         return view
-    }
-
-    private fun setScannerTextAttributes(response: EventCheckInResponse) {
-        val responseString: String
-        when (response.status) {
-            "Success" -> responseString = "Success! You received ${response.newPoints} points."
-            "InvalidCode" -> responseString = "This code doesn't seem to be correct."
-            "InvalidTime" -> responseString = "Make sure you have the right time."
-            "AlreadyCheckedIn" -> responseString = "Looks like you're already checked in."
-            else -> responseString = "Something isn't quite right."
-        }
-
-        if (responseString.equals("Success")) {
-            scanStatusText.setTextColor(R.color.successColor)
-        } else {
-            scanStatusText.setTextColor(R.color.errorColor)
-        }
-        scanStatusText.text = responseString
-        scannerEventTitleView.text = response.newPoints.toString()
-        scannerEventAttributesView.text = response.totalPoints.toString()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -154,13 +138,17 @@ class ScannerFragment : Fragment() {
     }
 
     private fun displayScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
-        val message = when (it.lastScanWasSuccessful) {
-            true -> {
-//                staffOverrideSwitch.isChecked = false
-                "Success: ${lastScanStatus.userId}"
-            }
-            false -> lastScanStatus.userMessage
+        val responseString = when (lastScanStatus.userMessage) {
+            "Success" -> "Success! You received ${lastScanStatus.points} points."
+            "InvalidCode" -> "This code doesn't seem to be correct."
+            "InvalidTime" -> "Make sure you have the right time."
+            "AlreadyCheckedIn" -> "Looks like you're already checked in."
+            else -> "Something isn't quite right."
         }
+        // make toast from response
+        Log.d("SCAN STATUS RESULT", responseString)
+        val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
+        toast.show()
     }
 
     private fun updateOverrideSwitchVisibility(it: Roles?) = it?.let {

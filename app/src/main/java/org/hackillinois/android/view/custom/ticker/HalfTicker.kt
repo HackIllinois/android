@@ -26,9 +26,10 @@ class HalfTicker(context: Context, attributeSet: AttributeSet) : View(context, a
 
     init {
         context.theme.obtainStyledAttributes(
-                attributeSet,
-                R.styleable.HalfTicker,
-                0, 0).apply {
+            attributeSet,
+            R.styleable.HalfTicker,
+            0, 0
+        ).apply {
 
             try {
                 tickerText = getString(R.styleable.HalfTicker_ticker_text) ?: ""
