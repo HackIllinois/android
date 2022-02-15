@@ -9,23 +9,31 @@
 
     <ImageView
         android:id="@+id/loginLogo"
-        android:layout_width="262dp"
-        android:layout_height="520dp"
-        app:srcCompat="@drawable/home_preview"
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="125dp" />
+        android:layout_width="214dp"
+        android:layout_height="387dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.351"
+        app:srcCompat="@drawable/home_preview" />
 
     <Button
         android:id="@+id/attendeeLoginBtn"
-        android:layout_width="350dp"
+        android:layout_width="250dp"
         android:layout_height="54dp"
         android:background="@drawable/rounded_login_button_filled"
         android:text="Next"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:fontFamily="@font/montserrat_semi_bold"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="766dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.615" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -35,9 +43,10 @@
         android:scaleY="3"
         app:layout_constraintBottom_toTopOf="@+id/attendeeLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.731"
+        app:layout_constraintVertical_bias="0.388"
         app:srcCompat="@drawable/scroll_dots2" />
 
     <TextView
@@ -49,19 +58,24 @@
         android:text="Home"
         android:textColor="#000000"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="658dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginLogo" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Here is some info about the home page."
 
+        android:text="Here is some info about the home page."
         android:textColor="#000000"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="697dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginLogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

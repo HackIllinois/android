@@ -184,7 +184,8 @@ class MainActivity : AppCompatActivity() {
             App.getAPI("")
 
             runOnUiThread {
-                val loginIntent = Intent(this, LoginActivity::class.java)
+//                val loginIntent = Intent(this, LoginActivity::class.java)
+                val loginIntent = Intent(this, OnboardingActivity::class.java)
                 loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(loginIntent)
                 finish()

@@ -10,17 +10,17 @@
         android:id="@+id/loginLogo"
         android:layout_width="275.32dp"
         android:layout_height="300dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="150dp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/login_logo_with_text" />
 
     <Button
         android:id="@+id/attendeeLoginBtn"
-        android:layout_width="350dp"
+        android:layout_width="250dp"
         android:layout_height="54dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/rounded_login_button_filled"
@@ -43,6 +43,7 @@
         android:scaleY="3"
         app:layout_constraintBottom_toTopOf="@+id/attendeeLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:srcCompat="@drawable/scroll_dots" />
@@ -51,7 +52,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="529dp"
+        android:layout_marginTop="500dp"
         android:layout_marginBottom="13dp"
         android:fontFamily="@font/montserrat_semi_bold"
 

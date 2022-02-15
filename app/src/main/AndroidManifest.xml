@@ -42,6 +42,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".view.OnboardingActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="org.hackillinois.android.view.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
