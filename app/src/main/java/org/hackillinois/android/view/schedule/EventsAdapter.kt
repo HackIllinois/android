@@ -121,7 +121,7 @@ class EventsAdapter (
 
     override fun openEventInfoActivity(event: Event) {
         val eventInfoFragment = EventInfoFragment.newInstance(event.id)
-        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
+        (context as MainActivity).switchFragment(eventInfoFragment, true)
     }
 
     // private fun onClickShowPopup(view: View) {
