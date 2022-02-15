@@ -26,9 +26,12 @@ class ScheduleItemExpandedFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
-        scheduleViewModel.showFavorites.observe(this, Observer {
-            favoriteButton.isSelected = it ?: false
-        })
+        scheduleViewModel.showFavorites.observe(
+            this,
+            Observer {
+                favoriteButton.isSelected = it ?: false
+            }
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

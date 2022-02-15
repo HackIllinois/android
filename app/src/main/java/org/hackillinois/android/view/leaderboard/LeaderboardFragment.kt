@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
-import org.hackillinois.android.model.leaderboard.LeaderboardProfile
+import org.hackillinois.android.model.leaderboard.LeaderboardEntity
 import org.hackillinois.android.repository.ProfileRepository
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.viewmodel.LeaderboardViewModel
@@ -25,7 +25,7 @@ class LeaderboardFragment : Fragment() {
     }
 
     private lateinit var viewModel: LeaderboardViewModel
-    private var allProfiles: List<LeaderboardProfile> = listOf()
+    private var allProfiles: List<LeaderboardEntity> = listOf()
     private lateinit var leaderboardAdapter: LeaderboardAdapter
     private lateinit var currentUser: LiveData<Profile>
 
@@ -54,21 +54,22 @@ class LeaderboardFragment : Fragment() {
         }
         val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
 
-
         val recyclerView: RecyclerView = view.findViewById(R.id.team_matching_recyclerview_leaderboard)
         currentUser = ProfileRepository.instance.fetchCurrentProfile()
         leaderboardAdapter = LeaderboardAdapter(currentUser, this, resources)
 
         recyclerView.adapter = leaderboardAdapter
 
-        viewModel.leaderboardLiveData.observe(viewLifecycleOwner, Observer {
-            allProfiles = it
-        })
+        viewModel.leaderboardLiveData.observe(
+            viewLifecycleOwner,
+            Observer {
+                allProfiles = it as List<LeaderboardEntity>
+            }
+        )
         return view
     }
 
     private fun hasLoggedIn(): Boolean {
         return JWTUtilities.readJWT(activity!!.applicationContext) != JWTUtilities.DEFAULT_JWT
     }
-
 }

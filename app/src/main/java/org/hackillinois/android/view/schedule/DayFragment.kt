@@ -98,7 +98,6 @@ class DayFragment : Fragment(), EventClickListener {
         listState = mLayoutManager.onSaveInstanceState()
     }
 
-
     override fun openEventInfoActivity(event: Event) {
         val eventInfoFragment = EventInfoFragment.newInstance(event.id)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
@@ -142,10 +141,5 @@ class DayFragment : Fragment(), EventClickListener {
 
             return fragment
         }
-    }
-
-    override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
-        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 }

@@ -11,12 +11,12 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Profile
-import org.hackillinois.android.model.leaderboard.LeaderboardProfile
+import org.hackillinois.android.model.leaderboard.LeaderboardEntity
 
 class LeaderboardAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources) :
     RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
-    var data = listOf<LeaderboardProfile>()
+    var data = listOf<LeaderboardEntity>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -48,7 +48,7 @@ class LeaderboardAdapter(private val currProfile: LiveData<Profile>, private val
             }
         }
 
-        fun bind(item: LeaderboardProfile, resources: Resources) {
+        fun bind(item: LeaderboardEntity, resources: Resources) {
             discordTextView.text = item.discord
             pointsTextView.text = item.points.toString()
         }

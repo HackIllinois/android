@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.hackillinois.android.database.entity.EventLocation
-import org.hackillinois.android.model.leaderboard.LeaderboardProfile
+import org.hackillinois.android.model.leaderboard.LeaderboardEntity
 
 class Converters {
     @TypeConverter
@@ -17,7 +17,7 @@ class Converters {
     fun fromList(list: List<String>) = Gson().toJson(list)
 
     @TypeConverter
-    fun fromLeaderboardProfile(list: List<LeaderboardProfile>) = Gson().toJson(list)
+    fun fromLeaderboardProfile(list: List<LeaderboardEntity>) = Gson().toJson(list)
 
     @TypeConverter
     fun eventLocationFromString(value: String): List<EventLocation> {

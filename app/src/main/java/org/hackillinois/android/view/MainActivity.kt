@@ -1,43 +1,32 @@
 package org.hackillinois.android.view
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
-import com.budiyev.android.codescanner.CodeScannerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.layout_event_code_dialog.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.notifications.FirebaseTokenManager
-import org.hackillinois.android.repository.EventRepository
-import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
+import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
-import java.lang.Exception
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -70,10 +59,10 @@ class MainActivity : AppCompatActivity() {
         val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
 
         val bottomBarButtons = listOf(
-                bottomAppBar.homeButton,
-                bottomAppBar.scheduleButton,
-                bottomAppBar.profile,
-                bottomAppBar.leaderboard
+            bottomAppBar.homeButton,
+            bottomAppBar.scheduleButton,
+            bottomAppBar.profile,
+            bottomAppBar.leaderboard
         )
 
         // by default, home button is selected
@@ -104,49 +93,17 @@ class MainActivity : AppCompatActivity() {
     private fun setupCodeEntrySheet() {
         val inflater: LayoutInflater = layoutInflater
 
-//        val scannerFragmentView = inflater.inflate(R.layout.fragment_scanner, null)
-//        val alertDialogBuilder = AlertDialog.Builder(this, R.style.WrapContentDialog)
-//        alertDialogBuilder.setView(scannerFragmentView)
-//        val alertDialog = alertDialogBuilder.create()
+
         val scannerFragment = ScannerFragment()
-//        val closeButton = findViewById<ImageButton>(R.id.qrScannerClose)
 
         code_entry_fab.setOnClickListener {
             if (!hasLoggedIn()) {
                 Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
             } else {
-//                alertDialog.show()
                 switchFragment(scannerFragment, true)
             }
         }
 
-//
-//        submitCodeButton.setOnClickListener {
-//            // If not logged in
-//
-//            // Find the button
-//            val enterCodeFieldText = codeEnterView.findViewById<EditText>(R.id.enterCodeField).text
-//            val code: String = enterCodeFieldText.toString()
-//            if (code.isEmpty()) {
-//                alertDialog.dismiss()
-//                Snackbar.make(findViewById(android.R.id.content), R.string.invalid_code, Snackbar.LENGTH_SHORT).show()
-//                return@setOnClickListener
-//            }
-//
-//            // Launch thread to send api request
-//            thread {
-//                GlobalScope.launch(Dispatchers.IO) {
-//                    try {
-//                        val response = EventRepository.checkInEvent(code)
-//                        Snackbar.make(findViewById(android.R.id.content), response, Snackbar.LENGTH_SHORT).show()
-//                    } catch (e: Exception) {
-//                        Log.e("Code submit", e.toString())
-//                    }
-//                }
-//            }
-//
-//            alertDialog.dismiss()
-//        }
     }
 
     fun switchFragment(fragment: Fragment, addToBackStack: Boolean) {

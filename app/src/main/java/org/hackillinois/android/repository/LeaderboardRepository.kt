@@ -2,20 +2,17 @@ package org.hackillinois.android.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
-import org.hackillinois.android.database.entity.Profile
-import org.hackillinois.android.model.leaderboard.Leaderboard
-import org.hackillinois.android.model.leaderboard.LeaderboardProfile
+import org.hackillinois.android.model.leaderboard.LeaderboardEntity
 import java.lang.Exception
 
 class LeaderboardRepository {
     private val leaderboardDao = App.database.leaderboardDao()
 
-    fun fetchLeaderboard(): LiveData<List<LeaderboardProfile>> {
+    fun fetchLeaderboard(): LiveData<List<LeaderboardEntity>> {
         Log.d("profile call", "fetchAllProfiles")
         refreshAll()
         return leaderboardDao.getLeaderboard()

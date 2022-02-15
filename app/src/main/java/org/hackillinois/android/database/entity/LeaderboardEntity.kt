@@ -7,7 +7,7 @@ import org.hackillinois.android.database.Converters
 
 @Entity(tableName = "leaderboard")
 @TypeConverters(Converters::class)
-data class LeaderboardProfile(
+data class LeaderboardEntity(
     @PrimaryKey var id: String,
     var points: Int,
     var discord: String
