@@ -36,6 +36,9 @@
     <color name="lookingForMembersColor">#FF9933</color>
     <color name="notLookingColor">#CC0000</color>
 
+    <color name="successColor">#009900</color>
+    <color name="errorColor">#CC0000</color>
+
     <color name="starColor">#222B5C</color>
     <color name="white">#FFFFFF</color>
 
@@ -53,5 +56,7 @@
 
     <color name="selectedOffWhiteColor">#F3F3F3</color>
     <color name="submitBtnColor">#F06C6F</color>
+
+    <color name="scannerBorderColor">#EAAD9C</color>
 
 </resources>

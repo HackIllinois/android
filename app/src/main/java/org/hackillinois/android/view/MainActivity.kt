@@ -32,8 +32,8 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.repository.EventRepository
+import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
-import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
@@ -104,29 +104,22 @@ class MainActivity : AppCompatActivity() {
     private fun setupCodeEntrySheet() {
         val inflater: LayoutInflater = layoutInflater
 
-//        val codeEnterView = inflater.inflate(R.layout.layout_event_code_dialog, null)
-        val scannerFragmentView = inflater.inflate(R.layout.fragment_scanner, null)
-        val alertDialogBuilder = AlertDialog.Builder(this, R.style.WrapContentDialog)
-        alertDialogBuilder.setView(scannerFragmentView)
-        val alertDialog = alertDialogBuilder.create()
-//        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val closeButton = scannerFragmentView.findViewById<ImageButton>(R.id.codeEntryClose)
-//        val submitCodeButton = codeEnterView.findViewById<Button>(R.id.submitCodeBtn)
+//        val scannerFragmentView = inflater.inflate(R.layout.fragment_scanner, null)
+//        val alertDialogBuilder = AlertDialog.Builder(this, R.style.WrapContentDialog)
+//        alertDialogBuilder.setView(scannerFragmentView)
+//        val alertDialog = alertDialogBuilder.create()
+        val scannerFragment = ScannerFragment()
+//        val closeButton = findViewById<ImageButton>(R.id.qrScannerClose)
 
         code_entry_fab.setOnClickListener {
             if (!hasLoggedIn()) {
                 Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
             } else {
-                alertDialog.show()
-
-                val scannerFragment = ScannerFragment()
+//                alertDialog.show()
                 switchFragment(scannerFragment, true)
             }
         }
 
-        closeButton.setOnClickListener {
-            alertDialog.dismiss()
-        }
 //
 //        submitCodeButton.setOnClickListener {
 //            // If not logged in
@@ -166,6 +159,15 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    fun switchFragmentWithAnimation(fragment: Fragment, addToBackStack: Boolean, anim: R.anim) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.contentFrame, fragment)
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
+        transaction.commit()
+    }
     private fun updateFirebaseToken() {
         FirebaseApp.initializeApp(applicationContext)
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->

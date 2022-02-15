@@ -35,8 +35,10 @@ class ProfileEditSkillsFragment : Fragment() {
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
 
-        currentProfile = Profile("", "", "", 0, "", "", "", "",
-                "", emptyList())
+        currentProfile = Profile(
+            "", "", "", 0, "", "", "", "",
+            "", emptyList()
+        )
         skillsArray = resources.getStringArray(R.array.skills_array)
         checkBoxMap = HashMap()
     }
@@ -61,10 +63,13 @@ class ProfileEditSkillsFragment : Fragment() {
 
             checkBox.setPadding(20, 40, 20, 40)
 
-            val colorStateList = ColorStateList(arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf(android.R.attr.state_enabled)), intArrayOf(
+            val colorStateList = ColorStateList(
+                arrayOf(intArrayOf(-android.R.attr.state_enabled), intArrayOf(android.R.attr.state_enabled)),
+                intArrayOf(
                     Color.BLACK, // disabled
                     Color.WHITE // enabled
-            ))
+                )
+            )
             checkBox.buttonTintList = colorStateList
 
             checkBoxMap[it] = checkBox

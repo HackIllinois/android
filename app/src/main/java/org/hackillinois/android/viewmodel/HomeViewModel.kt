@@ -15,10 +15,12 @@ class HomeViewModel : ViewModel() {
 
     init {
         ongoingEventsLiveData = Transformations.switchMap(currentTime) {
-            value -> eventRepository.fetchEventsHappeningAtTime(value)
+            value ->
+            eventRepository.fetchEventsHappeningAtTime(value)
         }
         upcomingEventsLiveData = Transformations.switchMap(currentTime) {
-            value -> eventRepository.fetchEventsAfter(value)
+            value ->
+            eventRepository.fetchEventsAfter(value)
         }
         refresh()
     }

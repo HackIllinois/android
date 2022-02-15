@@ -99,9 +99,9 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
             }
             try {
                 Glide.with(context)
-                        .load(item.avatarUrl)
-                        .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
-                        .into(avatarIcon)
+                    .load(item.avatarUrl)
+                    .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
+                    .into(avatarIcon)
                 avatarIcon.setBackgroundResource(0)
             } catch (e: Exception) {
                 Log.e("GroupAdapter", e.localizedMessage)

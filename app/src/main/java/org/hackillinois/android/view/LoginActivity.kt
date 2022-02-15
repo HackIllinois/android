@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.*
 import org.hackillinois.android.API
@@ -113,8 +113,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showFailedToLoginStaff() {
-        Snackbar.make(findViewById(android.R.id.content), "You must have a valid staff account" +
-                " to log in.", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            findViewById(android.R.id.content),
+            "You must have a valid staff account" +
+                " to log in.",
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     private fun showFailedToLoginAttendee() {
@@ -142,6 +146,6 @@ class LoginActivity : AppCompatActivity() {
 
     fun getOAuthProvider(): String {
         return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")
-                ?: ""
+            ?: ""
     }
 }

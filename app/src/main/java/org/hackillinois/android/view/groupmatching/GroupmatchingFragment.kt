@@ -69,10 +69,12 @@ class GroupmatchingFragment : Fragment() {
         groupStatusButton = view.findViewById(R.id.group_status_button_leaderboard)
         val width: Int = (158 * requireContext().resources.displayMetrics.density).toInt()
         val popupView = inflater.inflate(R.layout.group_status_popup, null)
-        popupWindow = PopupWindow(popupView,
-                width,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                true)
+        popupWindow = PopupWindow(
+            popupView,
+            width,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true
+        )
         groupStatusButton.setOnClickListener {
             groupStatusButton.setBackgroundResource(R.drawable.rounded_blue_bg_top_corners)
             popupWindow.animationStyle = R.anim.slide_down
@@ -108,10 +110,13 @@ class GroupmatchingFragment : Fragment() {
         }
         skills = resources.getStringArray(R.array.skills_array)
         skillsChecked = MutableLiveData(BooleanArray(skills.size))
-        skillsChecked.observe(viewLifecycleOwner, Observer {
-            Log.i("GroupMatching", "skillsChecked changed")
-            filterProfiles()
-        })
+        skillsChecked.observe(
+            viewLifecycleOwner,
+            Observer {
+                Log.i("GroupMatching", "skillsChecked changed")
+                filterProfiles()
+            }
+        )
 
         val skillsButton = view.findViewById<Button>(R.id.skills_button_leaderboard)
         val alertDialogView = inflater.inflate(R.layout.skills_alert_dialog, null)
@@ -133,9 +138,12 @@ class GroupmatchingFragment : Fragment() {
 
         currentUser = ProfileRepository.instance.fetchCurrentProfile()
         groupAdapter = GroupAdapter(currentUser, this, resources)
-        currentUser.observe(viewLifecycleOwner, Observer {
-            filterProfiles()
-        })
+        currentUser.observe(
+            viewLifecycleOwner,
+            Observer {
+                filterProfiles()
+            }
+        )
 
         recyclerView.adapter = groupAdapter
 
@@ -147,10 +155,13 @@ class GroupmatchingFragment : Fragment() {
             filterProfiles()
         }
 
-        viewModel.allProfilesLiveData.observe(viewLifecycleOwner, Observer {
-            allProfiles = it
-            filterProfiles()
-        })
+        viewModel.allProfilesLiveData.observe(
+            viewLifecycleOwner,
+            Observer {
+                allProfiles = it
+                filterProfiles()
+            }
+        )
         return view
     }
 
@@ -163,11 +174,15 @@ class GroupmatchingFragment : Fragment() {
         if (lookingForTeamFlag && lookingForMemberFlag) {
             groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!) }
         } else if (lookingForTeamFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_TEAM") &&
-                    profile.hasRequiredSkill(skills, skillsChecked.value!!) }
+            groupAdapter.data = allProfiles.filter { profile ->
+                profile.teamStatus.equals("LOOKING_FOR_TEAM") &&
+                    profile.hasRequiredSkill(skills, skillsChecked.value!!)
+            }
         } else if (lookingForMemberFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_MEMBERS") &&
-                    profile.hasRequiredSkill(skills, skillsChecked.value!!) }
+            groupAdapter.data = allProfiles.filter { profile ->
+                profile.teamStatus.equals("LOOKING_FOR_MEMBERS") &&
+                    profile.hasRequiredSkill(skills, skillsChecked.value!!)
+            }
         } else {
             groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!) }
         }

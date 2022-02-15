@@ -39,9 +39,10 @@ class TickerView(context: Context, attrs: AttributeSet) : FrameLayout(context, a
         allTickers = listOf(topUnderTicker, topOverTicker, bottomUnderTicker, bottomOverTicker)
 
         context.theme.obtainStyledAttributes(
-                attrs,
-                R.styleable.TickerView,
-                0, 0).apply {
+            attrs,
+            R.styleable.TickerView,
+            0, 0
+        ).apply {
             try {
                 val textColor = getColor(R.styleable.TickerView_ticker_text_color, Color.WHITE)
                 val textSize = getDimension(R.styleable.TickerView_ticker_text_size, 0F)

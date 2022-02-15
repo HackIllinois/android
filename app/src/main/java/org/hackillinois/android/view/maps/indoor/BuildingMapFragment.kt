@@ -15,9 +15,9 @@ class BuildingMapFragment : Fragment() {
 
         context?.let {
             val floorNames: List<String> = arguments?.getStringArray(FLOOR_NAMES_KEY)?.asList()
-                    ?: listOf()
+                ?: listOf()
             val floorImageResources: List<Int> = arguments?.getIntArray(FLOOR_IMAGES_KEY)?.asList()
-                    ?: listOf()
+                ?: listOf()
 
             val namesAndImages = floorNames.zip(floorImageResources)
             val adapter = BuildingMapAdapter(it, namesAndImages)
