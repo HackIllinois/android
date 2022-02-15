@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "5e13744f136a649e0dfd6b9e18f8e988",
+    "identityHash": "b093b3f1f522dfcc747cc607b6c8eafd",
     "entities": [
       {
         "tableName": "qr_codes",
@@ -282,7 +282,7 @@
       },
       {
         "tableName": "profiles",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `points` INTEGER NOT NULL, `timezone` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `discord` TEXT NOT NULL, `teamStatus` TEXT NOT NULL, `description` TEXT NOT NULL, `interests` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `points` INTEGER NOT NULL, `timezone` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `discord` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -325,24 +325,6 @@
             "columnName": "discord",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "teamStatus",
-            "columnName": "teamStatus",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "description",
-            "columnName": "description",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "interests",
-            "columnName": "interests",
-            "affinity": "TEXT",
-            "notNull": true
           }
         ],
         "primaryKey": {
@@ -357,7 +339,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"5e13744f136a649e0dfd6b9e18f8e988\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"b093b3f1f522dfcc747cc607b6c8eafd\")"
     ]
   }
 }

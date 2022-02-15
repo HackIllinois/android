@@ -21,6 +21,7 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.view.profile.ProfileFragment
 import java.lang.Exception
 
 class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources) :
@@ -43,8 +44,9 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
         holder.bind(item, resources)
         holder.itemView.setOnClickListener {
             val mainActivity = frag.activity as MainActivity
-            mainActivity.groupMatchingSelectedProfile = data[position]
-            mainActivity.switchFragment(MatchingProfileFragment(), true)
+//            mainActivity.groupMatchingSelectedProfile = data[position]
+//            mainActivity.switchFragment(MatchingProfileFragment(), true)
+            mainActivity.switchFragment(ProfileFragment(), true)
         }
     }
 
@@ -73,15 +75,15 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
             val teamStatusArray = resources.getStringArray(R.array.team_status_array)
             val teamStatusVerboseArray = resources.getStringArray(R.array.team_status_verbose_array)
             val teamStatusColors = arrayOf(R.color.lookingForTeamColor, R.color.lookingForMembersColor, R.color.notLookingColor)
-            statusTextView.text = item.teamStatus
-            val index: Int? = teamStatusArray.indices.firstOrNull { i -> teamStatusArray[i] == item.teamStatus }
-            index?.let {
-                statusTextView.text = "⬤ " + teamStatusVerboseArray[index]
-                statusTextView.setTextColor(resources.getColor(teamStatusColors[index]))
-            }
+//            statusTextView.text = item.teamStatus
+//            val index: Int? = teamStatusArray.indices.firstOrNull { i -> teamStatusArray[i] == item.teamStatus }
+//            index?.let {
+//                statusTextView.text = "⬤ " + teamStatusVerboseArray[index]
+//                statusTextView.setTextColor(resources.getColor(teamStatusColors[index]))
+//            }
 
             profileMatch.text = item.discord
-            descriptionTextView.text = item.description
+//            descriptionTextView.text = item.description
             starButton.isSelected = FavoritesManager.isFavoritedProfile(context, item)
             if (item.id == currUser.value?.id) {
                 starButton.visibility = View.GONE

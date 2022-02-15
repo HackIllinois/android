@@ -27,8 +27,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileCircle"
-            app:layout_constraintVertical_bias="0.705"
+            app:layout_constraintTop_toBottomOf="@+id/profileBlockBackground"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/point_block" />
 
         <ImageView
@@ -51,12 +51,12 @@
             android:scaleX="2.5"
             android:scaleY="2.5"
             android:translationZ="1dp"
-            app:layout_constraintBottom_toBottomOf="@+id/profileBlockBackground"
+            app:layout_constraintBottom_toTopOf="@+id/pointBlock"
             app:layout_constraintEnd_toEndOf="@+id/profileBlockBackground"
             app:layout_constraintHorizontal_bias="0.483"
             app:layout_constraintStart_toStartOf="@+id/profileBlockBackground"
             app:layout_constraintTop_toTopOf="@+id/profileBlockBackground"
-            app:layout_constraintVertical_bias="0.216"
+            app:layout_constraintVertical_bias="0.275"
             app:srcCompat="@drawable/ellipse_profile" />
 
         <ImageView
@@ -67,57 +67,86 @@
             android:scaleY="2.5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameText"
+            app:layout_constraintVertical_bias="0.346"
             app:srcCompat="@drawable/fog_profile_block" />
 
         <TextView
             android:id="@+id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/montserrat_semi_bold"
             android:gravity="center"
             android:maxLines="3"
             android:text="Attendee Name"
             android:textColor="#000000"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/pointBlock"
-            app:layout_constraintEnd_toEndOf="@+id/profileBlockBackground"
-            app:layout_constraintStart_toStartOf="@+id/profileBlockBackground"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.176" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/pointsLabelText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/montserrat_medium"
             android:text="Current Tier"
             android:textColor="#000000"
             android:textSize="14sp"
             android:translationZ="2dp"
             app:layout_constraintBottom_toTopOf="@+id/pointsText"
-            app:layout_constraintEnd_toEndOf="@+id/pointsText"
-            app:layout_constraintHorizontal_bias="0.454"
-            app:layout_constraintStart_toStartOf="@+id/pointsText"
-            app:layout_constraintTop_toBottomOf="@+id/profileCircle"
-            app:layout_constraintVertical_bias="0.923" />
+            app:layout_constraintEnd_toEndOf="@+id/pointBlock"
+            app:layout_constraintStart_toStartOf="@+id/pointBlock"
+            app:layout_constraintTop_toTopOf="@+id/pointBlock"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/discordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="username#0000"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/profileBlockBackground"
+            app:layout_constraintEnd_toEndOf="@+id/nameText"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="@+id/nameText"
+            app:layout_constraintTop_toBottomOf="@+id/nameText"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/pointsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_semi_bold"
             android:text="Total Points"
             android:textColor="#000000"
             android:textSize="18sp"
             android:translationZ="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/pointBlock"
             app:layout_constraintEnd_toEndOf="@+id/pointBlock"
-            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="@+id/pointBlock"
             app:layout_constraintTop_toTopOf="@+id/pointBlock"
-            app:layout_constraintVertical_bias="0.441" />
+            app:layout_constraintVertical_bias="0.602" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/discordText"
+            app:layout_constraintEnd_toStartOf="@+id/discordText"
+            app:layout_constraintTop_toTopOf="@+id/discordText"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/discord_symbol" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

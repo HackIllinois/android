@@ -4,80 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background">
+    android:background="@drawable/onboarding_background">
 
 
     <ImageView
         android:id="@+id/loginLogo"
-        android:layout_width="221.8dp"
-        android:layout_height="480dp"
-        android:layout_marginTop="176dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/home_preview" />
+        android:layout_width="262dp"
+        android:layout_height="520dp"
+        app:srcCompat="@drawable/home_preview"
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="125dp" />
 
     <Button
         android:id="@+id/attendeeLoginBtn"
         android:layout_width="350dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="32dp"
         android:background="@drawable/rounded_login_button_filled"
         android:text="Next"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:fontFamily="@font/montserrat_semi_bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="766dp" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
         android:scaleX="3"
         android:scaleY="3"
         app:layout_constraintBottom_toTopOf="@+id/attendeeLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.731"
         app:srcCompat="@drawable/scroll_dots2" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="529dp"
-        android:layout_marginBottom="13dp"
         android:fontFamily="@font/montserrat_semi_bold"
 
         android:text="Home"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="168dp"
+        tools:layout_editor_absoluteY="658dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
         android:fontFamily="@font/montserrat_medium"
         android:text="Here is some info about the home page."
 
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="697dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

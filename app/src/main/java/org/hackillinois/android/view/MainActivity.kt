@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private var currentSelection = 0
 
-    var groupMatchingSelectedProfile: Profile? = null
+//    var groupMatchingSelectedProfile: Profile? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
