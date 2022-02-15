@@ -39,7 +39,7 @@ class EventInfoFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventId)
         viewModel.event.observe(this, Observer { updateEventUI(it) })
-        viewModel.roles.observe(this, Observer { updateCameraIcon(it) })
+//        viewModel.roles.observe(this, Observer { updateCameraIcon(it) })
 
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
@@ -80,30 +80,30 @@ class EventInfoFragment : Fragment() {
         }
     }
 
-    private fun updateCameraIcon(roles: Roles?) = roles?.let {
-        if (it.isStaff()) {
-            cameraButton.visibility = View.VISIBLE
-            cameraButton.setOnClickListener {
-                if (event?.isCurrentlyHappening() == true) {
-                    val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
-                    (activity as MainActivity?)?.switchFragment(scannerFragment, true)
-                } else {
-                    AlertDialog.Builder(context)
-                            .setTitle("Scanning Confirmation")
-                            .setMessage("Event is not in progress. Are you sure you want to scan?")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes) { dialogInterface: DialogInterface, _: Int ->
-                                dialogInterface.dismiss()
-                                val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
-                                (activity as MainActivity?)?.switchFragment(scannerFragment, true)
-                            }
-                            .setNegativeButton(android.R.string.no, null).show()
-                }
-            }
-        } else {
-            cameraButton.visibility = View.GONE
-        }
-    }
+//    private fun updateCameraIcon(roles: Roles?) = roles?.let {
+//        if (it.isStaff()) {
+//            cameraButton.visibility = View.VISIBLE
+//            cameraButton.setOnClickListener {
+//                if (event?.isCurrentlyHappening() == true) {
+//                    val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
+//                    (activity as MainActivity?)?.switchFragment(scannerFragment, true)
+//                } else {
+//                    AlertDialog.Builder(context)
+//                            .setTitle("Scanning Confirmation")
+//                            .setMessage("Event is not in progress. Are you sure you want to scan?")
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+//                            .setPositiveButton(android.R.string.yes) { dialogInterface: DialogInterface, _: Int ->
+//                                dialogInterface.dismiss()
+//                                val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
+//                                (activity as MainActivity?)?.switchFragment(scannerFragment, true)
+//                            }
+//                            .setNegativeButton(android.R.string.no, null).show()
+//                }
+//            }
+//        } else {
+//            cameraButton.visibility = View.GONE
+//        }
+//    }
 
     private fun updateFavoritedUI(isFavorited: Boolean?) {
         isFavorited?.let {
