@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
+import com.budiyev.android.codescanner.CodeScannerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
@@ -102,50 +103,57 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupCodeEntrySheet() {
         val inflater: LayoutInflater = layoutInflater
-        val codeEnterView = inflater.inflate(R.layout.layout_event_code_dialog, null)
+
+//        val codeEnterView = inflater.inflate(R.layout.layout_event_code_dialog, null)
+        val scannerFragmentView = inflater.inflate(R.layout.fragment_scanner, null)
         val alertDialogBuilder = AlertDialog.Builder(this, R.style.WrapContentDialog)
-        alertDialogBuilder.setView(codeEnterView)
+        alertDialogBuilder.setView(scannerFragmentView)
         val alertDialog = alertDialogBuilder.create()
-        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val closeButton = codeEnterView.findViewById<ImageButton>(R.id.codeEntryClose)
-        val submitCodeButton = codeEnterView.findViewById<Button>(R.id.submitCodeBtn)
+//        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val closeButton = scannerFragmentView.findViewById<ImageButton>(R.id.codeEntryClose)
+//        val submitCodeButton = codeEnterView.findViewById<Button>(R.id.submitCodeBtn)
 
         code_entry_fab.setOnClickListener {
             if (!hasLoggedIn()) {
                 Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
             } else {
                 alertDialog.show()
+
+                val scannerFragment = ScannerFragment()
+                switchFragment(scannerFragment, true)
             }
         }
 
         closeButton.setOnClickListener {
             alertDialog.dismiss()
         }
-
-        submitCodeButton.setOnClickListener {
-            // If not logged in
-
-            // Find the button
-            val enterCodeFieldText = codeEnterView.findViewById<EditText>(R.id.enterCodeField).text
-            val code: String = enterCodeFieldText.toString()
-            if (code.isEmpty()) {
-                alertDialog.dismiss()
-                Snackbar.make(findViewById(android.R.id.content), R.string.invalid_code, Snackbar.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            // Launch thread to send api request
-            thread {
-                GlobalScope.launch(Dispatchers.IO) {
-                    try {
-                        val response = EventRepository.checkInEvent(code)
-                        Snackbar.make(findViewById(android.R.id.content), response, Snackbar.LENGTH_SHORT).show()
-                    } catch (e: Exception) {
-                        Log.e("Code submit", e.toString())
-                    }
-                }
-            }
-            alertDialog.dismiss()
-        }
+//
+//        submitCodeButton.setOnClickListener {
+//            // If not logged in
+//
+//            // Find the button
+//            val enterCodeFieldText = codeEnterView.findViewById<EditText>(R.id.enterCodeField).text
+//            val code: String = enterCodeFieldText.toString()
+//            if (code.isEmpty()) {
+//                alertDialog.dismiss()
+//                Snackbar.make(findViewById(android.R.id.content), R.string.invalid_code, Snackbar.LENGTH_SHORT).show()
+//                return@setOnClickListener
+//            }
+//
+//            // Launch thread to send api request
+//            thread {
+//                GlobalScope.launch(Dispatchers.IO) {
+//                    try {
+//                        val response = EventRepository.checkInEvent(code)
+//                        Snackbar.make(findViewById(android.R.id.content), response, Snackbar.LENGTH_SHORT).show()
+//                    } catch (e: Exception) {
+//                        Log.e("Code submit", e.toString())
+//                    }
+//                }
+//            }
+//
+//            alertDialog.dismiss()
+//        }
     }
 
     fun switchFragment(fragment: Fragment, addToBackStack: Boolean) {

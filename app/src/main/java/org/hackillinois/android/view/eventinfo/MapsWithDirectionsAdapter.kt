@@ -18,7 +18,9 @@ class MapsWithDirectionsAdapter(
     private val info: List<IndoorMapAndDirectionInfo>
 ) : ArrayAdapter<IndoorMapAndDirectionInfo>(contextArg, 0, info) {
 
-    override fun getView(position: Int, convertView: View?, container: ViewGroup): View? {
+
+
+    override fun getView(position: Int, convertView: View?, container: ViewGroup): View {
         var view = convertView
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.map_with_directions_card, container, false)
@@ -36,6 +38,6 @@ class MapsWithDirectionsAdapter(
         val directionsButton = view?.findViewById<Button>(R.id.directionsButton)
         directionsButton?.setOnClickListener(DirectionsOnClickListener(currentInfo.latLng, currentInfo.locationDescription))
 
-        return view
+        return view!!
     }
 }
