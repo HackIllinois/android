@@ -67,16 +67,16 @@ class EventInfoFragment : Fragment() {
 //            eventLocation.text = it.getLocationDescriptionsAsString()
             event_description.text = it.description
 
-            val timeUntil = it.getStartTimeMs() - System.currentTimeMillis()
-            if (timeUntil > 0 && timeUntil <= FIFTEEN_MINUTES_IN_MS) {
-                happeningSoonTextView.visibility = View.VISIBLE
-            } else {
-                happeningSoonTextView.visibility = View.INVISIBLE
-            }
+//            val timeUntil = it.getStartTimeMs() - System.currentTimeMillis()
+//            if (timeUntil > 0 && timeUntil <= FIFTEEN_MINUTES_IN_MS) {
+//                happeningSoonTextView.visibility = View.VISIBLE
+//            } else {
+//                happeningSoonTextView.visibility = View.INVISIBLE
+//            }
 
-            context?.let { context ->
-                mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
-            }
+//            context?.let { context ->
+//                mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
+//            }
         }
     }
 
