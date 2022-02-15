@@ -19,7 +19,7 @@ import org.hackillinois.android.view.home.eventlist.EventClickListener
 class EventsAdapter (
     private var itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener
-) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() , EventClickListener {
     private lateinit var context: Context
 
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
@@ -119,10 +119,10 @@ class EventsAdapter (
         notifyDataSetChanged()
     }
 
-//    override fun openEventInfoActivity(event: Event) {
-//        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
-//        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
-//    }
+    override fun openEventInfoActivity(event: Event) {
+        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        (context as MainActivity).switchFragment(eventInfoFragment, true)
+    }
 
     // private fun onClickShowPopup(view: View) {
     //
