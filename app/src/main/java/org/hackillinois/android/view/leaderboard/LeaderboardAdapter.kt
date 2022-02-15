@@ -2,21 +2,20 @@ package org.hackillinois.android.view.leaderboard
 
 import android.content.Context
 import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
-import org.hackillinois.android.database.entity.Profile
-import org.hackillinois.android.model.leaderboard.LeaderboardEntity
+import org.hackillinois.android.database.entity.Leaderboard
 
-class LeaderboardAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources) :
+class LeaderboardAdapter(private val frag: Fragment, private val resources: Resources) :
     RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
-    var data = listOf<LeaderboardEntity>()
+    var data = listOf<Leaderboard>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -30,6 +29,7 @@ class LeaderboardAdapter(private val currProfile: LiveData<Profile>, private val
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
+        Log.d("ON BIND VIEW HOLDER", item.toString())
         holder.bind(item, resources)
     }
 
@@ -48,7 +48,7 @@ class LeaderboardAdapter(private val currProfile: LiveData<Profile>, private val
             }
         }
 
-        fun bind(item: LeaderboardEntity, resources: Resources) {
+        fun bind(item: Leaderboard, resources: Resources) {
             discordTextView.text = item.discord
             pointsTextView.text = item.points.toString()
         }

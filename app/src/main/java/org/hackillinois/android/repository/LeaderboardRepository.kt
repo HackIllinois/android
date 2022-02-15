@@ -6,25 +6,28 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
-import org.hackillinois.android.model.leaderboard.LeaderboardEntity
+import org.hackillinois.android.database.entity.Leaderboard
 import java.lang.Exception
 
 class LeaderboardRepository {
     private val leaderboardDao = App.database.leaderboardDao()
 
-    fun fetchLeaderboard(): LiveData<List<LeaderboardEntity>> {
-        Log.d("profile call", "fetchAllProfiles")
+    fun fetchLeaderboard(): LiveData<List<Leaderboard>> {
+        Log.d("Leaderboard call", "fetchleaderboard")
         refreshAll()
-        return leaderboardDao.getLeaderboard()
+        val lb = leaderboardDao.getLeaderboard()
+        Log.d("LEADERBOARD CALL", lb.value.toString())
+        return lb
     }
 
     fun refreshAll() {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val leaderboard = App.getAPI().leaderboard()
+                Log.d("LEADERBOARD REFRESH ALL", leaderboard.toString())
                 leaderboardDao.clearTableAndInsertProfiles(leaderboard.profiles)
             } catch (e: Exception) {
-                Log.e("Profilerepo refreshAll", e.toString())
+                Log.e("LEADERBOARD REFRESH ALL", e.toString())
             }
         }
     }

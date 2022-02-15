@@ -93,7 +93,6 @@ class MainActivity : AppCompatActivity() {
     private fun setupCodeEntrySheet() {
         val inflater: LayoutInflater = layoutInflater
 
-
         val scannerFragment = ScannerFragment()
 
         code_entry_fab.setOnClickListener {
@@ -103,7 +102,6 @@ class MainActivity : AppCompatActivity() {
                 switchFragment(scannerFragment, true)
             }
         }
-
     }
 
     fun switchFragment(fragment: Fragment, addToBackStack: Boolean) {
