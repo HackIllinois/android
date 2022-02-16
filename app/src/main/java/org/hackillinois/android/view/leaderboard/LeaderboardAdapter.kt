@@ -18,7 +18,8 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutResource = R.layout.leaderboard_tile
+        Log.d("Creating recyclerview", "")
+        val layoutResource = R.id.recyclerview_leaderboard
         val view = LayoutInflater.from(parent.context).inflate(layoutResource, parent, false)
         val viewHolder = ViewHolder(view)
         context = parent.context
