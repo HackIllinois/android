@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +20,7 @@ class LeaderboardFragment : Fragment() {
     }
 
     private lateinit var viewModel: LeaderboardViewModel
-    private var allProfiles: List<Leaderboard> = listOf()
+    private var leaderboard: List<Leaderboard> = listOf()
     private lateinit var leaderboardAdapter: LeaderboardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,17 +37,22 @@ class LeaderboardFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerview_leaderboard)
-        leaderboardAdapter = LeaderboardAdapter(this, resources)
+        leaderboardAdapter = LeaderboardAdapter(leaderboard)
 
         recyclerView.adapter = leaderboardAdapter
 
         viewModel.leaderboardLiveData.observe(
             viewLifecycleOwner,
             Observer {
-                allProfiles = it
+                updateLeaderboard(it)
             }
         )
-        Log.d("ALL PROFILES", allProfiles.toString())
         return view
+    }
+
+    private fun updateLeaderboard(newLeaderboard: List<Leaderboard>) {
+        leaderboard = newLeaderboard
+        Log.d("UPDATE LEADERBOARD", leaderboard.toString())
+        leaderboardAdapter.notifyDataSetChanged()
     }
 }

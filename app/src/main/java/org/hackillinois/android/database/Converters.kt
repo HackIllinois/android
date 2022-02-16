@@ -17,9 +17,6 @@ class Converters {
     fun fromList(list: List<String>) = Gson().toJson(list)
 
     @TypeConverter
-    fun fromLeaderboardProfile(list: List<Leaderboard>) = Gson().toJson(list)
-
-    @TypeConverter
     fun eventLocationFromString(value: String): List<EventLocation> {
         val listType = object : TypeToken<List<EventLocation>>() {}.type
         return Gson().fromJson(value, listType)

@@ -6,51 +6,58 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.leaderboard_tile.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Leaderboard
 
-class LeaderboardAdapter(private val frag: Fragment, private val resources: Resources) :
+class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
     RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
+    private lateinit var context: Context
 
-    var data = listOf<Leaderboard>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+        val layoutResource = R.layout.leaderboard_tile
+        val view = LayoutInflater.from(parent.context).inflate(layoutResource, parent, false)
+        val viewHolder = ViewHolder(view)
+        context = parent.context
+        return viewHolder
     }
 
-    override fun getItemCount() = data.size
+    override fun getItemCount() = itemList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
+        val item = itemList[position]
         Log.d("ON BIND VIEW HOLDER", item.toString())
-        holder.bind(item, resources)
+        bind(item, holder.itemView)
     }
 
-    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val discordTextView: TextView = itemView.findViewById(R.id.discord_textview)
-        private val pointsTextView: TextView = itemView.findViewById(R.id.points_textview)
-        private lateinit var context: Context
-
-        companion object {
-            fun from(parent: ViewGroup): ViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.leaderboard_tile, parent, false)
-                val viewHolder = ViewHolder(view)
-                viewHolder.context = parent.context
-                return viewHolder
-            }
-        }
-
-        fun bind(item: Leaderboard, resources: Resources) {
+    private fun bind(item: Leaderboard, itemView: View) {
+        Log.d("Binding item:", item.toString())
+        itemView.apply {
             discordTextView.text = item.discord
             pointsTextView.text = item.points.toString()
         }
+
     }
+
+
+//    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//        private val discordTextView: TextView = itemView.findViewById(R.id.discord_textview)
+//        private val pointsTextView: TextView = itemView.findViewById(R.id.points_textview)
+//        private lateinit var context: Context
+//
+//        companion object {
+//            fun from(parent: ViewGroup): ViewHolder {
+//                val layoutInflater = LayoutInflater.from(parent.context)
+//                val view = layoutInflater.inflate(R.layout.leaderboard_tile, parent, false)
+//                val viewHolder = ViewHolder(view)
+//                viewHolder.context = parent.context
+//                return viewHolder
+//            }
+//        }
+//
+
+//    }
 }
