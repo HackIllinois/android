@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,7 +49,7 @@ class DayFragment : Fragment(), EventClickListener {
             0 -> viewModel?.fridayEventsLiveData
             1 -> viewModel?.saturdayEventsLiveData
             2 -> viewModel?.sundayEventsLiveData
-            else -> viewModel?.mondayEventsLiveData
+            else -> viewModel?.fridayEventsLiveData
         }
 
         mAdapter = EventsAdapter(listOf(), this)
@@ -107,6 +108,7 @@ class DayFragment : Fragment(), EventClickListener {
             }
         }
         mAdapter.updateEvents(insertTimeItems(listTemp))
+        Log.d("update events", listTemp.toString());
     }
 
     private fun insertTimeItems(eventList: List<Event>): List<ScheduleListItem> {

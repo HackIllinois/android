@@ -33,6 +33,8 @@ class EventRepository {
         withContext(Dispatchers.IO) {
             try {
                 val events = App.getAPI().allEvents().events
+                Log.d("events returned", events.toString());
+
                 // TODO FavoritesManager.updateFavoriteNotifications(, eventDao.getAllEventsList(), events)
                 eventDao.clearTableAndInsertEvents(events)
             } catch (e: Exception) {

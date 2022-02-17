@@ -71,12 +71,6 @@
             android:fontFamily="@font/montserrat_light"
             android:text="Sun\n11" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabMonday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_light"
-            android:text="Mon\n12" />
 
     </com.google.android.material.tabs.TabLayout>
 

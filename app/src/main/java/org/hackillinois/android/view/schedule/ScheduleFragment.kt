@@ -50,7 +50,6 @@ class ScheduleFragment : Fragment() {
             time < scheduleViewModel.fridayEnd -> 0
             time < scheduleViewModel.saturdayEnd -> 1
             time < scheduleViewModel.sundayEnd -> 2
-            time < scheduleViewModel.mondayEnd -> 3
             else -> 0
         }
 
@@ -64,8 +63,7 @@ class ScheduleFragment : Fragment() {
             when (position) {
                 0 -> "FRIDAY"
                 1 -> "SATURDAY"
-                2 -> "SUNDAY"
-                else -> "MONDAY"
+                else -> "SUNDAY"
             }
     }
 
