@@ -25,7 +25,9 @@ class LeaderboardFragment : Fragment() {
 
     private lateinit var viewModel: LeaderboardViewModel
     private var leaderboard: List<Leaderboard> = listOf()
-    private lateinit var leaderboardAdapter: LeaderboardAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var mLayoutManager: LinearLayoutManager
+    private lateinit var mAdapter: LeaderboardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,15 +42,14 @@ class LeaderboardFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerview_leaderboard)
-        leaderboardAdapter = LeaderboardAdapter(leaderboard)
+        mAdapter = LeaderboardAdapter(leaderboard)
+
 
         recyclerView = view.recyclerview_leaderboard.apply {
             mLayoutManager = LinearLayoutManager(context)
             this.layoutManager = mLayoutManager
             this.adapter = mAdapter
         }
-        recyclerView.adapter = leaderboardAdapter
 
         viewModel.leaderboardLiveData.observe(
             viewLifecycleOwner,
@@ -60,8 +61,7 @@ class LeaderboardFragment : Fragment() {
     }
 
     private fun updateLeaderboard(newLeaderboard: List<Leaderboard>) {
-        leaderboard = newLeaderboard
-//        Log.d("UPDATE LEADERBOARD", leaderboard.toString())
-        leaderboardAdapter.notifyDataSetChanged()
+        mAdapter.updateLeaderboard(newLeaderboard)
+        Log.d("UPDATE LEADERBOARD", leaderboard.toString())
     }
 }

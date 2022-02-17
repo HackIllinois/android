@@ -19,7 +19,7 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.d("Creating recyclerview", "")
-        val layoutResource = R.id.recyclerview_leaderboard
+        val layoutResource = R.layout.leaderboard_tile
         val view = LayoutInflater.from(parent.context).inflate(layoutResource, parent, false)
         val viewHolder = ViewHolder(view)
         context = parent.context
@@ -30,35 +30,20 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = itemList[position]
-        Log.d("ON BIND VIEW HOLDER", item.toString())
+//        Log.d("ON BIND VIEW HOLDER", item.toString())
         bind(item, holder.itemView)
     }
 
     private fun bind(item: Leaderboard, itemView: View) {
-        Log.d("Binding item:", item.toString())
+//        Log.d("Binding item:", item.toString())
         itemView.apply {
             discordTextView.text = item.discord
             pointsTextView.text = item.points.toString()
         }
-
     }
 
-
-//    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        private val discordTextView: TextView = itemView.findViewById(R.id.discord_textview)
-//        private val pointsTextView: TextView = itemView.findViewById(R.id.points_textview)
-//        private lateinit var context: Context
-//
-//        companion object {
-//            fun from(parent: ViewGroup): ViewHolder {
-//                val layoutInflater = LayoutInflater.from(parent.context)
-//                val view = layoutInflater.inflate(R.layout.leaderboard_tile, parent, false)
-//                val viewHolder = ViewHolder(view)
-//                viewHolder.context = parent.context
-//                return viewHolder
-//            }
-//        }
-//
-
-//    }
+    fun updateLeaderboard(leaderboard: List<Leaderboard>) {
+        this.itemList = leaderboard
+        notifyDataSetChanged()
+    }
 }
