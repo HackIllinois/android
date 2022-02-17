@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +49,7 @@ class EventInfoFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_schedule_popout, container, false)
 
         view.exit_button.setOnClickListener { activity?.onBackPressed() }
-        view.favoriteProject.setOnClickListener {
+        view.favorite_project.setOnClickListener {
             viewModel.changeFavoritedState()
         }
 
@@ -107,7 +108,7 @@ class EventInfoFragment : Fragment() {
 
     private fun updateFavoritedUI(isFavorited: Boolean?) {
         isFavorited?.let {
-            favoriteProject.isSelected = isFavorited
+            favorite_project.isSelected = isFavorited
         }
     }
 
