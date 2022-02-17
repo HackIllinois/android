@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimaryLight">#e3f6ff</color>
     <color name="colorPrimary">#222B5C</color>
-    <color name="colorPrimaryDark">#005776</color>
+    <color name="colorPrimaryDark">#202c54</color>
+    <color name="colorBackgrounds">#202c54</color>
     <color name="colorAccent">#E35058</color>
 
     <color name="selectedMenuItem">#8ce3f6ff</color>
@@ -11,9 +12,9 @@
     <color name="tabBackground">#5db4d6</color>
     <color name="tabText">#c6d9e0</color>
 
-    <color name="bottomAppBarColor">#222B5C</color>
-    <color name="selectedAppBarIcon">#6BAEC5</color>
-    <color name="unselectedAppBarIcon">#FFFFFF</color>
+    <color name="bottomAppBarColor">#6F8CC1</color>
+    <color name="selectedAppBarIcon">#FFFFFF</color>
+    <color name="unselectedAppBarIcon">#b7c5e0</color>
 
     <color name="fabColor">#E35058</color>
 
@@ -22,8 +23,23 @@
 
     <color name="primaryTextColor">#222B5C</color>
     <color name="alternateTextColor">#E35058</color>
+    <color name="lightTextColor">#FFFFFF</color>
+
+    <color name="mealTextColor">#E87AA4</color>
+    <color name="speakerTextColor">#981D23</color>
+    <color name="workshopTextColor">#5947A7</color>
+    <color name="miniEventTextColor">#286574</color>
+    <color name="qnaTextColor">#E4694A</color>
+    <color name="otherTextColor">#E87AA4</color>
+
+    <color name="lookingForTeamColor">#009900</color>
+    <color name="lookingForMembersColor">#FF9933</color>
+    <color name="notLookingColor">#CC0000</color>
 
     <color name="starColor">#222B5C</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="primaryGrayColor">#212121</color>
 
     <color name="tickerColor">#232A34</color>
     <color name="minutesColor">#E28B79</color>
@@ -32,8 +48,10 @@
 
     <color name="sponsoredByColor">#A43B5C</color>
 
-    <color name="lookingForTeamColor">#009900</color>
-    <color name="lookingForMembersColor">#FF9933</color>
-    <color name="notLookingColor">#CC0000</color>
+    <color name="offWhiteTextColor">#F6F6F6</color>
+    <color name="offWhiteBackgroundColor">#F6F6F6</color>
+
+    <color name="selectedOffWhiteColor">#F3F3F3</color>
+    <color name="submitBtnColor">#F06C6F</color>
 
 </resources>

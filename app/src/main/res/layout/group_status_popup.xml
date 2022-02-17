@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:layout_width="170dp"
     android:layout_height="wrap_content"
-    android:background="#3B68A6" >
+    android:background="@drawable/rounded_blue_bg_bottom_corners"
+    >
 
     <LinearLayout
         android:id="@+id/looking_for_team_linearlayout"

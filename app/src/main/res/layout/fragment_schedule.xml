@@ -7,18 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <ImageButton
         android:id="@+id/favScheduleButton"
-        android:layout_width="117dp"
-        android:layout_height="34dp"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_star_selectable"
-        android:background="@drawable/toggleable_rounded_button"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:text="@string/fav_button_text"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
+        android:src="@drawable/star_button_white"
+        android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,11 +40,12 @@
         android:layout_marginEnd="16dp"
         android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schedule_header"
-        app:tabIndicatorColor="@color/colorAccent"
+        app:tabIndicatorColor="@color/selectedOffWhiteColor"
         app:tabIndicatorHeight="3dp"
-        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabSelectedTextColor="@color/selectedOffWhiteColor"
         app:tabTextAppearance="@style/TabTextAppearance"
         app:tabTextColor="@android:color/white">
 
@@ -56,29 +53,30 @@
             android:id="@+id/tabFriday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:text="@string/schedule_tab_friday" />
+            android:fontFamily="@font/montserrat_light"
+            android:text="Fri\n09" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSaturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:text="@string/schedule_tab_saturday" />
+            android:fontFamily="@font/montserrat_light"
+            android:text="Sat\n10" />
+
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:text="@string/schedule_tab_sunday" />
+            android:fontFamily="@font/montserrat_light"
+            android:text="Sun\n11" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabMonday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:text="@string/schedule_tab_monday" />
+            android:fontFamily="@font/montserrat_light"
+            android:text="Mon\n12" />
 
     </com.google.android.material.tabs.TabLayout>
 

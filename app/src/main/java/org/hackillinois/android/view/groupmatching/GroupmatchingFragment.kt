@@ -21,6 +21,7 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.repository.ProfileRepository
 import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.viewmodel.GroupmatchingViewModel
 
 class GroupmatchingFragment : Fragment() {
 
@@ -39,6 +40,7 @@ class GroupmatchingFragment : Fragment() {
     private lateinit var groupAdapter: GroupAdapter
     private var allProfiles: List<Profile> = listOf()
     private lateinit var favButton: ImageButton
+    private var favFlag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +57,7 @@ class GroupmatchingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         if (!hasLoggedIn()) {
-            val view = inflater.inflate(R.layout.groupmatching_fragment_null, container, false)
+            val view = inflater.inflate(R.layout.fragment_groupmatching_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
                 val mainActivity: MainActivity = requireActivity() as MainActivity
@@ -72,7 +74,13 @@ class GroupmatchingFragment : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 true)
         groupStatusButton.setOnClickListener {
+            groupStatusButton.setBackgroundResource(R.drawable.rounded_blue_bg_top_corners)
+            popupWindow.animationStyle = R.anim.slide_down
             popupWindow.showAsDropDown(groupStatusButton)
+        }
+        popupWindow.setOnDismissListener {
+            popupWindow.animationStyle = R.anim.slide_up
+            groupStatusButton.setBackgroundResource(R.drawable.rounded_blue_bg)
         }
         val lookingForTeamLL = popupView.findViewById<LinearLayout>(R.id.looking_for_team_linearlayout)
         val lookingForMemberLL = popupView.findViewById<LinearLayout>(R.id.team_looking_for_members_linearlayout)
@@ -124,7 +132,7 @@ class GroupmatchingFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.team_matching_recyclerview)
 
         currentUser = ProfileRepository.instance.fetchCurrentProfile()
-        groupAdapter = GroupAdapter(currentUser, this)
+        groupAdapter = GroupAdapter(currentUser, this, resources)
         currentUser.observe(viewLifecycleOwner, Observer {
             filterProfiles()
         })
@@ -132,8 +140,10 @@ class GroupmatchingFragment : Fragment() {
         recyclerView.adapter = groupAdapter
 
         favButton = view.findViewById<ImageButton>(R.id.star_button)
+        favButton.isSelected = favFlag
         favButton.setOnClickListener {
-            favButton.isSelected = !favButton.isSelected
+            favFlag = !favFlag
+            favButton.isSelected = favFlag
             filterProfiles()
         }
 

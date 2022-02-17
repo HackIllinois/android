@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.groupmatching
+package org.hackillinois.android.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

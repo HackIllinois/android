@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.Button
+// import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -18,7 +19,7 @@ import org.hackillinois.android.viewmodel.ScheduleViewModel
 
 class ScheduleFragment : Fragment() {
 
-    private lateinit var favoriteButton: Button
+    private lateinit var favoriteButton: ImageButton
     private lateinit var scheduleViewModel: ScheduleViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

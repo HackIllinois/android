@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
+    android:background="@drawable/main_app_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
@@ -11,6 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        app:lottie_fileName="loading_animation.json" />
+        app:lottie_fileName="vespa.json" />
 
 </FrameLayout>

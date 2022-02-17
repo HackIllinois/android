@@ -6,11 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,9 +16,10 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import org.hackillinois.android.R
+import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
-import java.text.SimpleDateFormat
+import org.hackillinois.android.viewmodel.ProfileViewModel
 import java.util.*
 
 class ProfileFragment : Fragment() {
@@ -49,6 +46,10 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (!hasLoggedIn()) {
+            return
+        }
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
@@ -59,6 +60,16 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (!hasLoggedIn()) {
+            val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
+            val logoutButton = view.findViewById<Button>(R.id.logout_button)
+            logoutButton.setOnClickListener {
+                val mainActivity: MainActivity = requireActivity() as MainActivity
+                mainActivity.logout()
+            }
+            return view
+        }
+
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         profileImage = view.findViewById(R.id.profileImage)
@@ -76,11 +87,16 @@ class ProfileFragment : Fragment() {
             (activity as MainActivity).switchFragment(ProfileEditFragment(), false)
         }
 
+        val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
+        logoutButton1.setOnClickListener {
+            val mainActivity: MainActivity = requireActivity() as MainActivity
+            mainActivity.logout()
+        }
+
         return view
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
-        timezoneText.text = it.timezone
         discordText.text = it.discord
         descriptionText.text = it.description
         pointsText.text = it.points.toString()
@@ -94,20 +110,20 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        val df = SimpleDateFormat("hh:mm aa")
-        timeText.text = df.format(Calendar.getInstance().time)
+        // just display timezone so it looks consistent with iOS
+        timezoneText.text = "time zone"
+        timeText.text = it.timezone
 
         try {
             context?.let { it1 -> Glide.with(it1)
                     .load(it.avatarUrl)
                     .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
-                    .placeholder(R.drawable.ic_star_border)
                     .into(profileImage) }
         } catch (e: Exception) {
             Log.e("Load profile image", e.toString())
         }
 
-        val maxWidth: Int = skillsLayout.measuredWidth - 100
+        val maxWidth: Int = skillsLayout.measuredWidth - 100 - 48
 
         var params: LinearLayout.LayoutParams
         var newLL = LinearLayout(context)
@@ -155,5 +171,9 @@ class ProfileFragment : Fragment() {
             }
         }
         skillsLayout.addView(newLL)
+    }
+
+    private fun hasLoggedIn(): Boolean {
+        return JWTUtilities.readJWT(activity!!.applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 }

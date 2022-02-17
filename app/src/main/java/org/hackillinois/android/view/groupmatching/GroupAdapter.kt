@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.groupmatching
 
 import android.content.Context
+import android.content.res.Resources
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
@@ -19,7 +23,8 @@ import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
 import java.lang.Exception
 
-class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment) : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources) :
+    RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
     var data = listOf<Profile>()
         set(value) {
@@ -35,7 +40,7 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.bind(item)
+        holder.bind(item, resources)
         holder.itemView.setOnClickListener {
             val mainActivity = frag.activity as MainActivity
             mainActivity.groupMatchingSelectedProfile = data[position]
@@ -62,15 +67,26 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
             }
         }
 
-        fun bind(item: Profile) {
+        fun bind(item: Profile, resources: Resources) {
             nameTextView.text = item.firstName + " " + item.lastName
+
+            val teamStatusArray = resources.getStringArray(R.array.team_status_array)
+            val teamStatusVerboseArray = resources.getStringArray(R.array.team_status_verbose_array)
+            val teamStatusColors = arrayOf(R.color.lookingForTeamColor, R.color.lookingForMembersColor, R.color.notLookingColor)
             statusTextView.text = item.teamStatus
+            val index: Int? = teamStatusArray.indices.firstOrNull { i -> teamStatusArray[i] == item.teamStatus }
+            index?.let {
+                statusTextView.text = "⬤ " + teamStatusVerboseArray[index]
+                statusTextView.setTextColor(resources.getColor(teamStatusColors[index]))
+            }
+
             profileMatch.text = item.discord
             descriptionTextView.text = item.description
             starButton.isSelected = FavoritesManager.isFavoritedProfile(context, item)
             if (item.id == currUser.value?.id) {
                 starButton.visibility = View.GONE
             } else {
+                starButton.visibility = View.VISIBLE
                 starButton.setOnClickListener {
                     starButton.isSelected = !starButton.isSelected
                     if (starButton.isSelected) {
@@ -82,7 +98,11 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
                 }
             }
             try {
-                Glide.with(context).load(item.avatarUrl).centerCrop().placeholder(R.drawable.ic_star_border).into(avatarIcon)
+                Glide.with(context)
+                        .load(item.avatarUrl)
+                        .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
+                        .into(avatarIcon)
+                avatarIcon.setBackgroundResource(0)
             } catch (e: Exception) {
                 Log.e("GroupAdapter", e.localizedMessage)
             }
