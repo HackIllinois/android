@@ -29,14 +29,20 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+//        var anim = bodymovin.loadAnimation(params);
+//        anim.frameRate = 25;
+
+        Log.d("FRAME RATE", splashAnimationView.duration.toString())
+
         splashAnimationView.playAnimation()
         splashAnimationView.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(p0: Animator?) { }
-            override fun onAnimationStart(p0: Animator?) { }
+            override fun onAnimationRepeat(p0: Animator?) {}
+            override fun onAnimationStart(p0: Animator?) {}
 
             override fun onAnimationEnd(p0: Animator?) {
                 countDownLatchIfTappedOrAnimationFinished()
             }
+
             override fun onAnimationCancel(p0: Animator?) {
                 countDownLatchIfTappedOrAnimationFinished()
             }
