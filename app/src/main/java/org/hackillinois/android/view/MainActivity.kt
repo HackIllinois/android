@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     private var currentSelection = 0
 
-    var groupMatchingSelectedProfile: Profile? = null
+//    var groupMatchingSelectedProfile: Profile? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -175,7 +175,8 @@ class MainActivity : AppCompatActivity() {
             App.getAPI("")
 
             runOnUiThread {
-                val loginIntent = Intent(this, LoginActivity::class.java)
+//                val loginIntent = Intent(this, LoginActivity::class.java)
+                val loginIntent = Intent(this, OnboardingActivity::class.java)
                 loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(loginIntent)
                 finish()

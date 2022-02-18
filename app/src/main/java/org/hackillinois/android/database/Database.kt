@@ -17,6 +17,7 @@ import org.hackillinois.android.database.entity.*
     ],
     version = 2
 )
+
 abstract class Database : RoomDatabase() {
     abstract fun qrDao(): QRDao
     abstract fun attendeeDao(): AttendeeDao

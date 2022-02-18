@@ -86,7 +86,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
             runOnUiThread {
                 if (needsToLogin) {
-                    launchLoginActivity()
+                    launchOnboardingActivity()
+//                    launchLoginActivity()
                 } else {
                     launchMainActivity()
                 }
@@ -105,6 +106,12 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun launchMainActivity() {
         val mainIntent = Intent(this, MainActivity::class.java)
+        startActivity(mainIntent)
+        finish()
+    }
+
+    private fun launchOnboardingActivity() {
+        val mainIntent = Intent(this, OnboardingActivity::class.java)
         startActivity(mainIntent)
         finish()
     }

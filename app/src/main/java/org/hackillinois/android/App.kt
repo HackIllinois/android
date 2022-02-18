@@ -1,6 +1,7 @@
 package org.hackillinois.android
 
 import android.app.Application
+import android.util.Log
 import androidx.room.Room
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -28,6 +29,8 @@ class App : Application() {
             if (token == null) {
                 return if (apiInitialized) apiInternal else getAPI("")
             }
+
+            Log.d("TOKEN", token)
 
             val interceptor = { chain: Interceptor.Chain ->
                 val newRequest = chain.request().newBuilder()

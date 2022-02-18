@@ -31,18 +31,12 @@ class ProfileRepository {
         return profileDao.getAllProfiles()
     }
 
-    fun fetchLeaderboard(): LiveData<List<Profile>> {
-        Log.d("profile call", "fetchLeaderboard")
-        refreshAll()
-        return profileDao.getLeaderboard()
-    }
-
-    fun fetchProfilesWithInterests(interests: List<String>): LiveData<List<Profile>> {
-        Log.d("profile call", "fetchprofileswithinterests")
-
-        refreshAll()
-        return profileDao.getProfilesWithInterests(interests)
-    }
+//    fun fetchProfilesWithInterests(interests: List<String>): LiveData<List<Profile>> {
+//        Log.d("profile call", "fetchprofileswithinterests")
+//
+//        refreshAll()
+//        return profileDao.getProfilesWithInterests(interests)
+//    }
 
     fun refreshAll() {
         GlobalScope.launch(Dispatchers.IO) {

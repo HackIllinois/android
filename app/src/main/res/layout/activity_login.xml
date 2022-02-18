@@ -5,40 +5,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
-    >
+    android:background="@drawable/onboarding_background">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="148dp"
         android:fontFamily="@font/montserrat_semi_bold"
-        android:text="@string/welcome_login"
+        android:text="WELCOME TO"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ImageView
         android:id="@+id/loginLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="175dp"
+        android:layout_height="179dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/login_logo" />
+        app:srcCompat="@drawable/login_logo_with_text" />
 
     <TextView
         android:id="@+id/loginLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="@string/label_login"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:text="LOGIN"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/login_or_label"
@@ -46,14 +45,14 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginLogo"
-        />
+        app:layout_constraintVertical_bias="0.333" />
 
     <Button
         android:id="@+id/attendeeLoginBtn"
         android:layout_width="200dp"
         android:layout_height="36dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_login_button_filled"
+        android:background="@drawable/rounded_login_button_secondary"
         android:text="@string/attendee_login"
         android:textColor="@android:color/black"
         android:textSize="16sp"
@@ -62,7 +61,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginLabel"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/login_or_label"
@@ -88,7 +88,8 @@
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toTopOf="@+id/staffLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/staffLoginBtn"
@@ -101,5 +102,6 @@
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

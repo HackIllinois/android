@@ -29,26 +29,26 @@ class GroupmatchingFragment : Fragment() {
         fun newInstance() = GroupmatchingFragment()
     }
 
-    private lateinit var viewModel: GroupmatchingViewModel
-    private lateinit var popupWindow: PopupWindow
-    private lateinit var groupStatusButton: Button
-    private var lookingForTeamFlag: Boolean = true
-    private var lookingForMemberFlag: Boolean = true
-    private lateinit var skills: Array<String>
-    private lateinit var skillsChecked: MutableLiveData<BooleanArray>
-    private lateinit var currentUser: LiveData<Profile>
-    private lateinit var groupAdapter: GroupAdapter
-    private var allProfiles: List<Profile> = listOf()
-    private lateinit var favButton: ImageButton
-    private var favFlag = false
+//    private lateinit var viewModel: GroupmatchingViewModel
+//    private lateinit var popupWindow: PopupWindow
+//    private lateinit var groupStatusButton: Button
+//    private var lookingForTeamFlag: Boolean = true
+//    private var lookingForMemberFlag: Boolean = true
+//    private lateinit var skills: Array<String>
+//    private lateinit var skillsChecked: MutableLiveData<BooleanArray>
+//    private lateinit var currentUser: LiveData<Profile>
+//    private lateinit var groupAdapter: GroupAdapter
+//    private var allProfiles: List<Profile> = listOf()
+//    private lateinit var favButton: ImageButton
+//    private var favFlag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!hasLoggedIn()) {
             return
         }
-        viewModel = ViewModelProvider(this).get(GroupmatchingViewModel::class.java)
-        viewModel.init()
+//        viewModel = ViewModelProvider(this).get(GroupmatchingViewModel::class.java)
+//        viewModel.init()
     }
 
     override fun onCreateView(
@@ -65,103 +65,92 @@ class GroupmatchingFragment : Fragment() {
             }
             return view
         }
-        val view = inflater.inflate(R.layout.groupmatching_fragment, container, false)
-        groupStatusButton = view.findViewById(R.id.group_status_button_leaderboard)
-        val width: Int = (158 * requireContext().resources.displayMetrics.density).toInt()
-        val popupView = inflater.inflate(R.layout.group_status_popup, null)
-        popupWindow = PopupWindow(
-            popupView,
-            width,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            true
-        )
-        groupStatusButton.setOnClickListener {
-            groupStatusButton.setBackgroundResource(R.drawable.rounded_blue_bg_top_corners)
-            popupWindow.animationStyle = R.anim.slide_down
-            popupWindow.showAsDropDown(groupStatusButton)
-        }
-        popupWindow.setOnDismissListener {
-            popupWindow.animationStyle = R.anim.slide_up
-            groupStatusButton.setBackgroundResource(R.drawable.rounded_blue_bg)
-        }
-        val lookingForTeamLL = popupView.findViewById<LinearLayout>(R.id.looking_for_team_linearlayout)
-        val lookingForMemberLL = popupView.findViewById<LinearLayout>(R.id.team_looking_for_members_linearlayout)
-        lookingForTeamLL.setOnClickListener {
-            val imageView = it.findViewById<ImageView>(R.id.looking_for_team_imageview)
-            if (!lookingForTeamFlag) {
-                lookingForTeamFlag = true
-                imageView.setImageResource(R.drawable.filled_square)
-            } else {
-                lookingForTeamFlag = false
-                imageView.setImageResource(R.drawable.hollow_square)
-            }
-            filterProfiles()
-        }
-        lookingForMemberLL.setOnClickListener {
-            val imageView = it.findViewById<ImageView>(R.id.team_looking_for_members_imageview)
-            if (!lookingForMemberFlag) {
-                lookingForMemberFlag = true
-                imageView.setImageResource(R.drawable.filled_square)
-            } else {
-                lookingForMemberFlag = false
-                imageView.setImageResource(R.drawable.hollow_square)
-            }
-            filterProfiles()
-        }
-        skills = resources.getStringArray(R.array.skills_array)
-        skillsChecked = MutableLiveData(BooleanArray(skills.size))
-        skillsChecked.observe(
-            viewLifecycleOwner,
-            Observer {
-                Log.i("GroupMatching", "skillsChecked changed")
-                filterProfiles()
-            }
-        )
-
-        val skillsButton = view.findViewById<Button>(R.id.skills_button_leaderboard)
-        val alertDialogView = inflater.inflate(R.layout.skills_alert_dialog, null)
-        val listView = alertDialogView.findViewById<ListView>(R.id.skills_listview)
-        listView.adapter = SkillsAdapter(requireContext(), R.layout.skills_alert_dialog_item, skills, skillsChecked)
-        val alertDialogBuilder = AlertDialog.Builder(context, R.style.WrapContentDialog)
-        alertDialogBuilder.setView(alertDialogView)
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        skillsButton.setOnClickListener {
-            alertDialog.show()
-        }
-        val closeButton = alertDialogView.findViewById<ImageButton>(R.id.close_button)
-        closeButton.setOnClickListener {
-            alertDialog.dismiss()
-        }
-
-        val recyclerView: RecyclerView = view.findViewById(R.id.team_matching_recyclerview_leaderboard)
-
-        currentUser = ProfileRepository.instance.fetchCurrentProfile()
-        groupAdapter = GroupAdapter(currentUser, this, resources)
-        currentUser.observe(
-            viewLifecycleOwner,
-            Observer {
-                filterProfiles()
-            }
-        )
-
-        recyclerView.adapter = groupAdapter
-
-        favButton = view.findViewById<ImageButton>(R.id.star_button_leaderboard)
-        favButton.isSelected = favFlag
-        favButton.setOnClickListener {
-            favFlag = !favFlag
-            favButton.isSelected = favFlag
-            filterProfiles()
-        }
-
-        viewModel.allProfilesLiveData.observe(
-            viewLifecycleOwner,
-            Observer {
-                allProfiles = it
-                filterProfiles()
-            }
-        )
+//        val view = inflater.inflate(R.layout.groupmatching_fragment, container, false)
+//        groupStatusButton = view.findViewById(R.id.group_status_button)
+//        val width: Int = (158 * requireContext().resources.displayMetrics.density).toInt()
+//        val popupView = inflater.inflate(R.layout.group_status_popup, null)
+//        popupWindow = PopupWindow(popupView,
+//                width,
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                true)
+//        groupStatusButton.setOnClickListener {
+//            groupStatusButton.setBackgroundResource(R.drawable.rounded_blue_bg_top_corners)
+//            popupWindow.animationStyle = R.anim.slide_down
+//            popupWindow.showAsDropDown(groupStatusButton)
+//        }
+//        popupWindow.setOnDismissListener {
+//            popupWindow.animationStyle = R.anim.slide_up
+//            groupStatusButton.setBackgroundResource(R.drawable.rounded_blue_bg)
+//        }
+//        val lookingForTeamLL = popupView.findViewById<LinearLayout>(R.id.looking_for_team_linearlayout)
+//        val lookingForMemberLL = popupView.findViewById<LinearLayout>(R.id.team_looking_for_members_linearlayout)
+//        lookingForTeamLL.setOnClickListener {
+//            val imageView = it.findViewById<ImageView>(R.id.looking_for_team_imageview)
+//            if (!lookingForTeamFlag) {
+//                lookingForTeamFlag = true
+//                imageView.setImageResource(R.drawable.filled_square)
+//            } else {
+//                lookingForTeamFlag = false
+//                imageView.setImageResource(R.drawable.hollow_square)
+//            }
+//            filterProfiles()
+//        }
+//        lookingForMemberLL.setOnClickListener {
+//            val imageView = it.findViewById<ImageView>(R.id.team_looking_for_members_imageview)
+//            if (!lookingForMemberFlag) {
+//                lookingForMemberFlag = true
+//                imageView.setImageResource(R.drawable.filled_square)
+//            } else {
+//                lookingForMemberFlag = false
+//                imageView.setImageResource(R.drawable.hollow_square)
+//            }
+//            filterProfiles()
+//        }
+//        skills = resources.getStringArray(R.array.skills_array)
+//        skillsChecked = MutableLiveData(BooleanArray(skills.size))
+//        skillsChecked.observe(viewLifecycleOwner, Observer {
+//            Log.i("GroupMatching", "skillsChecked changed")
+//            filterProfiles()
+//        })
+//
+//        val skillsButton = view.findViewById<Button>(R.id.skills_button)
+//        val alertDialogView = inflater.inflate(R.layout.skills_alert_dialog, null)
+//        val listView = alertDialogView.findViewById<ListView>(R.id.skills_listview)
+//        listView.adapter = SkillsAdapter(requireContext(), R.layout.skills_alert_dialog_item, skills, skillsChecked)
+//        val alertDialogBuilder = AlertDialog.Builder(context, R.style.WrapContentDialog)
+//        alertDialogBuilder.setView(alertDialogView)
+//        val alertDialog = alertDialogBuilder.create()
+//        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        skillsButton.setOnClickListener {
+//            alertDialog.show()
+//        }
+//        val closeButton = alertDialogView.findViewById<ImageButton>(R.id.close_button)
+//        closeButton.setOnClickListener {
+//            alertDialog.dismiss()
+//        }
+//
+//        val recyclerView: RecyclerView = view.findViewById(R.id.team_matching_recyclerview)
+//
+//        currentUser = ProfileRepository.instance.fetchCurrentProfile()
+//        groupAdapter = GroupAdapter(currentUser, this, resources)
+//        currentUser.observe(viewLifecycleOwner, Observer {
+//            filterProfiles()
+//        })
+//
+//        recyclerView.adapter = groupAdapter
+//
+//        favButton = view.findViewById<ImageButton>(R.id.star_button)
+//        favButton.isSelected = favFlag
+//        favButton.setOnClickListener {
+//            favFlag = !favFlag
+//            favButton.isSelected = favFlag
+//            filterProfiles()
+//        }
+//
+//        viewModel.allProfilesLiveData.observe(viewLifecycleOwner, Observer {
+//            allProfiles = it
+//            filterProfiles()
+//        })
         return view
     }
 
@@ -170,25 +159,21 @@ class GroupmatchingFragment : Fragment() {
     }
 
     private fun filterProfiles() {
-        skillsChecked.value!!.contains(true)
-        if (lookingForTeamFlag && lookingForMemberFlag) {
-            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!) }
-        } else if (lookingForTeamFlag) {
-            groupAdapter.data = allProfiles.filter { profile ->
-                profile.teamStatus.equals("LOOKING_FOR_TEAM") &&
-                    profile.hasRequiredSkill(skills, skillsChecked.value!!)
-            }
-        } else if (lookingForMemberFlag) {
-            groupAdapter.data = allProfiles.filter { profile ->
-                profile.teamStatus.equals("LOOKING_FOR_MEMBERS") &&
-                    profile.hasRequiredSkill(skills, skillsChecked.value!!)
-            }
-        } else {
-            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!) }
-        }
-        if (favButton.isSelected) {
-            groupAdapter.data = groupAdapter.data.filter { profile -> FavoritesManager.isFavoritedProfile(requireContext(), profile) }
-        }
+//        skillsChecked.value!!.contains(true)
+//        if (lookingForTeamFlag && lookingForMemberFlag) {
+//            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!) }
+//        } else if (lookingForTeamFlag) {
+//            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_TEAM") &&
+//                    profile.hasRequiredSkill(skills, skillsChecked.value!!) }
+//        } else if (lookingForMemberFlag) {
+//            groupAdapter.data = allProfiles.filter { profile -> profile.teamStatus.equals("LOOKING_FOR_MEMBERS") &&
+//                    profile.hasRequiredSkill(skills, skillsChecked.value!!) }
+//        } else {
+//            groupAdapter.data = allProfiles.filter { profile -> profile.hasRequiredSkill(skills, skillsChecked.value!!) }
+//        }
+//        if (favButton.isSelected) {
+//            groupAdapter.data = groupAdapter.data.filter { profile -> FavoritesManager.isFavoritedProfile(requireContext(), profile) }
+//        }
     }
 }
 
@@ -198,10 +183,10 @@ fun Profile.hasRequiredSkill(skills: Array<String>, skillsChecked: BooleanArray)
     }
 
     for (i in skills.indices) {
-        if (skillsChecked[i] && this.interests.contains(skills[i])) {
-            Log.i("GroupMatching", skills[i])
-            return true
-        }
+//        if (skillsChecked[i] && this.interests.contains(skills[i])) {
+//            Log.i("GroupMatching", skills[i])
+//            return true
+//        }
     }
     return false
 }
