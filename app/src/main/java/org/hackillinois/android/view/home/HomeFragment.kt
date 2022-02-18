@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +22,9 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.TimeInfo
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.custom.CustomRefreshView
+import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.view.home.eventlist.EventsSection
 import org.hackillinois.android.viewmodel.HomeViewModel
@@ -56,7 +59,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 this,
                 it
             )
-            val upcomingHeaderColor = Color.WHITE
+            val upcomingHeaderColor = getColor(context!!, R.color.primaryTextColor)
             upcomingEventsSection = EventsSection(
                 mutableListOf(),
                 "Upcoming",
@@ -171,4 +174,9 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     }
 
     private fun padNumber(number: Long) = String.format("%02d", number)
+    override fun openEventInfoActivity(event: Event) {
+        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        (context as MainActivity).switchFragment(eventInfoFragment, true)
+        // TODO("Not yet implemented")
+    }
 }

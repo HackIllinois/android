@@ -11,6 +11,7 @@ import org.hackillinois.android.notifications.DeviceToken
 import okhttp3.ResponseBody
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.TimesWrapper
+import org.hackillinois.android.model.leaderboard.Leaderboard
 import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
 import retrofit2.Call
@@ -96,6 +97,9 @@ interface API {
 
     @GET("upload/blobstore/times/")
     suspend fun times(): TimesWrapper
+
+    @GET("profile/leaderboard/")
+    suspend fun leaderboard(): Leaderboard
 
     companion object {
         val BASE_URL = "https://api.hackillinois.org/"

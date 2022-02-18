@@ -66,7 +66,7 @@ class GroupmatchingFragment : Fragment() {
             return view
         }
         val view = inflater.inflate(R.layout.groupmatching_fragment, container, false)
-        groupStatusButton = view.findViewById(R.id.group_status_button)
+        groupStatusButton = view.findViewById(R.id.group_status_button_leaderboard)
         val width: Int = (158 * requireContext().resources.displayMetrics.density).toInt()
         val popupView = inflater.inflate(R.layout.group_status_popup, null)
         popupWindow = PopupWindow(popupView,
@@ -113,7 +113,7 @@ class GroupmatchingFragment : Fragment() {
             filterProfiles()
         })
 
-        val skillsButton = view.findViewById<Button>(R.id.skills_button)
+        val skillsButton = view.findViewById<Button>(R.id.skills_button_leaderboard)
         val alertDialogView = inflater.inflate(R.layout.skills_alert_dialog, null)
         val listView = alertDialogView.findViewById<ListView>(R.id.skills_listview)
         listView.adapter = SkillsAdapter(requireContext(), R.layout.skills_alert_dialog_item, skills, skillsChecked)
@@ -129,7 +129,7 @@ class GroupmatchingFragment : Fragment() {
             alertDialog.dismiss()
         }
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.team_matching_recyclerview)
+        val recyclerView: RecyclerView = view.findViewById(R.id.team_matching_recyclerview_leaderboard)
 
         currentUser = ProfileRepository.instance.fetchCurrentProfile()
         groupAdapter = GroupAdapter(currentUser, this, resources)
@@ -139,7 +139,7 @@ class GroupmatchingFragment : Fragment() {
 
         recyclerView.adapter = groupAdapter
 
-        favButton = view.findViewById<ImageButton>(R.id.star_button)
+        favButton = view.findViewById<ImageButton>(R.id.star_button_leaderboard)
         favButton.isSelected = favFlag
         favButton.setOnClickListener {
             favFlag = !favFlag

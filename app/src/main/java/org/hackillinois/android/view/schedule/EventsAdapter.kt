@@ -11,12 +11,14 @@ import kotlinx.android.synthetic.main.time_list_item.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 
 class EventsAdapter(
     private var itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener
-) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<EventsAdapter.ViewHolder>(), EventClickListener {
     private lateinit var context: Context
 
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
@@ -50,16 +52,20 @@ class EventsAdapter(
 
     private fun bindEventItem(event: Event, itemView: View) {
         itemView.apply {
-//            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
+            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
 
             eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
-            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            eventDescriptionTextView.text = event.description
+            // sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            // sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            if (event.description.length <= 107) {
+                eventDescriptionTextView.text = event.description
+            } else {
+                eventDescriptionTextView.text = event.description.substring(0, 107) + "..."
+            }
 
-            pointsView.text = "${event.points} Points!"
+            pointsView.text = " + ${event.points} pts "
 
             // @todo sloppy, clean up
             when (event.eventType) {
@@ -115,4 +121,13 @@ class EventsAdapter(
         this.itemList = list
         notifyDataSetChanged()
     }
+
+    override fun openEventInfoActivity(event: Event) {
+        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        (context as MainActivity).switchFragment(eventInfoFragment, true)
+    }
+
+    // private fun onClickShowPopup(view: View) {
+    //
+    // }
 }

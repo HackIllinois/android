@@ -3,4 +3,5 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/attendeeLoginColor"/>
     <corners android:radius="30dp" />
+    <stroke android:width="2px" android:color="#000000" />
 </shape>

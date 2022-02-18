@@ -22,8 +22,8 @@
 
     <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
     <string name="authorization_pref_file_key">org.hackillinois.android.authorization</string>
-    <string name="welcome_login">Welcome to</string>
-    <string name="label_login">Login</string>
+    <string name="welcome_login">WELCOME TO</string>
+    <string name="label_login">LOGIN</string>
     <string name="attendee_login">Attendee</string>
     <string name="staff_login">Staff</string>
     <string name="guest_login">Guest</string>

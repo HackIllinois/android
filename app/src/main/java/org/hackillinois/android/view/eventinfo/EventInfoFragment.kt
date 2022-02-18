@@ -1,7 +1,5 @@
 package org.hackillinois.android.view.eventinfo
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -11,13 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.event_tile.*
 import kotlinx.android.synthetic.main.fragment_event_info.*
-import kotlinx.android.synthetic.main.fragment_event_info.sponsoredTextView
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
+import kotlinx.android.synthetic.main.fragment_schedule_popout.*
+import kotlinx.android.synthetic.main.fragment_schedule_popout.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.Roles
-import org.hackillinois.android.view.MainActivity
-import org.hackillinois.android.view.ScannerFragment
 import org.hackillinois.android.viewmodel.EventInfoViewModel
 
 class EventInfoFragment : Fragment() {
@@ -37,16 +33,16 @@ class EventInfoFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventId)
         viewModel.event.observe(this, Observer { updateEventUI(it) })
-        viewModel.roles.observe(this, Observer { updateCameraIcon(it) })
+//        viewModel.roles.observe(this, Observer { updateCameraIcon(it) })
 
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_event_info, container, false)
+        val view = inflater.inflate(R.layout.fragment_schedule_popout, container, false)
 
-        view.codeEntryClose.setOnClickListener { activity?.onBackPressed() }
-        view.favoriteButton.setOnClickListener {
+        view.exit_button.setOnClickListener { activity?.onBackPressed() }
+        view.favorite_project.setOnClickListener {
             viewModel.changeFavoritedState()
         }
 
@@ -57,55 +53,55 @@ class EventInfoFragment : Fragment() {
         event?.let {
             this.event = it
             this.eventName = it.name
-            eventTitle.text = it.name
-            pointsView.text = "${it.points} Points!"
-            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            eventTimeSpan.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
-            eventLocation.text = it.getLocationDescriptionsAsString()
-            eventDescription.text = it.description
+            event_name.text = it.name
+            event_points.text = " +${it.points} pts "
+            event_sponsor.text = "Sponsored by ${event.sponsor}"
+            event_sponsor.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            event_time.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
+//            eventLocation.text = it.getLocationDescriptionsAsString()
+            event_description.text = it.description
 
-            val timeUntil = it.getStartTimeMs() - System.currentTimeMillis()
-            if (timeUntil > 0 && timeUntil <= FIFTEEN_MINUTES_IN_MS) {
-                happeningSoonTextView.visibility = View.VISIBLE
-            } else {
-                happeningSoonTextView.visibility = View.INVISIBLE
-            }
+//            val timeUntil = it.getStartTimeMs() - System.currentTimeMillis()
+//            if (timeUntil > 0 && timeUntil <= FIFTEEN_MINUTES_IN_MS) {
+//                happeningSoonTextView.visibility = View.VISIBLE
+//            } else {
+//                happeningSoonTextView.visibility = View.INVISIBLE
+//            }
 
-            context?.let { context ->
-                mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
-            }
+//            context?.let { context ->
+//                mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
+//            }
         }
     }
 
-    private fun updateCameraIcon(roles: Roles?) = roles?.let {
-        if (it.isStaff()) {
-            cameraButton.visibility = View.VISIBLE
-            cameraButton.setOnClickListener {
-                if (event?.isCurrentlyHappening() == true) {
-                    val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
-                    (activity as MainActivity?)?.switchFragment(scannerFragment, true)
-                } else {
-                    AlertDialog.Builder(context)
-                        .setTitle("Scanning Confirmation")
-                        .setMessage("Event is not in progress. Are you sure you want to scan?")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton(android.R.string.yes) { dialogInterface: DialogInterface, _: Int ->
-                            dialogInterface.dismiss()
-                            val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
-                            (activity as MainActivity?)?.switchFragment(scannerFragment, true)
-                        }
-                        .setNegativeButton(android.R.string.no, null).show()
-                }
-            }
-        } else {
-            cameraButton.visibility = View.GONE
-        }
-    }
+//    private fun updateCameraIcon(roles: Roles?) = roles?.let {
+//        if (it.isStaff()) {
+//            cameraButton.visibility = View.VISIBLE
+//            cameraButton.setOnClickListener {
+//                if (event?.isCurrentlyHappening() == true) {
+//                    val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
+//                    (activity as MainActivity?)?.switchFragment(scannerFragment, true)
+//                } else {
+//                    AlertDialog.Builder(context)
+//                            .setTitle("Scanning Confirmation")
+//                            .setMessage("Event is not in progress. Are you sure you want to scan?")
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+//                            .setPositiveButton(android.R.string.yes) { dialogInterface: DialogInterface, _: Int ->
+//                                dialogInterface.dismiss()
+//                                val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
+//                                (activity as MainActivity?)?.switchFragment(scannerFragment, true)
+//                            }
+//                            .setNegativeButton(android.R.string.no, null).show()
+//                }
+//            }
+//        } else {
+//            cameraButton.visibility = View.GONE
+//        }
+//    }
 
     private fun updateFavoritedUI(isFavorited: Boolean?) {
         isFavorited?.let {
-            favoriteButton.isSelected = isFavorited
+            favorite_project.isSelected = isFavorited
         }
     }
 
