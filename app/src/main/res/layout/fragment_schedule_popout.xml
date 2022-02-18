@@ -120,7 +120,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/montserrat_regular"
         android:textColor="@color/primaryTextColor"
-        app:layout_constraintEnd_toEndOf="@+id/favoriteProject"
+        app:layout_constraintEnd_toEndOf="@+id/favorite_project"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_time"
         tools:text="@string/lorem_ipsum" />
