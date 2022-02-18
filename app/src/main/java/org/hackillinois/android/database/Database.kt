@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import org.hackillinois.android.database.dao.*
 import org.hackillinois.android.database.entity.*
+import org.hackillinois.android.database.entity.Leaderboard
 
 @Database(
     entities = [
@@ -13,7 +14,8 @@ import org.hackillinois.android.database.entity.*
         Event::class,
         Roles::class,
         Project::class,
-        Profile::class
+        Profile::class,
+        Leaderboard::class
     ],
     version = 2
 )
@@ -26,4 +28,5 @@ abstract class Database : RoomDatabase() {
     abstract fun rolesDao(): RolesDao
     abstract fun projectsDao(): ProjectsDao
     abstract fun profileDao(): ProfileDao
+    abstract fun leaderboardDao(): LeaderboardDao
 }

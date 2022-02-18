@@ -9,7 +9,7 @@ import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
-import org.hackillinois.android.model.leaderboard.Leaderboard
+import org.hackillinois.android.model.leaderboard.LeaderboardList
 import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
@@ -98,8 +98,8 @@ interface API {
     @GET("upload/blobstore/times/")
     suspend fun times(): TimesWrapper
 
-    @GET("profile/leaderboard/")
-    suspend fun leaderboard(): Leaderboard
+    @GET("profile/leaderboard/?limit=10")
+    suspend fun leaderboard(): LeaderboardList
 
     companion object {
         val BASE_URL = "https://api.hackillinois.org/"

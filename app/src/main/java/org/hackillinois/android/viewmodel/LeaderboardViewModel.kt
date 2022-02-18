@@ -2,15 +2,15 @@ package org.hackillinois.android.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import org.hackillinois.android.database.entity.Profile
-import org.hackillinois.android.repository.ProfileRepository
+import org.hackillinois.android.database.entity.Leaderboard
+import org.hackillinois.android.repository.LeaderboardRepository
 
 class LeaderboardViewModel : ViewModel() {
-    private val profileRepository = ProfileRepository.instance
+    private val leaderboardRepository = LeaderboardRepository.instance
 
-    lateinit var allProfilesLiveData: LiveData<List<Profile>>
+    lateinit var leaderboardLiveData: LiveData<List<Leaderboard>>
 
     fun init() {
-        allProfilesLiveData = profileRepository.fetchLeaderboard()
+        leaderboardLiveData = leaderboardRepository.fetchLeaderboard()
     }
 }
