@@ -26,6 +26,10 @@ import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
+
+
+
+
 // import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 
 class ScannerFragment : Fragment() {
@@ -37,10 +41,9 @@ class ScannerFragment : Fragment() {
     private lateinit var eventName: String
 
     private lateinit var codeScanner: CodeScanner
+    private lateinit var closeButton: ImageButton
 
-    private lateinit var scanStatusText: TextView
-    private lateinit var scannerEventTitleView: TextView
-    private lateinit var scannerEventAttributesView: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,14 +63,11 @@ class ScannerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_scanner, container, false)
 
-        val closeButton = view.findViewById<ImageButton>(R.id.qrScannerClose)
+        closeButton = view.findViewById<ImageButton>(R.id.qrScannerClose)
 
-        scanStatusText = view.findViewById(R.id.successTextView)
-        scannerEventTitleView = view.findViewById(R.id.scannerEventTitleView)
-        scannerEventAttributesView = view.findViewById(R.id.scannerEventAttributesView)
 
         // hide the text of scan status, event title, and attributes programmatically
-        hideStatusTextVisibility(listOf(scanStatusText, scannerEventTitleView, scannerEventAttributesView))
+//        hideStatusTextVisibility(listOf(scanStatusText, scannerEventTitleView, scannerEventAttributesView))
 
         closeButton.setOnClickListener {
             activity?.supportFragmentManager?.popBackStackImmediate()
@@ -138,6 +138,7 @@ class ScannerFragment : Fragment() {
     }
 
     private fun displayScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
+        Log.d("SCAN STATUS RESPONSE", lastScanStatus.toString())
         val responseString = when (lastScanStatus.userMessage) {
             "Success" -> "Success! You received ${lastScanStatus.points} points."
             "InvalidCode" -> "This code doesn't seem to be correct."
@@ -147,8 +148,10 @@ class ScannerFragment : Fragment() {
         }
         // make toast from response
         Log.d("SCAN STATUS RESULT", responseString)
+
         val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
         toast.show()
+        closeButton.performClick()
     }
 
     private fun updateOverrideSwitchVisibility(it: Roles?) = it?.let {
