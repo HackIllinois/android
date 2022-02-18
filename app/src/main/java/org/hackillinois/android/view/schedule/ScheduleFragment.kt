@@ -40,7 +40,7 @@ class ScheduleFragment : Fragment() {
         view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
         view.scheduleDays.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
 
-        favoriteButton = view.findViewById(R.id.favScheduleButton)
+        favoriteButton = view.findViewById(R.id.StarButton)
 
         favoriteButton.setOnClickListener(favScheduleClickListener)
 
