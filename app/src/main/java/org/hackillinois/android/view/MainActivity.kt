@@ -59,10 +59,10 @@ class MainActivity : AppCompatActivity() {
         val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
 
         val bottomBarButtons = listOf(
-            bottomAppBar.homeButton,
-            bottomAppBar.scheduleButton,
-            bottomAppBar.profile,
-            bottomAppBar.leaderboard
+                bottomAppBar.homeButton,
+                bottomAppBar.scheduleButton,
+                bottomAppBar.profile,
+                bottomAppBar.leaderboard
         )
 
         // by default, home button is selected
@@ -123,6 +123,7 @@ class MainActivity : AppCompatActivity() {
         }
         transaction.commit()
     }
+
     private fun updateFirebaseToken() {
         FirebaseApp.initializeApp(applicationContext)
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
@@ -148,6 +149,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun hasLoggedIn(): Boolean {
         return JWTUtilities.readJWT(applicationContext) != JWTUtilities.DEFAULT_JWT
     }

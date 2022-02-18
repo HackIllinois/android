@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.hackillinois.android.database.entity.EventLocation
-import org.hackillinois.android.database.entity.Leaderboard
 
 class Converters {
     @TypeConverter

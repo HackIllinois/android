@@ -8,7 +8,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.hackillinois.android.API
 import org.hackillinois.android.App
 import org.hackillinois.android.R
@@ -17,7 +20,6 @@ import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
 import retrofit2.HttpException
-import java.lang.Exception
 import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {

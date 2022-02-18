@@ -98,7 +98,7 @@ interface API {
     @GET("upload/blobstore/times/")
     suspend fun times(): TimesWrapper
 
-    @GET("profile/leaderboard/")
+    @GET("profile/leaderboard/?limit=10")
     suspend fun leaderboard(): LeaderboardList
 
     companion object {
