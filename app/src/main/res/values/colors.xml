@@ -18,26 +18,28 @@
 
     <color name="fabColor">#E35058</color>
 
-    <color name="attendeeLoginColor">#EE6C72</color>
+    <color name="attendeeLoginColor">#C9CF76</color>
     <color name="secondaryLoginColor">#6F8CC1</color>
 
-    <color name="primaryTextColor">#222B5C</color>
+    <color name="primaryTextColor">#08151B</color>
     <color name="alternateTextColor">#E35058</color>
     <color name="lightTextColor">#FFFFFF</color>
 
     <color name="mealTextColor">#E87AA4</color>
     <color name="speakerTextColor">#981D23</color>
-    <color name="workshopTextColor">#5947A7</color>
-    <color name="miniEventTextColor">#286574</color>
-    <color name="qnaTextColor">#E4694A</color>
-    <color name="otherTextColor">#E87AA4</color>
+    <color name="workshopTextColor">#222B5C</color>
+    <color name="miniEventTextColor">#222B5C</color>
+    <color name="qnaTextColor">#222B5C</color>
+    <color name="otherTextColor">#222B5C</color>
 
     <color name="lookingForTeamColor">#009900</color>
     <color name="lookingForMembersColor">#FF9933</color>
     <color name="notLookingColor">#CC0000</color>
 
-    <color name="starColor">#222B5C</color>
+    <color name="starColor">#ED9B21</color>
     <color name="white">#FFFFFF</color>
+
+    <color name ="eventTileColor">#F7F4D3</color>
 
     <color name="primaryGrayColor">#212121</color>
 
@@ -51,7 +53,7 @@
     <color name="offWhiteTextColor">#F6F6F6</color>
     <color name="offWhiteBackgroundColor">#F6F6F6</color>
 
-    <color name="selectedOffWhiteColor">#F3F3F3</color>
+    <color name="selectedDarkColor">#08151B</color>
     <color name="submitBtnColor">#F06C6F</color>
 
 </resources>

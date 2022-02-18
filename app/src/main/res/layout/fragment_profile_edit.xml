@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profile_background">
+    android:background="@drawable/profile_background_old">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -5,7 +5,7 @@
     android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_background_during">
+    android:background="@drawable/home_bg">>
 
 <!--    <Button-->
 <!--        android:id="@+id/logoutButton"-->
@@ -28,7 +28,7 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="left"
-        android:textColor="@android:color/white"
+        android:textColor="@color/primaryTextColor"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
             android:layout_gravity="left"
             android:layout_marginTop="8dp"
             android:text="@string/days_label"
-            android:textColor="@android:color/white"
+            android:textColor="@color/primaryTextColor"
             android:textSize="14sp" />
 
         <TextView
@@ -62,7 +62,7 @@
             android:layout_height="100dp"
             android:fontFamily="@font/montserrat_semi_bold"
             android:textSize="48sp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/primaryTextColor"
             />
 
     </LinearLayout>
@@ -84,7 +84,7 @@
             android:layout_gravity="left"
             android:layout_marginTop="8dp"
             android:text="@string/hours_label"
-            android:textColor="@android:color/white"
+            android:textColor="@color/primaryTextColor"
             android:textSize="14sp" />
 
         <TextView
@@ -94,7 +94,7 @@
             android:layout_height="100dp"
             android:fontFamily="@font/montserrat_semi_bold"
             android:textSize="48sp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/primaryTextColor"
             />
     </LinearLayout>
 
@@ -115,7 +115,7 @@
             android:layout_gravity="left"
             android:layout_marginTop="8dp"
             android:text="@string/minutes_label"
-            android:textColor="@android:color/white"
+            android:textColor="@color/primaryTextColor"
             android:textSize="14sp" />
 
         <TextView
@@ -125,7 +125,7 @@
             android:layout_height="100dp"
             android:fontFamily="@font/montserrat_semi_bold"
             android:textSize="48sp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/primaryTextColor"
             />
     </LinearLayout>
 

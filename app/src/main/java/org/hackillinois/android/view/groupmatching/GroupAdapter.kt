@@ -52,7 +52,7 @@ class GroupAdapter(private val currProfile: LiveData<Profile>, private val frag:
         private val avatarIcon: ImageView = itemView.findViewById(R.id.avatar_icon)
         private val nameTextView: TextView = itemView.findViewById(R.id.name_textview)
         private val statusTextView: TextView = itemView.findViewById(R.id.status_textview)
-        private val starButton: ImageButton = itemView.findViewById(R.id.star_button)
+        private val starButton: ImageButton = itemView.findViewById(R.id.star_button_leaderboard)
         private val profileMatch: TextView = itemView.findViewById(R.id.profile_match)
         private val descriptionTextView: TextView = itemView.findViewById(R.id.description_textview)
         private lateinit var context: Context

@@ -13,6 +13,9 @@ interface ProfileDao {
     @Query("SELECT * FROM profiles ORDER BY id ASC")
     fun getAllProfiles(): LiveData<List<Profile>>
 
+    @Query("SELECT * FROM profiles ORDER BY points DESC")
+    fun getLeaderboard(): LiveData<List<Profile>>
+
     // TODO: Select profiles where each interest in "interests" exists in the profile's interests
     @Query("SELECT * FROM profiles WHERE interests = :interests")
     fun getProfilesWithInterests(interests: List<String>): LiveData<List<Profile>>
