@@ -24,7 +24,6 @@ class EventsSection(
     Section(
         SectionParameters.builder()
             .itemResourceId(R.layout.event_tile)
-//            .headerResourceId(R.layout.event_list_header)
             .build()
     ) {
 
@@ -34,8 +33,8 @@ class EventsSection(
         val event = eventsList[position]
         holder.itemView.apply {
             titleTextView.text = event.name
-            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+//            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+//            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
 //            eventLocationTextView.text = event.getLocationDescriptionsAsString()
             if (event.description.length <= 107) {

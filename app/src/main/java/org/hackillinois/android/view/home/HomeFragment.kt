@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
@@ -27,12 +26,10 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.TimeInfo
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.view.MainActivity
-import org.hackillinois.android.view.custom.CustomRefreshView
 import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.view.home.eventlist.EventsSection
 import org.hackillinois.android.view.home.eventlist.EventsSectionFragment
-import org.hackillinois.android.view.schedule.DayFragment
 import org.hackillinois.android.viewmodel.HomeViewModel
 import java.lang.Exception
 
@@ -60,36 +57,35 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
 
             val ongoingHeaderColor = Color.WHITE
             ongoingEventsSection = EventsSection(
-                    mutableListOf(),
-                    "Ongoing",
-                    ongoingHeaderColor,
-                    false,
-                    this,
-                    it
+                mutableListOf(),
+                "Ongoing",
+                ongoingHeaderColor,
+                false,
+                this,
+                it
             )
             val upcomingHeaderColor = getColor(context!!, R.color.primaryTextColor)
             upcomingEventsSection = EventsSection(
-                    mutableListOf(),
-                    "Upcoming",
-                    upcomingHeaderColor,
-                    false,
-                    this,
-                    it
+                mutableListOf(),
+                "Upcoming",
+                upcomingHeaderColor,
+                false,
+                this,
+                it
             )
             val asyncHeaderColor = Color.WHITE
             asyncEventsSection = EventsSection(
-                    mutableListOf(),
-                    "Async",
-                    asyncHeaderColor,
-                    false,
-                    this,
-                    it
+                mutableListOf(),
+                "Async",
+                asyncHeaderColor,
+                false,
+                this,
+                it
             )
             eventsListAdapter = SectionedRecyclerViewAdapter().apply {
                 addSection(ongoingEventsSection)
                 addSection(upcomingEventsSection)
                 addSection(asyncEventsSection)
-
             }
         }
 
@@ -97,7 +93,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         viewModel.ongoingEventsLiveData.observe(this, Observer { updateOngoingEventsList(it) })
         viewModel.upcomingEventsLiveData.observe(this, Observer { updateUpcomingEventsList(it) })
         viewModel.asyncEventsLiveData.observe(this, Observer { updateAsyncEventsList(it) })
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -118,12 +113,12 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         override fun getItem(position: Int) = EventsSectionFragment.newInstance(position)
         override fun getCount() = 3
         override fun getPageTitle(position: Int) =
-                when (position) {
-                    0 -> "Ongoing"
-                    1 -> "Upcoming"
-                    2 -> "Async"
-                    else -> "Ongoing"
-                }
+            when (position) {
+                0 -> "Ongoing"
+                1 -> "Upcoming"
+                2 -> "Async"
+                else -> "Ongoing"
+            }
     }
 
     override fun onStart() {

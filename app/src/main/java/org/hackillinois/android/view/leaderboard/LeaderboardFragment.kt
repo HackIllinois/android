@@ -73,10 +73,13 @@ class LeaderboardFragment : Fragment() {
 //            filterProfiles()
 //        }
 
-        viewModel.allProfilesLiveData.observe(viewLifecycleOwner, Observer {
-            allProfiles = it
+        viewModel.allProfilesLiveData.observe(
+            viewLifecycleOwner,
+            Observer {
+                allProfiles = it
 //            filterProfiles()
-        })
+            }
+        )
         return view
     }
 

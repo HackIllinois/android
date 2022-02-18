@@ -2,9 +2,9 @@ package org.hackillinois.android.view.leaderboard
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -63,11 +63,11 @@ class MatchingProfileFragment : Fragment() {
 
     fun updateUI() {
         val selectedProfile = (activity as MainActivity).groupMatchingSelectedProfile
-                ?: return
+            ?: return
         Glide.with(this)
-                .load(selectedProfile.avatarUrl)
-                .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
-                .into(profileImage)
+            .load(selectedProfile.avatarUrl)
+            .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
+            .into(profileImage)
 
         val index: Int? = teamStatusArray.indices.firstOrNull { i -> teamStatusArray[i] == selectedProfile.teamStatus }
         index?.let {

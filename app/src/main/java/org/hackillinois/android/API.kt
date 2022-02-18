@@ -9,11 +9,11 @@ import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
-import org.hackillinois.android.model.notification.NotificationTopics
-import org.hackillinois.android.notifications.DeviceToken
 import org.hackillinois.android.model.leaderboard.Leaderboard
+import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
+import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
 import retrofit2.http.*
 

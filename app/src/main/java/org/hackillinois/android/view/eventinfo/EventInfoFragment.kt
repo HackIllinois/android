@@ -1,19 +1,14 @@
 package org.hackillinois.android.view.eventinfo
 
-import android.app.AlertDialog
-import android.content.DialogInterface
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.event_tile.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
-import kotlinx.android.synthetic.main.fragment_schedule_popout.*
-import kotlinx.android.synthetic.main.fragment_schedule_popout.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.viewmodel.EventInfoViewModel
@@ -41,10 +36,10 @@ class EventInfoFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_schedule_popout, container, false)
+        val view = inflater.inflate(R.layout.fragment_event_info, container, false)
 
         view.exit_button.setOnClickListener { activity?.onBackPressed() }
-        view.favorite_project.setOnClickListener {
+        view.favorites_button.setOnClickListener {
             viewModel.changeFavoritedState()
         }
 
@@ -53,26 +48,24 @@ class EventInfoFragment : Fragment() {
 
     private fun updateEventUI(event: Event?) {
         event?.let {
-            this.event = it
-            this.eventName = it.name
-            eventTitle.text = it.name
-            pointsView.text = "${it.points} Points!"
-            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            eventTimeSpan.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
-            eventLocation.text = it.getLocationDescriptionsAsString()
-            eventDescription.text = it.description
+            event_name.text = it.name
+            event_points.text = "${it.points} Points!"
+            event_sponsor.text = "Sponsored by ${it.sponsor}"
+            event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            event_time.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
+//            eventLocation.text = it.getLocationDescriptionsAsString()
+            event_description.text = it.description
 
-            val timeUntil = it.getStartTimeMs() - System.currentTimeMillis()
-            if (timeUntil > 0 && timeUntil <= FIFTEEN_MINUTES_IN_MS) {
-                happeningSoonTextView.visibility = View.VISIBLE
-            } else {
-                happeningSoonTextView.visibility = View.INVISIBLE
-            }
+//            val timeUntil = it.getStartTimeMs() - System.currentTimeMillis()
+//            if (timeUntil > 0 && timeUntil <= FIFTEEN_MINUTES_IN_MS) {
+//                happeningSoonTextView.visibility = View.VISIBLE
+//            } else {
+//                happeningSoonTextView.visibility = View.INVISIBLE
+//            }
 
-            context?.let { context ->
-                mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
-            }
+//            context?.let { context ->
+//                mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
+//            }
         }
     }
 
@@ -103,7 +96,7 @@ class EventInfoFragment : Fragment() {
 
     private fun updateFavoritedUI(isFavorited: Boolean?) {
         isFavorited?.let {
-            favoriteButton.isSelected = isFavorited
+            exit_button.isSelected = isFavorited
         }
     }
 

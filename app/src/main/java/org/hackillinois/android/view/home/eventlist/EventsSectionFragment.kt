@@ -1,9 +1,5 @@
 package org.hackillinois.android.view.home.eventlist
 
-import org.hackillinois.android.view.schedule.EventsAdapter
-import org.hackillinois.android.view.schedule.ScheduleListItem
-import org.hackillinois.android.view.schedule.TimeListItem
-
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -20,9 +16,10 @@ import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.eventinfo.EventInfoFragment
-import org.hackillinois.android.view.home.eventlist.EventClickListener
+import org.hackillinois.android.view.schedule.EventsAdapter
+import org.hackillinois.android.view.schedule.ScheduleListItem
+import org.hackillinois.android.view.schedule.TimeListItem
 import org.hackillinois.android.viewmodel.HomeViewModel
-import org.hackillinois.android.viewmodel.ScheduleViewModel
 
 class EventsSectionFragment : Fragment(), EventClickListener {
 
@@ -47,7 +44,6 @@ class EventsSectionFragment : Fragment(), EventClickListener {
 
         val viewModel = parentFragment?.let { ViewModelProviders.of(it).get(HomeViewModel::class.java) }
 
-
         val liveData = when (sectionNumber) {
             0 -> viewModel?.ongoingEventsLiveData
             1 -> viewModel?.upcomingEventsLiveData
@@ -58,21 +54,20 @@ class EventsSectionFragment : Fragment(), EventClickListener {
         mAdapter = EventsAdapter(listOf(), this)
 
         liveData?.observe(
-                this,
-                Observer { events ->
-                    events?.let {
-                        currentEvents = it
-                        updateEvents(currentEvents)
-                    }
+            this,
+            Observer { events ->
+                events?.let {
+                    currentEvents = it
+                    updateEvents(currentEvents)
                 }
+            }
         )
-
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_day, container, false)
 

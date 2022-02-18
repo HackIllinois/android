@@ -1,153 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackgrounds" >
-
-    <Button
-        android:id="@+id/codeEntryClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:background="@android:color/transparent"
-        android:drawableStart="@drawable/ic_close_primary"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:text="@string/close_text"
-        android:textColor="@color/lightTextColor"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:tint="@android:color/white"/>
-<!--        -->
-
-
-    <TextView
-        android:id="@+id/happeningSoonTextView"
-        android:layout_width="140dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/rounded_happening_soon_background"
-        android:fontFamily="@font/montserrat_regular"
-        android:gravity="center"
-        android:text="Happening Soon"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/codeEntryClose" />
-
-    <TextView
-        android:id="@+id/eventTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:singleLine="false"
-        android:textColor="@color/lightTextColor"
-        android:textSize="24sp"
-        app:fontFamily="@font/montserrat_semi_bold"
-        app:layout_constraintEnd_toStartOf="@+id/favoriteButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/happeningSoonTextView"
-        tools:text="@string/event_name" />
-
-    <TextView
-        android:id="@+id/sponsoredTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="@color/sponsoredByColor"
-        android:textSize="20sp"
-        app:fontFamily="@font/montserrat_semi_bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventTitle"
-        tools:text="Sponsored by X" />
-
-    <TextView
-        android:id="@+id/eventTimeSpan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textColor="@color/lightTextColor"
-        app:fontFamily="@font/montserrat_regular"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sponsoredTextView"
-        tools:text="HH:MM AM - HH:MM PM" />
-
-    <TextView
-        android:id="@+id/eventLocation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:singleLine="false"
-        android:textColor="@color/lightTextColor"
-        app:fontFamily="@font/montserrat_regular"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventTimeSpanText"
-        tools:text="Location" />
-
-
-    <TextView
-        android:id="@+id/eventDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="@color/lightTextColor"
-        app:fontFamily="@font/montserrat_regular"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventTimeSpanText"
-        tools:text="Description" />
-
-    <ImageView
-        android:id="@+id/favoriteButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/happeningSoonTextView"
-        app:srcCompat="@drawable/star_button"
-        android:tint="@android:color/white"/>
-
-    <ListView
-        android:id="@+id/mapsWithDirectionsListView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:paddingBottom="80dp"
-        android:clipToPadding="false"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventDescription" />
+    android:layout_height="match_parent">
 
     <ImageButton
-        android:id="@+id/cameraButton"
+        android:id="@+id/favorites_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="20dp"
         android:background="@android:color/transparent"
-        android:visibility="gone"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_camera" />
+        app:layout_constraintVertical_bias="0.075"
+        app:srcCompat="@drawable/star_button_hollow" />
+
+    <ImageButton
+        android:id="@+id/exit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginStart="22dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.075"
+        app:srcCompat="@drawable/ic_exit_button" />
+
+    <TextView
+        android:id="@+id/event_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="#222B5C"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exit_button"
+        tools:text="Event Name" />
+
+    <TextView
+        android:id="@+id/event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="#222B5C"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_name"
+        tools:text="Event Type" />
+
+    <TextView
+        android:id="@+id/event_sponsor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="#222B5C"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_type"
+        tools:text="Sponsor" />
+
+    <ImageView
+        android:id="@+id/event_time_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_clock"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_sponsor" />
+
+    <TextView
+        android:id="@+id/event_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="#222B5C"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/event_time_icon"
+        app:layout_constraintTop_toBottomOf="@+id/event_sponsor"
+        tools:text="1:00pm - 2:00pm" />
+
+    <TextView
+        android:id="@+id/event_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="#222B5C"
+        android:textSize="14sp"
+        android:background="@drawable/green_oval"
+        app:layout_constraintStart_toEndOf="@+id/event_time"
+        app:layout_constraintBottom_toBottomOf="@+id/event_time"
+        tools:text=" +10 pts" />
+
+    <TextView
+        android:id="@+id/event_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="@+id/favorites_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_time"
+        tools:text="@string/lorem_ipsum" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

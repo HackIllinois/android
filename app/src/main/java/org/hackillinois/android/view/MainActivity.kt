@@ -22,12 +22,11 @@ import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.notifications.FirebaseTokenManager
-import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
+import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
-import java.lang.Exception
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -60,10 +59,10 @@ class MainActivity : AppCompatActivity() {
         val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
 
         val bottomBarButtons = listOf(
-                bottomAppBar.homeButton,
-                bottomAppBar.scheduleButton,
-                bottomAppBar.profile,
-                bottomAppBar.leaderboard
+            bottomAppBar.homeButton,
+            bottomAppBar.scheduleButton,
+            bottomAppBar.profile,
+            bottomAppBar.leaderboard
         )
 
         // by default, home button is selected
