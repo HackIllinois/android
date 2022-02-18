@@ -1,26 +1,19 @@
 package org.hackillinois.android.view.eventinfo
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.event_tile.*
 import kotlinx.android.synthetic.main.fragment_event_info.*
-import kotlinx.android.synthetic.main.fragment_event_info.sponsoredTextView
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
 import kotlinx.android.synthetic.main.fragment_schedule_popout.*
 import kotlinx.android.synthetic.main.fragment_schedule_popout.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.Roles
-import org.hackillinois.android.view.MainActivity
-import org.hackillinois.android.view.ScannerFragment
 import org.hackillinois.android.viewmodel.EventInfoViewModel
 
 class EventInfoFragment : Fragment() {

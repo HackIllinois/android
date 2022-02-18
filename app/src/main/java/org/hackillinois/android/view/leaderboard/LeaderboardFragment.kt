@@ -1,27 +1,20 @@
 package org.hackillinois.android.view.leaderboard
 
-import android.app.AlertDialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
-import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.repository.ProfileRepository
 import org.hackillinois.android.view.MainActivity
-import org.hackillinois.android.view.groupmatching.GroupAdapter
 import org.hackillinois.android.viewmodel.LeaderboardViewModel
 
 class LeaderboardFragment : Fragment() {
@@ -61,7 +54,6 @@ class LeaderboardFragment : Fragment() {
             return view
         }
         val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
-
 
         val recyclerView: RecyclerView = view.findViewById(R.id.team_matching_recyclerview_leaderboard)
 
@@ -111,7 +103,7 @@ class LeaderboardFragment : Fragment() {
 //    }
 }
 
-//fun Profile.hasRequiredSkill(skills: Array<String>, skillsChecked: BooleanArray): Boolean {
+// fun Profile.hasRequiredSkill(skills: Array<String>, skillsChecked: BooleanArray): Boolean {
 //    if (!skillsChecked.contains(true)) {
 //        return true
 //    }
@@ -123,4 +115,4 @@ class LeaderboardFragment : Fragment() {
 //        }
 //    }
 //    return false
-//}
+// }

@@ -15,11 +15,10 @@ import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 
-
-class EventsAdapter (
+class EventsAdapter(
     private var itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener
-) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() , EventClickListener {
+) : RecyclerView.Adapter<EventsAdapter.ViewHolder>(), EventClickListener {
     private lateinit var context: Context
 
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
@@ -58,8 +57,8 @@ class EventsAdapter (
             titleTextView.text = event.name
 
             eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
-            //sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-            //sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            // sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            // sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventDescriptionTextView.text = event.description
 
             pointsView.text = " + ${event.points} pts "
@@ -126,5 +125,5 @@ class EventsAdapter (
 
     // private fun onClickShowPopup(view: View) {
     //
-    //}
+    // }
 }

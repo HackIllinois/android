@@ -21,7 +21,7 @@
     <color name="attendeeLoginColor">#C9CF76</color>
     <color name="secondaryLoginColor">#6F8CC1</color>
 
-    <color name="primaryTextColor">#222B5C</color>
+    <color name="primaryTextColor">#08151B</color>
     <color name="alternateTextColor">#E35058</color>
     <color name="lightTextColor">#FFFFFF</color>
 
@@ -53,7 +53,7 @@
     <color name="offWhiteTextColor">#F6F6F6</color>
     <color name="offWhiteBackgroundColor">#F6F6F6</color>
 
-    <color name="selectedOffWhiteColor">#F3F3F3</color>
+    <color name="selectedDarkColor">#08151B</color>
     <color name="submitBtnColor">#F06C6F</color>
 
 </resources>
