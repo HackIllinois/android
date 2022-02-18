@@ -94,7 +94,6 @@ class DayFragment : Fragment(), EventClickListener {
         listState = mLayoutManager.onSaveInstanceState()
     }
 
-
     override fun openEventInfoActivity(event: Event) {
         val eventInfoFragment = EventInfoFragment.newInstance(event.id)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
@@ -108,7 +107,7 @@ class DayFragment : Fragment(), EventClickListener {
             }
         }
         mAdapter.updateEvents(insertTimeItems(listTemp))
-        Log.d("update events", listTemp.toString());
+        Log.d("update events", listTemp.toString())
     }
 
     private fun insertTimeItems(eventList: List<Event>): List<ScheduleListItem> {

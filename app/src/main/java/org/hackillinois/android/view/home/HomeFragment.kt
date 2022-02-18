@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -58,7 +59,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 this,
                 it
             )
-            val upcomingHeaderColor = Color.WHITE
+            val upcomingHeaderColor = getColor(context!!, R.color.primaryTextColor)
             upcomingEventsSection = EventsSection(
                 mutableListOf(),
                 "Upcoming",
@@ -176,7 +177,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     override fun openEventInfoActivity(event: Event) {
         val eventInfoFragment = EventInfoFragment.newInstance(event.id)
         (context as MainActivity).switchFragment(eventInfoFragment, true)
-        //TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
-
 }

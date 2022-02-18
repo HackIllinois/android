@@ -15,11 +15,10 @@ import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 
-
-class EventsAdapter (
+class EventsAdapter(
     private var itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener
-) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() , EventClickListener {
+) : RecyclerView.Adapter<EventsAdapter.ViewHolder>(), EventClickListener {
     private lateinit var context: Context
 
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
@@ -67,7 +66,7 @@ class EventsAdapter (
             }
 
 
-            pointsView.text = " +${event.points} pts "
+            pointsView.text = " + ${event.points} pts "
 
             // @todo sloppy, clean up
             when (event.eventType) {
@@ -131,5 +130,5 @@ class EventsAdapter (
 
     // private fun onClickShowPopup(view: View) {
     //
-    //}
+    // }
 }

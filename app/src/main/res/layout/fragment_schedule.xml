@@ -26,7 +26,7 @@
         android:layout_marginTop="34dp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/schedule_header"
-        android:textColor="@android:color/black"
+        android:textColor="@color/primaryTextColor"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,11 +43,12 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schedule_header"
-        app:tabIndicatorColor="@android:color/black"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabIndicatorFullWidth="false"
+        app:tabSelectedTextColor="@color/selectedDarkColor"
         app:tabIndicatorHeight="5dp"
-        app:tabSelectedTextColor="@android:color/black"
         app:tabTextAppearance="@style/TabTextAppearance"
-        app:tabTextColor="@android:color/black">
+        app:tabTextColor="@color/primaryTextColor">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabFriday"

@@ -2,26 +2,15 @@ package org.hackillinois.android.view.leaderboard
 
 import android.content.Context
 import android.content.res.Resources
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
-import com.google.android.material.snackbar.Snackbar
 import org.hackillinois.android.R
-import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Profile
-import org.hackillinois.android.view.MainActivity
-import java.lang.Exception
 
 class LeaderboardAdapter(private val currProfile: LiveData<Profile>, private val frag: Fragment, private val resources: Resources) :
     RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
