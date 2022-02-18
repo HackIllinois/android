@@ -16,7 +16,7 @@ import org.hackillinois.android.database.entity.Event
 class EventsSection(
     var eventsList: List<Event>,
     private val headerText: String,
-    private val headerColor: Int = Color.WHITE,
+    private val headerColor: Int = Color.BLACK,
     private val showTime: Boolean,
     private val eventClickListener: EventClickListener,
     private val context: Context
@@ -24,7 +24,7 @@ class EventsSection(
     Section(
         SectionParameters.builder()
             .itemResourceId(R.layout.event_tile)
-            .headerResourceId(R.layout.event_list_header)
+//            .headerResourceId(R.layout.event_list_header)
             .build()
     ) {
 
@@ -37,7 +37,6 @@ class EventsSection(
             sponsoredTextView.text = "Sponsored by ${event.sponsor}"
             sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
-//            eventLocationTextView.text = event.getLocationDescriptionsAsString()
             eventDescriptionTextView.text = event.description
             pointsView.text = "${event.points} Points!"
 
@@ -73,9 +72,9 @@ class EventsSection(
             }
 
             // iOS doesn't have this -- Hack 2021
-//            setOnClickListener {
-//                eventClickListener.openEventInfoActivity(eventsList[position])
-//            }
+            setOnClickListener {
+                eventClickListener.openEventInfoActivity(eventsList[position])
+            }
 
             starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
             starButton.setOnClickListener(starClickListener(event))
