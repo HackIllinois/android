@@ -18,8 +18,6 @@ class MapsWithDirectionsAdapter(
     private val info: List<IndoorMapAndDirectionInfo>
 ) : ArrayAdapter<IndoorMapAndDirectionInfo>(contextArg, 0, info) {
 
-
-
     override fun getView(position: Int, convertView: View?, container: ViewGroup): View {
         var view = convertView
         if (view == null) {

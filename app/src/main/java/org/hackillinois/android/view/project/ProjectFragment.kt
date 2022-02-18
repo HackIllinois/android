@@ -25,9 +25,12 @@ class ProjectFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         projectsViewModel = ViewModelProviders.of(this).get(ProjectsViewModel::class.java)
-        projectsViewModel.showFavorites.observe(this, Observer {
-            favoriteProjectButton.isSelected = it ?: false
-        })
+        projectsViewModel.showFavorites.observe(
+            this,
+            Observer {
+                favoriteProjectButton.isSelected = it ?: false
+            }
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,8 +55,10 @@ class ProjectFragment : Fragment() {
 
     inner class MentorPageAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         val projectsViewModel = ProjectsViewModel()
-        val tabNames = arrayOf(projectsViewModel.dataScience, projectsViewModel.languages,
-                projectsViewModel.systems, projectsViewModel.webDev)
+        val tabNames = arrayOf(
+            projectsViewModel.dataScience, projectsViewModel.languages,
+            projectsViewModel.systems, projectsViewModel.webDev
+        )
         override fun getItem(position: Int) = ProjectListFragment.newInstance(tabNames[position])
         override fun getCount() = 4
     }

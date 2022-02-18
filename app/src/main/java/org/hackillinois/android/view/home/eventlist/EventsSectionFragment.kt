@@ -1,4 +1,8 @@
-package org.hackillinois.android.view.schedule
+package org.hackillinois.android.view.home.eventlist
+
+import org.hackillinois.android.view.schedule.EventsAdapter
+import org.hackillinois.android.view.schedule.ScheduleListItem
+import org.hackillinois.android.view.schedule.TimeListItem
 
 import android.os.Bundle
 import android.os.Parcelable
@@ -17,9 +21,10 @@ import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.home.eventlist.EventClickListener
+import org.hackillinois.android.viewmodel.HomeViewModel
 import org.hackillinois.android.viewmodel.ScheduleViewModel
 
-class DayFragment : Fragment(), EventClickListener {
+class EventsSectionFragment : Fragment(), EventClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var mAdapter: EventsAdapter
@@ -40,41 +45,34 @@ class DayFragment : Fragment(), EventClickListener {
 
         val sectionNumber = arguments?.getInt(ARG_SECTION_NUM) ?: 0
 
-        val viewModel = parentFragment?.let { ViewModelProviders.of(it).get(ScheduleViewModel::class.java) }
-        viewModel?.init()
+        val viewModel = parentFragment?.let { ViewModelProviders.of(it).get(HomeViewModel::class.java) }
+
 
         val liveData = when (sectionNumber) {
-            0 -> viewModel?.fridayEventsLiveData
-            1 -> viewModel?.saturdayEventsLiveData
-            2 -> viewModel?.sundayEventsLiveData
-            else -> viewModel?.fridayEventsLiveData
+            0 -> viewModel?.ongoingEventsLiveData
+            1 -> viewModel?.upcomingEventsLiveData
+            2 -> viewModel?.asyncEventsLiveData
+            else -> viewModel?.ongoingEventsLiveData
         }
 
         mAdapter = EventsAdapter(listOf(), this)
 
         liveData?.observe(
-            this,
-            Observer { events ->
-                events?.let {
-                    currentEvents = it
-                    updateEvents(currentEvents)
+                this,
+                Observer { events ->
+                    events?.let {
+                        currentEvents = it
+                        updateEvents(currentEvents)
+                    }
                 }
-            }
         )
 
-        viewModel?.showFavorites?.observe(
-            this,
-            Observer {
-                showFavorites = it
-                updateEvents(currentEvents)
-            }
-        )
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_day, container, false)
 
@@ -96,11 +94,6 @@ class DayFragment : Fragment(), EventClickListener {
     override fun onPause() {
         super.onPause()
         listState = mLayoutManager.onSaveInstanceState()
-    }
-
-    override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
-        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 
     private fun updateEvents(list: List<Event>) {
@@ -132,8 +125,8 @@ class DayFragment : Fragment(), EventClickListener {
     companion object {
         private val ARG_SECTION_NUM = "section_number"
 
-        fun newInstance(sectionNumber: Int): DayFragment {
-            val fragment = DayFragment()
+        fun newInstance(sectionNumber: Int): EventsSectionFragment {
+            val fragment = EventsSectionFragment()
             val args = Bundle()
 
             args.putInt(ARG_SECTION_NUM, sectionNumber)
@@ -141,5 +134,10 @@ class DayFragment : Fragment(), EventClickListener {
 
             return fragment
         }
+    }
+
+    override fun openEventInfoActivity(event: Event) {
+        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 }

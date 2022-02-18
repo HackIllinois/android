@@ -1,5 +1,7 @@
 package org.hackillinois.android.view.eventinfo
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -53,24 +55,24 @@ class EventInfoFragment : Fragment() {
         event?.let {
             this.event = it
             this.eventName = it.name
-            event_name.text = it.name
-            event_points.text = " +${it.points} pts "
-            event_sponsor.text = "Sponsored by ${event.sponsor}"
-            event_sponsor.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            event_time.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
-//            eventLocation.text = it.getLocationDescriptionsAsString()
-            event_description.text = it.description
+            eventTitle.text = it.name
+            pointsView.text = "${it.points} Points!"
+            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            eventTimeSpan.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
+            eventLocation.text = it.getLocationDescriptionsAsString()
+            eventDescription.text = it.description
 
-//            val timeUntil = it.getStartTimeMs() - System.currentTimeMillis()
-//            if (timeUntil > 0 && timeUntil <= FIFTEEN_MINUTES_IN_MS) {
-//                happeningSoonTextView.visibility = View.VISIBLE
-//            } else {
-//                happeningSoonTextView.visibility = View.INVISIBLE
-//            }
+            val timeUntil = it.getStartTimeMs() - System.currentTimeMillis()
+            if (timeUntil > 0 && timeUntil <= FIFTEEN_MINUTES_IN_MS) {
+                happeningSoonTextView.visibility = View.VISIBLE
+            } else {
+                happeningSoonTextView.visibility = View.INVISIBLE
+            }
 
-//            context?.let { context ->
-//                mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
-//            }
+            context?.let { context ->
+                mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
+            }
         }
     }
 
@@ -101,7 +103,7 @@ class EventInfoFragment : Fragment() {
 
     private fun updateFavoritedUI(isFavorited: Boolean?) {
         isFavorited?.let {
-            favorite_project.isSelected = isFavorited
+            favoriteButton.isSelected = isFavorited
         }
     }
 

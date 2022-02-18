@@ -1,39 +1,29 @@
 package org.hackillinois.android.view
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
-import com.budiyev.android.codescanner.CodeScannerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.layout_event_code_dialog.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.notifications.FirebaseTokenManager
-import org.hackillinois.android.repository.EventRepository
+import org.hackillinois.android.view.groupmatching.GroupmatchingFragment
 import org.hackillinois.android.view.home.HomeFragment
-import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
@@ -104,29 +94,22 @@ class MainActivity : AppCompatActivity() {
     private fun setupCodeEntrySheet() {
         val inflater: LayoutInflater = layoutInflater
 
-//        val codeEnterView = inflater.inflate(R.layout.layout_event_code_dialog, null)
-        val scannerFragmentView = inflater.inflate(R.layout.fragment_scanner, null)
-        val alertDialogBuilder = AlertDialog.Builder(this, R.style.WrapContentDialog)
-        alertDialogBuilder.setView(scannerFragmentView)
-        val alertDialog = alertDialogBuilder.create()
-//        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val closeButton = scannerFragmentView.findViewById<ImageButton>(R.id.codeEntryClose)
-//        val submitCodeButton = codeEnterView.findViewById<Button>(R.id.submitCodeBtn)
+//        val scannerFragmentView = inflater.inflate(R.layout.fragment_scanner, null)
+//        val alertDialogBuilder = AlertDialog.Builder(this, R.style.WrapContentDialog)
+//        alertDialogBuilder.setView(scannerFragmentView)
+//        val alertDialog = alertDialogBuilder.create()
+        val scannerFragment = ScannerFragment()
+//        val closeButton = findViewById<ImageButton>(R.id.qrScannerClose)
 
         code_entry_fab.setOnClickListener {
             if (!hasLoggedIn()) {
                 Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
             } else {
-                alertDialog.show()
-
-                val scannerFragment = ScannerFragment()
+//                alertDialog.show()
                 switchFragment(scannerFragment, true)
             }
         }
 
-        closeButton.setOnClickListener {
-            alertDialog.dismiss()
-        }
 //
 //        submitCodeButton.setOnClickListener {
 //            // If not logged in
@@ -166,6 +149,15 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    fun switchFragmentWithAnimation(fragment: Fragment, addToBackStack: Boolean, anim: R.anim) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.contentFrame, fragment)
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
+        transaction.commit()
+    }
     private fun updateFirebaseToken() {
         FirebaseApp.initializeApp(applicationContext)
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->

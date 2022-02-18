@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayout
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -27,6 +31,8 @@ import org.hackillinois.android.view.custom.CustomRefreshView
 import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.view.home.eventlist.EventsSection
+import org.hackillinois.android.view.home.eventlist.EventsSectionFragment
+import org.hackillinois.android.view.schedule.DayFragment
 import org.hackillinois.android.viewmodel.HomeViewModel
 import java.lang.Exception
 
@@ -35,6 +41,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     private lateinit var eventsListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
     private lateinit var ongoingEventsSection: EventsSection
     private lateinit var upcomingEventsSection: EventsSection
+    private lateinit var asyncEventsSection: EventsSection
 
     private lateinit var viewModel: HomeViewModel
     private val countDownManager = CountdownManager(this)
@@ -50,49 +57,73 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         super.onCreate(savedInstanceState)
 
         context?.let {
+
             val ongoingHeaderColor = Color.WHITE
             ongoingEventsSection = EventsSection(
-                mutableListOf(),
-                "Ongoing",
-                ongoingHeaderColor,
-                false,
-                this,
-                it
+                    mutableListOf(),
+                    "Ongoing",
+                    ongoingHeaderColor,
+                    false,
+                    this,
+                    it
             )
             val upcomingHeaderColor = getColor(context!!, R.color.primaryTextColor)
             upcomingEventsSection = EventsSection(
-                mutableListOf(),
-                "Upcoming",
-                upcomingHeaderColor,
-                true,
-                this,
-                it
+                    mutableListOf(),
+                    "Upcoming",
+                    upcomingHeaderColor,
+                    false,
+                    this,
+                    it
+            )
+            val asyncHeaderColor = Color.WHITE
+            asyncEventsSection = EventsSection(
+                    mutableListOf(),
+                    "Async",
+                    asyncHeaderColor,
+                    false,
+                    this,
+                    it
             )
             eventsListAdapter = SectionedRecyclerViewAdapter().apply {
                 addSection(ongoingEventsSection)
                 addSection(upcomingEventsSection)
+                addSection(asyncEventsSection)
+
             }
         }
 
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         viewModel.ongoingEventsLiveData.observe(this, Observer { updateOngoingEventsList(it) })
         viewModel.upcomingEventsLiveData.observe(this, Observer { updateUpcomingEventsList(it) })
+        viewModel.asyncEventsLiveData.observe(this, Observer { updateAsyncEventsList(it) })
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        view.eventsList.apply {
-            layoutManager = LinearLayoutManager(container?.context)
-            adapter = eventsListAdapter
-        }
+        val sectionsPagerAdapter = HomeSectionsPagerAdapter(childFragmentManager)
 
-        view.refreshLayout.setRefreshView(CustomRefreshView(context), ViewGroup.LayoutParams(refreshIconSize, refreshIconSize))
-        view.refreshLayout.setOnRefreshListener {
-            viewModel.refresh()
-        }
-        layout = view.home_layout
+        view.homeScheduleContainer.adapter = sectionsPagerAdapter
+        view.homeScheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.homeTabLayout))
+        view.homeTabLayout.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.homeScheduleContainer))
+
+        view.homeScheduleContainer.currentItem = 0
+
         return view
+    }
+
+    inner class HomeSectionsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+        override fun getItem(position: Int) = EventsSectionFragment.newInstance(position)
+        override fun getCount() = 3
+        override fun getPageTitle(position: Int) =
+                when (position) {
+                    0 -> "Ongoing"
+                    1 -> "Upcoming"
+                    2 -> "Async"
+                    else -> "Ongoing"
+                }
     }
 
     override fun onStart() {
@@ -129,7 +160,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
             ongoingEventsSection.updateEventsList(it)
             eventsListAdapter.notifyDataSetChanged()
         }
-        refreshLayout.setRefreshing(false)
     }
 
     private fun updateUpcomingEventsList(events: List<Event>?) {
@@ -138,7 +168,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
             upcomingEventsSection.updateEventsList(actualEvents)
             eventsListAdapter.notifyDataSetChanged()
         }
-        refreshLayout.setRefreshing(false)
     }
 
     private fun filterNextNUpcomingEvents(events: List<Event>, n: Int): List<Event> {
@@ -157,6 +186,14 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         return actualEvents
     }
 
+    private fun updateAsyncEventsList(events: List<Event>?) {
+        events?.let {
+            val actualEvents = filterNextNUpcomingEvents(it, numberOfUpcomingEvents)
+            asyncEventsSection.updateEventsList(actualEvents)
+            eventsListAdapter.notifyDataSetChanged()
+        }
+    }
+
     override fun updateTime(timeUntil: Long) {
         val timeInfo = TimeInfo(timeUntil)
 
@@ -173,10 +210,10 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         }
     }
 
-    private fun padNumber(number: Long) = String.format("%02d", number)
     override fun openEventInfoActivity(event: Event) {
         val eventInfoFragment = EventInfoFragment.newInstance(event.id)
-        (context as MainActivity).switchFragment(eventInfoFragment, true)
-        // TODO("Not yet implemented")
+        (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
+
+    private fun padNumber(number: Long) = String.format("%02d", number)
 }

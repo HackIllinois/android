@@ -101,7 +101,8 @@ class ProfileEditFragment : Fragment() {
         skillsText.text = truncate(it.interests.toString())
 
         try {
-            context?.let { it1 -> Glide.with(it1)
+            context?.let { it1 ->
+                Glide.with(it1)
                     .load(it.avatarUrl)
                     .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
                     .placeholder(R.drawable.ic_star_border)

@@ -16,17 +16,17 @@ import org.hackillinois.android.database.entity.Event
 class EventsSection(
     var eventsList: List<Event>,
     private val headerText: String,
-    private val headerColor: Int = Color.WHITE,
+    private val headerColor: Int = Color.BLACK,
     private val showTime: Boolean,
     private val eventClickListener: EventClickListener,
     private val context: Context
 ) :
     Section(
         SectionParameters.builder()
-                .itemResourceId(R.layout.event_tile)
-                .headerResourceId(R.layout.event_list_header)
-                .build()
-) {
+            .itemResourceId(R.layout.event_tile)
+//            .headerResourceId(R.layout.event_list_header)
+            .build()
+    ) {
 
     override fun getContentItemsTotal() = eventsList.size
 
@@ -34,8 +34,8 @@ class EventsSection(
         val event = eventsList[position]
         holder.itemView.apply {
             titleTextView.text = event.name
-//            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-//            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
 //            eventLocationTextView.text = event.getLocationDescriptionsAsString()
             if (event.description.length <= 107) {
@@ -44,6 +44,8 @@ class EventsSection(
                 eventDescriptionTextView.text = event.description.substring(0, 107) + "..."
             }
             pointsView.text = " +${event.points} pts "
+            eventDescriptionTextView.text = event.description
+            pointsView.text = "${event.points} Points!"
 
             // @todo sloppy, clean up
             when (event.eventType) {

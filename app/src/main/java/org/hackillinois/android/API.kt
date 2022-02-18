@@ -1,5 +1,8 @@
 package org.hackillinois.android
 
+import okhttp3.ResponseBody
+import org.hackillinois.android.database.entity.*
+import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
 import org.hackillinois.android.model.checkin.CheckIn
@@ -8,9 +11,6 @@ import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.notifications.DeviceToken
-import okhttp3.ResponseBody
-import org.hackillinois.android.database.entity.*
-import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.leaderboard.Leaderboard
 import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList

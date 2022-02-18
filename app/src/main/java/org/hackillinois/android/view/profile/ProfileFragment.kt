@@ -115,10 +115,12 @@ class ProfileFragment : Fragment() {
         timeText.text = it.timezone
 
         try {
-            context?.let { it1 -> Glide.with(it1)
+            context?.let { it1 ->
+                Glide.with(it1)
                     .load(it.avatarUrl)
                     .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
-                    .into(profileImage) }
+                    .into(profileImage)
+            }
         } catch (e: Exception) {
             Log.e("Load profile image", e.toString())
         }

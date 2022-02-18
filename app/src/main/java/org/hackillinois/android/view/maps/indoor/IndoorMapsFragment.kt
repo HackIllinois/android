@@ -58,20 +58,20 @@ class IndoorMapsFragment : Fragment() {
     inner class IndoorMapsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int) = when (position) {
             0 -> BuildingMapFragment.newInstance(
-                    listOf("FLOOR 1"),
-                    listOf(R.drawable.dcl)
+                listOf("FLOOR 1"),
+                listOf(R.drawable.dcl)
             )
             1 -> BuildingMapFragment.newInstance(
-                    listOf("FLOOR 1", "FLOOR 2", "FLOOR 3"),
-                    listOf(R.drawable.eceb_floor_1, R.drawable.eceb_floor_2, R.drawable.eceb_floor_3)
+                listOf("FLOOR 1", "FLOOR 2", "FLOOR 3"),
+                listOf(R.drawable.eceb_floor_1, R.drawable.eceb_floor_2, R.drawable.eceb_floor_3)
             )
             2 -> BuildingMapFragment.newInstance(
-                    listOf("FLOOR 1"),
-                    listOf(R.drawable.kenney)
+                listOf("FLOOR 1"),
+                listOf(R.drawable.kenney)
             )
             else -> BuildingMapFragment.newInstance(
-                    listOf("BASEMENT", "FLOOR 1", "FLOOR 2"),
-                    listOf(R.drawable.siebel_floor_0, R.drawable.siebel_floor_1, R.drawable.siebel_floor_2)
+                listOf("BASEMENT", "FLOOR 1", "FLOOR 2"),
+                listOf(R.drawable.siebel_floor_0, R.drawable.siebel_floor_1, R.drawable.siebel_floor_2)
             )
         }
         override fun getCount() = 4
