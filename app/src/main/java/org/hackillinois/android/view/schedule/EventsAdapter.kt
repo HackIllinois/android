@@ -57,14 +57,13 @@ class EventsAdapter(
             titleTextView.text = event.name
 
             eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
-            //sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-            //sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            // sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            // sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             if (event.description.length <= 107) {
                 eventDescriptionTextView.text = event.description
             } else {
                 eventDescriptionTextView.text = event.description.substring(0, 107) + "..."
             }
-
 
             pointsView.text = " + ${event.points} pts "
 

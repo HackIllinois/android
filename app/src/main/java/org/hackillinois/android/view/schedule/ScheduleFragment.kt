@@ -70,7 +70,7 @@ class ScheduleFragment : Fragment() {
     private val favScheduleClickListener = OnClickListener {
         favoriteButton.apply {
             isSelected = !favoriteButton.isSelected
-            setImageResource(when(isSelected) {
+            setImageResource(when (isSelected) {
                 true -> R.drawable.ic_star_filled
                 else -> R.drawable.ic_star_selectable
             })
