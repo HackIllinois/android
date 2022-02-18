@@ -38,8 +38,12 @@ class EventsSection(
 //            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
 //            eventLocationTextView.text = event.getLocationDescriptionsAsString()
-            eventDescriptionTextView.text = event.description
-            pointsView.text = " + ${event.points} pts "
+            if (event.description.length <= 107) {
+                eventDescriptionTextView.text = event.description
+            } else {
+                eventDescriptionTextView.text = event.description.substring(0, 107) + "..."
+            }
+            pointsView.text = " +${event.points} pts "
 
             // @todo sloppy, clean up
             when (event.eventType) {

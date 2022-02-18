@@ -61,7 +61,7 @@ class EventInfoFragment : Fragment() {
             this.event = it
             this.eventName = it.name
             event_name.text = it.name
-//            pointsView.text = "${it.points} Points!"
+            event_points.text = " +${it.points} pts "
             event_sponsor.text = "Sponsored by ${event.sponsor}"
             event_sponsor.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             event_time.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"

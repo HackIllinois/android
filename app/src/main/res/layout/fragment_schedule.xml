@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/home_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/favScheduleButton"
-        android:layout_width="21dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="30dp"
+        android:layout_height="28.5dp"
+        android:layout_marginTop="34dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/star_button_white"
+        android:src="@drawable/ic_star_border"
         android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,10 +23,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="34dp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/schedule_header"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,11 +43,11 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schedule_header"
-        app:tabIndicatorColor="@color/selectedOffWhiteColor"
-        app:tabIndicatorHeight="3dp"
-        app:tabSelectedTextColor="@color/selectedOffWhiteColor"
+        app:tabIndicatorColor="@android:color/black"
+        app:tabIndicatorHeight="5dp"
+        app:tabSelectedTextColor="@android:color/black"
         app:tabTextAppearance="@style/TabTextAppearance"
-        app:tabTextColor="@android:color/white">
+        app:tabTextColor="@android:color/black">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabFriday"
@@ -74,14 +74,6 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <View
-        android:id="@+id/schedule_horizLine"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scheduleDays" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/scheduleContainer"

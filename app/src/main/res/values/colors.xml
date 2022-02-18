@@ -22,15 +22,15 @@
     <color name="secondaryLoginColor">#6F8CC1</color>
 
     <color name="primaryTextColor">#222B5C</color>
-    <color name="alternateTextColor">#E35058</color>
+    <color name="alternateTextColor">#222B5C</color>
     <color name="lightTextColor">#FFFFFF</color>
 
     <color name="mealTextColor">#E87AA4</color>
     <color name="speakerTextColor">#981D23</color>
-    <color name="workshopTextColor">#5947A7</color>
-    <color name="miniEventTextColor">#286574</color>
-    <color name="qnaTextColor">#E4694A</color>
-    <color name="otherTextColor">#5947A7</color>
+    <color name="workshopTextColor">#222B5C</color>
+    <color name="miniEventTextColor">#222B5C</color>
+    <color name="qnaTextColor">#222B5C</color>
+    <color name="otherTextColor">#222B5C</color>
 
     <color name="lookingForTeamColor">#009900</color>
     <color name="lookingForMembersColor">#FF9933</color>
