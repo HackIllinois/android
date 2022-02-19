@@ -2,15 +2,13 @@ package org.hackillinois.android.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import org.hackillinois.android.R
-import android.widget.Toast
-
-import android.view.MotionEvent
 
 class OnboardingActivity : AppCompatActivity() {
     private var x1 = 0f
-    private var x2:kotlin.Float = 0f
+    private var x2: kotlin.Float = 0f
     val MIN_DISTANCE = 150
     private var num = 0
 

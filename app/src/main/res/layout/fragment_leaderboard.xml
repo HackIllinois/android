@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.groupmatching.GroupmatchingFragment"
-    android:background="@drawable/app_bg_22" >
+    tools:context=".view.leaderboard.LeaderboardFragment"
+    android:background="@drawable/home_bg" >
 
     <TextView
         android:id="@+id/title_textview_leaderboard"
@@ -14,7 +14,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/montserrat_semi_bold"
-        android:gravity="left"
+        android:gravity="start"
         android:text="Leaderboard"
         android:textColor="@color/primaryTextColor"
         android:textSize="24sp"
