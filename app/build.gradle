@@ -12,12 +12,12 @@ if (isRunningOnTravis) {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "org.hackillinois.android"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 30
+        targetSdkVersion 30
+        versionCode 31
         versionName "2.0.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

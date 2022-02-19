@@ -18,7 +18,7 @@
         android:text="Leaderboard"
         android:textColor="@color/primaryTextColor"
         android:textSize="24sp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
