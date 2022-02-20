@@ -49,12 +49,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/logout_button"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/rounded_login_button_filled"
+            app:cornerRadius="24dp"
+            android:backgroundTint="#78AC42"
             android:fontFamily="@font/montserrat_semi_bold"
             android:paddingStart="50dp"
             android:paddingEnd="50dp"
