@@ -3,7 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+
 
 def isRunningOnTravis = System.getenv("CI") == "true" && file('../hackillinois.keystore').exists() && file('../service-account-key.p12').exists()
 
@@ -40,12 +41,6 @@ android {
     }
 
     buildTypes {
-        def google_maps_api_key = isRunningOnTravis ?
-                (System.getenv("GOOGLE_MAPS_API_KEY") ?: "") :
-                (project.properties["GOOGLE_MAPS_API_KEY"] ?: "")
-        debug {
-            resValue "string", "google_maps_api_key", google_maps_api_key
-        }
         release {
             applicationIdSuffix ".release"
             minifyEnabled false
@@ -53,7 +48,6 @@ android {
             if (isRunningOnTravis) {
                 signingConfig signingConfigs.release
             }
-            resValue "string", "google_maps_api_key", google_maps_api_key
         }
     }
     compileOptions {
@@ -117,6 +111,8 @@ dependencies {
     // Glide for fetching images
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
 
 if (isRunningOnTravis) {
     play {
