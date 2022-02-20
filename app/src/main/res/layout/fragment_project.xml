@@ -8,13 +8,14 @@
     android:background="@drawable/project_bg"
     >
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/favorite_project_button"
         android:layout_width="117dp"
         android:layout_height="34dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/toggleable_rounded_button"
+        app:cornerRadius="24dp"
+        android:backgroundTint="@color/toggleable_rounded_button_background"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/fav_button_text"
         android:textColor="@color/toggleable_rounded_button_text"

@@ -1,11 +1,12 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="AppToolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
@@ -23,7 +24,7 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="WrapContentDialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="WrapContentDialog" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="windowMinWidthMajor">0%</item>
         <item name="windowMinWidthMinor">0%</item>
     </style>

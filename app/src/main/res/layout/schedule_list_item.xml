@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/event_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
     android:layout_marginTop="12dp"
+    android:layout_marginEnd="16dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/eventCardLayout"
@@ -71,19 +71,20 @@
             app:layout_constraintTop_toBottomOf="@+id/event_time"
             tools:text="@string/lorem_ipsum" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/joinStreamBtn"
             android:layout_width="173dp"
             android:layout_height="28dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/rounded_blue_bg"
+            android:backgroundTint="#3B68A6"
+            android:fontFamily="@font/montserrat_regular"
             android:text="@string/join_stream"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            android:fontFamily="@font/montserrat_regular"
+            app:cornerRadius="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/event_description" />
 

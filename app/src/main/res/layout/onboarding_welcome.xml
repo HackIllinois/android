@@ -18,19 +18,20 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/login_logo_with_text" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/attendeeLoginBtn"
-        android:layout_width="250dp"
-        android:layout_height="54dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/rounded_login_button_filled"
+        android:layout_marginHorizontal="24dp"
+        android:backgroundTint="#78AC42"
         android:text="Get Started"
         android:textColor="@android:color/black"
         android:textSize="24sp"
+        app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
