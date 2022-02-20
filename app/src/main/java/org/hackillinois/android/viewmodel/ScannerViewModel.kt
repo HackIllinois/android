@@ -47,7 +47,7 @@ class ScannerViewModel : ViewModel() {
             try {
                 response = EventRepository.checkInEvent(code)
                 val scanStatus: ScanStatus
-                if (response.status != "Success") {
+                if (response.status == "Success") {
                     scanStatus = ScanStatus(true, response.newPoints, response.status)
                     lastScanStatus.postValue(scanStatus)
                 } else {
