@@ -56,42 +56,34 @@ class EventsAdapter(
 
             titleTextView.text = event.name
 
-            eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
-            // sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-            // sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            if (event.description.length <= 107) {
-                eventDescriptionTextView.text = event.description
-            } else {
-                eventDescriptionTextView.text = event.description.substring(0, 107) + "..."
+            eventTimeSpanText.text = when (event.isAsync) {
+                false -> "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
+                true -> "Asynchronous event"
             }
-
+            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            eventDescriptionTextView.text = event.description
             pointsView.text = " + ${event.points} pts "
 
             // @todo sloppy, clean up
             when (event.eventType) {
                 "MEAL" -> {
                     eventType.setText(R.string.mealText)
-                    eventType.setTextColor(resources.getColor(R.color.mealTextColor))
                 }
                 "SPEAKER" -> {
                     eventType.setText(R.string.speakerText)
-                    eventType.setTextColor(resources.getColor(R.color.speakerTextColor))
                 }
                 "WORKSHOP" -> {
                     eventType.setText(R.string.workshopText)
-                    eventType.setTextColor(resources.getColor(R.color.workshopTextColor))
                 }
                 "MINIEVENT" -> {
                     eventType.setText(R.string.miniEventText)
-                    eventType.setTextColor(resources.getColor(R.color.miniEventTextColor))
                 }
                 "QNA" -> {
                     eventType.setText(R.string.qnaText)
-                    eventType.setTextColor(resources.getColor(R.color.qnaTextColor))
                 }
                 "OTHER" -> {
                     eventType.setText(R.string.otherText)
-                    eventType.setTextColor(resources.getColor(R.color.otherTextColor))
                 }
                 else -> {
                     eventType.visibility = View.GONE
@@ -126,8 +118,4 @@ class EventsAdapter(
         val eventInfoFragment = EventInfoFragment.newInstance(event.id)
         (context as MainActivity).switchFragment(eventInfoFragment, true)
     }
-
-    // private fun onClickShowPopup(view: View) {
-    //
-    // }
 }

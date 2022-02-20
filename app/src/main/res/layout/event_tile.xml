@@ -76,6 +76,21 @@
                 app:layout_constraintTop_toBottomOf="@id/titleTextView"
                 tools:text="Event Type" />
 
+            <TextView
+                android:id="@+id/sponsoredTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="72dp"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventType"
+                tools:text="Sponsored by: SPONSORED COMPANY" />
+
             <ImageView
                 android:id="@+id/event_time_icon"
                 android:layout_width="wrap_content"
@@ -84,7 +99,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="6dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventType" />
+                app:layout_constraintTop_toBottomOf="@+id/sponsoredTextView" />
 
 
             <TextView
@@ -96,10 +111,10 @@
                 android:layout_marginEnd="72dp"
                 android:fontFamily="@font/montserrat_regular"
                 android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/pointsView"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/event_time_icon"
-                app:layout_constraintTop_toBottomOf="@id/eventType"
+                app:layout_constraintTop_toBottomOf="@id/sponsoredTextView"
                 tools:text="5:00 - 7:00" />
 
             <TextView
@@ -114,7 +129,7 @@
                 android:textColor="#222B5C"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/eventTimeSpanText"
-                app:layout_constraintTop_toBottomOf="@+id/eventType"
+                app:layout_constraintTop_toBottomOf="@+id/sponsoredTextView"
                 tools:text=" +10 pts" />
 
             <TextView
@@ -125,6 +140,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="72dp"
                 android:layout_marginBottom="16dp"
+                android:maxEms="100"
+                android:maxLines="5"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat_regular"
                 android:textColor="@color/primaryTextColor"

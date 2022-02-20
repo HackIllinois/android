@@ -141,7 +141,8 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
             try {
                 val time = App.getAPI().times()
                 countDownManager.setAPITimes(time)
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+            }
         }
     }
 
@@ -159,8 +160,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
 
     private fun updateUpcomingEventsList(events: List<Event>?) {
         events?.let {
-            val actualEvents = filterNextNUpcomingEvents(it, numberOfUpcomingEvents)
-            upcomingEventsSection.updateEventsList(actualEvents)
+            upcomingEventsSection.updateEventsList(events)
             eventsListAdapter.notifyDataSetChanged()
         }
     }
@@ -193,9 +193,9 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         val timeInfo = TimeInfo(timeUntil)
 
         if (isActive) {
-            daysValue.setText(padNumber(timeInfo.days))
-            hoursValue.setText(padNumber(timeInfo.hours))
-            minutesValue.setText(padNumber(timeInfo.minutes))
+            daysValue.text = padNumber(timeInfo.days)
+            hoursValue.text = padNumber(timeInfo.hours)
+            minutesValue.text = padNumber(timeInfo.minutes)
         }
     }
 

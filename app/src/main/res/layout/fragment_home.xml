@@ -7,33 +7,21 @@
     android:layout_height="match_parent"
     android:background="@drawable/home_bg">>
 
-<!--    <Button-->
-<!--        android:id="@+id/logoutButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:text="@string/logout_text"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:textSize="14sp"-->
-<!--        android:fontFamily="@font/montserrat_semi_bold"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/countdownTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="left"
-        android:textColor="@color/primaryTextColor"
+        android:layout_marginStart="29dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="30dp"
         android:textSize="24sp"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="@color/primaryTextColor"
         android:text="HACKILLINOIS BEGINS IN..."
         />
 
@@ -64,8 +52,7 @@
             android:id="@+id/labelsLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/countdownLinearLayout"
             app:layout_constraintBottom_toTopOf="@id/countdownLinearLayout"
             android:orientation="horizontal"
             android:layout_marginTop="160dp">
@@ -84,7 +71,7 @@
                 android:id="@+id/hoursLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="46dp"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="left"
                 android:text="@string/hours_label"
@@ -95,7 +82,7 @@
                 android:id="@+id/minutesLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="25dp"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="left"
                 android:text="@string/minutes_label"
@@ -121,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="left"
                 android:text="24"
@@ -133,8 +120,8 @@
                 android:id="@+id/hoursValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="left"
                 android:text="59"
@@ -146,7 +133,7 @@
                 android:id="@+id/minutesValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="left"
@@ -166,17 +153,21 @@
         android:id="@+id/homeTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="10dp"
         android:background="#00000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintTop_toBottomOf="@+id/chickenConstraintLayout"
-        app:tabIndicatorHeight="3dp"
+        app:tabIndicatorHeight="5dp"
         app:tabTextAppearance="@style/HomeTabTextAppearance"
-        app:tabTextColor="@android:color/black"
+        app:tabIndicatorColor="@color/primaryTextColor"
+        app:tabIndicator="@drawable/tab_indicator"
+        app:tabTextColor="@color/primaryTextColor"
+        app:tabRippleColor="@android:color/transparent"
+
         >
         <com.google.android.material.tabs.TabItem
             android:id="@+id/ongoingTabItem"
@@ -188,7 +179,7 @@
             android:id="@+id/upcomingTabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upcoming"
+            android:text="Soon"
             />
         <com.google.android.material.tabs.TabItem
             android:id="@+id/asyncTabItem"

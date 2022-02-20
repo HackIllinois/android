@@ -21,7 +21,8 @@ data class Event(
     val locations: List<EventLocation>,
     val sponsor: String,
     val eventType: String,
-    val points: String
+    val points: String,
+    val isAsync: Boolean = false
 ) : ScheduleListItem {
 
     fun getStartTimeMs() = startTime * 1000L

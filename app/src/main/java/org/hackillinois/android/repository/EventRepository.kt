@@ -28,6 +28,10 @@ class EventRepository {
         return eventDao.getEventsAfter(currentTime / 1000L)
     }
 
+    fun fetchAsyncEvents(): LiveData<List<Event>> {
+        return eventDao.getAsyncEvents()
+    }
+
     suspend fun refreshAllEvents() {
         // ensures database operation happens on the IO dispatcher
         withContext(Dispatchers.IO) {

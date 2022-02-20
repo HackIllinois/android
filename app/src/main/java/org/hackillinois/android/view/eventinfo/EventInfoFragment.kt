@@ -20,29 +20,21 @@ class EventInfoFragment : Fragment() {
     private lateinit var eventId: String
     private lateinit var eventName: String
 
-    private var event: Event? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
-
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventId)
         viewModel.event.observe(this, Observer { updateEventUI(it) })
-//        viewModel.roles.observe(this, Observer { updateCameraIcon(it) })
-
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
-
         view.exit_button.setOnClickListener { activity?.onBackPressed() }
         view.favorites_button.setOnClickListener {
             viewModel.changeFavoritedState()
         }
-
         return view
     }
 
@@ -53,50 +45,16 @@ class EventInfoFragment : Fragment() {
             event_sponsor.text = "Sponsored by ${it.sponsor}"
             event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
             event_time.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
-//            eventLocation.text = it.getLocationDescriptionsAsString()
+            event_time.visibility = if (it.isAsync) View.GONE else View.VISIBLE
             event_description.text = it.description
-
-//            val timeUntil = it.getStartTimeMs() - System.currentTimeMillis()
-//            if (timeUntil > 0 && timeUntil <= FIFTEEN_MINUTES_IN_MS) {
-//                happeningSoonTextView.visibility = View.VISIBLE
-//            } else {
-//                happeningSoonTextView.visibility = View.INVISIBLE
-//            }
-
-//            context?.let { context ->
-//                mapsWithDirectionsListView.adapter = MapsWithDirectionsAdapter(context, it.getIndoorMapAndDirectionInfo())
-//            }
         }
     }
-
-//    private fun updateCameraIcon(roles: Roles?) = roles?.let {
-//        if (it.isStaff()) {
-//            cameraButton.visibility = View.VISIBLE
-//            cameraButton.setOnClickListener {
-//                if (event?.isCurrentlyHappening() == true) {
-//                    val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
-//                    (activity as MainActivity?)?.switchFragment(scannerFragment, true)
-//                } else {
-//                    AlertDialog.Builder(context)
-//                            .setTitle("Scanning Confirmation")
-//                            .setMessage("Event is not in progress. Are you sure you want to scan?")
-//                            .setIcon(android.R.drawable.ic_dialog_alert)
-//                            .setPositiveButton(android.R.string.yes) { dialogInterface: DialogInterface, _: Int ->
-//                                dialogInterface.dismiss()
-//                                val scannerFragment = ScannerFragment.newInstance(eventId, eventName)
-//                                (activity as MainActivity?)?.switchFragment(scannerFragment, true)
-//                            }
-//                            .setNegativeButton(android.R.string.no, null).show()
-//                }
-//            }
-//        } else {
-//            cameraButton.visibility = View.GONE
-//        }
-//    }
 
     private fun updateFavoritedUI(isFavorited: Boolean?) {
         isFavorited?.let {
             exit_button.isSelected = isFavorited
+            val imageResource = if (isFavorited) R.drawable.ic_star_filled else R.drawable.ic_star_border
+            favorites_button.setImageResource(imageResource)
         }
     }
 
