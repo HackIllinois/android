@@ -23,24 +23,11 @@ import java.util.*
 class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
-
     private lateinit var profileImage: ImageView
-
-//    private lateinit var skillsLayout: LinearLayout
-//
-//    private lateinit var editButton: ImageButton
-
     private lateinit var nameText: TextView
-//    private lateinit var teamStatusText: TextView
-//    private lateinit var timezoneText: TextView
-//    private lateinit var timeText: TextView
     private lateinit var pointsText: TextView
     private lateinit var discordText: TextView
-//    private lateinit var descriptionText: TextView
-
-//    private lateinit var teamStatusArray: Array<String>
-//    private lateinit var teamStatusVerboseArray: Array<String>
-//    private lateinit var teamStatusColors: Array<Int>
+    private lateinit var tierText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,9 +39,6 @@ class ProfileFragment : Fragment() {
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
 
-//        teamStatusArray = resources.getStringArray(R.array.team_status_array)
-//        teamStatusVerboseArray = resources.getStringArray(R.array.team_status_verbose_array)
-//        teamStatusColors = arrayOf(R.color.lookingForTeamColor, R.color.lookingForMembersColor, R.color.notLookingColor)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -72,18 +56,10 @@ class ProfileFragment : Fragment() {
 
         profileImage = view.findViewById(R.id.profileImage)
         nameText = view.findViewById(R.id.nameText)
-//        teamStatusText = view.findViewById(R.id.teamStatusText)
-//        timezoneText = view.findViewById(R.id.timezoneText)
-//        timeText = view.findViewById(R.id.timeText)
+
         pointsText = view.findViewById(R.id.pointsText)
         discordText = view.findViewById(R.id.discordText)
-//        descriptionText = view.findViewById(R.id.descriptionText)
-//        skillsLayout = view.findViewById(R.id.skillsLinearLayout)
-
-//        editButton = view.findViewById(R.id.editButton)
-//        editButton.setOnClickListener {
-//            (activity as MainActivity).switchFragment(ProfileEditFragment(), false)
-//        }
+        tierText = view.findViewById(R.id.tierText)
 
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
@@ -95,81 +71,39 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
+        val currPoints = it.points
         discordText.text = it.discord
-//        descriptionText.text = it.description
-        pointsText.text = it.points.toString()
+        pointsText.text = currPoints.toString() + "pts"
         nameText.text = it.firstName + " " + it.lastName
 
-//        teamStatusArray.forEachIndexed { index, s ->
-//            if (s == it.teamStatus) {
-//                teamStatusText.text = "⬤ " + teamStatusVerboseArray[index]
-//                teamStatusText.setTextColor(resources.getColor(teamStatusColors[index]))
-//            }
-//        }
+        /** set pfp programmatically based on threshold -- api call to
+         * profile/tier/threshold/ returns
+         *[
+         *    {
+         *        "name": "flour",
+         *        "threshold": 0
+         *    },
+         *    {
+         *        "name": "cookie",
+         *        "threshold": 500
+         *    },
+         *    {
+         *        "name": "cake",
+         *        "threshold": 800
+         *    }
+         *]
+         * For the sake of time, I didn't bother storing this in a local DB.
+        */
 
-        // just display timezone so it looks consistent with iOS
-//        timezoneText.text = "time zone"
-//        timeText.text = it.timezone
+        if (currPoints < 500) {
+            tierText.text = "Tier: Flour"
+        } else if (currPoints < 800) {
 
-        try {
-            context?.let { it1 ->
-                Glide.with(it1)
-                    .load(it.avatarUrl)
-                    .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(16)))
-                    .into(profileImage)
-            }
-        } catch (e: Exception) {
-            Log.e("Load profile image", e.toString())
+        } else {
+
         }
 
-//        val maxWidth: Int = skillsLayout.measuredWidth - 100 - 48
-//
-//        var params: LinearLayout.LayoutParams
-//        var newLL = LinearLayout(context)
-//        newLL.orientation = LinearLayout.HORIZONTAL
-//        newLL.gravity = Gravity.START
-//        newLL.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-//
-//        var widthSoFar = 0
-//
-//        it.interests.forEach {
-//            val LL = LinearLayout(context)
-//            LL.orientation = LinearLayout.HORIZONTAL
-//            LL.gravity = Gravity.START
-//            LL.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-//
-//            val textView = TextView(activity)
-//            textView.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-//            textView.text = it
-//            textView.setTextColor(0xFFFFFFFF.toInt())
-//            textView.setBackgroundResource(R.drawable.rounded_salmon_bg)
-//            textView.setPadding(20, 20, 20, 20)
-//            textView.typeface = context?.let { it1 -> ResourcesCompat.getFont(it1, R.font.montserrat_bold) }
-//
-//            textView.measure(0, 0)
-//            params = LinearLayout.LayoutParams(textView.measuredWidth, ViewGroup.LayoutParams.WRAP_CONTENT)
-//            params.setMargins(20, 20, 20, 20)
-//
-//            LL.addView(textView, params)
-//            LL.measure(0, 0)
-//
-//            widthSoFar += textView.measuredWidth
-//            if (widthSoFar >= maxWidth) {
-//                skillsLayout.addView(newLL)
-//
-//                newLL = LinearLayout(context)
-//                newLL.orientation = LinearLayout.HORIZONTAL
-//                newLL.gravity = Gravity.START
-//                newLL.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-//
-//                params = LinearLayout.LayoutParams(LL.measuredWidth, LL.measuredHeight)
-//                newLL.addView(LL, params)
-//                widthSoFar = LL.measuredWidth
-//            } else {
-//                newLL.addView(LL)
-//            }
-//        }
-//        skillsLayout.addView(newLL)
+
     }
 
     private fun hasLoggedIn(): Boolean {
