@@ -20,57 +20,63 @@
 
     <TextView
         android:id="@+id/schedule_header"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="34dp"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:text="@string/schedule_header"
-        android:textColor="@color/primaryTextColor"
+        android:layout_marginStart="29dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="30dp"
         android:textSize="24sp"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="@color/primaryTextColor"
+        android:text="@string/schedule_header"
+
+
+        />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/scheduleDays"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="50dp"
         android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schedule_header"
-        app:tabIndicatorColor="@color/colorPrimaryDark"
-        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorFullWidth="true"
         app:tabSelectedTextColor="@color/selectedDarkColor"
         app:tabIndicatorHeight="5dp"
+        app:tabIndicatorColor="@color/primaryTextColor"
+        app:tabIndicator="@drawable/tab_indicator"
         app:tabTextAppearance="@style/TabTextAppearance"
-        app:tabTextColor="@color/primaryTextColor">
+        app:tabTextColor="@color/primaryTextColor"
+        app:tabRippleColor="@android:color/transparent"
+        >
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabFriday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_light"
-            android:text="Fri\n09" />
+            android:text="FRI\n25" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSaturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_light"
-            android:text="Sat\n10" />
+            android:text="SAT\n26" />
 
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_light"
-            android:text="Sun\n11" />
+            android:text="SUN\n27" />
 
 
     </com.google.android.material.tabs.TabLayout>

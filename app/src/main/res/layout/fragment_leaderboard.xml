@@ -9,39 +9,31 @@
 
     <TextView
         android:id="@+id/title_textview_leaderboard"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="29dp"
         android:layout_marginEnd="32dp"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:gravity="start"
-        android:text="Leaderboard"
-        android:textColor="@color/primaryTextColor"
+        android:layout_marginTop="30dp"
         android:textSize="24sp"
-        android:layout_marginTop="20dp"
+        android:gravity="start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="@color/primaryTextColor"
+        android:text="Leaderboard"
+ />
 
 
-
-    <View
-        android:id="@+id/white_line_leaderboard"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#ffffff"
-        android:layout_marginTop="22dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_textview_leaderboard" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_leaderboard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/white_line_leaderboard"
+        app:layout_constraintTop_toBottomOf="@id/title_textview_leaderboard"
         app:layout_constraintBottom_toBottomOf="parent"
         android:paddingEnd="31dp"
         android:paddingStart="31dp"

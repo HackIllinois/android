@@ -9,7 +9,7 @@
     <string name="schedule_tab_monday">Monday</string>
 
     <string name="schedule_header">Schedule</string>
-    <string name="schedule_snackbar_notifications_on">Notifications are on for this event</string>
+    <string name="schedule_snackbar_notifications_on">Notifications are on for this event!</string>
 
     <string name="map_dcl">DCL</string>
     <string name="map_eceb">ECEB</string>
@@ -50,7 +50,7 @@
     <string name="default_time_homepage">00</string>
     <string name="days_label">Days</string>
     <string name="hours_label">Hours</string>
-    <string name="minutes_label">Minutes</string>
+    <string name="minutes_label">Min</string>
     <string name="projects_header">Projects</string>
     <string name="fav_button_text">Favorites</string>
     <string name="spinner_default">Select Category</string>
