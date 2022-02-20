@@ -5,156 +5,201 @@
     android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_background_during">
+    android:background="@drawable/home_bg">>
 
-<!--    <Button-->
-<!--        android:id="@+id/logoutButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:text="@string/logout_text"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:textSize="14sp"-->
-<!--        android:fontFamily="@font/montserrat_semi_bold"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/countdownTextView"
-        android:layout_width="330dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="left"
-        android:textColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="30dp"
         android:textSize="24sp"
+        android:gravity="start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="PLACEHOLDER" />
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="@color/primaryTextColor"
+        android:text="HACKILLINOIS BEGINS IN..."
+        />
 
-    <LinearLayout
-        android:id="@+id/daysUnit"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@+id/hoursUnit"
-        app:layout_constraintTop_toBottomOf="@+id/countdownTextView">
-
-        <TextView
-            android:id="@+id/daysLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginTop="8dp"
-            android:text="@string/days_label"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/daysValue"
-            android:gravity="left"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:textSize="48sp"
-            android:textColor="@android:color/white"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/hoursUnit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:orientation="vertical"
+        android:id="@+id/chickenConstraintLayout"
+        app:layout_constraintTop_toBottomOf="@id/countdownTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countdownTextView">
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
 
-        <TextView
-            android:id="@+id/hoursLabel"
+        <ImageView
+            android:id="@+id/chickenImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginTop="8dp"
-            android:text="@string/hours_label"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/hoursValue"
-            android:gravity="left"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:textSize="48sp"
-            android:textColor="@android:color/white"
+            android:src="@drawable/ic_chicken"
+            android:scaleX=".93"
+            android:scaleY=".93"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             />
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/minutesUnit"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/labelsLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/countdownLinearLayout"
+            app:layout_constraintBottom_toTopOf="@id/countdownLinearLayout"
+            android:orientation="horizontal"
+            android:layout_marginTop="160dp">
+            <TextView
+                android:id="@+id/daysLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="left"
+                android:text="@string/days_label"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:id="@+id/hoursLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="46dp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="left"
+                android:text="@string/hours_label"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/minutesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="left"
+                android:text="@string/minutes_label"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/countdownLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="130dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/daysValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="left"
+                android:text="24"
+                android:textColor="@android:color/black"
+                android:textSize="48sp"
+                 />
+
+            <TextView
+                android:id="@+id/hoursValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="left"
+                android:text="59"
+                android:textColor="@android:color/black"
+                android:textSize="48sp"
+
+                />
+            <TextView
+                android:id="@+id/minutesValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="left"
+                android:text="59"
+                android:textColor="@android:color/black"
+                android:textSize="48sp"
+                />
+
+
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/homeTabLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@+id/hoursUnit"
-        app:layout_constraintTop_toBottomOf="@+id/countdownTextView">
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="10dp"
+        android:background="#00000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/chickenConstraintLayout"
+        app:tabIndicatorHeight="5dp"
+        app:tabTextAppearance="@style/HomeTabTextAppearance"
+        app:tabIndicatorColor="@color/primaryTextColor"
+        app:tabIndicator="@drawable/tab_indicator"
+        app:tabTextColor="@color/primaryTextColor"
+        app:tabRippleColor="@android:color/transparent"
 
-        <TextView
-            android:id="@+id/minutesLabel"
+        >
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/ongoingTabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginTop="8dp"
-            android:text="@string/minutes_label"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/minutesValue"
-            android:gravity="left"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:textSize="48sp"
-            android:textColor="@android:color/white"
+            android:text="Ongoing"
             />
-    </LinearLayout>
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/upcomingTabItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soon"
+            />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/asyncTabItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Async"
+            />
 
-    <com.dinuscxj.refresh.RecyclerRefreshLayout
-        android:id="@+id/refreshLayout"
-        android:layout_width="0dp"
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/homeScheduleContainer"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="80dp"
-        android:background="#00000000"
+        android:layout_marginTop="1dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hoursUnit">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#00000000">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/eventsList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="80dp"
-                android:clipToPadding="false"
-                android:background="@android:color/transparent" />
-        </FrameLayout>
-
-
-    </com.dinuscxj.refresh.RecyclerRefreshLayout>
+        app:layout_constraintTop_toBottomOf="@+id/homeTabLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

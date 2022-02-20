@@ -1,18 +1,19 @@
 package org.hackillinois.android
 
+import okhttp3.ResponseBody
+import org.hackillinois.android.database.entity.*
+import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
+import org.hackillinois.android.model.leaderboard.LeaderboardList
 import org.hackillinois.android.model.notification.NotificationTopics
-import org.hackillinois.android.notifications.DeviceToken
-import okhttp3.ResponseBody
-import org.hackillinois.android.database.entity.*
-import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
+import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -96,6 +97,9 @@ interface API {
 
     @GET("upload/blobstore/times/")
     suspend fun times(): TimesWrapper
+
+    @GET("profile/leaderboard/?limit=10")
+    suspend fun leaderboard(): LeaderboardList
 
     companion object {
         val BASE_URL = "https://api.hackillinois.org/"

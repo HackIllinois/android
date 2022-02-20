@@ -1,22 +1,24 @@
 package org.hackillinois.android.view.schedule
 
 import android.content.Context
-import com.google.android.material.snackbar.Snackbar
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.event_tile.view.*
 import kotlinx.android.synthetic.main.time_list_item.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.view.MainActivity
+import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.view.home.eventlist.EventClickListener
 
 class EventsAdapter(
     private var itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener
-) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<EventsAdapter.ViewHolder>(), EventClickListener {
     private lateinit var context: Context
 
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
@@ -50,42 +52,38 @@ class EventsAdapter(
 
     private fun bindEventItem(event: Event, itemView: View) {
         itemView.apply {
-//            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
+            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
 
             titleTextView.text = event.name
 
-            eventTimeSpanText.text = "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
+            eventTimeSpanText.text = when (event.isAsync) {
+                false -> "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
+                true -> "Asynchronous event"
+            }
             sponsoredTextView.text = "Sponsored by ${event.sponsor}"
             sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventDescriptionTextView.text = event.description
-
-            pointsView.text = "${event.points} Points!"
+            pointsView.text = " + ${event.points} pts "
 
             // @todo sloppy, clean up
             when (event.eventType) {
                 "MEAL" -> {
                     eventType.setText(R.string.mealText)
-                    eventType.setTextColor(resources.getColor(R.color.mealTextColor))
                 }
                 "SPEAKER" -> {
                     eventType.setText(R.string.speakerText)
-                    eventType.setTextColor(resources.getColor(R.color.speakerTextColor))
                 }
                 "WORKSHOP" -> {
                     eventType.setText(R.string.workshopText)
-                    eventType.setTextColor(resources.getColor(R.color.workshopTextColor))
                 }
                 "MINIEVENT" -> {
                     eventType.setText(R.string.miniEventText)
-                    eventType.setTextColor(resources.getColor(R.color.miniEventTextColor))
                 }
                 "QNA" -> {
                     eventType.setText(R.string.qnaText)
-                    eventType.setTextColor(resources.getColor(R.color.qnaTextColor))
                 }
                 "OTHER" -> {
                     eventType.setText(R.string.otherText)
-                    eventType.setTextColor(resources.getColor(R.color.otherTextColor))
                 }
                 else -> {
                     eventType.visibility = View.GONE
@@ -114,5 +112,10 @@ class EventsAdapter(
     fun updateEvents(list: List<ScheduleListItem>) {
         this.itemList = list
         notifyDataSetChanged()
+    }
+
+    override fun openEventInfoActivity(event: Event) {
+        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        (context as MainActivity).switchFragment(eventInfoFragment, true)
     }
 }

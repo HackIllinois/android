@@ -14,8 +14,8 @@ data class Profile(
     var points: Int,
     var timezone: String,
     var avatarUrl: String,
-    var discord: String,
-    var teamStatus: String,
-    var description: String,
-    var interests: List<String>
+    var discord: String
+//    var teamStatus: String = "",
+//    var description: String = "",
+//    var interests: List<String> = listOf()
 )

@@ -10,7 +10,9 @@
         android:id="@+id/splashAnimationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:lottie_fileName="vespa.json" />
+        android:scaleType="fitCenter"
+        android:scaleX=".75"
+        android:scaleY=".75"
+        app:lottie_fileName="darkVespa.json" />
 
 </FrameLayout>

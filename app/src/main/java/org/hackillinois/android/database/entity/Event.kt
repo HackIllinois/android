@@ -21,7 +21,8 @@ data class Event(
     val locations: List<EventLocation>,
     val sponsor: String,
     val eventType: String,
-    val points: String
+    val points: String,
+    val isAsync: Boolean = false
 ) : ScheduleListItem {
 
     fun getStartTimeMs() = startTime * 1000L
@@ -88,18 +89,18 @@ data class Event(
 
     @Ignore
     private val mapAndDirectionInfoMap: Map<String, IndoorMapAndDirectionInfo> = mapOf(
-            "KENNEY" to IndoorMapAndDirectionInfo("Kenney", R.drawable.kenney, kenneyLatLng),
-            "DCL" to IndoorMapAndDirectionInfo("DCL", R.drawable.dcl, dclLatLng),
-            "ECEB1" to IndoorMapAndDirectionInfo("ECEB Floor 1", R.drawable.eceb_floor_1, ecebLatLng),
-            "ECEB2" to IndoorMapAndDirectionInfo("ECEB Floor 2", R.drawable.eceb_floor_2, ecebLatLng),
-            "ECEB3" to IndoorMapAndDirectionInfo("ECEB Floor 3", R.drawable.eceb_floor_3, ecebLatLng),
-            "SIEBEL0" to IndoorMapAndDirectionInfo("Siebel Basement", R.drawable.siebel_floor_0, siebelLatLng),
-            "SIEBEL1" to IndoorMapAndDirectionInfo("Siebel Floor 1", R.drawable.siebel_floor_1, siebelLatLng),
-            "SIEBEL2" to IndoorMapAndDirectionInfo("Siebel Floor 2", R.drawable.siebel_floor_2, siebelLatLng)
+        "KENNEY" to IndoorMapAndDirectionInfo("Kenney", R.drawable.kenney, kenneyLatLng),
+        "DCL" to IndoorMapAndDirectionInfo("DCL", R.drawable.dcl, dclLatLng),
+        "ECEB1" to IndoorMapAndDirectionInfo("ECEB Floor 1", R.drawable.eceb_floor_1, ecebLatLng),
+        "ECEB2" to IndoorMapAndDirectionInfo("ECEB Floor 2", R.drawable.eceb_floor_2, ecebLatLng),
+        "ECEB3" to IndoorMapAndDirectionInfo("ECEB Floor 3", R.drawable.eceb_floor_3, ecebLatLng),
+        "SIEBEL0" to IndoorMapAndDirectionInfo("Siebel Basement", R.drawable.siebel_floor_0, siebelLatLng),
+        "SIEBEL1" to IndoorMapAndDirectionInfo("Siebel Floor 1", R.drawable.siebel_floor_1, siebelLatLng),
+        "SIEBEL2" to IndoorMapAndDirectionInfo("Siebel Floor 2", R.drawable.siebel_floor_2, siebelLatLng)
     )
 
     private fun getMapAndDirectionForTag(tag: String) = mapAndDirectionInfoMap[tag]
-            ?: IndoorMapAndDirectionInfo("Siebel Floor 1", R.drawable.siebel_floor_1, siebelLatLng)
+        ?: IndoorMapAndDirectionInfo("Siebel Floor 1", R.drawable.siebel_floor_1, siebelLatLng)
 
     override fun getType() = 1
 }
