@@ -15,7 +15,6 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.layout_event_code_dialog.*
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
@@ -23,6 +22,7 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.leaderboard.LeaderboardFragment
+import org.hackillinois.android.view.onboarding.OnboardingActivity
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
