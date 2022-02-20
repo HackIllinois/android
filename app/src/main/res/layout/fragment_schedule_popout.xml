@@ -5,125 +5,167 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/favoriteProject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:background="@android:color/transparent"
-        android:gravity="center_vertical"
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="90dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.075"
-        app:srcCompat="@drawable/star_button_hollow" />
-
-    <ImageButton
-        android:id="@+id/exit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:layout_marginStart="22dp"
-        android:gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.075"
-        app:srcCompat="@drawable/ic_exit_button" />
+        app:cardCornerRadius="10dp">
 
-    <TextView
-        android:id="@+id/event_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="#222B5C"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exit_button"
-        tools:text="Event Name" />
 
-    <TextView
-        android:id="@+id/event_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/montserrat_regular"
-        android:textColor="#222B5C"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_name"
-        tools:text="Event Type" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardView"
+            android:background="#F7F4D3"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.498">
 
-    <TextView
-        android:id="@+id/event_sponsor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/montserrat_regular"
-        android:textColor="#222B5C"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_type"
-        tools:text="Sponsor" />
+            <ImageButton
+                android:id="@+id/exit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center_vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintVertical_bias="0.04"
+                app:srcCompat="@drawable/ic_exit_button" />
 
-    <ImageView
-        android:id="@+id/event_time_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_clock"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_sponsor" />
+            <ImageButton
+                android:id="@+id/favoriteProject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/exit_button"
+                app:layout_constraintStart_toStartOf="parent"
 
-    <TextView
-        android:id="@+id/event_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/montserrat_regular"
-        android:textColor="#222B5C"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/event_time_icon"
-        app:layout_constraintTop_toBottomOf="@+id/event_sponsor"
-        tools:text="1:00pm - 2:00pm" />
 
-    <TextView
-        android:id="@+id/event_points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/montserrat_regular"
-        android:textColor="#222B5C"
-        android:textSize="14sp"
-        android:background="@drawable/green_oval"
-        app:layout_constraintStart_toEndOf="@+id/event_time"
-        app:layout_constraintBottom_toBottomOf="@+id/event_time"
-        tools:text=" +10 pts" />
+                app:layout_constraintTop_toTopOf="@+id/exit_button"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/star_button_hollow" />
 
-    <TextView
-        android:id="@+id/event_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:textColor="@color/primaryTextColor"
-        app:layout_constraintEnd_toEndOf="@+id/favoriteProject"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_time"
-        tools:text="@string/lorem_ipsum" />
+            <TextView
+                android:id="@+id/event_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:textColor="#222B5C"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/exit_button"
+                app:layout_constraintTop_toBottomOf="@+id/exit_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.04"
+                tools:text="Event Name" />
+
+            <TextView
+                android:id="@+id/event_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="#222B5C"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/event_name"
+                app:layout_constraintTop_toBottomOf="@+id/event_name"
+                tools:text="Event Type" />
+
+            <TextView
+                android:id="@+id/event_sponsor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="#222B5C"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/event_name"
+                app:layout_constraintTop_toBottomOf="@+id/event_type"
+                tools:text="Sponsor" />
+
+            <ImageView
+                android:id="@+id/event_time_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_clock"
+                app:layout_constraintStart_toStartOf="@id/event_name"
+                app:layout_constraintTop_toBottomOf="@+id/event_sponsor"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:layout_constraintVertical_bias="0.01"
+                />
+
+            <TextView
+                android:id="@+id/event_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="#222B5C"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/event_time_icon"
+                app:layout_constraintTop_toBottomOf="@+id/event_sponsor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                tools:text="1:00pm - 2:00pm" />
+
+            <TextView
+                android:id="@+id/event_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/green_oval"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="#222B5C"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/event_time"
+                app:layout_constraintStart_toEndOf="@+id/event_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                tools:text=" +10 pts" />
+
+            <TextView
+                android:id="@+id/event_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintEnd_toEndOf="@+id/favoriteProject"
+                app:layout_constraintStart_toStartOf="@id/event_time_icon"
+                app:layout_constraintTop_toBottomOf="@id/event_time"
+
+                tools:text="@string/lorem_ipsum" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
