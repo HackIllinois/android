@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/maps_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/maps_background">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -12,36 +12,38 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat_semi_bold"
         android:text="MAPS"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
-        android:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/outdoorButton"
         android:layout_width="110dp"
         android:layout_height="34dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/toggleable_rounded_button"
+        android:backgroundTint="@color/toggleable_rounded_button_background"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/outdoors_button"
         android:textColor="@color/toggleable_rounded_button_text"
+        app:cornerRadius="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/indoorButton"
         android:layout_width="94dp"
         android:layout_height="34dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/toggleable_rounded_button"
+        android:backgroundTint="@color/toggleable_rounded_button_background"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/indoors_buttons"
         android:textColor="@color/toggleable_rounded_button_text"
+        app:cornerRadius="24dp"
         app:layout_constraintEnd_toStartOf="@+id/outdoorButton"
         app:layout_constraintTop_toTopOf="parent" />
 

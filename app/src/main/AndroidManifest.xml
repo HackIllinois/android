@@ -21,6 +21,7 @@
 
         <receiver android:name=".notifications.NotificationReceiver" />
         <receiver
+            android:exported="true"
             android:name=".notifications.BootReceiver"
             android:enabled="true">
             <intent-filter>
@@ -29,6 +30,7 @@
         </receiver>
 
         <activity
+            android:exported="true"
             android:name=".view.SplashScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -46,6 +48,7 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:exported="true"
             android:name="org.hackillinois.android.view.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -69,7 +72,10 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <service android:name=".notifications.FirebaseNotificationMessagingService">
+        <service
+            android:name=".notifications.FirebaseNotificationMessagingService"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

@@ -19,21 +19,24 @@
         app:layout_constraintVertical_bias="0.351"
         app:srcCompat="@drawable/home_preview" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/attendeeLoginBtn"
-        android:layout_width="250dp"
-        android:layout_height="54dp"
-        android:background="@drawable/rounded_login_button_filled"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:backgroundTint="#78AC42"
         android:text="Next"
         android:textColor="@android:color/black"
         android:textSize="24sp"
+        app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.615" />
+        app:layout_constraintVertical_bias="0.615"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent=".5" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -69,7 +72,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:fontFamily="@font/montserrat_medium"
-
         android:text="Here is some info about the home page."
         android:textColor="#000000"
         android:textSize="16sp"

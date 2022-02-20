@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackgrounds" >
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/codeEntryClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
         android:drawableStart="@drawable/ic_close_primary"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/close_text"
