@@ -60,8 +60,8 @@ class MainActivity : AppCompatActivity() {
         val bottomBarButtons = listOf(
             bottomAppBar.homeButton,
             bottomAppBar.scheduleButton,
-            bottomAppBar.profile,
-            bottomAppBar.leaderboard
+            bottomAppBar.leaderboard,
+            bottomAppBar.profile
         )
 
         // by default, home button is selected
@@ -80,8 +80,8 @@ class MainActivity : AppCompatActivity() {
                     when (view) {
                         bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
                         bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
-                        bottomAppBar.profile -> switchFragment(ProfileFragment(), false)
                         bottomAppBar.leaderboard -> switchFragment(LeaderboardFragment(), false)
+                        bottomAppBar.profile -> switchFragment(ProfileFragment(), false)
                         else -> return@setOnClickListener
                     }
                 }
