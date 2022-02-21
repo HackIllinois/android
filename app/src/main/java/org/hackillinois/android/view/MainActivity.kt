@@ -3,14 +3,17 @@ package org.hackillinois.android.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +30,7 @@ import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -96,7 +100,11 @@ class MainActivity : AppCompatActivity() {
 
         code_entry_fab.setOnClickListener {
             if (!hasLoggedIn()) {
-                Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
+                val toast = Toast.makeText(applicationContext, getString(R.string.fab_error_msg), Toast.LENGTH_LONG)
+                ((toast.view as LinearLayout).getChildAt(0) as TextView).gravity =
+                    Gravity.CENTER_HORIZONTAL
+                toast.show()
+//                Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
             } else {
                 switchFragment(scannerFragment, true)
             }
