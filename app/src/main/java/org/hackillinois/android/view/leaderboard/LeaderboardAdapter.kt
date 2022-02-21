@@ -42,10 +42,8 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
             if (position == 1) {
                 leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_top_bg)
             } else if (position == 10) {
-                leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_top_bg)
-            }
-
-            if (position % 2 == 1) {
+                leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_bottom_bg)
+            } else if (position % 2 == 1) {
                 leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.leaderboardLight))
             } else {
                 leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.leaderboardDark))
