@@ -98,13 +98,13 @@ class ProfileFragment : Fragment() {
         try {
             context?.let { it1 ->
                 Glide.with(it1)
-                    .load(it.avatarUrl)
-                    .apply(
-                        RequestOptions()
-                            .transform(CenterCrop(), RoundedCorners(16))
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    )
-                    .into(profileImage)
+                        .load(it.avatarUrl)
+                        .apply(
+                                RequestOptions()
+                                        .transform(CenterCrop(), RoundedCorners(16))
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        )
+                        .into(profileImage)
             }
         } catch (e: Exception) {
             Log.e("Load profile image", e.toString())
@@ -112,7 +112,10 @@ class ProfileFragment : Fragment() {
         if (currPoints < 500) {
             tierText.text = "Tier: Flour"
         } else if (currPoints < 800) {
+            tierText.text = "Tier: Cookie"
         } else {
+            tierText.text = "Tier: Cake"
+        }
 
     }
 
