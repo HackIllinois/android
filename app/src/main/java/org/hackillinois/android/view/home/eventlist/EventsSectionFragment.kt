@@ -29,6 +29,7 @@ class EventsSectionFragment : Fragment(), EventClickListener {
 
     private var currentEvents: List<Event> = listOf()
     private var showFavorites: Boolean = false
+    private var sectionNumber = 0;
 
     private var listState: Parcelable? = null
 
@@ -40,7 +41,7 @@ class EventsSectionFragment : Fragment(), EventClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sectionNumber = arguments?.getInt(ARG_SECTION_NUM) ?: 0
+        sectionNumber = arguments?.getInt(ARG_SECTION_NUM) ?: 0
 
         val viewModel = parentFragment?.let { ViewModelProviders.of(it).get(HomeViewModel::class.java) }
 
@@ -98,7 +99,12 @@ class EventsSectionFragment : Fragment(), EventClickListener {
                 listTemp = listTemp.filter { event -> FavoritesManager.isFavoritedEvent(it, event.id) }
             }
         }
-        mAdapter.updateEvents(insertTimeItems(listTemp))
+
+        if (sectionNumber == 2) { // If async
+            mAdapter.updateEvents(listTemp)
+        } else {
+            mAdapter.updateEvents(insertTimeItems(listTemp))
+        }
     }
 
     private fun insertTimeItems(eventList: List<Event>): List<ScheduleListItem> {
