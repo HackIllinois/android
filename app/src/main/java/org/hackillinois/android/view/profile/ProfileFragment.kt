@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,11 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
@@ -89,11 +95,25 @@ class ProfileFragment : Fragment() {
          * For the sake of time, I didn't bother storing this in a local DB.
          */
 
+        try {
+            context?.let { it1 ->
+                Glide.with(it1)
+                    .load(it.avatarUrl)
+                    .apply(
+                        RequestOptions()
+                            .transform(CenterCrop(), RoundedCorners(16))
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    )
+                    .into(profileImage)
+            }
+        } catch (e: Exception) {
+            Log.e("Load profile image", e.toString())
+        }
         if (currPoints < 500) {
             tierText.text = "Tier: Flour"
         } else if (currPoints < 800) {
         } else {
-        }
+
     }
 
     private fun hasLoggedIn(): Boolean {
