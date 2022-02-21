@@ -81,9 +81,10 @@
         android:id="@+id/code_entry_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/fabColor"
+        app:backgroundTint="@color/qrButtonOrange"
         app:layout_anchor="@id/bottomAppBar"
-        app:srcCompat="@drawable/ic_code_icon" />
+        app:srcCompat="@drawable/qr_icon"
+        app:tint="@color/unselectedAppBarIcon"/>
 
 <!--    <FrameLayout-->
 <!--        android:id="@+id/codeEntrySheet"-->

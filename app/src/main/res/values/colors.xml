@@ -3,6 +3,7 @@
     <color name="colorPrimaryLight">#e3f6ff</color>
     <color name="colorPrimary">#222B5C</color>
     <color name="colorPrimaryDark">#daecdb</color>
+<!--    <color name="colorPrimaryDark">#08151B</color>-->
     <color name="colorBackgrounds">#202c54</color>
     <color name="colorAccent">#E35058</color>
 
@@ -65,5 +66,6 @@
     <color name="leaderboardLight">#F7F4D3</color>
     <color name="leaderboardDark">#E8D7A5</color>
 
+    <color name="qrButtonOrange">#ED9B21</color>
 
 </resources>
