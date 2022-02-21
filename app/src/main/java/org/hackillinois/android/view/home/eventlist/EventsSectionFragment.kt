@@ -29,7 +29,7 @@ class EventsSectionFragment : Fragment(), EventClickListener {
 
     private var currentEvents: List<Event> = listOf()
     private var showFavorites: Boolean = false
-    private var sectionNumber = 0;
+    private var sectionNumber = 0
 
     private var listState: Parcelable? = null
 
