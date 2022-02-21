@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
@@ -15,9 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -39,6 +38,10 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     private lateinit var ongoingEventsSection: EventsSection
     private lateinit var upcomingEventsSection: EventsSection
     private lateinit var asyncEventsSection: EventsSection
+    private lateinit var daysValue: TextView
+    private lateinit var hoursValue: TextView
+    private lateinit var minutesValue: TextView
+    private lateinit var countdownTextView: TextView
 
     private lateinit var viewModel: HomeViewModel
     private val countDownManager = CountdownManager(this)
@@ -105,6 +108,11 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         view.homeTabLayout.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.homeScheduleContainer))
 
         view.homeScheduleContainer.currentItem = 0
+
+        daysValue = view.findViewById(R.id.daysValue)
+        hoursValue = view.findViewById(R.id.hoursValue)
+        minutesValue = view.findViewById(R.id.minutesValue)
+        countdownTextView = view.findViewById(R.id.countdownTextView)
 
         return view
     }
