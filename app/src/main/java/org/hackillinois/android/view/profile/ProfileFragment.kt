@@ -19,7 +19,6 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.viewmodel.ProfileViewModel
-import java.util.*
 
 class ProfileFragment : Fragment() {
 
@@ -73,7 +72,7 @@ class ProfileFragment : Fragment() {
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         val currPoints = it.points
         discordText.text = it.discord
-        pointsText.text = currPoints.toString() + "pts"
+        pointsText.text = currPoints.toString() + " pts"
         nameText.text = it.firstName + " " + it.lastName
 
         /** set pfp programmatically based on threshold -- api call to
@@ -92,31 +91,33 @@ class ProfileFragment : Fragment() {
          *        "threshold": 800
          *    }
          *]
-         * For the sake of time, I didn't bother storing this in a local DB.
          */
 
         try {
             context?.let { it1 ->
                 Glide.with(it1)
-                        .load(it.avatarUrl)
-                        .apply(
-                                RequestOptions()
-                                        .transform(CenterCrop(), RoundedCorners(16))
-                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        )
-                        .into(profileImage)
+                    .load(it.avatarUrl)
+                    .apply(
+                        RequestOptions()
+                            .transform(CenterCrop(), RoundedCorners(16))
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    )
+                    .into(profileImage)
             }
         } catch (e: Exception) {
             Log.e("Load profile image", e.toString())
         }
-        if (currPoints < 500) {
-            tierText.text = "Tier: Flour"
-        } else if (currPoints < 800) {
-            tierText.text = "Tier: Cookie"
-        } else {
-            tierText.text = "Tier: Cake"
+        when {
+            currPoints < 500 -> {
+                tierText.text = "Tier: Flour"
+            }
+            currPoints < 800 -> {
+                tierText.text = "Tier: Cookie"
+            }
+            else -> {
+                tierText.text = "Tier: Cake"
+            }
         }
-
     }
 
     private fun hasLoggedIn(): Boolean {
