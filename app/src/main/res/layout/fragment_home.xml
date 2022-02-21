@@ -45,102 +45,102 @@
             android:scaleY=".93"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/labelsLinearLayout"
+            android:id="@+id/timeLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/countdownLinearLayout"
-            app:layout_constraintBottom_toTopOf="@id/countdownLinearLayout"
-            android:orientation="horizontal"
-            android:layout_marginTop="160dp">
-            <TextView
-                android:id="@+id/daysLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:gravity="left"
-                android:text="@string/days_label"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                />
-
-            <TextView
-                android:id="@+id/hoursLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="46dp"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:gravity="left"
-                android:text="@string/hours_label"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/minutesLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:gravity="left"
-                android:text="@string/minutes_label"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/countdownLinearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="130dp"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/daysValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias=".76"
+            >
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:gravity="left"
-                android:text="24"
-                android:textColor="@android:color/black"
-                android:textSize="48sp"
-                 />
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/daysLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:gravity="center"
+                    android:text="@string/days_label"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    />
+                <TextView
+                    android:id="@+id/daysValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:gravity="center"
+                    android:text="00"
+                    android:textColor="@android:color/black"
+                    android:textSize="48sp"
+                    />
 
-            <TextView
-                android:id="@+id/hoursValue"
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:gravity="left"
-                android:text="59"
-                android:textColor="@android:color/black"
-                android:textSize="48sp"
+                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                >
 
-                />
-            <TextView
-                android:id="@+id/minutesValue"
+                <TextView
+                    android:id="@+id/hoursLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:gravity="center"
+                    android:text="@string/hours_label"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/hoursValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:gravity="center"
+                    android:text="00"
+                    android:textColor="@android:color/black"
+                    android:textSize="48sp"
+                    />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:gravity="left"
-                android:text="59"
-                android:textColor="@android:color/black"
-                android:textSize="48sp"
-                />
+                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                >
+                <TextView
+                    android:id="@+id/minutesLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:gravity="center"
+                    android:text="@string/minutes_label"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    />
+                <TextView
+                    android:id="@+id/minutesValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:gravity="center"
+                    android:text="00"
+                    android:textColor="@android:color/black"
+                    android:textSize="48sp"
+                    />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
