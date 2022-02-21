@@ -168,4 +168,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="onboarding_welcome_title">Welcome!</string>
+    <string name="onboarding_welcome_description">Swipe to see what our app has to offer!</string>
+
+    <string name="onboarding_countdown_title">Countdown</string>
+    <string name="onboarding_countdown_description">See how much time you have left to hack!</string>
+
+    <string name="onboarding_schedule_title">Schedule</string>
+    <string name="onboarding_schedule_description">See the times and details of all of our events.</string>
+
+    <string name="onboarding_scan_title">Scan for Points</string>
+    <string name="onboarding_scan_description">Scan QE codes at events to obtain points!</string>
+
+    <string name="onboarding_profile_title">Profile</string>
+    <string name="onboarding_profile_description">View your points, tier, and other personal information.</string>
+
+    <string name="onboarding_leaderboard_title">Leaderboard</string>
+    <string name="onboarding_leaderboard_description">See who is leading HackIllinois 2022 in points earned!</string>
 </resources>
