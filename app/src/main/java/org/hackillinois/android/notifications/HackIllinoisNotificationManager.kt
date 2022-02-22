@@ -47,7 +47,8 @@ object HackIllinoisNotificationManager {
             putExtra("notification", notification)
             putExtra("notification_id", 1)
         }
-        return PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val flags = PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        return PendingIntent.getBroadcast(context, REQUEST_CODE, intent, flags)
     }
 
     private fun buildEventNotification(context: Context, event: Event): Notification {

@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.event_tile.view.*
 import kotlinx.android.synthetic.main.time_list_item.view.*
 import org.hackillinois.android.R
@@ -95,7 +95,8 @@ class EventsAdapter(
 
                 if (button.isSelected) {
                     FavoritesManager.favoriteEvent(context, event)
-                    Snackbar.make(button, R.string.schedule_snackbar_notifications_on, Snackbar.LENGTH_SHORT).show()
+                    val toast = Toast.makeText(context, R.string.schedule_snackbar_notifications_on, Toast.LENGTH_SHORT)
+                    toast.show()
                 } else {
                     FavoritesManager.unfavoriteEvent(context, event)
                 }

@@ -44,8 +44,7 @@ class EventInfoFragment : Fragment() {
             event_points.text = "${it.points} Points!"
             event_sponsor.text = "Sponsored by ${it.sponsor}"
             event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            event_time.text = "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
-            event_time.visibility = if (it.isAsync) View.GONE else View.VISIBLE
+            event_time.text = if (it.isAsync) "Asynchronous event" else "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
             event_description.text = it.description
         }
     }
