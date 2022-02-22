@@ -191,8 +191,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
 
     private fun updateAsyncEventsList(events: List<Event>?) {
         events?.let {
-            val actualEvents = filterNextNUpcomingEvents(it, numberOfUpcomingEvents)
-            asyncEventsSection.updateEventsList(actualEvents)
+            asyncEventsSection.updateEventsList(events)
             eventsListAdapter.notifyDataSetChanged()
         }
     }
