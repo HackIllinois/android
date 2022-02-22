@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.budiyev.android.codescanner.*
-import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
@@ -88,7 +87,8 @@ class ScannerFragment : Fragment() {
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
-                        Snackbar.make(view.rootView, it.message.toString(), Snackbar.LENGTH_LONG).show()
+                        val toast = Toast.makeText(context, it.message.toString(), Toast.LENGTH_LONG)
+                        toast.show()
                     }
                 }
             }
