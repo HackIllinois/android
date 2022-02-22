@@ -11,19 +11,19 @@ class CountdownManager(val listener: CountDownListener) {
     // A2021-04-09 17:00:00
     private val eventStartTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1618005600000
+        timeInMillis = 1645833600000
     }
 
     // 2021-04-09 18:00:00
     private val hackingStartTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1618009200000
+        timeInMillis = 1645837200000
     }
 
     // 2021-04-11 18:00:00
     private val hackingEndTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1618182000000
+        timeInMillis = 1645977600000
     }
 
     private var times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
