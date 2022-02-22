@@ -1,13 +1,11 @@
 package org.hackillinois.android.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -98,9 +96,9 @@ class MainActivity : AppCompatActivity() {
         val scannerFragment = ScannerFragment()
 
         code_entry_fab.setOnClickListener {
-            if (!hasLoggedIn()) {
+            if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
                 val toast = Toast.makeText(applicationContext, getString(R.string.fab_error_msg), Toast.LENGTH_LONG)
-                ((toast.view as LinearLayout).getChildAt(0) as TextView).gravity = Gravity.CENTER_HORIZONTAL
+//                ((toast.view as LinearLayout).getChildAt(0) as TextView).gravity = Gravity.CENTER_HORIZONTAL
                 toast.show()
 //                Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
             } else {
@@ -158,5 +156,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun hasLoggedIn(): Boolean {
         return JWTUtilities.readJWT(applicationContext) != JWTUtilities.DEFAULT_JWT
+    }
+
+    private fun isStaff(): Boolean {
+        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")
+            ?: "" == "google"
     }
 }

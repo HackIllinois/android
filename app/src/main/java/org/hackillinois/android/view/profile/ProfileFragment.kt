@@ -1,5 +1,6 @@
 package org.hackillinois.android.view.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,7 +33,7 @@ class ProfileFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (!hasLoggedIn()) {
+        if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
             return
         }
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
@@ -41,7 +42,7 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (!hasLoggedIn()) {
+        if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
@@ -121,6 +122,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun hasLoggedIn(): Boolean {
-        return JWTUtilities.readJWT(activity!!.applicationContext) != JWTUtilities.DEFAULT_JWT
+        return JWTUtilities.readJWT(requireActivity().applicationContext) != JWTUtilities.DEFAULT_JWT
+    }
+
+    private fun isStaff(): Boolean {
+        val context = requireActivity().applicationContext
+        return context.getSharedPreferences(context.getString(R.string.authorization_pref_file_key),
+            Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
     }
 }
