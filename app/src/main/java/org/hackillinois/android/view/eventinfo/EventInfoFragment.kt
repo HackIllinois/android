@@ -11,6 +11,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_event_info.*
@@ -25,7 +26,7 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
     private val FIFTEEN_MINUTES_IN_MS = 1000 * 60 * 15
     private lateinit var eventId: String
     private lateinit var eventName: String
-    private lateinit var mMap: GoogleMap
+    private lateinit var googleMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,19 +37,37 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+    override fun onMapReady(readyGoogleMap: GoogleMap) {
+        googleMap = readyGoogleMap
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(
-            MarkerOptions()
-            .position(sydney)
-            .title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        // Add marker on map for every EventLocation associated with this Event
+        viewModel.event.value?.let { event ->
+            event.locations.forEach { eventLocation ->
+                val latLng = LatLng(eventLocation.latitude, eventLocation.longitude)
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .title(eventLocation.description)
+                )
+            }
+        }
+
+        val siebelLatLng = LatLng(40.1138356, -88.2249052)
+
+        val zoomLevel = 18f
+        val siebelCameraPosition: CameraPosition = CameraPosition.Builder()
+            .target(siebelLatLng)
+            .zoom(zoomLevel)
+            .build()
+
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(siebelCameraPosition))
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
         view.exit_button.setOnClickListener { activity?.onBackPressed() }
         view.favorites_button.setOnClickListener {
@@ -80,7 +99,8 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
     private fun updateFavoritedUI(isFavorited: Boolean?) {
         isFavorited?.let {
             exit_button.isSelected = isFavorited
-            val imageResource = if (isFavorited) R.drawable.ic_star_filled else R.drawable.ic_star_border
+            val imageResource =
+                if (isFavorited) R.drawable.ic_star_filled else R.drawable.ic_star_border
             favorites_button.setImageResource(imageResource)
         }
     }
