@@ -7,18 +7,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.viewmodel.EventInfoViewModel
 
-class EventInfoFragment : Fragment() {
+class EventInfoFragment : Fragment(), OnMapReadyCallback {
     private lateinit var viewModel: EventInfoViewModel
 
     private val FIFTEEN_MINUTES_IN_MS = 1000 * 60 * 15
     private lateinit var eventId: String
     private lateinit var eventName: String
+    private lateinit var mMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +36,27 @@ class EventInfoFragment : Fragment() {
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
 
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        // Add a marker in Sydney and move the camera
+        val sydney = LatLng(-34.0, 151.0)
+        mMap.addMarker(
+            MarkerOptions()
+            .position(sydney)
+            .title("Marker in Sydney"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
         view.exit_button.setOnClickListener { activity?.onBackPressed() }
         view.favorites_button.setOnClickListener {
             viewModel.changeFavoritedState()
         }
+        val mapFragment = childFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
         return view
     }
 

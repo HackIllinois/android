@@ -138,6 +138,13 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:text=" +10 pts" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
     <TextView
         android:id="@+id/event_description"
         android:layout_width="0dp"
