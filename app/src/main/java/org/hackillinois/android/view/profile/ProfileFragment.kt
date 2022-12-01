@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
         nameText = view.findViewById(R.id.nameText)
 
         pointsText = view.findViewById(R.id.pointsText)
-        discordText = view.findViewById(R.id.discordText)
+        discordText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
 
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
