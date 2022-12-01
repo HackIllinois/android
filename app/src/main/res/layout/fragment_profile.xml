@@ -42,64 +42,62 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="35dp"
         android:layout_marginTop="120dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginBottom="150dp"
         android:background="@drawable/profile_card_bg"
+        android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profileText"
-        android:elevation="3dp"
-        >
+        app:layout_constraintTop_toBottomOf="@id/profileText">
+
         <TextView
             android:id="@id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Raghav Saini"
-            android:fontFamily="@font/montserrat_bold"
-            android:textSize="20sp"
-            android:textColor="#1D2644"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="30dp"
-            />
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="#1D2644"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Raghav Saini" />
 
         <LinearLayout
             android:id="@+id/tierPointsLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nameText"
-            android:layout_marginTop="15dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameText">
 
             <TextView
                 android:id="@id/ptsText"
-                android:background="@drawable/rounded_white_bg"
-                android:maxLines="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="3dp"
-                android:paddingHorizontal="8dp"
-                android:gravity="center"
+                android:background="@drawable/rounded_white_bg"
                 android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
                 android:textColor="@color/textNavy"
                 android:textSize="12sp"
-                tools:text="1000 pts"
-                />
+                tools:text="1000 pts" />
 
             <TextView
                 android:id="@+id/tierText"
-                android:background="@drawable/rounded_white_bg"
-                android:maxLines="1"
-                android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:paddingVertical="3dp"
-                android:paddingHorizontal="8dp"
-                android:gravity="center"
+                android:background="@drawable/rounded_white_bg"
                 android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
                 android:textColor="@color/textNavy"
                 android:textSize="12sp"
                 tools:text="Corndog Tier" />
@@ -108,30 +106,34 @@
 
         <ImageView
             android:id="@+id/profileImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tierPointsLinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="50dp"
             android:layout_marginTop="25dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:scaleX="1"
-            android:scaleY="1"
+            android:layout_marginBottom="120dp"
+            android:scaleType="centerInside"
             android:src="@drawable/hack_10th_ticket"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tierPointsLinearLayout" />
 
         <TextView
             android:id="@+id/dietRestrictionsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:fontFamily="@font/montserrat_semi_bold"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:text="@string/diet_restrictions"
             android:textColor="@color/textNavy"
             android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/dietLinearLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+            app:layout_constraintTop_toBottomOf="@+id/profileImage"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <LinearLayout
             android:id="@+id/dietLinearLayout"
@@ -141,6 +143,7 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dietRestrictionsText">
 
@@ -149,44 +152,44 @@
                 android:id="@+id/vegetarianText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_teal_bg"
-                android:paddingVertical="3dp"
-                android:paddingHorizontal="8dp"
-                android:gravity="center"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_teal_bg"
                 android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:text="@string/vegetarian"
                 android:textColor="@color/textNavy"
-                android:textSize="12sp"
-                android:text="@string/vegetarian" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/dairyFreeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:background="@drawable/rounded_white_bg"
-                android:paddingVertical="3dp"
-                android:paddingHorizontal="8dp"
-                android:gravity="center"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_white_bg"
                 android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:text="@string/dairy_free"
                 android:textColor="@color/textNavy"
-                android:textSize="12sp"
-                android:text="@string/dairy_free" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/nutAllergyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_orange_yellow_bg"
-                android:paddingVertical="3dp"
-                android:paddingHorizontal="8dp"
-                android:gravity="center"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_orange_yellow_bg"
                 android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:text="@string/nut_allergy"
                 android:textColor="@color/textNavy"
-                android:textSize="12sp"
-                android:text="@string/nut_allergy" />
+                android:textSize="12sp" />
         </LinearLayout>
 
 
