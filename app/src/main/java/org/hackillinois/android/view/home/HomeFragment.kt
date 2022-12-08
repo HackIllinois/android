@@ -119,12 +119,12 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
 
     inner class HomeSectionsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int) = EventsSectionFragment.newInstance(position)
-        override fun getCount() = 3
+        override fun getCount() = 2
         override fun getPageTitle(position: Int) =
             when (position) {
                 0 -> "Ongoing"
                 1 -> "Upcoming"
-                2 -> "Async"
+//                2 -> "Async"
                 else -> "Ongoing"
             }
     }

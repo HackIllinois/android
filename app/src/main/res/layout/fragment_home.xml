@@ -8,23 +8,24 @@
     android:background="@drawable/home_bg">
 
     <!-- TODO: Either remove this TextView or change the text -->
-<!--    <TextView-->
-<!--        android:id="@+id/countdownTextView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="29dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:textSize="24sp"-->
-<!--        android:gravity="start"-->
-<!--        android:enabled="false"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:fontFamily="@font/montserrat_bold"-->
-<!--        android:textColor="@color/primaryTextColor"-->
-<!--        android:text="HACKILLINOIS BEGINS IN..."-->
-<!--        />-->
+    <TextView
+        android:id="@+id/countdownTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="30dp"
+        android:textSize="24sp"
+        android:gravity="start"
+        android:enabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/primaryTextColor"
+        android:text="HACKILLINOIS BEGINS IN..."
+        android:visibility="invisible"
+        />
 
     <ImageView
         android:id="@+id/chickenImageView"
