@@ -57,7 +57,7 @@ class ProfileFragment : Fragment() {
         profileImage = view.findViewById(R.id.profileImage)
         nameText = view.findViewById(R.id.nameText)
 
-        pointsText = view.findViewById(R.id.pointsText)
+        pointsText = view.findViewById(R.id.ptsText)
         discordText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
 
