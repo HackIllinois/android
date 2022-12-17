@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/montserrat_bold"
-            android:textColor="#1D2644"
+            android:textColor="@color/midnight"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
                 android:maxLines="1"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="3dp"
-                android:textColor="#1D2644"
+                android:textColor="@color/midnight"
                 android:textSize="12sp"
                 tools:text="1000 pts" />
 
@@ -98,7 +98,7 @@
                 android:maxLines="1"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="3dp"
-                android:textColor="#1D2644"
+                android:textColor="@color/midnight"
                 android:textSize="12sp"
                 tools:text="Corndog Tier" />
 
@@ -126,7 +126,7 @@
             android:layout_marginBottom="15dp"
             android:gravity="center"
             android:text="@string/diet_restrictions"
-            android:textColor="#1D2644"
+            android:textColor="@color/midnight"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/dietLinearLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +159,7 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="3dp"
                 android:text="@string/vegetarian"
-                android:textColor="#1D2644"
+                android:textColor="@color/midnight"
                 android:textSize="12sp" />
 
             <TextView
@@ -174,7 +174,7 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="3dp"
                 android:text="@string/dairy_free"
-                android:textColor="#1D2644"
+                android:textColor="@color/midnight"
                 android:textSize="12sp" />
 
             <TextView
@@ -188,7 +188,7 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="3dp"
                 android:text="@string/nut_allergy"
-                android:textColor="#1D2644"
+                android:textColor="@color/midnight"
                 android:textSize="12sp" />
         </LinearLayout>
 
