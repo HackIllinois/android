@@ -1,5 +1,7 @@
 package org.hackillinois.android.view.profile
 
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -24,11 +26,15 @@ import org.hackillinois.android.viewmodel.ProfileViewModel
 class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
-    private lateinit var profileImage: ImageView
+    private lateinit var ticketImage: ImageView
     private lateinit var nameText: TextView
     private lateinit var pointsText: TextView
     private lateinit var discordText: TextView
     private lateinit var tierText: TextView
+
+    lateinit var front_anim: AnimatorSet
+    lateinit var back_anim: AnimatorSet
+    var isFront = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,12 +60,14 @@ class ProfileFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        profileImage = view.findViewById(R.id.profileImage)
+        ticketImage = view.findViewById(R.id.ticket_front)
         nameText = view.findViewById(R.id.nameText)
 
         pointsText = view.findViewById(R.id.ptsText)
         discordText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
+
+
 
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
@@ -67,14 +75,39 @@ class ProfileFragment : Fragment() {
             mainActivity.logout()
         }
 
+        var scale = requireActivity().applicationContext.resources.displayMetrics.density
+        val front = view.findViewById<ImageView>(R.id.ticket_front)
+        val back = view.findViewById<ImageView>(R.id.ticket_back)
+        val flip = view.findViewById<Button>(R.id.flipButton)
+        front.cameraDistance = 8000 * scale
+        back.cameraDistance = 8000 * scale
+        front_anim = AnimatorInflater.loadAnimator(context, R.animator.front_animator) as AnimatorSet
+        back_anim = AnimatorInflater.loadAnimator(context, R.animator.back_animator) as AnimatorSet
+
+        flip.setOnClickListener{
+            if(isFront) {
+                front_anim.setTarget(front);
+                back_anim.setTarget(back);
+                front_anim.start()
+                back_anim.start()
+                isFront = false
+            }
+            else {
+                front_anim.setTarget(back)
+                back_anim.setTarget(front)
+                back_anim.start()
+                front_anim.start()
+                isFront = true
+            }
+        }
         return view
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         val currPoints = it.points
         discordText.text = it.discord
-        pointsText.text = currPoints.toString() + " pts"
-        nameText.text = it.firstName + " " + it.lastName
+        pointsText.text = "${currPoints.toString()} pts"
+        nameText.text = "${it.firstName} ${it.lastName}"
 
         /** set pfp programmatically based on threshold -- api call to
          * profile/tier/threshold/ returns
@@ -94,20 +127,20 @@ class ProfileFragment : Fragment() {
          *]
          */
 
-        try {
-            context?.let { it1 ->
-                Glide.with(it1)
-                    .load(it.avatarUrl)
-                    .apply(
-                        RequestOptions()
-                            .transform(CenterCrop(), RoundedCorners(16))
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    )
-                    .into(profileImage)
-            }
-        } catch (e: Exception) {
-            Log.e("Load profile image", e.toString())
-        }
+//        try {
+//            context?.let { it1 ->
+//                Glide.with(it1)
+//                    .load(it.avatarUrl)
+//                    .apply(
+//                        RequestOptions()
+//                            .transform(CenterCrop(), RoundedCorners(16))
+//                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    )
+//                    .into(ticketImage)
+//            }
+//        } catch (e: Exception) {
+//            Log.e("Load profile image", e.toString())
+//        }
         when {
             currPoints < 500 -> {
                 tierText.text = "Tier: Flour"
