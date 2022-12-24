@@ -7,7 +7,7 @@
         android:valueTo="0.0" />
 
     <objectAnimator
-        android:duration="1500"
+        android:duration="1200"
         android:propertyName="rotationY"
         android:repeatMode="reverse"
         android:valueFrom="-180"
@@ -16,7 +16,7 @@
     <objectAnimator
         android:duration="0"
         android:propertyName="alpha"
-        android:startOffset="750"
+        android:startOffset="600"
         android:valueFrom="0.0"
         android:valueTo="1.0" />
 </set>
