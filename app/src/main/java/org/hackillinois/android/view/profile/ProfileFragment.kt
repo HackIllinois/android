@@ -86,8 +86,8 @@ class ProfileFragment : Fragment() {
 
         flip.setOnClickListener{
             if(isFront) {
-                front_anim.setTarget(front);
-                back_anim.setTarget(back);
+                front_anim.setTarget(front)
+                back_anim.setTarget(back)
                 front_anim.start()
                 back_anim.start()
                 isFront = false

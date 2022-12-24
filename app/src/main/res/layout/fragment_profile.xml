@@ -12,7 +12,7 @@
         android:id="@+id/profileText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="34dp"
+        android:layout_marginHorizontal="35dp"
         android:layout_marginTop="30dp"
         android:textSize="24sp"
         android:gravity="start"
@@ -27,14 +27,11 @@
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="35dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/profileText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_logout"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toTopOf="@+id/profileText"
+        app:srcCompat="@drawable/ic_logout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/profileConstraintLayout"
@@ -101,6 +98,22 @@
                 android:textColor="@color/midnight"
                 android:textSize="12sp"
                 tools:text="Corndog Tier" />
+
+            <TextView
+                android:id="@+id/waveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_bg"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                tools:text="Wave 1" />
 
         </LinearLayout>
 
