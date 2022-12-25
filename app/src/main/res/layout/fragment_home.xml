@@ -5,12 +5,10 @@
     android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_bg">
-
-    <!-- TODO: Either remove this TextView or change the text -->
+    android:background="@drawable/home_background">
 
     <ImageView
-        android:id="@+id/chickenImageView"
+        android:id="@+id/countdownTextImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/countdown_text_banner"
@@ -24,8 +22,8 @@
         android:id="@+id/countdownTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:textSize="18sp"
         android:gravity="start"
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,12 +31,12 @@
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/lightTextColor"
-        android:text="HACKILLINOIS BEGINS IN..." />
+        android:text="HACKILLINOIS BEGINS IN" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/chickenConstraintLayout"
-        app:layout_constraintTop_toBottomOf="@id/chickenImageView"
+        app:layout_constraintTop_toBottomOf="@id/countdownTextImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="10dp"
@@ -62,16 +60,22 @@
                 android:orientation="vertical"
                 >
 
-                <TextView
+                <org.hackillinois.android.view.home.MagicTextView
                     android:id="@+id/daysValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
+                    android:textFontWeight="900"
                     android:gravity="center"
-                    android:text="00"
-                    android:textColor="@android:color/white"
-                    android:textSize="48sp"
-                    />
+                    android:text="10"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/white"
+                    app:innerShadowColor="#FCDC8F"
+                    app:innerShadowRadius="2dp"
+                    app:outerShadowColor="#FCDC8F"
+                    app:outerShadowRadius="10dp"
+                    android:textColor="@android:color/transparent"
+                    android:textSize="48sp" />
                 <TextView
                     android:id="@+id/daysLabel"
                     android:layout_width="match_parent"
