@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/unselectedAppBarIcon">
+    android:background="@color/cloudMist">
 
     <ImageButton
         android:id="@+id/favorites_button"
@@ -40,26 +40,12 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="#222B5C"
+        android:textColor="@color/midnight"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exit_button"
         tools:text="Event Name" />
-
-    <TextView
-        android:id="@+id/event_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/montserrat_regular"
-        android:textColor="#222B5C"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_name"
-        tools:text="Event Type" />
 
     <TextView
         android:id="@+id/event_sponsor"
@@ -69,11 +55,11 @@
         android:layout_marginTop="4dp"
         android:layout_weight="1"
         android:fontFamily="@font/montserrat_regular"
-        android:textColor="#222B5C"
+        android:textColor="@color/midnight"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_type"
-        tools:text="Sponsor" />
+        app:layout_constraintTop_toBottomOf="@+id/event_name"
+        tools:text="Event Sponsor" />
 
     <ImageView
         android:id="@+id/event_time_icon"
@@ -83,7 +69,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_sponsor" />
+        app:layout_constraintTop_toBottomOf="@+id/event_points" />
 
     <TextView
         android:id="@+id/event_time"
@@ -92,12 +78,39 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:layout_weight="1"
+        android:textFontWeight="600"
         android:fontFamily="@font/montserrat_regular"
-        android:textColor="#222B5C"
+        android:textColor="@color/midnight"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/event_time_icon"
-        app:layout_constraintTop_toBottomOf="@+id/event_sponsor"
+        app:layout_constraintTop_toBottomOf="@+id/event_points"
         tools:text="1:00pm - 2:00pm" />
+
+    <ImageView
+        android:id="@+id/location_icon"
+        android:layout_width="11dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_location"
+        app:layout_constraintEnd_toEndOf="@id/event_time_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_time_icon" />
+
+    <TextView
+        android:id="@+id/event_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:textFontWeight="600"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="@color/midnight"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/event_time_icon"
+        app:layout_constraintTop_toBottomOf="@+id/event_time"
+        tools:text="location" />
 
     <TextView
         android:id="@+id/event_points"
@@ -112,8 +125,9 @@
         android:background="@drawable/green_oval"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        app:layout_constraintStart_toEndOf="@+id/event_time"
-        app:layout_constraintBottom_toBottomOf="@+id/event_time"
+        app:layout_constraintStart_toEndOf="@+id/event_sponsor"
+        app:layout_constraintTop_toBottomOf="@id/event_name"
+        app:layout_constraintBottom_toBottomOf="@+id/event_sponsor"
         tools:text=" +10 pts" />
 
     <TextView
@@ -123,10 +137,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/montserrat_regular"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/midnight"
         app:layout_constraintEnd_toEndOf="@+id/favorites_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_time"
+        app:layout_constraintTop_toBottomOf="@+id/event_location"
         tools:text="@string/lorem_ipsum" />
 
 
