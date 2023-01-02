@@ -48,7 +48,7 @@
         tools:text="Event Name" />
 
     <TextView
-        android:id="@+id/event_sponsor"
+        android:id="@+id/event_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -59,7 +59,7 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_name"
-        tools:text="Event Sponsor" />
+        tools:text="@string/event_type" />
 
     <ImageView
         android:id="@+id/event_time_icon"
@@ -125,9 +125,9 @@
         android:background="@drawable/green_oval"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        app:layout_constraintStart_toEndOf="@+id/event_sponsor"
+        app:layout_constraintStart_toEndOf="@+id/event_type"
         app:layout_constraintTop_toBottomOf="@id/event_name"
-        app:layout_constraintBottom_toBottomOf="@+id/event_sponsor"
+        app:layout_constraintBottom_toBottomOf="@+id/event_type"
         tools:text=" +10 pts" />
 
     <TextView
