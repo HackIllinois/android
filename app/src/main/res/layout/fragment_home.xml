@@ -10,7 +10,7 @@
     <!-- TODO: Either remove this TextView or change the text -->
 
     <ImageView
-        android:id="@+id/chickenImageView"
+        android:id="@+id/countdownBannerImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/countdown_text_banner"
@@ -34,11 +34,12 @@
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/lightTextColor"
         android:text="HACKILLINOIS BEGINS IN..." />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/chickenConstraintLayout"
-        app:layout_constraintTop_toBottomOf="@id/chickenImageView"
+        android:id="@+id/countdownConstraintLayout"
+        app:layout_constraintTop_toBottomOf="@id/countdownBannerImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="10dp"
@@ -161,8 +162,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@+id/chickenConstraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/countdownConstraintLayout"
         app:tabIndicatorHeight="5dp"
+        app:tabIndicatorFullWidth="false"
         app:tabTextAppearance="@style/HomeTabTextAppearance"
         app:tabIndicatorColor="@color/lightTextColor"
         app:tabIndicator="@drawable/tab_indicator"
