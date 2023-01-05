@@ -4,7 +4,7 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
+//import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +12,11 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
+//import com.bumptech.glide.Glide
+//import com.bumptech.glide.load.engine.DiskCacheStrategy
+//import com.bumptech.glide.load.resource.bitmap.CenterCrop
+//import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+//import com.bumptech.glide.request.RequestOptions
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
@@ -47,7 +47,11 @@ class ProfileFragment : Fragment() {
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
@@ -68,7 +72,6 @@ class ProfileFragment : Fragment() {
         tierText = view.findViewById(R.id.tierText)
 
 
-
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
             val mainActivity: MainActivity = requireActivity() as MainActivity
@@ -81,18 +84,18 @@ class ProfileFragment : Fragment() {
         val flip = view.findViewById<Button>(R.id.flipButton)
         front.cameraDistance = 8000 * scale
         back.cameraDistance = 8000 * scale
-        front_anim = AnimatorInflater.loadAnimator(context, R.animator.front_animator) as AnimatorSet
+        front_anim =
+            AnimatorInflater.loadAnimator(context, R.animator.front_animator) as AnimatorSet
         back_anim = AnimatorInflater.loadAnimator(context, R.animator.back_animator) as AnimatorSet
 
-        flip.setOnClickListener{
-            if(isFront) {
+        flip.setOnClickListener {
+            if (isFront) {
                 front_anim.setTarget(front)
                 back_anim.setTarget(back)
                 front_anim.start()
                 back_anim.start()
                 isFront = false
-            }
-            else {
+            } else {
                 front_anim.setTarget(back)
                 back_anim.setTarget(front)
                 back_anim.start()
@@ -106,7 +109,7 @@ class ProfileFragment : Fragment() {
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         val currPoints = it.points
         discordText.text = it.discord
-        pointsText.text = "${currPoints.toString()} pts"
+        pointsText.text = "${currPoints} pts"
         nameText.text = "${it.firstName} ${it.lastName}"
 
         /** set pfp programmatically based on threshold -- api call to
