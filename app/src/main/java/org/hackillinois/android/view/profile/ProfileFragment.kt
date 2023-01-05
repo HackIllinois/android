@@ -4,7 +4,7 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.content.Context
 import android.os.Bundle
-//import android.util.Log
+// import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +12,11 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-//import com.bumptech.glide.Glide
-//import com.bumptech.glide.load.engine.DiskCacheStrategy
-//import com.bumptech.glide.load.resource.bitmap.CenterCrop
-//import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-//import com.bumptech.glide.request.RequestOptions
+// import com.bumptech.glide.Glide
+// import com.bumptech.glide.load.engine.DiskCacheStrategy
+// import com.bumptech.glide.load.resource.bitmap.CenterCrop
+// import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+// import com.bumptech.glide.request.RequestOptions
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
@@ -70,8 +70,7 @@ class ProfileFragment : Fragment() {
         pointsText = view.findViewById(R.id.ptsText)
         discordText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
-
-
+        
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
             val mainActivity: MainActivity = requireActivity() as MainActivity
@@ -109,7 +108,7 @@ class ProfileFragment : Fragment() {
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         val currPoints = it.points
         discordText.text = it.discord
-        pointsText.text = "${currPoints} pts"
+        pointsText.text = "$currPoints pts"
         nameText.text = "${it.firstName} ${it.lastName}"
 
         /** set pfp programmatically based on threshold -- api call to
