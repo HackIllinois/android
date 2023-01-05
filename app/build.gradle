@@ -12,9 +12,14 @@ if (isRunningOnTravis) {
     apply plugin: 'com.github.triplet.play'
 }
 
+def localPropertiesFile = rootProject.file("local.properties")
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(localPropertiesFile))
+
 android {
     compileSdkVersion 31
     defaultConfig {
+        buildConfigField "String", "API_KEY", localProperties['apiKey']
         applicationId "org.hackillinois.android"
         minSdkVersion 23
         targetSdkVersion 31
