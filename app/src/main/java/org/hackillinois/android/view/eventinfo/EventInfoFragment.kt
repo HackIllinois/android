@@ -46,6 +46,12 @@ class EventInfoFragment : Fragment() {
 //            event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
             event_time.text = if (it.isAsync) "Asynchronous event" else "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
             event_description.text = it.description
+            if (it.eventType == "QNA") {
+                event_type.text = "Q&A"
+            } else {
+                val eventTypeString = it.eventType.lowercase()
+                event_type.text = eventTypeString.replaceFirst(eventTypeString.first(), eventTypeString.first().uppercaseChar())
+            }
         }
     }
 

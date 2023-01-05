@@ -12,11 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:background="@android:color/transparent"
-        android:gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/event_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.075"
+        app:layout_constraintTop_toTopOf="@id/event_name"
         app:srcCompat="@drawable/star_button_hollow" />
 
     <ImageButton
@@ -52,13 +50,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:fontFamily="@font/montserrat_regular"
         android:textColor="@color/midnight"
-        android:textSize="18sp"
+        android:textSize="14sp"
+        android:background="@drawable/green_oval"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_name"
+        app:layout_constraintRight_toLeftOf="@id/event_points"
         tools:text="@string/event_type" />
 
     <ImageView
@@ -67,7 +70,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_clock"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_points" />
 
@@ -75,8 +78,8 @@
         android:id="@+id/event_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:textFontWeight="600"
         android:fontFamily="@font/montserrat_regular"
@@ -88,10 +91,10 @@
 
     <ImageView
         android:id="@+id/location_icon"
-        android:layout_width="11dp"
+        android:layout_width="10dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="11dp"
         android:src="@drawable/ic_location"
         app:layout_constraintEnd_toEndOf="@id/event_time_icon"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,13 +104,13 @@
         android:id="@+id/event_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:textFontWeight="600"
         android:fontFamily="@font/montserrat_regular"
         android:textColor="@color/midnight"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/event_time_icon"
         app:layout_constraintTop_toBottomOf="@+id/event_time"
         tools:text="location" />
@@ -117,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:fontFamily="@font/montserrat_regular"
         android:textColor="#222B5C"
@@ -128,6 +131,7 @@
         app:layout_constraintStart_toEndOf="@+id/event_type"
         app:layout_constraintTop_toBottomOf="@id/event_name"
         app:layout_constraintBottom_toBottomOf="@+id/event_type"
+        app:layout_constraintRight_toRightOf="parent"
         tools:text=" +10 pts" />
 
     <TextView
