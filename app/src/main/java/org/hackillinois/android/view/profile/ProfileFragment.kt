@@ -70,7 +70,6 @@ class ProfileFragment : Fragment() {
         pointsText = view.findViewById(R.id.ptsText)
         discordText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
-        
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
             val mainActivity: MainActivity = requireActivity() as MainActivity
