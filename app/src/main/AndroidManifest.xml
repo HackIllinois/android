@@ -71,7 +71,7 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
+hi
         <service
             android:name=".notifications.FirebaseNotificationMessagingService"
             android:exported="true"

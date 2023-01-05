@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.leaderboard.LeaderboardFragment"
-    android:background="@drawable/home_bg" >
+    android:background="@drawable/ferris_wheel_bg" >
 
     <TextView
         android:id="@+id/title_textview_leaderboard"
@@ -19,9 +19,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="@color/primaryTextColor"
-        android:text="Leaderboard"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/white"
+        android:text="LEADERBOARD"
  />
 
 

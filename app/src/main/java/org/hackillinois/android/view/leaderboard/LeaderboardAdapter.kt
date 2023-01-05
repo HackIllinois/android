@@ -40,13 +40,13 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
             pointsTextView.text = item.points.toString()
 
             if (position == 1) {
-                leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_top_bg)
+                leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_2023_top_bg)
             } else if (position == 10) {
-                leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_bottom_bg)
+                leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_2023_bottom_bg)
             } else if (position % 2 == 1) {
-                leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.leaderboardLight))
+                leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.cloudMist))
             } else {
-                leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.leaderboardDark))
+                leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.cloudMist))
             }
         }
     }
