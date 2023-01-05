@@ -18,3 +18,4 @@ google-services.json
 .idea/caches
 hackillinois.keystore
 service-account-key.p12
+AndroidManifest.xml
