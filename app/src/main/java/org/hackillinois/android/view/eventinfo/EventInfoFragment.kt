@@ -41,7 +41,7 @@ class EventInfoFragment : Fragment() {
     private fun updateEventUI(event: Event?) {
         event?.let {
             event_name.text = it.name
-            event_points.text = "${it.points} Points!"
+            event_points.text = "+ ${it.points} pts"
 //            event_sponsor.text = "Sponsored by ${it.sponsor}"
 //            event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
             event_time.text = if (it.isAsync) "Asynchronous event" else "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
