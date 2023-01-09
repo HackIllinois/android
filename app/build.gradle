@@ -19,7 +19,7 @@ localProperties.load(new FileInputStream(localPropertiesFile))
 android {
     compileSdkVersion 31
     defaultConfig {
-        buildConfigField "String", "API_KEY", localProperties['apiKey']
+        buildConfigField "String", "API_KEY", "\"localProperties.getProperty('apiKey')\""
         applicationId "org.hackillinois.android"
         minSdkVersion 23
         targetSdkVersion 31
