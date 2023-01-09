@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_leaderboard.view.*
@@ -94,6 +93,6 @@ class LeaderboardFragment : Fragment() {
     }
 }
 
-//var itemDecoration = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
-//itemDecoration.setDrawable(getDrawable(this.context, R.drawable.leaderboard_divider)!!)
-//addItemDecoration(itemDecoration)
+// var itemDecoration = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
+// itemDecoration.setDrawable(getDrawable(this.context, R.drawable.leaderboard_divider)!!)
+// addItemDecoration(itemDecoration)
