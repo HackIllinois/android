@@ -37,7 +37,8 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
         itemView.apply {
             rankTextView.text = position.toString()
             discordTextView.text = item.discord
-            pointsTextView.text = item.points.toString()
+            val pointNum = item.points
+            pointsTextView.text = resources.getQuantityString(R.plurals.leaderboard_points_view, pointNum, pointNum)
 
             if (position == 1) {
                 leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_2023_top_bg)
