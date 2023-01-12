@@ -23,7 +23,7 @@
     <style name="HomeTabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
     <style name="WrapContentDialog" parent="Theme.MaterialComponents.Light.Dialog">
