@@ -4,6 +4,7 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 // import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,7 @@ class ProfileFragment : Fragment() {
     private lateinit var ticketImage: ImageView
     private lateinit var nameText: TextView
     private lateinit var pointsText: TextView
-    private lateinit var discordText: TextView
+//    private lateinit var discordText: TextView
     private lateinit var tierText: TextView
 
     lateinit var front_anim: AnimatorSet
@@ -68,7 +69,7 @@ class ProfileFragment : Fragment() {
         nameText = view.findViewById(R.id.nameText)
 
         pointsText = view.findViewById(R.id.ptsText)
-        discordText = view.findViewById(R.id.ptsText)
+//        discordText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
@@ -79,14 +80,15 @@ class ProfileFragment : Fragment() {
         var scale = requireActivity().applicationContext.resources.displayMetrics.density
         val front = view.findViewById<ImageView>(R.id.ticket_front)
         val back = view.findViewById<ImageView>(R.id.ticket_back)
-        val flip = view.findViewById<Button>(R.id.flipButton)
+        val flipButton = view.findViewById<Button>(R.id.flipButton)
         front.cameraDistance = 8000 * scale
         back.cameraDistance = 8000 * scale
         front_anim =
             AnimatorInflater.loadAnimator(context, R.animator.front_animator) as AnimatorSet
         back_anim = AnimatorInflater.loadAnimator(context, R.animator.back_animator) as AnimatorSet
 
-        flip.setOnClickListener {
+        flipButton.setOnClickListener {
+            flipButton.setClickable(false)
             if (isFront) {
                 front_anim.setTarget(front)
                 back_anim.setTarget(back)
@@ -100,13 +102,16 @@ class ProfileFragment : Fragment() {
                 front_anim.start()
                 isFront = true
             }
+            Handler().postDelayed({
+                flipButton.setClickable(true)
+            }, 1200)
         }
         return view
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         val currPoints = it.points
-        discordText.text = it.discord
+//        discordText.text = it.discord
         pointsText.text = "$currPoints pts"
         nameText.text = "${it.firstName} ${it.lastName}"
 
