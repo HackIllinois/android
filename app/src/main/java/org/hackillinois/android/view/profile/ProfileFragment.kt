@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +37,8 @@ class ProfileFragment : Fragment() {
 
     lateinit var front_anim: AnimatorSet
     lateinit var back_anim: AnimatorSet
+    lateinit var qr_front_anim: AnimatorSet
+    lateinit var qr_back_anim: AnimatorSet
     var isFront = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +69,7 @@ class ProfileFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        ticketImage = view.findViewById(R.id.ticket_front)
+//        ticketImage = view.findViewById(R.id.ticket_front)
         nameText = view.findViewById(R.id.nameText)
 
         pointsText = view.findViewById(R.id.ptsText)
@@ -79,7 +82,7 @@ class ProfileFragment : Fragment() {
         }
 
         var scale = requireActivity().applicationContext.resources.displayMetrics.density
-        val front = view.findViewById<ImageView>(R.id.ticket_front)
+        val front = view.findViewById<ConstraintLayout>(R.id.ticket_front)
         val back = view.findViewById<ImageView>(R.id.ticket_back)
         val flipButton = view.findViewById<Button>(R.id.flipButton)
         front.cameraDistance = 8000 * scale
