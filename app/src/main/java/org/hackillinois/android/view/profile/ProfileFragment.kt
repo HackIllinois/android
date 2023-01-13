@@ -30,7 +30,8 @@ class ProfileFragment : Fragment() {
     private lateinit var ticketImage: ImageView
     private lateinit var nameText: TextView
     private lateinit var pointsText: TextView
-//    private lateinit var discordText: TextView
+
+    //    private lateinit var discordText: TextView
     private lateinit var tierText: TextView
 
     lateinit var front_anim: AnimatorSet
@@ -102,9 +103,7 @@ class ProfileFragment : Fragment() {
                 front_anim.start()
                 isFront = true
             }
-            Handler().postDelayed({
-                flipButton.setClickable(true)
-            }, 1200)
+            Handler().postDelayed({ flipButton.setClickable(true) }, 1200)
         }
         return view
     }
