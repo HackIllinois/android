@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/ticket_blank" />
 
     <ImageView
-        android:id="@+id/qrCode"
+        android:id="@+id/qrCodeImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:srcCompat="@drawable/qr_code"

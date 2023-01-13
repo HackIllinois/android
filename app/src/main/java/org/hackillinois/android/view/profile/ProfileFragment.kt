@@ -3,6 +3,7 @@ package org.hackillinois.android.view.profile
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.content.Context
+import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 // import android.util.Log
@@ -31,14 +32,12 @@ class ProfileFragment : Fragment() {
     private lateinit var ticketImage: ImageView
     private lateinit var nameText: TextView
     private lateinit var pointsText: TextView
+    private lateinit var qrCodeImage: ImageView
 
-    //    private lateinit var discordText: TextView
     private lateinit var tierText: TextView
 
     lateinit var front_anim: AnimatorSet
     lateinit var back_anim: AnimatorSet
-    lateinit var qr_front_anim: AnimatorSet
-    lateinit var qr_back_anim: AnimatorSet
     var isFront = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,28 +68,28 @@ class ProfileFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-//        ticketImage = view.findViewById(R.id.ticket_front)
         nameText = view.findViewById(R.id.nameText)
-
         pointsText = view.findViewById(R.id.ptsText)
-//        discordText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
+        qrCodeImage = view.findViewById(R.id.qrCodeImage)
+
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
             val mainActivity: MainActivity = requireActivity() as MainActivity
             mainActivity.logout()
         }
 
+        // flip animation
         var scale = requireActivity().applicationContext.resources.displayMetrics.density
         val front = view.findViewById<ConstraintLayout>(R.id.ticket_front)
         val back = view.findViewById<ImageView>(R.id.ticket_back)
-        val flipButton = view.findViewById<Button>(R.id.flipButton)
         front.cameraDistance = 8000 * scale
         back.cameraDistance = 8000 * scale
         front_anim =
             AnimatorInflater.loadAnimator(context, R.animator.front_animator) as AnimatorSet
         back_anim = AnimatorInflater.loadAnimator(context, R.animator.back_animator) as AnimatorSet
 
+        val flipButton = view.findViewById<Button>(R.id.flipButton)
         flipButton.setOnClickListener {
             flipButton.setClickable(false)
             if (isFront) {
@@ -113,9 +112,11 @@ class ProfileFragment : Fragment() {
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         val currPoints = it.points
-//        discordText.text = it.discord
         pointsText.text = "$currPoints pts"
         nameText.text = "${it.firstName} ${it.lastName}"
+
+
+        // set qrCodeImage
 
         /** set pfp programmatically based on threshold -- api call to
          * profile/tier/threshold/ returns
