@@ -115,8 +115,8 @@ class ProfileFragment : Fragment() {
         pointsText.text = "$currPoints pts"
         nameText.text = "${it.firstName} ${it.lastName}"
 
-
         // set qrCodeImage
+//        user = userRepository.fetch()
 
         /** set pfp programmatically based on threshold -- api call to
          * profile/tier/threshold/ returns
