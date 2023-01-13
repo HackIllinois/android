@@ -11,14 +11,14 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
         android:layout_marginBottom="0dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/home_bg"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/profileText"
@@ -26,14 +26,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="35dp"
         android:layout_marginTop="30dp"
-        android:textSize="24sp"
+        android:fontFamily="@font/montserrat_bold"
         android:gravity="start"
+        android:text="@string/profile"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/montserrat_bold"
-        android:textColor="@color/white"
-        android:text="@string/profile" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/logoutButton"
@@ -70,13 +70,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Raghav Saini" />
+            tools:text="Alice Smith" />
 
         <LinearLayout
             android:id="@+id/tierPointsLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nameText">
@@ -131,11 +131,12 @@
 
         <ImageView
             android:id="@+id/ticket_back"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="110dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="100dp"
+            android:adjustViewBounds="true"
             android:scaleType="centerInside"
             android:src="@drawable/ticket_hack_10th"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -152,9 +153,9 @@
             app:layout_constraintTop_toTopOf="@+id/ticket_back">
 
             <include
+                layout="@layout/ticket_front"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/ticket_front" />
+                android:layout_height="wrap_content" />
 
         </FrameLayout>
 
@@ -162,36 +163,35 @@
             android:id="@+id/flipButton"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="20dp"
             android:background="#00FFFFFF"
-            app:layout_constraintTop_toTopOf="@+id/ticket_back"
             app:layout_constraintBottom_toBottomOf="@+id/ticket_back"
             app:layout_constraintEnd_toEndOf="@+id/ticket_back"
-            app:layout_constraintStart_toStartOf="@+id/ticket_back" />
+            app:layout_constraintStart_toStartOf="@+id/ticket_back"
+            app:layout_constraintTop_toTopOf="@+id/ticket_back" />
 
         <TextView
             android:id="@+id/dietRestrictionsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_semi_bold"
             android:layout_marginBottom="15dp"
+            android:fontFamily="@font/montserrat_semi_bold"
             android:gravity="center"
             android:text="@string/diet_restrictions"
             android:textColor="@color/midnight"
             android:textSize="16sp"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/dietLinearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ticket_back"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:visibility="visible" />
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <LinearLayout
             android:id="@+id/dietLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
