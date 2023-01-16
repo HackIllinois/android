@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.eventinfo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,9 +25,9 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
     private lateinit var viewModel: EventInfoViewModel
 
     private val FIFTEEN_MINUTES_IN_MS = 1000 * 60 * 15
+    private val siebelLatLng = LatLng(40.1138356, -88.2249052)
     private lateinit var eventId: String
     private lateinit var eventName: String
-    private lateinit var googleMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +38,7 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
 
-    override fun onMapReady(readyGoogleMap: GoogleMap) {
-        googleMap = readyGoogleMap
-
+    override fun onMapReady(googleMap: GoogleMap) {
         // Add marker on map for every EventLocation associated with this Event
         viewModel.event.value?.let { event ->
             event.locations.forEach { eventLocation ->
@@ -52,17 +51,22 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
-        val siebelLatLng = LatLng(40.1138356, -88.2249052)
-
-        val zoomLevel = 18f
-        val siebelCameraPosition: CameraPosition = CameraPosition.Builder()
-            .target(siebelLatLng)
+        // Set starting camera position to the first event location if it exists or Seibel
+        // otherwise
+        val firstEventLocation = viewModel.event.value?.locations?.first()
+        val initialLatLng = if (firstEventLocation != null)
+                                LatLng(firstEventLocation.latitude, firstEventLocation.longitude)
+                            else
+                                siebelLatLng
+        val zoomLevel = 18.3f
+        val initialCameraPosition: CameraPosition = CameraPosition.Builder()
+            .target(initialLatLng)
             .zoom(zoomLevel)
             .build()
 
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(siebelCameraPosition))
-
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(initialCameraPosition))
         googleMap.setMinZoomPreference(15f)
+        googleMap.setIndoorEnabled(true)
     }
 
     override fun onCreateView(
