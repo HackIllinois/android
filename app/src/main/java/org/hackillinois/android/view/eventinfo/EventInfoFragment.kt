@@ -61,6 +61,8 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
             .build()
 
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(siebelCameraPosition))
+
+        googleMap.setMinZoomPreference(15f)
     }
 
     override fun onCreateView(
