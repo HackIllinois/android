@@ -15,6 +15,7 @@ if (isRunningOnTravis) {
 android {
     compileSdkVersion 31
     defaultConfig {
+        buildConfigField "String", "API_KEY", "\"localProperties.getProperty('apiKey')\""
         applicationId "org.hackillinois.android"
         minSdkVersion 23
         targetSdkVersion 31
