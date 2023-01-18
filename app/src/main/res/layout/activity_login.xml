@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/login_logo_with_text" />
+        app:srcCompat="@drawable/login_logo_with_text_2023" />
 
     <TextView
         android:id="@+id/loginLabel"
