@@ -6,159 +6,248 @@
     android:id="@+id/profilePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_bg">
+    android:background="@color/nightBlue">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/home_bg"/>
 
     <TextView
         android:id="@+id/profileText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginHorizontal="35dp"
         android:layout_marginTop="30dp"
         android:textSize="24sp"
         android:gravity="start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="@color/primaryTextColor"
-        android:text="Profile" />
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/white"
+        android:text="@string/profile" />
 
     <ImageButton
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="35dp"
         android:background="@android:color/transparent"
-        app:layout_constraintStart_toEndOf="@id/profileText"
-        app:srcCompat="@drawable/ic_logout"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="30dp"
-        />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profileText"
+        app:srcCompat="@drawable/ic_logout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/profileConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="30dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="125dp"
         android:background="@drawable/profile_card_bg"
+        android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profileText"
-        android:elevation="3dp"
-        >
+        app:layout_constraintTop_toBottomOf="@id/profileText">
+
         <TextView
             android:id="@id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Raghav Saini"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:textSize="24sp"
-            android:textColor="@color/primaryTextColor"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/midnight"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="30dp"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Raghav Saini" />
 
         <LinearLayout
-            android:id="@+id/discordLinearLayout"
+            android:id="@+id/tierPointsLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nameText"
-            android:layout_marginTop="10dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameText">
 
-            <ImageView
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_discord"/>
             <TextView
-                android:id="@id/discordText"
+                android:id="@id/ptsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_medium"
-                android:textSize="16sp"
+                android:background="@drawable/rounded_white_bg"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                tools:text="1000 pts" />
+
+            <TextView
+                android:id="@+id/tierText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="placeholder#1234"
-                />
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_bg"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                tools:text="Corndog Tier" />
+
+            <TextView
+                android:id="@+id/waveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_bg"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                tools:text="Wave 1" />
 
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/discordLinearLayout"
-            android:layout_marginTop="70dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:src="@drawable/cupcake_pfp"
-            />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profileImage"
+            android:id="@+id/ticket_back"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="110dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ticket_hack_10th"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginLeft="90dp"
-            android:layout_marginRight="90dp"
-            app:cardBackgroundColor="#F6F4D4"
-            app:cardCornerRadius="15dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tierPointsLinearLayout" />
+
+        <ImageView
+            android:id="@+id/ticket_front"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="110dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ticket_blank"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tierPointsLinearLayout" />
+
+        <Button
+            android:id="@+id/flipButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="70dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="110dp"
+            android:background="#00FFFFFF"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tierPointsLinearLayout" />
+
+        <TextView
+            android:id="@+id/dietRestrictionsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:text="@string/diet_restrictions"
+            android:textColor="@color/midnight"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/dietLinearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ticket_front"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/dietLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dietRestrictionsText">
+
+            <TextView
+                android:id="@+id/vegetarianText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profileImage"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id="@+id/tierText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tier: Cupcake"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="18sp"
-                    android:layout_gravity="center"
-                    />
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_teal_bg"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:text="@string/vegetarian"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                android:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/pointsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1000 pts"
-                    android:fontFamily="@font/montserrat_semi_bold"
-                    android:textColor="@color/primaryTextColor"
-                    android:textSize="24sp"
-                    android:layout_gravity="center"
-                    />
+            <TextView
+                android:id="@+id/dairyFreeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_bg"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:text="@string/dairy_free"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                android:visibility="visible" />
 
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
+            <TextView
+                android:id="@+id/nutAllergyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_orange_yellow_bg"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:text="@string/nut_allergy"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                android:visibility="visible" />
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
