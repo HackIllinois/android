@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.eventinfo
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,9 +54,9 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         // otherwise
         val firstEventLocation = viewModel.event.value?.locations?.first()
         val initialLatLng = if (firstEventLocation != null)
-                                LatLng(firstEventLocation.latitude, firstEventLocation.longitude)
-                            else
-                                siebelLatLng
+            LatLng(firstEventLocation.latitude, firstEventLocation.longitude)
+        else
+            siebelLatLng
         val zoomLevel = 18.3f
         val initialCameraPosition: CameraPosition = CameraPosition.Builder()
             .target(initialLatLng)
