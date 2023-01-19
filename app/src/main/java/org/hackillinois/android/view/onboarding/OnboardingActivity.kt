@@ -13,7 +13,7 @@ import org.hackillinois.android.view.LoginActivity
 class OnboardingActivity : FragmentActivity() {
 
     private val images = listOf(
-        R.drawable.login_logo_with_text,
+        R.drawable.login_logo_with_text_2023,
         R.drawable.countdown,
         R.drawable.schedule,
         R.drawable.scan,
