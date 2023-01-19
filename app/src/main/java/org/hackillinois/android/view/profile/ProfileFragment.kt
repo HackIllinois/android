@@ -3,6 +3,8 @@ package org.hackillinois.android.view.profile
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 // import android.util.Log
@@ -10,9 +12,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
 // import com.bumptech.glide.Glide
 // import com.bumptech.glide.load.engine.DiskCacheStrategy
 // import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -21,17 +28,18 @@ import androidx.lifecycle.ViewModelProvider
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
+import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.viewmodel.ProfileViewModel
+import java.util.*
 
 class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
-    private lateinit var ticketImage: ImageView
     private lateinit var nameText: TextView
     private lateinit var pointsText: TextView
+    private lateinit var qrCodeImage: ImageView
 
-    //    private lateinit var discordText: TextView
     private lateinit var tierText: TextView
 
     lateinit var front_anim: AnimatorSet
@@ -47,6 +55,7 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
+        viewModel.qr.observe(this, Observer { updateQrView(it) })
     }
 
     override fun onCreateView(
@@ -66,28 +75,28 @@ class ProfileFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        ticketImage = view.findViewById(R.id.ticket_front)
         nameText = view.findViewById(R.id.nameText)
-
         pointsText = view.findViewById(R.id.ptsText)
-//        discordText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
+        qrCodeImage = view.findViewById(R.id.qrCodeImage)
+
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
             val mainActivity: MainActivity = requireActivity() as MainActivity
             mainActivity.logout()
         }
 
+        // flip animation
         var scale = requireActivity().applicationContext.resources.displayMetrics.density
-        val front = view.findViewById<ImageView>(R.id.ticket_front)
+        val front = view.findViewById<ConstraintLayout>(R.id.ticket_front)
         val back = view.findViewById<ImageView>(R.id.ticket_back)
-        val flipButton = view.findViewById<Button>(R.id.flipButton)
         front.cameraDistance = 8000 * scale
         back.cameraDistance = 8000 * scale
         front_anim =
             AnimatorInflater.loadAnimator(context, R.animator.front_animator) as AnimatorSet
         back_anim = AnimatorInflater.loadAnimator(context, R.animator.back_animator) as AnimatorSet
 
+        val flipButton = view.findViewById<Button>(R.id.flipButton)
         flipButton.setOnClickListener {
             flipButton.setClickable(false)
             if (isFront) {
@@ -110,7 +119,6 @@ class ProfileFragment : Fragment() {
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         val currPoints = it.points
-//        discordText.text = it.discord
         pointsText.text = "$currPoints pts"
         nameText.text = "${it.firstName} ${it.lastName}"
 
@@ -157,6 +165,39 @@ class ProfileFragment : Fragment() {
                 tierText.text = "Tier: Cake"
             }
         }
+    }
+
+    private fun updateQrView(qr: QR?) = qr?.let { it ->
+        val text = qr.qrInfo
+        val bitmap = generateQR(text)
+        qrCodeImage?.setImageBitmap(bitmap)
+    }
+
+    private fun generateQR(text: String): Bitmap {
+        val width = qrCodeImage.width
+        val height = qrCodeImage.height
+        val pixels = IntArray(width * height)
+
+        val multiFormatWriter = MultiFormatWriter()
+        val hints = EnumMap<EncodeHintType, Any>(EncodeHintType::class.java)
+        hints[EncodeHintType.MARGIN] = 0
+
+        try {
+            val bitMatrix =
+                multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints)
+
+            val clear = Color.TRANSPARENT
+            val solid = Color.WHITE
+
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    pixels[y * width + x] = if (bitMatrix.get(x, y)) solid else clear
+                }
+            }
+        } catch (e: WriterException) {
+            e.printStackTrace()
+        }
+        return Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
     }
 
     private fun hasLoggedIn(): Boolean {
