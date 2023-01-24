@@ -14,11 +14,11 @@ class OnboardingActivity : FragmentActivity() {
 
     private val images = listOf(
         R.drawable.login_logo_with_text_2023,
-        R.drawable.countdown,
-        R.drawable.schedule,
-        R.drawable.scan,
-        R.drawable.profile,
-        R.drawable.leaderboard,
+        R.drawable.countdown_2023,
+        R.drawable.schedule_2023,
+        R.drawable.scan_2023,
+        R.drawable.profile_2023,
+        R.drawable.leaderboard_2023,
     )
 
     private val titles = listOf(
