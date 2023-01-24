@@ -1,10 +1,15 @@
 package org.hackillinois.android.view.leaderboard
 
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -46,6 +51,7 @@ class LeaderboardFragment : Fragment() {
             mLayoutManager = LinearLayoutManager(context)
             this.layoutManager = mLayoutManager
             this.adapter = mAdapter
+            addItemDecorationWithoutLastItem()
         }
 
         viewModel.leaderboardLiveData.observe(
@@ -57,8 +63,36 @@ class LeaderboardFragment : Fragment() {
         return view
     }
 
+    class DividerItemDecorator(context: Context) : RecyclerView.ItemDecoration() {
+        private val mDivider: Drawable = ContextCompat.getDrawable(context, R.drawable.leaderboard_divider)!!
+        override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+            val dividerLeft = parent.paddingLeft
+            val dividerRight = parent.width - parent.paddingRight
+            val childCount = parent.childCount // how many items recyclerview has
+            for (i in 0..childCount - 2) { // minus 2 to account for zero index and skip last item
+                val child = parent.getChildAt(i)
+                val params = child.layoutParams as RecyclerView.LayoutParams
+                val dividerTop = child.bottom + params.bottomMargin
+                val dividerBottom = dividerTop + mDivider.intrinsicHeight
+                mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
+                mDivider.draw(canvas)
+            }
+        }
+    }
+    fun RecyclerView.addItemDecorationWithoutLastItem() {
+
+        if (layoutManager !is LinearLayoutManager)
+            return
+
+        addItemDecoration(DividerItemDecorator(context))
+    }
+
     private fun updateLeaderboard(newLeaderboard: List<Leaderboard>) {
         mAdapter.updateLeaderboard(newLeaderboard)
         Log.d("UPDATE LEADERBOARD", leaderboard.toString())
     }
 }
+
+// var itemDecoration = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
+// itemDecoration.setDrawable(getDrawable(this.context, R.drawable.leaderboard_divider)!!)
+// addItemDecoration(itemDecoration)
