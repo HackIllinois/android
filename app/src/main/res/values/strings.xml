@@ -191,6 +191,7 @@
 
     <string name="onboarding_leaderboard_title">Leaderboard</string>
     <string name="onboarding_leaderboard_description">See who is leading HackIllinois 2022 in points earned!</string>
+    <string name="preparing_for_the_day">Preparing For the Day...</string>
     <plurals name="leaderboard_points_view">
         <item quantity="one">%d pt</item>
         <item quantity="other">%d pts</item>
