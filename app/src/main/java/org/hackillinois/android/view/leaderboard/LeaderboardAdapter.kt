@@ -37,16 +37,17 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
         itemView.apply {
             rankTextView.text = position.toString()
             discordTextView.text = item.discord
-            pointsTextView.text = item.points.toString()
+            val pointNum = item.points
+            pointsTextView.text = resources.getQuantityString(R.plurals.leaderboard_points_view, pointNum, pointNum)
 
             if (position == 1) {
-                leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_top_bg)
+                leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_2023_top_bg)
             } else if (position == 10) {
-                leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_bottom_bg)
+                leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_2023_bottom_bg)
             } else if (position % 2 == 1) {
-                leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.leaderboardLight))
+                leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.cloudMist))
             } else {
-                leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.leaderboardDark))
+                leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.cloudMist))
             }
         }
     }

@@ -4,7 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/onboarding_background">
+    android:background="@color/nightBlue">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/welcome_background_transpbot"/>
+
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        app:layout_constraintVertical_bias="0.97"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ombre_for_bg"
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/top_popcorn" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        app:layout_constraintVertical_bias="1.07"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/bottom_popcorn"
+        />
 
     <TextView
         android:id="@+id/textView"
@@ -13,7 +66,7 @@
         android:layout_marginTop="130dp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/welcome_login"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -22,13 +75,13 @@
 
     <ImageView
         android:id="@+id/loginLogo"
-        android:layout_width="175dp"
-        android:layout_height="179dp"
+        android:layout_width="210dp"
+        android:layout_height="214dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/login_logo_with_text" />
+        app:srcCompat="@drawable/login_logo_with_text_2023" />
 
     <TextView
         android:id="@+id/loginLabel"
@@ -37,23 +90,23 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="LOGIN"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/login_or_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginLogo"
-        app:layout_constraintVertical_bias="0.333" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/attendeeLoginBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#C9CF76"
+        android:backgroundTint="#1D2644"
         android:text="@string/attendee_login"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
@@ -73,7 +126,7 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/login_or_label"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/guestLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="@string/guest_login"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toTopOf="@+id/staffLoginBtn"
@@ -95,7 +148,7 @@
         app:layout_constraintVertical_bias="1.0"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent=".5"
-        app:strokeColor="#08151B"
+        app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp" />
 
     <com.google.android.material.button.MaterialButton
@@ -103,9 +156,9 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="35dp"
         android:text="@string/staff_login"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -114,6 +167,6 @@
         app:layout_constraintVertical_bias="1.0"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent=".5"
-        app:strokeColor="#08151B"
+        app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
