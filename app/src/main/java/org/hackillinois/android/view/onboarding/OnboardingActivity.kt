@@ -2,6 +2,8 @@ package org.hackillinois.android.view.onboarding
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Window.FEATURE_NO_TITLE
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -13,12 +15,12 @@ import org.hackillinois.android.view.LoginActivity
 class OnboardingActivity : FragmentActivity() {
 
     private val images = listOf(
-        R.drawable.login_logo_with_text,
-        R.drawable.countdown,
-        R.drawable.schedule,
-        R.drawable.scan,
-        R.drawable.profile,
-        R.drawable.leaderboard,
+        R.drawable.login_logo_with_text_2023,
+        R.drawable.countdown_2023,
+        R.drawable.schedule_2023,
+        R.drawable.scan_2023,
+        R.drawable.profile_2023,
+        R.drawable.leaderboard_2023,
     )
 
     private val titles = listOf(
@@ -41,6 +43,8 @@ class OnboardingActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(FEATURE_NO_TITLE)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_onboarding)
 
         view_pager.adapter = ScreenSlidePagerAdapter(this)

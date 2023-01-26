@@ -184,7 +184,7 @@
     <string name="onboarding_schedule_description">See the times and details of all of our events.</string>
 
     <string name="onboarding_scan_title">Scan for Points</string>
-    <string name="onboarding_scan_description">Scan QE codes at events to obtain points!</string>
+    <string name="onboarding_scan_description">Scan QR codes at events to obtain points!</string>
 
     <string name="onboarding_profile_title">Profile</string>
     <string name="onboarding_profile_description">View your points, tier, and other personal information.</string>
@@ -192,6 +192,7 @@
     <string name="onboarding_leaderboard_title">Leaderboard</string>
     <string name="onboarding_leaderboard_description">See who is leading HackIllinois 2022 in points earned!</string>
     <string name="preparing_for_the_day">Preparing For the Day...</string>
+
     <plurals name="leaderboard_points_view">
         <item quantity="one">%d pt</item>
         <item quantity="other">%d pts</item>

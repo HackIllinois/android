@@ -32,6 +32,17 @@
         android:src="@drawable/ombre_for_bg"
         />
 
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/top_popcorn" />
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
@@ -39,7 +50,10 @@
         app:layout_constraintBottom_toTopOf="@id/tab_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="80dp"
+        />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
@@ -57,18 +71,20 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/attendeeLoginBtn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="32dp"
-        android:backgroundTint="#78AC42"
         android:text="Get Started"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
