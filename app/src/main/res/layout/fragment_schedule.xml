@@ -64,7 +64,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schedule_header"
-        app:tabPaddingBottom="10dp"
+        app:tabPaddingBottom="13dp"
         app:tabIndicatorFullWidth="true"
         app:tabSelectedTextColor="@color/white"
         app:tabIndicatorHeight="5dp"
@@ -79,21 +79,20 @@
             android:id="@+id/tabFriday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="50dp"
-            android:text="FRI\n25" />
+            android:text="FRI\n24" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSaturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SAT\n26" />
+            android:text="SAT\n25" />
 
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SUN\n27" />
+            android:text="SUN\n26" />
 
 
     </com.google.android.material.tabs.TabLayout>
