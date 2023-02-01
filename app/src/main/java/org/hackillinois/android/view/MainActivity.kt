@@ -3,6 +3,7 @@ package org.hackillinois.android.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageButton
@@ -13,7 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.FirebaseApp
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.installations.FirebaseInstallations
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.hackillinois.android.App
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             val owner = this@MainActivity
         }
         updateFirebaseToken()
+
     }
 
     private fun setupBottomAppBar() {
@@ -129,9 +132,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateFirebaseToken() {
         FirebaseApp.initializeApp(applicationContext)
-        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
-            Log.d("MainActivity", instanceIdResult.token)
-            FirebaseTokenManager.writeToken(applicationContext, instanceIdResult.token)
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener { firebaseToken ->
+            Log.d("MainActivity", firebaseToken)
+            FirebaseTokenManager.writeToken(applicationContext, firebaseToken)
             FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
         }
     }
