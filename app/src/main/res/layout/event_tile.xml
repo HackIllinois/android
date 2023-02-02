@@ -87,11 +87,11 @@
                 android:textSize="12sp"
                 android:textFontWeight="700"
                 android:background="@drawable/blue_oval"
-                android:fontFamily="@font/montserrat_regular"
+                android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/titleTextView"
-                tools:text="Social" />
+                tools:text="Workshop" />
 
             <TextView
                 android:id="@+id/pointsView"
@@ -102,7 +102,7 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:layout_weight="1"
                 android:background="@drawable/pink_oval"
-                android:fontFamily="@font/montserrat_regular"
+                android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textFontWeight="700"
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="50dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:textSize="12sp"
                 android:textFontWeight="600"
                 android:fontFamily="@font/montserrat_semi_bold"
@@ -163,7 +163,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/sponsored_marker"
                 app:layout_constraintTop_toBottomOf="@id/eventTimeSpanText"
-                tools:text="Sponsored by: SPONSORED COMPANY" />
+                tools:text="SPONSORED COMPANY" />
 
             <ImageView
                 android:id="@+id/map_marker"
@@ -176,11 +176,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/sponsored_marker"/>
 
             <TextView
-                android:id="@+id/locationSpanText"
+                android:id="@+id/locationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:layout_marginTop="9dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="72dp"
                 android:textSize="12sp"
                 android:textFontWeight="600"
