@@ -35,9 +35,9 @@ import java.lang.Exception
 class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickListener {
 
     private lateinit var eventsListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
-    private lateinit var ongoingEventsSection: EventsSection
+    private lateinit var currentEventsSection: EventsSection
     private lateinit var upcomingEventsSection: EventsSection
-    private lateinit var asyncEventsSection: EventsSection
+//    private lateinit var asyncEventsSection: EventsSection
     private lateinit var daysValue: TextView
     private lateinit var hoursValue: TextView
     private lateinit var minutesValue: TextView
@@ -58,11 +58,11 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
 
         context?.let {
 
-            val ongoingHeaderColor = Color.WHITE
-            ongoingEventsSection = EventsSection(
+            val currentHeaderColor = Color.WHITE
+            currentEventsSection = EventsSection(
                 mutableListOf(),
-                "Ongoing",
-                ongoingHeaderColor,
+                "Current",
+                currentHeaderColor,
                 false,
                 this,
                 it
@@ -76,26 +76,26 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 this,
                 it
             )
-            val asyncHeaderColor = Color.WHITE
-            asyncEventsSection = EventsSection(
-                mutableListOf(),
-                "Async",
-                asyncHeaderColor,
-                false,
-                this,
-                it
-            )
+//            val asyncHeaderColor = Color.WHITE
+//            asyncEventsSection = EventsSection(
+//                mutableListOf(),
+//                "Async",
+//                asyncHeaderColor,
+//                false,
+//                this,
+//                it
+//            )
             eventsListAdapter = SectionedRecyclerViewAdapter().apply {
-                addSection(ongoingEventsSection)
+                addSection(currentEventsSection)
                 addSection(upcomingEventsSection)
-                addSection(asyncEventsSection)
+//                addSection(asyncEventsSection)
             }
         }
 
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        viewModel.ongoingEventsLiveData.observe(this, Observer { updateOngoingEventsList(it) })
+        viewModel.currentEventsLiveData.observe(this, Observer { updateCurrentEventsList(it) })
         viewModel.upcomingEventsLiveData.observe(this, Observer { updateUpcomingEventsList(it) })
-        viewModel.asyncEventsLiveData.observe(this, Observer { updateAsyncEventsList(it) })
+//        viewModel.asyncEventsLiveData.observe(this, Observer { updateAsyncEventsList(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -122,10 +122,10 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         override fun getCount() = 2
         override fun getPageTitle(position: Int) =
             when (position) {
-                0 -> "Ongoing"
+                0 -> "Current"
                 1 -> "Upcoming"
 //                2 -> "Async"
-                else -> "Ongoing"
+                else -> "Current"
             }
     }
 
@@ -159,9 +159,9 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         isActive = false
     }
 
-    private fun updateOngoingEventsList(events: List<Event>?) {
+    private fun updateCurrentEventsList(events: List<Event>?) {
         events?.let {
-            ongoingEventsSection.updateEventsList(it)
+            currentEventsSection.updateEventsList(it)
             eventsListAdapter.notifyDataSetChanged()
         }
     }
@@ -189,12 +189,12 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         return actualEvents
     }
 
-    private fun updateAsyncEventsList(events: List<Event>?) {
-        events?.let {
-            asyncEventsSection.updateEventsList(events)
-            eventsListAdapter.notifyDataSetChanged()
-        }
-    }
+//    private fun updateAsyncEventsList(events: List<Event>?) {
+//        events?.let {
+//            asyncEventsSection.updateEventsList(events)
+//            eventsListAdapter.notifyDataSetChanged()
+//        }
+//    }
 
     override fun updateTime(timeUntil: Long) {
         val timeInfo = TimeInfo(timeUntil)

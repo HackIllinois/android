@@ -68,4 +68,19 @@
 
     <color name="qrButtonOrange">#ED9B21</color>
 
+<!--      2023 color palette       -->
+    <color name="nightBlue">#0D387C</color>
+    <color name="seaSaltGreen">#088BC1</color>
+    <color name="goGreen">#37DECD</color>
+    <color name="cloudMist">#C9D2E5</color>
+    <color name="midnight">#1D2644</color>
+    <color name="darkGreen">#10689A</color>
+    <color name="black">#000000</color>
+    <color name="carebearPink">#B53D94</color>
+    <color name="cottonCandyPink">#FEA3AA</color>
+    <color name="strawberryPink">#FE7098</color>
+    <color name="carnivalRed">#F11F20</color>
+    <color name="orangeSorbet">#F99557</color>
+    <color name="lemonade">#FCDC8F</color>
+
 </resources>

@@ -5,10 +5,22 @@
     android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_bg">
+    android:background="@color/nightBlue">
 
     <ImageView
-        android:id="@+id/countdownTextImageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/home_bg"/>
+
+    <ImageView
+        android:id="@+id/countdownBannerImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/countdown_text_banner"
@@ -17,6 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/countdownTextView"
@@ -31,17 +44,19 @@
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/lightTextColor"
-        android:text="HACKILLINOIS BEGINS IN" />
+        android:text="HACKILLINOIS BEGINS IN..." />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/chickenConstraintLayout"
-        app:layout_constraintTop_toBottomOf="@id/countdownTextImageView"
+        android:id="@+id/countdownConstraintLayout"
+        app:layout_constraintTop_toBottomOf="@id/countdownBannerImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginEnd="10dp"
+        android:paddingBottom="18dp">
 
         <LinearLayout
             android:id="@+id/timeLinearLayout"
@@ -181,8 +196,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@+id/chickenConstraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/countdownConstraintLayout"
         app:tabIndicatorHeight="5dp"
+        app:tabIndicatorFullWidth="false"
         app:tabTextAppearance="@style/HomeTabTextAppearance"
         app:tabIndicatorColor="@color/lightTextColor"
         app:tabIndicator="@drawable/tab_indicator"
@@ -190,7 +206,7 @@
         app:tabRippleColor="@android:color/transparent">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/ongoingTabItem"
+            android:id="@+id/currentTabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/home_page_current_tab_text" />
