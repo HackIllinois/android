@@ -46,10 +46,10 @@ class EventsSectionFragment : Fragment(), EventClickListener {
         val viewModel = parentFragment?.let { ViewModelProviders.of(it).get(HomeViewModel::class.java) }
 
         val liveData = when (sectionNumber) {
-            0 -> viewModel?.ongoingEventsLiveData
+            0 -> viewModel?.currentEventsLiveData
             1 -> viewModel?.upcomingEventsLiveData
-            2 -> viewModel?.asyncEventsLiveData
-            else -> viewModel?.ongoingEventsLiveData
+//            2 -> viewModel?.asyncEventsLiveData
+            else -> viewModel?.currentEventsLiveData
         }
 
         mAdapter = EventsAdapter(listOf(), this)
