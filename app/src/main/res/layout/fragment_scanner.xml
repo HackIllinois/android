@@ -62,6 +62,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip1"
+            style="@style/ChipCustomStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2/25 - Check In"
@@ -72,6 +73,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip2"
+            style="@style/ChipCustomStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2/25 - Breakfast"
@@ -82,6 +84,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip3"
+            style="@style/ChipCustomStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2/26 - Check In"
@@ -92,6 +95,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip4"
+            style="@style/ChipCustomStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2/26 - Lunch"
@@ -102,6 +106,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip5"
+            style="@style/ChipCustomStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2/26 - Dinner"
@@ -112,6 +117,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip6"
+            style="@style/ChipCustomStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2/27 - Breakfast"
@@ -122,6 +128,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip7"
+            style="@style/ChipCustomStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2/27 - Snack"
