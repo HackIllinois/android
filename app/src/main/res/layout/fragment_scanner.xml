@@ -55,9 +55,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:singleSelection="true"
         android:layout_marginTop="50dp"
         android:layout_marginHorizontal="50dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip1"
@@ -115,7 +116,9 @@
             android:layout_height="wrap_content"
             android:text="2/27 - Breakfast"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:checkable="true"
+            android:checked="false"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip7"
@@ -123,7 +126,9 @@
             android:layout_height="wrap_content"
             android:text="2/27 - Snack"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:checkable="true"
+            android:checked="false"/>
 
     </com.google.android.material.chip.ChipGroup>
 
