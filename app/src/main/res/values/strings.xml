@@ -78,7 +78,11 @@
     <string name="profile">PROFILE</string>
     <string name="diet_restrictions">Dietary Restrictions</string>
     <string name="vegetarian">Vegetarian</string>
-    <string name="dairy_free">Dairy Free</string>
+    <string name="vegan">Vegan</string>
+    <string name="gluten_free">Gluten Free</string>
+    <string name="other">Other</string>
+    <string name="none">None</string>
+    <string name="dairy_free">Lactose Intolerant</string>
     <string name="nut_allergy">Nut Allergy</string>
 
 
