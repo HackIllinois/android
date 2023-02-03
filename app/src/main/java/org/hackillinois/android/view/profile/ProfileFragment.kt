@@ -168,12 +168,15 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateQrView(qr: QR?) = qr?.let { it ->
-        val text = qr.qrInfo
-        val bitmap = generateQR(text)
-        qrCodeImage?.setImageBitmap(bitmap)
+        if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
+            val text = qr.qrInfo
+            val bitmap = generateQR(text)
+            qrCodeImage?.setImageBitmap(bitmap)
+        }
     }
 
     private fun generateQR(text: String): Bitmap {
+
         val width = qrCodeImage.width
         val height = qrCodeImage.height
         val pixels = IntArray(width * height)
