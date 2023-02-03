@@ -39,7 +39,6 @@ class ProfileFragment : Fragment() {
     private lateinit var nameText: TextView
     private lateinit var pointsText: TextView
     private lateinit var qrCodeImage: ImageView
-
     private lateinit var tierText: TextView
 
     lateinit var front_anim: AnimatorSet
@@ -122,6 +121,19 @@ class ProfileFragment : Fragment() {
         pointsText.text = "$currPoints pts"
         nameText.text = "${it.firstName} ${it.lastName}"
 
+        when {
+            currPoints < 500 -> {
+                tierText.text = "Tier: Clown"
+            }
+            currPoints < 800 -> {
+                tierText.text = "Tier: Juggler"
+            }
+            else -> {
+                tierText.text = "Tier: Acrobat"
+            }
+        }
+
+
         /** set pfp programmatically based on threshold -- api call to
          * profile/tier/threshold/ returns
          *[
@@ -154,17 +166,6 @@ class ProfileFragment : Fragment() {
 //        } catch (e: Exception) {
 //            Log.e("Load profile image", e.toString())
 //        }
-        when {
-            currPoints < 500 -> {
-                tierText.text = "Tier: Flour"
-            }
-            currPoints < 800 -> {
-                tierText.text = "Tier: Cookie"
-            }
-            else -> {
-                tierText.text = "Tier: Cake"
-            }
-        }
     }
 
     private fun updateQrView(qr: QR?) = qr?.let { it ->
