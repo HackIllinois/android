@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_project.view.*
-import kotlinx.android.synthetic.main.fragment_project.view.projectCategories
 import org.hackillinois.android.R
 import org.hackillinois.android.viewmodel.ProjectsViewModel
 

@@ -7,7 +7,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Leaderboard
-import java.lang.Exception
 
 class LeaderboardRepository {
     private val leaderboardDao = App.database.leaderboardDao()

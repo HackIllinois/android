@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="170dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_blue_bg_bottom_corners"
-    >
+    android:background="@drawable/rounded_blue_bg_bottom_corners">
 
     <LinearLayout
         android:id="@+id/looking_for_team_linearlayout"

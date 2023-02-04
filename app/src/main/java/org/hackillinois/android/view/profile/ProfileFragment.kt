@@ -1,5 +1,11 @@
 package org.hackillinois.android.view.profile
 
+// import android.util.Log
+// import com.bumptech.glide.Glide
+// import com.bumptech.glide.load.engine.DiskCacheStrategy
+// import com.bumptech.glide.load.resource.bitmap.CenterCrop
+// import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+// import com.bumptech.glide.request.RequestOptions
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.content.Context
@@ -7,11 +13,13 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-// import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,11 +28,6 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
-// import com.bumptech.glide.Glide
-// import com.bumptech.glide.load.engine.DiskCacheStrategy
-// import com.bumptech.glide.load.resource.bitmap.CenterCrop
-// import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-// import com.bumptech.glide.request.RequestOptions
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile

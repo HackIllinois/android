@@ -4,7 +4,6 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import org.hackillinois.android.database.dao.*
 import org.hackillinois.android.database.entity.*
-import org.hackillinois.android.database.entity.Leaderboard
 
 @Database(
     entities = [
