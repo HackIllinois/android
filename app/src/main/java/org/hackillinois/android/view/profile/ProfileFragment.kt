@@ -64,7 +64,7 @@ class ProfileFragment : Fragment() {
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
         viewModel.qr.observe(this, Observer { updateQrView(it) })
-        viewModel.attendee.observe(this, { updateDietaryRestrictions(it)})
+        viewModel.attendee.observe(this) { updateDietaryRestrictions(it) }
     }
 
     override fun onCreateView(
@@ -95,7 +95,6 @@ class ProfileFragment : Fragment() {
         dairyFreeText = view.findViewById(R.id.dairyFreeText)
         glutenFreeText = view.findViewById(R.id.glutenFreeText)
         otherText = view.findViewById(R.id.otherText)
-
 
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
@@ -136,18 +135,17 @@ class ProfileFragment : Fragment() {
 
     private fun updateDietaryRestrictions(attendee: Attendee?) = attendee?.let { it ->
         val dietary = it.dietary
-        if (it.dietary.isEmpty() || (it.dietary.size == 1 && it.dietary[0] == "None") ) {
+        if (it.dietary.isEmpty() || (it.dietary.size == 1 && it.dietary[0] == "None")) {
             noneText.visibility = View.VISIBLE
         } else {
             for (diet in dietary) {
-                when(diet) {
+                when (diet) {
                     "Vegetarian" -> vegetarianText.visibility = View.VISIBLE
                     "Vegan" -> veganText.visibility = View.VISIBLE
                     "Lactose Intolerant" -> dairyFreeText.visibility = View.VISIBLE
                     "Gluten Free" -> glutenFreeText.visibility = View.VISIBLE
                     else -> otherText.visibility = View.VISIBLE
                 }
-
             }
         }
     }
