@@ -178,7 +178,7 @@
             android:gravity="center"
             android:text="@string/diet_restrictions"
             android:textColor="@color/midnight"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/dietFlowLayout"
             app:layout_constraintEnd_toEndOf="parent"
