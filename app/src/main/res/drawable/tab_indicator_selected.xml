@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:innerRadius="0dp"
     android:shape="ring"
-    android:thicknessRatio="2.5"
+    android:thicknessRatio="4.5"
     android:useLevel="false" >
     <solid android:color="#08151B" />
 </shape>

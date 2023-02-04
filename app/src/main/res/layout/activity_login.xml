@@ -75,21 +75,21 @@
         android:text="@string/login_or_label"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/guestLoginBtn"
+        app:layout_constraintBottom_toTopOf="@+id/staffLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/guestLoginBtn"
+        android:id="@+id/staffLoginBtn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="@string/guest_login"
-        android:textColor="@android:color/black"
+        android:text="@string/staff_login"
+        android:textColor="@android:color/white"
         app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
-        app:layout_constraintBottom_toTopOf="@+id/staffLoginBtn"
+        app:layout_constraintBottom_toTopOf="@+id/guestLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="1.0"
@@ -99,13 +99,13 @@
         app:strokeWidth="2dp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/staffLoginBtn"
+        android:id="@+id/guestLoginBtn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="38dp"
-        android:text="@string/staff_login"
-        android:textColor="@android:color/black"
+        android:layout_marginBottom="35dp"
+        android:text="@string/guest_login"
+        android:textColor="@android:color/white"
         app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -116,4 +116,5 @@
         app:layout_constraintWidth_percent=".5"
         app:strokeColor="#08151B"
         app:strokeWidth="2dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
