@@ -135,11 +135,11 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="120dp"
+            android:layout_marginBottom="15dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
             android:src="@drawable/ticket_hack_10th"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/dietRestrictionsText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tierPointsLinearLayout" />
@@ -185,14 +185,14 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintVertical_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ticket_back"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/dietFlowLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="20dp"
             app:constraint_referenced_ids="noneText, veganText, dairyFreeText, vegetarianText, glutenFreeText, otherText"
             app:flow_horizontalGap="8dp"
             app:flow_horizontalStyle="packed"
@@ -200,8 +200,7 @@
             app:flow_wrapMode="chain"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dietRestrictionsText" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/noneText"
