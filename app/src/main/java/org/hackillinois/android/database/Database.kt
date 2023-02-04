@@ -17,7 +17,7 @@ import org.hackillinois.android.database.entity.Leaderboard
         Profile::class,
         Leaderboard::class
     ],
-    version = 4
+    version = 5
 )
 
 abstract class Database : RoomDatabase() {

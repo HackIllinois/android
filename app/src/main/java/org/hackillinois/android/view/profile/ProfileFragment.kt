@@ -42,6 +42,12 @@ class ProfileFragment : Fragment() {
     private lateinit var qrCodeImage: ImageView
     private lateinit var tierText: TextView
 //    private lateinit var waveText: TextView
+    private lateinit var noneText: TextView
+    private lateinit var vegetarianText: TextView
+    private lateinit var veganText: TextView
+    private lateinit var dairyFreeText: TextView
+    private lateinit var glutenFreeText: TextView
+    private lateinit var otherText: TextView
 
     lateinit var front_anim: AnimatorSet
     lateinit var back_anim: AnimatorSet
@@ -81,6 +87,13 @@ class ProfileFragment : Fragment() {
         tierText = view.findViewById(R.id.tierText)
         qrCodeImage = view.findViewById(R.id.qrCodeImage)
 //        waveText = view.findViewById(R.id.waveText)
+        noneText = view.findViewById(R.id.noneText)
+        vegetarianText = view.findViewById(R.id.vegetarianText)
+        veganText = view.findViewById(R.id.veganText)
+        dairyFreeText = view.findViewById(R.id.dairyFreeText)
+        glutenFreeText = view.findViewById(R.id.glutenFreeText)
+        otherText = view.findViewById(R.id.otherText)
+
 
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
@@ -153,6 +166,8 @@ class ProfileFragment : Fragment() {
          *    }
          *]
          */
+
+
 
 //        try {
 //            context?.let { it1 ->

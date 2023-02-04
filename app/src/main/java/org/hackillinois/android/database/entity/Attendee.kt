@@ -10,7 +10,8 @@ import org.hackillinois.android.database.Converters
 data class Attendee(
     var id: String,
     var firstName: String,
-    var lastName: String
+    var lastName: String,
+    var dietary: List<String>
 ) {
     @PrimaryKey
     var key = 1
@@ -20,4 +21,9 @@ data class Attendee(
             firstName.isNotEmpty() || lastName.isNotEmpty() -> "$firstName $lastName".trim()
             else -> "Attendee"
         }
+//    val diet: Array<String>
+//        get() = when {
+//            dietary.isEmpty() || dietary[0] == "None" -> arrayOf("None")
+//            else -> dietary
+//        }
 }
