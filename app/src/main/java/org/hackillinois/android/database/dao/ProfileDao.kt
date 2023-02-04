@@ -50,5 +50,3 @@ interface ProfileDao {
 //    @Query("UPDATE profiles SET teamStatus = :newTeamStatus WHERE id = :profileId")
 //    fun setTeamStatus(profileId: String, newTeamStatus: String)
 }
-
-
