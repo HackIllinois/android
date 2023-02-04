@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             val owner = this@MainActivity
         }
         updateFirebaseToken()
-
     }
 
     private fun setupBottomAppBar() {
