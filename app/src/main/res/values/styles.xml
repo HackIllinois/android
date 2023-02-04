@@ -32,8 +32,8 @@
     </style>
 
     <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
-        <item name="chipBackgroundColor">@color/bg_color_chip_state_list</item>
-        <item name="android:textColor">@color/text_color_chip_state_list</item>
+        <item name="chipBackgroundColor">@color/chip_background_selector</item>
+        <item name="android:textColor">@color/chip_text_selector</item>
     </style>
 
     <style name="ChipCustomStyle" parent="Widget.MaterialComponents.Chip.Action">

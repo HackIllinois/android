@@ -62,6 +62,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip1"
+
             style="@style/CustomChipChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
