@@ -7,7 +7,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Project
-import java.lang.Exception
 
 class ProjectRepository {
     private val projectsDao = App.database.projectsDao()

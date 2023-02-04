@@ -15,7 +15,6 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.User
 import org.hackillinois.android.view.onboarding.OnboardingActivity
-import java.lang.Exception
 import java.net.SocketTimeoutException
 import java.util.concurrent.CountDownLatch
 import kotlin.concurrent.thread

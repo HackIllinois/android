@@ -30,7 +30,6 @@ import org.hackillinois.android.view.home.eventlist.EventClickListener
 import org.hackillinois.android.view.home.eventlist.EventsSection
 import org.hackillinois.android.view.home.eventlist.EventsSectionFragment
 import org.hackillinois.android.viewmodel.HomeViewModel
-import java.lang.Exception
 
 class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickListener {
 

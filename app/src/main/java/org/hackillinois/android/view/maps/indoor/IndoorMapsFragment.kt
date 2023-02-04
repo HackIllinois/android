@@ -9,9 +9,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_indoor_maps.*
 import kotlinx.android.synthetic.main.fragment_indoor_maps.view.*
-import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import org.hackillinois.android.R
 
 class IndoorMapsFragment : Fragment() {
