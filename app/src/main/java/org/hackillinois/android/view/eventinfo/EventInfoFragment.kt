@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.eventinfo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +13,14 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.IndoorBuilding
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.database.entity.EventLocation
 import org.hackillinois.android.viewmodel.EventInfoViewModel
 
 class EventInfoFragment : Fragment(), OnMapReadyCallback {
@@ -27,29 +30,29 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
     private val siebelLatLng = LatLng(40.1138356, -88.2249052)
     private lateinit var eventId: String
     private lateinit var eventName: String
+    private lateinit var googleMap: GoogleMap
+    private var mapIsReady = false
+    private var mapUpdated = false
+    private var currentEvent: Event? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventId)
-        viewModel.event.observe(this, Observer { updateEventUI(it) })
+        viewModel.event.observe(this, Observer {event ->
+            Log.i("EventInfoFragment", event.toString())
+            currentEvent = event
+            updateEventUI(currentEvent)
+            if (mapIsReady && !mapUpdated) {
+                setupMap()
+            }
+        })
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        // Add marker on map for every EventLocation associated with this Event
-        viewModel.event.value?.let { event ->
-            event.locations.forEach { eventLocation ->
-                val latLng = LatLng(eventLocation.latitude, eventLocation.longitude)
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(latLng)
-                        .title(eventLocation.description)
-                )
-            }
-        }
-
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
         // Set starting camera position to the first event location if it exists or Seibel
         // otherwise
         val firstEventLocation = viewModel.event.value?.locations?.first()
@@ -65,7 +68,13 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
 
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(initialCameraPosition))
         googleMap.setMinZoomPreference(15f)
-        googleMap.setIndoorEnabled(true)
+        googleMap.isIndoorEnabled = true
+
+        mapIsReady = true
+        Log.i("EventInfoFragment", "Map is ready")
+        if (currentEvent != null) {
+            setupMap()
+        }
     }
 
     override fun onCreateView(
@@ -82,6 +91,55 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         return view
+    }
+
+    private fun setupMap() {
+        Log.i("EventInfoFragment", "Setting up map")
+        addMarkersToMap(currentEvent!!)
+        if (currentEvent!!.locations.isNotEmpty()) {
+            moveCameraToLocation(currentEvent!!.locations.first())
+//                goToLevelOfFocusedBuilding(getLevelFromLocation(it.locations.first().tags))
+        }
+        mapUpdated = true
+    }
+
+    private fun moveCameraToLocation(location: EventLocation) {
+        val locationLatLng = LatLng(location.latitude, location.longitude)
+        val zoomLevel = 18.3f
+        val cameraPosition: CameraPosition = CameraPosition.Builder()
+            .target(locationLatLng)
+            .zoom(zoomLevel)
+            .build()
+
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+    }
+
+    private fun getLevelFromLocation(locationString: String) : Int {
+        return Integer.parseInt(locationString.last().toString())
+    }
+
+    private fun goToLevelOfFocusedBuilding(level: Int) {
+        val building: IndoorBuilding? = googleMap.focusedBuilding
+        if (building != null && building.levels.size > level) {
+            building.levels[level].activate()
+        }
+    }
+
+    private fun addMarkersToMap(event: Event) {
+        Log.i("EventInfoFragment", "Adding Markers to map")
+        event.locations.forEach { eventLocation ->
+            val latLng = LatLng(eventLocation.latitude, eventLocation.longitude)
+            var marker = googleMap.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+                    .title(eventLocation.description)
+            )
+            Log.i("Map", marker.toString())
+        }
+
+        Log.i("Map", viewModel.event?.value.toString())
+        Log.i("Map", viewModel.event?.value?.locations.toString())
+        Log.i("Map", "hello")
     }
 
     private fun updateEventUI(event: Event?) {
