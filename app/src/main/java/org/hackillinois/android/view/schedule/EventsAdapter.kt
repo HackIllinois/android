@@ -60,27 +60,35 @@ class EventsAdapter(
                 false -> "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
                 true -> "Asynchronous event"
             }
-            sponsoredTextView.text = event.sponsor
+            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
             sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            sponsored_marker.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventDescriptionTextView.text = event.description
-            locationTextView.text = if (event.locations.isEmpty()) " " else event.locations.get(0).description
             pointsView.text = " + ${event.points} pts "
 
             // @todo sloppy, clean up
             when (event.eventType) {
+                "MEAL" -> {
+                    eventType.setText(R.string.mealText)
+                }
+                "SPEAKER" -> {
+                    eventType.setText(R.string.speakerText)
+                }
+                "WORKSHOP" -> {
+                    eventType.setText(R.string.workshopText)
+                }
                 "MINIEVENT" -> {
                     eventType.setText(R.string.miniEventText)
                 }
                 "QNA" -> {
                     eventType.setText(R.string.qnaText)
                 }
+                "OTHER" -> {
+                    eventType.setText(R.string.otherText)
+                }
                 else -> {
-                    eventType.setText(event.eventType.lowercase().replaceFirstChar(Char::titlecase))
-                    //eventType.visibility = View.GONE
+                    eventType.visibility = View.GONE
                 }
             }
-
             starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
             starButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
