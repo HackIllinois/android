@@ -69,28 +69,18 @@ class EventsAdapter(
 
             // @todo sloppy, clean up
             when (event.eventType) {
-                "MEAL" -> {
-                    eventType.setText(R.string.mealText)
-                }
-                "SPEAKER" -> {
-                    eventType.setText(R.string.speakerText)
-                }
-                "WORKSHOP" -> {
-                    eventType.setText(R.string.workshopText)
-                }
                 "MINIEVENT" -> {
                     eventType.setText(R.string.miniEventText)
                 }
                 "QNA" -> {
                     eventType.setText(R.string.qnaText)
                 }
-                "OTHER" -> {
-                    eventType.setText(R.string.otherText)
-                }
                 else -> {
-                    eventType.visibility = View.GONE
+                    eventType.setText(event.eventType.lowercase().replaceFirstChar(Char::titlecase))
+                    //eventType.visibility = View.GONE
                 }
             }
+
             starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
             starButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
