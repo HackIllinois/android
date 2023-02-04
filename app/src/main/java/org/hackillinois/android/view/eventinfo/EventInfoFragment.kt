@@ -40,14 +40,17 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventId)
-        viewModel.event.observe(this, Observer {event ->
-            Log.i("EventInfoFragment", event.toString())
-            currentEvent = event
-            updateEventUI(currentEvent)
-            if (mapIsReady && !mapUpdated) {
-                setupMap()
+        viewModel.event.observe(
+                this,
+                Observer {event ->
+                    Log.i("EventInfoFragment", event.toString())
+                    currentEvent = event
+                    updateEventUI(currentEvent)
+                    if (mapIsReady && !mapUpdated) {
+                        setupMap()
+                    }
             }
-        })
+        )
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
 
@@ -106,7 +109,7 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
     private fun moveCameraToLocation(location: EventLocation) {
         val locationLatLng = LatLng(location.latitude, location.longitude)
         val zoomLevel = 18.3f
-        val cameraPosition: CameraPosition = CameraPosition.Builder()
+        val cameraPosition = CameraPosition.Builder()
             .target(locationLatLng)
             .zoom(zoomLevel)
             .build()
