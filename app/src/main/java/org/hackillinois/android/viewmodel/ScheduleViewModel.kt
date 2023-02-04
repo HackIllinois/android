@@ -13,17 +13,17 @@ class ScheduleViewModel : ViewModel() {
 
     val fridayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1645855199000
+        timeInMillis = 1677304799000
     }.timeInMillis
 
     val saturdayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1645941599000
+        timeInMillis = 1677391199000
     }.timeInMillis
 
     val sundayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1646027999000
+        timeInMillis = 1677477599000
     }.timeInMillis
 
     lateinit var fridayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
