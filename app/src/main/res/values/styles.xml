@@ -31,8 +31,14 @@
         <item name="windowMinWidthMinor">0%</item>
     </style>
 
+    <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/bg_color_chip_state_list</item>
+        <item name="android:textColor">@color/text_color_chip_state_list</item>
+    </style>
+
     <style name="ChipCustomStyle" parent="Widget.MaterialComponents.Chip.Action">
         <item name="checkedIconEnabled">false</item>
         <item name="checkedIcon">@null</item>
     </style>
+
 </resources>
