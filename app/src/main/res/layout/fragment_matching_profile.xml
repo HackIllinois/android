@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/ticket_front"
+            android:id="@+id/profileImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
@@ -36,7 +36,7 @@
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ticket_front" />
+            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
         <TextView
             android:id="@+id/teamStatusText"
@@ -105,7 +105,7 @@
             app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
         <TextView
-            android:id="@+id/ptsText"
+            android:id="@+id/discordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
@@ -168,7 +168,7 @@
             android:layout_marginTop="50dp"
             android:padding="10dp"
             android:background="@null"
-            app:layout_constraintEnd_toStartOf="@+id/ticket_front"
+            app:layout_constraintEnd_toStartOf="@+id/profileImage"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
