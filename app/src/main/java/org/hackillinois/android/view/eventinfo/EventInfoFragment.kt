@@ -41,14 +41,14 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventId)
         viewModel.event.observe(
-                this,
-                Observer {event ->
-                    Log.i("EventInfoFragment", event.toString())
-                    currentEvent = event
-                    updateEventUI(currentEvent)
-                    if (mapIsReady && !mapUpdated) {
-                        setupMap()
-                    }
+            this,
+            Observer { event ->
+                Log.i("EventInfoFragment", event.toString())
+                currentEvent = event
+                updateEventUI(currentEvent)
+                if (mapIsReady && !mapUpdated) {
+                    setupMap()
+                }
             }
         )
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
@@ -117,7 +117,7 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
 
-    private fun getLevelFromLocation(locationString: String) : Int {
+    private fun getLevelFromLocation(locationString: String): Int {
         return Integer.parseInt(locationString.last().toString())
     }
 
