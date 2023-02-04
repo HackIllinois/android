@@ -75,6 +75,12 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem cursus, nulla cras. Non in nibh vulputate pharetra, ornare mi malesuada. Id tempus amet est.</string>
     <string name="join_stream">Join Stream!</string>
 
+    <string name="profile">PROFILE</string>
+    <string name="diet_restrictions">Dietary Restrictions</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="dairy_free">Dairy Free</string>
+    <string name="nut_allergy">Nut Allergy</string>
+
 
     <string-array name="event_location_options">
         <item>Siebel Center</item>
@@ -178,11 +184,18 @@
     <string name="onboarding_schedule_description">See the times and details of all of our events.</string>
 
     <string name="onboarding_scan_title">Scan for Points</string>
-    <string name="onboarding_scan_description">Scan QE codes at events to obtain points!</string>
+    <string name="onboarding_scan_description">Scan QR codes at events to obtain points!</string>
 
     <string name="onboarding_profile_title">Profile</string>
     <string name="onboarding_profile_description">View your points, tier, and other personal information.</string>
 
     <string name="onboarding_leaderboard_title">Leaderboard</string>
     <string name="onboarding_leaderboard_description">See who is leading HackIllinois 2022 in points earned!</string>
+    <string name="preparing_for_the_day">Preparing For the Day...</string>
+
+    <plurals name="leaderboard_points_view">
+        <item quantity="one">%d pt</item>
+        <item quantity="other">%d pts</item>
+    </plurals>
+
 </resources>
