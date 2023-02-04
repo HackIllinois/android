@@ -84,20 +84,4 @@
     <color name="lemonade">#FCDC8F</color>
     <color name="color_checked">#294C6C</color>
 
-    <color name="bg_color_chip_state_list">
-        <selector xmlns:android="http://schemas.android.com/apk/res/android">
-            <item android:color="@color/white" android:state_checked="true" />
-            <item android:color="@color/transparent" />
-        </selector>
-    </color>
-
-    <color name="text_color_chip_state_list">
-        <selector xmlns:android="http://schemas.android.com/apk/res/android">
-            <item android:state_checked="true"
-                android:color="@color/color_checked" />
-            <item android:state_checked="false"
-                android:color="@color/white" />
-        </selector>
-    </color>
-
 </resources>
