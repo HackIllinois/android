@@ -60,9 +60,11 @@ class EventsAdapter(
                 false -> "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
                 true -> "Asynchronous event"
             }
-            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+            sponsoredTextView.text = event.sponsor
             sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            sponsored_marker.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             eventDescriptionTextView.text = event.description
+            locationTextView.text = if (event.locations.isEmpty()) " " else event.locations.get(0).description
             pointsView.text = " + ${event.points} pts "
 
             // @todo sloppy, clean up
