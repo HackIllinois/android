@@ -136,7 +136,6 @@ class ProfileFragment : Fragment() {
                 tierText.text = "Acrobat Tier"
             }
         }
-        
         /** set pfp programmatically based on threshold -- api call to
          * profile/tier/threshold/ returns
          *[
