@@ -186,7 +186,6 @@ class ProfileFragment : Fragment() {
          */
 
 
-
 //        try {
 //            context?.let { it1 ->
 //                Glide.with(it1)
