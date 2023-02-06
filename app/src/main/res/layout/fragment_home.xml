@@ -19,8 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/home_bg"/>
 
-    <!-- TODO: Either remove this TextView or change the text -->
-
     <ImageView
         android:id="@+id/countdownBannerImageView"
         android:layout_width="match_parent"
@@ -37,8 +35,8 @@
         android:id="@+id/countdownTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:textSize="18sp"
         android:gravity="start"
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,16 +75,24 @@
                 android:orientation="vertical"
                 >
 
-                <TextView
+                <org.hackillinois.android.view.home.MagicTextView
                     android:id="@+id/daysValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
+                    android:textFontWeight="900"
                     android:gravity="center"
                     android:text="00"
-                    android:textColor="@android:color/white"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/white"
+                    app:innerShadowColor="#FCDC8F"
+                    app:innerShadowRadius="4dp"
+                    app:outerShadowColor="#FCDC8F"
+                    app:outerShadowRadius="4dp"
+                    android:textColor="#0D387C"
                     android:textSize="48sp"
-                    />
+                    android:paddingHorizontal="4dp"/>
+
                 <TextView
                     android:id="@+id/daysLabel"
                     android:layout_width="match_parent"
@@ -106,16 +112,23 @@
                 android:layout_marginStart="15dp"
                 >
 
-                <TextView
+                <org.hackillinois.android.view.home.MagicTextView
                     android:id="@+id/hoursValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
+                    android:textFontWeight="900"
                     android:gravity="center"
                     android:text="00"
-                    android:textColor="@android:color/white"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/white"
+                    app:innerShadowColor="#FCDC8F"
+                    app:innerShadowRadius="4dp"
+                    app:outerShadowColor="#FCDC8F"
+                    app:outerShadowRadius="4dp"
+                    android:textColor="#0D387C"
                     android:textSize="48sp"
-                    />
+                    android:paddingHorizontal="4dp"/>
 
                 <TextView
                     android:id="@+id/hoursLabel"
@@ -134,17 +147,24 @@
                 android:layout_marginStart="15dp"
                 >
 
-                <TextView
+                <org.hackillinois.android.view.home.MagicTextView
                     android:id="@+id/minutesValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:fontFamily="@font/montserrat_bold"
+                    android:textFontWeight="900"
                     android:gravity="center"
                     android:text="00"
-                    android:textColor="@android:color/white"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/white"
+                    app:innerShadowColor="#FCDC8F"
+                    app:innerShadowRadius="4dp"
+                    app:outerShadowColor="#FCDC8F"
+                    app:outerShadowRadius="4dp"
+                    android:textColor="#0D387C"
                     android:textSize="48sp"
-                    />
+                    android:paddingHorizontal="4dp"/>
+
                 <TextView
                     android:id="@+id/minutesLabel"
                     android:layout_width="match_parent"
