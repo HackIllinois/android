@@ -48,9 +48,9 @@
     <string name="logout_text">Log Out</string>
 
     <string name="default_time_homepage">00</string>
-    <string name="days_label">Days</string>
-    <string name="hours_label">Hours</string>
-    <string name="minutes_label">Min</string>
+    <string name="days_label">DAYS</string>
+    <string name="hours_label">HOURS</string>
+    <string name="minutes_label">MINUTES</string>
     <string name="projects_header">Projects</string>
     <string name="fav_button_text">Favorites</string>
     <string name="spinner_default">Select Category</string>
@@ -78,7 +78,11 @@
     <string name="profile">PROFILE</string>
     <string name="diet_restrictions">Dietary Restrictions</string>
     <string name="vegetarian">Vegetarian</string>
-    <string name="dairy_free">Dairy Free</string>
+    <string name="vegan">Vegan</string>
+    <string name="gluten_free">Gluten Free</string>
+    <string name="other">Other</string>
+    <string name="none">None</string>
+    <string name="dairy_free">Lactose Intolerant</string>
     <string name="nut_allergy">Nut Allergy</string>
 
 
@@ -191,6 +195,10 @@
 
     <string name="onboarding_leaderboard_title">Leaderboard</string>
     <string name="onboarding_leaderboard_description">See who is leading HackIllinois 2022 in points earned!</string>
+
+    <string name="home_page_current_tab_text">CURRENT</string>
+    <string name="home_page_upcoming_tab_text">UPCOMING</string>
+
     <string name="preparing_for_the_day">Preparing For the Day...</string>
 
     <plurals name="leaderboard_points_view">

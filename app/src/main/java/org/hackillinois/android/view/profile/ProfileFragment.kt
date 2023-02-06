@@ -42,8 +42,8 @@ class ProfileFragment : Fragment() {
     private lateinit var nameText: TextView
     private lateinit var pointsText: TextView
     private lateinit var qrCodeImage: ImageView
-
     private lateinit var tierText: TextView
+//    private lateinit var waveText: TextView
 
     lateinit var front_anim: AnimatorSet
     lateinit var back_anim: AnimatorSet
@@ -82,6 +82,7 @@ class ProfileFragment : Fragment() {
         pointsText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
         qrCodeImage = view.findViewById(R.id.qrCodeImage)
+//        waveText = view.findViewById(R.id.waveText)
 
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
@@ -124,7 +125,19 @@ class ProfileFragment : Fragment() {
         val currPoints = it.points
         pointsText.text = "$currPoints pts"
         nameText.text = "${it.firstName} ${it.lastName}"
+//        waveText.text = "Wave: ${it.foodWave}"
 
+        when {
+            currPoints < 100 -> {
+                tierText.text = "Clown Tier"
+            }
+            currPoints < 900 -> {
+                tierText.text = "Juggler Tier"
+            }
+            else -> {
+                tierText.text = "Acrobat Tier"
+            }
+        }
         /** set pfp programmatically based on threshold -- api call to
          * profile/tier/threshold/ returns
          *[
@@ -157,26 +170,18 @@ class ProfileFragment : Fragment() {
 //        } catch (e: Exception) {
 //            Log.e("Load profile image", e.toString())
 //        }
-        when {
-            currPoints < 500 -> {
-                tierText.text = "Tier: Flour"
-            }
-            currPoints < 800 -> {
-                tierText.text = "Tier: Cookie"
-            }
-            else -> {
-                tierText.text = "Tier: Cake"
-            }
-        }
     }
 
     private fun updateQrView(qr: QR?) = qr?.let { it ->
-        val text = qr.qrInfo
-        val bitmap = generateQR(text)
-        qrCodeImage?.setImageBitmap(bitmap)
+        if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
+            val text = qr.qrInfo
+            val bitmap = generateQR(text)
+            qrCodeImage?.setImageBitmap(bitmap)
+        }
     }
 
     private fun generateQR(text: String): Bitmap {
+
         val width = qrCodeImage.width
         val height = qrCodeImage.height
         val pixels = IntArray(width * height)
