@@ -50,6 +50,7 @@
 
 <!-- buttons -->
     <com.google.android.material.chip.ChipGroup
+        android:id="@+id/staffChipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +63,6 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip1"
-
             style="@style/CustomChipChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
