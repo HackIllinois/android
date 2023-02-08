@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 // import com.bumptech.glide.request.RequestOptions
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
+import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.view.MainActivity
@@ -42,6 +43,12 @@ class ProfileFragment : Fragment() {
     private lateinit var qrCodeImage: ImageView
     private lateinit var tierText: TextView
 //    private lateinit var waveText: TextView
+    private lateinit var noneText: TextView
+    private lateinit var vegetarianText: TextView
+    private lateinit var veganText: TextView
+    private lateinit var dairyFreeText: TextView
+    private lateinit var glutenFreeText: TextView
+    private lateinit var otherText: TextView
 
     lateinit var front_anim: AnimatorSet
     lateinit var back_anim: AnimatorSet
@@ -57,6 +64,7 @@ class ProfileFragment : Fragment() {
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
         viewModel.qr.observe(this, Observer { updateQrView(it) })
+        viewModel.attendee.observe(this) { updateDietaryRestrictions(it) }
     }
 
     override fun onCreateView(
@@ -81,6 +89,12 @@ class ProfileFragment : Fragment() {
         tierText = view.findViewById(R.id.tierText)
         qrCodeImage = view.findViewById(R.id.qrCodeImage)
 //        waveText = view.findViewById(R.id.waveText)
+        noneText = view.findViewById(R.id.noneText)
+        vegetarianText = view.findViewById(R.id.vegetarianText)
+        veganText = view.findViewById(R.id.veganText)
+        dairyFreeText = view.findViewById(R.id.dairyFreeText)
+        glutenFreeText = view.findViewById(R.id.glutenFreeText)
+        otherText = view.findViewById(R.id.otherText)
 
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
@@ -117,6 +131,23 @@ class ProfileFragment : Fragment() {
             Handler().postDelayed({ flipButton.setClickable(true) }, 1200)
         }
         return view
+    }
+
+    private fun updateDietaryRestrictions(attendee: Attendee?) = attendee?.let { it ->
+        val dietary = it.dietary
+        if (it.dietary.isEmpty() || (it.dietary.size == 1 && it.dietary[0] == "None")) {
+            noneText.visibility = View.VISIBLE
+        } else {
+            for (diet in dietary) {
+                when (diet) {
+                    "Vegetarian" -> vegetarianText.visibility = View.VISIBLE
+                    "Vegan" -> veganText.visibility = View.VISIBLE
+                    "Lactose Intolerant" -> dairyFreeText.visibility = View.VISIBLE
+                    "Gluten Free" -> glutenFreeText.visibility = View.VISIBLE
+                    else -> otherText.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->

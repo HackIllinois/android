@@ -9,6 +9,9 @@ interface AttendeeDao {
     @Query("SELECT * FROM attendees LIMIT 1")
     fun getAttendee(): LiveData<Attendee>
 
+//    @Query("SELECT dietary FROM attendees")
+//    fun getDietaryRestrictions(): LiveData<List<String>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(attendee: Attendee)
 
