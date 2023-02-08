@@ -15,7 +15,7 @@ data class Profile(
     var timezone: String,
     var avatarUrl: String,
     var discord: String,
-//    var foodWave: Int
+    var foodWave: Int
 //    var teamStatus: String = "",
 //    var description: String = "",
 //    var interests: List<String> = listOf()

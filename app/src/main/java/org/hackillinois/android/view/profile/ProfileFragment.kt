@@ -41,7 +41,7 @@ class ProfileFragment : Fragment() {
     private lateinit var pointsText: TextView
     private lateinit var qrCodeImage: ImageView
     private lateinit var tierText: TextView
-//    private lateinit var waveText: TextView
+    private lateinit var waveText: TextView
 
     lateinit var front_anim: AnimatorSet
     lateinit var back_anim: AnimatorSet
@@ -80,7 +80,7 @@ class ProfileFragment : Fragment() {
         pointsText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
         qrCodeImage = view.findViewById(R.id.qrCodeImage)
-//        waveText = view.findViewById(R.id.waveText)
+        waveText = view.findViewById(R.id.waveText)
 
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
@@ -123,7 +123,7 @@ class ProfileFragment : Fragment() {
         val currPoints = it.points
         pointsText.text = "$currPoints pts"
         nameText.text = "${it.firstName} ${it.lastName}"
-//        waveText.text = "Wave: ${it.foodWave}"
+        waveText.text = "Wave ${it.foodWave}"
 
         when {
             currPoints < 100 -> {
