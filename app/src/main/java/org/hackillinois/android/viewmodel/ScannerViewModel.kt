@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.auth0.android.jwt.DecodeException
 import com.auth0.android.jwt.JWT
 import kotlinx.coroutines.launch
+import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.EventCheckInResponse
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
@@ -66,11 +67,13 @@ class ScannerViewModel : ViewModel() {
     }
 
     fun checkUserIntoEventAsStaff(qrCodeString: String, eventId: String): EventCheckInResponse {
-        val userId = decodeJWT(qrCodeString)
+        val userId = qrCodeString // decodeJWT(qrCodeString)
         var response = EventCheckInResponse(0, 0, "SCAN FAILED")
         viewModelScope.launch {
             try {
                 response = EventRepository.checkInEventAsStaff(userId, eventId)
+                Log.i("Check In", "Status: ${response.status}")
+                Log.i("Check In", "Response: ${response}")
                 lastScanStatus.postValue(ScanStatus(true, 0, response.status))
             } catch (e: Exception) {
               Log.e("Staff Check In", e.toString())
@@ -79,22 +82,22 @@ class ScannerViewModel : ViewModel() {
         return response
     }
 
-    private fun decodeJWT(stringToDecode: String) : String {
-        var userId = ""
-        try {
-            val jwt = JWT(stringToDecode)
-            if (jwt.isExpired(20)) {
-                throw Exception("Expired Token")
-            }
-            Log.i("JWT", jwt.claims.toString())
-            userId = jwt.claims["userId"]?.asString()
-                ?: throw Exception("User ID not present in token")
-            return userId
-        } catch (e: Exception) {
-            Log.e("JWT Decode", "JWT Decoding failed: $e")
-        }
-        return userId
-    }
+//    private fun decodeJWT(stringToDecode: String) : String {
+//        var userId = ""
+//        try {
+//            val jwt = JWT(stringToDecode)
+//            if (jwt.isExpired(20)) {
+//                throw Exception("Expired Token")
+//            }
+//            Log.i("JWT", jwt.claims.toString())
+//            userId = jwt.claims["userId"]?.asString()
+//                ?: throw Exception("User ID not present in token")
+//            return userId
+//        } catch (e: Exception) {
+//            Log.e("JWT Decode", "JWT Decoding failed: $e")
+//        }
+//        return stringToDecode
+//    }
 
 //    fun checkInUser(checkIn: CheckIn) {
 //        viewModelScope.launch {

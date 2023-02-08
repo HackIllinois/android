@@ -56,7 +56,13 @@ class ScannerFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(ScannerViewModel::class.java).apply {
             init(eventName)
-            lastScanStatus.observe(this@ScannerFragment, Observer { displayScanResult(it) })
+            lastScanStatus.observe(this@ScannerFragment, Observer {
+                if (userRoles != null && userRoles!!.isStaff()) {
+                    displayStaffScanResult(it)
+                } else {
+                    displayScanResult(it)
+                }
+            })
             roles.observe(this@ScannerFragment, Observer {
                 userRoles = it
                 showStaffChipGroup(it)
@@ -155,10 +161,10 @@ class ScannerFragment : Fragment() {
 
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
         val responseString = when (lastScanStatus.userMessage) {
-            "Success" -> "Success! You received ${lastScanStatus.points} points."
-            "InvalidCode" -> "This code doesn't seem to be correct."
-            "InvalidTime" -> "Make sure you have the right time."
-            "AlreadyCheckedIn" -> "Looks like you're already checked in."
+            "Success" -> "Success! The attendant has the following dietary restrictions: TODO"
+            "InvalidEventId" -> "The event code doesn't seem to be correct. Try selecting the event again or select another event"
+            "BadUserToken" -> "The QR code may have expired or might be invalid. Please refresh the QR code and try again"
+            "AlreadyCheckedIn" -> "Looks like the attendant is already checked in."
             else -> "Something isn't quite right."
         }
         // make toast from response
@@ -186,7 +192,7 @@ class ScannerFragment : Fragment() {
     }
 
     private fun getStaffCheckInEventId(): String {
-        return chipIdToEventId[staffChipGroup.checkedChipId] ?: "Event 1"
+        return chipIdToEventId[staffChipGroup.checkedChipId] ?: "0b8ea2a94ba4224c075f016256fbddfa"
     }
 
     private fun updateOverrideSwitchVisibility(it: Roles?) = it?.let {
@@ -214,13 +220,18 @@ class ScannerFragment : Fragment() {
         }
 
         val chipIdToEventId: Map<Int, String> = mapOf(
-            R.id.chip1 to "Event 1",
-            R.id.chip2 to "Event 2",
-            R.id.chip3 to "Event 3",
-            R.id.chip4 to "Event 4",
-            R.id.chip5 to "Event 5",
-            R.id.chip6 to "Event 6",
-            R.id.chip7 to "Event 7",
+            R.id.chip1 to "0b8ea2a94ba4224c075f016256fbddfa",
+            R.id.chip2 to "da78f6ba6c6720bf3942a5637c271230",
+            R.id.chip3 to "bd700111157287b9269ddb362730285b",
+            R.id.chip4 to "c3ad5459fdc6fc34fde2c6c6a30d4b81",
+            R.id.chip5 to "5138d33591036434556f5f6c124ff9e8",
+            R.id.chip6 to "52e465910d4be005131bf44c4faebf83",
+            R.id.chip7 to "c21b758af864bb97237dc8618ce44e69",
+            R.id.chip8 to "5e42b4977171473ac2c91c5cf45b0264",
+            R.id.chip9 to "8898f6a934e3805772b323b4163cf76b",
+            R.id.chip10 to "f9cff398e5752bf40a23ba59f67013ae",
+            R.id.chip11 to "57b8e44110e334546271d3a3098ba921",
+            R.id.chip12 to "7997f191c529d49fca3a04ed7470f50d",
         )
     }
 }
