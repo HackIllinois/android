@@ -140,6 +140,61 @@
             android:checkable="true"
             android:checked="false"/>
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip8"
+            style="@style/CustomChipChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2/27 - Snack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:checkable="true"
+            android:checked="false"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip9"
+            style="@style/CustomChipChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2/27 - Snack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:checkable="true"
+            android:checked="false"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip10"
+            style="@style/CustomChipChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2/27 - Snack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:checkable="true"
+            android:checked="false"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip11"
+            style="@style/CustomChipChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2/27 - Snack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:checkable="true"
+            android:checked="false"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip12"
+            style="@style/CustomChipChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2/27 - Snack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:checkable="true"
+            android:checked="false"/>
+
     </com.google.android.material.chip.ChipGroup>
 
     <TextView
