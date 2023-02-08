@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.budiyev.android.codescanner.*
+import com.google.android.material.chip.ChipGroup
 import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
@@ -41,6 +42,10 @@ class ScannerFragment : Fragment() {
     private lateinit var scannerEventTitleView: TextView
     private lateinit var scannerEventAttributesView: TextView
 
+    private lateinit var staffChipGroup: ChipGroup
+
+    private var userRoles: Roles? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val inflater = TransitionInflater.from(requireContext())
@@ -52,7 +57,10 @@ class ScannerFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ScannerViewModel::class.java).apply {
             init(eventName)
             lastScanStatus.observe(this@ScannerFragment, Observer { displayScanResult(it) })
-            roles.observe(this@ScannerFragment, Observer { updateOverrideSwitchVisibility(it) })
+            roles.observe(this@ScannerFragment, Observer {
+                userRoles = it
+                showStaffChipGroup(it)
+            })
         }
     }
 
@@ -64,6 +72,8 @@ class ScannerFragment : Fragment() {
         scanStatusText = view.findViewById(R.id.successTextView)
         scannerEventTitleView = view.findViewById(R.id.scannerEventTitleView)
         scannerEventAttributesView = view.findViewById(R.id.scannerEventAttributesView)
+
+        staffChipGroup = view.findViewById(R.id.staffChipGroup)
 
         // hide the text of scan status, event title, and attributes programmatically
         hideStatusTextVisibility(listOf(scanStatusText, scannerEventTitleView, scannerEventAttributesView))
@@ -81,9 +91,15 @@ class ScannerFragment : Fragment() {
                 isAutoFocusEnabled = true
                 isFlashEnabled = false
                 decodeCallback = DecodeCallback {
-                    val eventId: String = getEventCodeFromQrString(it.text)
-                    Log.d("EVENT CODE STRING", it.toString())
-                    viewModel.scanQrToCheckIn(eventId)
+                    if (userRoles != null && userRoles!!.isStaff()) {
+                        val userString = getUserIdFromQrString(it.text)
+                        Log.d("USER QR CODE", userString)
+                        viewModel.checkUserIntoEventAsStaff(userString, getStaffCheckInEventId())
+                    } else {
+                        val eventId: String = getEventCodeFromQrString(it.text)
+                        Log.d("EVENT CODE STRING", it.toString())
+                        viewModel.scanQrToCheckIn(eventId)
+                    }
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
@@ -137,6 +153,20 @@ class ScannerFragment : Fragment() {
         return splitOnEquals.first()
     }
 
+    private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
+        val responseString = when (lastScanStatus.userMessage) {
+            "Success" -> "Success! You received ${lastScanStatus.points} points."
+            "InvalidCode" -> "This code doesn't seem to be correct."
+            "InvalidTime" -> "Make sure you have the right time."
+            "AlreadyCheckedIn" -> "Looks like you're already checked in."
+            else -> "Something isn't quite right."
+        }
+        // make toast from response
+        Log.d("SCAN STATUS RESULT", responseString)
+        val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
+        toast.show()
+    }
+
     private fun displayScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
         val responseString = when (lastScanStatus.userMessage) {
             "Success" -> "Success! You received ${lastScanStatus.points} points."
@@ -149,6 +179,14 @@ class ScannerFragment : Fragment() {
         Log.d("SCAN STATUS RESULT", responseString)
         val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
         toast.show()
+    }
+
+    private fun showStaffChipGroup(it: Roles?) = it?.let {
+        staffChipGroup.visibility = if (it.isStaff()) View.VISIBLE else View.GONE
+    }
+
+    private fun getStaffCheckInEventId(): String {
+        return chipIdToEventId[staffChipGroup.checkedChipId] ?: "Event 1"
     }
 
     private fun updateOverrideSwitchVisibility(it: Roles?) = it?.let {
@@ -174,5 +212,15 @@ class ScannerFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+
+        val chipIdToEventId: Map<Int, String> = mapOf(
+            R.id.chip1 to "Event 1",
+            R.id.chip2 to "Event 2",
+            R.id.chip3 to "Event 3",
+            R.id.chip4 to "Event 4",
+            R.id.chip5 to "Event 5",
+            R.id.chip6 to "Event 6",
+            R.id.chip7 to "Event 7",
+        )
     }
 }
