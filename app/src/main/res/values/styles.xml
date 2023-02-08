@@ -33,7 +33,10 @@
 
     <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chip_background_selector</item>
+        <item name="chipSurfaceColor">@color/chip_background_selector</item>
         <item name="android:textColor">@color/chip_text_selector</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeColor">@color/white</item>
     </style>
 
     <style name="ChipCustomStyle" parent="Widget.MaterialComponents.Chip.Action">
