@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.auth0.android.jwt.DecodeException
-import com.auth0.android.jwt.JWT
 import kotlinx.coroutines.launch
-import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.EventCheckInResponse
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
@@ -73,10 +70,10 @@ class ScannerViewModel : ViewModel() {
             try {
                 response = EventRepository.checkInEventAsStaff(userId, eventId)
                 Log.i("Check In", "Status: ${response.status}")
-                Log.i("Check In", "Response: ${response}")
+                Log.i("Check In", "Response: $response")
                 lastScanStatus.postValue(ScanStatus(true, 0, response.status))
             } catch (e: Exception) {
-              Log.e("Staff Check In", e.toString())
+                Log.e("Staff Check In", e.toString())
             }
         }
         return response

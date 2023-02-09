@@ -55,7 +55,7 @@ interface API {
     suspend fun eventCodeCheckIn(@Body token: EventCode): EventCheckInResponse
 
     @POST("event/staff/checkin/")
-    suspend fun checkInUserAsStaff(@Body userTokenEventIdPair: UserTokenEventIdPair) : EventCheckInResponse
+    suspend fun checkInUserAsStaff(@Body userTokenEventIdPair: UserTokenEventIdPair): EventCheckInResponse
 
     // NOTIFICATIONS
 

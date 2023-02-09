@@ -56,17 +56,23 @@ class ScannerFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(ScannerViewModel::class.java).apply {
             init(eventName)
-            lastScanStatus.observe(this@ScannerFragment, Observer {
-                if (userRoles != null && userRoles!!.isStaff()) {
-                    displayStaffScanResult(it)
-                } else {
-                    displayScanResult(it)
+            lastScanStatus.observe(
+                this@ScannerFragment,
+                Observer {
+                    if (userRoles != null && userRoles!!.isStaff()) {
+                        displayStaffScanResult(it)
+                    } else {
+                        displayScanResult(it)
+                    }
                 }
-            })
-            roles.observe(this@ScannerFragment, Observer {
-                userRoles = it
-                showStaffChipGroup(it)
-            })
+            )
+            roles.observe(
+                this@ScannerFragment,
+                Observer {
+                    userRoles = it
+                    showStaffChipGroup(it)
+                }
+            )
         }
     }
 
