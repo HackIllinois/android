@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
-import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.EventCheckInResponse
-import org.hackillinois.android.database.entity.EventCode
+import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.event.UserTokenEventIdPair
 
 class EventRepository {
@@ -78,10 +76,23 @@ class EventRepository {
             return apiResponse
         }
 
-        suspend fun checkInEventAsStaff(userToken: String, eventId: String): EventCheckInResponse {
+        suspend fun checkInEventAsStaff(userToken: String, eventId: String): EventCheckInAsStaffResponse {
             val userTokenEventIdPair = UserTokenEventIdPair(userToken, eventId)
             Log.d("send event token", userTokenEventIdPair.toString())
-            var apiResponse: EventCheckInResponse = EventCheckInResponse(-1, -1, "")
+            var apiResponse = EventCheckInAsStaffResponse(
+                -1,
+                -1,
+                "",
+                RSVPData(
+                    "",
+                    false,
+                    RegistrationData(
+                        AttendeeData(
+                            listOf()
+                        )
+                    )
+                )
+            )
 
             withContext(Dispatchers.IO) {
                 try {

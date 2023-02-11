@@ -125,3 +125,25 @@ data class EventCheckInResponse(
     val totalPoints: Int,
     val status: String
 )
+
+data class EventCheckInAsStaffResponse(
+    val newPoints: Int,
+    val totalPoints: Int,
+    val status: String,
+    val rsvpData: RSVPData,
+)
+
+
+data class RSVPData(
+    val id: String,
+    val isAttending: Boolean,
+    val registrationData: RegistrationData,
+)
+
+data class RegistrationData(
+    val attendee: AttendeeData
+)
+
+data class AttendeeData (
+    val dietary: List<String>,
+)

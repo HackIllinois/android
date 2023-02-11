@@ -6,8 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.hackillinois.android.database.entity.EventCheckInResponse
-import org.hackillinois.android.database.entity.Roles
+import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.repository.rolesRepository
@@ -63,15 +62,29 @@ class ScannerViewModel : ViewModel() {
         return response
     }
 
-    fun checkUserIntoEventAsStaff(qrCodeString: String, eventId: String): EventCheckInResponse {
+    fun checkUserIntoEventAsStaff(qrCodeString: String, eventId: String): EventCheckInAsStaffResponse {
         val userId = qrCodeString // decodeJWT(qrCodeString)
-        var response = EventCheckInResponse(0, 0, "SCAN FAILED")
+        var response = EventCheckInAsStaffResponse(0, 0, "SCAN FAILED", RSVPData("", false, RegistrationData(
+            AttendeeData(listOf())
+        )))
         viewModelScope.launch {
             try {
                 response = EventRepository.checkInEventAsStaff(userId, eventId)
                 Log.i("Check In", "Status: ${response.status}")
                 Log.i("Check In", "Response: $response")
-                lastScanStatus.postValue(ScanStatus(true, 0, response.status))
+                lastScanStatus.postValue(
+                    ScanStatus(
+                        true,
+                        0,
+                        response.status,
+                        response
+                            .rsvpData
+                            .registrationData
+                            .attendee
+                            .dietary
+                            .joinToString()
+                    )
+                )
             } catch (e: Exception) {
                 Log.e("Staff Check In", e.toString())
             }
