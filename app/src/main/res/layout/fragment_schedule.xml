@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/nightBlue">
 
+
     <ImageView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -41,8 +42,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="@color/primaryTextColor"
+        android:fontFamily="@font/montserrat_bold"
+        android:textFontWeight="700"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
         android:text="@string/schedule_header"
 
 
@@ -52,21 +55,22 @@
         android:id="@+id/scheduleDays"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="29dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="29dp"
         android:background="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schedule_header"
+        app:tabPaddingBottom="13dp"
         app:tabIndicatorFullWidth="true"
-        app:tabSelectedTextColor="@color/selectedDarkColor"
+        app:tabSelectedTextColor="@color/white"
         app:tabIndicatorHeight="5dp"
-        app:tabIndicatorColor="@color/primaryTextColor"
+        app:tabIndicatorColor="@color/white"
         app:tabIndicator="@drawable/tab_indicator"
         app:tabTextAppearance="@style/TabTextAppearance"
-        app:tabTextColor="@color/primaryTextColor"
+        app:tabTextColor="@color/white"
         app:tabRippleColor="@android:color/transparent"
         >
 
@@ -74,24 +78,23 @@
             android:id="@+id/tabFriday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="FRI\n25" />
+            android:text="FRI\n24" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSaturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SAT\n26" />
+            android:text="SAT\n25" />
 
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SUN\n27" />
+            android:text="SUN\n26" />
 
 
     </com.google.android.material.tabs.TabLayout>
-
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/scheduleContainer"
@@ -103,5 +106,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scheduleDays" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

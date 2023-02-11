@@ -5,7 +5,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/nightBlue</item>
-        <item name="android:windowLightStatusBar">true</item>
+<!--        <item name="android:windowLightStatusBar">true</item>-->
     </style>
 
     <style name="AppToolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
@@ -15,9 +15,10 @@
     </style>
 
     <style name="TabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">25sp</item>
+        <item name="lineHeight">40dp</item>
     </style>
 
     <style name="HomeTabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">

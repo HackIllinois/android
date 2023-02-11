@@ -18,14 +18,23 @@
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/home_bg"/>
 
+    <ImageView
+        android:id="@+id/countdownBannerImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/countdown_text_banner"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/countdownTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="30dp"
-        android:textSize="24sp"
+        android:layout_marginTop="50dp"
+        android:textSize="18sp"
         android:gravity="start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,16 +81,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
-                <TextView
-                    android:id="@+id/daysLabel"
-                    android:layout_width="match_parent"
+
+                <org.hackillinois.android.view.home.MagicTextView
+                    android:id="@+id/daysValue"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textFontWeight="900"
                     android:gravity="center"
-                    android:text="@string/days_label"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    />
+                    android:text="00"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/white"
+                    app:innerShadowColor="#FCDC8F"
+                    app:innerShadowRadius="4dp"
+                    app:outerShadowColor="#FCDC8F"
+                    app:outerShadowRadius="4dp"
+                    android:textColor="#0D387C"
+                    android:textSize="48sp"
+                    android:paddingHorizontal="4dp"/>
+
                 <TextView
                     android:id="@+id/daysValue"
                     android:layout_width="wrap_content"
@@ -101,25 +119,33 @@
                 android:layout_marginStart="15dp"
                 >
 
+                <org.hackillinois.android.view.home.MagicTextView
+                    android:id="@+id/hoursValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textFontWeight="900"
+                    android:gravity="center"
+                    android:text="00"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/white"
+                    app:innerShadowColor="#FCDC8F"
+                    app:innerShadowRadius="4dp"
+                    app:outerShadowColor="#FCDC8F"
+                    app:outerShadowRadius="4dp"
+                    android:textColor="#0D387C"
+                    android:textSize="48sp"
+                    android:paddingHorizontal="4dp"/>
+
                 <TextView
                     android:id="@+id/hoursLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:fontFamily="@font/montserrat_bold"
                     android:gravity="center"
                     android:text="@string/hours_label"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/hoursValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semi_bold"
-                    android:gravity="center"
-                    android:text="00"
-                    android:textColor="@android:color/black"
-                    android:textSize="48sp"
-                    />
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -127,28 +153,35 @@
                 android:orientation="vertical"
                 android:layout_marginStart="15dp"
                 >
+
+                <org.hackillinois.android.view.home.MagicTextView
+                    android:id="@+id/minutesValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textFontWeight="900"
+                    android:gravity="center"
+                    android:text="00"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/white"
+                    app:innerShadowColor="#FCDC8F"
+                    app:innerShadowRadius="4dp"
+                    app:outerShadowColor="#FCDC8F"
+                    app:outerShadowRadius="4dp"
+                    android:textColor="#0D387C"
+                    android:textSize="48sp"
+                    android:paddingHorizontal="4dp"/>
+
                 <TextView
                     android:id="@+id/minutesLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:fontFamily="@font/montserrat_bold"
                     android:gravity="center"
                     android:text="@string/minutes_label"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp"
                     />
-                <TextView
-                    android:id="@+id/minutesValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:fontFamily="@font/montserrat_semi_bold"
-                    android:gravity="center"
-                    android:text="00"
-                    android:textColor="@android:color/black"
-                    android:textSize="48sp"
-                    />
-
 
             </LinearLayout>
 

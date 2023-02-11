@@ -62,6 +62,8 @@ class EventsAdapter(
             }
             sponsoredTextView.text = "Sponsored by ${event.sponsor}"
             sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            sponsored_marker.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            locationTextView.text = if (event.locations.isEmpty()) "N/A" else event.locations.get(0).description
             eventDescriptionTextView.text = event.description
             pointsView.text = " + ${event.points} pts "
 
