@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,39 +29,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/countdownTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:textSize="18sp"
         android:gravity="start"
-        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/montserrat_bold"
-        android:textColor="@color/lightTextColor"
-        android:text="HACKILLINOIS BEGINS IN..." />
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="@color/primaryTextColor"
+        android:text="HACKILLINOIS BEGINS IN..."
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/countdownConstraintLayout"
-        app:layout_constraintTop_toBottomOf="@id/countdownBannerImageView"
+        android:id="@+id/chickenConstraintLayout"
+        app:layout_constraintTop_toBottomOf="@id/countdownTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:paddingBottom="18dp">
+        android:layout_marginEnd="10dp">
+
+        <ImageView
+            android:id="@+id/chickenImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chicken"
+            android:scaleX=".93"
+            android:scaleY=".93"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/timeLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -94,14 +101,14 @@
                     android:paddingHorizontal="4dp"/>
 
                 <TextView
-                    android:id="@+id/daysLabel"
-                    android:layout_width="match_parent"
+                    android:id="@+id/daysValue"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/montserrat_semi_bold"
                     android:gravity="center"
-                    android:text="@string/days_label"
-                    android:textColor="@android:color/white"
-                    android:textSize="13sp"
+                    android:text="00"
+                    android:textColor="@android:color/black"
+                    android:textSize="48sp"
                     />
 
             </LinearLayout>
@@ -196,26 +203,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@+id/countdownConstraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/chickenConstraintLayout"
         app:tabIndicatorHeight="5dp"
-        app:tabIndicatorFullWidth="false"
         app:tabTextAppearance="@style/HomeTabTextAppearance"
-        app:tabIndicatorColor="@color/lightTextColor"
+        app:tabIndicatorColor="@color/primaryTextColor"
         app:tabIndicator="@drawable/tab_indicator"
-        app:tabTextColor="@color/lightTextColor"
-        app:tabRippleColor="@android:color/transparent">
+        app:tabTextColor="@color/primaryTextColor"
+        app:tabRippleColor="@android:color/transparent"
 
+        >
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/currentTabItem"
+            android:id="@+id/ongoingTabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/home_page_current_tab_text" />
-
+            android:text="Ongoing"
+            />
         <com.google.android.material.tabs.TabItem
             android:id="@+id/upcomingTabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/home_page_upcoming_tab_text" />
+            android:text="Soon"
+            />
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/asyncTabItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Async"
+            />
+
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -228,7 +243,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTabLayout"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/homeTabLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

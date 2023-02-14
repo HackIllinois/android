@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.FirebaseApp
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.hackillinois.android.App
@@ -129,9 +129,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateFirebaseToken() {
         FirebaseApp.initializeApp(applicationContext)
-        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
-            Log.d("MainActivity", instanceIdResult.token)
-            FirebaseTokenManager.writeToken(applicationContext, instanceIdResult.token)
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener { firebaseToken ->
+            Log.d("MainActivity", firebaseToken)
+            FirebaseTokenManager.writeToken(applicationContext, firebaseToken)
             FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
         }
     }

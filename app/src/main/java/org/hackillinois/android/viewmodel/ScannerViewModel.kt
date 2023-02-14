@@ -11,7 +11,6 @@ import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.repository.rolesRepository
-import java.lang.Exception
 
 class ScannerViewModel : ViewModel() {
     var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
