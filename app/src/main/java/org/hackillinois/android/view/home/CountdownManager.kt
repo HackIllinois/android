@@ -28,7 +28,7 @@ class CountdownManager(val listener: CountDownListener) {
 
     private var times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
     // placeholders in case design team decides to change this
-    private val titles = listOf("HackIllinois Begins In", "Hacking Begins In", "Hacking Ends In", "What's Cookin?")
+    private val titles = listOf("HackIllinois Begins In", "Hacking Begins In", "Hacking Ends In", "Memories Made")
 
     private var timer: CountDownTimer? = null
     private var state = 0
