@@ -9,7 +9,7 @@
     <string name="schedule_tab_monday">Monday</string>
 
     <string name="schedule_header">Schedule</string>
-    <string name="schedule_snackbar_notifications_on">Notifications are on for this event!</string>
+    <string name="schedule_snackbar_notifications_on">Notifications are on for this event!\nMake sure push notifications are enabled.</string>
 
     <string name="map_dcl">DCL</string>
     <string name="map_eceb">ECEB</string>
