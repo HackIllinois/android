@@ -31,6 +31,7 @@ class CountdownManager(val listener: CountDownListener) {
     private val titles = listOf("HACKILLINOIS BEGINS IN", "HACKING BEGINS IN", "HACKING ENDS IN", "MEMORIES MADE")
 
     private var timer: CountDownTimer? = null
+
     private var state = 0
 
     private val refreshRateMs = 500L
