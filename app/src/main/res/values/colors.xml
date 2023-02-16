@@ -44,6 +44,7 @@
     <color name="white">#FFFFFF</color>
 
     <color name ="eventTileColor">#CAD2E5</color>
+    <color name="eventTileTextColor">#1D2644</color>
 
     <color name="primaryGrayColor">#212121</color>
 
