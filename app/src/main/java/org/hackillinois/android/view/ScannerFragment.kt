@@ -1,6 +1,8 @@
 package org.hackillinois.android.view
 
 import android.Manifest
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -14,6 +16,8 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -27,6 +31,23 @@ import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
 // import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
+
+class StartDietaryFragment(responseString: String) : DialogFragment() {
+    val display = responseString
+    val ok = "OK"
+    override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
+        return activity?.let {
+            // Use the Builder class for convenient dialog construction
+            val builder = AlertDialog.Builder(it)
+            builder.setMessage(display);
+            builder.setPositiveButton(ok,
+                DialogInterface.OnClickListener { dialog, id ->
+                })
+            // Create the AlertDialog object and return it
+            builder.create()
+        } ?: throw IllegalStateException("Activity cannot be null")
+    }
+}
 
 class ScannerFragment : Fragment() {
     val PERMISSIONS_REQUEST_ACCESS_CAMERA = 0
@@ -173,11 +194,13 @@ class ScannerFragment : Fragment() {
             "AlreadyCheckedIn" -> "Looks like the attendant is already checked in."
             else -> "Something isn't quite right."
         }
-        // make toast from response
-        Log.d("SCAN STATUS RESULT", responseString)
-        val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
-        toast.show()
+        // make toast from response, change to AlertDialog
+        Log.d("SCAN STATUS RESULT", responseString) // print to console
+        val dialogfrag = StartDietaryFragment(responseString)
+        dialogfrag.show()
     }
+
+
 
     private fun displayScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
         val responseString = when (lastScanStatus.userMessage) {
