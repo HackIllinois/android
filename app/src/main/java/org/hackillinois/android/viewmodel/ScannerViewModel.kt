@@ -1,13 +1,12 @@
 package org.hackillinois.android.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.ScanStatus
+import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.repository.rolesRepository
 import kotlin.Exception
@@ -17,6 +16,8 @@ class ScannerViewModel : ViewModel() {
 
     lateinit var roles: LiveData<Roles>
 
+    lateinit var allEvents: LiveData<EventsList>
+
     private val CHECK_IN_NAME = "Check-in"
 
     private lateinit var eventName: String
@@ -24,6 +25,9 @@ class ScannerViewModel : ViewModel() {
     fun init(eventName: String) {
         this.eventName = eventName
         this.roles = rolesRepository.fetch()
+        this.allEvents = liveData {
+            emit(App.getAPI().allEvents())
+        }
     }
 
 //    fun checkUserIntoEvent(eventId: String, userId: String, staffOverride: Boolean) {

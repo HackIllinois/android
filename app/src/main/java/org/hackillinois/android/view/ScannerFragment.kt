@@ -1,8 +1,6 @@
 package org.hackillinois.android.view
 
 import android.Manifest
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -16,38 +14,22 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.budiyev.android.codescanner.*
+import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
+import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
 // import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
-
-class StartDietaryFragment(responseString: String) : DialogFragment() {
-    val display = responseString
-    val ok = "OK"
-    override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
-        return activity?.let {
-            // Use the Builder class for convenient dialog construction
-            val builder = AlertDialog.Builder(it)
-            builder.setMessage(display);
-            builder.setPositiveButton(ok,
-                DialogInterface.OnClickListener { dialog, id ->
-                })
-            // Create the AlertDialog object and return it
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
-    }
-}
 
 class ScannerFragment : Fragment() {
     val PERMISSIONS_REQUEST_ACCESS_CAMERA = 0
@@ -67,10 +49,14 @@ class ScannerFragment : Fragment() {
 
     private var userRoles: Roles? = null
 
+    private var listOfEvents: MutableList<Event>? = null
+
+    private var chipIdToEventId: MutableMap<Int, String> = mutableMapOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val inflater = TransitionInflater.from(requireContext())
-        enterTransition = inflater.inflateTransition(R.transition.slide_up_fragment)
+        val transitionInflater = TransitionInflater.from(requireContext())
+        enterTransition = transitionInflater.inflateTransition(R.transition.slide_up_fragment)
 
         eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
         eventName = arguments?.getString(EVENT_NAME_KEY) ?: ""
@@ -94,6 +80,7 @@ class ScannerFragment : Fragment() {
                     showStaffChipGroup(it)
                 }
             )
+
         }
     }
 
@@ -107,6 +94,37 @@ class ScannerFragment : Fragment() {
         scannerEventAttributesView = view.findViewById(R.id.scannerEventAttributesView)
 
         staffChipGroup = view.findViewById(R.id.staffChipGroup)
+
+        viewModel.allEvents.observe(this) {
+            // Filter out all the relevant details
+            listOfEvents =
+                it.events.filter { event -> event.eventType == "MEAL" || event.name == "Check-in"}.toMutableList()
+
+            // Move the check-in to the first index
+            val index = listOfEvents!!.indexOfFirst { event -> event.name == "Check-in" }
+            val event = listOfEvents!![index]
+            listOfEvents!!.removeAt(index)
+            listOfEvents!!.add(0, event)
+
+            var firstChipId = 0
+
+            // Go through all the events and add a chip for it
+            for ((index, event) in listOfEvents!!.withIndex()) {
+                Log.i("Events", "${event.name}: ${event.eventType}")
+                val chip = inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
+                chip.text = event.name
+                val chipId = ViewCompat.generateViewId()
+                if (index == 0) firstChipId = chipId
+                chip.id = chipId
+                chipIdToEventId[chipId] = event.id
+                staffChipGroup.addView(chip)
+            }
+
+            Log.i("Events", "Number of events: ${listOfEvents!!.size}")
+
+            // Select the first chipId
+            staffChipGroup.check(firstChipId)
+        }
 
         // hide the text of scan status, event title, and attributes programmatically
         hideStatusTextVisibility(listOf(scanStatusText, scannerEventTitleView, scannerEventAttributesView))
@@ -187,20 +205,18 @@ class ScannerFragment : Fragment() {
     }
 
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
-        val responseString = when (lastScanStatus.userMessage) {
-            "Success" -> "Success! The attendant has the following dietary restrictions: ${lastScanStatus.dietary}"
+        val responseString = when (it.userMessage) {
+            "Success" -> "Success! The attendant has the following dietary restrictions: ${it.dietary}"
             "InvalidEventId" -> "The event code doesn't seem to be correct. Try selecting the event again or select another event"
             "BadUserToken" -> "The QR code may have expired or might be invalid. Please refresh the QR code and try again"
             "AlreadyCheckedIn" -> "Looks like the attendant is already checked in."
             else -> "Something isn't quite right."
         }
-        // make toast from response, change to AlertDialog
-        Log.d("SCAN STATUS RESULT", responseString) // print to console
-        val dialogfrag = StartDietaryFragment(responseString)
-        dialogfrag.show()
+        // make toast from response
+        Log.d("SCAN STATUS RESULT", responseString)
+        val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
+        toast.show()
     }
-
-
 
     private fun displayScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
         val responseString = when (lastScanStatus.userMessage) {
@@ -247,20 +263,5 @@ class ScannerFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
-
-        val chipIdToEventId: Map<Int, String> = mapOf(
-            R.id.chip1 to "0b8ea2a94ba4224c075f016256fbddfa",
-            R.id.chip2 to "da78f6ba6c6720bf3942a5637c271230",
-            R.id.chip3 to "bd700111157287b9269ddb362730285b",
-            R.id.chip4 to "c3ad5459fdc6fc34fde2c6c6a30d4b81",
-            R.id.chip5 to "5138d33591036434556f5f6c124ff9e8",
-            R.id.chip6 to "52e465910d4be005131bf44c4faebf83",
-            R.id.chip7 to "c21b758af864bb97237dc8618ce44e69",
-            R.id.chip8 to "5e42b4977171473ac2c91c5cf45b0264",
-            R.id.chip9 to "8898f6a934e3805772b323b4163cf76b",
-            R.id.chip10 to "f9cff398e5752bf40a23ba59f67013ae",
-            R.id.chip11 to "57b8e44110e334546271d3a3098ba921",
-            R.id.chip12 to "7997f191c529d49fca3a04ed7470f50d",
-        )
     }
 }
