@@ -119,9 +119,6 @@ dependencies {
 
     // Glide for fetching images
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-
-    // JWT Decoding
-    implementation 'com.auth0.android:jwtdecode:2.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
