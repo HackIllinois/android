@@ -133,7 +133,6 @@ data class EventCheckInAsStaffResponse(
     val rsvpData: RSVPData,
 )
 
-
 data class RSVPData(
     val id: String,
     val isAttending: Boolean,
@@ -144,6 +143,6 @@ data class RegistrationData(
     val attendee: AttendeeData
 )
 
-data class AttendeeData (
+data class AttendeeData(
     val dietary: List<String>,
 )

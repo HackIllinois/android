@@ -1,7 +1,6 @@
 package org.hackillinois.android.view
 
 import android.Manifest
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -13,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
@@ -24,14 +22,12 @@ import com.budiyev.android.codescanner.*
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.zxing.BarcodeFormat
-import kotlinx.android.synthetic.main.fragment_scanner.*
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
-// import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 
 class ScannerFragment : Fragment() {
     val PERMISSIONS_REQUEST_ACCESS_CAMERA = 0
@@ -78,7 +74,6 @@ class ScannerFragment : Fragment() {
                     showStaffChipGroup(it)
                 }
             )
-
         }
     }
 
@@ -92,7 +87,7 @@ class ScannerFragment : Fragment() {
         viewModel.allEvents.observe(this) {
             // Filter out all the relevant details
             listOfEvents =
-                it.events.filter { event -> event.eventType == "MEAL" || event.name == "Check-in"}.toMutableList()
+                it.events.filter { event -> event.eventType == "MEAL" || event.name == "Check-in" }.toMutableList()
 
             // Move the check-in to the first index
             val index = listOfEvents!!.indexOfFirst { event -> event.name == "Check-in" }
@@ -208,7 +203,7 @@ class ScannerFragment : Fragment() {
         if (activity != null) {
             AlertDialog.Builder(activity!!)
                 .setMessage(responseString)
-                .setPositiveButton("OK", DialogInterface.OnClickListener{ dialog, id -> })
+                .setPositiveButton("OK") { _, _ -> }
                 .create()
                 .show()
         } else {

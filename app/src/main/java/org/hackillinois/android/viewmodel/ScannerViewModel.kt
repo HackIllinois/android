@@ -68,9 +68,18 @@ class ScannerViewModel : ViewModel() {
 
     fun checkUserIntoEventAsStaff(qrCodeString: String, eventId: String): EventCheckInAsStaffResponse {
         val userId = qrCodeString // decodeJWT(qrCodeString)
-        var response = EventCheckInAsStaffResponse(0, 0, "SCAN FAILED", RSVPData("", false, RegistrationData(
-            AttendeeData(listOf())
-        )))
+        var response = EventCheckInAsStaffResponse(
+            0,
+            0,
+            "SCAN FAILED",
+            RSVPData(
+                "",
+                false,
+                RegistrationData(
+                    AttendeeData(listOf())
+                )
+            )
+        )
         viewModelScope.launch {
             try {
                 response = EventRepository.checkInEventAsStaff(userId, eventId)
