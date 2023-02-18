@@ -1,6 +1,7 @@
 package org.hackillinois.android.view
 
 import android.Manifest
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -14,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -40,10 +42,6 @@ class ScannerFragment : Fragment() {
     private lateinit var eventName: String
 
     private lateinit var codeScanner: CodeScanner
-
-    private lateinit var scanStatusText: TextView
-    private lateinit var scannerEventTitleView: TextView
-    private lateinit var scannerEventAttributesView: TextView
 
     private lateinit var staffChipGroup: ChipGroup
 
@@ -89,10 +87,6 @@ class ScannerFragment : Fragment() {
 
         val closeButton = view.findViewById<ImageButton>(R.id.qrScannerClose)
 
-        scanStatusText = view.findViewById(R.id.successTextView)
-        scannerEventTitleView = view.findViewById(R.id.scannerEventTitleView)
-        scannerEventAttributesView = view.findViewById(R.id.scannerEventAttributesView)
-
         staffChipGroup = view.findViewById(R.id.staffChipGroup)
 
         viewModel.allEvents.observe(this) {
@@ -125,9 +119,6 @@ class ScannerFragment : Fragment() {
             // Select the first chipId
             staffChipGroup.check(firstChipId)
         }
-
-        // hide the text of scan status, event title, and attributes programmatically
-        hideStatusTextVisibility(listOf(scanStatusText, scannerEventTitleView, scannerEventAttributesView))
 
         closeButton.setOnClickListener {
             activity?.supportFragmentManager?.popBackStackImmediate()
@@ -214,8 +205,16 @@ class ScannerFragment : Fragment() {
         }
         // make toast from response
         Log.d("SCAN STATUS RESULT", responseString)
-        val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
-        toast.show()
+        if (activity != null) {
+            AlertDialog.Builder(activity!!)
+                .setMessage(responseString)
+                .setPositiveButton("OK", DialogInterface.OnClickListener{ dialog, id -> })
+                .create()
+                .show()
+        } else {
+            val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
+            toast.show()
+        }
     }
 
     private fun displayScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
