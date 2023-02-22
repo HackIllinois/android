@@ -9,6 +9,7 @@ import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.TrackerContainer
 import org.hackillinois.android.model.event.UserEventPair
+import org.hackillinois.android.model.event.UserTokenEventIdPair
 import org.hackillinois.android.model.leaderboard.LeaderboardList
 import org.hackillinois.android.model.notification.NotificationTopics
 import org.hackillinois.android.model.profile.ProfileList
@@ -52,6 +53,9 @@ interface API {
 
     @POST("event/checkin/")
     suspend fun eventCodeCheckIn(@Body token: EventCode): EventCheckInResponse
+
+    @POST("event/staff/checkin/")
+    suspend fun checkInUserAsStaff(@Body userTokenEventIdPair: UserTokenEventIdPair): EventCheckInAsStaffResponse
 
     // NOTIFICATIONS
 
