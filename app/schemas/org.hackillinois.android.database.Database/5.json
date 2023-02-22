@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 5,
-    "identityHash": "8fc8aea48b846c0d30e4b1ad18404cef",
+    "identityHash": "db86dd0fbbad94f86dc3bae0646e2154",
     "entities": [
       {
         "tableName": "qr_codes",
@@ -38,7 +38,7 @@
       },
       {
         "tableName": "attendees",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `dietary` TEXT NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -55,12 +55,6 @@
           {
             "fieldPath": "lastName",
             "columnName": "lastName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "dietary",
-            "columnName": "dietary",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -294,7 +288,7 @@
       },
       {
         "tableName": "profiles",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `points` INTEGER NOT NULL, `timezone` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `discord` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `points` INTEGER NOT NULL, `timezone` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `discord` TEXT NOT NULL, `foodWave` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -336,6 +330,12 @@
             "fieldPath": "discord",
             "columnName": "discord",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foodWave",
+            "columnName": "foodWave",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -384,7 +384,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8fc8aea48b846c0d30e4b1ad18404cef')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'db86dd0fbbad94f86dc3bae0646e2154')"
     ]
   }
 }

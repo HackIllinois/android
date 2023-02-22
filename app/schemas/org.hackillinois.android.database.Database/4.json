@@ -294,7 +294,7 @@
       },
       {
         "tableName": "profiles",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `points` INTEGER NOT NULL, `timezone` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `discord` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `points` INTEGER NOT NULL, `timezone` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `discord` TEXT NOT NULL, `foodWave` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -336,6 +336,12 @@
             "fieldPath": "discord",
             "columnName": "discord",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foodWave",
+            "columnName": "foodWave",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],

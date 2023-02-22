@@ -42,7 +42,7 @@ class ProfileFragment : Fragment() {
     private lateinit var pointsText: TextView
     private lateinit var qrCodeImage: ImageView
     private lateinit var tierText: TextView
-//    private lateinit var waveText: TextView
+    private lateinit var waveText: TextView
     private lateinit var noneText: TextView
     private lateinit var vegetarianText: TextView
     private lateinit var veganText: TextView
@@ -88,7 +88,7 @@ class ProfileFragment : Fragment() {
         pointsText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
         qrCodeImage = view.findViewById(R.id.qrCodeImage)
-//        waveText = view.findViewById(R.id.waveText)
+        waveText = view.findViewById(R.id.waveText)
         noneText = view.findViewById(R.id.noneText)
         vegetarianText = view.findViewById(R.id.vegetarianText)
         veganText = view.findViewById(R.id.veganText)
@@ -154,7 +154,7 @@ class ProfileFragment : Fragment() {
         val currPoints = it.points
         pointsText.text = "$currPoints pts"
         nameText.text = "${it.firstName} ${it.lastName}"
-//        waveText.text = "Wave: ${it.foodWave}"
+        waveText.text = "Wave ${it.foodWave}"
 
         when {
             currPoints < 100 -> {
