@@ -149,8 +149,10 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         event?.let {
             event_name.text = it.name
             event_points.text = "+ ${it.points} pts"
-//            event_sponsor.text = "Sponsored by ${it.sponsor}"
-//            event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            event_sponsor.text = "Sponsored by ${it.sponsor}"
+            event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            sponsoredIcon.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            event_location.text = if (it.locations.isEmpty()) "N/A" else it.locations[0].description
             event_time.text = if (it.isAsync) "Asynchronous event" else "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
             event_description.text = it.description
             if (it.eventType == "QNA") {
