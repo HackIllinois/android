@@ -91,13 +91,13 @@ class ScannerViewModel : ViewModel() {
                         0,
                         if (response.rsvpData == null) "Bad User Token" else response.status,
                         if (response.rsvpData != null)
-                        response
-                            .rsvpData
-                            .registrationData
-                            .attendee
-                            .dietary
-                            .joinToString()
-                    else "Bad User Token"
+                            response
+                                .rsvpData
+                                .registrationData
+                                .attendee
+                                .dietary
+                                .joinToString()
+                        else "Bad User Token"
                     )
                 )
             } catch (e: Exception) {
