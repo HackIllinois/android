@@ -9,7 +9,7 @@
     <string name="schedule_tab_monday">Monday</string>
 
     <string name="schedule_header">Schedule</string>
-    <string name="schedule_snackbar_notifications_on">Notifications are on for this event!</string>
+    <string name="schedule_snackbar_notifications_on">Notifications are on for this event!\nMake sure push notifications are enabled.</string>
 
     <string name="map_dcl">DCL</string>
     <string name="map_eceb">ECEB</string>
@@ -194,7 +194,7 @@
     <string name="onboarding_profile_description">View your points, tier, and other personal information.</string>
 
     <string name="onboarding_leaderboard_title">Leaderboard</string>
-    <string name="onboarding_leaderboard_description">See who is leading HackIllinois 2022 in points earned!</string>
+    <string name="onboarding_leaderboard_description">See who is leading HackIllinois 2023 in points earned!</string>
 
     <string name="home_page_current_tab_text">CURRENT</string>
     <string name="home_page_upcoming_tab_text">UPCOMING</string>

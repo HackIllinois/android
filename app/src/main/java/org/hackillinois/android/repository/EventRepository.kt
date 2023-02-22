@@ -5,9 +5,8 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
-import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.EventCheckInResponse
-import org.hackillinois.android.database.entity.EventCode
+import org.hackillinois.android.database.entity.*
+import org.hackillinois.android.model.event.UserTokenEventIdPair
 
 class EventRepository {
     private val eventDao = App.database.eventDao()
@@ -69,6 +68,36 @@ class EventRepository {
                     Log.d("Sending code: ", code)
 
                     apiResponse = App.getAPI().eventCodeCheckIn(EventCode(code))
+                    Log.d("code sent!", apiResponse.toString())
+                } catch (e: Exception) {
+                    Log.e("Error - check in", e.toString())
+                }
+            }
+            return apiResponse
+        }
+
+        suspend fun checkInEventAsStaff(userToken: String, eventId: String): EventCheckInAsStaffResponse {
+            val userTokenEventIdPair = UserTokenEventIdPair(userToken, eventId)
+            Log.d("send event token", userTokenEventIdPair.toString())
+            var apiResponse = EventCheckInAsStaffResponse(
+                -1,
+                -1,
+                "",
+                RSVPData(
+                    "",
+                    false,
+                    RegistrationData(
+                        AttendeeData(
+                            listOf()
+                        )
+                    )
+                )
+            )
+
+            withContext(Dispatchers.IO) {
+                try {
+                    Log.d("Sending code: ", userTokenEventIdPair.toString())
+                    apiResponse = App.getAPI().checkInUserAsStaff(userTokenEventIdPair)
                     Log.d("code sent!", apiResponse.toString())
                 } catch (e: Exception) {
                     Log.e("Error - check in", e.toString())

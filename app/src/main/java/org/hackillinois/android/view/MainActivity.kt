@@ -3,6 +3,7 @@ package org.hackillinois.android.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+// import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageButton
@@ -13,7 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.FirebaseApp
-import com.google.firebase.iid.FirebaseInstanceId
+// import com.google.firebase.installations.FirebaseInstallations
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.hackillinois.android.App
@@ -96,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         val scannerFragment = ScannerFragment()
 
         code_entry_fab.setOnClickListener {
-            if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
+            if (!hasLoggedIn()) {
                 val toast = Toast.makeText(applicationContext, getString(R.string.fab_error_msg), Toast.LENGTH_LONG)
 //                ((toast.view as LinearLayout).getChildAt(0) as TextView).gravity = Gravity.CENTER_HORIZONTAL
                 toast.show()
@@ -129,9 +131,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateFirebaseToken() {
         FirebaseApp.initializeApp(applicationContext)
-        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
-            Log.d("MainActivity", instanceIdResult.token)
-            FirebaseTokenManager.writeToken(applicationContext, instanceIdResult.token)
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener { firebaseToken ->
+            Log.d("MainActivity", firebaseToken)
+            FirebaseTokenManager.writeToken(applicationContext, firebaseToken)
             FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
         }
     }

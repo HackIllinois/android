@@ -1,22 +1,22 @@
 package org.hackillinois.android.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import org.hackillinois.android.database.entity.EventCheckInResponse
-import org.hackillinois.android.database.entity.Roles
+import org.hackillinois.android.App
+import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.ScanStatus
+import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.repository.rolesRepository
-import java.lang.Exception
+import kotlin.Exception
 
 class ScannerViewModel : ViewModel() {
     var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
 
     lateinit var roles: LiveData<Roles>
+
+    lateinit var allEvents: LiveData<EventsList>
 
     private val CHECK_IN_NAME = "Check-in"
 
@@ -25,6 +25,9 @@ class ScannerViewModel : ViewModel() {
     fun init(eventName: String) {
         this.eventName = eventName
         this.roles = rolesRepository.fetch()
+        this.allEvents = liveData {
+            emit(App.getAPI().allEvents())
+        }
     }
 
 //    fun checkUserIntoEvent(eventId: String, userId: String, staffOverride: Boolean) {
@@ -62,6 +65,64 @@ class ScannerViewModel : ViewModel() {
         }
         return response
     }
+
+    fun checkUserIntoEventAsStaff(qrCodeString: String, eventId: String): EventCheckInAsStaffResponse {
+        val userId = qrCodeString // decodeJWT(qrCodeString)
+        var response = EventCheckInAsStaffResponse(
+            0,
+            0,
+            "SCAN FAILED",
+            RSVPData(
+                "",
+                false,
+                RegistrationData(
+                    AttendeeData(listOf())
+                )
+            )
+        )
+        viewModelScope.launch {
+            try {
+                response = EventRepository.checkInEventAsStaff(userId, eventId)
+                Log.i("Check In", "Status: ${response.status}")
+                Log.i("Check In", "Response: $response")
+                lastScanStatus.postValue(
+                    ScanStatus(
+                        response.rsvpData != null,
+                        0,
+                        if (response.rsvpData == null) "Bad User Token" else response.status,
+                        if (response.rsvpData != null)
+                            response
+                                .rsvpData
+                                .registrationData
+                                .attendee
+                                .dietary
+                                .joinToString()
+                        else "Bad User Token"
+                    )
+                )
+            } catch (e: Exception) {
+                Log.e("Staff Check In", e.toString())
+            }
+        }
+        return response
+    }
+
+//    private fun decodeJWT(stringToDecode: String) : String {
+//        var userId = ""
+//        try {
+//            val jwt = JWT(stringToDecode)
+//            if (jwt.isExpired(20)) {
+//                throw Exception("Expired Token")
+//            }
+//            Log.i("JWT", jwt.claims.toString())
+//            userId = jwt.claims["userId"]?.asString()
+//                ?: throw Exception("User ID not present in token")
+//            return userId
+//        } catch (e: Exception) {
+//            Log.e("JWT Decode", "JWT Decoding failed: $e")
+//        }
+//        return stringToDecode
+//    }
 
 //    fun checkInUser(checkIn: CheckIn) {
 //        viewModelScope.launch {

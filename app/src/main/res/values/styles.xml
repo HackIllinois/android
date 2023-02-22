@@ -5,7 +5,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/nightBlue</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/nightBlue</item>
+<!--        <item name="android:windowLightStatusBar">true</item>-->
     </style>
 
     <style name="AppToolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
@@ -15,9 +16,10 @@
     </style>
 
     <style name="TabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">25sp</item>
+        <item name="lineHeight">40dp</item>
     </style>
 
     <style name="HomeTabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
@@ -30,4 +32,18 @@
         <item name="windowMinWidthMajor">0%</item>
         <item name="windowMinWidthMinor">0%</item>
     </style>
+
+    <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_background_selector</item>
+        <item name="chipSurfaceColor">@color/chip_background_selector</item>
+        <item name="android:textColor">@color/chip_text_selector</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeColor">@color/white</item>
+    </style>
+
+    <style name="ChipCustomStyle" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="checkedIconEnabled">false</item>
+        <item name="checkedIcon">@null</item>
+    </style>
+
 </resources>
