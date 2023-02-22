@@ -45,7 +45,7 @@ interface ProfileDao {
     fun setDiscord(profileId: String, newDiscord: String)
 
     @Query("UPDATE profiles SET foodWave = :newFoodWave WHERE id = :profileId")
-    fun setDiscord(profileId: String, newFoodWave: Int)
+    fun setWave(profileId: String, newFoodWave: Int)
 
 //    @Query("UPDATE profiles SET teamStatus = :newTeamStatus WHERE id = :profileId")
 //    fun setTeamStatus(profileId: String, newTeamStatus: String)
