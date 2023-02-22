@@ -87,15 +87,17 @@ class ScannerViewModel : ViewModel() {
                 Log.i("Check In", "Response: $response")
                 lastScanStatus.postValue(
                     ScanStatus(
-                        true,
+                        response.rsvpData != null,
                         0,
-                        response.status,
+                        if (response.rsvpData == null) "Bad User Token" else response.status,
+                        if (response.rsvpData != null)
                         response
                             .rsvpData
                             .registrationData
                             .attendee
                             .dietary
                             .joinToString()
+                    else "Bad User Token"
                     )
                 )
             } catch (e: Exception) {

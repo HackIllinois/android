@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         val scannerFragment = ScannerFragment()
 
         code_entry_fab.setOnClickListener {
-            if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
+            if (!hasLoggedIn() or (hasLoggedIn() and !isStaff())) {
                 val toast = Toast.makeText(applicationContext, getString(R.string.fab_error_msg), Toast.LENGTH_LONG)
 //                ((toast.view as LinearLayout).getChildAt(0) as TextView).gravity = Gravity.CENTER_HORIZONTAL
                 toast.show()
