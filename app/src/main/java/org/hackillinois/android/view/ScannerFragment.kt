@@ -1,6 +1,7 @@
 package org.hackillinois.android.view
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -98,15 +99,18 @@ class ScannerFragment : Fragment() {
             var firstChipId = 0
 
             // Go through all the events and add a chip for it
-            for ((index, event) in listOfEvents!!.withIndex()) {
-                Log.i("Events", "${event.name}: ${event.eventType}")
-                val chip = inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
-                chip.text = event.name
-                val chipId = ViewCompat.generateViewId()
-                if (index == 0) firstChipId = chipId
-                chip.id = chipId
-                chipIdToEventId[chipId] = event.id
-                staffChipGroup.addView(chip)
+            if (isStaff()) {
+                for ((index, event) in listOfEvents!!.withIndex()) {
+                    Log.i("Events", "${event.name}: ${event.eventType}")
+                    val chip =
+                        inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
+                    chip.text = event.name
+                    val chipId = ViewCompat.generateViewId()
+                    if (index == 0) firstChipId = chipId
+                    chip.id = chipId
+                    chipIdToEventId[chipId] = event.id
+                    staffChipGroup.addView(chip)
+                }
             }
 
             Log.i("Events", "Number of events: ${listOfEvents!!.size}")
@@ -201,9 +205,11 @@ class ScannerFragment : Fragment() {
         // make toast from response
         Log.d("SCAN STATUS RESULT", responseString)
         if (activity != null) {
-            AlertDialog.Builder(activity!!)
+            AlertDialog.Builder(requireActivity())
                 .setMessage(responseString)
-                .setPositiveButton("OK") { _, _ -> }
+                .setNegativeButton("OK") { dialog, id ->
+                    // Dismiss the dialog
+                    dialog.dismiss() }
                 .create()
                 .show()
         } else {
@@ -227,7 +233,7 @@ class ScannerFragment : Fragment() {
     }
 
     private fun showStaffChipGroup(it: Roles?) = it?.let {
-        staffChipGroup.visibility = if (it.isStaff()) View.VISIBLE else View.GONE
+        staffChipGroup.visibility = if (it.isStaff()) View.VISIBLE else View.INVISIBLE
     }
 
     private fun getStaffCheckInEventId(): String {
@@ -257,5 +263,13 @@ class ScannerFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    private fun isStaff(): Boolean {
+        val context = requireActivity().applicationContext
+        return context.getSharedPreferences(
+            context.getString(R.string.authorization_pref_file_key),
+            Context.MODE_PRIVATE
+        ).getString("provider", "") ?: "" == "google"
     }
 }
