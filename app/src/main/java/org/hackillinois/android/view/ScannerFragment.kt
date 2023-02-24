@@ -78,7 +78,11 @@ class ScannerFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_scanner, container, false)
 
         val closeButton = view.findViewById<ImageButton>(R.id.qrScannerClose)
@@ -88,7 +92,8 @@ class ScannerFragment : Fragment() {
         viewModel.allEvents.observe(this) {
             // Filter out all the relevant details
             listOfEvents =
-                it.events.filter { event -> event.eventType == "MEAL" || event.name == "Check-in" }.toMutableList()
+                it.events.filter { event -> event.eventType == "MEAL" || event.name == "Check-in" }
+                    .toMutableList()
 
             // Move the check-in to the first index
             val index = listOfEvents!!.indexOfFirst { event -> event.name == "Check-in" }
@@ -144,7 +149,8 @@ class ScannerFragment : Fragment() {
                 }
                 errorCallback = ErrorCallback {
                     Handler(Looper.getMainLooper()).post {
-                        val toast = Toast.makeText(context, it.message.toString(), Toast.LENGTH_LONG)
+                        val toast =
+                            Toast.makeText(context, it.message.toString(), Toast.LENGTH_LONG)
                         toast.show()
                     }
                 }
@@ -156,7 +162,10 @@ class ScannerFragment : Fragment() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 context.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
             ) {
-                requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSIONS_REQUEST_ACCESS_CAMERA)
+                requestPermissions(
+                    arrayOf(Manifest.permission.CAMERA),
+                    PERMISSIONS_REQUEST_ACCESS_CAMERA
+                )
             } else {
                 codeScanner.startPreview()
             }
@@ -165,7 +174,11 @@ class ScannerFragment : Fragment() {
         return view
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == PERMISSIONS_REQUEST_ACCESS_CAMERA) {
@@ -189,6 +202,7 @@ class ScannerFragment : Fragment() {
         val splitOnEquals = qrString.split("=")
         return splitOnEquals.last()
     }
+
     private fun getEventCodeFromQrString(qrString: String): String {
         val splitOnEquals = qrString.split("=")
         return splitOnEquals.first()
@@ -209,7 +223,8 @@ class ScannerFragment : Fragment() {
                 .setMessage(responseString)
                 .setNegativeButton("OK") { dialog, id ->
                     // Dismiss the dialog
-                    dialog.dismiss() }
+                    dialog.dismiss()
+                }
                 .create()
                 .show()
         } else {
