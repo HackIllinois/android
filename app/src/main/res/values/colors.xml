@@ -14,8 +14,8 @@
     <color name="tabText">#c6d9e0</color>
 
     <color name="bottomAppBarColor">#78AC42</color>
-    <color name="selectedAppBarIcon">#E8D7A5</color>
-    <color name="unselectedAppBarIcon">#F6F4D4</color>
+    <color name="selectedAppBarIcon">#088BC1</color>
+    <color name="unselectedAppBarIcon">#FFFFFF</color>
 
     <color name="fabColor">#E35058</color>
 

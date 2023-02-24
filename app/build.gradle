@@ -24,8 +24,8 @@ android {
         applicationId "org.hackillinois.android"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 31
-        versionName "2.0.1"
+        versionCode 39
+        versionName "3.0.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -56,6 +56,7 @@ android {
             }
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -91,7 +92,7 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.1.1'
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
-    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation platform('com.google.firebase:firebase-bom:31.2.2')
 
     // Room Database
     implementation 'androidx.room:room-runtime:2.4.1'
