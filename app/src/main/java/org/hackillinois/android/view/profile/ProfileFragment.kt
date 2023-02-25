@@ -135,12 +135,14 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        viewModel.qr.observe(viewLifecycleOwner, Observer { it ->
-            // Update UI with new value
-            updateQrView(it)
-        })
-        viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
+        if (!isStaff()) {
+            viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+            viewModel.qr.observe(viewLifecycleOwner, Observer { it ->
+                // Update UI with new value
+                updateQrView(it)
+            })
+            viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
+        }
     }
 
 
