@@ -135,6 +135,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginTop="6dp"
         android:layout_weight="1"
         android:textFontWeight="600"
@@ -142,6 +145,7 @@
         android:textColor="@color/midnight"
         android:textSize="13sp"
         app:layout_constraintStart_toEndOf="@+id/location_icon"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_sponsor"
         app:layout_constraintBottom_toTopOf="@id/map_constraint_layout"
         tools:text="location" />

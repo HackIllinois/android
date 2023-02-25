@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.event_tile.view.*
+import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.time_list_item.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
@@ -63,7 +64,18 @@ class EventsAdapter(
             sponsoredTextView.text = "Sponsored by ${event.sponsor}"
             sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             sponsored_marker.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            locationTextView.text = if (event.locations.isEmpty()) "N/A" else event.locations.get(0).description
+//            locationTextView.text = if (event.locations.isEmpty()) "N/A" else event.locations.get(0).description
+            if (event.locations.isEmpty()) {
+                locationTextView.text = "N/A"
+            } else {
+                // add multiple locations
+                val locationText = StringBuilder()
+                for (i in event.locations.indices) {
+                    if (i != 0) locationText.append(",  ");
+                    locationText.append(event.locations[i].description);
+                }
+                locationTextView.text = locationText
+            }
             eventDescriptionTextView.text = event.description
             pointsView.text = " + ${event.points} pts "
 

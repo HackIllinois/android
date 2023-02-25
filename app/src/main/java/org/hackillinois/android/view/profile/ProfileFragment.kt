@@ -133,6 +133,18 @@ class ProfileFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel.qr.observe(viewLifecycleOwner, Observer { it ->
+            // Update UI with new value
+            updateQrView(it)
+        })
+        viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
+    }
+
+
+
     private fun updateDietaryRestrictions(attendee: Attendee?) = attendee?.let { it ->
         val dietary = it.dietary
         if (it.dietary.isEmpty() || (it.dietary.size == 1 && it.dietary[0] == "None")) {
@@ -157,10 +169,10 @@ class ProfileFragment : Fragment() {
         waveText.text = "Wave ${it.foodWave}"
 
         when {
-            currPoints < 100 -> {
+            currPoints < 900 -> {
                 tierText.text = "Clown Tier"
             }
-            currPoints < 900 -> {
+            currPoints < 1200 -> {
                 tierText.text = "Juggler Tier"
             }
             else -> {
