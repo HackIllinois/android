@@ -152,7 +152,21 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
             event_sponsor.text = "Sponsored by ${it.sponsor}"
             event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
             sponsoredIcon.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
+<<<<<<< Updated upstream
             event_location.text = if (it.locations.isEmpty()) "N/A" else it.locations[0].description
+=======
+            if (it.locations.isEmpty()) {
+                event_location.text = "N/A"
+            } else {
+                // add multiple locations
+                val locationText = StringBuilder()
+                for (i in it.locations.indices) {
+                    if (i != 0) locationText.append(",  ")
+                    locationText.append(it.locations[i].description)
+                }
+                event_location.text = locationText
+            }
+>>>>>>> Stashed changes
             event_time.text = if (it.isAsync) "Asynchronous event" else "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
             event_description.text = it.description
             if (it.eventType == "QNA") {

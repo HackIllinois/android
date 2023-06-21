@@ -156,11 +156,19 @@ class ProfileFragment : Fragment() {
         nameText.text = "${it.firstName} ${it.lastName}"
         waveText.text = "Wave ${it.foodWave}"
 
+
         when {
+<<<<<<< Updated upstream
             currPoints < 100 -> {
                 tierText.text = "Clown Tier"
             }
             currPoints < 900 -> {
+=======
+            currPoints < 300 -> {
+                tierText.text = "Clown Tier"
+            }
+            currPoints < 600 -> {
+>>>>>>> Stashed changes
                 tierText.text = "Juggler Tier"
             }
             else -> {

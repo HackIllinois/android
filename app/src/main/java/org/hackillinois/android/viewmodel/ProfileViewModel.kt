@@ -14,6 +14,7 @@ import org.hackillinois.android.repository.attendeeRepository
 import org.hackillinois.android.repository.qrRepository
 import org.json.JSONObject
 import retrofit2.HttpException
+import java.util.*
 
 class ProfileViewModel : ViewModel() {
     private val profileRepository = ProfileRepository.instance
@@ -28,6 +29,13 @@ class ProfileViewModel : ViewModel() {
         currentProfileLiveData = profileRepository.fetchCurrentProfile()
         qr = qrRepository.fetch()
         attendee = attendeeRepository.fetch()
+        val timerObj = Timer()
+        val timerTaskObj: TimerTask = object : TimerTask() {
+            override fun run() {
+                qr = qrRepository.fetch()
+            }
+        }
+        timerObj.schedule(timerTaskObj, 0, 15000)
     }
 
     fun updateProfile(newProfile: Profile) {

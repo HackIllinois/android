@@ -24,8 +24,13 @@ android {
         applicationId "org.hackillinois.android"
         minSdkVersion 23
         targetSdkVersion 31
+<<<<<<< Updated upstream
         versionCode 41
         versionName "3.0.1"
+=======
+        versionCode 50
+        versionName "3.0.9"
+>>>>>>> Stashed changes
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
