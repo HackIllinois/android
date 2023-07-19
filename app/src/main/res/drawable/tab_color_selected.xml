@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    if selected:-->
-    <item android:drawable="@color/selectedDarkColor" android:state_selected="true"/>
-<!--    if not selected: -->
-    <item android:drawable="@color/colorPrimaryDark"/>
-</selector>

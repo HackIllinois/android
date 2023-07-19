@@ -43,7 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/montserrat_bold"
-        android:textColor="@color/lightTextColor"
+        android:textColor="@color/white"
         android:text="HACKILLINOIS BEGINS IN..." />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -200,9 +200,9 @@
         app:tabIndicatorHeight="5dp"
         app:tabIndicatorFullWidth="false"
         app:tabTextAppearance="@style/HomeTabTextAppearance"
-        app:tabIndicatorColor="@color/lightTextColor"
+        app:tabIndicatorColor="@color/white"
         app:tabIndicator="@drawable/tab_indicator"
-        app:tabTextColor="@color/lightTextColor"
+        app:tabTextColor="@color/white"
         app:tabRippleColor="@android:color/transparent">
 
         <com.google.android.material.tabs.TabItem
