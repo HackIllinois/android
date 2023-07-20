@@ -61,8 +61,7 @@ class FavoritesManager {
         private fun getFavoritesPrefs(context: Context) = context.getSharedPreferences(context.getString(R.string.favorites_pref_file_key), Context.MODE_PRIVATE)
 
         fun updateFavoriteNotifications(context: Context, oldEvents: List<Event>, newEvents: List<Event>) {
-            newEvents.forEach {
-                newEvent ->
+            newEvents.forEach { newEvent ->
                 if (isFavoritedEvent(context, newEvent.id)) {
                     var oldEvent = oldEvents.find { it.id == newEvent.id }
                     oldEvent?.let {
