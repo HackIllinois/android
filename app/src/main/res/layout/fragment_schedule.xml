@@ -79,20 +79,20 @@
             android:id="@+id/tabFriday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="FRI\n24" />
+            android:text="@string/friday" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSaturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SAT\n25" />
+            android:text="@string/saturday" />
 
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SUN\n26" />
+            android:text="@string/sunday" />
 
 
     </com.google.android.material.tabs.TabLayout>

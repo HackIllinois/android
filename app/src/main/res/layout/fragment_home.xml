@@ -44,7 +44,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/white"
-        android:text="HACKILLINOIS BEGINS IN..." />
+        android:text="@string/home_banner" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

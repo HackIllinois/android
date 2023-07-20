@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/white"
-        android:text="LEADERBOARD"
+        android:text="@string/leaderboard"
  />
 
     <androidx.recyclerview.widget.RecyclerView
