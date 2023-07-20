@@ -56,10 +56,9 @@
         android:textColor="@color/white"
         android:textSize="13sp"
         android:textFontWeight="700"
-        android:background="@drawable/ic_blue_oval"
-        android:paddingLeft="7dp"
-        android:paddingRight="7dp"
-        android:paddingTop="1dp"
+        android:background="@drawable/rounded_sea_green"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="3dp"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_name"
@@ -157,15 +156,14 @@
         android:textColor="@color/white"
         android:textSize="13sp"
         android:textFontWeight="700"
-        android:background="@drawable/ic_pink_oval"
-        android:paddingLeft="6dp"
-        android:paddingTop="1dp"
-        android:paddingRight="6dp"
+        android:background="@drawable/rounded_strawberry_pink"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="3dp"
         app:layout_constraintStart_toEndOf="@+id/event_type"
         app:layout_constraintTop_toBottomOf="@id/event_name"
         app:layout_constraintBottom_toBottomOf="@+id/event_type"
         app:layout_constraintRight_toRightOf="parent"
-        tools:text=" +10 pts" />
+        tools:text="+10 pts" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/map_constraint_layout"
