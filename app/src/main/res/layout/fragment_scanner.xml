@@ -33,7 +33,6 @@
 
         >
 
-
     </com.budiyev.android.codescanner.CodeScannerView>
 
 <!--    <Switch-->
@@ -76,7 +75,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_close_dark" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,73 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryLight">#e3f6ff</color>
-    <color name="colorPrimary">#222B5C</color>
-    <color name="colorPrimaryDark">#daecdb</color>
-<!--    <color name="colorPrimaryDark">#08151B</color>-->
-    <color name="colorBackgrounds">#202c54</color>
-    <color name="colorAccent">#E35058</color>
+    <color name="colorPrimary">#222B5C</color> <!--   delete later on     -->
+    <color name="colorPrimaryDark">#daecdb</color> <!--   delete later on?     -->
+    <color name="colorAccent">#E35058</color> <!--   delete later on?     -->
+    <color name="selectedAppBarIcon">#088BC1</color> <!--   delete later on?     -->
+    <color name="unselectedAppBarIcon">#FFFFFF</color> <!--   delete later on     -->
+    <color name="primaryTextColor">#08151B</color> <!--   delete later on     -->
+    <color name="sponsoredByColor">#A43B5C</color> <!--   delete later on     -->
 
-    <color name="selectedMenuItem">#8ce3f6ff</color>
-    <color name="adjacentTimesText">#321c055e</color>
-
-    <color name="tabBackground">#5db4d6</color>
-    <color name="tabText">#c6d9e0</color>
-
-    <color name="bottomAppBarColor">#78AC42</color>
-    <color name="selectedAppBarIcon">#088BC1</color>
-    <color name="unselectedAppBarIcon">#FFFFFF</color>
-
-    <color name="fabColor">#E35058</color>
-
-    <color name="attendeeLoginColor">#EE6C72</color>
-    <color name="secondaryLoginColor">#C9CF76</color>
-
-    <color name="primaryTextColor">#08151B</color>
-    <color name="alternateTextColor">#E35058</color>
-    <color name="lightTextColor">#FFFFFF</color>
-
-    <color name="mealTextColor">#E87AA4</color>
-    <color name="speakerTextColor">#981D23</color>
-    <color name="workshopTextColor">#5947A7</color>
-    <color name="miniEventTextColor">#286574</color>
-    <color name="qnaTextColor">#E4694A</color>
-    <color name="otherTextColor">#E87AA4</color>
-
-    <color name="lookingForTeamColor">#009900</color>
-    <color name="lookingForMembersColor">#FF9933</color>
-    <color name="notLookingColor">#CC0000</color>
-
-    <color name="starColor">#ED9B21</color>
-    <color name="successColor">#009900</color>
-    <color name="errorColor">#CC0000</color>
-
+<!--    colors for specific purposes       -->
     <color name="white">#FFFFFF</color>
-
-    <color name ="eventTileColor">#CAD2E5</color>
-    <color name="eventTileTextColor">#1D2644</color>
-
-    <color name="primaryGrayColor">#212121</color>
-
-    <color name="tickerColor">#232A34</color>
-    <color name="minutesColor">#E28B79</color>
-
-    <color name="loginLabelColor">#E26856</color>
-
-    <color name="sponsoredByColor">#A43B5C</color>
-
-    <color name="offWhiteTextColor">#F6F6F6</color>
-    <color name="offWhiteBackgroundColor">#F6F6F6</color>
-
-    <color name="selectedDarkColor">#08151B</color>
-    <color name="submitBtnColor">#F06C6F</color>
-
     <color name="scannerBorderColor">#EAAD9C</color>
-
     <color name="textShadowColor">#d7d4b8</color>
-    <color name="leaderboardLight">#F7F4D3</color>
-    <color name="leaderboardDark">#E8D7A5</color>
-
-    <color name="qrButtonOrange">#ED9B21</color>
+    <color name="primaryGrayColor">#212121</color>
+    <color name="starColor">#ED9B21</color>
 
 <!--      2023 color palette       -->
     <color name="nightBlue">#0D387C</color>
