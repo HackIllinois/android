@@ -207,9 +207,7 @@ class ScannerFragment : Fragment() {
         if (activity != null) {
             AlertDialog.Builder(requireActivity())
                 .setMessage(responseString)
-                .setNegativeButton("OK") { dialog, id ->
-                    // Dismiss the dialog
-                    dialog.dismiss() }
+                .setNegativeButton("OK") { dialog, id -> dialog.dismiss() }
                 .create()
                 .show()
         } else {
