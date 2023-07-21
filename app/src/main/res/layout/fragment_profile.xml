@@ -68,8 +68,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nameText">
 
+
             <TextView
-                android:id="@id/ptsText"
+                android:id="@+id/ptsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_white_bg"
@@ -80,7 +81,7 @@
                 android:paddingVertical="3dp"
                 android:textColor="@color/midnight"
                 android:textSize="12sp"
-                tools:text="1000 pts" />
+                tools:text="1000 pts"  />
 
             <TextView
                 android:id="@+id/tierText"
