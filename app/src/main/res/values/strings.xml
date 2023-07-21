@@ -6,22 +6,8 @@
     <string name="map_kenney">KENNEY</string>
     <string name="get_directions">GET DIRECTIONS</string>
     <string name="event_type">Event Type</string>
-    <string name="close_text">Close</string>
-    <string name="projects_header">Projects</string>
-    <string name="fav_button_text">Favorites</string>
-    <string name="data_sci_project">DATA SCI</string>
-    <string name="languages_project">LANGS</string>
-    <string name="systems_project">SYSTEMS</string>
-    <string name="web_dev_project">WEB</string>
-    <string name="data_science_tag">Data Science</string>
-    <string name="web_dev_tag">Web</string>
-    <string name="languages_tag">Languages</string>
-    <string name="systems_tag">Systems</string>
-    <string name="project_favorited_notif">Project added to Favorites!</string>
-    <string name="profile_favorited_notif">Profile added to Favorites!</string>
     <string name="outdoors_button">OUTDOORS</string>
     <string name="indoors_buttons">INDOORS</string>
-    <string name="join_stream">Join Stream!</string>
     <string name="fab_error_msg">You must log in to use this feature! Go to the Profile tab to logout.</string>
 
 <!--   Other   -->

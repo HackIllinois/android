@@ -37,7 +37,9 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     private lateinit var eventsListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
     private lateinit var currentEventsSection: EventsSection
     private lateinit var upcomingEventsSection: EventsSection
+
 //    private lateinit var asyncEventsSection: EventsSection
+
     private lateinit var daysValue: TextView
     private lateinit var hoursValue: TextView
     private lateinit var minutesValue: TextView
@@ -57,7 +59,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         super.onCreate(savedInstanceState)
 
         context?.let {
-
             val currentHeaderColor = Color.WHITE
             currentEventsSection = EventsSection(
                 mutableListOf(),
