@@ -210,7 +210,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun generateQR(text: String): Bitmap {
-
         val width = qrCodeImage.width
         val height = qrCodeImage.height
         val pixels = IntArray(width * height)
