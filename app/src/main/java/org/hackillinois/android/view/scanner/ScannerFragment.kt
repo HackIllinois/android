@@ -1,4 +1,4 @@
-package org.hackillinois.android.view
+package org.hackillinois.android.view.scanner
 
 import android.Manifest
 import android.content.Context
