@@ -41,36 +41,36 @@ data class Project(
     @Ignore
     private val NO_RESOURCE = 0
 
-    fun getIndoorMapResource(): Int? {
-        val split = room.split(" ")
-        if (split.isEmpty()) {
-            return NO_RESOURCE
-        }
-
-        val buildingName = split[0]
-
-        return if (buildingName == "Siebel") {
-            if (split.size == 1) { R.drawable.siebel_floor_1 }
-
-            val floor = split.last()[0]
-            when (floor) {
-                '0' -> R.drawable.siebel_floor_0
-                '2' -> R.drawable.siebel_floor_2
-                else -> R.drawable.siebel_floor_1
-            }
-        } else if (buildingName == "ECEB") {
-            if (split.size == 1) { R.drawable.eceb_floor_1 }
-
-            val floor = split.last()[0]
-            when (floor) {
-                '2' -> R.drawable.eceb_floor_2
-                '3' -> R.drawable.eceb_floor_3
-                else -> R.drawable.eceb_floor_1
-            }
-        } else {
-            null
-        }
-    }
+//    fun getIndoorMapResource(): Int? {
+//        val split = room.split(" ")
+//        if (split.isEmpty()) {
+//            return NO_RESOURCE
+//        }
+//
+//        val buildingName = split[0]
+//
+//        return if (buildingName == "Siebel") {
+//            if (split.size == 1) { R.drawable.siebel_floor_1 }
+//
+//            val floor = split.last()[0]
+//            when (floor) {
+//                '0' -> R.drawable.siebel_floor_0
+//                '2' -> R.drawable.siebel_floor_2
+//                else -> R.drawable.siebel_floor_1
+//            }
+//        } else if (buildingName == "ECEB") {
+//            if (split.size == 1) { R.drawable.eceb_floor_1 }
+//
+//            val floor = split.last()[0]
+//            when (floor) {
+//                '2' -> R.drawable.eceb_floor_2
+//                '3' -> R.drawable.eceb_floor_3
+//                else -> R.drawable.eceb_floor_1
+//            }
+//        } else {
+//            null
+//        }
+//    }
 
     @Ignore
     private val latLngMappings = mapOf(
