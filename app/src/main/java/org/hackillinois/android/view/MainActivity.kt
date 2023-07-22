@@ -27,6 +27,7 @@ import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.onboarding.OnboardingActivity
 import org.hackillinois.android.view.profile.ProfileFragment
+import org.hackillinois.android.view.scanner.ScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
@@ -99,10 +100,10 @@ class MainActivity : AppCompatActivity() {
 
         code_entry_fab.setOnClickListener {
             if (!hasLoggedIn()) {
-                val toast = Toast.makeText(applicationContext, getString(R.string.fab_error_msg), Toast.LENGTH_LONG)
+                val toast = Toast.makeText(applicationContext, getString(R.string.login_error_msg), Toast.LENGTH_LONG)
 //                ((toast.view as LinearLayout).getChildAt(0) as TextView).gravity = Gravity.CENTER_HORIZONTAL
                 toast.show()
-//                Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
+//                Snackbar.make(findViewById(android.R.id.content), getString(R.string.login_error_msg), Snackbar.LENGTH_SHORT).show()
             } else {
                 switchFragment(scannerFragment, true)
             }

@@ -1,4 +1,4 @@
-package org.hackillinois.android.model
+package org.hackillinois.android.model.scanner
 
 data class ScanStatus(
     val lastScanWasSuccessful: Boolean,

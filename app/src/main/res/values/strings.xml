@@ -1,20 +1,11 @@
 <resources>
-    <!--    delete later on?   -->
-    <string name="map_dcl">DCL</string>
-    <string name="map_eceb">ECEB</string>
-    <string name="map_siebel">SIEBEL</string>
-    <string name="map_kenney">KENNEY</string>
-    <string name="get_directions">GET DIRECTIONS</string>
-    <string name="event_type">Event Type</string>
-    <string name="outdoors_button">OUTDOORS</string>
-    <string name="indoors_buttons">INDOORS</string>
-    <string name="fab_error_msg">You must log in to use this feature! Go to the Profile tab to logout.</string>
 
 <!--   Other   -->
     <string name="app_name">HackIllinois</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem cursus, nulla cras. Non in nibh vulputate pharetra, ornare mi malesuada. Id tempus amet est.</string>
     <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
     <string name="authorization_pref_file_key">org.hackillinois.android.authorization</string>
+    <string name="login_error_msg">You must log in to use this feature! Go to the Profile tab to logout.</string>
 
 <!--    Onboarding Fragment   -->
     <string name="onboarding_welcome_title">Welcome!</string>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#222B5C</color> <!--   delete later on     -->
-    <color name="colorPrimaryDark">#daecdb</color> <!--   delete later on?     -->
-    <color name="colorAccent">#E35058</color> <!--   delete later on?     -->
 
 <!--    colors for specific purposes       -->
     <color name="white">#FFFFFF</color>
     <color name="scannerBorderColor">#EAAD9C</color>
     <color name="textShadowColor">#d7d4b8</color>
     <color name="primaryGrayColor">#212121</color>
+    <color name="colorPrimary">#222B5C</color>
+    <color name="colorPrimaryDark">#daecdb</color>
+    <color name="colorAccent">#E35058</color>
     <color name="starColor">#ED9B21</color>
     <color name="primaryTextColor">#08151B</color>
     <color name="selectedAppBarIcon">#088BC1</color> <!--   For bottom tab icons     -->
