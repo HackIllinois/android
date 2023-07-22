@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
-import org.hackillinois.android.model.ScanStatus
+import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.repository.rolesRepository

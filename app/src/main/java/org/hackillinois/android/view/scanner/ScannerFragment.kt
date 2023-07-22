@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
-import org.hackillinois.android.model.ScanStatus
+import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
 class ScannerFragment : Fragment() {
