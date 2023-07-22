@@ -1,7 +1,6 @@
 package org.hackillinois.android.database.entity
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.android.gms.maps.model.LatLng

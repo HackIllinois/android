@@ -5,7 +5,6 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.google.android.gms.maps.model.LatLng
-import org.hackillinois.android.R
 import org.hackillinois.android.database.Converters
 
 @Entity(tableName = "projects")
