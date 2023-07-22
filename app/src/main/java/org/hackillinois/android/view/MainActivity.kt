@@ -99,10 +99,10 @@ class MainActivity : AppCompatActivity() {
 
         code_entry_fab.setOnClickListener {
             if (!hasLoggedIn()) {
-                val toast = Toast.makeText(applicationContext, getString(R.string.fab_error_msg), Toast.LENGTH_LONG)
+                val toast = Toast.makeText(applicationContext, getString(R.string.login_error_msg), Toast.LENGTH_LONG)
 //                ((toast.view as LinearLayout).getChildAt(0) as TextView).gravity = Gravity.CENTER_HORIZONTAL
                 toast.show()
-//                Snackbar.make(findViewById(android.R.id.content), getString(R.string.fab_error_msg), Snackbar.LENGTH_SHORT).show()
+//                Snackbar.make(findViewById(android.R.id.content), getString(R.string.login_error_msg), Snackbar.LENGTH_SHORT).show()
             } else {
                 switchFragment(scannerFragment, true)
             }
