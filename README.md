@@ -12,11 +12,11 @@
 * Download and install [Git](https://git-scm.com/downloads) and [GitHub Desktop](https://desktop.github.com/)
 
 ## Installation
-1. Clone this repository.
+1. Clone the repository.
 
    `git clone https://github.com/HackIllinois/android.git`
 
-2. Open this project in Android Studio.
+2. Open the project in Android Studio.
      - Open Android Studio
      - Click "Open an existing Android Studio project"
      - Select the `android` folder in the location that you cloned to
