@@ -12,11 +12,11 @@
 * Download and install [Git](https://git-scm.com/downloads) and [GitHub Desktop](https://desktop.github.com/)
 
 ## Installation
-1. Clone this repository.
+1. Clone the repository.
 
    `git clone https://github.com/HackIllinois/android.git`
 
-2. Open this project in Android Studio.
+2. Open the project in Android Studio.
      - Open Android Studio
      - Click "Open an existing Android Studio project"
      - Select the `android` folder in the location that you cloned to
@@ -24,7 +24,7 @@
 3. On your computer, create a `~/.gradle/gradle.properties` file in the generated `.gradle` folder.
      - If on Windows, this will be `C:\Users\username\.gradle\gradle.properties`
 
-4. Fill this `gradle.properties` file with the following text:
+4. Fill the `gradle.properties` file you created with the following text:
     ```
     GOOGLE_MAPS_API_KEY=<API_KEY_HERE>
     ```
