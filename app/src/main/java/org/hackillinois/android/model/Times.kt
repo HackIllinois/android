@@ -17,4 +17,3 @@ data class Times(
     val sundayEnd: Long,
     val sundayStart: Long
 )
-
