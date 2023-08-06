@@ -59,10 +59,11 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         // Set starting camera position to the first event location if it exists or Seibel
         // otherwise
         val firstEventLocation = viewModel.event.value?.locations?.first()
-        val initialLatLng = if (firstEventLocation != null)
+        val initialLatLng = if (firstEventLocation != null) {
             LatLng(firstEventLocation.latitude, firstEventLocation.longitude)
-        else
+        } else {
             siebelLatLng
+        }
         val zoomLevel = 18.3f
         val initialCameraPosition: CameraPosition = CameraPosition.Builder()
             .target(initialLatLng)

@@ -27,6 +27,7 @@ class CountdownManager(val listener: CountDownListener) {
     }
 
     private var times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
+
     // placeholders in case design team decides to change this
     private val titles = listOf("HACKILLINOIS BEGINS IN", "HACKING BEGINS IN", "HACKING ENDS IN", "MEMORIES MADE")
 
