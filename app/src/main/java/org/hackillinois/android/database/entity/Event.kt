@@ -128,13 +128,13 @@ data class EventCheckInAsStaffResponse(
     val newPoints: Int,
     val totalPoints: Int,
     val status: String,
-    val rsvpData: RSVPData,
+    val rsvpData: RSVPData
 )
 
 data class RSVPData(
     val id: String,
     val isAttending: Boolean,
-    val registrationData: RegistrationData,
+    val registrationData: RegistrationData
 )
 
 data class RegistrationData(
