@@ -3,8 +3,8 @@ package org.hackillinois.android.view
 import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -14,6 +14,7 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.User
+import org.hackillinois.android.view.onboarding.OnboardingActivity
 import java.lang.Exception
 import java.net.SocketTimeoutException
 import java.util.concurrent.CountDownLatch
@@ -29,14 +30,20 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+//        var anim = bodymovin.loadAnimation(params);
+//        anim.frameRate = 25;
+
+        Log.d("FRAME RATE", splashAnimationView.duration.toString())
+
         splashAnimationView.playAnimation()
         splashAnimationView.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(p0: Animator?) { }
-            override fun onAnimationStart(p0: Animator?) { }
+            override fun onAnimationRepeat(p0: Animator?) {}
+            override fun onAnimationStart(p0: Animator?) {}
 
             override fun onAnimationEnd(p0: Animator?) {
                 countDownLatchIfTappedOrAnimationFinished()
             }
+
             override fun onAnimationCancel(p0: Animator?) {
                 countDownLatchIfTappedOrAnimationFinished()
             }
@@ -80,7 +87,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
             runOnUiThread {
                 if (needsToLogin) {
-                    launchLoginActivity()
+                    launchOnboardingActivity()
+//                    launchLoginActivity()
                 } else {
                     launchMainActivity()
                 }
@@ -99,6 +107,12 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun launchMainActivity() {
         val mainIntent = Intent(this, MainActivity::class.java)
+        startActivity(mainIntent)
+        finish()
+    }
+
+    private fun launchOnboardingActivity() {
+        val mainIntent = Intent(this, OnboardingActivity::class.java)
         startActivity(mainIntent)
         finish()
     }

@@ -5,9 +5,8 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
-import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.EventCheckInResponse
-import org.hackillinois.android.database.entity.EventCode
+import org.hackillinois.android.database.entity.*
+import org.hackillinois.android.model.event.UserTokenEventIdPair
 
 class EventRepository {
     private val eventDao = App.database.eventDao()
@@ -28,11 +27,17 @@ class EventRepository {
         return eventDao.getEventsAfter(currentTime / 1000L)
     }
 
+    fun fetchAsyncEvents(): LiveData<List<Event>> {
+        return eventDao.getAsyncEvents()
+    }
+
     suspend fun refreshAllEvents() {
         // ensures database operation happens on the IO dispatcher
         withContext(Dispatchers.IO) {
             try {
                 val events = App.getAPI().allEvents().events
+                Log.d("events returned", events.toString())
+
                 // TODO FavoritesManager.updateFavoriteNotifications(, eventDao.getAllEventsList(), events)
                 eventDao.clearTableAndInsertEvents(events)
             } catch (e: Exception) {
@@ -44,6 +49,7 @@ class EventRepository {
     companion object {
         private fun getEventCodeMessage(response: EventCheckInResponse): String {
             var responseString: String = ""
+            Log.d("RESPONSE STATUS", response.status.toString())
             when (response.status) {
                 "Success" -> responseString = "Success! You received ${response.newPoints} points."
                 "InvalidCode" -> responseString = "This code doesn't seem to be correct."
@@ -53,7 +59,7 @@ class EventRepository {
             }
             return responseString
         }
-        suspend fun checkInEvent(code: String): String {
+        suspend fun checkInEvent(code: String): EventCheckInResponse {
             Log.d("send event token", code)
             var apiResponse: EventCheckInResponse = EventCheckInResponse(-1, -1, "")
 
@@ -64,10 +70,40 @@ class EventRepository {
                     apiResponse = App.getAPI().eventCodeCheckIn(EventCode(code))
                     Log.d("code sent!", apiResponse.toString())
                 } catch (e: Exception) {
-                        Log.e("Error - check in", e.toString())
+                    Log.e("Error - check in", e.toString())
                 }
             }
-            return getEventCodeMessage(apiResponse)
+            return apiResponse
+        }
+
+        suspend fun checkInEventAsStaff(userToken: String, eventId: String): EventCheckInAsStaffResponse {
+            val userTokenEventIdPair = UserTokenEventIdPair(userToken, eventId)
+            Log.d("send event token", userTokenEventIdPair.toString())
+            var apiResponse = EventCheckInAsStaffResponse(
+                -1,
+                -1,
+                "",
+                RSVPData(
+                    "",
+                    false,
+                    RegistrationData(
+                        AttendeeData(
+                            listOf()
+                        )
+                    )
+                )
+            )
+
+            withContext(Dispatchers.IO) {
+                try {
+                    Log.d("Sending code: ", userTokenEventIdPair.toString())
+                    apiResponse = App.getAPI().checkInUserAsStaff(userTokenEventIdPair)
+                    Log.d("code sent!", apiResponse.toString())
+                } catch (e: Exception) {
+                    Log.e("Error - check in", e.toString())
+                }
+            }
+            return apiResponse
         }
 
         const val MILLIS_IN_SECOND = 1000L

@@ -26,11 +26,12 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="13dp"
         app:cardElevation="5dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
+        app:cardBackgroundColor="@color/cloudMist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timeText"
@@ -53,59 +54,19 @@
                 android:layout_marginEnd="72dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:textColor="@color/primaryTextColor"
-                android:textSize="14sp"
+                android:textColor="@color/midnight"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Title" />
-
-            <TextView
-                android:id="@+id/sponsoredTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="72dp"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:textColor="@color/sponsoredByColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/titleTextView"
-                tools:text="By Company" />
-
-            <TextView
-                android:id="@+id/eventTimeSpanText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="72dp"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sponsoredTextView"
-                tools:text="5:00 - 7:00" />
-
-            <TextView
-                android:id="@+id/eventDescriptionTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="72dp"
-                android:layout_marginBottom="16dp"
-                android:ellipsize="end"
-                android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventTimeSpanText"
-                tools:text="@string/lorem_ipsum" />
+                tools:text="Event Name" />
 
             <ImageButton
                 android:id="@+id/starButton"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="30dp"
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:src="@drawable/ic_star_selectable"
@@ -115,37 +76,147 @@
                 app:layout_constraintTop_toTopOf="@+id/titleTextView"
                 app:srcCompat="@drawable/ic_star_border" />
 
-            <Button
-                android:id="@+id/pointsView"
-                android:layout_width="173dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/rounded_blue_bg"
-                android:text="42 Points!"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:fontFamily="@font/montserrat_regular"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventDescriptionTextView" />
-
             <TextView
                 android:id="@+id/eventType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="12sp"
+                android:textFontWeight="700"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:background="@drawable/rounded_sea_green"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                tools:text="Workshop" />
+
+            <TextView
+                android:id="@+id/pointsView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_strawberry_pink"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textFontWeight="700"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="3dp"
+                app:layout_constraintStart_toEndOf="@+id/eventType"
+                app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+                tools:text="+10 pts" />
+
+            <ImageView
+                android:id="@+id/event_time_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_clock"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventType" />
+
+
+            <TextView
+                android:id="@+id/eventTimeSpanText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="72dp"
+                android:textSize="14sp"
+                android:textFontWeight="600"
+                android:lineSpacingExtra="3sp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:textColor="@color/midnight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/event_time_icon"
+                app:layout_constraintTop_toBottomOf="@id/eventType"
+                tools:text="5:00 - 7:00" />
+
+            <ImageView
+                android:id="@+id/sponsored_marker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_building_marker_outline"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="9dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_time_icon" />
+
+            <TextView
+                android:id="@+id/sponsoredTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginTop="6dp"
+                android:textSize="12sp"
+                android:textFontWeight="600"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:textColor="@color/midnight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/sponsored_marker"
+                app:layout_constraintTop_toBottomOf="@id/eventTimeSpanText"
+                tools:text="SPONSORED COMPANY" />
+
+            <ImageView
+                android:id="@+id/map_marker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_map_marker_outline"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sponsored_marker"/>
+
+            <TextView
+                android:id="@+id/locationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="72dp"
+                android:textSize="12sp"
+                android:textFontWeight="600"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:textColor="@color/midnight"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/map_marker"
+                app:layout_constraintTop_toBottomOf="@id/sponsoredTextView"
+                tools:text="location" />
+
+            <TextView
+                android:id="@+id/eventDescriptionTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="16dp"
+                android:maxEms="100"
+                android:maxLines="2"
                 android:ellipsize="end"
-                android:textColor="@color/primaryTextColor"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="@id/pointsView"
+                android:textSize="14sp"
+                android:textFontWeight="400"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/midnight"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/pointsView"
-                app:layout_constraintTop_toTopOf="@+id/pointsView"
-                tools:text="EVENT TYPE" />
-
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/map_marker"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="@string/lorem_ipsum" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

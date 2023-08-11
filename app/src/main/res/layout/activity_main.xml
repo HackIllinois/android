@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:backgroundTint="@color/bottomAppBarColor">
+        app:backgroundTint="@color/nightBlue">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                 android:id="@+id/homeButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@color/bottomAppBarColor"
+                android:background="@color/nightBlue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/scheduleButton"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
                 android:id="@+id/scheduleButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@color/bottomAppBarColor"
+                android:background="@color/nightBlue"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toStartOf="@id/placeholder"
                 app:layout_constraintStart_toEndOf="@id/homeButton"
@@ -49,7 +49,7 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@id/profile"
+                app:layout_constraintEnd_toStartOf="@id/leaderboard"
                 app:layout_constraintStart_toEndOf="@id/scheduleButton"
                 app:layout_constraintTop_toTopOf="@id/homeButton" />
 
@@ -57,22 +57,22 @@
                 android:id="@+id/profile"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@color/bottomAppBarColor"
+                android:background="@color/nightBlue"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@id/teamMatching"
-                app:layout_constraintStart_toEndOf="@id/placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/leaderboard"
                 app:srcCompat="@drawable/ic_profile" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/teamMatching"
+                android:id="@+id/leaderboard"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@color/bottomAppBarColor"
+                android:background="@color/nightBlue"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/profile"
+                app:layout_constraintEnd_toStartOf="@id/profile"
+                app:layout_constraintStart_toEndOf="@id/placeholder"
                 app:layout_constraintTop_toTopOf="@+id/homeButton"
-                app:srcCompat="@drawable/ic_team_matching" />
+                app:srcCompat="@drawable/ic_leaderboard" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -81,9 +81,10 @@
         android:id="@+id/code_entry_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/fabColor"
+        app:backgroundTint="@color/white"
         app:layout_anchor="@id/bottomAppBar"
-        app:srcCompat="@drawable/ic_code_icon" />
+        app:srcCompat="@drawable/qr_icon"
+        app:tint="@color/seaSaltGreen"/>
 
 <!--    <FrameLayout-->
 <!--        android:id="@+id/codeEntrySheet"-->

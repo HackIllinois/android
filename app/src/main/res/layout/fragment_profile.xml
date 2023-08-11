@@ -1,208 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profilePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profile_background">
+    android:background="@color/nightBlue">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profileText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="22dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="start"
+        android:text="@string/profile"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="35dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profileText"
+        app:srcCompat="@drawable/ic_logout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginBottom="110dp"
+        android:background="@drawable/profile_card_bg"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileText">
 
-        <ImageView
-            android:id="@+id/profileImage"
+        <LinearLayout
+            android:id="@+id/tierPointsLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/sym_def_app_icon" />
+            app:layout_constraintTop_toBottomOf="@id/nameText">
+
+
+            <TextView
+                android:id="@+id/ptsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_white_bg"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                tools:text="1000 pts"  />
+
+            <TextView
+                android:id="@+id/tierText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_bg"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                tools:text="Corndog Tier" />
+
+            <TextView
+                android:id="@+id/waveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_bg"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                tools:text="Wave 1" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/nameText"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="22dp"
             android:fontFamily="@font/montserrat_bold"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:gravity="center"
-            android:maxLines="3"
-            android:text="First Last Name"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
+            android:textColor="@color/midnight"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
-
-        <TextView
-            android:id="@+id/teamStatusText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Team Status"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/montserrat_bold"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameText" />
-
-        <TextView
-            android:id="@+id/timezoneText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="time zone"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.75"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeText" />
-
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="GMT"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/timezoneText"
-            app:layout_constraintStart_toStartOf="@+id/timezoneText"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
-
-        <TextView
-            android:id="@+id/pointsLabelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="points"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pointsText" />
-
-        <TextView
-            android:id="@+id/pointsText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:text="42"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/pointsLabelText"
-            app:layout_constraintStart_toStartOf="@+id/pointsLabelText"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
-
-        <TextView
-            android:id="@+id/discordText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:text="Discord"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/discordImage"
-            app:layout_constraintTop_toBottomOf="@+id/pointsLabelText" />
-
-        <TextView
-            android:id="@+id/descriptionText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="216dp"
-            android:gravity="center"
-            android:text="Short description about yourself."
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintVertical_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/teamStatusText" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Alice Smith" />
 
         <ImageView
-            android:id="@+id/discordImage"
-            android:layout_width="51dp"
-            android:layout_height="47dp"
-            android:layout_marginTop="48dp"
+            android:id="@+id/ticket_back"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ticket_hack_10th"
+            app:layout_constraintBottom_toTopOf="@id/dietRestrictionsText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pointsLabelText"
-            app:srcCompat="@drawable/discord_logo" />
+            app:layout_constraintTop_toBottomOf="@id/tierPointsLinearLayout" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ticket_back"
+            app:layout_constraintEnd_toEndOf="@+id/ticket_back"
+            app:layout_constraintStart_toStartOf="@+id/ticket_back"
+            app:layout_constraintTop_toTopOf="@+id/ticket_back">
+
+            <include
+                layout="@layout/ticket_front"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/flipButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/ticket_back"
+            app:layout_constraintEnd_toEndOf="@+id/ticket_back"
+            app:layout_constraintStart_toStartOf="@+id/ticket_back"
+            app:layout_constraintTop_toTopOf="@+id/ticket_back" />
 
         <TextView
-            android:id="@+id/skillsLabelText"
+            android:id="@+id/dietRestrictionsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:gravity="center"
+            android:text="@string/diet_restrictions"
+            android:textColor="@color/midnight"
+            android:textSize="17sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/dietFlowLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/dietFlowLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="20dp"
+            app:constraint_referenced_ids="noneText, veganText, dairyFreeText, vegetarianText, glutenFreeText, otherText"
+            app:flow_horizontalGap="8dp"
+            app:flow_horizontalStyle="packed"
+            app:flow_verticalGap="8dp"
+            app:flow_wrapMode="chain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/noneText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_midnight_bg"
             android:fontFamily="@font/montserrat_bold"
-            android:text="Skills"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/discordImage" />
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:text="@string/none"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
 
-        <ImageButton
-            android:id="@+id/editButton"
+        <TextView
+            android:id="@+id/vegetarianText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/edit" />
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_teal_bg"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:text="@string/vegetarian"
+            android:textColor="@color/midnight"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
 
-        <ImageButton
-            android:id="@+id/logoutButton"
+        <TextView
+            android:id="@+id/dairyFreeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/logout_button"
-            android:background="@null"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05" />
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_white_bg"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:text="@string/dairy_free"
+            android:textColor="@color/midnight"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
 
-        <LinearLayout
-            android:id="@+id/skillsLinearLayout"
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/veganText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:gravity="left"
-            android:orientation="vertical"
-            android:paddingBottom="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/skillsLabelText"
-            app:layout_constraintVertical_bias="0.25" />
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_lemonade_bg"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:text="@string/vegan"
+            android:textColor="@color/midnight"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/glutenFreeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_orangesorbet_bg"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:text="@string/gluten_free"
+            android:textColor="@color/midnight"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/otherText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_cottoncandy_bg"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:text="@string/other"
+            android:textColor="@color/midnight"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

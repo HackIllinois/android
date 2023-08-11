@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-// import android.widget.Button
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -26,9 +25,12 @@ class ScheduleFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
-        scheduleViewModel.showFavorites.observe(this, Observer {
-            favoriteButton.isSelected = it ?: false
-        })
+        scheduleViewModel.showFavorites.observe(
+            this,
+            Observer {
+                favoriteButton.isSelected = it ?: false
+            }
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,7 +42,7 @@ class ScheduleFragment : Fragment() {
         view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
         view.scheduleDays.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
 
-        favoriteButton = view.findViewById(R.id.favScheduleButton)
+        favoriteButton = view.findViewById(R.id.StarButton)
 
         favoriteButton.setOnClickListener(favScheduleClickListener)
 
@@ -50,7 +52,6 @@ class ScheduleFragment : Fragment() {
             time < scheduleViewModel.fridayEnd -> 0
             time < scheduleViewModel.saturdayEnd -> 1
             time < scheduleViewModel.sundayEnd -> 2
-            time < scheduleViewModel.mondayEnd -> 3
             else -> 0
         }
 
@@ -59,18 +60,25 @@ class ScheduleFragment : Fragment() {
 
     inner class SectionsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int) = DayFragment.newInstance(position)
-        override fun getCount() = 4
+        override fun getCount() = 3
         override fun getPageTitle(position: Int) =
             when (position) {
                 0 -> "FRIDAY"
                 1 -> "SATURDAY"
-                2 -> "SUNDAY"
-                else -> "MONDAY"
+                else -> "SUNDAY"
             }
     }
 
     private val favScheduleClickListener = OnClickListener {
-        favoriteButton.isSelected = !favoriteButton.isSelected
+        favoriteButton.apply {
+            isSelected = !favoriteButton.isSelected
+            setImageResource(
+                when (isSelected) {
+                    true -> R.drawable.ic_star_filled
+                    else -> R.drawable.ic_star_selectable
+                }
+            )
+        }
         scheduleViewModel.showFavorites.postValue(favoriteButton.isSelected)
     }
 }

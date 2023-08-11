@@ -42,10 +42,12 @@ class AttendeeTest {
 
     private fun buildAttendee(
         firstName: String = "Test",
-        lastName: String = "User"
+        lastName: String = "User",
+        dietary: List<String> = listOf<String>("Vegan", "Vegetarian")
     ) = Attendee(
         "123",
         firstName,
-        lastName
+        lastName,
+        dietary
     )
 }

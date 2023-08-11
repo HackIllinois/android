@@ -14,7 +14,7 @@ class NotificationReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notification = intent.getParcelableExtra("notification") as Notification
+        val notification: Notification = intent.getParcelableExtra<Notification>("notification") as Notification
         val id = intent.getIntExtra("notification_id", 0)
         notificationManager.notify(id, notification)
     }

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.hackillinois.android">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -15,12 +19,13 @@
         android:name="org.hackillinois.android.App"
         android:allowBackup="false"
         android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher_2021"
-        android:roundIcon="@mipmap/ic_launcher_2021_round"
+        android:icon="@mipmap/ic_launcher_23"
+        android:roundIcon="@mipmap/ic_launcher_23_round"
         android:theme="@style/AppTheme">
 
         <receiver android:name=".notifications.NotificationReceiver" />
         <receiver
+            android:exported="true"
             android:name=".notifications.BootReceiver"
             android:enabled="true">
             <intent-filter>
@@ -29,6 +34,7 @@
         </receiver>
 
         <activity
+            android:exported="true"
             android:name=".view.SplashScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -42,6 +48,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".view.onboarding.OnboardingActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:exported="true"
             android:name="org.hackillinois.android.view.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -59,13 +70,16 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_api_key" />
+            android:value="BuildConfig.API_KEY" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <service android:name=".notifications.FirebaseNotificationMessagingService">
+        <service
+            android:name=".notifications.FirebaseNotificationMessagingService"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

@@ -12,10 +12,11 @@ data class Profile(
     var firstName: String,
     var lastName: String,
     var points: Int,
-    var timezone: String,
     var avatarUrl: String,
     var discord: String,
-    var teamStatus: String,
-    var description: String,
-    var interests: List<String>
+    var foodWave: Int
+//    var timezone: String,
+//    var teamStatus: String = "",
+//    var description: String = "",
+//    var interests: List<String> = listOf()
 )

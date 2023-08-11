@@ -14,8 +14,8 @@ interface ProfileDao {
     fun getAllProfiles(): LiveData<List<Profile>>
 
     // TODO: Select profiles where each interest in "interests" exists in the profile's interests
-    @Query("SELECT * FROM profiles WHERE interests = :interests")
-    fun getProfilesWithInterests(interests: List<String>): LiveData<List<Profile>>
+//    @Query("SELECT * FROM profiles WHERE interests = :interests")
+//    fun getProfilesWithInterests(interests: List<String>): LiveData<List<Profile>>
 
     @Query("DELETE FROM profiles")
     fun clearTable()
@@ -29,11 +29,11 @@ interface ProfileDao {
         insertAll(profiles)
     }
 
-    @Query("UPDATE profiles SET description = :newDescription WHERE id = :profileId")
-    fun setDescription(profileId: String, newDescription: String)
+//    @Query("UPDATE profiles SET description = :newDescription WHERE id = :profileId")
+//    fun setDescription(profileId: String, newDescription: String)
 
-    @Query("UPDATE profiles SET interests = :newInterests WHERE id = :profileId")
-    fun setInterests(profileId: String, newInterests: List<String>)
+//    @Query("UPDATE profiles SET interests = :newInterests WHERE id = :profileId")
+//    fun setInterests(profileId: String, newInterests: List<String>)
 
     @Query("UPDATE profiles SET firstName = :newFirstName WHERE id = :profileId")
     fun setFirstName(profileId: String, newFirstName: String)
@@ -44,6 +44,9 @@ interface ProfileDao {
     @Query("UPDATE profiles SET discord = :newDiscord WHERE id = :profileId")
     fun setDiscord(profileId: String, newDiscord: String)
 
-    @Query("UPDATE profiles SET teamStatus = :newTeamStatus WHERE id = :profileId")
-    fun setTeamStatus(profileId: String, newTeamStatus: String)
+    @Query("UPDATE profiles SET foodWave = :newFoodWave WHERE id = :profileId")
+    fun setWave(profileId: String, newFoodWave: Int)
+
+//    @Query("UPDATE profiles SET teamStatus = :newTeamStatus WHERE id = :profileId")
+//    fun setTeamStatus(profileId: String, newTeamStatus: String)
 }
