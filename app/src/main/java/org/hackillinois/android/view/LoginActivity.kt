@@ -123,7 +123,7 @@ class LoginActivity : AppCompatActivity() {
             findViewById(android.R.id.content),
             "You must have a valid staff account" +
                 " to log in.",
-            Snackbar.LENGTH_SHORT
+            Snackbar.LENGTH_SHORT,
         ).show()
     }
 
