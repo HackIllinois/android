@@ -66,14 +66,14 @@ class ScannerFragment : Fragment() {
                     } else {
                         displayScanResult(it)
                     }
-                }
+                },
             )
             roles.observe(
                 this@ScannerFragment,
                 Observer {
                     userRoles = it
                     showStaffChipGroup(it)
-                }
+                },
             )
         }
     }
@@ -267,7 +267,7 @@ class ScannerFragment : Fragment() {
         val context = requireActivity().applicationContext
         return context.getSharedPreferences(
             context.getString(R.string.authorization_pref_file_key),
-            Context.MODE_PRIVATE
+            Context.MODE_PRIVATE,
         ).getString("provider", "") ?: "" == "google"
     }
 }
