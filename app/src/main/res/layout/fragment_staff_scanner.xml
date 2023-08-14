@@ -11,21 +11,23 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintVertical_bias="0.85"
+        android:scaleType="fitXY"
+        android:src="@drawable/welcome_bg"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/welcome_bg"/>
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/staffMeetingBtn"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="20dp"
         android:backgroundTint="@color/midnight"
         app:cornerRadius="24dp"
         android:textColor="@color/white"
@@ -41,9 +43,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/staffCheckInBtn"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="@color/midnight"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="20dp"
         app:cornerRadius="24dp"
         android:textColor="@color/white"
         android:textSize="18sp"
