@@ -1,13 +1,13 @@
 <resources>
 
-<!--   Other   -->
+    <!--   Other   -->
     <string name="app_name">HackIllinois</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem cursus, nulla cras. Non in nibh vulputate pharetra, ornare mi malesuada. Id tempus amet est.</string>
     <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
     <string name="authorization_pref_file_key">org.hackillinois.android.authorization</string>
     <string name="login_error_msg">You must log in to use this feature! Go to the Profile tab to logout.</string>
 
-<!--    Onboarding Fragment   -->
+    <!--    Onboarding Fragment   -->
     <string name="onboarding_welcome_title">Welcome!</string>
     <string name="onboarding_welcome_description">Swipe to see what our app has to offer!</string>
     <string name="onboarding_countdown_title">Countdown</string>
@@ -21,7 +21,7 @@
     <string name="onboarding_leaderboard_title">Leaderboard</string>
     <string name="onboarding_leaderboard_description">See who is leading HackIllinois 2023 in points earned!</string>
 
-<!--    Login Activity   -->
+    <!--    Login Activity   -->
     <string name="welcome_login">WELCOME TO</string>
     <string name="login">LOGIN</string>
     <string name="attendee_login">Attendee</string>
@@ -29,7 +29,7 @@
     <string name="guest_login">Guest</string>
     <string name="login_or_label">- OR -</string>
 
-<!--    Home Fragment   -->
+    <!--    Home Fragment   -->
     <string name="home_banner">HACKILLINOIS BEGINS IN...</string>
     <string name="days_label">DAYS</string>
     <string name="hours_label">HOURS</string>
@@ -37,7 +37,7 @@
     <string name="home_page_current_tab_text">CURRENT</string>
     <string name="home_page_upcoming_tab_text">UPCOMING</string>
 
-<!--    Schedule Fragment   -->
+    <!--    Schedule Fragment   -->
     <string name="schedule_header">Schedule</string>
     <string name="friday">FRI\n24</string>
     <string name="saturday">SAT\n25</string>
@@ -50,14 +50,14 @@
     <string name="qnaText">Q&amp;A</string>
     <string name="otherText">Other</string>
 
-<!--    Leaderboard Fragment   -->
+    <!--    Leaderboard Fragment   -->
     <string name="leaderboard">LEADERBOARD</string>
     <plurals name="leaderboard_points_view">
         <item quantity="one">%d pt</item>
         <item quantity="other">%d pts</item>
     </plurals>
 
-<!--   Profile Fragment   -->
+    <!--   Profile Fragment   -->
     <string name="profile">PROFILE</string>
     <string name="diet_restrictions">Dietary Restrictions</string>
     <string name="vegetarian">Vegetarian</string>
@@ -70,6 +70,10 @@
     <!--   not logged in   -->
     <string name="profile_login">Login</string>
     <string name="not_logged_in_message">You need to login as an attendee to see your profile.</string>
+
+    <!--   Scanner Fragments   -->
+    <string name="staff_meeting">Meeting Attendance</string>
+    <string name="staff_checkin">Attendee \nCheck In</string>
 
 
 </resources>
