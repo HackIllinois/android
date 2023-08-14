@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             bottomAppBar.homeButton,
             bottomAppBar.scheduleButton,
             bottomAppBar.leaderboard,
-            bottomAppBar.profile
+            bottomAppBar.profile,
         )
 
         // by default, home button is selected
