@@ -73,7 +73,7 @@
 
     <!--   Scanner Fragments   -->
     <string name="staff_meeting">Meeting Attendance</string>
-    <string name="staff_checkin">Attendee \nCheck In</string>
+    <string name="staff_checkin">Attendee Check-in</string>
 
 
 </resources>
