@@ -17,14 +17,14 @@ class StaffScannerFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_staff_scanner, container, false)
 
-        // for when meeting attendance button is clicked
+        // when meeting attendance button is clicked
         val meetingAttendanceButton = view.findViewById<Button>(R.id.staffMeetingBtn)
         meetingAttendanceButton.setOnClickListener {
             val scannerFragment = ScannerFragment.newInstance("", "", true)
             (context as MainActivity).switchFragment(scannerFragment, true)
         }
 
-        // for when attendee check-in button is clicked
+        // when attendee check-in button is clicked
         val staffCheckInButton = view.findViewById<Button>(R.id.staffCheckInBtn)
         staffCheckInButton.setOnClickListener {
             val scannerFragment = ScannerFragment.newInstance("", "", false)
