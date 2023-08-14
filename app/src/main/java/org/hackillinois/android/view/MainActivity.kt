@@ -29,6 +29,7 @@ import org.hackillinois.android.view.scanner.ScannerFragment
 import org.hackillinois.android.view.scanner.StaffScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
+import androidx.lifecycle.ViewModelProvider
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -49,7 +50,8 @@ class MainActivity : AppCompatActivity() {
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java).apply {
+//        ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java).apply {
             init()
             val owner = this@MainActivity
         }
