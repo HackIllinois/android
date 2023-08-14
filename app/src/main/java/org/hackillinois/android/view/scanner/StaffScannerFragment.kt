@@ -10,10 +10,6 @@ import org.hackillinois.android.R
 import org.hackillinois.android.view.MainActivity
 
 class StaffScannerFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +31,6 @@ class StaffScannerFragment : Fragment() {
             (context as MainActivity).switchFragment(scannerFragment, true)
         }
 
-        return inflater.inflate(R.layout.fragment_staff_scanner, container, false)
+        return view
     }
 }
