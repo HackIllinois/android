@@ -122,6 +122,11 @@ class ScannerFragment : Fragment() {
         }
 
         closeButton.setOnClickListener {
+            // need to add logic for popping this fragment and StaffScannerFragment?
+//            if (isStaff()) {
+//                activity?.supportFragmentManager?.popBackStack()
+//                activity?.supportFragmentManager?.popBackStack()
+//            }
             activity?.supportFragmentManager?.popBackStackImmediate()
         }
 
@@ -139,9 +144,14 @@ class ScannerFragment : Fragment() {
                         Log.d("USER QR CODE", userString)
                         viewModel.checkUserIntoEventAsStaff(userString, getStaffCheckInEventId())
                     } else {
-                        val eventId: String = getEventCodeFromQrString(it.text)
-                        Log.d("EVENT CODE STRING", it.toString())
-                        viewModel.scanQrToCheckIn(eventId)
+                        // add code for meeting attendance
+                        if (isMeetingAttendance) {
+                            // TODO
+                        } else {
+                            val eventId: String = getEventCodeFromQrString(it.text)
+                            Log.d("EVENT CODE STRING", it.toString())
+                            viewModel.scanQrToCheckIn(eventId)
+                        }
                     }
                 }
                 errorCallback = ErrorCallback {
@@ -198,6 +208,7 @@ class ScannerFragment : Fragment() {
 
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
         val responseString = when (it.userMessage) {
+            // TODO update to add meeting attendance error?
             "Success" -> "Success! The attendant has the following dietary restrictions: ${it.dietary}"
             "InvalidEventId" -> "The event code doesn't seem to be correct. Try selecting the event again or select another event"
             "BadUserToken" -> "The QR code may have expired or might be invalid. Please refresh the QR code and try again"
