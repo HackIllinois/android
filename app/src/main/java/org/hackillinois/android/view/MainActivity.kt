@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,7 +29,6 @@ import org.hackillinois.android.view.scanner.ScannerFragment
 import org.hackillinois.android.view.scanner.StaffScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
-import androidx.lifecycle.ViewModelProvider
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
