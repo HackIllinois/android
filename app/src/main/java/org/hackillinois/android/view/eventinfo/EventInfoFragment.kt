@@ -49,7 +49,7 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
                 if (mapIsReady && !mapUpdated) {
                     setupMap()
                 }
-            }
+            },
         )
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
@@ -84,7 +84,7 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
         view.exit_button.setOnClickListener { activity?.onBackPressed() }
@@ -136,7 +136,7 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
             var marker = googleMap.addMarker(
                 MarkerOptions()
                     .position(latLng)
-                    .title(eventLocation.description)
+                    .title(eventLocation.description),
             )
             Log.i("Map", marker.toString())
         }
