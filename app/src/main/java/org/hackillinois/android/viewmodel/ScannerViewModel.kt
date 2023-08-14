@@ -76,9 +76,9 @@ class ScannerViewModel : ViewModel() {
                 "",
                 false,
                 RegistrationData(
-                    AttendeeData(listOf())
-                )
-            )
+                    AttendeeData(listOf()),
+                ),
+            ),
         )
         viewModelScope.launch {
             try {
@@ -97,8 +97,10 @@ class ScannerViewModel : ViewModel() {
                                 .attendee
                                 .dietary
                                 .joinToString()
-                        } else "Bad User Token"
-                    )
+                        } else {
+                            "Bad User Token"
+                        },
+                    ),
                 )
             } catch (e: Exception) {
                 Log.e("Staff Check In", e.toString())
