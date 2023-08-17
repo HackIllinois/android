@@ -22,11 +22,16 @@ interface API {
 
     // AUTH
 
-    @POST("auth/code/{provider}/")
+//    @POST("auth/code/{provider}/")
+//    suspend fun getJWT(
+//        @Path("provider") provider: String,
+//        @Query("redirect_uri") redirect: String,
+//        @Body code: Code,
+//    ): JWT
+
+    @GET("auth/{provider}/")
     suspend fun getJWT(
         @Path("provider") provider: String,
-        @Query("redirect_uri") redirect: String,
-        @Body code: Code,
     ): JWT
 
     @GET("auth/roles/")
