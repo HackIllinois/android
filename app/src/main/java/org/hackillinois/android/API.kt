@@ -26,7 +26,7 @@ interface API {
     suspend fun getJWT(
         @Path("provider") provider: String,
         @Query("redirect_uri") redirect: String,
-        @Body code: Code
+        @Body code: Code,
     ): JWT
 
     @GET("auth/roles/")
@@ -106,6 +106,6 @@ interface API {
     suspend fun leaderboard(): LeaderboardList
 
     companion object {
-        val BASE_URL = "https://api.hackillinois.org/"
+        val BASE_URL = "https://adonix.hackillinois.org/"
     }
 }
