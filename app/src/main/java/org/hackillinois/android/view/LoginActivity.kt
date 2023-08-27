@@ -19,14 +19,13 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Roles
-import org.hackillinois.android.model.auth.Code
 import org.hackillinois.android.model.auth.JWT
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {
     private val redirectUri: String = "https://hackillinois.org/auth/?isAndroid=1"
-    private val authUriTemplate: String = "https://api.hackillinois.org/auth/%s/?redirect_uri=%s"
+    private val authUriTemplate: String = "https://adonix.hackillinois.org/auth/%s/?redirect_uri=%s"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,19 +52,21 @@ class LoginActivity : AppCompatActivity() {
         val intent = intent ?: return
         intent.action ?: return
 
-        val uri = intent.data ?: return
+//        val uri = intent.data ?: return
+//
+//        val code = uri.getQueryParameter("code") ?: return
 
-        val code = uri.getQueryParameter("code") ?: return
-
-        finishLogin(code)
+//        finishLogin(code)
+        finishLogin()
     }
 
-    private fun finishLogin(code: String) {
-        // TODO needs review
+//    private fun finishLogin(code: String) {
+    private fun finishLogin() {
         var api = App.getAPI()
         GlobalScope.launch {
             try {
-                val jwt: JWT = api.getJWT(getOAuthProvider(), redirectUri, Code(code))
+//                val jwt: JWT = api.getJWT(getOAuthProvider(), redirectUri, Code(code))
+                val jwt: JWT = api.getJWT(getOAuthProvider())
                 api = App.getAPI(jwt.token)
                 withContext(Dispatchers.IO) {
                     try {
@@ -123,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
             findViewById(android.R.id.content),
             "You must have a valid staff account" +
                 " to log in.",
-            Snackbar.LENGTH_SHORT
+            Snackbar.LENGTH_SHORT,
         ).show()
     }
 
