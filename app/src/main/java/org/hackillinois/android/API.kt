@@ -29,9 +29,15 @@ interface API {
 //        @Body code: Code,
 //    ): JWT
 
-    @GET("auth/{provider}/")
+//    @GET("auth/{provider}/")
+//    suspend fun getJWT(
+//            @Path("provider") provider: String,
+//    ): JWT
+
+    @GET("auth/login/{provider}/")
     suspend fun getJWT(
         @Path("provider") provider: String,
+        @Query("device") device: String,
     ): JWT
 
     @GET("auth/roles/")

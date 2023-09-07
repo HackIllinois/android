@@ -61,10 +61,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:host="org.hackillinois.android"
-                    android:pathPrefix="/auth"
-                    android:scheme="hackillinois" />
+<!--                <data-->
+<!--                    android:host="org.hackillinois.android"-->
+<!--                    android:pathPrefix="/auth"-->
+<!--                    android:scheme="hackillinois" />-->
+                <data android:scheme="hackillinois" />
             </intent-filter>
         </activity>
 

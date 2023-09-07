@@ -24,6 +24,7 @@ import retrofit2.HttpException
 import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {
+    // https://hackillinois.org/auth?redirect_uri=https://hackillinois.org/auth/?isAndroid=1
     private val redirectUri: String = "https://hackillinois.org/auth/?isAndroid=1"
     private val authUriTemplate: String = "https://adonix.hackillinois.org/auth/%s/?redirect_uri=%s"
 
@@ -52,9 +53,9 @@ class LoginActivity : AppCompatActivity() {
         val intent = intent ?: return
         intent.action ?: return
 
-//        val uri = intent.data ?: return
+        val uri = intent.data ?: return
 //
-//        val code = uri.getQueryParameter("code") ?: return
+        val code = uri.getQueryParameter("code") ?: return
 
 //        finishLogin(code)
         finishLogin()
@@ -62,30 +63,30 @@ class LoginActivity : AppCompatActivity() {
 
 //    private fun finishLogin(code: String) {
     private fun finishLogin() {
-        var api = App.getAPI()
-        GlobalScope.launch {
-            try {
+//        var api = App.getAPI()
+//        GlobalScope.launch {
+//            try {
 //                val jwt: JWT = api.getJWT(getOAuthProvider(), redirectUri, Code(code))
-                val jwt: JWT = api.getJWT(getOAuthProvider())
-                api = App.getAPI(jwt.token)
-                withContext(Dispatchers.IO) {
-                    try {
-                        // TODO httpException 405
-                        // api.updateNotificationTopics()
-                    } catch (e: SocketTimeoutException) {
-                        Log.e("LoginActivity", "Notifications update timed out!")
-                    }
-                }
-
-                if (getOAuthProvider() == "google") {
-                    verifyRole(api, jwt.token, "Staff")
-                } else {
-                    verifyRole(api, jwt.token, "Attendee")
-                }
-            } catch (e: Exception) {
-                showFailedToLoginStaff()
-            }
-        }
+//                val jwt: JWT = api.getJWT(getOAuthProvider(), "android")
+//                api = App.getAPI(jwt.token)
+//                withContext(Dispatchers.IO) {
+//                    try {
+//                        // TODO httpException 405
+//                        // api.updateNotificationTopics()
+//                    } catch (e: SocketTimeoutException) {
+//                        Log.e("LoginActivity", "Notifications update timed out!")
+//                    }
+//                }
+//
+//                if (getOAuthProvider() == "google") {
+//                    verifyRole(api, jwt.token, "Staff")
+//                } else {
+//                    verifyRole(api, jwt.token, "Attendee")
+//                }
+//            } catch (e: Exception) {
+//                showFailedToLoginStaff()
+//            }
+//        }
     }
 
     private fun verifyRole(api: API, jwt: String, role: String) {
@@ -138,11 +139,42 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun tryLogin() {
+        var api = App.getAPI()
+        GlobalScope.launch {
+            try {
+//                val jwt: JWT = api.getJWT(getOAuthProvider(), redirectUri, Code(code))
+                Log.d("LOGIN", "BEFORE API CALL")
+                Log.d("LOGIN", "${getOAuthProvider()}")
+                val jwt: JWT = api.getJWT(getOAuthProvider(), "android")
+                Log.d("LOGIN", "AFTER API CALL")
+                api = App.getAPI(jwt.token)
+                withContext(Dispatchers.IO) {
+                    try {
+                        // TODO httpException 405
+                        // api.updateNotificationTopics()
+                    } catch (e: SocketTimeoutException) {
+                        Log.e("LoginActivity", "Notifications update timed out!")
+                    }
+                }
+
+                if (getOAuthProvider() == "google") {
+                    verifyRole(api, jwt.token, "Staff")
+                } else {
+                    verifyRole(api, jwt.token, "Attendee")
+                }
+            } catch (e: Exception) {
+                showFailedToLoginStaff()
+            }
+        }
+    }
+
     private fun redirectToOAuthProvider(provider: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(authUriTemplate.format(provider, redirectUri))
+//        val intent = Intent(Intent.ACTION_VIEW)
+//        intent.data = Uri.parse(authUriTemplate.format(provider, redirectUri))
         setOAuthProvider(provider)
-        startActivity(intent)
+//        startActivity(intent)
+        tryLogin()
     }
 
     private fun setOAuthProvider(provider: String) {
