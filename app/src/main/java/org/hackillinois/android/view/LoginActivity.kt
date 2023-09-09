@@ -20,7 +20,6 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.auth.JWT
-import retrofit2.HttpException
 import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {
