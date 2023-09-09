@@ -22,7 +22,7 @@ android {
     defaultConfig {
         buildConfigField "String", "API_KEY", "\"localProperties.getProperty('apiKey')\""
         applicationId "org.hackillinois.android"
-        minSdkVersion 22
+        minSdkVersion 23
         targetSdkVersion 31
         versionCode 41
         versionName "3.0.1"
