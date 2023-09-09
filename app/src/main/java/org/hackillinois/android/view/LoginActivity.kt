@@ -24,9 +24,7 @@ import retrofit2.HttpException
 import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {
-    // https://hackillinois.org/auth?redirect_uri=https://hackillinois.org/auth/?isAndroid=1
-    private val redirectUri: String = "https://hackillinois.org/auth/?isAndroid=1"
-    private val authUriTemplate: String = "https://adonix.hackillinois.org/auth/%s/?redirect_uri=%s"
+    private val authUriTemplate: String = "https://adonix.hackillinois.org/auth/login/%s/?device=android"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,46 +45,53 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun redirectToOAuthProvider(provider: String) {
+        setOAuthProvider(provider)
+
+        // create Intent to go to OAuth page (either google or github) using the
+        // the api query string found at the top of this class
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(authUriTemplate.format(provider))
+        startActivity(intent)
+    }
+
     override fun onResume() {
         super.onResume()
 
+        // if returning from intent, get the uri query parameter from api: token={...}
         val intent = intent ?: return
         intent.action ?: return
-
         val uri = intent.data ?: return
-//
-        val code = uri.getQueryParameter("code") ?: return
+        val token = uri.getQueryParameter("token") ?: return
+        Log.d("TOKEN", "{$token}")
 
-//        finishLogin(code)
-        finishLogin()
+        // finish logging in using the received token
+        finishLogin(token)
     }
 
-//    private fun finishLogin(code: String) {
-    private fun finishLogin() {
-//        var api = App.getAPI()
-//        GlobalScope.launch {
-//            try {
-//                val jwt: JWT = api.getJWT(getOAuthProvider(), redirectUri, Code(code))
-//                val jwt: JWT = api.getJWT(getOAuthProvider(), "android")
-//                api = App.getAPI(jwt.token)
-//                withContext(Dispatchers.IO) {
-//                    try {
-//                        // TODO httpException 405
-//                        // api.updateNotificationTopics()
-//                    } catch (e: SocketTimeoutException) {
-//                        Log.e("LoginActivity", "Notifications update timed out!")
-//                    }
-//                }
-//
-//                if (getOAuthProvider() == "google") {
-//                    verifyRole(api, jwt.token, "Staff")
-//                } else {
-//                    verifyRole(api, jwt.token, "Attendee")
-//                }
-//            } catch (e: Exception) {
-//                showFailedToLoginStaff()
-//            }
-//        }
+    private fun finishLogin(token: String) {
+        GlobalScope.launch {
+            try {
+                val jwt = JWT(token)
+                val api = App.getAPI(token)
+                withContext(Dispatchers.IO) {
+                    try {
+                        // TODO httpException 405
+                        // api.updateNotificationTopics()
+                    } catch (e: SocketTimeoutException) {
+                        Log.e("LoginActivity", "Notifications update timed out!")
+                    }
+                }
+
+                if (getOAuthProvider() == "google") {
+                    verifyRole(api, jwt.token, "Staff")
+                } else {
+                    verifyRole(api, jwt.token, "Attendee")
+                }
+            } catch (e: Exception) {
+                showFailedToLoginStaff()
+            }
+        }
     }
 
     private fun verifyRole(api: API, jwt: String, role: String) {
@@ -123,10 +128,9 @@ class LoginActivity : AppCompatActivity() {
     private fun showFailedToLoginStaff() {
         Snackbar.make(
             findViewById(android.R.id.content),
-            "You must have a valid staff account" +
-                " to log in.",
+            "You must have a valid staff account to log in.",
             Snackbar.LENGTH_SHORT,
-        ).show()
+        ).show() // ktlint-disable argument-list-wrapping
     }
 
     private fun showFailedToLoginAttendee() {
@@ -137,44 +141,6 @@ class LoginActivity : AppCompatActivity() {
         val mainIntent = Intent(this, MainActivity::class.java)
         startActivity(mainIntent)
         finish()
-    }
-
-    private fun tryLogin() {
-        var api = App.getAPI()
-        GlobalScope.launch {
-            try {
-//                val jwt: JWT = api.getJWT(getOAuthProvider(), redirectUri, Code(code))
-                Log.d("LOGIN", "BEFORE API CALL")
-                Log.d("LOGIN", "${getOAuthProvider()}")
-                val jwt: JWT = api.getJWT(getOAuthProvider(), "android")
-                Log.d("LOGIN", "AFTER API CALL")
-                api = App.getAPI(jwt.token)
-                withContext(Dispatchers.IO) {
-                    try {
-                        // TODO httpException 405
-                        // api.updateNotificationTopics()
-                    } catch (e: SocketTimeoutException) {
-                        Log.e("LoginActivity", "Notifications update timed out!")
-                    }
-                }
-
-                if (getOAuthProvider() == "google") {
-                    verifyRole(api, jwt.token, "Staff")
-                } else {
-                    verifyRole(api, jwt.token, "Attendee")
-                }
-            } catch (e: Exception) {
-                showFailedToLoginStaff()
-            }
-        }
-    }
-
-    private fun redirectToOAuthProvider(provider: String) {
-//        val intent = Intent(Intent.ACTION_VIEW)
-//        intent.data = Uri.parse(authUriTemplate.format(provider, redirectUri))
-        setOAuthProvider(provider)
-//        startActivity(intent)
-        tryLogin()
     }
 
     private fun setOAuthProvider(provider: String) {
