@@ -90,6 +90,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 showFailedToLoginStaff()
+                showFailedToLogin(e.message)
             }
         }
     }
@@ -121,7 +122,24 @@ class LoginActivity : AppCompatActivity() {
                         showFailedToLoginStaff()
                     }
                 }
+                showFailedToLogin(e.message)
             }
+        }
+    }
+
+    private fun showFailedToLogin(message: String?) {
+        if (message != null) {
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                message.toString(),
+                Snackbar.LENGTH_SHORT,
+            ).show()
+        } else {
+            Snackbar.make(
+                findViewById(android.R.id.content),
+                "Failed to login. Please try again.",
+                Snackbar.LENGTH_SHORT,
+            ).show()
         }
     }
 
