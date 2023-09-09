@@ -63,7 +63,6 @@ class LoginActivity : AppCompatActivity() {
         intent.action ?: return
         val uri = intent.data ?: return
         val token = uri.getQueryParameter("token") ?: return
-        Log.d("TOKEN", "{$token}")
 
         // finish logging in using the received token
         finishLogin(token)
@@ -83,13 +82,13 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
 
+                // verify user's roles are correct
                 if (getOAuthProvider() == "google") {
                     verifyRole(api, jwt.token, "Staff")
                 } else {
                     verifyRole(api, jwt.token, "Attendee")
                 }
             } catch (e: Exception) {
-                showFailedToLoginStaff()
                 showFailedToLogin(e.message)
             }
         }
@@ -98,9 +97,10 @@ class LoginActivity : AppCompatActivity() {
     private fun verifyRole(api: API, jwt: String, role: String) {
         GlobalScope.launch {
             try {
-                val roles: Roles = api.roles()
-                if (roles.roles.contains(role)) {
-                    JWTUtilities.writeJWT(applicationContext, jwt)
+                val loginRoles: Roles = api.roles()
+                // Check if user's roles are correct. If not, display corresponding error message
+                if (loginRoles.roles.contains(role)) {
+                    JWTUtilities.writeJWT(applicationContext, jwt) // save JWT to sharedPreferences for auto-login in the future
                     launchMainActivity()
                 } else {
                     if (role == "Staff") {
@@ -110,18 +110,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             } catch (e: Exception) {
-                when (e) {
-                    is HttpException -> {
-                        if (role == "Staff") {
-                            showFailedToLoginStaff()
-                        } else {
-                            showFailedToLoginAttendee()
-                        }
-                    }
-                    else -> {
-                        showFailedToLoginStaff()
-                    }
-                }
                 showFailedToLogin(e.message)
             }
         }
@@ -148,14 +136,18 @@ class LoginActivity : AppCompatActivity() {
             findViewById(android.R.id.content),
             "You must have a valid staff account to log in.",
             Snackbar.LENGTH_SHORT,
-        ).show() // ktlint-disable argument-list-wrapping
+        ).show()
     }
 
     private fun showFailedToLoginAttendee() {
-        Snackbar.make(findViewById(android.R.id.content), "You must RSVP to log in.", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            findViewById(android.R.id.content),
+            "You must RSVP to log in.",
+            Snackbar.LENGTH_SHORT,
+        ).show()
     }
 
-    fun launchMainActivity() {
+    private fun launchMainActivity() {
         val mainIntent = Intent(this, MainActivity::class.java)
         startActivity(mainIntent)
         finish()
@@ -167,7 +159,7 @@ class LoginActivity : AppCompatActivity() {
         editor.apply()
     }
 
-    fun getOAuthProvider(): String {
+    private fun getOAuthProvider(): String {
         return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")
             ?: ""
     }
