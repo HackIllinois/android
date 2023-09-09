@@ -19,11 +19,11 @@
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/home_bg"/>
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/countdownBannerImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/countdown_text_banner"
+        app:srcCompat="@drawable/countdown_text_banner"
         android:scaleX="1.2"
         android:scaleY="1.2"
         app:layout_constraintEnd_toEndOf="parent"
