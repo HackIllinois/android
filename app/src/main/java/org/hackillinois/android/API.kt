@@ -3,8 +3,6 @@ package org.hackillinois.android
 import okhttp3.ResponseBody
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.TimesWrapper
-import org.hackillinois.android.model.auth.Code
-import org.hackillinois.android.model.auth.JWT
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.TrackerContainer
@@ -21,24 +19,8 @@ import retrofit2.http.*
 interface API {
 
     // AUTH
-
-//    @POST("auth/code/{provider}/")
-//    suspend fun getJWT(
-//        @Path("provider") provider: String,
-//        @Query("redirect_uri") redirect: String,
-//        @Body code: Code,
-//    ): JWT
-
-//    @GET("auth/{provider}/")
-//    suspend fun getJWT(
-//            @Path("provider") provider: String,
-//    ): JWT
-
-    @GET("auth/login/{provider}/")
-    suspend fun getJWT(
-        @Path("provider") provider: String,
-        @Query("device") device: String,
-    ): JWT
+    // note: @GET("auth/login/{provider}/") is not part of this file because the URL
+    // is directly accessed in the LoginActivity.kt file to get to the OAuth page
 
     @GET("auth/roles/")
     suspend fun roles(): Roles
