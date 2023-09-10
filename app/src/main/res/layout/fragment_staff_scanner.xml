@@ -21,18 +21,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <TextView
+        android:id="@+id/attendance_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="start"
+        android:text="@string/attendance"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/staffMeetingBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:paddingVertical="8dp"
-        android:paddingHorizontal="20dp"
         android:backgroundTint="@color/midnight"
-        app:cornerRadius="24dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="8dp"
+        android:text="@string/staff_meeting"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:text="@string/staff_meeting"
+        app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toTopOf="@+id/staffCheckInBtn"
         app:layout_constraintEnd_toEndOf="parent"
