@@ -19,7 +19,7 @@ import retrofit2.http.*
 interface API {
 
     // AUTH
-    // note: @GET("auth/login/{provider}/") is not part of this file because the URL
+    // note: @GET("auth/login/{provider}/") is not called in this file because the URL
     // is directly accessed in the LoginActivity.kt file to get to the OAuth page
 
     @GET("auth/roles/")
