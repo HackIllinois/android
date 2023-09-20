@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,8 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     private var currentSelection = 0
 
-//    var groupMatchingSelectedProfile: Profile? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -68,9 +65,6 @@ class MainActivity : AppCompatActivity() {
             bottomAppBar.profile,
         )
 
-        // by default, home button is selected
-        bottomAppBar.homeButton.setColorFilter(selectedIconColor)
-
         // make all buttons unselectedColor and then set selected button to selectedColor
         bottomBarButtons.forEach { button ->
             button.setOnClickListener { view ->
@@ -94,16 +88,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupCodeEntrySheet() {
-        val inflater: LayoutInflater = layoutInflater
-
         code_entry_fab.setOnClickListener {
             if (!hasLoggedIn()) {
                 val toast = Toast.makeText(applicationContext, getString(R.string.login_error_msg), Toast.LENGTH_LONG)
                 toast.show()
-//                Snackbar.make(findViewById(android.R.id.content), getString(R.string.login_error_msg), Snackbar.LENGTH_SHORT).show()
             } else {
-                val scannerFragment = ScannerFragment()
-                val staffScannerFragment = StaffScannerFragment()
                 // if staff, send them to fragment to select meeting attendance or attendee check-in
                 // if attendee, send them right to the scanner fragment
                 if (isStaff()) {
@@ -116,16 +105,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun switchFragment(fragment: Fragment, addToBackStack: Boolean) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.contentFrame, fragment)
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        if (addToBackStack) {
-            transaction.addToBackStack(null)
-        }
-        transaction.commit()
-    }
-
-    fun switchFragmentWithAnimation(fragment: Fragment, addToBackStack: Boolean, anim: R.anim) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.contentFrame, fragment)
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
