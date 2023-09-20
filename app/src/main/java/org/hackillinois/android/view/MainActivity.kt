@@ -72,8 +72,11 @@ class MainActivity : AppCompatActivity() {
         // make all buttons unselectedColor and then set selected button to selectedColor
         bottomBarButtons.forEach { button ->
             button.setOnClickListener { view ->
-                onScanner = false
                 val newSelection = bottomBarButtons.indexOf(button)
+                if (onScanner) {
+                    supportFragmentManager?.popBackStackImmediate()
+                    onScanner = false
+                }
                 if (newSelection != currentSelection) {
                     currentSelection = newSelection
 
