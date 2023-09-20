@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     private var currentSelection = 0
+    private var onScanner = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         // make all buttons unselectedColor and then set selected button to selectedColor
         bottomBarButtons.forEach { button ->
             button.setOnClickListener { view ->
+                onScanner = false
                 val newSelection = bottomBarButtons.indexOf(button)
                 if (newSelection != currentSelection) {
                     currentSelection = newSelection
@@ -93,30 +95,34 @@ class MainActivity : AppCompatActivity() {
     private fun setupCodeEntrySheet() {
         // set on click listener on QR button
         code_entry_fab.setOnClickListener {
-            if (!hasLoggedIn()) {
-                val toast = Toast.makeText(applicationContext, getString(R.string.login_error_msg), Toast.LENGTH_LONG)
-                toast.show()
-            } else {
-                val bottomBarButtons = listOf(
-                    bottomAppBar.homeButton,
-                    bottomAppBar.scheduleButton,
-                    bottomAppBar.leaderboard,
-                    bottomAppBar.profile,
-                )
-                // set all bottom bar buttons to be the unselected color
-                val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
-                bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
-
-                // if staff, send them to fragment to select meeting attendance or attendee check-in
-                // if attendee, send them right to the scanner fragment
-                val scannerFragment = ScannerFragment()
-                val staffScannerFragment = StaffScannerFragment()
-                if (isStaff()) {
-                    switchFragment(staffScannerFragment, true)
+            // check if already
+            if (!onScanner) {
+                if (!hasLoggedIn()) {
+                    val toast = Toast.makeText(applicationContext, getString(R.string.login_error_msg), Toast.LENGTH_LONG)
+                    toast.show()
                 } else {
-                    switchFragment(scannerFragment, true)
+                    val bottomBarButtons = listOf(
+                        bottomAppBar.homeButton,
+                        bottomAppBar.scheduleButton,
+                        bottomAppBar.leaderboard,
+                        bottomAppBar.profile,
+                    )
+                    // set all bottom bar buttons to be the unselected color
+                    val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
+                    bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
+
+                    // if staff, send them to fragment to select meeting attendance or attendee check-in
+                    // if attendee, send them right to the scanner fragment
+                    val scannerFragment = ScannerFragment()
+                    val staffScannerFragment = StaffScannerFragment()
+                    if (isStaff()) {
+                        switchFragment(staffScannerFragment, true)
+                    } else {
+                        switchFragment(scannerFragment, true)
+                    }
                 }
             }
+            onScanner = true
         }
     }
 
