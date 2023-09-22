@@ -20,8 +20,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.budiyev.android.codescanner.*
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
@@ -122,11 +124,11 @@ class ScannerFragment : Fragment() {
         }
 
         closeButton.setOnClickListener {
-            // need to add logic for popping this fragment and StaffScannerFragment?
-//            if (isStaff()) {
-//                activity?.supportFragmentManager?.popBackStack()
-//                activity?.supportFragmentManager?.popBackStack()
-//            }
+            // set bottom app bar visible again and pop scanner from the backstack
+            val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
+            val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+            appBar.visibility = View.VISIBLE
+            scannerBtn.visibility = View.VISIBLE
             activity?.supportFragmentManager?.popBackStackImmediate()
         }
 
@@ -249,10 +251,6 @@ class ScannerFragment : Fragment() {
 
     private fun getStaffCheckInEventId(): String {
         return chipIdToEventId[staffChipGroup.checkedChipId] ?: "0b8ea2a94ba4224c075f016256fbddfa"
-    }
-
-    private fun updateOverrideSwitchVisibility(it: Roles?) = it?.let {
-//        staffOverrideSwitch.visibility = if (it.isAdmin()) View.VISIBLE else View.GONE
     }
 
     private fun hideStatusTextVisibility(views: List<View>) {
