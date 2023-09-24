@@ -8,6 +8,7 @@
     <string name="login_error_msg">You must log in to use this feature! Go to the Profile tab to logout.</string>
 
     <!--    Onboarding Fragment   -->
+    <string name="onboarding_get_started">Get Started</string>
     <string name="onboarding_welcome_title">Welcome!</string>
     <string name="onboarding_welcome_description">Swipe to see what our app has to offer!</string>
     <string name="onboarding_countdown_title">Countdown</string>

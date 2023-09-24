@@ -15,12 +15,12 @@ import org.hackillinois.android.view.LoginActivity
 class OnboardingActivity : FragmentActivity() {
 
     private val images = listOf(
-        R.drawable.login_logo_with_text_2023,
+        R.drawable.login_logo_2023,
         R.drawable.countdown_2023,
         R.drawable.schedule_2023,
         R.drawable.scan_2023,
         R.drawable.profile_2023,
-        R.drawable.leaderboard_2023
+        R.drawable.leaderboard_2023,
     )
 
     private val titles = listOf(
@@ -29,7 +29,7 @@ class OnboardingActivity : FragmentActivity() {
         R.string.onboarding_schedule_title,
         R.string.onboarding_scan_title,
         R.string.onboarding_profile_title,
-        R.string.onboarding_leaderboard_title
+        R.string.onboarding_leaderboard_title,
     )
 
     private val descriptions = listOf(
@@ -38,7 +38,7 @@ class OnboardingActivity : FragmentActivity() {
         R.string.onboarding_schedule_description,
         R.string.onboarding_scan_description,
         R.string.onboarding_profile_description,
-        R.string.onboarding_leaderboard_description
+        R.string.onboarding_leaderboard_description,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
