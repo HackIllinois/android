@@ -18,12 +18,12 @@ def localProperties = new Properties()
 localProperties.load(new FileInputStream(localPropertiesFile))
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     defaultConfig {
         buildConfigField "String", "API_KEY", "\"localProperties.getProperty('apiKey')\""
         applicationId "org.hackillinois.android"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 41
         versionName "3.0.1"
         multiDexEnabled true
