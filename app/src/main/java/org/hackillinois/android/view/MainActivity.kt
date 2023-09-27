@@ -4,14 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,6 +26,7 @@ import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.onboarding.OnboardingActivity
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.scanner.ScannerFragment
+import org.hackillinois.android.view.scanner.StaffScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
@@ -35,8 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     private var currentSelection = 0
-
-//    var groupMatchingSelectedProfile: Profile? = null
+    private var onScanner = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java).apply {
+//        ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java).apply {
             init()
             val owner = this@MainActivity
         }
@@ -56,23 +57,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomAppBar() {
+        // by default, home button is selected
         val selectedIconColor = ContextCompat.getColor(this, R.color.selectedAppBarIcon)
         val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
+
+        bottomAppBar.homeButton.setColorFilter(selectedIconColor)
 
         val bottomBarButtons = listOf(
             bottomAppBar.homeButton,
             bottomAppBar.scheduleButton,
             bottomAppBar.leaderboard,
-            bottomAppBar.profile
+            bottomAppBar.profile,
         )
-
-        // by default, home button is selected
-        bottomAppBar.homeButton.setColorFilter(selectedIconColor)
 
         // make all buttons unselectedColor and then set selected button to selectedColor
         bottomBarButtons.forEach { button ->
             button.setOnClickListener { view ->
                 val newSelection = bottomBarButtons.indexOf(button)
+                if (onScanner) {
+                    onScanner = false
+                }
                 if (newSelection != currentSelection) {
                     currentSelection = newSelection
 
@@ -92,33 +96,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupCodeEntrySheet() {
-        val inflater: LayoutInflater = layoutInflater
-
-        val scannerFragment = ScannerFragment()
-
         code_entry_fab.setOnClickListener {
+            // set currentSelection to invalid index since scanner was selected
+            currentSelection = -1
+
+            // check if user is staff or attendee
             if (!hasLoggedIn()) {
                 val toast = Toast.makeText(applicationContext, getString(R.string.login_error_msg), Toast.LENGTH_LONG)
-//                ((toast.view as LinearLayout).getChildAt(0) as TextView).gravity = Gravity.CENTER_HORIZONTAL
                 toast.show()
-//                Snackbar.make(findViewById(android.R.id.content), getString(R.string.login_error_msg), Snackbar.LENGTH_SHORT).show()
             } else {
-                switchFragment(scannerFragment, true)
+                // set all bottom bar buttons to be the unselected color
+                val bottomBarButtons = listOf(
+                    bottomAppBar.homeButton,
+                    bottomAppBar.scheduleButton,
+                    bottomAppBar.leaderboard,
+                    bottomAppBar.profile,
+                )
+                val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
+                bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
+
+                // if staff, send them to fragment to select meeting attendance or attendee check-in
+                // if attendee, send them right to the scanner fragment
+                val scannerFragment = ScannerFragment()
+                val staffScannerFragment = StaffScannerFragment()
+                if (isStaff()) {
+                    // check if already on scanner attendance page for staff
+                    if (!onScanner) {
+                        switchFragment(staffScannerFragment, false)
+                    }
+                } else {
+                    switchFragment(scannerFragment, true)
+                    bottomAppBar.visibility = View.INVISIBLE
+                    code_entry_fab.visibility = View.INVISIBLE
+                }
             }
+            onScanner = true
         }
     }
 
     fun switchFragment(fragment: Fragment, addToBackStack: Boolean) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.contentFrame, fragment)
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        if (addToBackStack) {
-            transaction.addToBackStack(null)
-        }
-        transaction.commit()
-    }
-
-    fun switchFragmentWithAnimation(fragment: Fragment, addToBackStack: Boolean, anim: R.anim) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.contentFrame, fragment)
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

@@ -116,13 +116,14 @@
 
             <ImageView
                 android:id="@+id/event_time_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_clock"
+                android:layout_width="18dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_clock"
+                app:layout_constraintBottom_toBottomOf="@+id/eventTimeSpanText"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventType" />
+                app:layout_constraintTop_toTopOf="@+id/eventTimeSpanText" />
 
 
             <TextView
@@ -145,13 +146,13 @@
 
             <ImageView
                 android:id="@+id/sponsored_marker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_building_marker_outline"
+                android:layout_width="18dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="9dp"
+                app:layout_constraintBottom_toBottomOf="@+id/sponsoredTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_time_icon" />
+                app:layout_constraintTop_toTopOf="@+id/sponsoredTextView"
+                app:srcCompat="@drawable/ic_building_marker_outline" />
 
             <TextView
                 android:id="@+id/sponsoredTextView"
@@ -171,13 +172,13 @@
 
             <ImageView
                 android:id="@+id/map_marker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_map_marker_outline"
+                android:layout_width="18dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/locationTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sponsored_marker"/>
+                app:layout_constraintTop_toTopOf="@+id/locationTextView"
+                app:srcCompat="@drawable/ic_map_marker_outline" />
 
             <TextView
                 android:id="@+id/locationTextView"

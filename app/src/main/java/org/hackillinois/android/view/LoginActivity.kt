@@ -83,9 +83,9 @@ class LoginActivity : AppCompatActivity() {
 
                 // verify user's roles are correct
                 if (getOAuthProvider() == "google") {
-                    verifyRole(api, jwt.token, "Staff")
+                    verifyRole(api, jwt.token, "STAFF")
                 } else {
-                    verifyRole(api, jwt.token, "Attendee")
+                    verifyRole(api, jwt.token, "ATTENDEE")
                 }
             } catch (e: Exception) {
                 showFailedToLogin(e.message)
@@ -97,12 +97,13 @@ class LoginActivity : AppCompatActivity() {
         GlobalScope.launch {
             try {
                 val loginRoles: Roles = api.roles()
+                Log.d("ROLES", "${loginRoles.roles}")
                 // Check if user's roles are correct. If not, display corresponding error message
                 if (loginRoles.roles.contains(role)) {
                     JWTUtilities.writeJWT(applicationContext, jwt) // save JWT to sharedPreferences for auto-login in the future
                     launchMainActivity()
                 } else {
-                    if (role == "Staff") {
+                    if (role == "STAFF") {
                         showFailedToLoginStaff()
                     } else {
                         showFailedToLoginAttendee()

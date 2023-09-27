@@ -14,12 +14,13 @@ import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface API {
 
     // AUTH
-    // note: @GET("auth/login/{provider}/") is not part of this file because the URL
+    // note: @GET("auth/login/{provider}/") is not called in this file because the URL
     // is directly accessed in the LoginActivity.kt file to get to the OAuth page
 
     @GET("auth/roles/")
@@ -49,6 +50,9 @@ interface API {
 
     @POST("event/staff/checkin/")
     suspend fun checkInUserAsStaff(@Body userTokenEventIdPair: UserTokenEventIdPair): EventCheckInAsStaffResponse
+
+    @POST("event/staff/attendance/")
+    suspend fun staffMeetingCheckIn(@Body eventId: MeetingEventId): Response<Void>
 
     // NOTIFICATIONS
 

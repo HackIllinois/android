@@ -23,6 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher_23_round"
         android:theme="@style/AppTheme">
 
+
         <receiver android:name=".notifications.NotificationReceiver" />
         <receiver
             android:exported="true"
