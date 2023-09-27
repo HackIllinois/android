@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.eventinfo
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +42,6 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         viewModel.event.observe(
             this,
             Observer { event ->
-                Log.i("EventInfoFragment", event.toString())
                 currentEvent = event
                 updateEventUI(currentEvent)
                 if (mapIsReady && !mapUpdated) {
@@ -75,7 +73,6 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         googleMap.isIndoorEnabled = true
 
         mapIsReady = true
-        Log.i("EventInfoFragment", "Map is ready")
         if (currentEvent != null) {
             setupMap()
         }
@@ -98,7 +95,6 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setupMap() {
-        Log.i("EventInfoFragment", "Setting up map")
         addMarkersToMap(currentEvent!!)
         if (currentEvent!!.locations.isNotEmpty()) {
             moveCameraToLocation(currentEvent!!.locations.first())
@@ -130,7 +126,6 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun addMarkersToMap(event: Event) {
-        Log.i("EventInfoFragment", "Adding Markers to map")
         event.locations.forEach { eventLocation ->
             val latLng = LatLng(eventLocation.latitude, eventLocation.longitude)
             var marker = googleMap.addMarker(
@@ -138,12 +133,7 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
                     .position(latLng)
                     .title(eventLocation.description),
             )
-            Log.i("Map", marker.toString())
         }
-
-        Log.i("Map", viewModel.event?.value.toString())
-        Log.i("Map", viewModel.event?.value?.locations.toString())
-        Log.i("Map", "hello")
     }
 
     private fun updateEventUI(event: Event?) {
