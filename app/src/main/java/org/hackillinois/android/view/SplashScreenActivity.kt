@@ -37,14 +37,14 @@ class SplashScreenActivity : AppCompatActivity() {
 
         splashAnimationView.playAnimation()
         splashAnimationView.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(p0: Animator?) {}
-            override fun onAnimationStart(p0: Animator?) {}
+            override fun onAnimationRepeat(p0: Animator) {}
+            override fun onAnimationStart(p0: Animator) {}
 
-            override fun onAnimationEnd(p0: Animator?) {
+            override fun onAnimationEnd(p0: Animator) {
                 countDownLatchIfTappedOrAnimationFinished()
             }
 
-            override fun onAnimationCancel(p0: Animator?) {
+            override fun onAnimationCancel(p0: Animator) {
                 countDownLatchIfTappedOrAnimationFinished()
             }
         })
