@@ -60,17 +60,29 @@ class EventRepository {
             return responseString
         }
         suspend fun checkInEvent(code: String): EventCheckInResponse {
-            Log.d("send event token", code)
-            var apiResponse: EventCheckInResponse = EventCheckInResponse(-1, -1, "")
+            var apiResponse = EventCheckInResponse(-1, -1, "")
 
             withContext(Dispatchers.IO) {
                 try {
-                    Log.d("Sending code: ", code)
-
                     apiResponse = App.getAPI().eventCodeCheckIn(EventCode(code))
                     Log.d("code sent!", apiResponse.toString())
                 } catch (e: Exception) {
                     Log.e("Error - check in", e.toString())
+                }
+            }
+            return apiResponse
+        }
+
+        suspend fun checkInMeeting(eventId: String): MeetingCheckInResponse {
+            var apiResponse = MeetingCheckInResponse("")
+
+            withContext(Dispatchers.IO) {
+                try {
+                    val body = MeetingEventId(eventId)
+                    App.getAPI().staffMeetingCheckIn(body)
+                    apiResponse.status = "Success" // no response is sent from API, so just manually done
+                } catch (e: Exception) {
+                    Log.d("STAFF MEETING API ERROR", "${e.message}")
                 }
             }
             return apiResponse
@@ -88,10 +100,10 @@ class EventRepository {
                     false,
                     RegistrationData(
                         AttendeeData(
-                            listOf()
-                        )
-                    )
-                )
+                            listOf(),
+                        ),
+                    ),
+                ),
             )
 
             withContext(Dispatchers.IO) {

@@ -30,17 +30,7 @@ class ScannerViewModel : ViewModel() {
         }
     }
 
-//    fun checkUserIntoEvent(eventId: String, userId: String, staffOverride: Boolean) {
-//        if (eventName == CHECK_IN_NAME) {
-//            val checkIn = CheckIn(userId, staffOverride, hasCheckedIn = true, hasPickedUpSwag = true)
-//            checkInUser(checkIn)
-//        } else {
-//            val userEventPair = UserEventPair(eventId, userId)
-//            markUserAsAttendingEvent(userEventPair)
-//        }
-//    }
-
-    fun scanQrToCheckIn(eventId: String): EventCheckInResponse {
+    fun scanQrToCheckInEvent(eventId: String): EventCheckInResponse {
         return checkIntoEvent(eventId)
     }
 
@@ -59,6 +49,29 @@ class ScannerViewModel : ViewModel() {
                     lastScanStatus.postValue(scanStatus)
                 }
                 Log.d("CODE SUBMIT RESPONSE", scanStatus.toString())
+            } catch (e: Exception) {
+                Log.e("CODE SUBMIT RESPONSE", e.toString())
+            }
+        }
+        return response
+    }
+
+    fun scanQrToCheckInMeeting(eventId: String): MeetingCheckInResponse {
+        return checkIntoMeeting(eventId)
+    }
+
+    fun checkIntoMeeting(eventId: String): MeetingCheckInResponse {
+        var response = MeetingCheckInResponse("SCAN FAILED")
+        viewModelScope.launch {
+            try {
+                response = EventRepository.checkInMeeting(eventId)
+                if (response.status == "Success") {
+                    val scanStatus = ScanStatus(true, 0, response.status)
+                    lastScanStatus.postValue(scanStatus)
+                } else {
+                    val scanStatus = ScanStatus(false, 0, response.status)
+                    lastScanStatus.postValue(scanStatus)
+                }
             } catch (e: Exception) {
                 Log.e("CODE SUBMIT RESPONSE", e.toString())
             }
@@ -108,23 +121,6 @@ class ScannerViewModel : ViewModel() {
         }
         return response
     }
-
-//    private fun decodeJWT(stringToDecode: String) : String {
-//        var userId = ""
-//        try {
-//            val jwt = JWT(stringToDecode)
-//            if (jwt.isExpired(20)) {
-//                throw Exception("Expired Token")
-//            }
-//            Log.i("JWT", jwt.claims.toString())
-//            userId = jwt.claims["userId"]?.asString()
-//                ?: throw Exception("User ID not present in token")
-//            return userId
-//        } catch (e: Exception) {
-//            Log.e("JWT Decode", "JWT Decoding failed: $e")
-//        }
-//        return stringToDecode
-//    }
 
 //    fun checkInUser(checkIn: CheckIn) {
 //        viewModelScope.launch {

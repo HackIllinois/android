@@ -142,18 +142,20 @@ class ScannerFragment : Fragment() {
                 isFlashEnabled = false
                 decodeCallback = DecodeCallback {
                     if (userRoles != null && userRoles!!.isStaff()) {
-                        val userString = getUserIdFromQrString(it.text)
-                        Log.d("USER QR CODE", userString)
-                        viewModel.checkUserIntoEventAsStaff(userString, getStaffCheckInEventId())
-                    } else {
-                        // add code for meeting attendance
+                        // check if QR is for meeting attendance or staff attendee check-in
                         if (isMeetingAttendance) {
-                            // TODO
-                        } else {
+                            // do stuff
                             val eventId: String = getEventCodeFromQrString(it.text)
-                            Log.d("EVENT CODE STRING", it.toString())
-                            viewModel.scanQrToCheckIn(eventId)
+                            Log.d("QRCODE", "$eventId")
+                            viewModel.scanQrToCheckInMeeting(eventId)
+                        } else {
+                            val userString = getUserIdFromQrString(it.text)
+                            viewModel.checkUserIntoEventAsStaff(userString, getStaffCheckInEventId())
                         }
+                    } else {
+                        // handle attendee event self check-in
+                        val eventId: String = getEventCodeFromQrString(it.text)
+                        viewModel.scanQrToCheckInEvent(eventId)
                     }
                 }
                 errorCallback = ErrorCallback {
@@ -210,15 +212,25 @@ class ScannerFragment : Fragment() {
 
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
         val responseString = when (it.userMessage) {
-            // TODO update to add meeting attendance error?
-            "Success" -> "Success! The attendant has the following dietary restrictions: ${it.dietary}"
+            "Success" -> {
+                if (isMeetingAttendance) {
+                    "Success! Your attendance has been recorded!"
+                } else {
+                    "Success! The attendant has the following dietary restrictions: ${it.dietary}"
+                }
+            }
             "InvalidEventId" -> "The event code doesn't seem to be correct. Try selecting the event again or select another event"
             "BadUserToken" -> "The QR code may have expired or might be invalid. Please refresh the QR code and try again"
             "AlreadyCheckedIn" -> "Looks like the attendant is already checked in."
-            else -> "Something isn't quite right."
+            else -> {
+                if (isMeetingAttendance) {
+                    "Scan Failed. ${it.userMessage}"
+                } else {
+                    "Something isn't quite right."
+                }
+            }
         }
-        // make toast from response
-        Log.d("SCAN STATUS RESULT", responseString)
+        // make dialog from response
         if (activity != null) {
             AlertDialog.Builder(requireActivity())
                 .setMessage(responseString)
