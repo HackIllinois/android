@@ -13,13 +13,11 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/welcome_bg"
+        android:src="@drawable/staff_attendance_bg"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/attendance_TextView"
@@ -30,44 +28,48 @@
         android:fontFamily="@font/montserrat_bold"
         android:gravity="start"
         android:text="@string/attendance"
-        android:textColor="@color/white"
+        android:textColor="@color/darkForest"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:id="@+id/staffMeetingBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/cloudMist"
-        android:paddingHorizontal="22dp"
-        android:paddingVertical="16dp"
+        android:layout_marginBottom="20dp"
+        app:strokeColor="@color/mediumBlue"
+        app:strokeWidth="3dp"
+        android:backgroundTint="@color/lightBlue"
+        android:paddingVertical="25dp"
         android:text="@string/staff_meeting"
         android:textAllCaps="false"
-        android:textColor="@color/midnight"
+        android:textColor="@color/darkForest"
         android:textSize="18sp"
-        app:cornerRadius="28dp"
+        app:cornerRadius="12dp"
         app:fontFamily="@font/montserrat_bold"
+        app:layout_constraintVertical_bias="0.18"
         app:layout_constraintBottom_toTopOf="@+id/staffCheckInBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintWidth_percent=".6" />
+        app:layout_constraintWidth_percent=".8" />
 
     <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:id="@+id/staffCheckInBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/cottonCandyPink"
-        android:paddingVertical="16dp"
-        android:paddingHorizontal="22dp"
-        app:cornerRadius="28dp"
+        app:strokeColor="@color/mediumYellow"
+        app:strokeWidth="3dp"
+        android:backgroundTint="@color/lightYellow"
+        android:paddingVertical="25dp"
+        app:cornerRadius="12dp"
         android:textAllCaps="false"
-        android:textColor="@color/midnight"
+        android:textColor="@color/darkForest"
         android:textSize="18sp"
         android:text="@string/staff_checkin"
         app:fontFamily="@font/montserrat_bold"
@@ -75,6 +77,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/staffMeetingBtn"
-        app:layout_constraintWidth_percent=".6" />
+        app:layout_constraintWidth_percent=".8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
