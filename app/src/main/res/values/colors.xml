@@ -30,4 +30,11 @@
     <color name="lemonade">#FCDC8F</color>
     <color name="color_checked">#294C6C</color>
 
+<!--      2024 color palette (tentative, no names yet)      -->
+    <color name="darkForest">#0D3F41</color>
+    <color name="lightBlue">#F3FFFF</color>
+    <color name="mediumBlue">#D2F7FF</color>
+    <color name="lightYellow">#FFFACC</color>
+    <color name="mediumYellow">#FFF48D</color>
+
 </resources>
