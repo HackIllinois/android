@@ -14,7 +14,6 @@ import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 interface API {
