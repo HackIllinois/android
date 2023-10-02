@@ -250,7 +250,6 @@ class ScannerFragment : Fragment() {
             else -> "Something isn't quite right."
         }
         // make toast from response
-        Log.d("SCAN STATUS RESULT", responseString)
         val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
         toast.show()
         codeScanner.startPreview()

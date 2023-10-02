@@ -96,8 +96,6 @@ class ScannerViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 response = EventRepository.checkInEventAsStaff(userId, eventId)
-                Log.i("Check In", "Status: ${response.status}")
-                Log.i("Check In", "Response: $response")
                 lastScanStatus.postValue(
                     ScanStatus(
                         response.rsvpData != null,
