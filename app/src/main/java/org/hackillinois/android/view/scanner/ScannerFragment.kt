@@ -105,7 +105,6 @@ class ScannerFragment : Fragment() {
             // Go through all the events and add a chip for it
             if (isStaff()) {
                 for ((index, event) in listOfEvents!!.withIndex()) {
-                    Log.i("Events", "${event.name}: ${event.eventType}")
                     val chip =
                         inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
                     chip.text = event.name
@@ -116,8 +115,6 @@ class ScannerFragment : Fragment() {
                     staffChipGroup.addView(chip)
                 }
             }
-
-            Log.i("Events", "Number of events: ${listOfEvents!!.size}")
 
             // Select the first chipId
             staffChipGroup.check(firstChipId)
@@ -241,6 +238,7 @@ class ScannerFragment : Fragment() {
             val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
             toast.show()
         }
+        codeScanner.startPreview()
     }
 
     private fun displayScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
@@ -255,6 +253,7 @@ class ScannerFragment : Fragment() {
         Log.d("SCAN STATUS RESULT", responseString)
         val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
         toast.show()
+        codeScanner.startPreview()
     }
 
     private fun showStaffChipGroup(it: Roles?) = it?.let {
