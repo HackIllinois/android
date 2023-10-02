@@ -42,6 +42,7 @@ class ScannerFragment : Fragment() {
     private var isMeetingAttendance: Boolean = false
 
     private lateinit var codeScanner: CodeScanner
+    private var alertDialog: AlertDialog? = null
 
     private lateinit var staffChipGroup: ChipGroup
 
@@ -70,6 +71,7 @@ class ScannerFragment : Fragment() {
                     } else {
                         displayScanResult(it)
                     }
+                    codeScanner.startPreview()
                 },
             )
             roles.observe(
@@ -141,9 +143,7 @@ class ScannerFragment : Fragment() {
                     if (userRoles != null && userRoles!!.isStaff()) {
                         // check if QR is for meeting attendance or staff attendee check-in
                         if (isMeetingAttendance) {
-                            // do stuff
                             val eventId: String = getEventCodeFromQrString(it.text)
-                            Log.d("QRCODE", "$eventId")
                             viewModel.scanQrToCheckInMeeting(eventId)
                         } else {
                             val userString = getUserIdFromQrString(it.text)
@@ -229,16 +229,19 @@ class ScannerFragment : Fragment() {
         }
         // make dialog from response
         if (activity != null) {
-            AlertDialog.Builder(requireActivity())
-                .setMessage(responseString)
-                .setNegativeButton("OK") { dialog, id -> dialog.dismiss() }
-                .create()
-                .show()
+            if (alertDialog == null) {
+                val builder = AlertDialog.Builder(requireActivity())
+                    .setMessage(responseString)
+                    .setNegativeButton("OK") { dialog, id ->
+                        dialog.dismiss()
+                    }
+                alertDialog = builder.create()
+            }
+            alertDialog!!.show()
         } else {
             val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
             toast.show()
         }
-        codeScanner.startPreview()
     }
 
     private fun displayScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
@@ -252,7 +255,6 @@ class ScannerFragment : Fragment() {
         // make toast from response
         val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
         toast.show()
-        codeScanner.startPreview()
     }
 
     private fun showStaffChipGroup(it: Roles?) = it?.let {
