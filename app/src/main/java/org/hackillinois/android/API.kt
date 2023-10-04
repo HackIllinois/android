@@ -50,7 +50,7 @@ interface API {
     @POST("event/staff/checkin/")
     suspend fun checkInUserAsStaff(@Body userTokenEventIdPair: UserTokenEventIdPair): EventCheckInAsStaffResponse
 
-    @POST("event/staff/attendance/")
+    @POST("staff/attendance/")
     suspend fun staffMeetingCheckIn(@Body eventId: MeetingEventId): MeetingCheckInResponse
 
     // NOTIFICATIONS
