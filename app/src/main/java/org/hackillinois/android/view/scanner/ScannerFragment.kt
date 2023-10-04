@@ -97,9 +97,11 @@ class ScannerFragment : Fragment() {
 
             // Move the check-in to the first index
             val index = listOfEvents!!.indexOfFirst { event -> event.name == "Check-in" }
-            val event = listOfEvents!![index]
-            listOfEvents!!.removeAt(index)
-            listOfEvents!!.add(0, event)
+            if (index >= 0) {
+                val event = listOfEvents!![index]
+                listOfEvents!!.removeAt(index)
+                listOfEvents!!.add(0, event)
+            }
 
             var firstChipId = 0
 

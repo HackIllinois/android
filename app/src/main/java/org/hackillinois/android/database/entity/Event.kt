@@ -93,6 +93,7 @@ data class EventCode(val code: String)
 data class MeetingEventId(val eventId: String)
 
 data class MeetingCheckInResponse(var status: String)
+
 data class EventCheckInResponse(
     val newPoints: Int,
     val totalPoints: Int,
