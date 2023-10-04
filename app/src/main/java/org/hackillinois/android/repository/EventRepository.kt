@@ -79,9 +79,9 @@ class EventRepository {
             withContext(Dispatchers.IO) {
                 try {
                     val body = MeetingEventId(eventId)
-                    App.getAPI().staffMeetingCheckIn(body)
-                    apiResponse.status = "Success" // no response is sent from API, so just manually done
+                    apiResponse = App.getAPI().staffMeetingCheckIn(body) // 200: status = "Success"
                 } catch (e: Exception) {
+                    apiResponse.status = e.message.toString()
                     Log.d("STAFF MEETING API ERROR", "${e.message}")
                 }
             }

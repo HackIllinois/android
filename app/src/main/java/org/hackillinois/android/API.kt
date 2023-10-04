@@ -14,7 +14,6 @@ import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 interface API {
@@ -51,8 +50,10 @@ interface API {
     @POST("event/staff/checkin/")
     suspend fun checkInUserAsStaff(@Body userTokenEventIdPair: UserTokenEventIdPair): EventCheckInAsStaffResponse
 
-    @POST("event/staff/attendance/")
-    suspend fun staffMeetingCheckIn(@Body eventId: MeetingEventId): Response<Void>
+    // STAFF
+
+    @POST("staff/attendance/")
+    suspend fun staffMeetingCheckIn(@Body eventId: MeetingEventId): MeetingCheckInResponse
 
     // NOTIFICATIONS
 

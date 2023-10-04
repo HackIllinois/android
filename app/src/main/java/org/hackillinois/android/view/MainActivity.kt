@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -80,6 +81,12 @@ class MainActivity : AppCompatActivity() {
                 if (newSelection != currentSelection) {
                     currentSelection = newSelection
 
+                    val nightBlue = ContextCompat.getColor(this, R.color.nightBlue)
+                    val window = window
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                    window.statusBarColor = nightBlue
+                    bottomAppBar.setBackgroundColor(nightBlue)
+                    bottomBarButtons.forEach { (it as ImageButton).setBackgroundColor(nightBlue) }
                     bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
                     (view as ImageButton).setColorFilter(selectedIconColor)
 
@@ -122,6 +129,13 @@ class MainActivity : AppCompatActivity() {
                 if (isStaff()) {
                     // check if already on scanner attendance page for staff
                     if (!onScanner) {
+                        val darkForest = ContextCompat.getColor(this, R.color.darkForest)
+                        bottomAppBar.setBackgroundColor(darkForest)
+                        bottomBarButtons.forEach { (it as ImageButton).setBackgroundColor(darkForest) }
+                        val window = window
+                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                        window.statusBarColor = darkForest
+
                         switchFragment(staffScannerFragment, false)
                     }
                 } else {

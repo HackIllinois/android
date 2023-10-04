@@ -29,7 +29,7 @@ class ScheduleFragment : Fragment() {
             this,
             Observer {
                 favoriteButton.isSelected = it ?: false
-            }
+            },
         )
     }
 
@@ -76,7 +76,7 @@ class ScheduleFragment : Fragment() {
                 when (isSelected) {
                     true -> R.drawable.ic_star_filled
                     else -> R.drawable.ic_star_selectable
-                }
+                },
             )
         }
         scheduleViewModel.showFavorites.postValue(favoriteButton.isSelected)

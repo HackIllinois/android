@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.transition.TransitionInflater
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +41,7 @@ class ScannerFragment : Fragment() {
     private var isMeetingAttendance: Boolean = false
 
     private lateinit var codeScanner: CodeScanner
+    private var alertDialog: AlertDialog? = null
 
     private lateinit var staffChipGroup: ChipGroup
 
@@ -70,6 +70,7 @@ class ScannerFragment : Fragment() {
                     } else {
                         displayScanResult(it)
                     }
+                    codeScanner.startPreview()
                 },
             )
             roles.observe(
@@ -96,16 +97,17 @@ class ScannerFragment : Fragment() {
 
             // Move the check-in to the first index
             val index = listOfEvents!!.indexOfFirst { event -> event.name == "Check-in" }
-            val event = listOfEvents!![index]
-            listOfEvents!!.removeAt(index)
-            listOfEvents!!.add(0, event)
+            if (index >= 0) {
+                val event = listOfEvents!![index]
+                listOfEvents!!.removeAt(index)
+                listOfEvents!!.add(0, event)
+            }
 
             var firstChipId = 0
 
             // Go through all the events and add a chip for it
             if (isStaff()) {
                 for ((index, event) in listOfEvents!!.withIndex()) {
-                    Log.i("Events", "${event.name}: ${event.eventType}")
                     val chip =
                         inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
                     chip.text = event.name
@@ -116,8 +118,6 @@ class ScannerFragment : Fragment() {
                     staffChipGroup.addView(chip)
                 }
             }
-
-            Log.i("Events", "Number of events: ${listOfEvents!!.size}")
 
             // Select the first chipId
             staffChipGroup.check(firstChipId)
@@ -144,9 +144,7 @@ class ScannerFragment : Fragment() {
                     if (userRoles != null && userRoles!!.isStaff()) {
                         // check if QR is for meeting attendance or staff attendee check-in
                         if (isMeetingAttendance) {
-                            // do stuff
                             val eventId: String = getEventCodeFromQrString(it.text)
-                            Log.d("QRCODE", "$eventId")
                             viewModel.scanQrToCheckInMeeting(eventId)
                         } else {
                             val userString = getUserIdFromQrString(it.text)
@@ -232,11 +230,15 @@ class ScannerFragment : Fragment() {
         }
         // make dialog from response
         if (activity != null) {
-            AlertDialog.Builder(requireActivity())
-                .setMessage(responseString)
-                .setNegativeButton("OK") { dialog, id -> dialog.dismiss() }
-                .create()
-                .show()
+            if (alertDialog == null) {
+                val builder = AlertDialog.Builder(requireActivity())
+                    .setMessage(responseString)
+                    .setNegativeButton("OK") { dialog, id ->
+                        dialog.dismiss()
+                    }
+                alertDialog = builder.create()
+            }
+            alertDialog!!.show()
         } else {
             val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
             toast.show()
@@ -252,7 +254,6 @@ class ScannerFragment : Fragment() {
             else -> "Something isn't quite right."
         }
         // make toast from response
-        Log.d("SCAN STATUS RESULT", responseString)
         val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
         toast.show()
     }
