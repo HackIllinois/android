@@ -99,7 +99,7 @@
         android:id="@+id/attendeeLoginBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/midnight"
+        android:backgroundTint="@color/seaSaltGreen"
         android:text="@string/attendee_login"
         android:textColor="@android:color/white"
         android:textSize="16sp"
