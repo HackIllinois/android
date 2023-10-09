@@ -133,6 +133,7 @@ class ProfileFragment : Fragment() {
         return view
     }
 
+    // should refresh QR code
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!isStaff()) {
