@@ -149,8 +149,8 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
                 // add multiple locations
                 val locationText = StringBuilder()
                 for (i in it.locations.indices) {
-                    if (i != 0) locationText.append(",  ");
-                    locationText.append(it.locations[i].description);
+                    if (i != 0) locationText.append(",  ")
+                    locationText.append(it.locations[i].description)
                 }
                 event_location.text = locationText
             }
