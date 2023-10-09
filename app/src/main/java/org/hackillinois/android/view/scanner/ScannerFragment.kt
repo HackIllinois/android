@@ -7,12 +7,12 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
@@ -53,9 +53,20 @@ class ScannerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val transitionInflater = TransitionInflater.from(requireContext())
-        enterTransition = transitionInflater.inflateTransition(R.transition.slide_up_fragment)
 
+        // handle reloading in app bar if back button is clicked
+        activity?.onBackPressedDispatcher?.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
+                    val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+                    appBar.visibility = View.VISIBLE
+                    scannerBtn.visibility = View.VISIBLE
+                    activity?.supportFragmentManager?.popBackStackImmediate()
+                }
+            },
+        )
         eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
         eventName = arguments?.getString(EVENT_NAME_KEY) ?: ""
         isMeetingAttendance = arguments?.getBoolean(IS_MEETING_ATTENDANCE_KEY) ?: false
