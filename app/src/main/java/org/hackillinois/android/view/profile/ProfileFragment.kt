@@ -133,6 +133,21 @@ class ProfileFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (!isStaff()) {
+            viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+            viewModel.qr.observe(
+                viewLifecycleOwner,
+                Observer { it ->
+                    // Update UI with new value
+                    updateQrView(it)
+                },
+            )
+            viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
+        }
+    }
+
     private fun updateDietaryRestrictions(attendee: Attendee?) = attendee?.let { it ->
         val dietary = it.dietary
         if (it.dietary.isEmpty() || (it.dietary.size == 1 && it.dietary[0] == "None")) {
