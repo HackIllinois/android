@@ -6,7 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
-import org.hackillinois.android.model.event.UserTokenEventIdPair
 
 class EventRepository {
     private val eventDao = App.database.eventDao()
