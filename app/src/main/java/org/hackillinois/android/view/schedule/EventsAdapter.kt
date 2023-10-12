@@ -63,7 +63,17 @@ class EventsAdapter(
             sponsoredTextView.text = "Sponsored by ${event.sponsor}"
             sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
             sponsored_marker.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            locationTextView.text = if (event.locations.isEmpty()) "N/A" else event.locations.get(0).description
+            if (event.locations.isEmpty()) {
+                locationTextView.text = "N/A"
+            } else {
+                // add multiple locations
+                val locationText = StringBuilder()
+                for (i in event.locations.indices) {
+                    if (i != 0) locationText.append(",  ")
+                    locationText.append(event.locations[i].description)
+                }
+                locationTextView.text = locationText
+            }
             eventDescriptionTextView.text = event.description
             pointsView.text = " + ${event.points} pts "
 

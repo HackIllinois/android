@@ -157,16 +157,15 @@
         android:id="@+id/event_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
         android:layout_marginTop="6dp"
         android:layout_weight="1"
-        android:textFontWeight="600"
         android:fontFamily="@font/montserrat_semi_bold"
         android:textColor="@color/midnight"
+        android:textFontWeight="600"
         android:textSize="13sp"
-        app:layout_constraintStart_toEndOf="@+id/location_icon"
-        app:layout_constraintTop_toBottomOf="@+id/event_sponsor"
         app:layout_constraintBottom_toTopOf="@id/map_constraint_layout"
+        app:layout_constraintStart_toStartOf="@+id/event_sponsor"
+        app:layout_constraintTop_toBottomOf="@+id/event_sponsor"
         tools:text="location" />
 
     <TextView
