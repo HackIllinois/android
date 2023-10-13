@@ -38,8 +38,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     private lateinit var currentEventsSection: EventsSection
     private lateinit var upcomingEventsSection: EventsSection
 
-//    private lateinit var asyncEventsSection: EventsSection
-
     private lateinit var daysValue: TextView
     private lateinit var hoursValue: TextView
     private lateinit var minutesValue: TextView
@@ -50,14 +48,10 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
 
     private var isActive = false
 
-    private val refreshIconSize = 100
-
-    private val numberOfUpcomingEvents = 2
-    private lateinit var layout: ConstraintLayout
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // create EventsSections for current and upcoming events
         context?.let {
             val currentHeaderColor = Color.WHITE
             currentEventsSection = EventsSection(
@@ -66,7 +60,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 currentHeaderColor,
                 false,
                 this,
-                it
+                it,
             )
             val upcomingHeaderColor = getColor(context!!, R.color.primaryTextColor)
             upcomingEventsSection = EventsSection(
@@ -75,28 +69,17 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 upcomingHeaderColor,
                 false,
                 this,
-                it
+                it,
             )
-//            val asyncHeaderColor = Color.WHITE
-//            asyncEventsSection = EventsSection(
-//                mutableListOf(),
-//                "Async",
-//                asyncHeaderColor,
-//                false,
-//                this,
-//                it
-//            )
             eventsListAdapter = SectionedRecyclerViewAdapter().apply {
                 addSection(currentEventsSection)
                 addSection(upcomingEventsSection)
-//                addSection(asyncEventsSection)
             }
         }
 
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         viewModel.currentEventsLiveData.observe(this, Observer { updateCurrentEventsList(it) })
         viewModel.upcomingEventsLiveData.observe(this, Observer { updateUpcomingEventsList(it) })
-//        viewModel.asyncEventsLiveData.observe(this, Observer { updateAsyncEventsList(it) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -125,7 +108,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
             when (position) {
                 0 -> "Current"
                 1 -> "Upcoming"
-//                2 -> "Async"
                 else -> "Current"
             }
     }
@@ -189,13 +171,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
         }
         return actualEvents
     }
-
-//    private fun updateAsyncEventsList(events: List<Event>?) {
-//        events?.let {
-//            asyncEventsSection.updateEventsList(events)
-//            eventsListAdapter.notifyDataSetChanged()
-//        }
-//    }
 
     override fun updateTime(timeUntil: Long) {
         val timeInfo = TimeInfo(timeUntil)

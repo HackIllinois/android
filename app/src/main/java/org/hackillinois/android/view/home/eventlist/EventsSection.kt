@@ -19,12 +19,12 @@ class EventsSection(
     private val headerColor: Int = Color.BLACK,
     private val showTime: Boolean,
     private val eventClickListener: EventClickListener,
-    private val context: Context
+    private val context: Context,
 ) :
     Section(
         SectionParameters.builder()
             .itemResourceId(R.layout.event_tile)
-            .build()
+            .build(),
     ) {
 
     override fun getContentItemsTotal() = eventsList.size

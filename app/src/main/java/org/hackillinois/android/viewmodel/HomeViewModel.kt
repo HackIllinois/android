@@ -10,7 +10,6 @@ class HomeViewModel : ViewModel() {
     private val eventRepository = EventRepository.instance
     var currentEventsLiveData: LiveData<List<Event>>
     var upcomingEventsLiveData: LiveData<List<Event>>
-//    var asyncEventsLiveData: LiveData<List<Event>>
 
     private val NEXT_TWO_HOURS_MS = 1000 * 60 * 120
 
@@ -23,7 +22,6 @@ class HomeViewModel : ViewModel() {
         upcomingEventsLiveData = Transformations.switchMap(currentTime) { value ->
             eventRepository.fetchEventsHappeningBetweenTimes(value, value + NEXT_TWO_HOURS_MS)
         }
-//        asyncEventsLiveData = eventRepository.fetchAsyncEvents()
         refresh()
     }
 

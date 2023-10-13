@@ -41,6 +41,7 @@ class EventsSectionFragment : Fragment(), EventClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // get what type of events to display from arguments bundle
         sectionNumber = arguments?.getInt(ARG_SECTION_NUM) ?: 0
 
         val viewModel = parentFragment?.let { ViewModelProviders.of(it).get(HomeViewModel::class.java) }
@@ -48,7 +49,6 @@ class EventsSectionFragment : Fragment(), EventClickListener {
         val liveData = when (sectionNumber) {
             0 -> viewModel?.currentEventsLiveData
             1 -> viewModel?.upcomingEventsLiveData
-//            2 -> viewModel?.asyncEventsLiveData
             else -> viewModel?.currentEventsLiveData
         }
 
@@ -61,14 +61,14 @@ class EventsSectionFragment : Fragment(), EventClickListener {
                     currentEvents = it
                     updateEvents(currentEvents)
                 }
-            }
+            },
         )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_day, container, false)
 
