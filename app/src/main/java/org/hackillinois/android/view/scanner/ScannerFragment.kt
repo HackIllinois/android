@@ -53,6 +53,7 @@ class ScannerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isMeetingAttendance = arguments?.getBoolean(IS_MEETING_ATTENDANCE_KEY) ?: false
 
         // handle reloading in app bar if back button is clicked
         activity?.onBackPressedDispatcher?.addCallback(
@@ -67,9 +68,6 @@ class ScannerFragment : Fragment() {
                 }
             },
         )
-        eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
-        eventName = arguments?.getString(EVENT_NAME_KEY) ?: ""
-        isMeetingAttendance = arguments?.getBoolean(IS_MEETING_ATTENDANCE_KEY) ?: false
 
         viewModel = ViewModelProvider(this).get(ScannerViewModel::class.java).apply {
             init()
@@ -284,15 +282,11 @@ class ScannerFragment : Fragment() {
     }
 
     companion object {
-        val EVENT_ID_KEY = "event_id"
-        val EVENT_NAME_KEY = "event_name"
         val IS_MEETING_ATTENDANCE_KEY = "is_meeting_attendance_key"
 
-        fun newInstance(eventId: String, eventName: String, isMeetingAttendance: Boolean): ScannerFragment {
+        fun newInstance(isMeetingAttendance: Boolean): ScannerFragment {
             val fragment = ScannerFragment()
             val args = Bundle().apply {
-                putString(EVENT_ID_KEY, eventId)
-                putString(EVENT_NAME_KEY, eventName)
                 putBoolean(IS_MEETING_ATTENDANCE_KEY, isMeetingAttendance)
             }
             fragment.arguments = args
@@ -302,9 +296,11 @@ class ScannerFragment : Fragment() {
 
     private fun isStaff(): Boolean {
         val context = requireActivity().applicationContext
-        return context.getSharedPreferences(
-            context.getString(R.string.authorization_pref_file_key),
-            Context.MODE_PRIVATE,
-        ).getString("provider", "") ?: "" == "google"
+        return (
+            context.getSharedPreferences(
+                context.getString(R.string.authorization_pref_file_key),
+                Context.MODE_PRIVATE,
+            ).getString("provider", "") ?: ""
+            ) == "google"
     }
 }

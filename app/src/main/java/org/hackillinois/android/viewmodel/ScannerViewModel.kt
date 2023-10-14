@@ -13,17 +13,10 @@ import kotlin.Exception
 
 class ScannerViewModel : ViewModel() {
     var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
-
     lateinit var roles: LiveData<Roles>
-
     lateinit var allEvents: LiveData<EventsList>
 
-    private val CHECK_IN_NAME = "Check-in"
-
-    private lateinit var eventName: String
-
-    fun init(eventName: String) {
-        this.eventName = eventName
+    fun init() {
         this.roles = rolesRepository.fetch()
         this.allEvents = liveData {
             emit(App.getAPI().allEvents())
