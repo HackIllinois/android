@@ -71,8 +71,8 @@ class ScannerFragment : Fragment() {
         eventName = arguments?.getString(EVENT_NAME_KEY) ?: ""
         isMeetingAttendance = arguments?.getBoolean(IS_MEETING_ATTENDANCE_KEY) ?: false
 
-        viewModel = ViewModelProviders.of(this).get(ScannerViewModel::class.java).apply {
-            init(eventName)
+        viewModel = ViewModelProvider(this).get(ScannerViewModel::class.java).apply {
+            init()
             lastScanStatus.observe(
                 this@ScannerFragment,
                 Observer {
