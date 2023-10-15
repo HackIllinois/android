@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
 
             // check if user is staff or attendee
             if (!hasLoggedIn()) {
-                val toast = Toast.makeText(applicationContext, getString(R.string.login_error_msg), Toast.LENGTH_LONG)
+                val toast = Toast.makeText(applicationContext, getString(R.string.scanner_not_logged_in_message), Toast.LENGTH_LONG)
                 toast.show()
             } else {
                 // set all bottom bar buttons to be the unselected color
