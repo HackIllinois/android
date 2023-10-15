@@ -96,6 +96,23 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
+    private fun playAnimation() {
+        splashAnimationView.visibility = View.VISIBLE
+        splashAnimationView.playAnimation()
+        splashAnimationView.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(p0: Animator) {}
+            override fun onAnimationStart(p0: Animator) {}
+
+            override fun onAnimationEnd(p0: Animator) {
+                countDownLatchIfTappedOrAnimationFinished()
+            }
+
+            override fun onAnimationCancel(p0: Animator) {
+                countDownLatchIfTappedOrAnimationFinished()
+            }
+        })
+    }
+
     private fun countDownLatchIfTappedOrAnimationFinished() {
         synchronized(hasClickedOrAnimFinish) {
             if (!hasClickedOrAnimFinish) {
