@@ -3,21 +3,23 @@ package org.hackillinois.android.view.scanner
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.budiyev.android.codescanner.*
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.chip.Chip
@@ -36,20 +38,14 @@ class ScannerFragment : Fragment() {
 
     lateinit var viewModel: ScannerViewModel
 
-    private lateinit var eventId: String
-    private lateinit var eventName: String
     private var isMeetingAttendance: Boolean = false
+    private var userRoles: Roles? = null
+    private var listOfEvents: MutableList<Event>? = null
+    private var chipIdToEventId: MutableMap<Int, String> = mutableMapOf()
 
     private lateinit var codeScanner: CodeScanner
     private var alertDialog: AlertDialog? = null
-
     private lateinit var staffChipGroup: ChipGroup
-
-    private var userRoles: Roles? = null
-
-    private var listOfEvents: MutableList<Event>? = null
-
-    private var chipIdToEventId: MutableMap<Int, String> = mutableMapOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +56,7 @@ class ScannerFragment : Fragment() {
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
+                    // set bottom app bar visible again and pop scanner fragment from the backstack
                     val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
                     val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
                     appBar.visibility = View.VISIBLE
@@ -71,17 +68,14 @@ class ScannerFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(ScannerViewModel::class.java).apply {
             init()
-            lastScanStatus.observe(
-                this@ScannerFragment,
-                Observer {
-                    if (userRoles != null && userRoles!!.isStaff()) {
-                        displayStaffScanResult(it)
-                    } else {
-                        displayScanResult(it)
-                    }
-                    codeScanner.startPreview()
-                },
-            )
+            lastScanStatus.observe(this@ScannerFragment) {
+                if (userRoles != null && userRoles!!.isStaff()) {
+                    displayStaffScanResult(it)
+                } else {
+                    displayScanResult(it)
+                }
+                codeScanner.startPreview()
+            }
             roles.observe(
                 this@ScannerFragment,
                 Observer {
@@ -101,8 +95,7 @@ class ScannerFragment : Fragment() {
 
         viewModel.allEvents.observe(this) {
             // Filter out all the relevant details
-            listOfEvents =
-                it.events.filter { event -> event.eventType == "MEAL" || event.name == "Check-in" }.toMutableList()
+            listOfEvents = it.events.filter { event -> event.eventType == "MEAL" || event.name == "Check-in" }.toMutableList()
 
             // Move the check-in to the first index
             val index = listOfEvents!!.indexOfFirst { event -> event.name == "Check-in" }
@@ -117,8 +110,7 @@ class ScannerFragment : Fragment() {
             // Go through all the events and add a chip for it
             if (isStaff()) {
                 for ((index, event) in listOfEvents!!.withIndex()) {
-                    val chip =
-                        inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
+                    val chip = inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
                     chip.text = event.name
                     val chipId = ViewCompat.generateViewId()
                     if (index == 0) firstChipId = chipId
@@ -132,8 +124,9 @@ class ScannerFragment : Fragment() {
             staffChipGroup.check(firstChipId)
         }
 
+        // handle reloading in app bar if close button is clicked
         closeButton.setOnClickListener {
-            // set bottom app bar visible again and pop scanner from the backstack
+            // set bottom app bar visible again and pop scanner fragment from the backstack
             val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
             val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
             appBar.visibility = View.VISIBLE
@@ -141,6 +134,7 @@ class ScannerFragment : Fragment() {
             activity?.supportFragmentManager?.popBackStackImmediate()
         }
 
+        // create instance of the codeScanner
         context?.let { context ->
             codeScanner = CodeScanner(context, view.codeScannerView).apply {
                 camera = CodeScanner.CAMERA_BACK
@@ -149,20 +143,27 @@ class ScannerFragment : Fragment() {
                 scanMode = ScanMode.SINGLE
                 isAutoFocusEnabled = true
                 isFlashEnabled = false
+
+                // handle logic when a QR code is scanned
                 decodeCallback = DecodeCallback {
                     if (userRoles != null && userRoles!!.isStaff()) {
-                        // check if QR is for meeting attendance or staff attendee check-in
+                        // STAFF -> handle if QR is for meeting attendance or attendee check-in
                         if (isMeetingAttendance) {
-                            val eventId: String = getEventCodeFromQrString(it.text)
-                            viewModel.scanQrToCheckInMeeting(eventId)
+                            val eventId: String = it.text
+                            Log.d("QR CODE", eventId)
+                            viewModel.staffCheckInMeeting(eventId)
                         } else {
-                            val userString = getUserIdFromQrString(it.text)
-                            viewModel.checkUserIntoEventAsStaff(userString, getStaffCheckInEventId())
+                            /* TODO: Fix this?
+                               I'm not sure that it's even getting the right event id for each chip,
+                               hence the getStaffCheckInEventId() is just the check-in id
+                            */
+                            val userId = getUserIdFromQR(it.text)
+                            viewModel.staffCheckInAttendee(userId, getStaffCheckInEventId())
                         }
                     } else {
-                        // handle attendee event self check-in
-                        val eventId: String = getEventCodeFromQrString(it.text)
-                        viewModel.scanQrToCheckInEvent(eventId)
+                        // ATTENDEE -> handle event self check-in
+                        val eventId: String = it.text
+                        viewModel.attendeeCheckInEvent(eventId)
                     }
                 }
                 errorCallback = ErrorCallback {
@@ -175,28 +176,47 @@ class ScannerFragment : Fragment() {
 
             view.codeScannerView.setOnClickListener { codeScanner.startPreview() }
 
-            // get camera permission
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                context.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSIONS_REQUEST_ACCESS_CAMERA)
-            } else {
-                codeScanner.startPreview()
+            // check camera permissions and request them if not already given
+            val requestPermissionLauncher =
+                registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+                    if (isGranted) {
+                        codeScanner.startPreview()
+                    } else {
+                        val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
+                        val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+                        appBar.visibility = View.VISIBLE
+                        scannerBtn.visibility = View.VISIBLE
+                        activity?.supportFragmentManager?.popBackStackImmediate()
+                    }
+                }
+
+            when {
+                ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED -> {
+                    codeScanner.startPreview()
+                } else -> {
+                    requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+                }
             }
+
+//            if (context.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSIONS_REQUEST_ACCESS_CAMERA)
+//            } else {
+//                codeScanner.startPreview()
+//            }
         }
 
         return view
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == PERMISSIONS_REQUEST_ACCESS_CAMERA) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                codeScanner.startPreview()
-            }
-        }
-    }
+//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//
+//        if (requestCode == PERMISSIONS_REQUEST_ACCESS_CAMERA) {
+//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                codeScanner.startPreview()
+//            }
+//        }
+//    }
 
     override fun onResume() {
         super.onResume()
@@ -208,13 +228,13 @@ class ScannerFragment : Fragment() {
         codeScanner.releaseResources()
     }
 
-    private fun getUserIdFromQrString(qrString: String): String {
+    private fun showStaffChipGroup(it: Roles?) = it?.let {
+        staffChipGroup.visibility = if (it.isStaff() && !isMeetingAttendance) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun getUserIdFromQR(qrString: String): String {
         val splitOnEquals = qrString.split("=")
         return splitOnEquals.last()
-    }
-    private fun getEventCodeFromQrString(qrString: String): String {
-        val splitOnEquals = qrString.split("=")
-        return splitOnEquals.first()
     }
 
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
@@ -267,18 +287,8 @@ class ScannerFragment : Fragment() {
         toast.show()
     }
 
-    private fun showStaffChipGroup(it: Roles?) = it?.let {
-        staffChipGroup.visibility = if (it.isStaff() && !isMeetingAttendance) View.VISIBLE else View.INVISIBLE
-    }
-
     private fun getStaffCheckInEventId(): String {
         return chipIdToEventId[staffChipGroup.checkedChipId] ?: "0b8ea2a94ba4224c075f016256fbddfa"
-    }
-
-    private fun hideStatusTextVisibility(views: List<View>) {
-        for (view in views) {
-            view.visibility = View.INVISIBLE
-        }
     }
 
     companion object {

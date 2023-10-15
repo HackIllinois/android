@@ -35,10 +35,10 @@ interface API {
     fun getEvent(@Path("id") id: String): Call<Event>
 
     @POST("event/checkin/")
-    suspend fun eventCodeCheckIn(@Body token: EventCode): EventCheckInResponse
+    suspend fun eventCheckIn(@Body token: EventCode): AttendeeCheckInResponse
 
     @POST("event/staff/checkin/")
-    suspend fun checkInUserAsStaff(@Body tokenEventId: UserTokenEventIdPair): EventCheckInAsStaffResponse
+    suspend fun staffAttendeeCheckIn(@Body tokenEventId: UserEventPair): StaffCheckInResponse
 
     // STAFF
 

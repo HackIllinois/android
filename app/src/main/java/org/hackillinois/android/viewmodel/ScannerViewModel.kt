@@ -23,46 +23,16 @@ class ScannerViewModel : ViewModel() {
         }
     }
 
-    fun scanQrToCheckInEvent(eventId: String): EventCheckInResponse {
-        return checkIntoEvent(eventId)
-    }
-
-    fun checkIntoEvent(code: String): EventCheckInResponse {
-        var response = EventCheckInResponse(0, 0, "SCAN FAILED")
-        viewModelScope.launch {
-            try {
-                response = EventRepository.checkInEvent(code)
-                val scanStatus: ScanStatus
-                if (response.status == "Success") {
-                    scanStatus = ScanStatus(true, response.newPoints, response.status)
-                    lastScanStatus.postValue(scanStatus)
-                } else {
-                    // no new points
-                    scanStatus = ScanStatus(true, 0, response.status)
-                    lastScanStatus.postValue(scanStatus)
-                }
-                Log.d("CODE SUBMIT RESPONSE", scanStatus.toString())
-            } catch (e: Exception) {
-                Log.e("CODE SUBMIT RESPONSE", e.toString())
-            }
-        }
-        return response
-    }
-
-    fun scanQrToCheckInMeeting(eventId: String): MeetingCheckInResponse {
-        return checkIntoMeeting(eventId)
-    }
-
-    fun checkIntoMeeting(eventId: String): MeetingCheckInResponse {
+    fun staffCheckInMeeting(eventId: String): MeetingCheckInResponse {
         var response = MeetingCheckInResponse("SCAN FAILED")
         viewModelScope.launch {
             try {
                 response = EventRepository.checkInMeeting(eventId)
                 if (response.status == "Success") {
-                    val scanStatus = ScanStatus(true, 0, response.status)
+                    val scanStatus = ScanStatus(0, response.status)
                     lastScanStatus.postValue(scanStatus)
                 } else {
-                    val scanStatus = ScanStatus(false, 0, response.status)
+                    val scanStatus = ScanStatus(0, response.status)
                     lastScanStatus.postValue(scanStatus)
                 }
             } catch (e: Exception) {
@@ -72,9 +42,8 @@ class ScannerViewModel : ViewModel() {
         return response
     }
 
-    fun checkUserIntoEventAsStaff(qrCodeString: String, eventId: String): EventCheckInAsStaffResponse {
-        val userId = qrCodeString // decodeJWT(qrCodeString)
-        var response = EventCheckInAsStaffResponse(
+    fun staffCheckInAttendee(userId: String, eventId: String): StaffCheckInResponse {
+        var response = StaffCheckInResponse(
             0,
             0,
             "SCAN FAILED",
@@ -88,26 +57,34 @@ class ScannerViewModel : ViewModel() {
         )
         viewModelScope.launch {
             try {
-                response = EventRepository.checkInEventAsStaff(userId, eventId)
-                lastScanStatus.postValue(
-                    ScanStatus(
-                        response.rsvpData != null,
-                        0,
-                        if (response.rsvpData == null) "Bad User Token" else response.status,
-                        if (response.rsvpData != null) {
-                            response
-                                .rsvpData
-                                .registrationData
-                                .attendee
-                                .dietary
-                                .joinToString()
-                        } else {
-                            "Bad User Token"
-                        },
-                    ),
-                )
+                response = EventRepository.checkInAttendee(userId, eventId)
+                val scanStatus = ScanStatus(0,
+                    response.status,
+                    response.rsvpData.registrationData.attendee.dietary.joinToString())
+                lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {
                 Log.e("Staff Check In", e.toString())
+            }
+        }
+        return response
+    }
+
+    fun attendeeCheckInEvent(code: String): AttendeeCheckInResponse {
+        var response = AttendeeCheckInResponse(0, 0, "SCAN FAILED")
+        viewModelScope.launch {
+            try {
+                response = EventRepository.checkInEvent(code)
+                val scanStatus: ScanStatus
+                if (response.status == "Success") {
+                    scanStatus = ScanStatus(response.newPoints, response.status)
+                    lastScanStatus.postValue(scanStatus)
+                } else {
+                    // no new points
+                    scanStatus = ScanStatus(0, response.status)
+                    lastScanStatus.postValue(scanStatus)
+                }
+            } catch (e: Exception) {
+                Log.e("CODE SUBMIT RESPONSE", e.toString())
             }
         }
         return response
