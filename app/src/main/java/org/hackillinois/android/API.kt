@@ -59,8 +59,8 @@ interface API {
     @GET("profile/")
     suspend fun currentProfile(): Profile
 
-    @GET("profile/search/")
-    suspend fun allProfiles(): ProfileList
+//    @GET("profile/search/")
+//    suspend fun allProfiles(): ProfileList
 
     @GET("profile/leaderboard/?limit=10")
     suspend fun leaderboard(): LeaderboardList
