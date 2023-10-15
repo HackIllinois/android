@@ -7,6 +7,7 @@ import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
 import org.hackillinois.android.model.profile.ProfileList
 import org.hackillinois.android.model.projects.ProjectsList
+import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
 import retrofit2.http.*
@@ -40,28 +41,10 @@ interface API {
     @POST("event/staff/checkin/")
     suspend fun checkInUserAsStaff(@Body tokenEventId: UserTokenEventIdPair): EventCheckInAsStaffResponse
 
-    // STAFF
-
-    @POST("staff/attendance/")
-    suspend fun staffMeetingCheckIn(@Body eventId: MeetingEventId): MeetingCheckInResponse
-
     // NOTIFICATIONS
 
     @POST("notifications/device/")
     suspend fun sendUserToken(@Body token: DeviceToken): DeviceToken
-
-    // REGISTRATION
-
-    @GET("registration/attendee/")
-    suspend fun attendee(): Attendee
-
-    // USER
-
-    @GET("user/")
-    suspend fun user(): User
-
-    @GET("user/qr/")
-    suspend fun qrCode(): QR
 
     // PROJECT
 
@@ -82,10 +65,33 @@ interface API {
     @GET("profile/leaderboard/?limit=10")
     suspend fun leaderboard(): LeaderboardList
 
+    // REGISTRATION
+
+    @GET("registration/attendee/")
+    suspend fun attendee(): Attendee
+
+    // STAFF
+
+    @POST("staff/attendance/")
+    suspend fun staffMeetingCheckIn(@Body eventId: MeetingEventId): MeetingCheckInResponse
+
     // UPLOAD
 
     @GET("upload/blobstore/times/")
     suspend fun times(): TimesWrapper
+
+    // USER
+
+    @GET("user/")
+    suspend fun user(): User
+
+    @GET("user/qr/")
+    suspend fun qrCode(): QR
+
+    // VERSION
+
+    @GET("version/android/")
+    suspend fun versionCode(): Version
 
     // BASE URL
 
