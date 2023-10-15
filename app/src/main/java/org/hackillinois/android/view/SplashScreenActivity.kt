@@ -105,6 +105,14 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
+    private fun showUpdatePopUp() {
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.update_app_title)
+            .setMessage(R.string.update_app_message)
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
     private fun launchMainActivity() {
         val mainIntent = Intent(this, MainActivity::class.java)
         startActivity(mainIntent)
