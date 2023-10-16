@@ -36,7 +36,7 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
     private fun bind(item: Leaderboard, itemView: View, position: Int) {
         itemView.apply {
             rankTextView.text = position.toString()
-            discordTextView.text = item.discord
+            discordTextView.text = item.displayName
             val pointNum = item.points
             pointsTextView.text = resources.getQuantityString(R.plurals.leaderboard_points_view, pointNum, pointNum)
 
