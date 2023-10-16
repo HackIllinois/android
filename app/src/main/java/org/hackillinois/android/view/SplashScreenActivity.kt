@@ -115,6 +115,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
             .setTitle(R.string.update_app_title)
             .setMessage(R.string.update_app_message)
+            .setCancelable(false)
         val alertDialog = builder.create()
         alertDialog.show()
     }
