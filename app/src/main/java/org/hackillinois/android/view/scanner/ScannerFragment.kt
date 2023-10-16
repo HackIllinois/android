@@ -81,7 +81,7 @@ class ScannerFragment : Fragment() {
                     } else {
                         displayScanResult(it)
                     }
-                    codeScanner.startPreview()
+//                    codeScanner.startPreview()
                 },
             )
             roles.observe(
@@ -246,6 +246,7 @@ class ScannerFragment : Fragment() {
                     .setMessage(responseString)
                     .setNegativeButton("OK") { dialog, id ->
                         dialog.dismiss()
+                        codeScanner.startPreview()
                     }
                 alertDialog = builder.create()
             }
