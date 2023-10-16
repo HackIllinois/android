@@ -2,28 +2,28 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "b093b3f1f522dfcc747cc607b6c8eafd",
+    "identityHash": "c2fbde5199b6e0ed9f6ea7c24034ace0",
     "entities": [
       {
         "tableName": "qr_codes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` INTEGER NOT NULL, `id` TEXT NOT NULL, `qr_info` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` TEXT NOT NULL, `qrInfo` TEXT NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
           {
-            "fieldPath": "key",
-            "columnName": "key",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "userId",
+            "columnName": "userId",
             "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "qrInfo",
-            "columnName": "qr_info",
+            "columnName": "qrInfo",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -38,14 +38,8 @@
       },
       {
         "tableName": "attendees",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` INTEGER NOT NULL, `id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `dietary` TEXT NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
-          {
-            "fieldPath": "key",
-            "columnName": "key",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "id",
             "columnName": "id",
@@ -62,6 +56,18 @@
             "fieldPath": "lastName",
             "columnName": "lastName",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dietary",
+            "columnName": "dietary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -76,29 +82,17 @@
       },
       {
         "tableName": "users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` INTEGER NOT NULL, `id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `email` TEXT NOT NULL, `username` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userId` TEXT NOT NULL, `name` TEXT NOT NULL, `email` TEXT NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
           {
-            "fieldPath": "key",
-            "columnName": "key",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "userId",
+            "columnName": "userId",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "firstName",
-            "columnName": "firstName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastName",
-            "columnName": "lastName",
+            "fieldPath": "name",
+            "columnName": "name",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -109,9 +103,9 @@
             "notNull": true
           },
           {
-            "fieldPath": "username",
-            "columnName": "username",
-            "affinity": "TEXT",
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -126,7 +120,7 @@
       },
       {
         "tableName": "events",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `locations` TEXT NOT NULL, `sponsor` TEXT NOT NULL, `eventType` TEXT NOT NULL, `points` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `locations` TEXT NOT NULL, `sponsor` TEXT NOT NULL, `eventType` TEXT NOT NULL, `points` TEXT NOT NULL, `isAsync` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -181,6 +175,12 @@
             "columnName": "points",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "isAsync",
+            "columnName": "isAsync",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -194,14 +194,8 @@
       },
       {
         "tableName": "roles",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` INTEGER NOT NULL, `id` TEXT NOT NULL, `roles` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `roles` TEXT NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
-          {
-            "fieldPath": "key",
-            "columnName": "key",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "id",
             "columnName": "id",
@@ -212,6 +206,12 @@
             "fieldPath": "roles",
             "columnName": "roles",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -225,92 +225,24 @@
         "foreignKeys": []
       },
       {
-        "tableName": "projects",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `mentors` TEXT NOT NULL, `room` TEXT NOT NULL, `tags` TEXT NOT NULL, `number` INTEGER NOT NULL, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "description",
-            "columnName": "description",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "mentors",
-            "columnName": "mentors",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "room",
-            "columnName": "room",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "tags",
-            "columnName": "tags",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "number",
-            "columnName": "number",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
         "tableName": "profiles",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `points` INTEGER NOT NULL, `timezone` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `discord` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` TEXT NOT NULL, `displayName` TEXT NOT NULL, `discordTag` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `points` INTEGER NOT NULL, `userId` TEXT NOT NULL, `foodWave` INTEGER NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "_id",
+            "columnName": "_id",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "firstName",
-            "columnName": "firstName",
+            "fieldPath": "displayName",
+            "columnName": "displayName",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "lastName",
-            "columnName": "lastName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "points",
-            "columnName": "points",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "timezone",
-            "columnName": "timezone",
+            "fieldPath": "discordTag",
+            "columnName": "discordTag",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -321,9 +253,59 @@
             "notNull": true
           },
           {
-            "fieldPath": "discord",
-            "columnName": "discord",
+            "fieldPath": "points",
+            "columnName": "points",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foodWave",
+            "columnName": "foodWave",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "key"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "leaderboard",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `displayName` TEXT NOT NULL, `points` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "displayName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "points",
+            "columnName": "points",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -331,15 +313,16 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
       }
     ],
+    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"b093b3f1f522dfcc747cc607b6c8eafd\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c2fbde5199b6e0ed9f6ea7c24034ace0')"
     ]
   }
 }
