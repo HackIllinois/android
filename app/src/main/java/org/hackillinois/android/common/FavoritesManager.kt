@@ -22,20 +22,6 @@ class FavoritesManager {
 
         fun isFavoritedEvent(context: Context, eventId: String) = getBoolean(context, eventId)
 
-//        fun isFavoritedProject(context: Context, projectId: String) = getBoolean(context, projectId)
-
-//        fun favoriteProfile(context: Context, profile: Profile?) = profile?.let {
-//            setBoolean(context, it.id, true)
-//        }
-
-//        fun unfavoriteProfile(context: Context, profile: Profile?) = profile?.let {
-//            setBoolean(context, it.id, false)
-//        }
-
-//        fun isFavoritedProfile(context: Context, profile: Profile?): Boolean {
-//            return profile?.let { getBoolean(context, profile.id) } ?: false
-//        }
-
         fun clearFavorites(context: Context) {
             getFavoritesPrefs(context).edit().clear().apply()
         }
