@@ -5,8 +5,6 @@ import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
-import org.hackillinois.android.model.profile.ProfileList
-import org.hackillinois.android.model.projects.ProjectsList
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
@@ -45,11 +43,6 @@ interface API {
 
     @POST("notifications/device/")
     suspend fun sendUserToken(@Body token: DeviceToken): DeviceToken
-
-    // PROJECT
-
-    @GET("project/")
-    suspend fun allProjects(): ProjectsList
 
     // PROFILE
 

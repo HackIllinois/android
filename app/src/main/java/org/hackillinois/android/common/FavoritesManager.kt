@@ -4,8 +4,6 @@ import android.content.Context
 import android.util.Log
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.Profile
-import org.hackillinois.android.database.entity.Project
 import org.hackillinois.android.notifications.HackIllinoisNotificationManager
 import org.hackillinois.android.notifications.HackIllinoisNotificationManager.cancelEventNotification
 import org.hackillinois.android.notifications.HackIllinoisNotificationManager.scheduleEventNotification
@@ -17,17 +15,9 @@ class FavoritesManager {
             HackIllinoisNotificationManager.scheduleEventNotification(context, it)
         }
 
-        fun favoriteProject(context: Context, project: Project?) = project?.let {
-            setBoolean(context, it.id, true)
-        }
-
         fun unfavoriteEvent(context: Context, event: Event?) = event?.let {
             setBoolean(context, it.id, false)
             HackIllinoisNotificationManager.cancelEventNotification(context, it)
-        }
-
-        fun unfavoriteProject(context: Context, project: Project?) = project?.let {
-            setBoolean(context, it.id, false)
         }
 
         fun isFavoritedEvent(context: Context, eventId: String) = getBoolean(context, eventId)
