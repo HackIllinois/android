@@ -129,7 +129,8 @@ class ProfileFragment : Fragment() {
     // should refresh QR code
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!isStaff()) {
+        // if user isn't a staff and has logged in (i.e. attendee), show profile
+        if (!isStaff() && hasLoggedIn()) {
             viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
             viewModel.qr.observe(
                 viewLifecycleOwner,
@@ -177,21 +178,6 @@ class ProfileFragment : Fragment() {
                 tierText.text = "Acrobat Tier"
             }
         }
-
-//        try {
-//            context?.let { it1 ->
-//                Glide.with(it1)
-//                    .load(it.avatarUrl)
-//                    .apply(
-//                        RequestOptions()
-//                            .transform(CenterCrop(), RoundedCorners(16))
-//                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    )
-//                    .into(ticketImage)
-//            }
-//        } catch (e: Exception) {
-//            Log.e("Load profile image", e.toString())
-//        }
     }
 
     private fun updateQrView(qr: QR?) = qr?.let { it ->
