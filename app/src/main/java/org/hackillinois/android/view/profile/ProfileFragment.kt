@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-// import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,12 +19,6 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
-import kotlinx.android.synthetic.main.fragment_profile.*
-// import com.bumptech.glide.Glide
-// import com.bumptech.glide.load.engine.DiskCacheStrategy
-// import com.bumptech.glide.load.resource.bitmap.CenterCrop
-// import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-// import com.bumptech.glide.request.RequestOptions
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Attendee
@@ -136,7 +129,8 @@ class ProfileFragment : Fragment() {
     // should refresh QR code
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!isStaff()) {
+        // if user isn't a staff and has logged in (i.e. attendee), show profile
+        if (!isStaff() && hasLoggedIn()) {
             viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
             viewModel.qr.observe(
                 viewLifecycleOwner,
@@ -169,7 +163,7 @@ class ProfileFragment : Fragment() {
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         val currPoints = it.points
         pointsText.text = "$currPoints pts"
-        nameText.text = "${it.firstName} ${it.lastName}"
+        nameText.text = it.displayName
         waveText.text = "Wave ${it.foodWave}"
 
         // TODO: change this so it uses api calls
@@ -184,21 +178,6 @@ class ProfileFragment : Fragment() {
                 tierText.text = "Acrobat Tier"
             }
         }
-
-//        try {
-//            context?.let { it1 ->
-//                Glide.with(it1)
-//                    .load(it.avatarUrl)
-//                    .apply(
-//                        RequestOptions()
-//                            .transform(CenterCrop(), RoundedCorners(16))
-//                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    )
-//                    .into(ticketImage)
-//            }
-//        } catch (e: Exception) {
-//            Log.e("Load profile image", e.toString())
-//        }
     }
 
     private fun updateQrView(qr: QR?) = qr?.let { it ->

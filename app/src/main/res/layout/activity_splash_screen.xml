@@ -11,6 +11,7 @@
         android:id="@+id/splashAnimationView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:scaleType="fitCenter"
         android:scaleX=".9"
         android:scaleY=".9"
