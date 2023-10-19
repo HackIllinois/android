@@ -59,11 +59,7 @@ class ScannerFragment : Fragment() {
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
-                    val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
-                    appBar.visibility = View.VISIBLE
-                    scannerBtn.visibility = View.VISIBLE
-                    activity?.supportFragmentManager?.popBackStackImmediate()
+                    closeScannerPage()
                 }
             },
         )
@@ -136,11 +132,7 @@ class ScannerFragment : Fragment() {
 
         closeButton.setOnClickListener {
             // set bottom app bar visible again and pop scanner from the backstack
-            val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
-            val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
-            appBar.visibility = View.VISIBLE
-            scannerBtn.visibility = View.VISIBLE
-            activity?.supportFragmentManager?.popBackStackImmediate()
+            closeScannerPage()
         }
 
         context?.let { context ->
@@ -208,6 +200,14 @@ class ScannerFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         codeScanner.releaseResources()
+    }
+
+    private fun closeScannerPage() {
+        val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+        appBar.visibility = View.VISIBLE
+        scannerBtn.visibility = View.VISIBLE
+        activity?.supportFragmentManager?.popBackStackImmediate()
     }
 
     private fun getUserIdFromQrString(qrString: String): String {
