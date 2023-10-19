@@ -18,6 +18,7 @@ import org.hackillinois.android.viewmodel.ScheduleViewModel
 
 class ScheduleFragment : Fragment() {
 
+    // owo sneaky comment >w<
     private lateinit var favoriteButton: ImageButton
     private lateinit var scheduleViewModel: ScheduleViewModel
 
