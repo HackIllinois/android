@@ -117,34 +117,21 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showFailedToLogin(message: String?) {
         if (message != null) {
-            Snackbar.make(
-                findViewById(android.R.id.content),
-                message.toString(),
-                Snackbar.LENGTH_SHORT,
-            ).show()
+            Snackbar.make(findViewById(android.R.id.content), message.toString(), Snackbar.LENGTH_SHORT,).show()
         } else {
-            Snackbar.make(
-                findViewById(android.R.id.content),
-                "Failed to login. Please try again.",
-                Snackbar.LENGTH_SHORT,
-            ).show()
+            val failMessage = applicationContext.getString(R.string.login_fail_message)
+            Snackbar.make(findViewById(android.R.id.content), failMessage, Snackbar.LENGTH_SHORT,).show()
         }
     }
 
     private fun showFailedToLoginStaff() {
-        Snackbar.make(
-            findViewById(android.R.id.content),
-            "You must have a valid staff account to log in.",
-            Snackbar.LENGTH_SHORT,
-        ).show()
+        val staffMessage = applicationContext.getString(R.string.login_fail_staff_message)
+        Snackbar.make(findViewById(android.R.id.content), staffMessage, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showFailedToLoginAttendee() {
-        Snackbar.make(
-            findViewById(android.R.id.content),
-            "You must RSVP to log in.",
-            Snackbar.LENGTH_SHORT,
-        ).show()
+        val attendeeMessage = applicationContext.getString(R.string.login_fail_attendee_message)
+        Snackbar.make(findViewById(android.R.id.content), attendeeMessage, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun launchMainActivity() {
@@ -154,13 +141,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setOAuthProvider(provider: String) {
-        val editor = applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).edit()
-        editor.putString("provider", provider)
-        editor.apply()
+        val prefString = applicationContext.getString(R.string.authorization_pref_file_key)
+        val editor = applicationContext.getSharedPreferences(prefString, Context.MODE_PRIVATE).edit()
+        editor.putString("provider", provider).apply()
     }
 
     private fun getOAuthProvider(): String {
-        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")
+        val prefString = applicationContext.getString(R.string.authorization_pref_file_key)
+        return applicationContext.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "")
             ?: ""
     }
 }
