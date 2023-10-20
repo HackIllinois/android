@@ -24,7 +24,6 @@ import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.leaderboard.LeaderboardFragment
-import org.hackillinois.android.view.onboarding.OnboardingActivity
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.scanner.ScannerFragment
 import org.hackillinois.android.view.scanner.StaffScannerFragment
@@ -172,12 +171,13 @@ class MainActivity : AppCompatActivity() {
 
         thread {
             FavoritesManager.clearFavorites(this)
+            val prefString = applicationContext.getString(R.string.authorization_pref_file_key)
+            applicationContext.getSharedPreferences(prefString, Context.MODE_PRIVATE).edit().remove("provider").apply()
             App.database.clearAllTables()
             App.getAPI("")
 
             runOnUiThread {
-//                val loginIntent = Intent(this, LoginActivity::class.java)
-                val loginIntent = Intent(this, OnboardingActivity::class.java)
+                val loginIntent = Intent(this, LoginActivity::class.java)
                 loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(loginIntent)
                 finish()
@@ -190,7 +190,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isStaff(): Boolean {
-        return applicationContext.getSharedPreferences(applicationContext.getString(R.string.authorization_pref_file_key), Context.MODE_PRIVATE).getString("provider", "")
-            ?: "" == "google"
+        val prefString = applicationContext.getString(R.string.authorization_pref_file_key)
+        return applicationContext.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
     }
 }
