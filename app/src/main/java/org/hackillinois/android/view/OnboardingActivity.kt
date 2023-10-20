@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.onboarding
+package org.hackillinois.android.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import org.hackillinois.android.R
-import org.hackillinois.android.view.LoginActivity
+import org.hackillinois.android.view.onboarding.OnboardingPageFragment
 
 class OnboardingActivity : FragmentActivity() {
 
