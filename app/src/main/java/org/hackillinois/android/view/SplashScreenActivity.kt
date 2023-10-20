@@ -21,7 +21,7 @@ import kotlin.concurrent.thread
 
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val countDownLatch = CountDownLatch(2)
+    private val countDownLatch = CountDownLatch(3)
     private var needsToLogin = true
 
     @Volatile private var hasClickedOrAnimFinish = false
@@ -37,6 +37,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // launch Coroutine to execute asynchronous calls
         var androidVersion = BuildConfig.VERSION_NAME
+        playAnimation()
         lifecycleScope.launch {
             try {
                 val api = App.getAPI()
@@ -47,10 +48,10 @@ class SplashScreenActivity : AppCompatActivity() {
                     showUpdatePopUp()
                 } else {
                     // app is up-to-date, so start animation and check if they need to log in
-                    playAnimation()
+                    countDownLatch.countDown()
                     val jwt = JWTUtilities.readJWT(applicationContext)
                     if (jwt != JWTUtilities.DEFAULT_JWT) {
-                        Log.d("JWT", jwt)
+                        Log.d("JWT SplashScreen", jwt)
                         val api = App.getAPI(jwt)
                         async { api.user() }.await()
                         needsToLogin = false
@@ -74,6 +75,7 @@ class SplashScreenActivity : AppCompatActivity() {
             countDownLatch.await()
             // once countDownLatch is fulfilled, run logic for log in on the UI Thread
             runOnUiThread {
+                splashAnimationView.pauseAnimation()
                 if (needsToLogin) {
                     launchOnboardingActivity()
                 } else {
@@ -112,6 +114,8 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun showUpdatePopUp() {
+        splashAnimationView.pauseAnimation()
+        splashAnimationView.visibility = View.INVISIBLE
         val builder = AlertDialog.Builder(this)
             .setTitle(R.string.update_app_title)
             .setMessage(R.string.update_app_message)
