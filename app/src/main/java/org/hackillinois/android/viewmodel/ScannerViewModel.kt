@@ -13,110 +13,56 @@ import kotlin.Exception
 
 class ScannerViewModel : ViewModel() {
     var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
-
     lateinit var roles: LiveData<Roles>
-
     lateinit var allEvents: LiveData<EventsList>
 
-    private val CHECK_IN_NAME = "Check-in"
-
-    private lateinit var eventName: String
-
-    fun init(eventName: String) {
-        this.eventName = eventName
+    fun init() {
         this.roles = rolesRepository.fetch()
         this.allEvents = liveData {
             emit(App.getAPI().allEvents())
         }
     }
 
-    fun scanQrToCheckInEvent(eventId: String): EventCheckInResponse {
-        return checkIntoEvent(eventId)
-    }
-
-    fun checkIntoEvent(code: String): EventCheckInResponse {
-        var response = EventCheckInResponse(0, 0, "SCAN FAILED")
+    fun attendeeCheckInEvent(eventId: String) {
         viewModelScope.launch {
             try {
-                response = EventRepository.checkInEvent(code)
+                val response = EventRepository.checkInEvent(eventId)
                 val scanStatus: ScanStatus
+                // Check if attendee successfully checked into the event
                 if (response.status == "Success") {
-                    scanStatus = ScanStatus(true, response.newPoints, response.status)
+                    scanStatus = ScanStatus(response.newPoints, response.status)
                     lastScanStatus.postValue(scanStatus)
                 } else {
-                    // no new points
-                    scanStatus = ScanStatus(true, 0, response.status)
-                    lastScanStatus.postValue(scanStatus)
-                }
-                Log.d("CODE SUBMIT RESPONSE", scanStatus.toString())
-            } catch (e: Exception) {
-                Log.e("CODE SUBMIT RESPONSE", e.toString())
-            }
-        }
-        return response
-    }
-
-    fun scanQrToCheckInMeeting(eventId: String): MeetingCheckInResponse {
-        return checkIntoMeeting(eventId)
-    }
-
-    fun checkIntoMeeting(eventId: String): MeetingCheckInResponse {
-        var response = MeetingCheckInResponse("SCAN FAILED")
-        viewModelScope.launch {
-            try {
-                response = EventRepository.checkInMeeting(eventId)
-                if (response.status == "Success") {
-                    val scanStatus = ScanStatus(true, 0, response.status)
-                    lastScanStatus.postValue(scanStatus)
-                } else {
-                    val scanStatus = ScanStatus(false, 0, response.status)
+                    scanStatus = ScanStatus(0, response.status)
                     lastScanStatus.postValue(scanStatus)
                 }
             } catch (e: Exception) {
-                Log.e("CODE SUBMIT RESPONSE", e.toString())
+                Log.e("ATTENDEE - CHECK IN EVENT", e.toString())
             }
         }
-        return response
     }
 
-    fun checkUserIntoEventAsStaff(qrCodeString: String, eventId: String): EventCheckInAsStaffResponse {
-        val userId = qrCodeString // decodeJWT(qrCodeString)
-        var response = EventCheckInAsStaffResponse(
-            0,
-            0,
-            "SCAN FAILED",
-            RSVPData(
-                "",
-                false,
-                RegistrationData(
-                    AttendeeData(listOf()),
-                ),
-            ),
-        )
+    fun staffCheckInMeeting(eventId: String) {
         viewModelScope.launch {
             try {
-                response = EventRepository.checkInEventAsStaff(userId, eventId)
-                lastScanStatus.postValue(
-                    ScanStatus(
-                        response.rsvpData != null,
-                        0,
-                        if (response.rsvpData == null) "Bad User Token" else response.status,
-                        if (response.rsvpData != null) {
-                            response
-                                .rsvpData
-                                .registrationData
-                                .attendee
-                                .dietary
-                                .joinToString()
-                        } else {
-                            "Bad User Token"
-                        },
-                    ),
-                )
+                val response = EventRepository.checkInMeeting(eventId)
+                val scanStatus = ScanStatus(0, response.status)
+                lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {
-                Log.e("Staff Check In", e.toString())
+                Log.e("STAFF - MEETING CHECK IN", e.toString())
             }
         }
-        return response
+    }
+
+    fun staffCheckInAttendee(userId: String, eventId: String) {
+        viewModelScope.launch {
+            try {
+                val response = EventRepository.checkInAttendee(userId, eventId)
+                val scanStatus = ScanStatus(0, response.status, response.rsvpData.registrationData.attendee.dietary.joinToString())
+                lastScanStatus.postValue(scanStatus)
+            } catch (e: Exception) {
+                Log.e("STAFF - ATTENDEE CHECK IN", e.toString())
+            }
+        }
     }
 }
