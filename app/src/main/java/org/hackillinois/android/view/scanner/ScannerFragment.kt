@@ -36,8 +36,6 @@ class ScannerFragment : Fragment() {
 
     lateinit var viewModel: ScannerViewModel
 
-    private lateinit var eventId: String
-    private lateinit var eventName: String
     private var isMeetingAttendance: Boolean = false
 
     private lateinit var codeScanner: CodeScanner
@@ -63,8 +61,6 @@ class ScannerFragment : Fragment() {
                 }
             },
         )
-        eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
-        eventName = arguments?.getString(EVENT_NAME_KEY) ?: ""
         isMeetingAttendance = arguments?.getBoolean(IS_MEETING_ATTENDANCE_KEY) ?: false
 
         viewModel = ViewModelProviders.of(this).get(ScannerViewModel::class.java).apply {
@@ -287,15 +283,11 @@ class ScannerFragment : Fragment() {
     }
 
     companion object {
-        val EVENT_ID_KEY = "event_id"
-        val EVENT_NAME_KEY = "event_name"
         val IS_MEETING_ATTENDANCE_KEY = "is_meeting_attendance_key"
 
-        fun newInstance(eventId: String, eventName: String, isMeetingAttendance: Boolean): ScannerFragment {
+        fun newInstance(isMeetingAttendance: Boolean): ScannerFragment {
             val fragment = ScannerFragment()
             val args = Bundle().apply {
-                putString(EVENT_ID_KEY, eventId)
-                putString(EVENT_NAME_KEY, eventName)
                 putBoolean(IS_MEETING_ATTENDANCE_KEY, isMeetingAttendance)
             }
             fragment.arguments = args
