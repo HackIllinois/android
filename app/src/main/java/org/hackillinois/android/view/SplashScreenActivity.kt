@@ -15,7 +15,6 @@ import org.hackillinois.android.App
 import org.hackillinois.android.BuildConfig
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
-import org.hackillinois.android.view.onboarding.OnboardingActivity
 import java.util.concurrent.CountDownLatch
 import kotlin.concurrent.thread
 
