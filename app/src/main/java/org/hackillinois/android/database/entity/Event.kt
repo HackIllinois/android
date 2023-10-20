@@ -92,17 +92,17 @@ data class EventCode(val code: String)
 
 data class MeetingEventId(val eventId: String)
 
+data class UserEventPair(val userToken: String, val eventId: String)
+
 data class MeetingCheckInResponse(var status: String)
 
-data class UserTokenEventIdPair(val userToken: String, val eventId: String)
-
-data class EventCheckInResponse(
+data class AttendeeCheckInResponse(
     val newPoints: Int,
     val totalPoints: Int,
     val status: String
 )
 
-data class EventCheckInAsStaffResponse(
+data class StaffCheckInResponse(
     val newPoints: Int,
     val totalPoints: Int,
     val status: String,
