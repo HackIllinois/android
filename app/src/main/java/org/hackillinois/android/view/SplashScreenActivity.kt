@@ -68,9 +68,10 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         thread {
-            /* countDownLatch needs 2 things to finish:
-               1. Async api call is completed or fails
-               2. Loading animation finishes or user taps it
+            /* countDownLatch needs 3 things to finish:
+               1. Version is >= API's stored version (GET /version/android/)
+               2. Async api call (GET /user/) is completed or fails
+               3. Loading animation finishes or user taps it
             */
             countDownLatch.await()
             // once countDownLatch is fulfilled, run logic for log in on the UI Thread
