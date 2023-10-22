@@ -6,6 +6,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
+import org.json.JSONObject
+import retrofit2.HttpException
 
 class EventRepository {
     private val eventDao = App.database.eventDao()
@@ -74,10 +76,16 @@ class EventRepository {
             withContext(Dispatchers.IO) {
                 try {
                     val body = MeetingEventId(eventId)
-                    apiResponse = App.getAPI().staffMeetingCheckIn(body) // 200: status = "Success"
+                    App.getAPI().staffMeetingCheckIn(body)
+                    apiResponse.status = "Success! Your meeting attendance has been recorded!"
                 } catch (e: Exception) {
-                    apiResponse.status = e.message.toString()
-                    Log.d("STAFF MEETING CHECK IN", "${e.message}")
+                    var error = "Unknown error"
+                    if (e is HttpException) {
+                        val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
+                        error = jsonObject.optString("error", "Unknown error")
+                    }
+                    apiResponse.status = "Scan failed: $error"
+                    Log.d("STAFF MEETING CHECK IN ERROR", apiResponse.status)
                 }
             }
             return apiResponse
@@ -92,6 +100,7 @@ class EventRepository {
                     apiResponse = App.getAPI().staffEventCheckIn(userTokenEventIdPair)
                 } catch (e: Exception) {
                     Log.e("STAFF EVENT CHECK IN", e.toString())
+                    apiResponse.status = "Something isn't quite right."
                 }
             }
             return apiResponse
