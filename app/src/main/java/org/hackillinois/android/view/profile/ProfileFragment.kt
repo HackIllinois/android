@@ -4,9 +4,11 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -177,14 +179,25 @@ class ProfileFragment : Fragment() {
     private fun updateQrView(qr: QR?) = qr?.let { it ->
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
             val text = qr.qrInfo
+            // Log.d("QrCode:", text)
+            // Log.d("QrInfo: ", qr.userId)
             val bitmap = generateQR(text)
+            // Log.d("Bitmap Width: ", bitmap.width.toString())
+            // Log.d("Bitmap Height: ", bitmap.height.toString())
+            // qrCodeImage.height = qrCodeImage.width
+            // qrCodeImage?.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 300, 300, false))
             qrCodeImage?.setImageBitmap(bitmap)
         }
     }
 
     private fun generateQR(text: String): Bitmap {
         val width = qrCodeImage.width
+        Log.d("QrWidth: ", width.toString())
         val height = qrCodeImage.height
+        Log.d("QrHeight: ", height.toString())
+
+        // val width = 30
+        // val height = 30 * (
         val pixels = IntArray(width * height)
 
         val multiFormatWriter = MultiFormatWriter()
@@ -196,6 +209,7 @@ class ProfileFragment : Fragment() {
                 multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints)
 
             val clear = Color.TRANSPARENT
+            // val clear = Color.BLACK
             val solid = Color.WHITE
 
             for (x in 0 until width) {
@@ -203,6 +217,7 @@ class ProfileFragment : Fragment() {
                     pixels[y * width + x] = if (bitMatrix.get(x, y)) solid else clear
                 }
             }
+            Log.d("PixelMap Width: ", pixels.size.toString())
         } catch (e: WriterException) {
             e.printStackTrace()
         }
