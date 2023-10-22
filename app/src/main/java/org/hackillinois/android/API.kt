@@ -34,10 +34,10 @@ interface API {
     fun getEvent(@Path("id") id: String): Call<Event>
 
     @POST("event/checkin/")
-    suspend fun eventCodeCheckIn(@Body token: EventCode): EventCheckInResponse
+    suspend fun eventCheckIn(@Body id: EventCode): AttendeeCheckInResponse
 
     @POST("event/staff/checkin/")
-    suspend fun checkInUserAsStaff(@Body tokenEventId: UserTokenEventIdPair): EventCheckInAsStaffResponse
+    suspend fun staffEventCheckIn(@Body pair: UserEventPair): StaffCheckInResponse
 
     // NOTIFICATIONS
 
@@ -45,9 +45,6 @@ interface API {
     suspend fun sendUserToken(@Body token: DeviceToken): DeviceToken
 
     // PROFILE
-
-    @PUT("profile/")
-    suspend fun updateProfile(@Body newProfile: Profile): Profile
 
     @GET("profile/")
     suspend fun currentProfile(): Profile

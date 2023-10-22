@@ -26,47 +26,43 @@ class EventRepository {
         return eventDao.getEventsAfter(currentTime / 1000L)
     }
 
-    fun fetchAsyncEvents(): LiveData<List<Event>> {
-        return eventDao.getAsyncEvents()
-    }
-
     suspend fun refreshAllEvents() {
         // ensures database operation happens on the IO dispatcher
         withContext(Dispatchers.IO) {
             try {
                 val events = App.getAPI().allEvents().events
-                Log.d("events returned", events.toString())
-
+                Log.d("Events Fetched", events.toString())
                 // TODO FavoritesManager.updateFavoriteNotifications(, eventDao.getAllEventsList(), events)
                 eventDao.clearTableAndInsertEvents(events)
             } catch (e: Exception) {
-                Log.e("refreshAllEvents", e.toString())
+                Log.e("REFRESH EVENTS", e.toString())
             }
         }
     }
 
     companion object {
-        private fun getEventCodeMessage(response: EventCheckInResponse): String {
-            var responseString: String = ""
-            Log.d("RESPONSE STATUS", response.status.toString())
-            when (response.status) {
-                "Success" -> responseString = "Success! You received ${response.newPoints} points."
-                "InvalidCode" -> responseString = "This code doesn't seem to be correct."
-                "InvalidTime" -> responseString = "Make sure you have the right time."
-                "AlreadyCheckedIn" -> responseString = "Looks like you're already checked in."
-                else -> responseString = "Something isn't quite right."
-            }
-            return responseString
-        }
-        suspend fun checkInEvent(code: String): EventCheckInResponse {
-            var apiResponse = EventCheckInResponse(-1, -1, "")
+//        TODO: Use this function
+//        private fun getEventCodeMessage(response: AttendeeCheckInResponse): String {
+//            var responseString: String = ""
+//            Log.d("RESPONSE STATUS", response.status.toString())
+//            when (response.status) {
+//                "Success" -> responseString = "Success! You received ${response.newPoints} points."
+//                "InvalidCode" -> responseString = "This code doesn't seem to be correct."
+//                "InvalidTime" -> responseString = "Make sure you have the right time."
+//                "AlreadyCheckedIn" -> responseString = "Looks like you're already checked in."
+//                else -> responseString = "Something isn't quite right."
+//            }
+//            return responseString
+//        }
+
+        suspend fun checkInEvent(eventId: String): AttendeeCheckInResponse {
+            var apiResponse = AttendeeCheckInResponse(-1, -1, "")
 
             withContext(Dispatchers.IO) {
                 try {
-                    apiResponse = App.getAPI().eventCodeCheckIn(EventCode(code))
-                    Log.d("code sent!", apiResponse.toString())
+                    apiResponse = App.getAPI().eventCheckIn(EventCode(eventId))
                 } catch (e: Exception) {
-                    Log.e("Error - check in", e.toString())
+                    Log.e("ATTENDEE EVENT CHECK IN", e.toString())
                 }
             }
             return apiResponse
@@ -81,37 +77,21 @@ class EventRepository {
                     apiResponse = App.getAPI().staffMeetingCheckIn(body) // 200: status = "Success"
                 } catch (e: Exception) {
                     apiResponse.status = e.message.toString()
-                    Log.d("STAFF MEETING API ERROR", "${e.message}")
+                    Log.d("STAFF MEETING CHECK IN", "${e.message}")
                 }
             }
             return apiResponse
         }
 
-        suspend fun checkInEventAsStaff(userToken: String, eventId: String): EventCheckInAsStaffResponse {
-            val userTokenEventIdPair = UserTokenEventIdPair(userToken, eventId)
-            Log.d("send event token", userTokenEventIdPair.toString())
-            var apiResponse = EventCheckInAsStaffResponse(
-                -1,
-                -1,
-                "",
-                RSVPData(
-                    "",
-                    false,
-                    RegistrationData(
-                        AttendeeData(
-                            listOf(),
-                        ),
-                    ),
-                ),
-            )
+        suspend fun checkInAttendee(userToken: String, eventId: String): StaffCheckInResponse {
+            val userTokenEventIdPair = UserEventPair(userToken, eventId)
+            var apiResponse = StaffCheckInResponse(-1, -1, "", RSVPData("", false, RegistrationData(AttendeeData(listOf()))))
 
             withContext(Dispatchers.IO) {
                 try {
-                    Log.d("Sending code: ", userTokenEventIdPair.toString())
-                    apiResponse = App.getAPI().checkInUserAsStaff(userTokenEventIdPair)
-                    Log.d("code sent!", apiResponse.toString())
+                    apiResponse = App.getAPI().staffEventCheckIn(userTokenEventIdPair)
                 } catch (e: Exception) {
-                    Log.e("Error - check in", e.toString())
+                    Log.e("STAFF EVENT CHECK IN", e.toString())
                 }
             }
             return apiResponse

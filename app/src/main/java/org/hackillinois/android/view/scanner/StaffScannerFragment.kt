@@ -28,7 +28,7 @@ class StaffScannerFragment : Fragment() {
         meetingAttendanceButton.setOnClickListener {
             appBar.visibility = View.INVISIBLE
             scannerBtn.visibility = View.INVISIBLE
-            val scannerFragment = ScannerFragment.newInstance("", "", true)
+            val scannerFragment = ScannerFragment.newInstance(true)
             (context as MainActivity).switchFragment(scannerFragment, true)
         }
 
@@ -37,7 +37,7 @@ class StaffScannerFragment : Fragment() {
         staffCheckInButton.setOnClickListener {
             appBar.visibility = View.INVISIBLE
             scannerBtn.visibility = View.INVISIBLE
-            val scannerFragment = ScannerFragment.newInstance("", "", false)
+            val scannerFragment = ScannerFragment.newInstance(false)
             (context as MainActivity).switchFragment(scannerFragment, true)
         }
 

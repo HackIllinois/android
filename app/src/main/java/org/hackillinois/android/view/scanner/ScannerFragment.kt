@@ -17,7 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.budiyev.android.codescanner.*
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.chip.Chip
@@ -36,23 +36,18 @@ class ScannerFragment : Fragment() {
 
     lateinit var viewModel: ScannerViewModel
 
-    private lateinit var eventId: String
-    private lateinit var eventName: String
     private var isMeetingAttendance: Boolean = false
+    private var userRoles: Roles? = null
+    private var listOfEvents: MutableList<Event>? = null
+    private var chipIdToEventId: MutableMap<Int, String> = mutableMapOf()
 
     private lateinit var codeScanner: CodeScanner
     private var alertDialog: AlertDialog? = null
-
     private lateinit var staffChipGroup: ChipGroup
-
-    private var userRoles: Roles? = null
-
-    private var listOfEvents: MutableList<Event>? = null
-
-    private var chipIdToEventId: MutableMap<Int, String> = mutableMapOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isMeetingAttendance = arguments?.getBoolean(IS_MEETING_ATTENDANCE_KEY) ?: false
 
         // handle reloading in app bar if back button is clicked
         activity?.onBackPressedDispatcher?.addCallback(
@@ -63,12 +58,9 @@ class ScannerFragment : Fragment() {
                 }
             },
         )
-        eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
-        eventName = arguments?.getString(EVENT_NAME_KEY) ?: ""
-        isMeetingAttendance = arguments?.getBoolean(IS_MEETING_ATTENDANCE_KEY) ?: false
 
-        viewModel = ViewModelProviders.of(this).get(ScannerViewModel::class.java).apply {
-            init(eventName)
+        viewModel = ViewModelProvider(this).get(ScannerViewModel::class.java).apply {
+            init()
             lastScanStatus.observe(
                 this@ScannerFragment,
                 Observer {
@@ -93,14 +85,11 @@ class ScannerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_scanner, container, false)
 
-        val closeButton = view.findViewById<ImageButton>(R.id.qrScannerClose)
-
         staffChipGroup = view.findViewById(R.id.staffChipGroup)
 
         viewModel.allEvents.observe(this) {
             // Filter out all the relevant details
-            listOfEvents =
-                it.events.filter { event -> event.eventType == "MEAL" || event.name == "Check-in" }.toMutableList()
+            listOfEvents = it.events.filter { event -> event.eventType == "MEAL" || event.name == "Check-in" }.toMutableList()
 
             // Move the check-in to the first index
             val index = listOfEvents!!.indexOfFirst { event -> event.name == "Check-in" }
@@ -115,8 +104,7 @@ class ScannerFragment : Fragment() {
             // Go through all the events and add a chip for it
             if (isStaff()) {
                 for ((index, event) in listOfEvents!!.withIndex()) {
-                    val chip =
-                        inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
+                    val chip = inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
                     chip.text = event.name
                     val chipId = ViewCompat.generateViewId()
                     if (index == 0) firstChipId = chipId
@@ -130,11 +118,13 @@ class ScannerFragment : Fragment() {
             staffChipGroup.check(firstChipId)
         }
 
+        // handle the close button being clicked
+        val closeButton = view.findViewById<ImageButton>(R.id.qrScannerClose)
         closeButton.setOnClickListener {
-            // set bottom app bar visible again and pop scanner from the backstack
             closeScannerPage()
         }
 
+        // create instance of the codeScanner
         context?.let { context ->
             codeScanner = CodeScanner(context, view.codeScannerView).apply {
                 camera = CodeScanner.CAMERA_BACK
@@ -143,20 +133,23 @@ class ScannerFragment : Fragment() {
                 scanMode = ScanMode.SINGLE
                 isAutoFocusEnabled = true
                 isFlashEnabled = false
+
+                // handle logic when a QR code is scanned
                 decodeCallback = DecodeCallback {
                     if (userRoles != null && userRoles!!.isStaff()) {
-                        // check if QR is for meeting attendance or staff attendee check-in
+                        // STAFF -> handle if QR is for meeting attendance or attendee check-in
                         if (isMeetingAttendance) {
-                            val eventId: String = getEventCodeFromQrString(it.text)
-                            viewModel.scanQrToCheckInMeeting(eventId)
+                            val eventId: String = it.text
+                            viewModel.staffCheckInMeeting(eventId)
                         } else {
-                            val userString = getUserIdFromQrString(it.text)
-                            viewModel.checkUserIntoEventAsStaff(userString, getStaffCheckInEventId())
+                            val userId = getUserIdFromQR(it.text)
+                            val eventId = getStaffCheckInEventId()
+                            viewModel.staffCheckInAttendee(userId, eventId)
                         }
                     } else {
-                        // handle attendee event self check-in
-                        val eventId: String = getEventCodeFromQrString(it.text)
-                        viewModel.scanQrToCheckInEvent(eventId)
+                        // ATTENDEE -> handle event self check-in
+                        val eventId: String = it.text
+                        viewModel.attendeeCheckInEvent(eventId)
                     }
                 }
                 errorCallback = ErrorCallback {
@@ -203,6 +196,7 @@ class ScannerFragment : Fragment() {
     }
 
     private fun closeScannerPage() {
+        // set bottom app bar visible again and pop scanner fragment from the backstack
         val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
         val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
         appBar.visibility = View.VISIBLE
@@ -210,13 +204,17 @@ class ScannerFragment : Fragment() {
         activity?.supportFragmentManager?.popBackStackImmediate()
     }
 
-    private fun getUserIdFromQrString(qrString: String): String {
+    private fun getUserIdFromQR(qrString: String): String {
         val splitOnEquals = qrString.split("=")
         return splitOnEquals.last()
     }
-    private fun getEventCodeFromQrString(qrString: String): String {
-        val splitOnEquals = qrString.split("=")
-        return splitOnEquals.first()
+
+    private fun showStaffChipGroup(it: Roles?) = it?.let {
+        staffChipGroup.visibility = if (it.isStaff() && !isMeetingAttendance) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun getStaffCheckInEventId(): String {
+        return chipIdToEventId[staffChipGroup.checkedChipId] ?: "0b8ea2a94ba4224c075f016256fbddfa"
     }
 
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
@@ -272,30 +270,12 @@ class ScannerFragment : Fragment() {
         toast.show()
     }
 
-    private fun showStaffChipGroup(it: Roles?) = it?.let {
-        staffChipGroup.visibility = if (it.isStaff() && !isMeetingAttendance) View.VISIBLE else View.INVISIBLE
-    }
-
-    private fun getStaffCheckInEventId(): String {
-        return chipIdToEventId[staffChipGroup.checkedChipId] ?: "0b8ea2a94ba4224c075f016256fbddfa"
-    }
-
-    private fun hideStatusTextVisibility(views: List<View>) {
-        for (view in views) {
-            view.visibility = View.INVISIBLE
-        }
-    }
-
     companion object {
-        val EVENT_ID_KEY = "event_id"
-        val EVENT_NAME_KEY = "event_name"
         val IS_MEETING_ATTENDANCE_KEY = "is_meeting_attendance_key"
 
-        fun newInstance(eventId: String, eventName: String, isMeetingAttendance: Boolean): ScannerFragment {
+        fun newInstance(isMeetingAttendance: Boolean): ScannerFragment {
             val fragment = ScannerFragment()
             val args = Bundle().apply {
-                putString(EVENT_ID_KEY, eventId)
-                putString(EVENT_NAME_KEY, eventName)
                 putBoolean(IS_MEETING_ATTENDANCE_KEY, isMeetingAttendance)
             }
             fragment.arguments = args
@@ -305,9 +285,7 @@ class ScannerFragment : Fragment() {
 
     private fun isStaff(): Boolean {
         val context = requireActivity().applicationContext
-        return context.getSharedPreferences(
-            context.getString(R.string.authorization_pref_file_key),
-            Context.MODE_PRIVATE,
-        ).getString("provider", "") ?: "" == "google"
+        val prefString = context.getString(R.string.authorization_pref_file_key)
+        return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
     }
 }
