@@ -218,25 +218,8 @@ class ScannerFragment : Fragment() {
     }
 
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
-        val responseString = when (it.userMessage) {
-            "Success" -> {
-                if (isMeetingAttendance) {
-                    "Success! Your attendance has been recorded!"
-                } else {
-                    "Success! The attendant has the following dietary restrictions: ${it.dietary}"
-                }
-            }
-            "InvalidEventId" -> "The event code doesn't seem to be correct. Try selecting the event again or select another event"
-            "BadUserToken" -> "The QR code may have expired or might be invalid. Please refresh the QR code and try again"
-            "AlreadyCheckedIn" -> "Looks like the attendant is already checked in."
-            else -> {
-                if (isMeetingAttendance) {
-                    "Scan Failed. ${it.userMessage}"
-                } else {
-                    "Something isn't quite right."
-                }
-            }
-        }
+        val responseString = it.userMessage
+
         // make dialog from response
         if (activity != null) {
             if (alertDialog == null) {

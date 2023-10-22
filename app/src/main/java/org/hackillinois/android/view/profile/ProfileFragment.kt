@@ -60,11 +60,7 @@ class ProfileFragment : Fragment() {
         viewModel.attendee.observe(this) { updateDietaryRestrictions(it) }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
@@ -126,7 +122,6 @@ class ProfileFragment : Fragment() {
         return view
     }
 
-    // should refresh QR code
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // if user isn't a staff and has logged in (i.e. attendee), show profile
@@ -134,8 +129,7 @@ class ProfileFragment : Fragment() {
             viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
             viewModel.qr.observe(
                 viewLifecycleOwner,
-                Observer { it ->
-                    // Update UI with new value
+                Observer {
                     updateQrView(it)
                 },
             )
@@ -221,9 +215,7 @@ class ProfileFragment : Fragment() {
 
     private fun isStaff(): Boolean {
         val context = requireActivity().applicationContext
-        return context.getSharedPreferences(
-            context.getString(R.string.authorization_pref_file_key),
-            Context.MODE_PRIVATE,
-        ).getString("provider", "") ?: "" == "google"
+        val prefString = context.getString(R.string.authorization_pref_file_key)
+        return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
     }
 }
