@@ -1,6 +1,6 @@
 package org.hackillinois.android.viewmodel
 
-import android.util.Log
+// import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import org.hackillinois.android.database.entity.Attendee
