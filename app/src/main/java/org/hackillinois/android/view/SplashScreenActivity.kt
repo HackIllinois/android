@@ -1,12 +1,15 @@
 package org.hackillinois.android.view
 
 import android.animation.Animator
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.coroutines.async
@@ -22,6 +25,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private val countDownLatch = CountDownLatch(3)
     private var needsToLogin = true
+    private var needsToUpdate = false
 
     @Volatile private var hasClickedOrAnimFinish = false
 
@@ -44,6 +48,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 val apiVersion = apiResponse.version
                 // check if user needs to update their app
                 if (androidVersion < apiVersion) {
+                    needsToUpdate = true
                     showUpdatePopUp()
                 } else {
                     // app is up-to-date, so start animation and check if they need to log in
@@ -85,6 +90,13 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (needsToUpdate) {
+            showUpdatePopUp()
+        }
+    }
+
     private fun playAnimation() {
         // make animation view visible and start playing it
         splashAnimationView.visibility = View.VISIBLE
@@ -120,8 +132,14 @@ class SplashScreenActivity : AppCompatActivity() {
             .setTitle(R.string.update_app_title)
             .setMessage(R.string.update_app_message)
             .setCancelable(false)
+            .setNegativeButton("Go to Play Store") { dialog, id ->
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=org.hackillinois.android.release&pcampaignid=web_share"))
+                startActivity(intent)
+            }
         val alertDialog = builder.create()
+        val buttonColor = ContextCompat.getColor(this, R.color.seaSaltGreen)
         alertDialog.show()
+        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor)
     }
 
     private fun launchMainActivity() {
