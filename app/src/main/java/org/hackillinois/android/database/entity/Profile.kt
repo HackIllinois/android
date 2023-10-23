@@ -8,15 +8,14 @@ import org.hackillinois.android.database.Converters
 @Entity(tableName = "profiles")
 @TypeConverters(Converters::class)
 data class Profile(
-    @PrimaryKey var id: String,
-    var firstName: String,
-    var lastName: String,
-    var points: Int,
+    var _id: String,
+    var displayName: String,
+    var discordTag: String,
     var avatarUrl: String,
-    var discord: String,
-    var foodWave: Int
-//    var timezone: String,
-//    var teamStatus: String = "",
-//    var description: String = "",
-//    var interests: List<String> = listOf()
-)
+    var points: Int,
+    var userId: String,
+    var foodWave: Int,
+) {
+    @PrimaryKey
+    var key = 1
+}

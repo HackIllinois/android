@@ -13,7 +13,6 @@ class LeaderboardRepository {
     private val leaderboardDao = App.database.leaderboardDao()
 
     fun fetchLeaderboard(): LiveData<List<Leaderboard>> {
-        Log.d("Leaderboard call", "fetchleaderboard")
         refreshAll()
         val lb = leaderboardDao.getLeaderboard()
         Log.d("LEADERBOARD CALL", lb.value.toString())

@@ -13,11 +13,10 @@ import org.hackillinois.android.database.entity.Leaderboard
         User::class,
         Event::class,
         Roles::class,
-        Project::class,
         Profile::class,
-        Leaderboard::class
+        Leaderboard::class,
     ],
-    version = 7
+    version = 3,
 )
 
 abstract class Database : RoomDatabase() {
@@ -26,7 +25,6 @@ abstract class Database : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun eventDao(): EventDao
     abstract fun rolesDao(): RolesDao
-    abstract fun projectsDao(): ProjectsDao
     abstract fun profileDao(): ProfileDao
     abstract fun leaderboardDao(): LeaderboardDao
 }

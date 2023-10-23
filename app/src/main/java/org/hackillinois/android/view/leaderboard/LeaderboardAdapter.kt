@@ -17,7 +17,6 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        Log.d("Creating recyclerview", "")
         val layoutResource = R.layout.leaderboard_tile
         val view = LayoutInflater.from(parent.context).inflate(layoutResource, parent, false)
         val viewHolder = ViewHolder(view)
@@ -36,16 +35,14 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
     private fun bind(item: Leaderboard, itemView: View, position: Int) {
         itemView.apply {
             rankTextView.text = position.toString()
-            discordTextView.text = item.discord
+            discordTextView.text = item.displayName
             val pointNum = item.points
             pointsTextView.text = resources.getQuantityString(R.plurals.leaderboard_points_view, pointNum, pointNum)
 
             if (position == 1) {
                 leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_2023_top_bg)
-            } else if (position == 10) {
+            } else if (position == itemCount) {
                 leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_2023_bottom_bg)
-            } else if (position % 2 == 1) {
-                leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.cloudMist))
             } else {
                 leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.cloudMist))
             }

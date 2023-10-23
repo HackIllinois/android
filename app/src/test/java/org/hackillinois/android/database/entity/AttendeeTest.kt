@@ -9,7 +9,7 @@ class AttendeeTest {
     fun fullName_withoutFirstAndLastName_shouldBeAtendee() {
         val attendee = buildAttendee(
             firstName = "",
-            lastName = ""
+            lastName = "",
         )
 
         assertEquals("Attendee", attendee.fullName)
@@ -18,7 +18,7 @@ class AttendeeTest {
     @Test
     fun fullName_withOnlyFirstName_shouldBeFirstName() {
         val attendee = buildAttendee(
-            lastName = ""
+            lastName = "",
         )
 
         assertEquals("Test", attendee.fullName)
@@ -27,7 +27,7 @@ class AttendeeTest {
     @Test
     fun fullName_withOnlyLastName_shouldBeLastName() {
         val attendee = buildAttendee(
-            firstName = ""
+            firstName = "",
         )
 
         assertEquals("User", attendee.fullName)
@@ -43,11 +43,11 @@ class AttendeeTest {
     private fun buildAttendee(
         firstName: String = "Test",
         lastName: String = "User",
-        dietary: List<String> = listOf<String>("Vegan", "Vegetarian")
+        dietary: List<String> = listOf<String>("Vegan", "Vegetarian"),
     ) = Attendee(
         "123",
         firstName,
         lastName,
-        dietary
+        dietary,
     )
 }

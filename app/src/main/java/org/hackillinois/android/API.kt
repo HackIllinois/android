@@ -5,8 +5,7 @@ import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
-import org.hackillinois.android.model.profile.ProfileList
-import org.hackillinois.android.model.projects.ProjectsList
+import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
 import retrofit2.http.*
@@ -35,25 +34,38 @@ interface API {
     fun getEvent(@Path("id") id: String): Call<Event>
 
     @POST("event/checkin/")
-    suspend fun eventCodeCheckIn(@Body token: EventCode): EventCheckInResponse
+    suspend fun eventCheckIn(@Body id: EventCode): AttendeeCheckInResponse
 
     @POST("event/staff/checkin/")
-    suspend fun checkInUserAsStaff(@Body tokenEventId: UserTokenEventIdPair): EventCheckInAsStaffResponse
-
-    // STAFF
-
-    @POST("staff/attendance/")
-    suspend fun staffMeetingCheckIn(@Body eventId: MeetingEventId): MeetingCheckInResponse
+    suspend fun staffEventCheckIn(@Body pair: UserEventPair): StaffCheckInResponse
 
     // NOTIFICATIONS
 
     @POST("notifications/device/")
     suspend fun sendUserToken(@Body token: DeviceToken): DeviceToken
 
+    // PROFILE
+
+    @GET("profile/")
+    suspend fun currentProfile(): Profile
+
+    @GET("profile/leaderboard/?limit=10")
+    suspend fun leaderboard(): LeaderboardList
+
     // REGISTRATION
 
     @GET("registration/attendee/")
     suspend fun attendee(): Attendee
+
+    // STAFF
+
+    @POST("staff/attendance/")
+    suspend fun staffMeetingCheckIn(@Body eventId: MeetingEventId): MeetingCheckInResponse
+
+    // UPLOAD
+
+    @GET("upload/blobstore/times/")
+    suspend fun times(): TimesWrapper
 
     // USER
 
@@ -63,29 +75,10 @@ interface API {
     @GET("user/qr/")
     suspend fun qrCode(): QR
 
-    // PROJECT
+    // VERSION
 
-    @GET("project/")
-    suspend fun allProjects(): ProjectsList
-
-    // PROFILE
-
-    @PUT("profile/")
-    suspend fun updateProfile(@Body newProfile: Profile): Profile
-
-    @GET("profile/")
-    suspend fun currentProfile(): Profile
-
-    @GET("profile/search/")
-    suspend fun allProfiles(): ProfileList
-
-    @GET("profile/leaderboard/?limit=10")
-    suspend fun leaderboard(): LeaderboardList
-
-    // UPLOAD
-
-    @GET("upload/blobstore/times/")
-    suspend fun times(): TimesWrapper
+    @GET("version/android/")
+    suspend fun versionCode(): Version
 
     // BASE URL
 

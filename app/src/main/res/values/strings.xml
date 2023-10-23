@@ -5,7 +5,13 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem cursus, nulla cras. Non in nibh vulputate pharetra, ornare mi malesuada. Id tempus amet est.</string>
     <string name="favorites_pref_file_key">org.hackillinois.android.favorites</string>
     <string name="authorization_pref_file_key">org.hackillinois.android.authorization</string>
-    <string name="login_error_msg">You must log in to use this feature! Go to the Profile tab to logout.</string>
+
+    <!--   Dialogs / Snackbars   -->
+    <string name="login_fail_message">Failed to login. Please try again.</string>
+    <string name="login_fail_staff_message">You must have a valid staff account to log in.</string>
+    <string name="login_fail_attendee_message">You must RSVP to log in.</string>
+    <string name="update_app_title">Update Required</string>
+    <string name="update_app_message">To enjoy the latest features, please download the newest version of the HackIllinois app.</string>
 
     <!--    Onboarding Fragment   -->
     <string name="onboarding_get_started">Get Started</string>
@@ -76,6 +82,7 @@
     <string name="attendance">ATTENDANCE</string>
     <string name="staff_meeting">Meeting Attendance</string>
     <string name="staff_checkin">Attendee Check-In</string>
+    <string name="scanner_not_logged_in_message">You must log in to use this feature! Go to the Profile tab to logout.</string>
 
 
 </resources>
