@@ -54,6 +54,7 @@ class ProfileFragment : Fragment() {
         if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
             return
         }
+        // view model initialization
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
@@ -62,6 +63,7 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // displays a logout button if not logged in or if staff(staff don't have profile page)
         if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
@@ -73,7 +75,7 @@ class ProfileFragment : Fragment() {
         }
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-
+        // Element creation
         nameText = view.findViewById(R.id.nameText)
         pointsText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
@@ -85,7 +87,7 @@ class ProfileFragment : Fragment() {
         dairyFreeText = view.findViewById(R.id.dairyFreeText)
         glutenFreeText = view.findViewById(R.id.glutenFreeText)
         otherText = view.findViewById(R.id.otherText)
-
+        // Logout button
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
             val mainActivity: MainActivity = requireActivity() as MainActivity
@@ -174,29 +176,22 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
     private fun updateQrView(qr: QR?) = qr?.let { it ->
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
+            // Retrieves qr code uri that will be encoded
             val text = qr.qrInfo
-            // Log.d("QrCode:", text)
-            // Log.d("QrInfo: ", qr.userId)
+            // Creates bitmap of text
             val bitmap = generateQR(text)
-            // Log.d("Bitmap Width: ", bitmap.width.toString())
-            // Log.d("Bitmap Height: ", bitmap.height.toString())
-            // qrCodeImage.height = qrCodeImage.width
             // qrCodeImage?.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 300, 300, false))
+            // actually setting the qr code to be the generated qr code
             qrCodeImage?.setImageBitmap(bitmap)
         }
     }
 
     private fun generateQR(text: String): Bitmap {
         val width = qrCodeImage.width
-        Log.d("QrWidth: ", width.toString())
         val height = qrCodeImage.height
-        Log.d("QrHeight: ", height.toString())
-
-        // val width = 30
-        // val height = 30 * (
+        // One-dimensional array representing the pixels of the qr code
         val pixels = IntArray(width * height)
 
         val multiFormatWriter = MultiFormatWriter()
@@ -208,22 +203,22 @@ class ProfileFragment : Fragment() {
                 multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints)
 
             val clear = Color.TRANSPARENT
-            // val clear = Color.BLACK
             val solid = Color.WHITE
-
+            // creates qr code based on bitMatrix
             for (x in 0 until width) {
                 for (y in 0 until height) {
                     pixels[y * width + x] = if (bitMatrix.get(x, y)) solid else clear
                 }
             }
-            Log.d("PixelMap Width: ", pixels.size.toString())
         } catch (e: WriterException) {
             e.printStackTrace()
         }
+        // ARGB_8888 means each pixel is stored on 4 bytes; there are multiple possible configurations
         return Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
     }
 
     private fun hasLoggedIn(): Boolean {
+        // Reads JWT and checks if it is equal to an empty JWT
         return JWTUtilities.readJWT(requireActivity().applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 

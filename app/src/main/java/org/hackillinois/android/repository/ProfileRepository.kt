@@ -19,8 +19,10 @@ class ProfileRepository {
     }
 
     private fun refresh() {
+        // runs in a coroutine
         GlobalScope.launch(Dispatchers.IO) {
             try {
+                // refreshes list of profiles and reinserts into the Dao
                 val profile = App.getAPI().currentProfile()
                 val profileList = ProfileList(listOf(profile))
                 profileDao.clearTableAndInsertProfiles(profileList.profiles)

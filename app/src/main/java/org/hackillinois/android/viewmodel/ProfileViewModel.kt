@@ -19,11 +19,12 @@ class ProfileViewModel : ViewModel() {
     lateinit var attendee: LiveData<Attendee>
 
     fun init() {
-        // Log.d("ViewModelInit:", "Began init")
+        // Creates livedata for view to observe
         currentProfileLiveData = profileRepository.fetchProfile()
+        // Initial qr code fetching
         qr = qrRepository.fetch()
         attendee = attendeeRepository.fetch()
-        // should refresh QR code every 15 seconds
+        // should refresh QR code every 15 seconds using Timer() class
         val timerObj = Timer()
         val timerTaskObj: TimerTask = object : TimerTask() {
             override fun run() {
@@ -32,6 +33,7 @@ class ProfileViewModel : ViewModel() {
             }
         }
         // timerObj.schedule(timerTaskObj, 0, 15000)
+        // Runs TimerTask every 15 seconds, with a 0 second delay upon the call of init().
         timerObj.scheduleAtFixedRate(timerTaskObj, 0, 15000)
     }
 
