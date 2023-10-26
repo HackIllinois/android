@@ -15,6 +15,7 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
     private lateinit var context: Context
 
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
+
     // onCreateViewHolder used to display scrollable list of items
     // implemented as part of RecyclerView's adapter, responsible for creating new ViewHolder objects
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,6 +27,7 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
     }
 
     override fun getItemCount() = itemList.size
+
     // onBindViewHolder called when ViewHolder needs to be filled with data
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = itemList[position]
@@ -33,6 +35,7 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
         // position is zero-indexed but we want the leaderboard to start at 1
         bind(item, holder.itemView, position + 1)
     }
+
     // bind used to update views within a ViewHolder in a RecyclerView that displays a leaderboard
     private fun bind(item: Leaderboard, itemView: View, position: Int) {
         itemView.apply {
@@ -46,7 +49,7 @@ class LeaderboardAdapter(private var itemList: List<Leaderboard>) :
 
             if (position == 1) { // first position
                 leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_2023_top_bg)
-            } else if (position == itemCount) { // what is itemCount?
+            } else if (position == itemCount) { // last position (itemCount is implicit)
                 leaderboardCardView.setBackgroundResource(R.drawable.leaderboard_2023_bottom_bg)
             } else {
                 leaderboardCardView.setBackgroundColor(ContextCompat.getColor(context, R.color.cloudMist))

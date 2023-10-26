@@ -41,7 +41,7 @@ class LeaderboardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
 
@@ -58,7 +58,7 @@ class LeaderboardFragment : Fragment() {
             viewLifecycleOwner,
             Observer {
                 updateLeaderboard(it)
-            }
+            },
         )
         return view
     }
@@ -80,9 +80,9 @@ class LeaderboardFragment : Fragment() {
         }
     }
     fun RecyclerView.addItemDecorationWithoutLastItem() {
-
-        if (layoutManager !is LinearLayoutManager)
+        if (layoutManager !is LinearLayoutManager) {
             return
+        }
 
         addItemDecoration(DividerItemDecorator(context))
     }
