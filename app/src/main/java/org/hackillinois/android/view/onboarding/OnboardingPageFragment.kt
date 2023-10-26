@@ -20,6 +20,7 @@ class OnboardingPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // set page's attributes from passed-in arguments bundle
         val imageRes = requireArguments().getInt(IMAGE_RES_KEY)
         val titleRes = requireArguments().getInt(TITLE_RES_KEY)
         val descriptionRes = requireArguments().getInt(DESCRIPTION_RES_KEY)
