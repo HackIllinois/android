@@ -59,7 +59,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 currentHeaderColor,
                 false,
                 this,
-                it,
+                it
             )
             val upcomingHeaderColor = getColor(context!!, R.color.primaryTextColor)
             upcomingEventsSection = EventsSection(
@@ -68,7 +68,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
                 upcomingHeaderColor,
                 false,
                 this,
-                it,
+                it
             )
             eventsListAdapter = SectionedRecyclerViewAdapter().apply {
                 addSection(currentEventsSection)
@@ -188,7 +188,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventClickL
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.eventId)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 

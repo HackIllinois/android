@@ -12,7 +12,7 @@ interface EventDao {
     @Query("SELECT * FROM events")
     fun getAllEventsList(): List<Event>
 
-    @Query("SELECT * FROM events WHERE id = :eventId LIMIT 1")
+    @Query("SELECT * FROM events WHERE eventId = :eventId LIMIT 1")
     fun getEvent(eventId: String): LiveData<Event>
 
     @Query("SELECT * FROM events WHERE startTime <= :time AND endTime >= :time AND isAsync = 0")

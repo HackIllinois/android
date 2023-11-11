@@ -101,7 +101,7 @@ class EventsAdapter(
                     eventType.visibility = View.GONE
                 }
             }
-            starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
+            starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.eventId)
             starButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
 
@@ -128,7 +128,7 @@ class EventsAdapter(
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.eventId)
         (context as MainActivity).switchFragment(eventInfoFragment, true)
     }
 }

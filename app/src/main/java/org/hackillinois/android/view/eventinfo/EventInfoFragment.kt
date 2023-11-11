@@ -34,6 +34,26 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
     private var mapUpdated = false
     private var currentEvent: Event? = null
 
+    companion object {
+        val EVENT_ID_KEY = "eventId"
+
+        fun newInstance(eventId: String): EventInfoFragment {
+            val fragment = EventInfoFragment()
+            val args = Bundle().apply {
+                putString(EVENT_ID_KEY, eventId)
+            }
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val mapFragment = SupportMapFragment.newInstance()
+        childFragmentManager.beginTransaction().add(R.id.map, mapFragment).commit()
+        mapFragment.getMapAsync(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
@@ -44,10 +64,10 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
             Observer { event ->
                 currentEvent = event
                 updateEventUI(currentEvent)
-                if (mapIsReady && !mapUpdated) {
-                    setupMap()
-                }
-            },
+//                if (mapIsReady && !mapUpdated) {
+//                    setupMap()
+//                }
+            }
         )
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
@@ -57,40 +77,43 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
         // Set starting camera position to the first event location if it exists or Seibel
         // otherwise
         val firstEventLocation = viewModel.event.value?.locations?.first()
-        val initialLatLng = if (firstEventLocation != null) {
-            LatLng(firstEventLocation.latitude, firstEventLocation.longitude)
-        } else {
-            siebelLatLng
+        var locLatLng = siebelLatLng
+        var locDesc = "Siebel Center for Computer Science"
+        if (firstEventLocation != null) {
+            locLatLng = LatLng(firstEventLocation.latitude, firstEventLocation.longitude)
+            locDesc = firstEventLocation.description
         }
-        val zoomLevel = 18.3f
-        val initialCameraPosition: CameraPosition = CameraPosition.Builder()
-            .target(initialLatLng)
-            .zoom(zoomLevel)
-            .build()
-
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(initialCameraPosition))
-        googleMap.setMinZoomPreference(15f)
-        googleMap.isIndoorEnabled = true
-
-        mapIsReady = true
-        if (currentEvent != null) {
-            setupMap()
-        }
+        map.addMarker(MarkerOptions().position(locLatLng).title(locDesc))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(locLatLng, 15f))
+//        val zoomLevel = 18.3f
+//        val initialCameraPosition: CameraPosition = CameraPosition.Builder()
+//            .target(initialLatLng)
+//            .zoom(zoomLevel)
+//            .build()
+//
+//        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(initialCameraPosition))
+//        googleMap.setMinZoomPreference(15f)
+//        googleMap.isIndoorEnabled = true
+//
+//        mapIsReady = true
+//        if (currentEvent != null) {
+//            setupMap()
+//        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
         view.exit_button.setOnClickListener { activity?.onBackPressed() }
         view.favorites_button.setOnClickListener {
             viewModel.changeFavoritedState()
         }
-        val mapFragment = childFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+//        val mapFragment = childFragmentManager
+//            .findFragmentById(R.id.map) as SupportMapFragment
+//        mapFragment.getMapAsync(this)
         return view
     }
 
@@ -128,10 +151,10 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
     private fun addMarkersToMap(event: Event) {
         event.locations.forEach { eventLocation ->
             val latLng = LatLng(eventLocation.latitude, eventLocation.longitude)
-            var marker = googleMap.addMarker(
+            googleMap.addMarker(
                 MarkerOptions()
                     .position(latLng)
-                    .title(eventLocation.description),
+                    .title(eventLocation.description)
             )
         }
     }
@@ -171,19 +194,6 @@ class EventInfoFragment : Fragment(), OnMapReadyCallback {
             val imageResource =
                 if (isFavorited) R.drawable.ic_star_filled else R.drawable.ic_star_border
             favorites_button.setImageResource(imageResource)
-        }
-    }
-
-    companion object {
-        val EVENT_ID_KEY = "event_id"
-
-        fun newInstance(eventId: String): EventInfoFragment {
-            val fragment = EventInfoFragment()
-            val args = Bundle().apply {
-                putString(EVENT_ID_KEY, eventId)
-            }
-            fragment.arguments = args
-            return fragment
         }
     }
 }

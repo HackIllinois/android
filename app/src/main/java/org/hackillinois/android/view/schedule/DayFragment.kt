@@ -99,7 +99,7 @@ class DayFragment : Fragment(), EventClickListener {
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.eventId)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 
@@ -107,7 +107,7 @@ class DayFragment : Fragment(), EventClickListener {
         var listTemp = list
         context?.let {
             if (showFavorites) {
-                listTemp = listTemp.filter { event -> FavoritesManager.isFavoritedEvent(it, event.id) }
+                listTemp = listTemp.filter { event -> FavoritesManager.isFavoritedEvent(it, event.eventId) }
             }
         }
         mAdapter.updateEvents(insertTimeItems(listTemp))

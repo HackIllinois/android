@@ -61,14 +61,14 @@ class EventsSectionFragment : Fragment(), EventClickListener {
                     currentEvents = it
                     updateEvents(currentEvents)
                 }
-            },
+            }
         )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_day, container, false)
 
@@ -96,7 +96,7 @@ class EventsSectionFragment : Fragment(), EventClickListener {
         var listTemp = list
         context?.let {
             if (showFavorites) {
-                listTemp = listTemp.filter { event -> FavoritesManager.isFavoritedEvent(it, event.id) }
+                listTemp = listTemp.filter { event -> FavoritesManager.isFavoritedEvent(it, event.eventId) }
             }
         }
 
@@ -138,7 +138,7 @@ class EventsSectionFragment : Fragment(), EventClickListener {
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.eventId)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 }
