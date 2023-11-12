@@ -25,29 +25,28 @@ class ScheduleFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
+        // Observe "Favorites" LiveData
         scheduleViewModel.showFavorites.observe(
             this,
             Observer {
                 favoriteButton.isSelected = it ?: false
-            },
+            }
         )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-
-        view.scheduleContainer.adapter = sectionsPagerAdapter
+        // Link tab/day selection to the ViewPager
+        view.scheduleContainer.adapter = SectionsPagerAdapter(childFragmentManager)
         view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
         view.scheduleDays.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
 
         favoriteButton = view.findViewById(R.id.StarButton)
-
         favoriteButton.setOnClickListener(favScheduleClickListener)
 
+        // If hackathon is underway, change tab to current day
         val time = System.currentTimeMillis()
-
         view.scheduleContainer.currentItem = when {
             time < scheduleViewModel.fridayEnd -> 0
             time < scheduleViewModel.saturdayEnd -> 1
@@ -58,6 +57,7 @@ class ScheduleFragment : Fragment() {
         return view
     }
 
+    // Construct DayFragments for ViewPager
     inner class SectionsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int) = DayFragment.newInstance(position)
         override fun getCount() = 3
@@ -69,6 +69,7 @@ class ScheduleFragment : Fragment() {
             }
     }
 
+    // Update "Favorites" ViewModel on click
     private val favScheduleClickListener = OnClickListener {
         favoriteButton.apply {
             isSelected = !favoriteButton.isSelected
@@ -76,7 +77,7 @@ class ScheduleFragment : Fragment() {
                 when (isSelected) {
                     true -> R.drawable.ic_star_filled
                     else -> R.drawable.ic_star_selectable
-                },
+                }
             )
         }
         scheduleViewModel.showFavorites.postValue(favoriteButton.isSelected)
