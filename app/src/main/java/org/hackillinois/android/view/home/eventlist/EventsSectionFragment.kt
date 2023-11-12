@@ -15,7 +15,7 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.view.MainActivity
-import org.hackillinois.android.view.eventinfo.EventInfoFragment
+import org.hackillinois.android.view.schedule.EventInfoFragment
 import org.hackillinois.android.view.schedule.EventsAdapter
 import org.hackillinois.android.view.schedule.ScheduleListItem
 import org.hackillinois.android.view.schedule.TimeListItem

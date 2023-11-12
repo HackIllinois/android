@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.eventinfo
+package org.hackillinois.android.view.schedule
 
 import android.os.Bundle
 import android.view.LayoutInflater
