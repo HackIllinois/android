@@ -1,4 +1,4 @@
-package org.hackillinois.android.view.home.eventlist
+package org.hackillinois.android.view.schedule
 
 import org.hackillinois.android.database.entity.Event
 
