@@ -56,7 +56,7 @@ class ScannerFragment : Fragment() {
                 override fun handleOnBackPressed() {
                     closeScannerPage()
                 }
-            },
+            }
         )
 
         viewModel = ViewModelProvider(this).get(ScannerViewModel::class.java).apply {
@@ -70,14 +70,14 @@ class ScannerFragment : Fragment() {
                         displayScanResult(it)
                     }
                     codeScanner.startPreview()
-                },
+                }
             )
             roles.observe(
                 this@ScannerFragment,
                 Observer {
                     userRoles = it
                     showStaffChipGroup(it)
-                },
+                }
             )
         }
     }
@@ -109,7 +109,7 @@ class ScannerFragment : Fragment() {
                     val chipId = ViewCompat.generateViewId()
                     if (index == 0) firstChipId = chipId
                     chip.id = chipId
-                    chipIdToEventId[chipId] = event.id
+                    chipIdToEventId[chipId] = event.eventId
                     staffChipGroup.addView(chip)
                 }
             }

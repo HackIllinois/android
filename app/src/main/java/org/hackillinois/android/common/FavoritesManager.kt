@@ -11,12 +11,12 @@ import org.hackillinois.android.notifications.HackIllinoisNotificationManager.sc
 class FavoritesManager {
     companion object {
         fun favoriteEvent(context: Context, event: Event?) = event?.let {
-            setBoolean(context, it.id, true)
+            setBoolean(context, it.eventId, true)
             HackIllinoisNotificationManager.scheduleEventNotification(context, it)
         }
 
         fun unfavoriteEvent(context: Context, event: Event?) = event?.let {
-            setBoolean(context, it.id, false)
+            setBoolean(context, it.eventId, false)
             HackIllinoisNotificationManager.cancelEventNotification(context, it)
         }
 
@@ -38,8 +38,8 @@ class FavoritesManager {
 
         fun updateFavoriteNotifications(context: Context, oldEvents: List<Event>, newEvents: List<Event>) {
             newEvents.forEach { newEvent ->
-                if (isFavoritedEvent(context, newEvent.id)) {
-                    var oldEvent = oldEvents.find { it.id == newEvent.id }
+                if (isFavoritedEvent(context, newEvent.eventId)) {
+                    var oldEvent = oldEvents.find { it.eventId == newEvent.eventId }
                     oldEvent?.let {
                         if (oldEvent.startTime != newEvent.startTime) {
                             cancelEventNotification(context, oldEvent)

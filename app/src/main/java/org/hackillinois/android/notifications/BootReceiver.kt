@@ -12,7 +12,7 @@ class BootReceiver : BroadcastReceiver() {
         thread {
             val events = App.database.eventDao().getAllEventsList()
             events.filter {
-                FavoritesManager.isFavoritedEvent(context, it.id)
+                FavoritesManager.isFavoritedEvent(context, it.eventId)
             }.forEach {
                 HackIllinoisNotificationManager.scheduleEventNotification(context, it)
             }

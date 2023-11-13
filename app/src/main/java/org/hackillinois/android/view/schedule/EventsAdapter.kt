@@ -12,7 +12,6 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.view.MainActivity
-import org.hackillinois.android.view.eventinfo.EventInfoFragment
 
 class EventsAdapter(
     private var itemList: List<ScheduleListItem>,
@@ -100,7 +99,7 @@ class EventsAdapter(
                     eventType.visibility = View.GONE
                 }
             }
-            starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.id)
+            starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.eventId)
             starButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
 
@@ -127,7 +126,7 @@ class EventsAdapter(
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.eventId)
         (context as MainActivity).switchFragment(eventInfoFragment, true)
     }
 }

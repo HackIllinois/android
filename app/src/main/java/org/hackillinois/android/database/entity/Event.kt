@@ -11,7 +11,7 @@ import java.util.*
 @Entity(tableName = "events")
 @TypeConverters(Converters::class)
 data class Event(
-    @PrimaryKey val id: String,
+    @PrimaryKey val eventId: String,
     val name: String,
     val description: String,
     val startTime: Long,
@@ -20,7 +20,9 @@ data class Event(
     val sponsor: String,
     val eventType: String,
     val points: String,
-    val isAsync: Boolean = false
+    val isAsync: Boolean = false,
+    val isPrivate: Boolean,
+    val displayOnStaffCheckIn: Boolean
 ) : ScheduleListItem {
 
     fun getStartTimeMs() = startTime * 1000L

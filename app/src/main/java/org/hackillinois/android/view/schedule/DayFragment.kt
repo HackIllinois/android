@@ -15,7 +15,6 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.view.MainActivity
-import org.hackillinois.android.view.eventinfo.EventInfoFragment
 import org.hackillinois.android.viewmodel.ScheduleViewModel
 
 class DayFragment : Fragment(), EventClickListener {
@@ -98,7 +97,7 @@ class DayFragment : Fragment(), EventClickListener {
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.id)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.eventId)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 
@@ -106,7 +105,7 @@ class DayFragment : Fragment(), EventClickListener {
         var listTemp = list
         context?.let {
             if (showFavorites) {
-                listTemp = listTemp.filter { event -> FavoritesManager.isFavoritedEvent(it, event.id) }
+                listTemp = listTemp.filter { event -> FavoritesManager.isFavoritedEvent(it, event.eventId) }
             }
         }
         mAdapter.updateEvents(insertTimeItems(listTemp))
