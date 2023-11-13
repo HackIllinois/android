@@ -20,7 +20,9 @@ data class Event(
     val sponsor: String,
     val eventType: String,
     val points: String,
-    val isAsync: Boolean = false
+    val isAsync: Boolean = false,
+    val isPrivate: Boolean,
+    val displayOnStaffCheckIn: Boolean
 ) : ScheduleListItem {
 
     fun getStartTimeMs() = startTime * 1000L
