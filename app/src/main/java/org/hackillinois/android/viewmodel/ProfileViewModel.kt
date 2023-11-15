@@ -1,6 +1,5 @@
 package org.hackillinois.android.viewmodel
 
-// import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import org.hackillinois.android.database.entity.Attendee
@@ -17,6 +16,7 @@ class ProfileViewModel : ViewModel() {
     lateinit var currentProfileLiveData: LiveData<Profile>
     lateinit var qr: LiveData<QR>
     lateinit var attendee: LiveData<Attendee>
+    lateinit var timerObj: Timer
 
     fun init() {
         // Creates livedata for view to observe
@@ -25,19 +25,21 @@ class ProfileViewModel : ViewModel() {
         qr = qrRepository.fetch()
         attendee = attendeeRepository.fetch()
         // should refresh QR code every 15 seconds using Timer() class
-        val timerObj = Timer()
+        timerObj = Timer()
         val timerTaskObj: TimerTask = object : TimerTask() {
             override fun run() {
-                // Log.d("Fetched Qr Code:", "Ran")
                 qr = qrRepository.fetch()
             }
         }
-        // timerObj.schedule(timerTaskObj, 0, 15000)
         // Runs TimerTask every 15 seconds, with a 0 second delay upon the call of init().
         timerObj.scheduleAtFixedRate(timerTaskObj, 0, 15000)
     }
 
     fun fetchCurrentProfile() {
         currentProfileLiveData = profileRepository.fetchProfile()
+    }
+    override fun onCleared() {
+        super.onCleared()
+        timerObj.cancel()
     }
 }

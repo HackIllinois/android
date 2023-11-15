@@ -26,7 +26,10 @@ import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.viewmodel.ProfileViewModel
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 import java.util.*
+
 
 class ProfileFragment : Fragment() {
 
@@ -49,7 +52,6 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
             return
         }
@@ -60,7 +62,6 @@ class ProfileFragment : Fragment() {
         viewModel.qr.observe(this, Observer { updateQrView(it) })
         viewModel.attendee.observe(this) { updateDietaryRestrictions(it) }
     }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // displays a logout button if not logged in or if staff(staff don't have profile page)
         if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
@@ -177,11 +178,10 @@ class ProfileFragment : Fragment() {
     }
     private fun updateQrView(qr: QR?) = qr?.let { it ->
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
-            // Retrieves qr code uri that will be encoded
-            val text = qr.qrInfo
+            // Retrieves qr code user info that will be encoded
+            val text = "hackillinois://user?userId=\\(${qr.userId})"
             // Creates bitmap of text
             val bitmap = generateQR(text)
-            // qrCodeImage?.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 300, 300, false))
             // actually setting the qr code to be the generated qr code
             qrCodeImage?.setImageBitmap(bitmap)
         }
@@ -190,6 +190,7 @@ class ProfileFragment : Fragment() {
     private fun generateQR(text: String): Bitmap {
         val width = qrCodeImage.width
         val height = qrCodeImage.height
+
         // One-dimensional array representing the pixels of the qr code
         val pixels = IntArray(width * height)
 
@@ -203,16 +204,16 @@ class ProfileFragment : Fragment() {
 
             val clear = Color.TRANSPARENT
             val solid = Color.WHITE
+            val black = Color.BLACK
             // creates qr code based on bitMatrix
             for (x in 0 until width) {
-                for (y in 0 until height) {
-                    pixels[y * width + x] = if (bitMatrix.get(x, y)) solid else clear
+                for (y in 0 until (height)) {
+                    pixels[y * width + x] = (if (bitMatrix.get(x, y)) solid else clear)
                 }
             }
         } catch (e: WriterException) {
             e.printStackTrace()
         }
-        // ARGB_8888 means each pixel is stored on 4 bytes; there are multiple possible configurations
         return Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
     }
 
