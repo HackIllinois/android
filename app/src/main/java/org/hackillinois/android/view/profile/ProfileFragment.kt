@@ -26,10 +26,7 @@ import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.viewmodel.ProfileViewModel
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
 import java.util.*
-
 
 class ProfileFragment : Fragment() {
 
