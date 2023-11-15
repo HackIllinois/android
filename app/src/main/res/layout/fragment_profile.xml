@@ -125,6 +125,7 @@
             android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/midnight"
             android:textSize="22sp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
