@@ -6,7 +6,7 @@ import org.hackillinois.android.database.entity.Leaderboard
 import org.hackillinois.android.repository.LeaderboardRepository
 
 class LeaderboardViewModel : ViewModel() {
-    private val leaderboardRepository = LeaderboardRepository.instance
+    val leaderboardRepository = LeaderboardRepository.instance
 
     lateinit var leaderboardLiveData: LiveData<List<Leaderboard>>
 
