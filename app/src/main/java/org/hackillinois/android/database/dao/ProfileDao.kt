@@ -6,7 +6,7 @@ import org.hackillinois.android.database.entity.Profile
 
 @Dao
 interface ProfileDao {
-
+    // Returns 1 profile that is automatically typecasted to whatever format is needed?
     @Query("SELECT * FROM profiles LIMIT 1")
     fun getProfile(): LiveData<Profile>
 

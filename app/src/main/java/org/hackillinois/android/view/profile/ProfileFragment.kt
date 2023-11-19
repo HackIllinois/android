@@ -49,18 +49,18 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
             return
         }
+        // view model initialization
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
         viewModel.qr.observe(this, Observer { updateQrView(it) })
         viewModel.attendee.observe(this) { updateDietaryRestrictions(it) }
     }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // displays a logout button if not logged in or if staff(staff don't have profile page)
         if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
@@ -72,7 +72,7 @@ class ProfileFragment : Fragment() {
         }
 
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-
+        // Element creation
         nameText = view.findViewById(R.id.nameText)
         pointsText = view.findViewById(R.id.ptsText)
         tierText = view.findViewById(R.id.tierText)
@@ -84,7 +84,7 @@ class ProfileFragment : Fragment() {
         dairyFreeText = view.findViewById(R.id.dairyFreeText)
         glutenFreeText = view.findViewById(R.id.glutenFreeText)
         otherText = view.findViewById(R.id.otherText)
-
+        // Logout button
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
             val mainActivity: MainActivity = requireActivity() as MainActivity
@@ -173,11 +173,13 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
     private fun updateQrView(qr: QR?) = qr?.let { it ->
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
-            val text = qr.qrInfo
+            // Retrieves qr code user info that will be encoded
+            val text = "hackillinois://user?userId=\\(${qr.userId})"
+            // Creates bitmap of text
             val bitmap = generateQR(text)
+            // actually setting the qr code to be the generated qr code
             qrCodeImage?.setImageBitmap(bitmap)
         }
     }
@@ -185,6 +187,8 @@ class ProfileFragment : Fragment() {
     private fun generateQR(text: String): Bitmap {
         val width = qrCodeImage.width
         val height = qrCodeImage.height
+
+        // One-dimensional array representing the pixels of the qr code
         val pixels = IntArray(width * height)
 
         val multiFormatWriter = MultiFormatWriter()
@@ -197,10 +201,11 @@ class ProfileFragment : Fragment() {
 
             val clear = Color.TRANSPARENT
             val solid = Color.WHITE
-
+            val black = Color.BLACK
+            // creates qr code based on bitMatrix
             for (x in 0 until width) {
-                for (y in 0 until height) {
-                    pixels[y * width + x] = if (bitMatrix.get(x, y)) solid else clear
+                for (y in 0 until (height)) {
+                    pixels[y * width + x] = (if (bitMatrix.get(x, y)) solid else clear)
                 }
             }
         } catch (e: WriterException) {
@@ -210,6 +215,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun hasLoggedIn(): Boolean {
+        // Reads JWT and checks if it is equal to an empty JWT
         return JWTUtilities.readJWT(requireActivity().applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 
