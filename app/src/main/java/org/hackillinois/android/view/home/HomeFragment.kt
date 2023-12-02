@@ -7,14 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.TimeInfo
 import org.hackillinois.android.viewmodel.HomeViewModel
-import java.lang.Exception
 
 class HomeFragment : Fragment(), CountdownManager.CountDownListener {
 
@@ -61,13 +56,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener {
         super.onResume()
         isActive = true
         countDownManager.onResume()
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                val time = App.getAPI().times()
-                countDownManager.setAPITimes(time)
-            } catch (e: Exception) {
-            }
-        }
     }
 
     override fun onStop() {

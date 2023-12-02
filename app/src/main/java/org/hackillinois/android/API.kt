@@ -62,11 +62,6 @@ interface API {
     @POST("staff/attendance/")
     suspend fun staffMeetingCheckIn(@Body eventId: MeetingEventId): MeetingCheckInResponse
 
-    // UPLOAD
-
-    @GET("upload/blobstore/times/")
-    suspend fun times(): TimesWrapper
-
     // USER
 
     @GET("user/")
