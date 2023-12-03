@@ -8,34 +8,22 @@
     android:background="@color/nightBlue">
 
     <ImageView
+        android:id="@+id/imageView6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:layout_marginBottom="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/staff_attendance_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/home_bg"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/countdownBannerImageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/countdown_text_banner"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/countdownTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:textSize="18sp"
         android:gravity="start"
         android:enabled="false"
@@ -43,146 +31,132 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/montserrat_bold"
-        android:textColor="@color/white"
+        android:textColor="#0D3F41"
         android:text="@string/home_banner" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/countdownConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/countdownConstraintLayout"
-        app:layout_constraintTop_toBottomOf="@id/countdownBannerImageView"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:paddingBottom="18dp">
+        app:layout_constraintTop_toBottomOf="@+id/countdownTextView">
 
         <LinearLayout
             android:id="@+id/timeLinearLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="40dp"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias=".76"
-            >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-                <org.hackillinois.android.view.home.MagicTextView
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_home_countdown_bg"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <TextView
                     android:id="@+id/daysValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:textFontWeight="900"
-                    android:gravity="center"
-                    android:text="00"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="@color/white"
-                    app:innerShadowColor="#FCDC8F"
-                    app:innerShadowRadius="4dp"
-                    app:outerShadowColor="#FCDC8F"
-                    app:outerShadowRadius="4dp"
-                    android:textColor="#0D387C"
-                    android:textSize="48sp"
-                    android:paddingHorizontal="4dp"/>
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:includeFontPadding="false"
+                    android:paddingVertical="0dp"
+                    android:textColor="@color/lightYellow"
+                    android:textSize="50sp"
+                    tools:text="12" />
 
                 <TextView
                     android:id="@+id/daysLabel"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/montserrat_bold"
-                    android:gravity="center"
+                    android:includeFontPadding="false"
                     android:text="@string/days_label"
-                    android:textColor="@android:color/white"
-                    android:textSize="13sp"
-                    />
+                    android:textColor="@color/lightYellow"
+                    android:textSize="13sp" />
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="15dp"
-                >
 
-                <org.hackillinois.android.view.home.MagicTextView
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_home_countdown_bg"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <TextView
                     android:id="@+id/hoursValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:textFontWeight="900"
-                    android:gravity="center"
-                    android:text="00"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="@color/white"
-                    app:innerShadowColor="#FCDC8F"
-                    app:innerShadowRadius="4dp"
-                    app:outerShadowColor="#FCDC8F"
-                    app:outerShadowRadius="4dp"
-                    android:textColor="#0D387C"
-                    android:textSize="48sp"
-                    android:paddingHorizontal="4dp"/>
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:includeFontPadding="false"
+                    android:paddingVertical="0dp"
+                    android:textColor="@color/lightYellow"
+                    android:textSize="50sp"
+                    tools:text="23" />
 
                 <TextView
                     android:id="@+id/hoursLabel"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/montserrat_bold"
-                    android:gravity="center"
+                    android:includeFontPadding="false"
                     android:text="@string/hours_label"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/lightYellow"
                     android:textSize="13sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="15dp"
-                >
 
-                <org.hackillinois.android.view.home.MagicTextView
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_home_countdown_bg"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <TextView
                     android:id="@+id/minutesValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:textFontWeight="900"
-                    android:gravity="center"
-                    android:text="00"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="@color/white"
-                    app:innerShadowColor="#FCDC8F"
-                    app:innerShadowRadius="4dp"
-                    app:outerShadowColor="#FCDC8F"
-                    app:outerShadowRadius="4dp"
-                    android:textColor="#0D387C"
-                    android:textSize="48sp"
-                    android:paddingHorizontal="4dp"/>
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:includeFontPadding="false"
+                    android:paddingVertical="0dp"
+                    android:textColor="@color/lightYellow"
+                    android:textSize="50sp"
+                    tools:text="43" />
 
                 <TextView
                     android:id="@+id/minutesLabel"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
-                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:includeFontPadding="false"
                     android:text="@string/minutes_label"
-                    android:textColor="@android:color/white"
-                    android:textSize="13sp"
-                    />
+                    android:textColor="@color/lightYellow"
+                    android:textSize="13sp" />
 
             </LinearLayout>
-
-
         </LinearLayout>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
