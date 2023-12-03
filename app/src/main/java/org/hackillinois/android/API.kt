@@ -1,7 +1,6 @@
 package org.hackillinois.android
 
 import org.hackillinois.android.database.entity.*
-import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
