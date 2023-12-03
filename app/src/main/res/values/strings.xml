@@ -46,9 +46,9 @@
 
     <!--    Schedule Fragment   -->
     <string name="schedule_header">Schedule</string>
-    <string name="friday">FRI\n24</string>
-    <string name="saturday">SAT\n25</string>
-    <string name="sunday">SUN\n26</string>
+    <string name="friday">FRI\n23</string>
+    <string name="saturday">SAT\n24</string>
+    <string name="sunday">SUN\n25</string>
     <string name="schedule_snackbar_notifications_on">Notifications are on for this event!\nMake sure push notifications are enabled.</string>
     <string name="mealText">Meal</string>
     <string name="speakerText">Speaker</string>
