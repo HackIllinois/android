@@ -26,8 +26,6 @@ class CountdownManager(val listener: CountDownListener) {
     }
 
     private var times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
-
-    // placeholders in case design team decides to change this
     private val titles = listOf("HACKILLINOIS BEGINS IN", "HACKING BEGINS IN", "HACKING ENDS IN", "MEMORIES MADE")
 
     private var timer: CountDownTimer? = null
@@ -36,6 +34,7 @@ class CountdownManager(val listener: CountDownListener) {
     private val refreshRateMs = 500L
 
     fun start() {
+        // find current state of the countdown in terms of timestamps
         while (state < times.size && times[state].isBeforeNow()) {
             state++
         }
@@ -43,21 +42,24 @@ class CountdownManager(val listener: CountDownListener) {
     }
 
     private fun startTimer() {
+        // if past the last timestamp, don't start another timer
         if (state >= times.size) {
-            listener.updateTitle(titles[state])
-
+            listener.updateTitle(titles[titles.size - 1]) // set to be last title
             return
         }
-        listener.updateTitle(titles[state])
 
+        // else set the current title and start timer until next timestamp
+        listener.updateTitle(titles[state])
         val millisTillTimerFinishes = times[state].timeUntilMs()
 
         timer = object : CountDownTimer(millisTillTimerFinishes, refreshRateMs) {
+            // update the time on each tick
             override fun onTick(millisUntilFinished: Long) {
                 val timeUntil = times[state].timeUntilMs()
                 listener.updateTime(timeUntil)
             }
 
+            // increment the state when timer is finished
             override fun onFinish() {
                 state++
                 startTimer()
