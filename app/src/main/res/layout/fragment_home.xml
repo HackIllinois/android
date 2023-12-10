@@ -8,7 +8,7 @@
     android:background="@color/nightBlue">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/homeBackgroundImageView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
