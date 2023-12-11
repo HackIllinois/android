@@ -56,7 +56,7 @@ class ScannerFragment : Fragment() {
                 override fun handleOnBackPressed() {
                     closeScannerPage()
                 }
-            }
+            },
         )
 
         viewModel = ViewModelProvider(this).get(ScannerViewModel::class.java).apply {
@@ -70,14 +70,14 @@ class ScannerFragment : Fragment() {
                         displayScanResult(it)
                     }
                     codeScanner.startPreview()
-                }
+                },
             )
             roles.observe(
                 this@ScannerFragment,
                 Observer {
                     userRoles = it
                     showStaffChipGroup(it)
-                }
+                },
             )
         }
     }
@@ -89,33 +89,8 @@ class ScannerFragment : Fragment() {
 
         viewModel.allEvents.observe(this) {
             // Filter out all the relevant details
-            listOfEvents = it.events.filter { event -> event.eventType == "MEAL" || event.name == "Check-in" }.toMutableList()
-
-            // Move the check-in to the first index
-            val index = listOfEvents!!.indexOfFirst { event -> event.name == "Check-in" }
-            if (index >= 0) {
-                val event = listOfEvents!![index]
-                listOfEvents!!.removeAt(index)
-                listOfEvents!!.add(0, event)
-            }
-
-            var firstChipId = 0
-
-            // Go through all the events and add a chip for it
-            if (isStaff()) {
-                for ((index, event) in listOfEvents!!.withIndex()) {
-                    val chip = inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
-                    chip.text = event.name
-                    val chipId = ViewCompat.generateViewId()
-                    if (index == 0) firstChipId = chipId
-                    chip.id = chipId
-                    chipIdToEventId[chipId] = event.eventId
-                    staffChipGroup.addView(chip)
-                }
-            }
-
-            // Select the first chipId
-            staffChipGroup.check(firstChipId)
+            listOfEvents = it.events.filter { event -> event.displayOnStaffCheckIn == true }.toMutableList()
+            setUpStaffChipGroup(listOfEvents!!, inflater)
         }
 
         // handle the close button being clicked
@@ -204,13 +179,41 @@ class ScannerFragment : Fragment() {
         activity?.supportFragmentManager?.popBackStackImmediate()
     }
 
-    private fun getUserIdFromQR(qrString: String): String {
-        val splitOnEquals = qrString.split("=")
-        return splitOnEquals.last()
+    private fun setUpStaffChipGroup(listOfEvents : MutableList<Event>, inflater: LayoutInflater) {
+        // Move the check-in to the first index
+        val index = listOfEvents!!.indexOfFirst { event -> event.name == "Check-in" }
+        if (index >= 0) {
+            val event = listOfEvents!![index]
+            listOfEvents!!.removeAt(index)
+            listOfEvents!!.add(0, event)
+        }
+
+        var firstChipId = 0
+
+        // Go through all the events and add a chip for it
+        if (isStaff()) {
+            for ((index, event) in listOfEvents!!.withIndex()) {
+                val chip = inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
+                chip.text = event.name
+                val chipId = ViewCompat.generateViewId()
+                if (index == 0) firstChipId = chipId
+                chip.id = chipId
+                chipIdToEventId[chipId] = event.eventId
+                staffChipGroup.addView(chip)
+            }
+        }
+
+        // Select the first chipId
+        staffChipGroup.check(firstChipId)
     }
 
     private fun showStaffChipGroup(it: Roles?) = it?.let {
         staffChipGroup.visibility = if (it.isStaff() && !isMeetingAttendance) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun getUserIdFromQR(qrString: String): String {
+        val splitOnEquals = qrString.split("=")
+        return splitOnEquals.last()
     }
 
     private fun getStaffCheckInEventId(): String {
