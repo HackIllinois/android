@@ -24,11 +24,6 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.zxing.BarcodeFormat
-import kotlinx.android.synthetic.main.activity_main.bottomAppBar
-import kotlinx.android.synthetic.main.activity_main.view.homeButton
-import kotlinx.android.synthetic.main.activity_main.view.leaderboard
-import kotlinx.android.synthetic.main.activity_main.view.profile
-import kotlinx.android.synthetic.main.activity_main.view.scheduleButton
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
@@ -61,7 +56,7 @@ class ScannerFragment : Fragment() {
                 override fun handleOnBackPressed() {
                     closeScannerPage()
                 }
-            }
+            },
         )
 
         viewModel = ViewModelProvider(this).get(ScannerViewModel::class.java).apply {
@@ -75,14 +70,14 @@ class ScannerFragment : Fragment() {
                         displayScanResult(it)
                     }
                     codeScanner.startPreview()
-                }
+                },
             )
             roles.observe(
                 this@ScannerFragment,
                 Observer {
                     userRoles = it
                     showStaffChipGroup(it)
-                }
+                },
             )
         }
     }
