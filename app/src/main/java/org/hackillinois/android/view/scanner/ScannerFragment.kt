@@ -56,7 +56,7 @@ class ScannerFragment : Fragment() {
                 override fun handleOnBackPressed() {
                     closeScannerPage()
                 }
-            }
+            },
         )
 
         viewModel = ViewModelProvider(this).get(ScannerViewModel::class.java).apply {
@@ -70,14 +70,14 @@ class ScannerFragment : Fragment() {
                         displayScanResult(it)
                     }
                     codeScanner.startPreview()
-                }
+                },
             )
             roles.observe(
                 this@ScannerFragment,
                 Observer {
                     userRoles = it
                     showStaffChipGroup(it)
-                }
+                },
             )
         }
     }
