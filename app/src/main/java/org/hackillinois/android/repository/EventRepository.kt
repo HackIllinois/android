@@ -102,9 +102,7 @@ class EventRepository {
 
         suspend fun checkInAttendee(userToken: String, eventId: String): StaffCheckInResponse {
             val userTokenEventIdPair = UserEventPair(userToken, eventId)
-            var apiResponse = StaffCheckInResponse(-1, -1, "", RSVPData("", false, RegistrationData(
-                AttendeeData(listOf())
-            )))
+            var apiResponse = StaffCheckInResponse(-1, -1, "", RSVPData("", false, RegistrationData(AttendeeData(listOf()))))
 
             withContext(Dispatchers.IO) {
                 try {
