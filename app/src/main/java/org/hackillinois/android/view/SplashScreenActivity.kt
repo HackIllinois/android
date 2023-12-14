@@ -25,8 +25,6 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import java.util.concurrent.CountDownLatch
 import kotlin.concurrent.thread
-
-
 class SplashScreenActivity : AppCompatActivity() {
 
     private val countDownLatch = CountDownLatch(3)
@@ -104,9 +102,9 @@ class SplashScreenActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-            if (needsToUpdate) {
-                showUpdatePopUp()
-            }
+        if (needsToUpdate) {
+            showUpdatePopUp()
+        }
     }
 
     private fun playAnimation() {
@@ -174,9 +172,9 @@ class SplashScreenActivity : AppCompatActivity() {
             return when {
                 actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
                 actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                //for other device how are able to connect with Ethernet
+                // for other device how are able to connect with Ethernet
                 actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-                //for check internet over Bluetooth
+                // for check internet over Bluetooth
                 actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
                 else -> false
             }
