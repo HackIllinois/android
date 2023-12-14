@@ -50,56 +50,56 @@ class SplashScreenActivity : AppCompatActivity() {
             countDownLatchIfTappedOrAnimationFinished()
         }
 
-            // launch Coroutine to execute asynchronous calls
-            var androidVersion = BuildConfig.VERSION_NAME
-            playAnimation()
-            lifecycleScope.launch {
-                try {
-                    val api = App.getAPI()
-                    val apiResponse = async { api.versionCode() }.await()
-                    val apiVersion = apiResponse.version
-                    // check if user needs to update their app
-                    if (androidVersion < apiVersion) {
-                        needsToUpdate = true
-                        showUpdatePopUp()
-                    } else {
-                        // app is up-to-date, so start animation and check if they need to log in
-                        countDownLatch.countDown()
-                        val jwt = JWTUtilities.readJWT(applicationContext)
-                        if (jwt != JWTUtilities.DEFAULT_JWT) {
-                            Log.d("JWT SplashScreen", jwt)
-                            val api = App.getAPI(jwt)
-                            async { api.user() }.await()
-                            needsToLogin = false
-                            countDownLatch.countDown()
-                        } else {
-                            needsToLogin = true
-                            countDownLatch.countDown()
-                        }
-                    }
-                } catch (e: Exception) {
-                    needsToLogin = true
+        // launch Coroutine to execute asynchronous calls
+        var androidVersion = BuildConfig.VERSION_NAME
+        playAnimation()
+        lifecycleScope.launch {
+            try {
+                val api = App.getAPI()
+                val apiResponse = async { api.versionCode() }.await()
+                val apiVersion = apiResponse.version
+                // check if user needs to update their app
+                if (androidVersion < apiVersion) {
+                    needsToUpdate = true
+                    showUpdatePopUp()
+                } else {
+                    // app is up-to-date, so start animation and check if they need to log in
                     countDownLatch.countDown()
-                }
-            }
-
-            thread {
-                /* countDownLatch needs 3 things to finish:
-               1. Version is >= API's stored version (GET /version/android/)
-               2. Async api call (GET /user/) is completed or fails
-               3. Loading animation finishes or user taps it
-            */
-                countDownLatch.await()
-                // once countDownLatch is fulfilled, run logic for log in on the UI Thread
-                runOnUiThread {
-                    splashAnimationView.pauseAnimation()
-                    if (needsToLogin) {
-                        launchOnboardingActivity()
+                    val jwt = JWTUtilities.readJWT(applicationContext)
+                    if (jwt != JWTUtilities.DEFAULT_JWT) {
+                        Log.d("JWT SplashScreen", jwt)
+                        val api = App.getAPI(jwt)
+                        async { api.user() }.await()
+                        needsToLogin = false
+                        countDownLatch.countDown()
                     } else {
-                        launchMainActivity()
+                        needsToLogin = true
+                        countDownLatch.countDown()
                     }
                 }
+            } catch (e: Exception) {
+                needsToLogin = true
+                countDownLatch.countDown()
             }
+        }
+
+        thread {
+            /* countDownLatch needs 3 things to finish:
+           1. Version is >= API's stored version (GET /version/android/)
+           2. Async api call (GET /user/) is completed or fails
+           3. Loading animation finishes or user taps it
+        */
+            countDownLatch.await()
+            // once countDownLatch is fulfilled, run logic for log in on the UI Thread
+            runOnUiThread {
+                splashAnimationView.pauseAnimation()
+                if (needsToLogin) {
+                    launchOnboardingActivity()
+                } else {
+                    launchMainActivity()
+                }
+            }
+        }
     }
 
     override fun onResume() {
@@ -183,8 +183,6 @@ class SplashScreenActivity : AppCompatActivity() {
         } else {
             return connectivityManager.activeNetworkInfo?.isConnected ?: false
         }
-
-
     }
 
     override fun onPause() {
