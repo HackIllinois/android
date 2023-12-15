@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.Toast
@@ -25,7 +24,7 @@ import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.profile.ProfileFragment
-import org.hackillinois.android.view.scanner.ScannerFragment
+import org.hackillinois.android.view.scanner.AttendeeScannerFragment
 import org.hackillinois.android.view.scanner.StaffScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
@@ -73,12 +72,12 @@ class MainActivity : AppCompatActivity() {
         bottomBarButtons.forEach { button ->
             button.setOnClickListener { view ->
                 val newSelection = bottomBarButtons.indexOf(button)
-                if (onScanner) {
-                    onScanner = false
-                }
+                onScanner = false
+
                 if (newSelection != currentSelection) {
                     currentSelection = newSelection
 
+                    // change nav bar color (will remove once navbar color finalized)
                     val nightBlue = ContextCompat.getColor(this, R.color.nightBlue)
                     val window = window
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -103,47 +102,44 @@ class MainActivity : AppCompatActivity() {
     private fun setupScannerButton() {
         code_entry_fab.setOnClickListener {
             // set currentSelection to invalid index since scanner was selected
-            if (isStaff()) {
-                currentSelection = -1
-            }
+            currentSelection = -1
 
             // ensure that user is staff or attendee
             if (!hasLoggedIn()) {
                 val toast = Toast.makeText(applicationContext, getString(R.string.scanner_not_logged_in_message), Toast.LENGTH_LONG)
                 toast.show()
             } else {
-                val scannerFragment = ScannerFragment()
                 val staffScannerFragment = StaffScannerFragment()
+                val attendeeScannerFragment = AttendeeScannerFragment()
 
-                // if staff, send them to fragment to select meeting attendance or attendee check-in
-                if (isStaff()) {
-                    // set all bottom bar buttons to be the unselected color
-                    val bottomBarButtons = listOf(
-                        bottomAppBar.homeButton,
-                        bottomAppBar.scheduleButton,
-                        bottomAppBar.leaderboard,
-                        bottomAppBar.profile,
-                    )
-                    val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
-                    bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
+                // set all bottom bar buttons to be the unselected color
+                val bottomBarButtons = listOf(
+                    bottomAppBar.homeButton,
+                    bottomAppBar.scheduleButton,
+                    bottomAppBar.leaderboard,
+                    bottomAppBar.profile,
+                )
+                val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
+                bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
 
-                    // check if already on scanner attendance page for staff
-                    if (!onScanner) {
-                        val darkForest = ContextCompat.getColor(this, R.color.darkForest)
-                        bottomAppBar.setBackgroundColor(darkForest)
-                        bottomBarButtons.forEach { (it as ImageButton).setBackgroundColor(darkForest) }
-                        val window = window
-                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                        window.statusBarColor = darkForest
+                // if not already on scanner selection page, switch fragment
+                if (!onScanner) {
+                    // change navbar color (will remove once navbar color finalized)
+                    val darkForest = ContextCompat.getColor(this, R.color.darkForest)
+                    bottomAppBar.setBackgroundColor(darkForest)
+                    bottomBarButtons.forEach { (it as ImageButton).setBackgroundColor(darkForest) }
+                    val window = window
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                    window.statusBarColor = darkForest
 
+                    // if staff, send them to staff scanner selection fragment
+                    if (isStaff()) {
                         switchFragment(staffScannerFragment, false)
                     }
-                }
-                // if attendee, send them right to the scanner fragment
-                else {
-                    switchFragment(scannerFragment, true)
-                    bottomAppBar.visibility = View.INVISIBLE
-                    code_entry_fab.visibility = View.INVISIBLE
+                    // if attendee, send them to attendee scanner selection fragment
+                    else {
+                        switchFragment(attendeeScannerFragment, true)
+                    }
                 }
             }
             onScanner = true
