@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "85721484037b09c072baa108f933fdda",
+    "identityHash": "8d245e8aeec91cee0e09b1799bf9bb37",
     "entities": [
       {
         "tableName": "qr_codes",
@@ -332,12 +332,12 @@
       },
       {
         "tableName": "shop",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `price` INTEGER NOT NULL, `isRaffle` INTEGER NOT NULL, `quantity` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`itemId` TEXT NOT NULL, `name` TEXT NOT NULL, `price` INTEGER NOT NULL, `isRaffle` INTEGER NOT NULL, `quantity` INTEGER NOT NULL, PRIMARY KEY(`itemId`))",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
+            "fieldPath": "itemId",
+            "columnName": "itemId",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -367,9 +367,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "itemId"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -378,7 +378,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '85721484037b09c072baa108f933fdda')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8d245e8aeec91cee0e09b1799bf9bb37')"
     ]
   }
 }

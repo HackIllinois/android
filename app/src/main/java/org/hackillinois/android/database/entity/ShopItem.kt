@@ -8,7 +8,7 @@ import org.hackillinois.android.database.Converters
 @Entity(tableName = "shop")
 @TypeConverters(Converters::class)
 data class ShopItem(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey val itemId: String,
     var name: String,
     var price: Int,
     var isRaffle: Boolean,
