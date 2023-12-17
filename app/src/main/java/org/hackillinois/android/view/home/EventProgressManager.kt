@@ -46,8 +46,14 @@ class EventProgressManager(val listener: CountDownListener) {
         timeInMillis = 1701813240000
     }
 
-    private var times = listOf(checkInTime, scavengerHuntTime, openingCeremonyTime, hackingTime, projectShowcaseTime, closingCeremonyTime)
-    private var backgrounds = listOf(R.drawable.home_bg_start, R.drawable.home_check_in_bg, R.drawable.home_opening_bg, R.drawable.home_scavenger_hunt_bg, R.drawable.home_hacking_bg, R.drawable.home_project_showcase_bg, R.drawable.home_closing_bg, R.drawable.home_final_bg) // NEEDS TO BE UPDATED
+    // 2023-12-05 16:05:00
+    private val afterHackathonTime: Calendar = Calendar.getInstance().apply {
+        timeZone = TimeZone.getTimeZone("America/Chicago")
+        timeInMillis = 1701813240000
+    }
+
+    private var times = listOf(checkInTime, scavengerHuntTime, openingCeremonyTime, hackingTime, projectShowcaseTime, closingCeremonyTime, afterHackathonTime)
+    private var backgrounds = listOf(R.drawable.home_bg_start, R.drawable.home_check_in_bg, R.drawable.home_opening_bg, R.drawable.home_scavenger_hunt_bg, R.drawable.home_hacking_bg, R.drawable.home_project_showcase_bg, R.drawable.home_closing_bg, R.drawable.home_final_bg)
     private var timer: CountDownTimer? = null
     private var state = 0
 
