@@ -5,6 +5,7 @@ import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
+import org.hackillinois.android.model.shop.ShopList
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
@@ -56,6 +57,11 @@ interface API {
 
     @GET("registration/attendee/")
     suspend fun attendee(): Attendee
+
+    // SHOP
+
+    @GET("shop/")
+    suspend fun shop(): List<ShopItem>
 
     // STAFF
 

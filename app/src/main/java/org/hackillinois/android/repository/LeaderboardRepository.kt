@@ -24,6 +24,9 @@ class LeaderboardRepository {
     fun refreshAll() {
         GlobalScope.launch(Dispatchers.IO) {
             try {
+                val shop = App.getAPI().shop()
+                Log.d("SHOP", shop.toString())
+                // break
                 val leaderboard = App.getAPI().leaderboard()
                 Log.d("LEADERBOARD REFRESH ALL", leaderboard.toString())
                 leaderboardDao.clearTableAndInsertProfiles(leaderboard.profiles)
