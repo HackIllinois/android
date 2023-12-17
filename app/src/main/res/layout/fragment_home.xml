@@ -5,15 +5,15 @@
     android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/nightBlue">
+    android:background="@color/witchyPurple">
 
     <ImageView
         android:id="@+id/homeBackgroundImageView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/staff_attendance_bg"
+        android:adjustViewBounds="true"
+        android:src="@drawable/home_bg_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -21,24 +21,26 @@
 
     <TextView
         android:id="@+id/countdownTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textSize="18sp"
-        android:gravity="start"
-        android:enabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="55dp"
+        android:paddingVertical="3dp"
+        android:background="@drawable/rounded_countdown_title_bg"
         android:fontFamily="@font/montserrat_bold"
-        android:textColor="#0D3F41"
-        android:text="@string/home_banner" />
+        android:gravity="center"
+        android:text="@string/home_banner"
+        android:textColor="@color/burntBark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/countdownConstraintLayout"
+        app:layout_constraintStart_toStartOf="@+id/countdownConstraintLayout"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/countdownConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +50,7 @@
             android:id="@+id/timeLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
+            android:layout_marginHorizontal="55dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -60,20 +62,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_home_countdown_bg"
+                android:background="@drawable/rounded_countdown_time_bg"
                 android:orientation="vertical"
-                android:paddingBottom="10dp">
+                android:paddingBottom="6dp">
 
                 <TextView
                     android:id="@+id/daysValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:fontFamily="@font/montserrat_bold"
                     android:includeFontPadding="false"
                     android:paddingVertical="0dp"
-                    android:textColor="@color/lightYellow"
-                    android:textSize="50sp"
+                    android:textColor="@color/burntBark"
+                    android:textSize="40sp"
                     tools:text="12" />
 
                 <TextView
@@ -84,8 +86,8 @@
                     android:fontFamily="@font/montserrat_bold"
                     android:includeFontPadding="false"
                     android:text="@string/days_label"
-                    android:textColor="@color/lightYellow"
-                    android:textSize="13sp" />
+                    android:textColor="@color/burntBark"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -94,20 +96,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_home_countdown_bg"
+                android:background="@drawable/rounded_countdown_time_bg"
                 android:orientation="vertical"
-                android:paddingBottom="10dp">
+                android:paddingBottom="6dp">
 
                 <TextView
                     android:id="@+id/hoursValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:fontFamily="@font/montserrat_bold"
                     android:includeFontPadding="false"
                     android:paddingVertical="0dp"
-                    android:textColor="@color/lightYellow"
-                    android:textSize="50sp"
+                    android:textColor="@color/burntBark"
+                    android:textSize="40sp"
                     tools:text="23" />
 
                 <TextView
@@ -118,8 +120,8 @@
                     android:fontFamily="@font/montserrat_bold"
                     android:includeFontPadding="false"
                     android:text="@string/hours_label"
-                    android:textColor="@color/lightYellow"
-                    android:textSize="13sp" />
+                    android:textColor="@color/burntBark"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -127,32 +129,32 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_home_countdown_bg"
+                android:background="@drawable/rounded_countdown_time_bg"
                 android:orientation="vertical"
-                android:paddingBottom="10dp">
+                android:paddingBottom="6dp">
 
                 <TextView
                     android:id="@+id/minutesValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:fontFamily="@font/montserrat_bold"
                     android:includeFontPadding="false"
                     android:paddingVertical="0dp"
-                    android:textColor="@color/lightYellow"
-                    android:textSize="50sp"
+                    android:textColor="@color/burntBark"
+                    android:textSize="40sp"
                     tools:text="43" />
 
                 <TextView
                     android:id="@+id/minutesLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/montserrat_bold"
                     android:includeFontPadding="false"
                     android:text="@string/minutes_label"
-                    android:textColor="@color/lightYellow"
-                    android:textSize="13sp" />
+                    android:textColor="@color/burntBark"
+                    android:textSize="12sp" />
 
             </LinearLayout>
         </LinearLayout>
