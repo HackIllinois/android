@@ -11,7 +11,7 @@
     <color name="colorAccent">#E35058</color>
     <color name="starColor">#ED9B21</color>
     <color name="primaryTextColor">#08151B</color>
-    <color name="selectedAppBarIcon">#088BC1</color> <!--   For bottom tab icons     -->
+    <color name="selectedAppBarIcon">#ACCEBE</color> <!--   For bottom tab icons     -->
     <color name="unselectedAppBarIcon">#FFFFFF</color> <!--   For bottom tab icons     -->
 
 <!--      2023 color palette       -->
@@ -51,6 +51,7 @@
     <color name="crimsonPink">#C9345A</color>
     <color name="darkMagic">#1D2644</color>
     <color name="witchyPurple">#5B619B</color>
+
 
 
 </resources>

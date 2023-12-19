@@ -13,47 +13,47 @@ class EventProgressManager(val listener: CountDownListener) {
     //  2023-12-05 16:00:00
     private val checkInTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1701813180000
+        timeInMillis = 1703026810000
     }
 
     // 2023-12-05 16:05:00
     private val scavengerHuntTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1701813240000
+        timeInMillis = 1703026820000
     }
 
     // 2023-12-05 16:05:00
     private val openingCeremonyTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1701813240000
+        timeInMillis = 1703026830000
     }
 
     // 2023-12-05 16:05:00
     private val hackingTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1701813240000
+        timeInMillis = 1703026840000
     }
 
     // 2023-12-05 16:05:00
     private val projectShowcaseTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1701813240000
+        timeInMillis = 1703026850000
     }
 
     // 2023-12-05 16:05:00
     private val closingCeremonyTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1701813240000
+        timeInMillis = 1703026860000
     }
 
     // 2023-12-05 16:05:00
     private val afterHackathonTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1701813240000
+        timeInMillis = 1703026870000
     }
 
     private var times = listOf(checkInTime, scavengerHuntTime, openingCeremonyTime, hackingTime, projectShowcaseTime, closingCeremonyTime, afterHackathonTime)
-    private var backgrounds = listOf(R.drawable.home_bg_start, R.drawable.home_check_in_bg, R.drawable.home_opening_bg, R.drawable.home_scavenger_hunt_bg, R.drawable.home_hacking_bg, R.drawable.home_project_showcase_bg, R.drawable.home_closing_bg, R.drawable.home_final_bg)
+    private var backgrounds = listOf(R.drawable.home_bg_start, R.drawable.home_check_in_bg, R.drawable.home_scavenger_hunt_bg, R.drawable.home_opening_bg, R.drawable.home_hacking_bg, R.drawable.home_project_showcase_bg, R.drawable.home_closing_bg, R.drawable.home_final_bg)
     private var timer: CountDownTimer? = null
     private var state = 0
 
