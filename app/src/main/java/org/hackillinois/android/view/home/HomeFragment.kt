@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,6 +45,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
         homeBackgroundTagsImageView = view.findViewById(R.id.homeBackgroundTagsImageView)
         infoButton = view.findViewById(R.id.homeInfoImageView)
 
+        // set info button's functionality to toggle tag descriptions on home page when pressed on/off
         infoButton.setOnClickListener {
             if (homeBackgroundTagsImageView.visibility == View.INVISIBLE) {
                 homeBackgroundTagsImageView.visibility = View.VISIBLE
@@ -102,9 +102,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
     }
 
     override fun updateBackground(newBackgroundResource: Int) {
-        Log.d("IN HOME", "here")
         if (isActive) {
-            Log.d("IS ACTIVE", "here")
             homeBackgroundImageView.setImageResource(newBackgroundResource)
         }
     }

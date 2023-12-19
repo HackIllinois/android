@@ -1,7 +1,6 @@
 package org.hackillinois.android.view.home
 
 import android.os.CountDownTimer
-import android.util.Log
 import org.hackillinois.android.R
 import org.hackillinois.android.common.isBeforeNow
 import org.hackillinois.android.common.timeUntilMs
@@ -80,8 +79,6 @@ class EventProgressManager(val listener: CountDownListener) {
 
         timer = object : CountDownTimer(millisTillTimerFinishes, refreshRateMs) {
             override fun onTick(millisUntilFinished: Long) {
-                Log.d("COUNTDOWN", "$millisUntilFinished")
-                Log.d("STATE", "$state")
                 // do nothing
             }
 
