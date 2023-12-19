@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/homeBackgroundImageView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:src="@drawable/home_bg_start"
@@ -47,7 +47,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="55dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/rounded_countdown_title_bg"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
@@ -98,7 +98,7 @@
                     android:includeFontPadding="false"
                     android:paddingVertical="0dp"
                     android:textColor="@color/burntBark"
-                    android:textSize="40sp"
+                    android:textSize="36sp"
                     tools:text="12" />
 
                 <TextView
@@ -132,7 +132,7 @@
                     android:includeFontPadding="false"
                     android:paddingVertical="0dp"
                     android:textColor="@color/burntBark"
-                    android:textSize="40sp"
+                    android:textSize="36sp"
                     tools:text="23" />
 
                 <TextView
@@ -165,7 +165,7 @@
                     android:includeFontPadding="false"
                     android:paddingVertical="0dp"
                     android:textColor="@color/burntBark"
-                    android:textSize="40sp"
+                    android:textSize="36sp"
                     tools:text="43" />
 
                 <TextView
