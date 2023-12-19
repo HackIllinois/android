@@ -20,6 +20,8 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
     private lateinit var minutesValue: TextView
     private lateinit var countdownTextView: TextView
     private lateinit var homeBackgroundImageView: ImageView
+    private lateinit var homeBackgroundTagsImageView: ImageView
+    private lateinit var infoButton: ImageView
 
     private lateinit var viewModel: HomeViewModel
     private val countDownManager = CountdownManager(this) // for timer countdown
@@ -41,6 +43,18 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
         minutesValue = view.findViewById(R.id.minutesValue)
         countdownTextView = view.findViewById(R.id.countdownTextView)
         homeBackgroundImageView = view.findViewById(R.id.homeBackgroundImageView)
+        homeBackgroundTagsImageView = view.findViewById(R.id.homeBackgroundTagsImageView)
+        infoButton = view.findViewById(R.id.homeInfoImageView)
+
+        infoButton.setOnClickListener {
+            if (homeBackgroundTagsImageView.visibility == View.INVISIBLE) {
+                homeBackgroundTagsImageView.visibility = View.VISIBLE
+                infoButton.setImageResource(R.drawable.question_mark_toggled)
+            } else {
+                homeBackgroundTagsImageView.visibility = View.INVISIBLE
+                infoButton.setImageResource(R.drawable.question_mark)
+            }
+        }
 
         return view
     }
