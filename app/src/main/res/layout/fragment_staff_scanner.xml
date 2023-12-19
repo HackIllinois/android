@@ -2,18 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/nightBlue"
+    android:background="@color/pinkSkies"
     tools:context=".view.scanner.StaffScannerFragment">
 
     <ImageView
+        android:id="@+id/imageView5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/staff_attendance_bg"
+        android:src="@drawable/light_fantasy_bg_2024"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -28,55 +28,69 @@
         android:fontFamily="@font/montserrat_bold"
         android:gravity="start"
         android:text="@string/attendance"
-        android:textColor="@color/darkForest"
+        android:textColor="@color/darkBrown"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/staffMeetingBtn"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/lightBlue"
-        android:paddingVertical="28dp"
-        android:text="@string/staff_meeting"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/pink_scanner_button"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
+        android:text="@string/meeting_attendance"
         android:textAllCaps="false"
-        android:textColor="@color/darkForest"
+        android:textColor="@color/darkBrown"
         android:textSize="18sp"
-        app:cornerRadius="12dp"
         app:fontFamily="@font/montserrat_bold"
-        app:layout_constraintBottom_toTopOf="@+id/staffCheckInBtn"
+        app:layout_constraintBottom_toTopOf="@+id/attendeeCheckInBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/attendance_TextView"
-        app:layout_constraintVertical_bias="0.10"
+        app:layout_constraintVertical_bias="0.40"
         app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintWidth_percent=".8"
-        app:strokeColor="@color/mediumBlue"
-        app:strokeWidth="3dp" />
+        app:layout_constraintWidth_percent=".8" />
 
-    <com.google.android.material.button.MaterialButton
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:id="@+id/staffCheckInBtn"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/attendeeCheckInBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:strokeColor="@color/mediumYellow"
-        app:strokeWidth="3dp"
-        android:backgroundTint="@color/churnedButter"
-        android:paddingVertical="28dp"
-        app:cornerRadius="12dp"
+        android:background="@drawable/orange_scanner_button"
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
+        android:text="@string/attendee_checkin"
         android:textAllCaps="false"
-        android:textColor="@color/darkForest"
+        android:textColor="@color/darkBrown"
         android:textSize="18sp"
-        android:text="@string/staff_checkin"
         app:fontFamily="@font/montserrat_bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/staffMeetingBtn"
         app:layout_constraintWidth_percent=".8" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:foregroundGravity="bottom"
+        android:src="@drawable/axolotl_magician"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
