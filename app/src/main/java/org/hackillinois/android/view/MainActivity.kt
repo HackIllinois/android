@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
@@ -20,11 +20,13 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.scanner.AttendeeScannerFragment
+import org.hackillinois.android.view.scanner.StaffAdminScannerFragment
 import org.hackillinois.android.view.scanner.StaffScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     private var currentSelection = 0
     private var onScanner = false
+    private var userRoles: Roles? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,12 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java).apply {
             init()
             val owner = this@MainActivity
+            roles.observe(
+                this@MainActivity,
+                Observer {
+                    userRoles = it
+                },
+            )
         }
         updateFirebaseToken()
     }
@@ -77,13 +86,7 @@ class MainActivity : AppCompatActivity() {
                 if (newSelection != currentSelection) {
                     currentSelection = newSelection
 
-                    // change nav bar color (will remove once navbar color finalized)
-                    val nightBlue = ContextCompat.getColor(this, R.color.nightBlue)
-                    val window = window
-                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                    window.statusBarColor = nightBlue
-                    bottomAppBar.setBackgroundColor(nightBlue)
-                    bottomBarButtons.forEach { (it as ImageButton).setBackgroundColor(nightBlue) }
+                    // change icon colors
                     bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
                     (view as ImageButton).setColorFilter(selectedIconColor)
 
@@ -109,8 +112,14 @@ class MainActivity : AppCompatActivity() {
                 val toast = Toast.makeText(applicationContext, getString(R.string.scanner_not_logged_in_message), Toast.LENGTH_LONG)
                 toast.show()
             } else {
-                val staffScannerFragment = StaffScannerFragment()
                 val attendeeScannerFragment = AttendeeScannerFragment()
+                val staffScannerFragment = StaffScannerFragment()
+                val staffAdminScannerFragment = StaffAdminScannerFragment()
+
+                // set scanner button to be selected
+//                val white = ContextCompat.getColor(this, R.color.white)
+//                val selectedColor = ContextCompat.getColor(this, R.color.selectedAppBarIcon)
+//                code_entry_fab.setBackgroundColor(selectedColor)
 
                 // set all bottom bar buttons to be the unselected color
                 val bottomBarButtons = listOf(
@@ -124,21 +133,17 @@ class MainActivity : AppCompatActivity() {
 
                 // if not already on scanner selection page, switch fragment
                 if (!onScanner) {
-                    // change navbar color (will remove once navbar color finalized)
-                    val darkForest = ContextCompat.getColor(this, R.color.darkForest)
-                    bottomAppBar.setBackgroundColor(darkForest)
-                    bottomBarButtons.forEach { (it as ImageButton).setBackgroundColor(darkForest) }
-                    val window = window
-                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                    window.statusBarColor = darkForest
-
-                    // if staff, send them to staff scanner selection fragment
+                    // if staff, send them to staff scanner fragment or staff admin scanner fragment
                     if (isStaff()) {
-                        switchFragment(staffScannerFragment, false)
+                        if (userRoles?.isAdmin() == true) {
+                            switchFragment(staffAdminScannerFragment, false)
+                        } else {
+                            switchFragment(staffScannerFragment, false)
+                        }
                     }
                     // if attendee, send them to attendee scanner selection fragment
                     else {
-                        switchFragment(attendeeScannerFragment, true)
+                        switchFragment(attendeeScannerFragment, false)
                     }
                 }
             }
