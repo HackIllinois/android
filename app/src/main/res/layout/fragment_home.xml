@@ -8,27 +8,44 @@
     android:background="@color/witchyPurple">
 
     <ImageView
-        android:id="@+id/homeBackgroundImageView"
+        android:id="@+id/homeBackgroundSceneryImageView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/home_bg_start"
+        android:src="@drawable/home_bg_scenery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/homeBackgroundTagsImageView"
+        android:id="@+id/homeBackgroundImageView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/home_bg_tags"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="false"
+        android:scaleType="centerInside"
+        android:src="@drawable/home_bg_start"
+        app:layout_constraintBottom_toTopOf="@id/guideline_home2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/countdownConstraintLayout" />
+
+    <ImageView
+        android:id="@+id/homeBackgroundTagsImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="false"
+        android:scaleType="centerInside"
+        android:src="@drawable/home_bg_tags"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/guideline_home2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countdownConstraintLayout" />
 
     <ImageView
         android:id="@+id/homeInfoImageView"
@@ -185,7 +202,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_percent="0.055" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_home2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

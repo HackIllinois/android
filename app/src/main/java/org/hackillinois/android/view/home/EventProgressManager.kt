@@ -12,43 +12,43 @@ class EventProgressManager(val listener: CountDownListener) {
     //  2023-12-05 16:00:00
     private val checkInTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703026810000
+        timeInMillis = 1703087300000
     }
 
     // 2023-12-05 16:05:00
     private val scavengerHuntTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703026820000
+        timeInMillis = 1703087305000
     }
 
     // 2023-12-05 16:05:00
     private val openingCeremonyTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703026830000
+        timeInMillis = 1703087310000
     }
 
     // 2023-12-05 16:05:00
     private val hackingTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703026840000
+        timeInMillis = 1703087315000
     }
 
     // 2023-12-05 16:05:00
     private val projectShowcaseTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703026850000
+        timeInMillis = 1703087320000
     }
 
     // 2023-12-05 16:05:00
     private val closingCeremonyTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703026860000
+        timeInMillis = 1703087325000
     }
 
     // 2023-12-05 16:05:00
     private val afterHackathonTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703026870000
+        timeInMillis = 1703087330000
     }
 
     private var times = listOf(checkInTime, scavengerHuntTime, openingCeremonyTime, hackingTime, projectShowcaseTime, closingCeremonyTime, afterHackathonTime)
