@@ -8,7 +8,7 @@
             @android:color/transparent
         </item>
         <item name="android:windowBackground">@color/witchyPurple</item> <!-- for loading background -->
-<!--        <item name="android:windowLightStatusBar">true</item>-->
+        <item name="android:navigationBarColor">@color/selectedAppBarIcon</item>
     </style>
 
     <style name="AppToolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
