@@ -84,7 +84,7 @@
         app:backgroundTint="@color/white"
         app:layout_anchor="@id/bottomAppBar"
         app:srcCompat="@drawable/qr_icon"
-        app:tint="@color/darkForest"/>
+        app:tint="@color/selectedAppBarIcon"/>
 
 <!--    <FrameLayout-->
 <!--        android:id="@+id/codeEntrySheet"-->

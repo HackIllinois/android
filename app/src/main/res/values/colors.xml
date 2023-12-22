@@ -11,7 +11,7 @@
     <color name="colorAccent">#E35058</color>
     <color name="starColor">#ED9B21</color>
     <color name="primaryTextColor">#08151B</color>
-    <color name="selectedAppBarIcon">#96D8D2</color> <!--   For bottom tab icons     -->
+    <color name="selectedAppBarIcon">#ACCEBE</color> <!--   For bottom tab icons     -->
     <color name="unselectedAppBarIcon">#FFFFFF</color> <!--   For bottom tab icons     -->
 
 <!--      2023 color palette       -->
@@ -46,6 +46,7 @@
     <color name="darkForest">#0D3F41</color>
     <color name="dragonBlood">#A61E00</color>
     <color name="wandWood">#964C1A</color>
+    <color name="burntBark">#662B13</color>
     <color name="pinkSkies">#F9D7E6</color>
     <color name="magicSpell">#E28EAE</color>
     <color name="crimsonPink">#C9345A</color>
@@ -57,6 +58,8 @@
     <color name="palePeach">#FFF8F5</color>
     <color name="mediumPink">#DC8AA9</color>
     <color name="lightOrange">#FFC95B</color>
+    <color name="mistyMint">#84BCB9</color>
+    <color name="errorPink">#C62A6C</color>
 
 
 

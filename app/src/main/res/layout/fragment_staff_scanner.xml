@@ -8,11 +8,10 @@
     tools:context=".view.scanner.StaffScannerFragment">
 
     <ImageView
-        android:id="@+id/imageView5"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
         android:src="@drawable/light_fantasy_bg_2024"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="35dp"
-        android:layout_marginTop="30dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="start"
         android:text="@string/attendance"
@@ -32,7 +30,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
     <org.hackillinois.android.view.scanner.buttons.PinkAnimatedButton
         android:id="@+id/staffMeetingBtn"
@@ -82,9 +80,16 @@
         android:adjustViewBounds="true"
         android:foregroundGravity="bottom"
         android:src="@drawable/axolotl_magician"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -92,5 +97,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

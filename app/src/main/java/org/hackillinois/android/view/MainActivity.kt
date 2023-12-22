@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
 
         setupBottomAppBar()
@@ -104,22 +106,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupScannerButton() {
         code_entry_fab.setOnClickListener {
-            // set currentSelection to invalid index since scanner was selected
-            currentSelection = -1
-
             // ensure that user is staff or attendee
             if (!hasLoggedIn()) {
                 val toast = Toast.makeText(applicationContext, getString(R.string.scanner_not_logged_in_message), Toast.LENGTH_LONG)
                 toast.show()
             } else {
+                // set currentSelection to invalid index since scanner was selected
+                currentSelection = -1
+
                 val attendeeScannerFragment = AttendeeScannerFragment()
                 val staffScannerFragment = StaffScannerFragment()
                 val staffAdminScannerFragment = StaffAdminScannerFragment()
-
-                // set scanner button to be selected
-//                val white = ContextCompat.getColor(this, R.color.white)
-//                val selectedColor = ContextCompat.getColor(this, R.color.selectedAppBarIcon)
-//                code_entry_fab.setBackgroundColor(selectedColor)
 
                 // set all bottom bar buttons to be the unselected color
                 val bottomBarButtons = listOf(
