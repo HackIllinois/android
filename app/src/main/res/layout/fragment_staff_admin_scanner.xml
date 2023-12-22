@@ -33,14 +33,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <org.hackillinois.android.view.scanner.buttons.PinkAnimatedButton
         android:id="@+id/staffMeetingBtn2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/pink_scanner_button"
         android:gravity="center"
         android:paddingTop="20dp"
-        android:paddingBottom="30dp"
+        android:paddingBottom="28dp"
         android:text="@string/meeting_attendance"
         android:textAllCaps="false"
         android:textColor="@color/darkBrown"
@@ -54,14 +54,14 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintWidth_percent=".8" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <org.hackillinois.android.view.scanner.buttons.TealAnimatedButton
         android:id="@+id/attendeeCheckInBtn2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="15dp"
         android:background="@drawable/teal_scanner_button"
         android:paddingTop="20dp"
-        android:paddingBottom="30dp"
+        android:paddingBottom="28dp"
         android:text="@string/attendee_checkin"
         android:textAllCaps="false"
         android:textColor="@color/darkBrown"
@@ -73,13 +73,13 @@
         app:layout_constraintTop_toBottomOf="@+id/staffMeetingBtn2"
         app:layout_constraintWidth_percent=".8" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <org.hackillinois.android.view.scanner.buttons.OrangeAnimatedButton
         android:id="@+id/staffCheckInBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/orange_scanner_button"
         android:paddingTop="20dp"
-        android:paddingBottom="30dp"
+        android:paddingBottom="28dp"
         android:text="@string/staff_checkin"
         android:textAllCaps="false"
         android:textColor="@color/darkBrown"
