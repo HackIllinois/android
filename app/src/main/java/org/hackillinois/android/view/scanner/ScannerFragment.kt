@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.budiyev.android.codescanner.*
@@ -31,7 +33,7 @@ import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
-class ScannerFragment : Fragment() {
+class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSelected, IconScanDialogFragment.OnIconOKButtonSelected {
     val PERMISSIONS_REQUEST_ACCESS_CAMERA = 0
 
     lateinit var viewModel: ScannerViewModel
@@ -69,7 +71,7 @@ class ScannerFragment : Fragment() {
                     } else {
                         displayScanResult(it)
                     }
-                    codeScanner.startPreview()
+//                    codeScanner.startPreview()
                 },
             )
             roles.observe(
@@ -230,18 +232,30 @@ class ScannerFragment : Fragment() {
 
         // make dialog from response
         if (activity != null) {
-            if (alertDialog == null) {
-                val builder = AlertDialog.Builder(requireActivity())
-                    .setMessage(responseString)
-                    .setNegativeButton("OK") { dialog, id ->
-                        dialog.dismiss()
-                        if (scanKey == "meeting-attendance") {
-                            closeScannerPage()
-                        }
-                    }
-                alertDialog = builder.create()
-            }
-            alertDialog!!.show()
+            // create arguments bundle to pass to SimpleScanDialogFragment
+            val args = Bundle()
+            args.putString("KEY_TITLE", "Error")
+            args.putString("KEY_SUBTITLE", lastScanStatus.userMessage)
+
+            // create and show instance of SimpleScanDialogFragment
+            val fragmentManager: FragmentManager = parentFragmentManager
+            val dialog = IconScanDialogFragment()
+            dialog.arguments = args
+            dialog.setIconOKButtonListener(this)
+            dialog.show(fragmentManager, "SimpleScanDialogFragment")
+
+//            if (alertDialog == null) {
+//                val builder = AlertDialog.Builder(requireActivity())
+//                    .setMessage(responseString)
+//                    .setNegativeButton("OK") { dialog, id ->
+//                        dialog.dismiss()
+//                        if (scanKey == "meeting-attendance") {
+//                            closeScannerPage()
+//                        }
+//                    }
+//                alertDialog = builder.create()
+//            }
+//            alertDialog!!.show()
         } else {
             val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
             toast.show()
@@ -268,6 +282,15 @@ class ScannerFragment : Fragment() {
         appBar.visibility = View.VISIBLE
         scannerBtn.visibility = View.VISIBLE
         activity?.supportFragmentManager?.popBackStackImmediate()
+    }
+
+    override fun continueScanningAfterSimpleDialog() {
+        codeScanner.startPreview()
+        // close scanner if was for meeting attendance?
+    }
+
+    override fun continueScanningAfterIconDialog() {
+        codeScanner.startPreview()
     }
 
     companion object {
