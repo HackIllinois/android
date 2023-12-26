@@ -3,7 +3,7 @@
 
 <!--    colors for specific purposes       -->
     <color name="white">#FFFFFF</color>
-    <color name="scannerBorderColor">#EAAD9C</color>
+    <color name="scannerBorderColor">#A5DAD5</color>
     <color name="textShadowColor">#d7d4b8</color>
     <color name="primaryGrayColor">#212121</color>
     <color name="colorPrimary">#222B5C</color>
