@@ -38,10 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:layout_marginTop="25dp"
         android:layout_marginStart="15dp"
         android:background="@null"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guidelineTop"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_close_white" />
 
@@ -49,7 +48,7 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/staffChipGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +57,17 @@
         app:selectionRequired="true"
         app:checkedChip="@id/chip1"
         android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="50dp"
+        android:layout_marginHorizontal="15dp"
         android:visibility="invisible">
 
     </com.google.android.material.chip.ChipGroup>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.04" />
 
 
 
