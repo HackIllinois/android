@@ -9,46 +9,46 @@ import java.util.*
 class EventProgressManager(val listener: CountDownListener) {
 
     // CORRECT TIMES ARE NOT SET YET
-    //  2023-12-05 16:00:00
+    // 02-23-2024 15:30:00
     private val checkInTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703087300000
+        timeInMillis = 1708723800000
     }
 
-    // 2023-12-05 16:05:00
+    // 02-23-2024 16:00:00
     private val scavengerHuntTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703087305000
+        timeInMillis = 1708725600000
     }
 
-    // 2023-12-05 16:05:00
+    // 02-23-2024 18:00:00
     private val openingCeremonyTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703087310000
+        timeInMillis = 1708732800000
     }
 
-    // 2023-12-05 16:05:00
+    // 02-23-2024 19:00:00
     private val hackingTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703087315000
+        timeInMillis = 1708736400000
     }
 
-    // 2023-12-05 16:05:00
+    // 02-25-2024 11:00:00
     private val projectShowcaseTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703087320000
+        timeInMillis = 1708880400000
     }
 
-    // 2023-12-05 16:05:00
+    // 02-25-2024 15:00:00
     private val closingCeremonyTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703087325000
+        timeInMillis = 1708894800000
     }
 
-    // 2023-12-05 16:05:00
+    // 02-25-2024 16:00:00
     private val afterHackathonTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1703087330000
+        timeInMillis = 1708898400000
     }
 
     private var times = listOf(checkInTime, scavengerHuntTime, openingCeremonyTime, hackingTime, projectShowcaseTime, closingCeremonyTime, afterHackathonTime)
