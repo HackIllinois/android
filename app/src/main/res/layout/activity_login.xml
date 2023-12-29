@@ -27,9 +27,9 @@
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/loginLogo"
-        app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/guidelineTop" />
 
     <ImageView
         android:id="@+id/loginLogo"
@@ -53,9 +53,9 @@
         android:textColor="@android:color/white"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/attendeeLoginBtn"
-        app:layout_constraintTop_toBottomOf="@+id/loginLogo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/loginLogo" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/attendeeLoginBtn"
@@ -68,9 +68,9 @@
         app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
         app:layout_constraintBottom_toTopOf="@+id/login_or_label"
-        app:layout_constraintTop_toBottomOf="@+id/loginLabel"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginLabel"
         app:layout_constraintWidth_percent=".5"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -83,9 +83,9 @@
         android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/staffLoginBtn"
-        app:layout_constraintTop_toBottomOf="@+id/attendeeLoginBtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/attendeeLoginBtn" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/staffLoginBtn"
@@ -96,10 +96,10 @@
         android:textColor="@android:color/white"
         app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
-        app:layout_constraintBottom_toTopOf="@+id/guestLoginBtn"
-        app:layout_constraintTop_toBottomOf="@+id/login_or_label"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_or_label"
         app:layout_constraintWidth_percent=".5"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp" />
@@ -109,14 +109,14 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="@string/guest_login"
         android:textColor="@android:color/white"
         app:cornerRadius="24dp"
         app:fontFamily="@font/montserrat_semi_bold"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
-        app:layout_constraintTop_toBottomOf="@+id/staffLoginBtn"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffLoginBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent=".5"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp"/>
@@ -133,6 +133,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="0.80" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
