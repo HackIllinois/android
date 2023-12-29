@@ -2,7 +2,7 @@ package org.hackillinois.android.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.WindowManager
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -14,7 +14,7 @@ import org.hackillinois.android.view.onboarding.OnboardingPageFragment
 class OnboardingActivity : FragmentActivity() {
 
     private val images = listOf(
-        R.drawable.login_logo_2023,
+        R.drawable.login_logo_2024,
         R.drawable.countdown_2023,
         R.drawable.schedule_2023,
         R.drawable.scan_2023,
@@ -42,9 +42,7 @@ class OnboardingActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // gets rid of status bar at the top
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_onboarding)
 
         view_pager.adapter = ScreenSlidePagerAdapter(this)
