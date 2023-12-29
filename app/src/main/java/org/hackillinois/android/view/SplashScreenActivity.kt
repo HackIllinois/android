@@ -11,9 +11,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import kotlinx.android.synthetic.main.activity_splash_screen.*
-import kotlinx.coroutines.async
+import kotlinx.android.synthetic.main.activity_splash_screen.splashAnimationView
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.BuildConfig
 import org.hackillinois.android.R
@@ -44,7 +45,7 @@ class SplashScreenActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val api = App.getAPI()
-                val apiResponse = async { api.versionCode() }.await()
+                val apiResponse = withContext(Dispatchers.Default) { api.versionCode() }
                 val apiVersion = apiResponse.version
                 // check if user needs to update their app
                 if (androidVersion < apiVersion) {
@@ -57,7 +58,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     if (jwt != JWTUtilities.DEFAULT_JWT) {
                         Log.d("JWT SplashScreen", jwt)
                         val api = App.getAPI(jwt)
-                        async { api.user() }.await()
+                        withContext(Dispatchers.Default) { api.user() }
                         needsToLogin = false
                         countDownLatch.countDown()
                     } else {
@@ -65,6 +66,8 @@ class SplashScreenActivity : AppCompatActivity() {
                         countDownLatch.countDown()
                     }
                 }
+            } catch (e: java.net.UnknownHostException) {
+                showWiFiPopUp()
             } catch (e: Exception) {
                 needsToLogin = true
                 countDownLatch.countDown()
@@ -107,6 +110,9 @@ class SplashScreenActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(p0: Animator) {
                 countDownLatchIfTappedOrAnimationFinished()
+                if (countDownLatch.count < 3) {
+                    showUnknownErrorPopUp()
+                }
             }
 
             override fun onAnimationCancel(p0: Animator) {
@@ -125,6 +131,22 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
+    private fun showWiFiPopUp() {
+        splashAnimationView.pauseAnimation()
+        splashAnimationView.visibility = View.INVISIBLE
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.need_wifi_title)
+            .setMessage(R.string.need_wifi_message)
+            .setCancelable(false)
+            .setNegativeButton("Close app") { dialog, id ->
+                System.exit(0)
+            }
+        val alertDialog = builder.create()
+        val buttonColor = ContextCompat.getColor(this, R.color.seaSaltGreen)
+        alertDialog.show()
+        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor)
+    }
+
     private fun showUpdatePopUp() {
         splashAnimationView.pauseAnimation()
         splashAnimationView.visibility = View.INVISIBLE
@@ -135,6 +157,22 @@ class SplashScreenActivity : AppCompatActivity() {
             .setNegativeButton("Go to Play Store") { dialog, id ->
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=org.hackillinois.android.release&pcampaignid=web_share"))
                 startActivity(intent)
+            }
+        val alertDialog = builder.create()
+        val buttonColor = ContextCompat.getColor(this, R.color.seaSaltGreen)
+        alertDialog.show()
+        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor)
+    }
+
+    private fun showUnknownErrorPopUp() {
+        splashAnimationView.pauseAnimation()
+        splashAnimationView.visibility = View.INVISIBLE
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.unknown_error_title)
+            .setMessage(R.string.unknown_error_message)
+            .setCancelable(false)
+            .setNegativeButton("Close app") { dialog, id ->
+                System.exit(0)
             }
         val alertDialog = builder.create()
         val buttonColor = ContextCompat.getColor(this, R.color.seaSaltGreen)
