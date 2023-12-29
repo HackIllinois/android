@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
 
     private lateinit var codeScanner: CodeScanner
     private var alertDialog: AlertDialog? = null
-    private lateinit var staffChipGroup: ChipGroup
+    private lateinit var chipGroup: ChipGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +78,6 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                 this@ScannerFragment,
                 Observer {
                     userRoles = it
-                    showStaffChipGroup(it)
                 },
             )
         }
@@ -86,13 +86,15 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_scanner, container, false)
 
-        staffChipGroup = view.findViewById(R.id.staffChipGroup)
+        chipGroup = view.findViewById(R.id.chipGroup)
 
         viewModel.allEvents.observe(this) {
             // Filter out all the relevant details
             listOfEvents = it.events.filter { event -> event.displayOnStaffCheckIn == true }.toMutableList()
-            setUpStaffChipGroup(listOfEvents!!, inflater)
+            setUpChipGroup(listOfEvents!!, inflater)
         }
+
+        chipGroup.visibility = View.VISIBLE
 
         // handle the close button being clicked
         val closeButton = view.findViewById<ImageButton>(R.id.qrScannerClose)
@@ -119,7 +121,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                             viewModel.staffCheckInMeeting(eventId)
                         } else if (scanKey == "attendee-check-in") {
                             val userId = getUserIdFromQR(it.text)
-                            val eventId = getStaffCheckInEventId()
+                            val eventId = getChipEventId()
                             viewModel.staffCheckInAttendee(userId, eventId)
                         } else if (scanKey == "staff-check-in") {
                             // todo
@@ -185,36 +187,55 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         codeScanner.releaseResources()
     }
 
-    private fun setUpStaffChipGroup(listOfEvents: MutableList<Event>, inflater: LayoutInflater) {
+    private fun setUpChipGroup(listOfEvents: MutableList<Event>, inflater: LayoutInflater) {
+        if (isStaff()) {
+            when (scanKey) {
+                "meeting-attendance" -> setUpTagChipGroup("Meeting Attendance", inflater)
+                "staff-check-in" -> setUpTagChipGroup("Staff", inflater)
+                else -> setUpEventsChipGroup(listOfEvents, inflater)
+            }
+        } else {
+            when (scanKey) {
+                "point-shop" -> setUpTagChipGroup("Point Shop", inflater)
+                "mentor-check-in" -> setUpTagChipGroup("Mentor", inflater)
+                else -> setUpTagChipGroup("Event", inflater)
+            }
+        }
+    }
+
+    private fun setUpTagChipGroup(tag: String, inflater: LayoutInflater) {
+        val chip = inflater.inflate(R.layout.staff_scanner_chip, chipGroup, false) as Chip
+        chip.text = tag
+        val chipId = ViewCompat.generateViewId()
+        chip.id = chipId
+        chipGroup.addView(chip)
+        chipGroup.check(chipId)
+    }
+
+    private fun setUpEventsChipGroup(listOfEvents: MutableList<Event>, inflater: LayoutInflater) {
         // Move the check-in to the first index
-        val index = listOfEvents!!.indexOfFirst { event -> event.name == "Check-in" }
+        val index = listOfEvents.indexOfFirst { event -> event.name == "Check-in" }
         if (index >= 0) {
-            val event = listOfEvents!![index]
-            listOfEvents!!.removeAt(index)
-            listOfEvents!!.add(0, event)
+            val event = listOfEvents[index]
+            listOfEvents.removeAt(index)
+            listOfEvents.add(0, event)
         }
 
         var firstChipId = 0
 
         // Go through all the events and add a chip for it
-        if (isStaff()) {
-            for ((index, event) in listOfEvents!!.withIndex()) {
-                val chip = inflater.inflate(R.layout.staff_scanner_chip, staffChipGroup, false) as Chip
-                chip.text = event.name
-                val chipId = ViewCompat.generateViewId()
-                if (index == 0) firstChipId = chipId
-                chip.id = chipId
-                chipIdToEventId[chipId] = event.eventId
-                staffChipGroup.addView(chip)
-            }
+        for ((idx, event) in listOfEvents.withIndex()) {
+            val chip = inflater.inflate(R.layout.staff_scanner_chip, chipGroup, false) as Chip
+            chip.text = event.name
+            val chipId = ViewCompat.generateViewId()
+            if (idx == 0) firstChipId = chipId
+            chip.id = chipId
+            chipIdToEventId[chipId] = event.eventId
+            chipGroup.addView(chip)
         }
 
         // Select the first chipId
-        staffChipGroup.check(firstChipId)
-    }
-
-    private fun showStaffChipGroup(it: Roles?) = it?.let {
-        staffChipGroup.visibility = if (it.isStaff() && scanKey == "attendee-check-in") View.VISIBLE else View.INVISIBLE
+        chipGroup.check(firstChipId)
     }
 
     private fun getUserIdFromQR(qrString: String): String {
@@ -222,8 +243,8 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         return splitOnEquals.last()
     }
 
-    private fun getStaffCheckInEventId(): String {
-        return chipIdToEventId[staffChipGroup.checkedChipId] ?: "0b8ea2a94ba4224c075f016256fbddfa"
+    private fun getChipEventId(): String {
+        return chipIdToEventId[chipGroup.checkedChipId] ?: "0b8ea2a94ba4224c075f016256fbddfa" // default check-in TODO: update for 2024
     }
 
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
