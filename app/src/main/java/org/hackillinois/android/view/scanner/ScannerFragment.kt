@@ -7,14 +7,12 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -44,7 +42,6 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
     private var chipIdToEventId: MutableMap<Int, String> = mutableMapOf()
 
     private lateinit var codeScanner: CodeScanner
-    private var alertDialog: AlertDialog? = null
     private lateinit var chipGroup: ChipGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +68,6 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                     } else {
                         displayScanResult(it)
                     }
-//                    codeScanner.startPreview()
                 },
             )
             roles.observe(
@@ -262,20 +258,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
             val dialog = IconScanDialogFragment()
             dialog.arguments = args
             dialog.setIconOKButtonListener(this)
-            dialog.show(fragmentManager, "SimpleScanDialogFragment")
-
-//            if (alertDialog == null) {
-//                val builder = AlertDialog.Builder(requireActivity())
-//                    .setMessage(responseString)
-//                    .setNegativeButton("OK") { dialog, id ->
-//                        dialog.dismiss()
-//                        if (scanKey == "meeting-attendance") {
-//                            closeScannerPage()
-//                        }
-//                    }
-//                alertDialog = builder.create()
-//            }
-//            alertDialog!!.show()
+            dialog.show(fragmentManager, "IconScanDialogFragment")
         } else {
             val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
             toast.show()
