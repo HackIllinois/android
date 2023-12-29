@@ -110,9 +110,9 @@ class SplashScreenActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(p0: Animator) {
                 countDownLatchIfTappedOrAnimationFinished()
-                if (countDownLatch.count < 3) {
-                    showUnknownErrorPopUp()
-                }
+//                if (countDownLatch.count < 3) {
+//                    showUnknownErrorPopUp()
+//                }
             }
 
             override fun onAnimationCancel(p0: Animator) {
