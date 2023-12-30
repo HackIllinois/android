@@ -11,37 +11,38 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_splash_screen.splashAnimationView
-import kotlinx.coroutines.async
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.BuildConfig
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import java.util.concurrent.CountDownLatch
 import kotlin.concurrent.thread
+import kotlin.system.exitProcess
+
 class SplashScreenActivity : AppCompatActivity() {
 
     private val countDownLatch = CountDownLatch(3)
     private var needsToLogin = true
     private var needsToUpdate = false
-
+    private var hasInternet = false
     private var hasClickedOrAnimFinish = false
-
-    private var connectedToInternet = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
-        connectedToInternet = isNetworkAvailable(this.applicationContext)
-        Log.d("Connected to internet: ", "" + connectedToInternet)
-        if (!connectedToInternet) {
-            stopActivity()
+
+        // check if user has an internet connection
+        hasInternet = isNetworkAvailable(this.applicationContext)
+        if (!hasInternet) {
+            showInternetPopup()
         }
 
         // if user taps animation, increment CountDown latch (to avoid waiting for anim to finish)
@@ -50,44 +51,14 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         // launch Coroutine to execute asynchronous calls
-        var androidVersion = BuildConfig.VERSION_NAME
-        playAnimation()
-        lifecycleScope.launch {
-            try {
-                val api = App.getAPI()
-                val apiResponse = async { api.versionCode() }.await()
-                val apiVersion = apiResponse.version
-                // check if user needs to update their app
-                if (androidVersion < apiVersion) {
-                    needsToUpdate = true
-                    showUpdatePopUp()
-                } else {
-                    // app is up-to-date, so start animation and check if they need to log in
-                    countDownLatch.countDown()
-                    val jwt = JWTUtilities.readJWT(applicationContext)
-                    if (jwt != JWTUtilities.DEFAULT_JWT) {
-                        Log.d("JWT SplashScreen", jwt)
-                        val api = App.getAPI(jwt)
-                        async { api.user() }.await()
-                        needsToLogin = false
-                        countDownLatch.countDown()
-                    } else {
-                        needsToLogin = true
-                        countDownLatch.countDown()
-                    }
-                }
-            } catch (e: Exception) {
-                needsToLogin = true
-                countDownLatch.countDown()
-            }
-        }
+        makeAPICalls()
 
         thread {
             /* countDownLatch needs 3 things to finish:
-           1. Version is >= API's stored version (GET /version/android/)
-           2. Async api call (GET /user/) is completed or fails
-           3. Loading animation finishes or user taps it
-        */
+               1. Version is >= API's stored version (GET /version/android/)
+               2. Async api call (GET /user/) is completed or fails
+               3. Loading animation finishes or user taps it
+            */
             countDownLatch.await()
             // once countDownLatch is fulfilled, run logic for log in on the UI Thread
             runOnUiThread {
@@ -101,10 +72,52 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
+    private fun makeAPICalls() {
+        val androidVersion = BuildConfig.VERSION_NAME
+        playAnimation()
+        lifecycleScope.launch {
+            try {
+                val api = App.getAPI()
+                val apiResponse = withContext(Dispatchers.Default) { api.versionCode() }
+                val apiVersion = apiResponse.version
+                // check if user needs to update their app
+                if (androidVersion < apiVersion) {
+                    needsToUpdate = true
+                    showUpdatePopup()
+                } else {
+                    // app is up-to-date, so start animation and check if they need to log in
+                    countDownLatch.countDown()
+                    val jwt = JWTUtilities.readJWT(applicationContext)
+                    if (jwt != JWTUtilities.DEFAULT_JWT) {
+                        Log.d("JWT SplashScreen", jwt)
+                        val api = App.getAPI(jwt)
+                        withContext(Dispatchers.Default) { api.user() }
+                        needsToLogin = false
+                        countDownLatch.countDown()
+                    } else {
+                        needsToLogin = true
+                        countDownLatch.countDown()
+                    }
+                }
+            } catch (e: java.net.UnknownHostException) {
+                // make sure popup isn't already shown
+                if (hasInternet) {
+                    hasInternet = false
+                    showInternetPopup()
+                }
+            } catch (e: Exception) {
+                needsToLogin = true
+                countDownLatch.countDown()
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         if (needsToUpdate) {
-            showUpdatePopUp()
+            showUpdatePopup()
+        } else if (!hasInternet) {
+            showInternetPopup()
         }
     }
 
@@ -134,23 +147,6 @@ class SplashScreenActivity : AppCompatActivity() {
                 countDownLatch.countDown()
             }
         }
-    }
-
-    private fun showUpdatePopUp() {
-        splashAnimationView.pauseAnimation()
-        splashAnimationView.visibility = View.INVISIBLE
-        val builder = AlertDialog.Builder(this)
-            .setTitle(R.string.update_app_title)
-            .setMessage(R.string.update_app_message)
-            .setCancelable(false)
-            .setNegativeButton("Go to Play Store") { dialog, id ->
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=org.hackillinois.android.release&pcampaignid=web_share"))
-                startActivity(intent)
-            }
-        val alertDialog = builder.create()
-        val buttonColor = ContextCompat.getColor(this, R.color.seaSaltGreen)
-        alertDialog.show()
-        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor)
     }
 
     private fun launchMainActivity() {
@@ -184,15 +180,36 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
-    fun stopActivity() {
-        Log.d("Internet", "not connected.")
-        val text = "Your device is not connected to the internet. Please try again."
-        val duration = Toast.LENGTH_LONG
+    private fun showInternetPopup() {
+        splashAnimationView.pauseAnimation()
+        splashAnimationView.visibility = View.INVISIBLE
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.need_wifi_title)
+            .setMessage(R.string.need_wifi_message)
+            .setCancelable(false)
+            .setNegativeButton("Close app") { dialog, id ->
+                exitProcess(0)
+            }
+        val alertDialog = builder.create()
+        val buttonColor = ContextCompat.getColor(this, R.color.floralMauve)
+        alertDialog.show()
+        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor)
+    }
 
-        val toast = Toast.makeText(this, text, duration) // in Activity
-        toast.show()
-        moveTaskToBack(true)
-        // countDownLatch.count()
-        // super.onPause()
+    private fun showUpdatePopup() {
+        splashAnimationView.pauseAnimation()
+        splashAnimationView.visibility = View.INVISIBLE
+        val builder = AlertDialog.Builder(this)
+            .setTitle(R.string.update_app_title)
+            .setMessage(R.string.update_app_message)
+            .setCancelable(false)
+            .setNegativeButton("Go to Play Store") { dialog, id ->
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=org.hackillinois.android.release&pcampaignid=web_share"))
+                startActivity(intent)
+            }
+        val alertDialog = builder.create()
+        val buttonColor = ContextCompat.getColor(this, R.color.floralMauve)
+        alertDialog.show()
+        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor)
     }
 }
