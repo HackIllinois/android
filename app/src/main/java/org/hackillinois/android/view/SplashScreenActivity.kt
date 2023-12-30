@@ -184,8 +184,8 @@ class SplashScreenActivity : AppCompatActivity() {
         splashAnimationView.pauseAnimation()
         splashAnimationView.visibility = View.INVISIBLE
         val builder = AlertDialog.Builder(this)
-            .setTitle(R.string.need_wifi_title)
-            .setMessage(R.string.need_wifi_message)
+            .setTitle(R.string.need_internet_title)
+            .setMessage(R.string.need_internet_message)
             .setCancelable(false)
             .setNegativeButton("Close app") { dialog, id ->
                 exitProcess(0)
