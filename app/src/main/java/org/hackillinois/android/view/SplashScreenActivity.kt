@@ -39,7 +39,7 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         connectedToInternet = isNetworkAvailable(this.applicationContext)
-        Log.d("Connected to internet: ", ""+connectedToInternet)
+        Log.d("Connected to internet: ", "" + connectedToInternet)
         if (!connectedToInternet) {
             stopActivity()
         }
@@ -192,7 +192,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val toast = Toast.makeText(this, text, duration) // in Activity
         toast.show()
         moveTaskToBack(true)
-        //countDownLatch.count()
-        //super.onPause()
+        // countDownLatch.count()
+        // super.onPause()
     }
 }
