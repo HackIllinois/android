@@ -39,8 +39,9 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         connectedToInternet = isNetworkAvailable(this.applicationContext)
+        Log.d("Connected to internet: ", ""+connectedToInternet)
         if (!connectedToInternet) {
-            onPause()
+            stopActivity()
         }
 
         // if user taps animation, increment CountDown latch (to avoid waiting for anim to finish)
@@ -183,7 +184,7 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPause() {
+    fun stopActivity() {
         Log.d("Internet", "not connected.")
         val text = "Your device is not connected to the internet. Please try again."
         val duration = Toast.LENGTH_LONG
@@ -191,6 +192,7 @@ class SplashScreenActivity : AppCompatActivity() {
         val toast = Toast.makeText(this, text, duration) // in Activity
         toast.show()
         moveTaskToBack(true)
-        super.onPause()
+        //countDownLatch.count()
+        //super.onPause()
     }
 }
