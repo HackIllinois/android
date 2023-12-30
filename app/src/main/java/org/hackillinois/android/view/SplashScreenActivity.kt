@@ -32,7 +32,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private val countDownLatch = CountDownLatch(3)
     private var needsToLogin = true
     private var needsToUpdate = false
-    private var hasInternet = false
+    private var hasInternet = true
     private var hasClickedOrAnimFinish = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
