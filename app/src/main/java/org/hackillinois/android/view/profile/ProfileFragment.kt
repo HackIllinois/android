@@ -19,6 +19,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import com.squareup.picasso.Picasso
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Attendee
@@ -47,9 +48,15 @@ class ProfileFragment : Fragment() {
     lateinit var back_anim: AnimatorSet
     var isFront = true
 
+    var isStaff = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
+        if (isStaff()) {
+            isStaff = true
+            //Implement staff page functionality here, otherwise do user functionality
+        }
+        if (!hasLoggedIn() or (hasLoggedIn())) {
             return
         }
         // view model initialization
@@ -60,8 +67,11 @@ class ProfileFragment : Fragment() {
         viewModel.attendee.observe(this) { updateDietaryRestrictions(it) }
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (isStaff) {
+            //do view creation here if staff, else do user
+        }
         // displays a logout button if not logged in or if staff(staff don't have profile page)
-        if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
+        if (!hasLoggedIn() or (hasLoggedIn())) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
