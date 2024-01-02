@@ -3,7 +3,7 @@
 
 <!--    colors for specific purposes       -->
     <color name="white">#FFFFFF</color>
-    <color name="scannerBorderColor">#EAAD9C</color>
+    <color name="scannerBorderColor">#A5DAD5</color>
     <color name="textShadowColor">#d7d4b8</color>
     <color name="primaryGrayColor">#212121</color>
     <color name="colorPrimary">#222B5C</color>
@@ -28,7 +28,7 @@
     <color name="carnivalRed">#F11F20</color>
     <color name="orangeSorbet">#F99557</color>
     <color name="lemonade">#FCDC8F</color>
-    <color name="colorChecked">#294C6C</color>
+    <color name="colorChecked">#0D3F41</color>
 
 <!--      staff meeting attendance colors      -->
     <color name="mediumYellow">#FFF48D</color>
@@ -47,10 +47,18 @@
     <color name="dragonBlood">#A61E00</color>
     <color name="wandWood">#964C1A</color>
     <color name="burntBark">#662B13</color>
+    <color name="pinkSkies">#F9D7E6</color>
     <color name="magicSpell">#E28EAE</color>
     <color name="crimsonPink">#C9345A</color>
     <color name="darkMagic">#1D2644</color>
     <color name="witchyPurple">#5B619B</color>
+    <color name="darkBrown">#562411</color>
+    <color name="mediumBrown">#753214</color>
+    <color name="palePeach">#FFF8F5</color>
+    <color name="mediumPink">#DC8AA9</color>
+    <color name="lightOrange">#FFC95B</color>
+    <color name="mistyMint">#84BCB9</color>
+    <color name="errorPink">#C62A6C</color>
 
 
 
