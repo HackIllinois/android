@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-//        ViewModelProvider(this).get(ProfileViewModel::class.java)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java).apply {
             init()
             val owner = this@MainActivity
@@ -81,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                 if (newSelection != currentSelection) {
                     currentSelection = newSelection
 
+                    // change icon colors
                     bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
                     (view as ImageButton).setColorFilter(selectedIconColor)
 
