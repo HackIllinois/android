@@ -30,7 +30,7 @@ class ScheduleFragment : Fragment() {
             this,
             Observer {
                 favoriteButton.isSelected = it ?: false
-            }
+            },
         )
     }
 
@@ -42,7 +42,7 @@ class ScheduleFragment : Fragment() {
         view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
         view.scheduleDays.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
 
-        favoriteButton = view.findViewById(R.id.StarButton)
+        favoriteButton = view.findViewById(R.id.lightBookmarkButton)
         favoriteButton.setOnClickListener(favScheduleClickListener)
 
         // If hackathon is underway, change tab to current day
@@ -75,9 +75,9 @@ class ScheduleFragment : Fragment() {
             isSelected = !favoriteButton.isSelected
             setImageResource(
                 when (isSelected) {
-                    true -> R.drawable.ic_star_filled
-                    else -> R.drawable.ic_star_selectable
-                }
+                    true -> R.drawable.light_bookmark_filled
+                    else -> R.drawable.light_bookmark_hollow
+                },
             )
         }
         scheduleViewModel.showFavorites.postValue(favoriteButton.isSelected)

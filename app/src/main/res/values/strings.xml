@@ -56,6 +56,7 @@
     <string name="miniEventText">Mini-event</string>
     <string name="qnaText">Q&amp;A</string>
     <string name="otherText">Other</string>
+    <string name="ongoing">ONGOING</string>
 
     <!--    Leaderboard Fragment   -->
     <string name="leaderboard">LEADERBOARD</string>

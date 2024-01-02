@@ -73,7 +73,7 @@ class EventsAdapter(
                 locationTextView.text = locationText
             }
             eventDescriptionTextView.text = event.description
-            pointsView.text = " + ${event.points} pts "
+            pointsView.text = "+ ${event.points} pts"
 
             // @todo sloppy, clean up
             when (event.eventType) {
@@ -99,8 +99,8 @@ class EventsAdapter(
                     eventType.visibility = View.GONE
                 }
             }
-            starButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.eventId)
-            starButton.setOnClickListener { button ->
+            bookmarkButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.eventId)
+            bookmarkButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
 
                 if (button.isSelected) {

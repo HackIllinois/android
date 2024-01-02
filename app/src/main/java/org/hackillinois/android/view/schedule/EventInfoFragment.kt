@@ -44,7 +44,7 @@ class EventInfoFragment : Fragment() {
             Observer { event ->
                 currentEvent = event
                 updateEventUI(currentEvent)
-            }
+            },
         )
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
@@ -52,7 +52,7 @@ class EventInfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
         view.exit_button.setOnClickListener { activity?.onBackPressed() }
@@ -95,7 +95,7 @@ class EventInfoFragment : Fragment() {
         isFavorited?.let {
             exit_button.isSelected = isFavorited
             val imageResource =
-                if (isFavorited) R.drawable.ic_star_filled else R.drawable.ic_star_border
+                if (isFavorited) R.drawable.dark_bookmark_filled else R.drawable.dark_bookmark_hollow
             favorites_button.setImageResource(imageResource)
         }
     }

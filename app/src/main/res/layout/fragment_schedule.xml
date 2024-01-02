@@ -5,7 +5,7 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/nightBlue">
+    android:background="@color/witchyPurple">
 
 
     <ImageView
@@ -22,36 +22,33 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/StarButton"
-        android:layout_width="30dp"
-        android:layout_height="28.5dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_star_border"
-        android:background="@null"
+        android:id="@+id/lightBookmarkButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="25dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/light_bookmark_hollow"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/schedule_header" />
 
     <TextView
         android:id="@+id/schedule_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="30dp"
-        android:textSize="24sp"
-        android:gravity="start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="30dp"
         android:fontFamily="@font/montserrat_bold"
-        android:textFontWeight="700"
+        android:gravity="start"
+        android:text="@string/schedule_header"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:text="@string/schedule_header"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
 
 
-        />
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/scheduleDays"
@@ -109,7 +106,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scheduleDays" />
 
-
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
