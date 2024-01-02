@@ -28,7 +28,7 @@ class OnboardingActivity : FragmentActivity() {
         R.string.onboarding_schedule_title,
         R.string.onboarding_scan_title,
         R.string.onboarding_profile_title,
-        R.string.onboarding_leaderboard_title,
+        R.string.onboarding_shop_title,
     )
 
     private val descriptions = listOf(
@@ -37,7 +37,7 @@ class OnboardingActivity : FragmentActivity() {
         R.string.onboarding_schedule_description,
         R.string.onboarding_scan_description,
         R.string.onboarding_profile_description,
-        R.string.onboarding_leaderboard_description,
+        R.string.onboarding_shop_description,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
