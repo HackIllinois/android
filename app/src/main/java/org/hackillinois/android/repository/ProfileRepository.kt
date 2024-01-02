@@ -26,7 +26,7 @@ class ProfileRepository {
                 val profile = App.getAPI().currentProfile()
                 val profileList = ProfileList(listOf(profile))
                 Log.d("profile url: ", profile.avatarUrl)
-                Log.d("food wave:", ""+profile.foodWave)
+                Log.d("food wave:", "" + profile.foodWave)
                 profileDao.clearTableAndInsertProfiles(profileList.profiles)
             } catch (e: Exception) {
                 Log.e("PROFILE REFRESH", e.toString())

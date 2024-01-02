@@ -19,7 +19,6 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
-import com.squareup.picasso.Picasso
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Attendee
@@ -54,7 +53,7 @@ class ProfileFragment : Fragment() {
         super.onCreate(savedInstanceState)
         if (isStaff()) {
             isStaff = true
-            //Implement staff page functionality here, otherwise do user functionality
+            // Implement staff page functionality here, otherwise do user functionality
         }
         if (!hasLoggedIn() or (hasLoggedIn())) {
             return
@@ -68,7 +67,7 @@ class ProfileFragment : Fragment() {
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (isStaff) {
-            //do view creation here if staff, else do user
+            // do view creation here if staff, else do user
         }
         // displays a logout button if not logged in or if staff(staff don't have profile page)
         if (!hasLoggedIn() or (hasLoggedIn())) {
