@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
 
         setupBottomAppBar()
@@ -80,12 +82,6 @@ class MainActivity : AppCompatActivity() {
                 if (newSelection != currentSelection) {
                     currentSelection = newSelection
 
-                    val nightBlue = ContextCompat.getColor(this, R.color.nightBlue)
-                    val window = window
-                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                    window.statusBarColor = nightBlue
-                    bottomAppBar.setBackgroundColor(nightBlue)
-                    bottomBarButtons.forEach { (it as ImageButton).setBackgroundColor(nightBlue) }
                     bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
                     (view as ImageButton).setColorFilter(selectedIconColor)
 
@@ -128,13 +124,6 @@ class MainActivity : AppCompatActivity() {
                 if (isStaff()) {
                     // check if already on scanner attendance page for staff
                     if (!onScanner) {
-                        val darkForest = ContextCompat.getColor(this, R.color.darkForest)
-                        bottomAppBar.setBackgroundColor(darkForest)
-                        bottomBarButtons.forEach { (it as ImageButton).setBackgroundColor(darkForest) }
-                        val window = window
-                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                        window.statusBarColor = darkForest
-
                         switchFragment(staffScannerFragment, false)
                     }
                 } else {
