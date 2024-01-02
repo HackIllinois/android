@@ -3,7 +3,13 @@ package org.hackillinois.android
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.checkin.CheckIn
+import org.hackillinois.android.model.event.AttendeeCheckInResponse
+import org.hackillinois.android.model.event.EventCode
 import org.hackillinois.android.model.event.EventsList
+import org.hackillinois.android.model.event.MeetingCheckInResponse
+import org.hackillinois.android.model.event.MeetingEventId
+import org.hackillinois.android.model.event.StaffCheckInResponse
+import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.model.leaderboard.LeaderboardList
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken

@@ -3,8 +3,8 @@ package org.hackillinois.android.database.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.google.android.gms.maps.model.LatLng
 import org.hackillinois.android.database.Converters
+import org.hackillinois.android.database.helpers.EventLocation
 import org.hackillinois.android.view.schedule.ScheduleListItem
 import java.util.*
 
@@ -22,7 +22,7 @@ data class Event(
     val points: String,
     val isAsync: Boolean = false,
     val isPrivate: Boolean,
-    val displayOnStaffCheckIn: Boolean
+    val displayOnStaffCheckIn: Boolean,
 ) : ScheduleListItem {
 
     fun getStartTimeMs() = startTime * 1000L
@@ -76,51 +76,3 @@ data class Event(
 
     override fun getType() = 1
 }
-
-data class EventLocation(
-    val description: String,
-    val latitude: Double,
-    val longitude: Double,
-    val tags: List<String> = listOf()
-)
-
-data class IndoorMapAndDirectionInfo(
-    val locationDescription: String,
-    val indoorMapResource: Int,
-    val latLng: LatLng
-)
-
-data class EventCode(val code: String)
-
-data class MeetingEventId(val eventId: String)
-
-data class UserEventPair(val userToken: String, val eventId: String)
-
-data class MeetingCheckInResponse(var status: String)
-
-data class AttendeeCheckInResponse(
-    var newPoints: Int,
-    var totalPoints: Int,
-    var status: String
-)
-
-data class StaffCheckInResponse(
-    var newPoints: Int,
-    var totalPoints: Int,
-    var status: String,
-    var rsvpData: RSVPData
-)
-
-data class RSVPData(
-    val id: String,
-    val isAttending: Boolean,
-    val registrationData: RegistrationData
-)
-
-data class RegistrationData(
-    val attendee: AttendeeData
-)
-
-data class AttendeeData(
-    val dietary: List<String>
-)
