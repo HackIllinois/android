@@ -6,6 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="0dp"
@@ -43,14 +51,17 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/firstbackground"
-        android:layout_width="0dp"
-        android:layout_height="455dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
+        android:layout_marginTop="165dp"
+        android:layout_marginBottom="110dp"
         android:background="@drawable/profile_card_bg"
         app:layout_constraintBottom_toBottomOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="@+id/imageView6"
@@ -66,7 +77,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/CardVertLinearLayout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -80,27 +91,25 @@
                     android:id="@+id/HorizontalTopLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="67dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
                         android:id="@+id/leftProfileLogo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginRight="40dp"
                         app:srcCompat="@drawable/app_icon_2023" />
-
-                    <ImageView
-                        android:id="@+id/avatarImage"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        tools:srcCompat="@tools:sample/avatars" />
 
                     <ImageView
                         android:id="@+id/rightProfileLogo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginLeft="40dp"
                         app:srcCompat="@drawable/app_icon_2023" />
 
                 </LinearLayout>
@@ -113,16 +122,88 @@
                     android:gravity="center"
                     android:text="Jane Doe"
                     android:textColor="@color/wandWood"
-                    android:textSize="20sp" />
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/HorizontalTopLinearLayout"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <LinearLayout
-                    android:id="@+id/tagsHorizontalLinearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="37dp"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:id="@+id/tagsLinearLayout"
+                    android:layout_width="201dp"
+                    android:layout_height="27dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nameTextView">
 
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/attendeeTypeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_pink_bg"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="3dp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        tools:text="General" />
+
+                    <TextView
+                        android:id="@+id/waveText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_pink_bg"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="3dp"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        tools:text="Wave 1" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.504"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tagsLinearLayout">
+
+                    <include
+                        layout="@layout/profile_qr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </FrameLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/avatarImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileText"
+        app:layout_constraintVertical_bias="0.048"
+        tools:srcCompat="@tools:sample/avatars" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

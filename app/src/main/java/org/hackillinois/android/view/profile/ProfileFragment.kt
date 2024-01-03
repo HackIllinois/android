@@ -47,15 +47,16 @@ class ProfileFragment : Fragment() {
     lateinit var back_anim: AnimatorSet
     var isFront = true
 
-    var isStaff = false
+    var staff = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (isStaff()) {
-            isStaff = true
+            staff = true
             // Implement staff page functionality here, otherwise do user functionality
         }
-        if (!hasLoggedIn() or (hasLoggedIn())) {
+        staff = isStaff()
+        if (!hasLoggedIn() or (hasLoggedIn() and staff)) {
             return
         }
         // view model initialization
@@ -66,11 +67,11 @@ class ProfileFragment : Fragment() {
         viewModel.attendee.observe(this) { updateDietaryRestrictions(it) }
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (isStaff) {
-            // do view creation here if staff, else do user
+        if (staff) {
+            //do view creation here if staff, else do use
         }
         // displays a logout button if not logged in or if staff(staff don't have profile page)
-        if (!hasLoggedIn() or (hasLoggedIn())) {
+        if (!hasLoggedIn() or (hasLoggedIn() and staff)) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
