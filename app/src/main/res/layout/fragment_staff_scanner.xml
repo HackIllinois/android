@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         app:strokeColor="@color/mediumYellow"
         app:strokeWidth="3dp"
-        android:backgroundTint="@color/lightYellow"
+        android:backgroundTint="@color/churnedButter"
         android:paddingVertical="28dp"
         app:cornerRadius="12dp"
         android:textAllCaps="false"
