@@ -68,7 +68,7 @@ class ProfileFragment : Fragment() {
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (staff) {
-            //do view creation here if staff, else do use
+            // do view creation here if staff, else do use
         }
         // displays a logout button if not logged in or if staff(staff don't have profile page)
         if (!hasLoggedIn() or (hasLoggedIn() and staff)) {
