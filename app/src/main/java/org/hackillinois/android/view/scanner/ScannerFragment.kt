@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.ViewCompat
@@ -43,6 +44,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
 
     private lateinit var codeScanner: CodeScanner
     private lateinit var chipGroup: ChipGroup
+    private lateinit var chipTag: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +76,8 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                 this@ScannerFragment,
                 Observer {
                     userRoles = it
+                    setUpChipTag()
+                    showCorrectChips(it)
                 },
             )
         }
@@ -83,6 +87,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         val view = inflater.inflate(R.layout.fragment_scanner, container, false)
 
         chipGroup = view.findViewById(R.id.chipGroup)
+        chipTag = view.findViewById(R.id.chipTag_textView)
 
         viewModel.allEvents.observe(this) {
             // Filter out all the relevant details
@@ -184,31 +189,6 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
     }
 
     private fun setUpChipGroup(listOfEvents: MutableList<Event>, inflater: LayoutInflater) {
-        if (isStaff()) {
-            when (scanKey) {
-                "meeting-attendance" -> setUpTagChipGroup("Meeting Attendance", inflater)
-                "staff-check-in" -> setUpTagChipGroup("Staff", inflater)
-                else -> setUpEventsChipGroup(listOfEvents, inflater)
-            }
-        } else {
-            when (scanKey) {
-                "point-shop" -> setUpTagChipGroup("Point Shop", inflater)
-                "mentor-check-in" -> setUpTagChipGroup("Mentor", inflater)
-                else -> setUpTagChipGroup("Event", inflater)
-            }
-        }
-    }
-
-    private fun setUpTagChipGroup(tag: String, inflater: LayoutInflater) {
-        val chip = inflater.inflate(R.layout.staff_scanner_chip, chipGroup, false) as Chip
-        chip.text = tag
-        val chipId = ViewCompat.generateViewId()
-        chip.id = chipId
-        chipGroup.addView(chip)
-        chipGroup.check(chipId)
-    }
-
-    private fun setUpEventsChipGroup(listOfEvents: MutableList<Event>, inflater: LayoutInflater) {
         // Move the check-in to the first index
         val index = listOfEvents.indexOfFirst { event -> event.name == "Check-in" }
         if (index >= 0) {
@@ -232,6 +212,32 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
 
         // Select the first chipId
         chipGroup.check(firstChipId)
+    }
+
+    private fun setUpChipTag() {
+        if (isStaff()) {
+            when (scanKey) {
+                "meeting-attendance" -> chipTag.text = "Meeting Attendance"
+                "staff-check-in" -> chipTag.text = "Staff"
+                else -> chipTag.text = ""
+            }
+        } else {
+            when (scanKey) {
+                "point-shop" -> chipTag.text = "Point Shop"
+                "mentor-check-in" -> chipTag.text = "Mentor"
+                else -> chipTag.text = "Event"
+            }
+        }
+    }
+
+    private fun showCorrectChips(it: Roles?) = it?.let {
+        if (it.isStaff() && (scanKey == "attendee-check-in")) {
+            chipGroup.visibility = View.VISIBLE
+            chipTag.visibility = View.INVISIBLE
+        } else {
+            chipTag.visibility = View.VISIBLE
+            chipGroup.visibility = View.INVISIBLE
+        }
     }
 
     private fun getUserIdFromQR(qrString: String): String {

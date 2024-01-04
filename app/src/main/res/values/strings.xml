@@ -80,6 +80,7 @@
 
     <!--   Scanner Fragments   -->
     <string name="attendance">ATTENDANCE</string>
+    <string name="scanner">SCANNER</string>
     <string name="meeting_attendance">Meeting Attendance</string>
     <string name="attendee_checkin">Attendee Check In</string>
     <string name="mentor_checkin">Mentor Check In</string>
