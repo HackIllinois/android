@@ -12,6 +12,8 @@
     <string name="login_fail_attendee_message">You must RSVP to log in.</string>
     <string name="update_app_title">Update Required</string>
     <string name="update_app_message">To enjoy the latest features, please download the newest version of the HackIllinois app.</string>
+    <string name="need_internet_title">Internet Required</string>
+    <string name="need_internet_message">You must be connected to the internet in order to use the HackIllinois app. Please retry once you have verified your connection.</string>
 
     <!--    Onboarding Fragment   -->
     <string name="onboarding_get_started">Get Started</string>
