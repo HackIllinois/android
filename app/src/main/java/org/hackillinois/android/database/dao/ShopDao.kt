@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import org.hackillinois.android.database.entity.ShopItem
 
 @Dao
 interface ShopDao {
