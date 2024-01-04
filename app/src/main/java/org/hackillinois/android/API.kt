@@ -5,7 +5,6 @@ import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
-import org.hackillinois.android.model.shop.ShopList
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
@@ -60,8 +59,7 @@ interface API {
 
     // SHOP
 
-    @GET("shop/")
-    suspend fun shop(): List<ShopItem>
+    // TODO: add api call shop() here
 
     // STAFF
 
