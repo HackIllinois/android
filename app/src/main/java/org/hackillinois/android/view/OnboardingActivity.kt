@@ -15,11 +15,11 @@ class OnboardingActivity : FragmentActivity() {
 
     private val images = listOf(
         R.drawable.login_logo_2024,
-        R.drawable.countdown_2023,
-        R.drawable.schedule_2023,
-        R.drawable.scan_2023,
-        R.drawable.profile_2023,
-        R.drawable.leaderboard_2023,
+        R.drawable.countdown_2024,
+        R.drawable.schedule_2024,
+        R.drawable.scanner_2024,
+        R.drawable.point_shop_2024,
+        R.drawable.profile_2024,
     )
 
     private val titles = listOf(
@@ -27,8 +27,8 @@ class OnboardingActivity : FragmentActivity() {
         R.string.onboarding_countdown_title,
         R.string.onboarding_schedule_title,
         R.string.onboarding_scan_title,
-        R.string.onboarding_profile_title,
         R.string.onboarding_shop_title,
+        R.string.onboarding_profile_title,
     )
 
     private val descriptions = listOf(
@@ -36,8 +36,8 @@ class OnboardingActivity : FragmentActivity() {
         R.string.onboarding_countdown_description,
         R.string.onboarding_schedule_description,
         R.string.onboarding_scan_description,
-        R.string.onboarding_profile_description,
         R.string.onboarding_shop_description,
+        R.string.onboarding_profile_description,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
