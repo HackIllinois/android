@@ -23,9 +23,7 @@
         android:src="@drawable/dark_fantasy_bg_2024"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintRight_toRightOf="parent" />
 
 
     <ImageButton
@@ -84,8 +82,10 @@
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0">
 
                 <LinearLayout
                     android:id="@+id/HorizontalTopLinearLayout"
@@ -100,17 +100,19 @@
                         android:id="@+id/leftProfileLogo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
                         android:layout_marginRight="40dp"
-                        app:srcCompat="@drawable/app_icon_2023" />
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/profile_left_symbol" />
 
                     <ImageView
                         android:id="@+id/rightProfileLogo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginLeft="40dp"
-                        app:srcCompat="@drawable/app_icon_2023" />
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/profile_right_symbol" />
 
                 </LinearLayout>
 
@@ -142,6 +144,7 @@
                         android:id="@+id/attendeeTypeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_pink_bg"
                         android:fontFamily="@font/montserrat_bold"
@@ -149,7 +152,6 @@
                         android:maxLines="1"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="3dp"
-                        android:layout_marginRight="10dp"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         tools:text="General" />
@@ -158,6 +160,7 @@
                         android:id="@+id/waveText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_pink_bg"
                         android:fontFamily="@font/montserrat_bold"
@@ -165,16 +168,17 @@
                         android:maxLines="1"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="3dp"
-                        android:layout_marginLeft="10dp"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         tools:text="Wave 1" />
                 </LinearLayout>
 
                 <FrameLayout
+                    android:id="@+id/qrCodeImage"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="20dp"
+                    android:background="@drawable/default_qr_image"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.504"
                     app:layout_constraintStart_toStartOf="parent"
@@ -200,10 +204,66 @@
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileText"
-        app:layout_constraintVertical_bias="0.048"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:srcCompat="@drawable/default_avatar_image" />
+
+    <LinearLayout
+        android:id="@+id/bannerLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/profile_placement_banner"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/rankingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Your Ranking"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/rankingNumberLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/rankingImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="3dp"
+                android:gravity="center_horizontal"
+                app:srcCompat="@drawable/profile_ranking_symbol" />
+
+            <TextView
+                android:id="@+id/rankingPlacementTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center_horizontal"
+                android:text="25"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
