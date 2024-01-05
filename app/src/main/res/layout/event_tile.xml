@@ -28,7 +28,8 @@
 <!--    CardView is kinda weird because the corner radius is set here rather than it
 having a background image resource, need to make sure top left corner isn't rounded if
 the ongoing tag is shown. (I already made xml background... rounded_cinnamon_milk_no_top_left.xml)
-so you need to figure out how to set it accordingly (might need to not have a card view?????)
+so you need to figure out how to set it accordingly (might need to not have a card view? OR add a
+small view constrained to the top left corner to "fill" in that space and toggle its visibility)
 -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

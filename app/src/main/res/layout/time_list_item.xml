@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/timeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:textColor="@android:color/white"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="20dp"
         android:layout_gravity="center"
-        android:paddingBottom="20dp"
-        android:paddingTop="8dp"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:paddingTop="2dp"
+        android:paddingBottom="3dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/rounded_dark_forest"
+        android:textColor="@color/cinnamonMilk"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:text="5:00 pm" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
