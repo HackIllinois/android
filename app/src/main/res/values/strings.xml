@@ -18,7 +18,7 @@
     <string name="onboarding_welcome_title">Welcome!</string>
     <string name="onboarding_welcome_description">Swipe to see what our app has to offer!</string>
     <string name="onboarding_countdown_title">Countdown</string>
-    <string name="onboarding_countdown_description">See how much time you have left to hack!</string>
+    <string name="onboarding_countdown_description">View the hackathon’s major events and how much time is left to hack!</string>
     <string name="onboarding_schedule_title">Schedule</string>
     <string name="onboarding_schedule_description">See the times and details of all of our events.</string>
     <string name="onboarding_scan_title">Scanner</string>
