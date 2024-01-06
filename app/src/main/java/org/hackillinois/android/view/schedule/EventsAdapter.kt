@@ -105,10 +105,12 @@ class EventsAdapter(
 
                 if (button.isSelected) {
                     FavoritesManager.favoriteEvent(context, event)
+                    // api call to follow event
                     val toast = Toast.makeText(context, R.string.schedule_snackbar_notifications_on, Toast.LENGTH_SHORT)
                     toast.show()
                 } else {
                     FavoritesManager.unfavoriteEvent(context, event)
+                    // api call to unfollow event
                 }
             }
         }

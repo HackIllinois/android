@@ -16,6 +16,7 @@ import kotlinx.coroutines.withContext
 import org.hackillinois.android.API
 import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.auth.JWT
@@ -98,6 +99,8 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("ROLES", "${loginRoles.roles}")
                 // Check if user's roles are correct. If not, display corresponding error message
                 if (loginRoles.roles.contains(role)) {
+                    // TODO: get favorited events and put them in sharedpreferences using FavoritesManager
+                    getFavoritedEvents(api)
                     JWTUtilities.writeJWT(applicationContext, jwt) // save JWT to sharedPreferences for auto-login in the future
                     launchMainActivity()
                 } else {
@@ -111,6 +114,14 @@ class LoginActivity : AppCompatActivity() {
                 showFailedToLogin(e.message)
             }
         }
+    }
+
+    private fun getFavoritedEvents(api: API) {
+        // TODO: get list of event ids from API call
+        // TODO: add them to shared preferences
+        // loop through received event ids
+        // wrap them as Event objects and call the following function
+        // FavoritesManager.favoriteEvent(applicationContext, event)
     }
 
     private fun showFailedToLogin(message: String?) {

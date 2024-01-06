@@ -72,6 +72,15 @@ interface API {
     @GET("user/")
     suspend fun user(): User
 
+    @GET("user/following/")
+    suspend fun favoriteEvents(): AttendeeCheckInResponse
+
+    @PUT("user/follow/{eventId}/")
+    suspend fun followEvent(@Path("eventId") eventId: String): AttendeeCheckInResponse
+
+    @PUT("user/unfollow/{eventId}/")
+    suspend fun favoriteEvent(@Path("eventId") eventId: String): AttendeeCheckInResponse
+
     @GET("user/qr/")
     suspend fun qrCode(): QR
 

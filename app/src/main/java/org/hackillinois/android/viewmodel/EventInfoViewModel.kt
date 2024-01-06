@@ -39,8 +39,11 @@ class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
 
         if (favorited) {
             FavoritesManager.favoriteEvent(app.applicationContext, event.value)
+            // make API call
+            // val toast = Toast.makeText(context, R.string.schedule_snackbar_notifications_on, Toast.LENGTH_SHORT)
         } else {
             FavoritesManager.unfavoriteEvent(app.applicationContext, event.value)
+            // make API call
         }
     }
 }
