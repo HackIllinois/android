@@ -36,6 +36,8 @@
     <color name="mediumBlue">#D2F7FF</color>
 
 <!--      2024 color palette      -->
+    <color name="transparentWhite">#CCFFFFFF</color>
+    <color name="cinnamonMilk">#FFF8F5</color>
     <color name="churnedButter">#FFFACC</color>
     <color name="brownButter">#F5EA83</color>
     <color name="sweetCitrus">#FFD28D</color>
