@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dinuscxj.refresh.RecyclerRefreshLayout
 import kotlinx.android.synthetic.main.fragment_leaderboard.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Leaderboard
@@ -31,6 +32,7 @@ class LeaderboardFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var mAdapter: LeaderboardAdapter
+    private lateinit var refreshLayout: RecyclerRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,8 @@ class LeaderboardFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
 
+        refreshLayout = view.findViewById(R.id.refresh_layout)
+
         mAdapter = LeaderboardAdapter(leaderboard)
 
         recyclerView = view.recyclerview_leaderboard.apply {
@@ -52,6 +56,12 @@ class LeaderboardFragment : Fragment() {
             this.layoutManager = mLayoutManager
             this.adapter = mAdapter
             addItemDecorationWithoutLastItem()
+        }
+
+        refreshLayout.setOnRefreshListener {
+            // code to refresh list
+            viewModel.leaderboardRepository.fetchLeaderboard()
+            refreshLayout.setRefreshing(false)
         }
 
         viewModel.leaderboardLiveData.observe(
