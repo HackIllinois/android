@@ -210,7 +210,7 @@ class ProfileFragment : Fragment() {
                 multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints)
 
             val clear = Color.TRANSPARENT
-            val solid = Color.WHITE
+            val solid = Color.parseColor("#964C1A")
             val black = Color.BLACK
             // creates qr code based on bitMatrix
             for (x in 0 until width) {
