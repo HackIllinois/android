@@ -32,8 +32,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="@font/montserrat_bold"
-        android:textColor="@color/white"
-        android:text="@string/leaderboard"
+        android:textColor="@color/palePeach"
+        android:text="@string/pointshop"
  />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -64,6 +64,9 @@
         <item quantity="other">%d pts</item>
     </plurals>
 
+    <!--    Point Shop Fragment   -->
+    <string name="pointshop">POINTS SHOP</string>
+
     <!--   Profile Fragment   -->
     <string name="profile">PROFILE</string>
     <string name="diet_restrictions">Dietary Restrictions</string>
