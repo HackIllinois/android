@@ -12,21 +12,23 @@
     <string name="login_fail_attendee_message">You must RSVP to log in.</string>
     <string name="update_app_title">Update Required</string>
     <string name="update_app_message">To enjoy the latest features, please download the newest version of the HackIllinois app.</string>
+    <string name="need_internet_title">Internet Required</string>
+    <string name="need_internet_message">You must be connected to the internet in order to use the HackIllinois app. Please retry once you have verified your connection.</string>
 
     <!--    Onboarding Fragment   -->
     <string name="onboarding_get_started">Get Started</string>
     <string name="onboarding_welcome_title">Welcome!</string>
     <string name="onboarding_welcome_description">Swipe to see what our app has to offer!</string>
     <string name="onboarding_countdown_title">Countdown</string>
-    <string name="onboarding_countdown_description">See how much time you have left to hack!</string>
+    <string name="onboarding_countdown_description">View the hackathon’s major events and how much time is left to hack!</string>
     <string name="onboarding_schedule_title">Schedule</string>
     <string name="onboarding_schedule_description">See the times and details of all of our events.</string>
-    <string name="onboarding_scan_title">Scan for Points</string>
-    <string name="onboarding_scan_description">Scan QR codes at events to obtain points!</string>
+    <string name="onboarding_scan_title">Scanner</string>
+    <string name="onboarding_scan_description">Scan QR codes to obtain points and redeem items from the point shop.</string>
     <string name="onboarding_profile_title">Profile</string>
-    <string name="onboarding_profile_description">View your points, tier, and other personal information.</string>
-    <string name="onboarding_leaderboard_title">Leaderboard</string>
-    <string name="onboarding_leaderboard_description">See who is leading HackIllinois 2023 in points earned!</string>
+    <string name="onboarding_profile_description">View your QR code, food wave, and other personal information.</string>
+    <string name="onboarding_shop_title">Point Shop</string>
+    <string name="onboarding_shop_description">View the available prizes you can redeem using your earned coins!</string>
 
     <!--    Login Activity   -->
     <string name="welcome_login">WELCOME TO</string>
