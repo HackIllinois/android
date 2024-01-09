@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tags2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
+
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/dark_fantasy_bg_2024"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageButton
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="35dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profileText"
+            app:srcCompat="@drawable/ic_logout" />
+
+        <TextView
+            android:id="@+id/profileText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="35dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="start"
+            android:text="@string/profile"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
+
+        <ImageView
+            android:id="@+id/profileCard"
+            android:layout_width="294dp"
+            android:layout_height="436dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileText"
+            app:srcCompat="@drawable/profile_card_bg3" />
+
+
+        <ImageView
+            android:id="@+id/avatarImage2"
+            android:layout_width="233dp"
+            android:layout_height="133dp"
+            android:layout_marginBottom="488dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileText"
+            app:layout_constraintVertical_bias="0.682"
+            tools:srcCompat="@drawable/default_avatar_image" />
+
+        <ImageView
+            android:id="@+id/leftProfileLogo2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="52dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="@+id/profileCard"
+            app:layout_constraintEnd_toEndOf="@+id/profileCard"
+            app:layout_constraintTop_toTopOf="@+id/profileCard"
+            app:layout_constraintVertical_bias="0.034"
+            app:srcCompat="@drawable/profile_left_symbol" />
+
+        <ImageView
+            android:id="@+id/rightProfileLogo2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="@+id/profileCard"
+            app:layout_constraintStart_toStartOf="@+id/profileCard"
+            app:layout_constraintTop_toTopOf="@+id/profileCard"
+            app:layout_constraintVertical_bias="0.034"
+            app:srcCompat="@drawable/profile_right_symbol" />
+
+
+        <TextView
+            android:id="@+id/nameTextView2"
+            android:layout_width="274dp"
+            android:layout_height="32dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="Jane Doe"
+            android:textColor="@color/wandWood"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileCard"
+            app:layout_constraintEnd_toEndOf="@+id/profileCard"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintStart_toStartOf="@+id/profileCard"
+            app:layout_constraintTop_toTopOf="@+id/profileCard"
+            app:layout_constraintVertical_bias="0.15" />
+
+        <TextView
+            android:id="@+id/attendeeTypeText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_pink_bg"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileCard"
+            app:layout_constraintStart_toStartOf="@+id/profileCard"
+            app:layout_constraintTop_toTopOf="@+id/profileCard"
+            app:layout_constraintVertical_bias="0.246"
+            tools:text="General" />
+
+        <TextView
+            android:id="@+id/waveText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="68dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_pink_bg"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileCard"
+            app:layout_constraintEnd_toEndOf="@+id/profileCard"
+            app:layout_constraintTop_toTopOf="@+id/profileCard"
+            app:layout_constraintVertical_bias="0.246"
+            tools:text="Wave 1" />
+
+        <ImageView
+            android:id="@+id/qrCodeImage2"
+            android:layout_width="195dp"
+            android:layout_height="290dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileCard"
+            app:layout_constraintEnd_toEndOf="@+id/profileCard"
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toStartOf="@+id/profileCard"
+            app:layout_constraintTop_toBottomOf="@+id/nameTextView2"
+            app:layout_constraintVertical_bias="0.152"
+            app:srcCompat="@drawable/default_qr_image" />
+
+        <ImageView
+            android:id="@+id/placementBannerImageView"
+            android:layout_width="222dp"
+            android:layout_height="160dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+            app:layout_constraintEnd_toEndOf="@+id/profileCard"
+            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintStart_toStartOf="@+id/profileCard"
+            app:layout_constraintTop_toTopOf="@+id/profileCard"
+            app:layout_constraintVertical_bias="0.845"
+            app:srcCompat="@drawable/profile_placement_banner" />
+
+        <TextView
+            android:id="@+id/rankingTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Your Ranking"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/placementBannerImageView"
+            app:layout_constraintEnd_toEndOf="@+id/placementBannerImageView"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="@+id/placementBannerImageView"
+            app:layout_constraintTop_toTopOf="@+id/placementBannerImageView"
+            app:layout_constraintVertical_bias="0.333" />
+
+        <ImageView
+            android:id="@+id/rankingImageView2"
+            android:layout_width="25dp"
+            android:layout_height="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/placementBannerImageView"
+            app:layout_constraintEnd_toEndOf="@+id/placementBannerImageView"
+            app:layout_constraintHorizontal_bias="0.441"
+            app:layout_constraintStart_toStartOf="@+id/placementBannerImageView"
+            app:layout_constraintTop_toTopOf="@+id/placementBannerImageView"
+            app:layout_constraintVertical_bias="0.457"
+            app:srcCompat="@drawable/profile_ranking_symbol" />
+
+        <TextView
+            android:id="@+id/rankingPlacementTextView2"
+            android:layout_width="25dp"
+            android:layout_height="17dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center_horizontal"
+            android:text="25"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/placementBannerImageView"
+            app:layout_constraintEnd_toEndOf="@+id/placementBannerImageView"
+            app:layout_constraintHorizontal_bias="0.568"
+            app:layout_constraintStart_toStartOf="@+id/placementBannerImageView"
+            app:layout_constraintTop_toTopOf="@+id/placementBannerImageView"
+            app:layout_constraintVertical_bias="0.461" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
