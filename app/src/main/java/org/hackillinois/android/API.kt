@@ -68,11 +68,11 @@ interface API {
     @GET("user/")
     suspend fun user(): User
 
-    @GET("user/following/")
-    suspend fun favoriteEvents(): AttendeeCheckInResponse
+//    @GET("user/following/")
+//    suspend fun favoriteEvents(): AttendeeCheckInResponse
 
-    @PUT("user/follow/{eventId}/")
-    suspend fun followEvent(@Path("eventId") eventId: String): AttendeeCheckInResponse
+    @PUT("user/follow/")
+    suspend fun favoriteEvents(): FavoritesResponse
 
     @PUT("user/follow/")
     fun followEvent(@Body eventId: EventId): Call<FavoritesResponse>
