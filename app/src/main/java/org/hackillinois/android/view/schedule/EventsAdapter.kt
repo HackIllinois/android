@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.schedule
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,14 +9,21 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.event_tile.view.*
 import kotlinx.android.synthetic.main.time_list_item.view.*
+import org.hackillinois.android.API
+import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
+import org.hackillinois.android.model.event.EventId
+import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.view.MainActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class EventsAdapter(
     private var itemList: List<ScheduleListItem>,
-    private val eventClickListener: EventClickListener
+    private val eventClickListener: EventClickListener,
 ) : RecyclerView.Adapter<EventsAdapter.ViewHolder>(), EventClickListener {
     private lateinit var context: Context
 
@@ -103,15 +111,29 @@ class EventsAdapter(
             starButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
 
+                val api: API = App.getAPI()
+                val call: Call<FavoritesResponse>
                 if (button.isSelected) {
                     FavoritesManager.favoriteEvent(context, event)
-                    // api call to follow event
+                    call = api.followEvent(EventId(event.eventId))
                     val toast = Toast.makeText(context, R.string.schedule_snackbar_notifications_on, Toast.LENGTH_SHORT)
                     toast.show()
                 } else {
                     FavoritesManager.unfavoriteEvent(context, event)
-                    // api call to unfollow event
+                    call = api.unfollowEvent(EventId(event.eventId))
                 }
+
+                call.enqueue(object : Callback<FavoritesResponse> {
+                    override fun onResponse(call: Call<FavoritesResponse>, response: Response<FavoritesResponse>) {
+                        if (response.isSuccessful) {
+                            val responseData: FavoritesResponse? = response.body()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<FavoritesResponse>, t: Throwable) {
+                        Log.d("FOLLOW/UNFOLLOW FAILURE", t.toString())
+                    }
+                })
             }
         }
     }
