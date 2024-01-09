@@ -21,7 +21,6 @@ import org.hackillinois.android.repository.rolesRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
 
 class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
 

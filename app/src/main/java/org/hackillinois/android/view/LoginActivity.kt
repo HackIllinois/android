@@ -125,7 +125,7 @@ class LoginActivity : AppCompatActivity() {
                 val response: FavoritesResponse = api.favoriteEvents()
                 // loop through favorited event ids, wrap as Event object, and store in SharedPreferences
                 for (eventId in response.following) {
-                    val dummyEvent = Event(eventId, "", "", 0, 0, emptyList(), "", "", "0",false, false, false)
+                    val dummyEvent = Event(eventId, "", "", 0, 0, emptyList(), "", "", "0", false, false, false)
                     FavoritesManager.favoriteEvent(applicationContext, dummyEvent)
                 }
                 Log.d("Fetched favorites", response.toString())
