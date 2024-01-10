@@ -77,7 +77,7 @@
     <string name="your_ranking">Your Ranking</string>
     <!--   not logged in   -->
     <string name="profile_login">Login</string>
-    <string name="not_logged_in_message">You need to login as an attendee to see your profile.</string>
+    <string name="not_logged_in_message">You need to log in as an attendee or staff member to see your profile.</string>
 
     <!--   Scanner Fragments   -->
     <string name="attendance">ATTENDANCE</string>
