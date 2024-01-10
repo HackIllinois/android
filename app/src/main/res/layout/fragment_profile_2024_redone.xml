@@ -22,6 +22,20 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.05" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineMiddle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.20" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85" />
+
 
         <ImageView
             android:id="@+id/imageView6"
@@ -61,52 +75,51 @@
 
         <ImageView
             android:id="@+id/profileCard"
-            android:layout_width="294dp"
-            android:layout_height="436dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="30dp"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileText"
+            app:layout_constraintTop_toBottomOf="@+id/guidelineMiddle"
             app:srcCompat="@drawable/profile_card_bg" />
 
 
         <ImageView
             android:id="@+id/avatarImage2"
-            android:layout_width="233dp"
-            android:layout_height="133dp"
-            android:layout_marginBottom="488dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="520dp"
             android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileText"
-            app:layout_constraintVertical_bias="0.682"
-            tools:srcCompat="@drawable/default_avatar_image" />
+            tools:srcCompat="@drawable/avatar_image_svg" />
 
         <ImageView
             android:id="@+id/leftProfileLogo2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="52dp"
+            android:layout_marginEnd="64dp"
             android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="@+id/profileCard"
             app:layout_constraintEnd_toEndOf="@+id/profileCard"
             app:layout_constraintTop_toTopOf="@+id/profileCard"
-            app:layout_constraintVertical_bias="0.034"
+            app:layout_constraintVertical_bias="0.035"
             app:srcCompat="@drawable/profile_left_symbol" />
+
 
         <ImageView
             android:id="@+id/rightProfileLogo2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="52dp"
+            android:layout_marginStart="64dp"
             android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="@+id/profileCard"
             app:layout_constraintStart_toStartOf="@+id/profileCard"
             app:layout_constraintTop_toTopOf="@+id/profileCard"
-            app:layout_constraintVertical_bias="0.034"
+            app:layout_constraintVertical_bias="0.035"
             app:srcCompat="@drawable/profile_right_symbol" />
-
 
         <TextView
             android:id="@+id/nameTextView2"
@@ -128,67 +141,74 @@
             android:id="@+id/attendeeTypeText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/rounded_pink_bg"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:maxLines="1"
             android:paddingHorizontal="10dp"
             android:paddingVertical="3dp"
-            android:textColor="@color/white"
+            android:textColor="@color/transparentWhite"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/profileCard"
-            app:layout_constraintStart_toStartOf="@+id/profileCard"
-            app:layout_constraintTop_toTopOf="@+id/profileCard"
-            app:layout_constraintVertical_bias="0.246"
+            app:layout_constraintEnd_toStartOf="@+id/waveText2"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameTextView2"
             tools:text="General" />
 
         <TextView
             android:id="@+id/waveText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="68dp"
-            android:layout_weight="1"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_pink_bg"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:maxLines="1"
             android:paddingHorizontal="10dp"
             android:paddingVertical="3dp"
-            android:textColor="@color/white"
+            android:textColor="@color/transparentWhite"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/profileCard"
-            app:layout_constraintEnd_toEndOf="@+id/profileCard"
-            app:layout_constraintTop_toTopOf="@+id/profileCard"
-            app:layout_constraintVertical_bias="0.246"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/attendeeTypeText2"
+            app:layout_constraintTop_toBottomOf="@id/nameTextView2"
             tools:text="Wave 1" />
 
-        <ImageView
+        <FrameLayout
             android:id="@+id/qrCodeImage2"
-            android:layout_width="195dp"
-            android:layout_height="290dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/default_qr_svg"
             app:layout_constraintBottom_toBottomOf="@+id/profileCard"
-            app:layout_constraintEnd_toEndOf="@+id/profileCard"
-            app:layout_constraintHorizontal_bias="0.333"
-            app:layout_constraintStart_toStartOf="@+id/profileCard"
-            app:layout_constraintTop_toBottomOf="@+id/nameTextView2"
-            app:layout_constraintVertical_bias="0.152"
-            app:srcCompat="@drawable/default_qr_image" />
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/profileCard"
+            app:layout_constraintStart_toStartOf="@id/profileCard"
+            app:layout_constraintTop_toBottomOf="@+id/waveText2"
+            app:layout_constraintVertical_bias="0.0">
+
+            <include
+                layout="@layout/profile_qr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/placementBannerImageView"
-            android:layout_width="222dp"
-            android:layout_height="160dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/imageView6"
             app:layout_constraintEnd_toEndOf="@+id/profileCard"
-            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="@+id/profileCard"
             app:layout_constraintTop_toTopOf="@+id/profileCard"
-            app:layout_constraintVertical_bias="0.845"
-            app:srcCompat="@drawable/profile_placement_banner" />
+            app:layout_constraintVertical_bias="0.868"
+            app:srcCompat="@drawable/profile_placement_banner_svg" />
 
         <TextView
             android:id="@+id/rankingTextView2"
@@ -201,10 +221,9 @@
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/placementBannerImageView"
             app:layout_constraintEnd_toEndOf="@+id/placementBannerImageView"
-            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="@+id/placementBannerImageView"
             app:layout_constraintTop_toTopOf="@+id/placementBannerImageView"
-            app:layout_constraintVertical_bias="0.333" />
+            app:layout_constraintVertical_bias="0.208" />
 
         <ImageView
             android:id="@+id/rankingImageView2"
