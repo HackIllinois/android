@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/title_textview_leaderboard"
+        android:id="@+id/title_textview_points_shop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
@@ -42,18 +42,18 @@
         android:layout_height="wrap_content"
         android:src="@drawable/points_shop_banner"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/title_textview_leaderboard"
+        app:layout_constraintTop_toBottomOf="@+id/title_textview_points_shop"
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_leaderboard"
+        android:id="@+id/recyclerview_points_shop"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_marginTop="250dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_textview_leaderboard"
+        app:layout_constraintTop_toBottomOf="@id/title_textview_points_shop"
         app:layout_constraintBottom_toBottomOf="parent"
         android:paddingEnd="31dp"
         android:paddingStart="31dp"

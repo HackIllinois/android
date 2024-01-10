@@ -9,13 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_leaderboard.view.*
+import kotlinx.android.synthetic.main.fragment_points_shop.view.*
+import kotlinx.android.synthetic.main.fragment_points_shop.view.recyclerview_points_shop
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Leaderboard
 import org.hackillinois.android.viewmodel.LeaderboardViewModel
@@ -43,11 +43,11 @@ class LeaderboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
+        val view = inflater.inflate(R.layout.fragment_points_shop, container, false)
 
         mAdapter = LeaderboardAdapter(leaderboard)
 
-        recyclerView = view.recyclerview_leaderboard.apply {
+        recyclerView = view.recyclerview_points_shop.apply {
             mLayoutManager = LinearLayoutManager(context)
             this.layoutManager = mLayoutManager
             this.adapter = mAdapter
