@@ -68,9 +68,6 @@ interface API {
     @GET("user/")
     suspend fun user(): User
 
-//    @GET("user/following/")
-//    suspend fun favoriteEvents(): AttendeeCheckInResponse
-
     @PUT("user/follow/")
     suspend fun favoriteEvents(): FavoritesResponse
 
