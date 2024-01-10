@@ -23,12 +23,11 @@ import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
-import org.hackillinois.android.view.leaderboard.LeaderboardFragment
-import org.hackillinois.android.view.shop.ShopFragment
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.scanner.ScannerFragment
 import org.hackillinois.android.view.scanner.StaffScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
+import org.hackillinois.android.view.shop.ShopFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
 
