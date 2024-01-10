@@ -89,15 +89,16 @@
             android:id="@+id/avatarImage2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="520dp"
             android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView6"
+            app:layout_constraintVertical_bias="0.075"
             tools:srcCompat="@drawable/avatar_image_svg" />
 
         <ImageView
-            android:id="@+id/leftProfileLogo2"
+            android:id="@+id/rightProfileLogo2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="64dp"
@@ -110,7 +111,7 @@
 
 
         <ImageView
-            android:id="@+id/rightProfileLogo2"
+            android:id="@+id/leftProfileLogo2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
@@ -122,7 +123,7 @@
             app:srcCompat="@drawable/profile_right_symbol" />
 
         <TextView
-            android:id="@+id/nameTextView2"
+            android:id="@+id/nameText2"
             android:layout_width="274dp"
             android:layout_height="32dp"
             android:fontFamily="@font/montserrat_bold"
@@ -155,7 +156,7 @@
             app:layout_constraintEnd_toStartOf="@+id/waveText2"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nameTextView2"
+            app:layout_constraintTop_toBottomOf="@id/nameText2"
             tools:text="General" />
 
         <TextView
@@ -173,7 +174,7 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/attendeeTypeText2"
-            app:layout_constraintTop_toBottomOf="@id/nameTextView2"
+            app:layout_constraintTop_toBottomOf="@id/nameText2"
             tools:text="Wave 1" />
 
         <FrameLayout
@@ -207,7 +208,7 @@
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="@+id/profileCard"
             app:layout_constraintTop_toTopOf="@+id/profileCard"
-            app:layout_constraintVertical_bias="0.868"
+            app:layout_constraintVertical_bias="0.82"
             app:srcCompat="@drawable/profile_placement_banner_svg" />
 
         <TextView
