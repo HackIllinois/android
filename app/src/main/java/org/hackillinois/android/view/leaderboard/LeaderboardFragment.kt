@@ -64,18 +64,25 @@ class LeaderboardFragment : Fragment() {
     }
 
     class DividerItemDecorator(context: Context) : RecyclerView.ItemDecoration() {
-        private val mDivider: Drawable = ContextCompat.getDrawable(context, R.drawable.leaderboard_divider)!!
+        private val mDivider: Drawable = ContextCompat.getDrawable(context, R.drawable.points_shop_divider)!!
         override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
             val dividerLeft = parent.paddingLeft
             val dividerRight = parent.width - parent.paddingRight
             val childCount = parent.childCount // how many items recyclerview has
-            for (i in 0..childCount - 2) { // minus 2 to account for zero index and skip last item
+            for (i in 0..childCount - 1) { // minus 2 to account for zero index and skip last item
                 val child = parent.getChildAt(i)
                 val params = child.layoutParams as RecyclerView.LayoutParams
                 val dividerTop = child.bottom + params.bottomMargin
                 val dividerBottom = dividerTop + mDivider.intrinsicHeight
                 mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
                 mDivider.draw(canvas)
+
+                if (i == 0) {
+                    val topDividerTop = parent.paddingTop
+                    val topDividerBottom = topDividerTop + mDivider.intrinsicHeight
+                    mDivider.setBounds(dividerLeft, topDividerTop, dividerRight, topDividerBottom)
+                    mDivider.draw(canvas)
+                }
             }
         }
     }
