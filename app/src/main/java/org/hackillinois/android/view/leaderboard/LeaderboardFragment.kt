@@ -51,7 +51,7 @@ class LeaderboardFragment : Fragment() {
             mLayoutManager = LinearLayoutManager(context)
             this.layoutManager = mLayoutManager
             this.adapter = mAdapter
-            addItemDecorationWithoutLastItem()
+            addDividers()
         }
 
         viewModel.leaderboardLiveData.observe(
@@ -86,7 +86,7 @@ class LeaderboardFragment : Fragment() {
             }
         }
     }
-    fun RecyclerView.addItemDecorationWithoutLastItem() {
+    fun RecyclerView.addDividers() {
         if (layoutManager !is LinearLayoutManager) {
             return
         }
