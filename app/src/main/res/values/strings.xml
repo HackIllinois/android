@@ -67,7 +67,7 @@
     </plurals>
 
     <!--    Point Shop Fragment   -->
-    <string name="pointshop">POINTS SHOP</string>
+    <string name="pointshop">POINT SHOP</string>
 
     <!--   Profile Fragment   -->
     <string name="profile">PROFILE</string>

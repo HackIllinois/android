@@ -14,8 +14,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_points_shop.view.*
-import kotlinx.android.synthetic.main.fragment_points_shop.view.recyclerview_points_shop
+import kotlinx.android.synthetic.main.fragment_point_shop.view.*
+import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Leaderboard
 import org.hackillinois.android.view.leaderboard.LeaderboardAdapter
@@ -44,11 +44,11 @@ class ShopFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_points_shop, container, false)
+        val view = inflater.inflate(R.layout.fragment_point_shop, container, false)
 
         mAdapter = LeaderboardAdapter(leaderboard)
 
-        recyclerView = view.recyclerview_points_shop.apply {
+        recyclerView = view.recyclerview_point_shop.apply {
             mLayoutManager = LinearLayoutManager(context)
             this.layoutManager = mLayoutManager
             this.adapter = mAdapter
@@ -65,7 +65,7 @@ class ShopFragment : Fragment() {
     }
 
     class DividerItemDecorator(context: Context) : RecyclerView.ItemDecoration() {
-        private val mDivider: Drawable = ContextCompat.getDrawable(context, R.drawable.points_shop_divider)!!
+        private val mDivider: Drawable = ContextCompat.getDrawable(context, R.drawable.point_shop_divider)!!
         override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
             val dividerLeft = parent.paddingLeft
             val dividerRight = parent.width - parent.paddingRight
