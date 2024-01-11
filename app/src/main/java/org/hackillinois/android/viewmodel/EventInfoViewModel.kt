@@ -31,7 +31,7 @@ class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun changeFavoritedState() {
+    fun changeFavoritedState(): Boolean {
         var favorited = isFavorited.value ?: false
         favorited = !favorited
 
@@ -42,5 +42,6 @@ class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
         } else {
             FavoritesManager.unfavoriteEvent(app.applicationContext, event.value)
         }
+        return favorited
     }
 }
