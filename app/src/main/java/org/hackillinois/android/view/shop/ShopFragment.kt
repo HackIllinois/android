@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,7 +96,6 @@ class ShopFragment : Fragment() {
 
     private fun updateLeaderboard(newLeaderboard: List<Leaderboard>) {
         mAdapter.updateLeaderboard(newLeaderboard)
-        Log.d("UPDATE LEADERBOARD", leaderboard.toString())
     }
 }
 
