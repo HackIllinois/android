@@ -5,6 +5,7 @@ import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
+import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
@@ -23,7 +24,7 @@ interface API {
     // CHECK-IN
 
     @POST("checkin/")
-    suspend fun checkInUser(@Body checkIn: CheckIn): CheckIn
+    suspend fun checkInUser(@Body body: CheckIn): CheckIn
 
     // EVENT
 
@@ -34,15 +35,15 @@ interface API {
     fun getEvent(@Path("id") id: String): Call<Event>
 
     @POST("event/checkin/")
-    suspend fun eventCheckIn(@Body id: EventCode): AttendeeCheckInResponse
+    suspend fun eventCheckIn(@Body body: EventCode): AttendeeCheckInResponse
 
     @POST("event/staff/checkin/")
-    suspend fun staffEventCheckIn(@Body pair: UserEventPair): StaffCheckInResponse
+    suspend fun staffEventCheckIn(@Body body: UserEventPair): StaffCheckInResponse
 
     // NOTIFICATIONS
 
     @POST("notifications/device/")
-    suspend fun sendUserToken(@Body token: DeviceToken): DeviceToken
+    suspend fun sendUserToken(@Body body: DeviceToken): DeviceToken
 
     // PROFILE
 
@@ -57,10 +58,15 @@ interface API {
     @GET("registration/attendee/")
     suspend fun attendee(): Attendee
 
+    // SHOP
+
+    @POST("shop/item/buy/")
+    suspend fun buyShopItem(@Body body: ItemInstance)
+
     // STAFF
 
     @POST("staff/attendance/")
-    suspend fun staffMeetingCheckIn(@Body eventId: MeetingEventId): MeetingCheckInResponse
+    suspend fun staffMeetingCheckIn(@Body body: MeetingEventId): MeetingCheckInResponse
 
     // UPLOAD
 

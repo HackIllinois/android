@@ -3,6 +3,7 @@ package org.hackillinois.android.view.scanner
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -30,6 +31,7 @@ import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.scanner.ScanStatus
+import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
 class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSelected, IconScanDialogFragment.OnIconOKButtonSelected {
@@ -68,7 +70,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                     if (userRoles != null && userRoles!!.isStaff()) {
                         displayStaffScanResult(it)
                     } else {
-                        displayScanResult(it)
+                        displayAttendeeScanResult(it)
                     }
                 },
             )
@@ -121,7 +123,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                             val eventId: String = it.text
                             viewModel.staffCheckInMeeting(eventId)
                         } else if (scanKey == "attendee-check-in") {
-                            val userId = getUserIdFromQR(it.text)
+                            val userId = decodeUserId(it.text)
                             val eventId = getChipEventId()
                             viewModel.staffCheckInAttendee(userId, eventId)
                         } else if (scanKey == "staff-check-in") {
@@ -138,7 +140,8 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                         } else if (scanKey == "mentor-check-in") {
                             // todo
                         } else if (scanKey == "point-shop") {
-                            // todo
+                            val itemInstance = decodeItemInfo(it.text)
+                            viewModel.purchaseItem(itemInstance)
                         } else {
                             closeScannerPage()
                             // todo error?
@@ -240,9 +243,17 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         }
     }
 
-    private fun getUserIdFromQR(qrString: String): String {
+    private fun decodeUserId(qrString: String): String {
         val splitOnEquals = qrString.split("=")
         return splitOnEquals.last()
+    }
+
+    private fun decodeItemInfo(qrString: String): ItemInstance {
+        val qrStringTrimmed = qrString.replace("\"", "")
+        val uri = Uri.parse(qrStringTrimmed)
+        val itemId = uri.getQueryParameter("itemId") ?: "null"
+        val instance = uri.getQueryParameter("instance") ?: "null"
+        return ItemInstance(itemId, instance)
     }
 
     private fun getChipEventId(): String {
@@ -271,17 +282,52 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         }
     }
 
-    private fun displayScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
-        val responseString = when (lastScanStatus.userMessage) {
-            "Success" -> "Success! You received ${lastScanStatus.points} points."
-            "InvalidCode" -> "This code doesn't seem to be correct."
-            "InvalidTime" -> "Make sure you have the right time."
-            "AlreadyCheckedIn" -> "Looks like you're already checked in."
-            else -> "Something isn't quite right."
+    private fun displayAttendeeScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
+        if (lastScanStatus.success) {
+            when (scanKey) {
+                "point-shop" -> {
+                    showIconDialogFragment("prize", lastScanStatus.userMessage)
+                }
+                else -> {
+                    // display IconDialogFragment - Points
+                }
+            }
+        } else {
+            // display SimpleDialogFragment - Error
+            showSimpleDialogFragment("Error", lastScanStatus.userMessage)
         }
-        // make toast from response
-        val toast = Toast.makeText(context, responseString, Toast.LENGTH_LONG)
-        toast.show()
+    }
+
+    private fun showIconDialogFragment(iconType: String, subtitle: String) {
+        if (activity != null) {
+            // create arguments bundle to pass to IconScanDialogFragment
+            val args = Bundle()
+            args.putString("KEY_ICON_TYPE", iconType)
+            args.putString("KEY_SUBTITLE", subtitle)
+
+            // create and show instance of IconScanDialogFragment
+            val fragmentManager: FragmentManager = parentFragmentManager
+            val dialog = IconScanDialogFragment()
+            dialog.arguments = args
+            dialog.setIconOKButtonListener(this)
+            dialog.show(fragmentManager, "IconScanDialogFragment")
+        }
+    }
+
+    private fun showSimpleDialogFragment(title: String, subtitle: String) {
+        if (activity != null) {
+            // create arguments bundle to pass to IconScanDialogFragment
+            val args = Bundle()
+            args.putString("KEY_TITLE", title)
+            args.putString("KEY_SUBTITLE", subtitle)
+
+            // create and show instance of IconScanDialogFragment
+            val fragmentManager: FragmentManager = parentFragmentManager
+            val dialog = SimpleScanDialogFragment()
+            dialog.arguments = args
+            dialog.setSimpleOKButtonListener(this)
+            dialog.show(fragmentManager, "SimpleScanDialogFragment")
+        }
     }
 
     private fun closeScannerPage() {

@@ -7,13 +7,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import org.hackillinois.android.R
 
 class IconScanDialogFragment : DialogFragment() {
 
-    lateinit var title: String
+    lateinit var iconType: String
     lateinit var subtitle: String
 
     interface OnIconOKButtonSelected {
@@ -27,7 +28,7 @@ class IconScanDialogFragment : DialogFragment() {
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        title = arguments?.getString(KEY_TITLE).toString()
+        iconType = arguments?.getString(ICON_TYPE).toString()
         subtitle = arguments?.getString(KEY_SUBTITLE).toString()
 
         return root
@@ -43,9 +44,17 @@ class IconScanDialogFragment : DialogFragment() {
         }
 
         // update text of title and subtitle views from bundle arguments
+        val iconView = view.findViewById<ImageView>(R.id.imageIconDialog_imageView)
         val titleView = view.findViewById<TextView>(R.id.titleIconDialog_textView)
         val subtitleView = view.findViewById<TextView>(R.id.subtitleIconDialog_textView)
-        titleView.text = title
+
+        if (iconType == "prize") {
+            iconView.setImageResource(R.drawable.prize_bag)
+            titleView.setText(R.string.prize_obtained)
+        } else {
+            iconView.setImageResource(R.drawable.treasure_chest)
+            titleView.setText(R.string.points_earned)
+        }
         subtitleView.text = subtitle
     }
 
@@ -61,13 +70,13 @@ class IconScanDialogFragment : DialogFragment() {
     companion object {
         const val TAG = "IconScanDialogFragment"
 
-        private const val KEY_TITLE = "KEY_TITLE"
+        private const val ICON_TYPE = "KEY_ICON_TYPE"
         private const val KEY_SUBTITLE = "KEY_SUBTITLE"
 
         fun newInstance(title: String, subTitle: String): IconScanDialogFragment {
             val fragment = IconScanDialogFragment()
             val args = Bundle().apply {
-                putString(KEY_TITLE, title)
+                putString(ICON_TYPE, title)
                 putString(KEY_SUBTITLE, subTitle)
             }
             fragment.arguments = args
