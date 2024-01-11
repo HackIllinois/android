@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -95,7 +96,13 @@ class EventInfoFragment : Fragment() {
         isFavorited?.let {
             exit_button.isSelected = isFavorited
             val imageResource =
-                if (isFavorited) R.drawable.dark_bookmark_filled else R.drawable.dark_bookmark_hollow
+                if (isFavorited) {
+                    val toast = Toast.makeText(context, R.string.schedule_snackbar_notifications_on, Toast.LENGTH_SHORT)
+                    toast.show()
+                    R.drawable.dark_bookmark_filled
+                } else {
+                    R.drawable.dark_bookmark_hollow
+                }
             favorites_button.setImageResource(imageResource)
         }
     }
