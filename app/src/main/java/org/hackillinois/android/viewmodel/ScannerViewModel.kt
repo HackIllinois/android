@@ -8,7 +8,6 @@ import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.shop.ItemInstance
-import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.repository.rolesRepository
 import org.json.JSONObject
 import retrofit2.HttpException
@@ -26,45 +25,113 @@ class ScannerViewModel : ViewModel() {
         }
     }
 
-    fun attendeeCheckInEvent(eventId: String) {
+    fun submitMeetingAttendance(body: MeetingEventId) {
         viewModelScope.launch {
             try {
-                val response = EventRepository.checkInEvent(eventId)
-                val scanStatus: ScanStatus
-                // Check if attendee successfully checked into the event
-                if (response.status == "Success") {
-//                    scanStatus = ScanStatus(response.newPoints, response.status)
-//                    lastScanStatus.postValue(scanStatus)
-                } else {
-//                    scanStatus = ScanStatus(0, response.status)
-//                    lastScanStatus.postValue(scanStatus)
-                }
+                App.getAPI().staffMeetingCheckIn(body)
+                val message = "Your meeting attendance has been recorded."
+                val scanStatus = ScanStatus(message, true)
+                lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {
-                Log.e("ATTENDEE - CHECK IN EVENT", e.toString())
+                var error = e.message.toString()
+                try {
+                    if (e is HttpException) {
+                        val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
+                        error = jsonObject.optString("error", e.message.toString())
+                    }
+                } catch (e: Exception) { }
+                Log.e("STAFF MEETING ERROR", error)
+                val scanStatus = ScanStatus("Scan failed: $error", false)
+                lastScanStatus.postValue(scanStatus)
             }
         }
     }
 
-    fun staffCheckInMeeting(eventId: String) {
+    fun checkInAttendee(body: UserEventPair) {
         viewModelScope.launch {
             try {
-                val response = EventRepository.checkInMeeting(eventId)
-//                val scanStatus = ScanStatus(0, response.status)
-//                lastScanStatus.postValue(scanStatus)
+                val response = App.getAPI().attendeeCheckIn(body)
+                val dietaryRestrictions = response.rsvpData.registrationData.attendee.dietary.joinToString()
+                val message = "Attendee has the following dietary restrictions: $dietaryRestrictions."
+                val scanStatus = ScanStatus(message, true)
+                lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {
-                Log.e("STAFF - MEETING CHECK IN", e.toString())
+                var error = e.message.toString()
+                try {
+                    if (e is HttpException) {
+                        val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
+                        error = jsonObject.optString("error", e.message.toString())
+                    }
+                } catch (e: Exception) { }
+                Log.e("CHECK IN ATTENDEE ERROR", error)
+                val scanStatus = ScanStatus("Scan failed: $error", false)
+                lastScanStatus.postValue(scanStatus)
             }
         }
     }
 
-    fun staffCheckInAttendee(userId: String, eventId: String) {
+    fun checkInStaff() {
         viewModelScope.launch {
             try {
-                val response = EventRepository.checkInAttendee(userId, eventId)
-//                val scanStatus = ScanStatus(0, response.status, response.rsvpData.registrationData.attendee.dietary.joinToString())
-//                lastScanStatus.postValue(scanStatus)
+                // todo: api call
+                val message = "Staff member was successfully checked in for their shift."
+                val scanStatus = ScanStatus(message, true)
+                lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {
-                Log.e("STAFF - ATTENDEE CHECK IN", e.toString())
+                var error = e.message.toString()
+                try {
+                    if (e is HttpException) {
+                        val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
+                        error = jsonObject.optString("error", e.message.toString())
+                    }
+                } catch (e: Exception) { }
+                Log.e("CHECK IN STAFF ERROR", error)
+                val scanStatus = ScanStatus("Scan failed: $error", false)
+                lastScanStatus.postValue(scanStatus)
+            }
+        }
+    }
+
+    fun checkInEvent(body: EventCode) {
+        viewModelScope.launch {
+            try {
+                val response = App.getAPI().eventCheckIn(body)
+                val message = "${response.newPoints} points have been added to your total score."
+                val scanStatus = ScanStatus(message, true)
+                lastScanStatus.postValue(scanStatus)
+            } catch (e: Exception) {
+                var error = e.message.toString()
+                try {
+                    if (e is HttpException) {
+                        val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
+                        error = jsonObject.optString("error", e.message.toString())
+                    }
+                } catch (e: Exception) { }
+                Log.e("CHECK IN EVENT ERROR", error)
+                val scanStatus = ScanStatus("Scan failed: $error", false)
+                lastScanStatus.postValue(scanStatus)
+            }
+        }
+    }
+
+    fun checkInMentor() {
+        viewModelScope.launch {
+            try {
+                // todo: api call
+                val message = "${100} points have been added to your total score."
+                val scanStatus = ScanStatus(message, true)
+                lastScanStatus.postValue(scanStatus)
+            } catch (e: Exception) {
+                var error = e.message.toString()
+                try {
+                    if (e is HttpException) {
+                        val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
+                        error = jsonObject.optString("error", e.message.toString())
+                    }
+                } catch (e: Exception) { }
+                Log.e("CHECK IN MENTOR ERROR", error)
+                val scanStatus = ScanStatus("Scan failed: $error", false)
+                lastScanStatus.postValue(scanStatus)
             }
         }
     }
@@ -74,16 +141,18 @@ class ScannerViewModel : ViewModel() {
             try {
                 App.getAPI().buyShopItem(body)
                 val message = "You have successfully redeemed your points at the Point Shop!"
-                val scanStatus = ScanStatus(0, message, null, true)
+                val scanStatus = ScanStatus(message, true)
                 lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {
                 var error = e.message.toString()
-                if (e is HttpException) {
-                    val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
-                    error = jsonObject.optString("error", e.message.toString())
-                }
+                try {
+                    if (e is HttpException) {
+                        val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
+                        error = jsonObject.optString("error", e.message.toString())
+                    }
+                } catch (e: Exception) { }
                 Log.e("PURCHASE ITEM ERROR", error)
-                val scanStatus = ScanStatus(0, "reason: $error", null, false)
+                val scanStatus = ScanStatus("Scan failed: $error", false)
                 lastScanStatus.postValue(scanStatus)
             }
         }
