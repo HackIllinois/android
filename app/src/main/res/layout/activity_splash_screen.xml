@@ -5,22 +5,29 @@
     android:id="@+id/animConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loading_animation_bg">
+    android:background="@color/witchyPurple">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/login_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/splashAnimationView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:scaleType="fitCenter"
-        android:scaleX=".9"
-        android:scaleY=".9"
+        android:layout_marginHorizontal="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.67"
+        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:lottie_fileName="popcorn_cart.json" />
+        app:lottie_fileName="swirling_cauldron.json" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
