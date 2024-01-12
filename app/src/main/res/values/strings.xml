@@ -83,6 +83,7 @@
     <string name="scanner">SCANNER</string>
     <string name="meeting_attendance">Meeting Attendance</string>
     <string name="attendee_checkin">Attendee Check In</string>
+    <string name="add_points">Add Points</string>
     <string name="mentor_checkin">Mentor Check In</string>
     <string name="event_checkin">Event Check In</string>
     <string name="point_shop_scan">Point Shop Scan</string>

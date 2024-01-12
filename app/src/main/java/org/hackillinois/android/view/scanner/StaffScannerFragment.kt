@@ -37,6 +37,15 @@ class StaffScannerFragment : Fragment() {
             (context as MainActivity).switchFragment(scannerFragment, true)
         }
 
+        // when attendee check in button is clicked
+        val addPointsButton = view.findViewById<Button>(R.id.addPointsBtn)
+        addPointsButton.setOnClickListener {
+            appBar.visibility = View.INVISIBLE
+            scannerBtn.visibility = View.INVISIBLE
+            val scannerFragment = ScannerFragment.newInstance("add-points")
+            (context as MainActivity).switchFragment(scannerFragment, true)
+        }
+
         return view
     }
 

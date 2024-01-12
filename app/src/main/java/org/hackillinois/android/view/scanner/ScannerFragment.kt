@@ -123,7 +123,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                 decodeCallback = DecodeCallback {
                     Log.d("QR", it.text)
                     if (userRoles != null && userRoles!!.isStaff()) {
-                        // STAFF -> handle scanning for meeting attendance, attendee check in, or staff check in (admin)
+                        // STAFF -> handle scanning for meeting attendance or attendee check in
                         when (scanKey) {
                             "meeting-attendance" -> {
                                 val eventId: String = it.text
@@ -135,9 +135,11 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                                 val eventId = getChipEventId()
                                 viewModel.checkInAttendee(UserEventPair(userId, eventId))
                             }
-                            "staff-check-in" -> {
+                            "add-points" -> {
                                 // todo
-                                viewModel.checkInStaff()
+                                val userId = decodeUserId(it.text)
+//                                show enter text dialog
+//                                viewModel.checkInAttendee(UserEventPair(userId, eventId))
                             }
                             else -> {
                                 Handler(Looper.getMainLooper()).post {
@@ -246,7 +248,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         if (isStaff()) {
             when (scanKey) {
                 "meeting-attendance" -> chipTag.text = "Meeting Attendance"
-                "staff-check-in" -> chipTag.text = "Staff"
+                "add-points" -> chipTag.text = "Add Points"
                 else -> chipTag.text = ""
             }
         } else {

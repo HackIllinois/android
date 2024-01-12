@@ -27,7 +27,6 @@ import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.scanner.AttendeeScannerFragment
-import org.hackillinois.android.view.scanner.StaffAdminScannerFragment
 import org.hackillinois.android.view.scanner.StaffScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.viewmodel.MainViewModel
@@ -116,7 +115,6 @@ class MainActivity : AppCompatActivity() {
 
                 val attendeeScannerFragment = AttendeeScannerFragment()
                 val staffScannerFragment = StaffScannerFragment()
-                val staffAdminScannerFragment = StaffAdminScannerFragment()
 
                 // set all bottom bar buttons to be the unselected color
                 val bottomBarButtons = listOf(
@@ -128,18 +126,11 @@ class MainActivity : AppCompatActivity() {
                 val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
                 bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
 
-                // if not already on scanner selection page, switch fragment
+                // if not already on scanner selection page, switch fragment to scanner selection page
                 if (!onScanner) {
-                    // if staff, send them to staff scanner fragment or staff admin scanner fragment
                     if (isStaff()) {
-                        if (userRoles?.isAdmin() == true) {
-                            switchFragment(staffAdminScannerFragment, false)
-                        } else {
-                            switchFragment(staffScannerFragment, false)
-                        }
-                    }
-                    // if attendee, send them to attendee scanner selection fragment
-                    else {
+                        switchFragment(staffScannerFragment, false)
+                    } else {
                         switchFragment(attendeeScannerFragment, false)
                     }
                 }

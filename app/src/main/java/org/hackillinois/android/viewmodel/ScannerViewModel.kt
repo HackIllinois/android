@@ -70,11 +70,11 @@ class ScannerViewModel : ViewModel() {
         }
     }
 
-    fun checkInStaff() {
+    fun giveAttendeePoints(points: Int) {
         viewModelScope.launch {
             try {
                 // todo: api call
-                val message = "Staff member was successfully checked in for their shift."
+                val message = "+$points were successfully added to attendee's total score."
                 val scanStatus = ScanStatus(message, true)
                 lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {
@@ -85,7 +85,7 @@ class ScannerViewModel : ViewModel() {
                         error = jsonObject.optString("error", e.message.toString())
                     }
                 } catch (e: Exception) { }
-                Log.e("CHECK IN STAFF ERROR", error)
+                Log.e("ADD POINTS ERROR", error)
                 val scanStatus = ScanStatus("Scan failed: $error", false)
                 lastScanStatus.postValue(scanStatus)
             }

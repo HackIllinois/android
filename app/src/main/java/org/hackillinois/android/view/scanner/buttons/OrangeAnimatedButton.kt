@@ -15,12 +15,12 @@ class OrangeAnimatedButton : androidx.appcompat.widget.AppCompatButton {
         if (event != null) {
             val scale = resources.displayMetrics.density
             val dpAsPixels20 = (20 * scale + 0.5f).toInt()
-            val dpAsPixels28 = (28 * scale + 0.5f).toInt()
+            val dpAsPixels30 = (30 * scale + 0.5f).toInt()
             if (event.action == MotionEvent.ACTION_DOWN) {
-                setPadding(0, dpAsPixels28, 0, dpAsPixels20)
+                setPadding(0, dpAsPixels30, 0, dpAsPixels20)
                 setBackgroundResource(R.drawable.orange_scanner_button_pressed)
             } else if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
-                setPadding(0, dpAsPixels20, 0, dpAsPixels28)
+                setPadding(0, dpAsPixels20, 0, dpAsPixels30)
                 setBackgroundResource(R.drawable.orange_scanner_button)
             }
         }
