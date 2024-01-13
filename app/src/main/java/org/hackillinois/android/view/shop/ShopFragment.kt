@@ -16,9 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_point_shop.coin_total_textview
 import kotlinx.android.synthetic.main.fragment_point_shop.view.*
-import kotlinx.android.synthetic.main.fragment_point_shop.view.coin_total_textview
 import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
 import org.hackillinois.android.R
+import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.ShopItem
 import org.hackillinois.android.viewmodel.ShopViewModel
 
@@ -49,9 +49,6 @@ class ShopFragment : Fragment() {
 
         mAdapter = ShopAdapter(shop)
 
-        coin_total_textview.text = ",%d".format(viewModel.coinTotal)
-        Log.i("COIN TOTAL", viewModel.coinTotal.toString())
-
         recyclerView = view.recyclerview_point_shop.apply {
             mLayoutManager = LinearLayoutManager(context)
             this.layoutManager = mLayoutManager
@@ -65,6 +62,14 @@ class ShopFragment : Fragment() {
                 updateShop(it)
             },
         )
+
+        viewModel.profileLiveData.observe(
+            viewLifecycleOwner,
+            {
+                updateCoinTotalUI(it)
+            },
+        )
+
         return view
     }
 
@@ -101,6 +106,11 @@ class ShopFragment : Fragment() {
 
     private fun updateShop(newShop: List<ShopItem>) {
         mAdapter.updateShop(newShop)
+    }
+
+    private fun updateCoinTotalUI(newProfile: Profile) {
+        coin_total_textview.text = "%d".format(newProfile.coins)
+        Log.i("COIN TOTAL", newProfile.coins.toString())
     }
 }
 

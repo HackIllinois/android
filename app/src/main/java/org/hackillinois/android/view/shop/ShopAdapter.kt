@@ -17,7 +17,6 @@ import java.util.concurrent.Executors
 class ShopAdapter(private var itemList: List<ShopItem>) :
     RecyclerView.Adapter<ShopAdapter.ViewHolder>() {
     private lateinit var context: Context
-
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
 
     // onCreateViewHolder used to display scrollable list of items
