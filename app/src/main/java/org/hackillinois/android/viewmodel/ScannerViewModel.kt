@@ -6,7 +6,6 @@ import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.event.EventsList
-import org.hackillinois.android.model.profile.ProfilePoints
 import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.repository.rolesRepository
@@ -71,11 +70,11 @@ class ScannerViewModel : ViewModel() {
         }
     }
 
-    fun giveAttendeePoints(body: ProfilePoints) {
+    fun giveAttendeePoints(points: Int) {
         viewModelScope.launch {
             try {
-                val profile = App.getAPI().addPoints(body)
-                val message = "+${body.points} were successfully added to ${profile.displayName}'s total score."
+                // todo: api call
+                val message = "+$points were successfully added to attendee's total score."
                 val scanStatus = ScanStatus(message, true)
                 lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {

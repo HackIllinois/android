@@ -26,7 +26,7 @@
         android:layout_marginHorizontal="35dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="start"
-        android:text="@string/scanner"
+        android:text="@string/attendance"
         android:textColor="@color/darkBrown"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
