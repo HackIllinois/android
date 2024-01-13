@@ -1,13 +1,9 @@
 package org.hackillinois.android.view
 
 import android.animation.Animator
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,36 +12,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
-import kotlinx.android.synthetic.main.activity_splash_screen.splashAnimationView
-import kotlinx.coroutines.Dispatchers
+import kotlinx.android.synthetic.main.activity_splash_screen.*
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.BuildConfig
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import java.util.concurrent.CountDownLatch
 import kotlin.concurrent.thread
-import kotlin.system.exitProcess
 
 class SplashScreenActivity : AppCompatActivity() {
 
     private val countDownLatch = CountDownLatch(3)
     private var needsToLogin = true
     private var needsToUpdate = false
-    private var hasInternet = true
-    private var hasClickedOrAnimFinish = false
+
+    @Volatile private var hasClickedOrAnimFinish = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_splash_screen)
-
-        // check if user has an internet connection
-        hasInternet = isNetworkAvailable(this.applicationContext)
-        if (!hasInternet) {
-            showInternetPopup()
-        }
 
         // if user taps animation, increment CountDown latch (to avoid waiting for anim to finish)
         splashAnimationView.setOnClickListener {
@@ -53,7 +41,37 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         // launch Coroutine to execute asynchronous calls
-        makeAPICalls()
+        var androidVersion = BuildConfig.VERSION_NAME
+        playAnimation()
+        lifecycleScope.launch {
+            try {
+                val api = App.getAPI()
+                val apiResponse = async { api.versionCode() }.await()
+                val apiVersion = apiResponse.version
+                // check if user needs to update their app
+                if (androidVersion < apiVersion) {
+                    needsToUpdate = true
+                    showUpdatePopUp()
+                } else {
+                    // app is up-to-date, so start animation and check if they need to log in
+                    countDownLatch.countDown()
+                    val jwt = JWTUtilities.readJWT(applicationContext)
+                    if (jwt != JWTUtilities.DEFAULT_JWT) {
+                        Log.d("JWT SplashScreen", jwt)
+                        val api = App.getAPI(jwt)
+                        async { api.user() }.await()
+                        needsToLogin = false
+                        countDownLatch.countDown()
+                    } else {
+                        needsToLogin = true
+                        countDownLatch.countDown()
+                    }
+                }
+            } catch (e: Exception) {
+                needsToLogin = true
+                countDownLatch.countDown()
+            }
+        }
 
         thread {
             /* countDownLatch needs 3 things to finish:
@@ -74,52 +92,10 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
-    private fun makeAPICalls() {
-        val androidVersion = BuildConfig.VERSION_NAME
-        playAnimation()
-        lifecycleScope.launch {
-            try {
-                val api = App.getAPI()
-                val apiResponse = withContext(Dispatchers.Default) { api.versionCode() }
-                val apiVersion = apiResponse.version
-                // check if user needs to update their app
-                if (androidVersion < apiVersion) {
-                    needsToUpdate = true
-                    showUpdatePopup()
-                } else {
-                    // app is up-to-date, so start animation and check if they need to log in
-                    countDownLatch.countDown()
-                    val jwt = JWTUtilities.readJWT(applicationContext)
-                    if (jwt != JWTUtilities.DEFAULT_JWT) {
-                        Log.d("JWT SplashScreen", jwt)
-                        val api = App.getAPI(jwt)
-                        withContext(Dispatchers.Default) { api.user() }
-                        needsToLogin = false
-                        countDownLatch.countDown()
-                    } else {
-                        needsToLogin = true
-                        countDownLatch.countDown()
-                    }
-                }
-            } catch (e: java.net.UnknownHostException) {
-                // make sure popup isn't already shown
-                if (hasInternet) {
-                    hasInternet = false
-                    showInternetPopup()
-                }
-            } catch (e: Exception) {
-                needsToLogin = true
-                countDownLatch.countDown()
-            }
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         if (needsToUpdate) {
-            showUpdatePopup()
-        } else if (!hasInternet) {
-            showInternetPopup()
+            showUpdatePopUp()
         }
     }
 
@@ -151,54 +127,7 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
-    private fun launchMainActivity() {
-        val mainIntent = Intent(this, MainActivity::class.java)
-        startActivity(mainIntent)
-        finish()
-    }
-
-    private fun launchOnboardingActivity() {
-        val mainIntent = Intent(this, OnboardingActivity::class.java)
-        startActivity(mainIntent)
-        finish()
-    }
-
-    private fun isNetworkAvailable(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val nw = connectivityManager.activeNetwork ?: return false
-            val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
-            return when {
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                // for other device how are able to connect with Ethernet
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-                // for check internet over Bluetooth
-                actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
-                else -> false
-            }
-        } else {
-            return connectivityManager.activeNetworkInfo?.isConnected ?: false
-        }
-    }
-
-    private fun showInternetPopup() {
-        splashAnimationView.pauseAnimation()
-        splashAnimationView.visibility = View.INVISIBLE
-        val builder = AlertDialog.Builder(this)
-            .setTitle(R.string.need_internet_title)
-            .setMessage(R.string.need_internet_message)
-            .setCancelable(false)
-            .setNegativeButton("Close app") { dialog, id ->
-                exitProcess(0)
-            }
-        val alertDialog = builder.create()
-        val buttonColor = ContextCompat.getColor(this, R.color.floralMauve)
-        alertDialog.show()
-        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor)
-    }
-
-    private fun showUpdatePopup() {
+    private fun showUpdatePopUp() {
         splashAnimationView.pauseAnimation()
         splashAnimationView.visibility = View.INVISIBLE
         val builder = AlertDialog.Builder(this)
@@ -210,8 +139,20 @@ class SplashScreenActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         val alertDialog = builder.create()
-        val buttonColor = ContextCompat.getColor(this, R.color.floralMauve)
+        val buttonColor = ContextCompat.getColor(this, R.color.seaSaltGreen)
         alertDialog.show()
         alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor)
+    }
+
+    private fun launchMainActivity() {
+        val mainIntent = Intent(this, MainActivity::class.java)
+        startActivity(mainIntent)
+        finish()
+    }
+
+    private fun launchOnboardingActivity() {
+        val mainIntent = Intent(this, OnboardingActivity::class.java)
+        startActivity(mainIntent)
+        finish()
     }
 }
