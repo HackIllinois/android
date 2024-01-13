@@ -2,10 +2,12 @@ package org.hackillinois.android
 
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.checkin.CheckIn
+import org.hackillinois.android.model.event.EventId
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
 import org.hackillinois.android.model.profile.ProfilePoints
 import org.hackillinois.android.model.shop.ItemInstance
+import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
@@ -75,6 +77,15 @@ interface API {
 
     @GET("user/")
     suspend fun user(): User
+
+    @PUT("user/follow/")
+    suspend fun favoriteEvents(): FavoritesResponse
+
+    @PUT("user/follow/")
+    fun followEvent(@Body eventId: EventId): Call<FavoritesResponse>
+
+    @PUT("user/unfollow/")
+    fun unfollowEvent(@Body eventId: EventId): Call<FavoritesResponse>
 
     @GET("user/qr/")
     suspend fun qrCode(): QR

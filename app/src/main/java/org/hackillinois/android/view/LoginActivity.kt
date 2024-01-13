@@ -16,9 +16,12 @@ import kotlinx.coroutines.withContext
 import org.hackillinois.android.API
 import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
+import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.auth.JWT
+import org.hackillinois.android.model.user.FavoritesResponse
 import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {
@@ -96,8 +99,10 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val loginRoles: Roles = api.roles()
                 Log.d("ROLES", "${loginRoles.roles}")
+
                 // Check if user's roles are correct. If not, display corresponding error message
                 if (loginRoles.roles.contains(role)) {
+                    getFavoritedEvents(api)
                     JWTUtilities.writeJWT(applicationContext, jwt) // save JWT to sharedPreferences for auto-login in the future
                     launchMainActivity()
                 } else {
@@ -109,6 +114,23 @@ class LoginActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 showFailedToLogin(e.message)
+            }
+        }
+    }
+
+    private fun getFavoritedEvents(api: API) {
+        // make api call to get list of event ids that user has favorited
+        GlobalScope.launch {
+            try {
+                val response: FavoritesResponse = api.favoriteEvents()
+                // loop through favorited event ids, wrap as Event object, and store in SharedPreferences
+                for (eventId in response.following) {
+                    val dummyEvent = Event(eventId, "", "", 0, 0, emptyList(), "", "", "0", false, false, false)
+                    FavoritesManager.favoriteEvent(applicationContext, dummyEvent)
+                }
+                Log.d("Fetched favorites", response.toString())
+            } catch (e: Exception) {
+                Log.d("Fetched favorites ERROR", e.message.toString())
             }
         }
     }
