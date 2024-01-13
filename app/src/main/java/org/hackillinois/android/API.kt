@@ -4,6 +4,7 @@ import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
+import org.hackillinois.android.model.profile.ProfilePoints
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
@@ -48,6 +49,9 @@ interface API {
 
     @GET("profile/")
     suspend fun currentProfile(): Profile
+
+    @POST("profile/addpoints/")
+    suspend fun addPoints(@Body body: ProfilePoints): Profile
 
     @GET("profile/leaderboard/?limit=10")
     suspend fun leaderboard(): LeaderboardList

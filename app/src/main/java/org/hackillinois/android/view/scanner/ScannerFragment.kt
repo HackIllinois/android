@@ -1,7 +1,9 @@
 package org.hackillinois.android.view.scanner
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -12,10 +14,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -34,6 +38,7 @@ import org.hackillinois.android.database.entity.EventCode
 import org.hackillinois.android.database.entity.MeetingEventId
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.UserEventPair
+import org.hackillinois.android.model.profile.ProfilePoints
 import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.viewmodel.ScannerViewModel
@@ -49,6 +54,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
     private var chipIdToEventId: MutableMap<Int, String> = mutableMapOf()
 
     private lateinit var codeScanner: CodeScanner
+    private var alertDialog: AlertDialog? = null
     private lateinit var chipGroup: ChipGroup
     private lateinit var chipTag: TextView
 
@@ -138,14 +144,10 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                             "add-points" -> {
                                 // todo
                                 val userId = decodeUserId(it.text)
-//                                show enter text dialog
-//                                viewModel.checkInAttendee(UserEventPair(userId, eventId))
+                                showTextInputDialog(userId)
                             }
                             else -> {
-                                Handler(Looper.getMainLooper()).post {
-                                    val toast = Toast.makeText(context, R.string.something_went_wrong_message, Toast.LENGTH_LONG)
-                                    toast.show()
-                                }
+                                displayToast(R.string.something_went_wrong_message)
                                 closeScannerPage()
                             }
                         }
@@ -166,10 +168,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                                 viewModel.purchaseItem(itemInstance)
                             }
                             else -> {
-                                Handler(Looper.getMainLooper()).post {
-                                    val toast = Toast.makeText(context, R.string.something_went_wrong_message, Toast.LENGTH_LONG)
-                                    toast.show()
-                                }
+                                displayToast(R.string.something_went_wrong_message)
                                 closeScannerPage()
                             }
                         }
@@ -287,6 +286,46 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         return chipIdToEventId[chipGroup.checkedChipId] ?: "0b8ea2a94ba4224c075f016256fbddfa" // default check-in TODO: update for 2024
     }
 
+    private fun showTextInputDialog(userId: String) {
+        Handler(Looper.getMainLooper()).post {
+            val builder = AlertDialog.Builder(context)
+            val dialogView: View = layoutInflater.inflate(R.layout.dialog_input, null)
+            val editText = dialogView.findViewById<EditText>(R.id.editText)
+
+            builder.setView(dialogView)
+                .setTitle("Give attendee points")
+                .setPositiveButton("OK") { dialog, id ->
+                    // Retrieve the input text
+                    val userInput = editText.text.toString()
+                    parseAndAddPoints(userId, userInput)
+                }
+                .setCancelable(false)
+                .setNegativeButton("Cancel") { dialog, id ->
+                    dialog.dismiss()
+                    codeScanner.startPreview()
+                }
+
+            val alertDialog = builder.create()
+            alertDialog.show()
+            val floralMauve = ContextCompat.getColor(requireContext(), R.color.floralMauve)
+            val gray = ContextCompat.getColor(requireContext(), R.color.gray)
+            alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(floralMauve)
+            alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(gray)
+        }
+    }
+
+    private fun parseAndAddPoints(userId: String, userInput: String) {
+        val trimmedInput = userInput.trim()
+        var points = 0
+        try {
+            points = trimmedInput.toInt()
+            viewModel.giveAttendeePoints(ProfilePoints(userId, points))
+        } catch (e: Exception) {
+            displayToast(R.string.user_input_points_message)
+            codeScanner.startPreview()
+        }
+    }
+
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
         if (lastScanStatus.success) {
             showSimpleDialogFragment("Success!", lastScanStatus.userMessage)
@@ -339,6 +378,13 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
             dialog.arguments = args
             dialog.setSimpleOKButtonListener(this)
             dialog.show(fragmentManager, "SimpleScanDialogFragment")
+        }
+    }
+
+    private fun displayToast(message_string_resource: Int) {
+        Handler(Looper.getMainLooper()).post {
+            val toast = Toast.makeText(context, message_string_resource, Toast.LENGTH_LONG)
+            toast.show()
         }
     }
 
