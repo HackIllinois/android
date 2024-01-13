@@ -52,6 +52,7 @@
     <color name="magicSpell">#E28EAE</color>
     <color name="crimsonPink">#C9345A</color>
     <color name="darkMagic">#1D2644</color>
+    <color name="floralMauve">#A977AB</color>
     <color name="witchyPurple">#5B619B</color>
     <color name="darkBrown">#562411</color>
     <color name="mediumBrown">#753214</color>
@@ -60,6 +61,7 @@
     <color name="lightOrange">#FFC95B</color>
     <color name="mistyMint">#84BCB9</color>
     <color name="errorPink">#C62A6C</color>
+
 
 
 </resources>
