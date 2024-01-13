@@ -43,8 +43,10 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
     private fun bind(item: ShopItem, itemView: View, position: Int) {
         itemView.apply {
             shopCardView.setBackgroundResource(R.drawable.point_shop_tile_bg)
+
             shopItemTextView.text = item.name
             priceTextView.text = item.price.toString()
+
             val quantity = item.quantity
             quantityTextView.text = resources.getString(R.string.shopquantity, quantity)
             // Declaring executor to parse the URL
