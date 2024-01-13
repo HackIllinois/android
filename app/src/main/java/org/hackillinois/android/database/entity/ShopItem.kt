@@ -12,5 +12,6 @@ data class ShopItem(
     var name: String,
     var price: Int,
     var isRaffle: Boolean,
-    var quantity: Int
+    var quantity: Int,
+    var imageURL: String,
 )

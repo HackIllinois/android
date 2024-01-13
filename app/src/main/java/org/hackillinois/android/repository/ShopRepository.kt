@@ -26,7 +26,7 @@ class ShopRepository {
             try {
                 val shop = App.getAPI().shop()
                 Log.d("SHOP REFRESH ALL", shop.toString())
-                shopDao.clearTableAndInsertShopItems(shop.items)
+                shopDao.clearTableAndInsertShopItems(shop)
             } catch (e: Exception) {
                 Log.e("SHOP REFRESH ALL", e.toString())
             }
