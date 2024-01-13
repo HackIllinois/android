@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "8d245e8aeec91cee0e09b1799bf9bb37",
+    "identityHash": "e1e02bab837cae338b4c2cc99ea2c05a",
     "entities": [
       {
         "tableName": "qr_codes",
@@ -332,7 +332,7 @@
       },
       {
         "tableName": "shop",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`itemId` TEXT NOT NULL, `name` TEXT NOT NULL, `price` INTEGER NOT NULL, `isRaffle` INTEGER NOT NULL, `quantity` INTEGER NOT NULL, PRIMARY KEY(`itemId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`itemId` TEXT NOT NULL, `name` TEXT NOT NULL, `price` INTEGER NOT NULL, `isRaffle` INTEGER NOT NULL, `quantity` INTEGER NOT NULL, `imageURL` TEXT NOT NULL, PRIMARY KEY(`itemId`))",
         "fields": [
           {
             "fieldPath": "itemId",
@@ -363,6 +363,12 @@
             "columnName": "quantity",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "imageURL",
+            "columnName": "imageURL",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -378,7 +384,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8d245e8aeec91cee0e09b1799bf9bb37')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e1e02bab837cae338b4c2cc99ea2c05a')"
     ]
   }
 }
