@@ -64,6 +64,7 @@ class ScheduleFragment : Fragment() {
         shift_header = view.findViewById(R.id.shift_header)
         // TODO: Check if Guests should be able to fav
         if (isStaff()) {
+            scheduleViewModel.isStaffViewing = true
             favoriteButton.visibility = View.GONE
             shift_header.visibility = View.VISIBLE
             val context = requireActivity().applicationContext
@@ -72,6 +73,7 @@ class ScheduleFragment : Fragment() {
             shift_header.setOnClickListener(shiftScheduleClickListener)
             schedule_header.setOnClickListener(eventScheduleClickListener)
         } else {
+            scheduleViewModel.isStaffViewing = false
             favoriteButton.visibility = View.VISIBLE
             shift_header.visibility = View.GONE
             schedule_header.setBackgroundResource(0)

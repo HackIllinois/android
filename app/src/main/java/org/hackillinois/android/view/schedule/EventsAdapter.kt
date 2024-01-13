@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.schedule
 
 import android.content.Context
+import android.opengl.Visibility
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.event_tile.view.*
+import kotlinx.android.synthetic.main.fragment_event_info.view.favorites_button
 import kotlinx.android.synthetic.main.time_list_item.view.*
 import org.hackillinois.android.API
 import org.hackillinois.android.App
@@ -24,6 +26,7 @@ import retrofit2.Response
 class EventsAdapter(
     private var itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener,
+    private val isStaffViewing: Boolean
 ) : RecyclerView.Adapter<EventsAdapter.ViewHolder>(), EventClickListener {
     private lateinit var context: Context
 
@@ -59,6 +62,10 @@ class EventsAdapter(
     private fun bindEventItem(event: Event, itemView: View) {
         itemView.apply {
             setOnClickListener { eventClickListener.openEventInfoActivity(event) }
+
+            if (isStaffViewing) {
+                bookmarkButton.visibility = View.GONE
+            }
 
             titleTextView.text = event.name
 
@@ -150,7 +157,7 @@ class EventsAdapter(
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.eventId)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.eventId, isStaffViewing)
         (context as MainActivity).switchFragment(eventInfoFragment, true)
     }
 }

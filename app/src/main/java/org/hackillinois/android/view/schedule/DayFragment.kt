@@ -25,6 +25,7 @@ class DayFragment : Fragment(), EventClickListener {
 
     private var currentEvents: List<Event> = listOf()
     private var showFavorites: Boolean = false
+    private var isStaffViewing: Boolean = false
 
     private var listState: Parcelable? = null
 
@@ -48,7 +49,8 @@ class DayFragment : Fragment(), EventClickListener {
             else -> viewModel?.fridayEventsLiveData
         }
 
-        mAdapter = EventsAdapter(listOf(), this)
+        isStaffViewing = viewModel?.isStaffViewing ?: false
+        mAdapter = EventsAdapter(listOf(), this, isStaffViewing)
 
         liveData?.observe(
             this,
@@ -97,7 +99,7 @@ class DayFragment : Fragment(), EventClickListener {
     }
 
     override fun openEventInfoActivity(event: Event) {
-        val eventInfoFragment = EventInfoFragment.newInstance(event.eventId)
+        val eventInfoFragment = EventInfoFragment.newInstance(event.eventId, isStaffViewing)
         (activity as MainActivity?)?.switchFragment(eventInfoFragment, true)
     }
 

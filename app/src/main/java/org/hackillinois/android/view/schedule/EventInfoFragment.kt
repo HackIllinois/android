@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.android.synthetic.main.event_tile.bookmarkButton
 import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
 import org.hackillinois.android.R
@@ -20,15 +21,17 @@ class EventInfoFragment : Fragment() {
 
     private val siebelLatLng = LatLng(40.1138356, -88.2249052)
     private lateinit var eventId: String
+    private var isStaffViewing: Boolean = false
     private var currentEvent: Event? = null
 
     companion object {
         val EVENT_ID_KEY = "eventId"
-
-        fun newInstance(eventId: String): EventInfoFragment {
+        val IS_STAFF_VIEWING = "isStaffViewing"
+        fun newInstance(eventId: String, isStaffViewing: Boolean): EventInfoFragment {
             val fragment = EventInfoFragment()
             val args = Bundle().apply {
                 putString(EVENT_ID_KEY, eventId)
+                putBoolean(IS_STAFF_VIEWING, isStaffViewing)
             }
             fragment.arguments = args
             return fragment
@@ -38,6 +41,7 @@ class EventInfoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
+        isStaffViewing = arguments?.getBoolean(IS_STAFF_VIEWING) ?: false
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventId)
         viewModel.event.observe(
@@ -73,6 +77,7 @@ class EventInfoFragment : Fragment() {
             event_sponsor.text = "Sponsored by ${it.sponsor}"
             event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
             sponsoredIcon.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            favorites_button.visibility = if (isStaffViewing) View.GONE else View.VISIBLE
             if (it.locations.isEmpty()) {
                 event_location.text = "N/A"
             } else {
