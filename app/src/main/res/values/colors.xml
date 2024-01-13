@@ -3,7 +3,7 @@
 
 <!--    colors for specific purposes       -->
     <color name="white">#FFFFFF</color>
-    <color name="white50PercentOpaque">#80FFFFFF</color>
+    <color name="white40PercentOpaque">#66FFFFFF</color>
     <color name="scannerBorderColor">#A5DAD5</color>
     <color name="textShadowColor">#d7d4b8</color>
     <color name="primaryGrayColor">#212121</color>
@@ -62,6 +62,7 @@
     <color name="lightOrange">#FFC95B</color>
     <color name="mistyMint">#84BCB9</color>
     <color name="errorPink">#C62A6C</color>
+    <color name="coinTotalColor">#2A2A2A</color>
 
 
 

@@ -41,6 +41,43 @@
         android:text="@string/pointshop"
  />
 
+    <TextView
+        android:id="@+id/total_coin_view"
+        android:layout_width="103dp"
+        android:layout_height="33dp"
+        android:background="@drawable/rounded_coin_total_bg"
+        android:gravity="center"
+        android:maxWidth="180dp"
+        android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop"
+        app:layout_constraintEnd_toEndOf="@id/title_textview_point_shop"
+        />
+
+    <ImageView
+        android:id="@+id/coin_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:src="@drawable/coin"
+        app:layout_constraintStart_toStartOf="@id/total_coin_view"
+        app:layout_constraintTop_toTopOf="@id/total_coin_view"
+        />
+
+    <TextView
+        android:id="@+id/coin_total_textview"
+        android:layout_width="65dp"
+        android:layout_height="30dp"
+        android:paddingStart="6dp"
+        android:paddingTop="1dp"
+        app:layout_constraintStart_toEndOf="@id/coin_imageview"
+        app:layout_constraintTop_toTopOf="@id/total_coin_view"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:text="1,234"
+        />
+
     <ImageView
         android:id="@+id/imageview_point_shop_banner"
         android:layout_width="match_parent"
@@ -66,5 +103,6 @@
         android:paddingStart="31dp"
         android:paddingBottom="30dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
