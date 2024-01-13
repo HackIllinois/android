@@ -16,9 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_point_shop.view.*
 import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
 import org.hackillinois.android.R
-import org.hackillinois.android.database.entity.Leaderboard
-import org.hackillinois.android.view.leaderboard.LeaderboardAdapter
-import org.hackillinois.android.viewmodel.LeaderboardViewModel
+import org.hackillinois.android.database.entity.ShopItem
+import org.hackillinois.android.viewmodel.ShopViewModel
 
 class ShopFragment : Fragment() {
 
@@ -26,15 +25,15 @@ class ShopFragment : Fragment() {
         fun newInstance() = ShopFragment()
     }
 
-    private lateinit var viewModel: LeaderboardViewModel
-    private var leaderboard: List<Leaderboard> = listOf()
+    private lateinit var viewModel: ShopViewModel
+    private var shop: List<ShopItem> = listOf()
     private lateinit var recyclerView: RecyclerView
     private lateinit var mLayoutManager: LinearLayoutManager
-    private lateinit var mAdapter: LeaderboardAdapter
+    private lateinit var mAdapter: ShopAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LeaderboardViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
         viewModel.init()
     }
 
@@ -45,7 +44,7 @@ class ShopFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_point_shop, container, false)
 
-        mAdapter = LeaderboardAdapter(leaderboard)
+        mAdapter = ShopAdapter(shop)
 
         recyclerView = view.recyclerview_point_shop.apply {
             mLayoutManager = LinearLayoutManager(context)
@@ -54,10 +53,10 @@ class ShopFragment : Fragment() {
             addDividers()
         }
 
-        viewModel.leaderboardLiveData.observe(
+        viewModel.shopLiveData.observe(
             viewLifecycleOwner,
             Observer {
-                updateLeaderboard(it)
+                updateShop(it)
             },
         )
         return view
@@ -94,8 +93,8 @@ class ShopFragment : Fragment() {
         addItemDecoration(DividerItemDecorator(context))
     }
 
-    private fun updateLeaderboard(newLeaderboard: List<Leaderboard>) {
-        mAdapter.updateLeaderboard(newLeaderboard)
+    private fun updateShop(newShop: List<ShopItem>) {
+        mAdapter.updateShop(newShop)
     }
 }
 
