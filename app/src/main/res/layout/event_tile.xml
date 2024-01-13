@@ -7,6 +7,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/coverSquare"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@color/cinnamonMilk"
+        app:layout_constraintTop_toBottomOf="@id/ongoingTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:visibility="gone"
+        />
+
     <TextView
         android:id="@+id/ongoingTextView"
         android:layout_width="0dp"
@@ -35,7 +46,8 @@ small view constrained to the top left corner to "fill" in that space and toggle
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="13dp"
-        app:cardElevation="5dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
@@ -52,6 +64,7 @@ small view constrained to the top left corner to "fill" in that space and toggle
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
 
             <TextView
                 android:id="@+id/titleTextView"

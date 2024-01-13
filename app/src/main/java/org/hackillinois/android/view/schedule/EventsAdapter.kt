@@ -67,6 +67,10 @@ class EventsAdapter(
                 bookmarkButton.visibility = View.GONE
             }
 
+            // TODO: figure out how to update with the time like Leah's home page
+            ongoingTextView.visibility = if (event.isCurrentlyHappening()) View.VISIBLE else View.GONE
+            coverSquare.visibility = if (event.isCurrentlyHappening()) View.VISIBLE else View.GONE
+
             titleTextView.text = event.name
 
             eventTimeSpanText.text = when (event.isAsync) {
