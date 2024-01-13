@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/schedule_header"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:fontFamily="@font/montserrat_bold"
@@ -43,11 +43,26 @@
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="24sp"
+        android:paddingBottom="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
-
+    <TextView
+        android:id="@+id/shift_header"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="end"
+        android:text="@string/shift_header"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:paddingBottom="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
     <com.google.android.material.tabs.TabLayout

@@ -40,6 +40,7 @@ class ScheduleViewModel : ViewModel() {
     lateinit var sundayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
 
     var showFavorites: MutableLiveData<Boolean> = MutableLiveData()
+    var showShifts: MutableLiveData<Boolean> = MutableLiveData()
 
     fun init() {
         fridayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayStart, fridayEnd)

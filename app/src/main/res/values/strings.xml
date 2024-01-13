@@ -48,6 +48,7 @@
 
     <!--    Schedule Fragment   -->
     <string name="schedule_header">Schedule</string>
+    <string name="shift_header">Shifts</string>
     <string name="friday">FRI\n23</string>
     <string name="saturday">SAT\n24</string>
     <string name="sunday">SUN\n25</string>
