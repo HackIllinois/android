@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_point_shop.coin_total_textview
 import kotlinx.android.synthetic.main.fragment_point_shop.view.*
+import kotlinx.android.synthetic.main.fragment_point_shop.view.coin_total_textview
 import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.ShopItem
@@ -45,6 +48,9 @@ class ShopFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_point_shop, container, false)
 
         mAdapter = ShopAdapter(shop)
+
+        coin_total_textview.text = ",%d".format(viewModel.coinTotal)
+        Log.i("COIN TOTAL", viewModel.coinTotal.toString())
 
         recyclerView = view.recyclerview_point_shop.apply {
             mLayoutManager = LinearLayoutManager(context)
