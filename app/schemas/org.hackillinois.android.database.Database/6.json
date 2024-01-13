@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "e1e02bab837cae338b4c2cc99ea2c05a",
+    "identityHash": "afa24420ee99f9757a10c6b1939437f2",
     "entities": [
       {
         "tableName": "qr_codes",
@@ -238,7 +238,7 @@
       },
       {
         "tableName": "profiles",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` TEXT NOT NULL, `displayName` TEXT NOT NULL, `discordTag` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `points` INTEGER NOT NULL, `userId` TEXT NOT NULL, `foodWave` INTEGER NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` TEXT NOT NULL, `displayName` TEXT NOT NULL, `discordTag` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `points` INTEGER NOT NULL, `userId` TEXT NOT NULL, `foodWave` INTEGER NOT NULL, `coins` INTEGER NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
           {
             "fieldPath": "_id",
@@ -279,6 +279,12 @@
           {
             "fieldPath": "foodWave",
             "columnName": "foodWave",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coins",
+            "columnName": "coins",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -384,7 +390,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e1e02bab837cae338b4c2cc99ea2c05a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'afa24420ee99f9757a10c6b1939437f2')"
     ]
   }
 }
