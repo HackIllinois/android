@@ -36,12 +36,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    CardView is kinda weird because the corner radius is set here rather than it
-having a background image resource, need to make sure top left corner isn't rounded if
-the ongoing tag is shown. (I already made xml background... rounded_cinnamon_milk_no_top_left.xml)
-so you need to figure out how to set it accordingly (might need to not have a card view? OR add a
-small view constrained to the top left corner to "fill" in that space and toggle its visibility)
--->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,6 +88,24 @@ small view constrained to the top left corner to "fill" in that space and toggle
                 app:layout_constraintStart_toEndOf="@+id/titleTextView"
                 app:layout_constraintTop_toTopOf="@+id/titleTextView"
                 app:srcCompat="@drawable/dark_bookmark_hollow" />
+
+            <TextView
+                android:id="@+id/proTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="12sp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:background="@drawable/rounded_pro"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@id/pointsView"
+                app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                android:visibility="gone"
+                android:text="@string/pro" />
 
             <TextView
                 android:id="@+id/eventType"

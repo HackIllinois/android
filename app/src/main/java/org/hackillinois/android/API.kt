@@ -8,6 +8,7 @@ import org.hackillinois.android.model.event.EventId
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.MeetingCheckInResponse
 import org.hackillinois.android.model.event.MeetingEventId
+import org.hackillinois.android.model.event.ShiftsList
 import org.hackillinois.android.model.event.StaffCheckInResponse
 import org.hackillinois.android.model.event.UserEventPair
 import org.hackillinois.android.model.leaderboard.LeaderboardList
@@ -36,6 +37,9 @@ interface API {
 
     @GET("event/")
     suspend fun allEvents(): EventsList
+
+    @GET("staff/shift/")
+    suspend fun allShifts(): ShiftsList
 
     @GET("event/{id}/")
     fun getEvent(@Path("id") id: String): Call<Event>

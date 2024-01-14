@@ -6,12 +6,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Shift
 
 @Dao
 interface ShiftDao {
     @Query("SELECT * FROM shifts")
     fun getShifts(): LiveData<Shift>
+
+    @Query("SELECT * FROM shifts WHERE startTime >= :startTime AND startTime < :endTime AND isAsync = 0 ORDER BY startTime, name")
+    fun getShiftsHappeningBetweenTimes(startTime: Long, endTime: Long): LiveData<List<Shift>>
 
     @Query("DELETE FROM shifts")
     fun clearTable()

@@ -2,7 +2,6 @@ package org.hackillinois.android.view.schedule
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -10,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginStart
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -20,6 +18,7 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_schedule.schedule_header
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import org.hackillinois.android.R
+import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.viewmodel.ScheduleViewModel
 
 class ScheduleFragment : Fragment() {
@@ -63,22 +62,23 @@ class ScheduleFragment : Fragment() {
         schedule_header = view.findViewById(R.id.schedule_header)
         shift_header = view.findViewById(R.id.shift_header)
         // TODO: Check if Guests should be able to fav
-        if (isStaff()) {
-            scheduleViewModel.isStaffViewing = true
+        if (isStaff() || !hasLoggedIn()) {
+            scheduleViewModel.isAttendeeViewing = false
             favoriteButton.visibility = View.GONE
+        } else {
+            scheduleViewModel.isAttendeeViewing = true
+            favoriteButton.visibility = View.VISIBLE
+            favoriteButton.setOnClickListener(favScheduleClickListener)
+        }
+        if (isStaff()) {
             shift_header.visibility = View.VISIBLE
             val context = requireActivity().applicationContext
-            (schedule_header.layoutParams as ViewGroup.MarginLayoutParams).marginStart = (50 * resources.displayMetrics.density).toInt()
             schedule_header.background = ContextCompat.getDrawable(context, R.drawable.schedule_underline)
             shift_header.setOnClickListener(shiftScheduleClickListener)
             schedule_header.setOnClickListener(eventScheduleClickListener)
         } else {
-            scheduleViewModel.isStaffViewing = false
-            favoriteButton.visibility = View.VISIBLE
             shift_header.visibility = View.GONE
             schedule_header.setBackgroundResource(0)
-            (schedule_header.layoutParams as ViewGroup.MarginLayoutParams).marginStart = (30 * resources.displayMetrics.density).toInt()
-            favoriteButton.setOnClickListener(favScheduleClickListener)
         }
 
         // If hackathon is underway, change tab to current day
@@ -149,5 +149,10 @@ class ScheduleFragment : Fragment() {
         val context = requireActivity().applicationContext
         val prefString = context.getString(R.string.authorization_pref_file_key)
         return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
+    }
+
+    private fun hasLoggedIn(): Boolean {
+        // Reads JWT and checks if it is equal to an empty JWT
+        return JWTUtilities.readJWT(requireActivity().applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 }

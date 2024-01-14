@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.repository.EventRepository
+import org.hackillinois.android.repository.ShiftRepository
 import java.util.*
 
 class ScheduleViewModel : ViewModel() {
     private val eventRepository = EventRepository.instance
+    private val shiftRepository = ShiftRepository.instance
 
     // 2/23/24 00:00:00
     val fridayStart = Calendar.getInstance().apply {
@@ -39,16 +41,25 @@ class ScheduleViewModel : ViewModel() {
     lateinit var saturdayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
     lateinit var sundayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
 
+    lateinit var fridayShiftsLiveData: LiveData<List<org.hackillinois.android.database.entity.Shift>>
+    lateinit var saturdayShiftsLiveData: LiveData<List<org.hackillinois.android.database.entity.Shift>>
+    lateinit var sundayShiftsLiveData: LiveData<List<org.hackillinois.android.database.entity.Shift>>
+
     var showFavorites: MutableLiveData<Boolean> = MutableLiveData()
     var showShifts: MutableLiveData<Boolean> = MutableLiveData()
-    var isStaffViewing: Boolean = false
+    var isAttendeeViewing: Boolean = false
 
     fun init() {
         fridayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayStart, fridayEnd)
         saturdayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayEnd, saturdayEnd)
         sundayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(saturdayEnd, sundayEnd)
+
+        fridayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(fridayStart, fridayEnd)
+        saturdayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(fridayEnd, saturdayEnd)
+        sundayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(saturdayEnd, sundayEnd)
         viewModelScope.launch {
             eventRepository.refreshAllEvents()
+            shiftRepository.refreshAllShifts()
         }
     }
 }

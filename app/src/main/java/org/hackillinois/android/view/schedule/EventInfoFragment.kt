@@ -21,17 +21,17 @@ class EventInfoFragment : Fragment() {
 
     private val siebelLatLng = LatLng(40.1138356, -88.2249052)
     private lateinit var eventId: String
-    private var isStaffViewing: Boolean = false
+    private var isAttendeeViewing: Boolean = false
     private var currentEvent: Event? = null
 
     companion object {
         val EVENT_ID_KEY = "eventId"
-        val IS_STAFF_VIEWING = "isStaffViewing"
-        fun newInstance(eventId: String, isStaffViewing: Boolean): EventInfoFragment {
+        val IS_ATTENDEE_VIEWING = "isAttendeeViewing"
+        fun newInstance(eventId: String, isAttendeeViewing: Boolean): EventInfoFragment {
             val fragment = EventInfoFragment()
             val args = Bundle().apply {
                 putString(EVENT_ID_KEY, eventId)
-                putBoolean(IS_STAFF_VIEWING, isStaffViewing)
+                putBoolean(IS_ATTENDEE_VIEWING, isAttendeeViewing)
             }
             fragment.arguments = args
             return fragment
@@ -41,7 +41,7 @@ class EventInfoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
-        isStaffViewing = arguments?.getBoolean(IS_STAFF_VIEWING) ?: false
+        isAttendeeViewing = arguments?.getBoolean(IS_ATTENDEE_VIEWING) ?: false
         viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
         viewModel.init(eventId)
         viewModel.event.observe(
@@ -77,7 +77,7 @@ class EventInfoFragment : Fragment() {
             event_sponsor.text = "Sponsored by ${it.sponsor}"
             event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
             sponsoredIcon.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            favorites_button.visibility = if (isStaffViewing) View.GONE else View.VISIBLE
+            favorites_button.visibility = if (!isAttendeeViewing) View.GONE else View.VISIBLE
             if (it.locations.isEmpty()) {
                 event_location.text = "N/A"
             } else {
