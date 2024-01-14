@@ -69,44 +69,21 @@
         android:id="@+id/scheduleDays"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="29dp"
+        android:layout_marginEnd="16dp"
         android:background="#00000000"
+        app:tabPaddingStart="20dp"
+        app:tabPaddingEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schedule_header"
-        app:tabPaddingBottom="13dp"
-        app:tabIndicatorFullWidth="true"
-        app:tabSelectedTextColor="@color/white"
-        app:tabIndicatorHeight="5dp"
-        app:tabIndicatorColor="@color/white"
-        app:tabIndicator="@drawable/tab_indicator"
-        app:tabTextAppearance="@style/TabTextAppearance"
-        app:tabTextColor="@color/white"
+        app:tabIndicatorHeight="0px"
         app:tabRippleColor="@android:color/transparent"
+        app:tabMaxWidth="125dp"
+        app:tabMinWidth="115dp"
         >
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabFriday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/friday" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabSaturday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/saturday" />
-
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabSunday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sunday" />
-
 
     </com.google.android.material.tabs.TabLayout>
 

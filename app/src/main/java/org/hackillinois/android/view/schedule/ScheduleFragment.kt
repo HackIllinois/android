@@ -57,7 +57,7 @@ class ScheduleFragment : Fragment() {
         view.scheduleContainer.adapter = SectionsPagerAdapter(childFragmentManager)
         view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
         view.scheduleDays.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
-
+        setupCustomTabs(view.scheduleDays)
         favoriteButton = view.findViewById(R.id.lightBookmarkButton)
         schedule_header = view.findViewById(R.id.schedule_header)
         shift_header = view.findViewById(R.id.shift_header)
@@ -89,7 +89,39 @@ class ScheduleFragment : Fragment() {
             time < scheduleViewModel.sundayEnd -> 2
             else -> 0
         }
+        view.scheduleDays.getTabAt(view.scheduleContainer.currentItem)?.customView?.background =
+            context?.let { ContextCompat.getDrawable(it, R.drawable.tab_selected) }
 
+        return view
+    }
+
+    private fun setupCustomTabs(tabLayout: TabLayout) {
+        val tabDayOfMonth = arrayOf("23", "24", "25")
+        val tabDayOfWeek = arrayOf("FRI", "SAT", "SUN")
+
+        for (i in tabDayOfMonth.indices) {
+            val tab = tabLayout.newTab()
+            tab.customView = createTabView(tabDayOfMonth[i], tabDayOfWeek[i])
+            tabLayout.addTab(tab)
+        }
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                tab.customView?.background = context?.let { ContextCompat.getDrawable(it, R.drawable.tab_selected) }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                tab.customView?.background = context?.let { ContextCompat.getDrawable(it, R.drawable.tab_unselected) }
+            }
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+    }
+
+    private fun createTabView(dayOfMonth: String, dayOfWeek: String): View {
+        val view = LayoutInflater.from(context).inflate(R.layout.custom_tab, null)
+        val dayOfMonthView = view.findViewById<TextView>(R.id.tab_day_of_month)
+        val dayOfWeekView = view.findViewById<TextView>(R.id.tab_day_of_week)
+        dayOfMonthView.text = dayOfMonth
+        dayOfWeekView.text = dayOfWeek
         return view
     }
 
@@ -97,12 +129,7 @@ class ScheduleFragment : Fragment() {
     inner class SectionsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int) = DayFragment.newInstance(position)
         override fun getCount() = 3
-        override fun getPageTitle(position: Int) =
-            when (position) {
-                0 -> "FRIDAY"
-                1 -> "SATURDAY"
-                else -> "SUNDAY"
-            }
+        override fun getPageTitle(position: Int): CharSequence? { return null }
     }
 
     override fun onResume() {
