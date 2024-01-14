@@ -10,13 +10,15 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:src="@drawable/dark_fantasy_bg_2024"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"
@@ -27,13 +29,12 @@
 
     <TextView
         android:id="@+id/title_textview_point_shop"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
         android:layout_marginEnd="32dp"
         android:textSize="24sp"
         android:gravity="start"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guidelineTop"
         android:fontFamily="@font/montserrat_bold"
@@ -43,47 +44,55 @@
 
     <TextView
         android:id="@+id/total_coin_view"
-        android:layout_width="103dp"
-        android:layout_height="33dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingBottom="2dp"
         android:background="@drawable/rounded_coin_total_bg"
         android:gravity="center"
-        android:maxWidth="180dp"
-        android:maxLines="1"
-        app:layout_constraintTop_toBottomOf="@id/guidelineTop"
-        app:layout_constraintEnd_toEndOf="@id/title_textview_point_shop"
-        />
+        app:layout_constraintStart_toStartOf="@id/coin_imageview"
+        app:layout_constraintTop_toTopOf="@id/coin_total_textview"
+        app:layout_constraintEnd_toEndOf="@id/coin_total_textview"
+        app:layout_constraintBottom_toBottomOf="@id/coin_total_textview"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/coin_imageview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginVertical="3dp"
         android:paddingStart="10dp"
-        android:paddingTop="3dp"
         android:src="@drawable/coin"
-        app:layout_constraintStart_toStartOf="@id/total_coin_view"
-        app:layout_constraintTop_toTopOf="@id/total_coin_view"
-        />
+        app:layout_constraintEnd_toStartOf="@id/coin_total_textview"
+        app:layout_constraintTop_toTopOf="@id/coin_total_textview"
+        app:layout_constraintBottom_toBottomOf="@id/coin_total_textview"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/coin_total_textview"
-        android:layout_width="65dp"
-        android:layout_height="30dp"
-        android:paddingStart="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/montserrat_semi_bold"
         android:paddingTop="1dp"
-        app:layout_constraintStart_toEndOf="@id/coin_imageview"
-        app:layout_constraintTop_toTopOf="@id/total_coin_view"
-        android:fontFamily="@font/montserrat_bold"
+        android:paddingEnd="14dp"
+        android:paddingBottom="3dp"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        android:text="1,234"
-        />
+        android:textSize="19sp"
+        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintBottom_toBottomOf="@id/title_textview_point_shop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title_textview_point_shop"
+        android:visibility="invisible"
+        android:text="@string/blank" />
 
     <ImageView
         android:id="@+id/imageview_point_shop_banner"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@drawable/point_shop_banner"
         android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_textview_point_shop"

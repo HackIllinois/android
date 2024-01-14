@@ -69,6 +69,7 @@
     <!--    Shop Fragment   -->
     <string name="pointshop">POINT SHOP</string>
     <string name="shopquantity">%d Left</string>
+    <string name="blank">---</string>
 
     <!--   Profile Fragment   -->
     <string name="profile">PROFILE</string>
@@ -89,8 +90,6 @@
     <string name="staff_meeting">Meeting Attendance</string>
     <string name="staff_checkin">Attendee Check-In</string>
     <string name="scanner_not_logged_in_message">You must log in to use this feature! Go to the Profile tab to logout.</string>
-
-
 
 
 </resources>
