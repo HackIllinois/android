@@ -4,10 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,9 +16,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_point_shop.coin_total_textview
-import kotlinx.android.synthetic.main.fragment_point_shop.view.*
 import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
 import org.hackillinois.android.R
+import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.ShopItem
 import org.hackillinois.android.viewmodel.ShopViewModel
@@ -36,15 +37,18 @@ class ShopFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         viewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
-        viewModel.init()
+
+        // pass whether the user is an attendee to the viewmodel
+        if (hasLoggedIn() && isAttendee()) {
+            viewModel.init(true)
+        } else {
+            viewModel.init(false)
+        }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_point_shop, container, false)
 
         mAdapter = ShopAdapter(shop)
@@ -63,12 +67,22 @@ class ShopFragment : Fragment() {
             },
         )
 
-        viewModel.profileLiveData.observe(
-            viewLifecycleOwner,
-            {
-                updateCoinTotalUI(it)
-            },
-        )
+        if (hasLoggedIn() && isAttendee()) {
+            // set coin views visible for attendee
+            val coinBg: TextView = view.findViewById(R.id.total_coin_view)
+            val coinText: TextView = view.findViewById(R.id.coin_total_textview)
+            val coinImg: ImageView = view.findViewById(R.id.coin_imageview)
+            coinBg.visibility = View.VISIBLE
+            coinText.visibility = View.VISIBLE
+            coinImg.visibility = View.VISIBLE
+
+            viewModel.profileLiveData.observe(
+                viewLifecycleOwner,
+                Observer {
+                    updateCoinTotalUI(it)
+                },
+            )
+        }
 
         return view
     }
@@ -108,9 +122,21 @@ class ShopFragment : Fragment() {
         mAdapter.updateShop(newShop)
     }
 
-    private fun updateCoinTotalUI(newProfile: Profile) {
-        coin_total_textview.text = "%d".format(newProfile.coins)
-        Log.i("COIN TOTAL", newProfile.coins.toString())
+    private fun updateCoinTotalUI(newProfile: Profile?) {
+        if (newProfile != null) {
+            coin_total_textview.text = String.format("%,d", newProfile.coins)
+        }
+    }
+
+    private fun hasLoggedIn(): Boolean {
+        // Reads JWT and checks if it is equal to an empty JWT
+        return JWTUtilities.readJWT(requireActivity().applicationContext) != JWTUtilities.DEFAULT_JWT
+    }
+
+    private fun isAttendee(): Boolean {
+        val context = requireActivity().applicationContext
+        val prefString = context.getString(R.string.authorization_pref_file_key)
+        return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "github"
     }
 }
 
