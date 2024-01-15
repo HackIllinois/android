@@ -13,13 +13,12 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
-import kotlinx.android.synthetic.main.fragment_profile_2024_redone.avatarImage2
 import org.hackillinois.android.R
-import org.hackillinois.android.common.ImageLoadingUtilities
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.Profile
@@ -32,6 +31,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
     private lateinit var nameText: TextView
+
 //  private lateinit var pointsText: TextView
     private lateinit var qrCodeImage: ImageView
     private lateinit var avatarImage: ImageView
@@ -46,7 +46,6 @@ class ProfileFragment : Fragment() {
     private lateinit var yourRankingText: TextView
     private lateinit var leaderboardIcon: ImageView
     private lateinit var rankingPlacementText: TextView
-
 
 //    private lateinit var noneText: TextView
 //    private lateinit var vegetarianText: TextView
@@ -79,7 +78,6 @@ class ProfileFragment : Fragment() {
 //            return
 //        }
         // view model initialization
-
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 //        if (!hasLoggedIn() or (hasLoggedIn() and staff)) {
@@ -125,20 +123,18 @@ class ProfileFragment : Fragment() {
         }
         // displays a logout button if not logged in or if staff(staff don't have profile page)
 
-
-
         // Element creation
         // nameText = view.findViewById(R.id.nameText)
         // pointsText = view.findViewById(R.id.ptsText)
         // tierText = view.findViewById(R.id.tierText)
         // qrCodeImage = view.findViewById(R.id.qrCodeImage)
         // waveText = view.findViewById(R.id.waveText)
-        //noneText = view.findViewById(R.id.noneText)
-        //vegetarianText = view.findViewById(R.id.vegetarianText)
-        //veganText = view.findViewById(R.id.veganText)
-        //dairyFreeText = view.findViewById(R.id.dairyFreeText)
-        //glutenFreeText = view.findViewById(R.id.glutenFreeText)
-        //otherText = view.findViewById(R.id.otherText)
+        // noneText = view.findViewById(R.id.noneText)
+        // vegetarianText = view.findViewById(R.id.vegetarianText)
+        // veganText = view.findViewById(R.id.veganText)
+        // dairyFreeText = view.findViewById(R.id.dairyFreeText)
+        // glutenFreeText = view.findViewById(R.id.glutenFreeText)
+        // otherText = view.findViewById(R.id.otherText)
 
         // Logout button
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
@@ -213,37 +209,15 @@ class ProfileFragment : Fragment() {
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         Log.d("Update Profile UI", "Reached profile UI")
         waveText.text = "Wave ${it.foodWave}"
-        // need to update this later
-        attendeeTypeText.text= "General"
+        attendeeTypeText.text = "General" // todo: need to update this later
         nameText.text = it.displayName
-        ImageLoadingUtilities().fetchSVG(requireContext(), it.avatarUrl, avatarImage)
-        avatarImage.setImageResource(R.drawable.avatar_image_svg)
-
-
-
-
-    //        val currPoints = it.points
-//        pointsText.text = "$currPoints pts"
-//        nameText.text = it.displayName
-//        waveText.text = "Wave ${it.foodWave}"
-//
-//        // TODO: change this so it uses api calls
-//        when {
-//            currPoints < 900 -> {
-//                tierText.text = "Clown Tier"
-//            }
-//            currPoints < 1200 -> {
-//                tierText.text = "Juggler Tier"
-//            }
-//            else -> {
-//                tierText.text = "Acrobat Tier"
-//            }
-//        }
+        // load avatar image png from API using Glide
+        Glide.with(requireContext()).load(it.avatarUrl).into(avatarImage)
     }
     private fun updateQrView(qr: QR?) = qr?.let { it ->
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
             // Retrieves qr code user info that will be encoded
-            val text = "hackillinois://user?userId=\\(${qr.userId})"
+            val text = "${qr.qrInfo}"
             // Creates bitmap of text
             val bitmap = generateQR(text)
             // actually setting the qr code to be the generated qr code

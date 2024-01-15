@@ -82,12 +82,10 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginVertical="5dp"
-        android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@id/nameText2"
         app:layout_constraintEnd_toStartOf="@id/rightProfileLogo2"
         app:layout_constraintStart_toEndOf="@id/leftProfileLogo2"
         app:layout_constraintTop_toBottomOf="@+id/profileText"
-        app:layout_constraintVertical_bias="0.075"
         tools:srcCompat="@drawable/avatar_image_svg" />
 
     <ImageView

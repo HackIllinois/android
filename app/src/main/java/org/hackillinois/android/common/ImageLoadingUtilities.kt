@@ -3,7 +3,6 @@ package org.hackillinois.android.common
 import android.R
 import android.content.Context
 import android.widget.ImageView
-import com.pixplicity.sharp.Sharp
 import okhttp3.Cache
 import okhttp3.Call
 import okhttp3.Callback
@@ -12,7 +11,6 @@ import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 import java.io.InputStream
-
 
 class ImageLoadingUtilities {
     private var httpClient: OkHttpClient? = null
@@ -47,8 +45,8 @@ class ImageLoadingUtilities {
                 // sharp is a library which will load stream which we generated
                 // from url in our target image view.
                 val stream: InputStream = response.body()!!.byteStream()
-                Sharp.loadInputStream(stream).into(target)
-                stream.close()
+//                Sharp.loadInputStream(stream).into(target)
+//                stream.close()
             }
         })
     }
