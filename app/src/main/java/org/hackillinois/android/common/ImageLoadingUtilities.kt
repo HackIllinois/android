@@ -25,8 +25,7 @@ class ImageLoadingUtilities {
             // if it is null on below line
             // we are initializing our http client.
             httpClient =
-                OkHttpClient.Builder().cache(Cache(context.cacheDir, 5 * 1024 * 1014) as Cache)
-                    .build() as OkHttpClient
+                OkHttpClient.Builder().cache(Cache(context.cacheDir, 5 * 1024 * 1014) as Cache).build() as OkHttpClient
         }
 
         // on below line we are creating a variable for our request and initializing it.
