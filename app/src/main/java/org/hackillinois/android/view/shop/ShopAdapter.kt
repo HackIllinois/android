@@ -48,6 +48,7 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
 
             val quantity = item.quantity
             quantityTextView.text = resources.getString(R.string.shopquantity, quantity)
+
             // Declaring executor to parse the URL
             val executor = Executors.newSingleThreadExecutor()
             // Once the executor parses the URL and receives the image, handler will load it

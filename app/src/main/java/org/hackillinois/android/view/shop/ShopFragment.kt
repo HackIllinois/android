@@ -93,7 +93,7 @@ class ShopFragment : Fragment() {
             val dividerLeft = parent.paddingLeft
             val dividerRight = parent.width - parent.paddingRight
             val childCount = parent.childCount // how many items recyclerview has
-            for (i in 0..childCount - 1) { // minus 2 to account for zero index and skip last item
+            for (i in 0..childCount - 1) { // minus 1 to account for zero index and not skip last item
                 val child = parent.getChildAt(i)
                 val params = child.layoutParams as RecyclerView.LayoutParams
                 val dividerTop = child.bottom + params.bottomMargin
@@ -101,6 +101,7 @@ class ShopFragment : Fragment() {
                 mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
                 mDivider.draw(canvas)
 
+                // add divider to top of recyclerview
                 if (i == 0) {
                     val topDividerTop = parent.paddingTop
                     val topDividerBottom = topDividerTop + mDivider.intrinsicHeight
@@ -110,7 +111,7 @@ class ShopFragment : Fragment() {
             }
         }
     }
-    fun RecyclerView.addDividers() {
+    private fun RecyclerView.addDividers() {
         if (layoutManager !is LinearLayoutManager) {
             return
         }
