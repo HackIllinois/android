@@ -105,7 +105,7 @@
                 app:layout_constraintStart_toEndOf="@id/pointsView"
                 app:layout_constraintTop_toBottomOf="@id/titleTextView"
                 android:visibility="gone"
-                android:text="@string/pro" />
+                android:text="@string/knights" />
 
             <TextView
                 android:id="@+id/eventType"

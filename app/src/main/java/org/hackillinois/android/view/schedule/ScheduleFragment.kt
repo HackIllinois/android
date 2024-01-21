@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,7 +16,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_schedule.schedule_header
+import kotlinx.android.synthetic.main.fragment_schedule.scheduleDays
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
@@ -27,6 +28,7 @@ class ScheduleFragment : Fragment() {
     private lateinit var schedule_header: TextView
     private lateinit var favoriteButton: ImageButton
     private lateinit var scheduleViewModel: ScheduleViewModel
+    private lateinit var scheduleBackground: ImageView
     private var showingFavorites: Boolean = false
     private var showingShifts: Boolean = false
 
@@ -61,6 +63,8 @@ class ScheduleFragment : Fragment() {
         favoriteButton = view.findViewById(R.id.lightBookmarkButton)
         schedule_header = view.findViewById(R.id.schedule_header)
         shift_header = view.findViewById(R.id.shift_header)
+        scheduleBackground = view.findViewById(R.id.scheduleBackground)
+        scheduleBackground.setImageResource(R.drawable.dark_fantasy_bg_2024)
         // TODO: Check if Guests should be able to fav
         if (isStaff() || !hasLoggedIn()) {
             scheduleViewModel.isAttendeeViewing = false
@@ -107,10 +111,12 @@ class ScheduleFragment : Fragment() {
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                tab.customView?.background = context?.let { ContextCompat.getDrawable(it, R.drawable.tab_selected) }
+                val tabDrawable = if (showingShifts) R.drawable.tab_selected_light else R.drawable.tab_selected
+                tab.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
             }
             override fun onTabUnselected(tab: TabLayout.Tab) {
-                tab.customView?.background = context?.let { ContextCompat.getDrawable(it, R.drawable.tab_unselected) }
+                val tabDrawable = if (showingShifts) R.drawable.tab_unselected_light else R.drawable.tab_unselected
+                tab.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
             }
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
@@ -158,8 +164,16 @@ class ScheduleFragment : Fragment() {
 
     private val shiftScheduleClickListener = OnClickListener {
         // Log.d("shift_header.isSelected", "${shift_header.isSelected}")
-        shift_header.setBackgroundResource(R.drawable.schedule_underline)
+        shift_header.setBackgroundResource(R.drawable.shift_underline)
         schedule_header.setBackgroundResource(0)
+        schedule_header.setTextColor(getResources().getColor(R.color.burntBark))
+        shift_header.setTextColor(getResources().getColor(R.color.burntBark))
+        scheduleBackground.setImageResource(R.drawable.light_fantasy_bg_2024)
+        for (i in 0 until scheduleDays.tabCount) {
+            val tab = scheduleDays.getTabAt(i)
+            val tabDrawable = if (tab?.isSelected == true) R.drawable.tab_selected_light else R.drawable.tab_unselected_light
+            tab?.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
+        }
         scheduleViewModel.showShifts.postValue(true)
         showingShifts = true
     }
@@ -168,6 +182,14 @@ class ScheduleFragment : Fragment() {
         // Log.d("shift_header.isSelected", "${shift_header.isSelected}")
         shift_header.setBackgroundResource(0)
         schedule_header.setBackgroundResource(R.drawable.schedule_underline)
+        schedule_header.setTextColor(getResources().getColor(R.color.white))
+        shift_header.setTextColor(getResources().getColor(R.color.white))
+        scheduleBackground.setImageResource(R.drawable.dark_fantasy_bg_2024)
+        for (i in 0 until scheduleDays.tabCount) {
+            val tab = scheduleDays.getTabAt(i)
+            val tabDrawable = if (tab?.isSelected == true) R.drawable.tab_selected else R.drawable.tab_unselected
+            tab?.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
+        }
         scheduleViewModel.showShifts.postValue(false)
         showingShifts = false
     }
