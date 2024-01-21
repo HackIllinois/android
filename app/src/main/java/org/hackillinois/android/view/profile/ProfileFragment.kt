@@ -47,17 +47,7 @@ class ProfileFragment : Fragment() {
     private lateinit var leaderboardIcon: ImageView
     private lateinit var rankingPlacementText: TextView
 
-//    private lateinit var noneText: TextView
-//    private lateinit var vegetarianText: TextView
-//    private lateinit var veganText: TextView
-//    private lateinit var dairyFreeText: TextView
-//    private lateinit var glutenFreeText: TextView
-//    private lateinit var otherText: TextView
-
-    lateinit var front_anim: AnimatorSet
-    lateinit var back_anim: AnimatorSet
-    var isFront = true
-
+    private var pro = false
     var staff = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,23 +63,12 @@ class ProfileFragment : Fragment() {
         viewModel.attendee.observe(this) { }
 
         staff = isStaff()
+        pro = isPro()
 
-//        if (!hasLoggedIn() or (hasLoggedIn() and staff)) {
-//            return
-//        }
         // view model initialization
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        if (!hasLoggedIn() or (hasLoggedIn() and staff)) {
-//            val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
-//            val logoutButton = view.findViewById<Button>(R.id.logout_button)
-//            logoutButton.setOnClickListener {
-//                val mainActivity: MainActivity = requireActivity() as MainActivity
-//                mainActivity.logout()
-//            }
-//            return view
-//        }
-        if (!hasLoggedIn()) {
+        if (!hasLoggedIn() or (hasLoggedIn() and staff)) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
@@ -98,7 +77,7 @@ class ProfileFragment : Fragment() {
             }
             return view
         }
-        val view = inflater.inflate(R.layout.fragment_profile_2024_redone, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
         nameText = view.findViewById(R.id.nameText2)
         qrCodeImage = view.findViewById(R.id.qrCodeImage2024)
         avatarImage = view.findViewById(R.id.avatarImage2)
@@ -113,28 +92,11 @@ class ProfileFragment : Fragment() {
         leaderboardIcon = view.findViewById(R.id.rankingImageView2)
         rankingPlacementText = view.findViewById(R.id.rankingPlacementTextView2)
 
-        if (staff) {
-            waveText.visibility = View.GONE
-            attendeeTypeText.visibility = View.GONE
-            placementBannerImage.visibility = View.GONE
-            yourRankingText.visibility = View.GONE
-            leaderboardIcon.visibility = View.GONE
-            rankingPlacementText.visibility = View.GONE
-        }
+
         // displays a logout button if not logged in or if staff(staff don't have profile page)
 
         // Element creation
-        // nameText = view.findViewById(R.id.nameText)
-        // pointsText = view.findViewById(R.id.ptsText)
-        // tierText = view.findViewById(R.id.tierText)
-        // qrCodeImage = view.findViewById(R.id.qrCodeImage)
-        // waveText = view.findViewById(R.id.waveText)
-        // noneText = view.findViewById(R.id.noneText)
-        // vegetarianText = view.findViewById(R.id.vegetarianText)
-        // veganText = view.findViewById(R.id.veganText)
-        // dairyFreeText = view.findViewById(R.id.dairyFreeText)
-        // glutenFreeText = view.findViewById(R.id.glutenFreeText)
-        // otherText = view.findViewById(R.id.otherText)
+
 
         // Logout button
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
@@ -142,42 +104,13 @@ class ProfileFragment : Fragment() {
             val mainActivity: MainActivity = requireActivity() as MainActivity
             mainActivity.logout()
         }
-
-        // flip animation
-//        var scale = requireActivity().applicationContext.resources.displayMetrics.density
-//        val front = view.findViewById<ConstraintLayout>(R.id.ticket_front)
-//        val back = view.findViewById<ImageView>(R.id.ticket_back)
-//        front.cameraDistance = 8000 * scale
-//        back.cameraDistance = 8000 * scale
-//        front_anim =
-//            AnimatorInflater.loadAnimator(context, R.animator.front_animator) as AnimatorSet
-//        back_anim = AnimatorInflater.loadAnimator(context, R.animator.back_animator) as AnimatorSet
-
-//        val flipButton = view.findViewById<Button>(R.id.flipButton)
-//        flipButton.setOnClickListener {
-//            flipButton.setClickable(false)
-//            if (isFront) {
-//                front_anim.setTarget(front)
-//                back_anim.setTarget(back)
-//                front_anim.start()
-//                back_anim.start()
-//                isFront = false
-//            } else {
-//                front_anim.setTarget(back)
-//                back_anim.setTarget(front)
-//                back_anim.start()
-//                front_anim.start()
-//                isFront = true
-//            }
-//            Handler().postDelayed({ flipButton.setClickable(true) }, 1200)
-//        }
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // if user isn't a staff and has logged in (i.e. attendee), show profile
-        if (hasLoggedIn()) {
+        if (hasLoggedIn() and !staff) {
             viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
             viewModel.qr.observe(
                 viewLifecycleOwner,
@@ -189,34 +122,25 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun updateDietaryRestrictions(attendee: Attendee?) = attendee?.let { it ->
-//        val dietary = it.dietary
-//        if (it.dietary.isEmpty() || (it.dietary.size == 1 && it.dietary[0] == "None")) {
-//            noneText.visibility = View.VISIBLE
-//        } else {
-//            for (diet in dietary) {
-//                when (diet) {
-//                    "Vegetarian" -> vegetarianText.visibility = View.VISIBLE
-//                    "Vegan" -> veganText.visibility = View.VISIBLE
-//                    "Lactose Intolerant" -> dairyFreeText.visibility = View.VISIBLE
-//                    "Gluten Free" -> glutenFreeText.visibility = View.VISIBLE
-//                    else -> otherText.visibility = View.VISIBLE
-//                }
-//            }
-//        }
-    }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         Log.d("Update Profile UI", "Reached profile UI")
         waveText.text = "Wave ${it.foodWave}"
-        attendeeTypeText.text = "General" // todo: need to update this later
+        if (!pro) {
+            attendeeTypeText.text = "General" // todo: need to update this later
+        } else {
+            attendeeTypeText.text = "Knight"
+        }
         nameText.text = it.displayName
         // load avatar image png from API using Glide
         Glide.with(requireContext()).load(it.avatarUrl).into(avatarImage)
     }
     private fun updateQrView(qr: QR?) = qr?.let { it ->
+        Log.d("qrwidth", ""+qrCodeImage.width)
+        Log.d("qrheight", ""+qrCodeImage.height)
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
             // Retrieves qr code user info that will be encoded
+            Log.d("qrinfo: ", ""+qr.qrInfo)
             val text = "${qr.qrInfo}"
             // Creates bitmap of text
             val bitmap = generateQR(text)
@@ -264,5 +188,10 @@ class ProfileFragment : Fragment() {
         val context = requireActivity().applicationContext
         val prefString = context.getString(R.string.authorization_pref_file_key)
         return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
+    }
+
+    private fun isPro(): Boolean {
+
+        return false
     }
 }
