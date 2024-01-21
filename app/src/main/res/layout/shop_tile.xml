@@ -11,8 +11,7 @@
         android:id="@+id/shopCardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginHorizontal="5dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,6 +77,7 @@
                 app:layout_constraintStart_toStartOf="@+id/costandQuantityView"
                 app:layout_constraintTop_toTopOf="@+id/costandQuantityView"
                 app:srcCompat="@drawable/faded_coin"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 />
 
             <TextView
@@ -85,6 +85,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="7dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="4dp"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toStartOf="@+id/separatorTextView"
                 app:layout_constraintStart_toEndOf="@+id/coinImageView"
@@ -113,16 +115,17 @@
                 android:id="@+id/quantityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/montserrat_regular"
                 android:paddingTop="8.5dp"
                 android:paddingEnd="4dp"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/separatorTextView"
-                app:layout_constraintTop_toTopOf="@id/costandQuantityView"
-                android:fontFamily="@font/montserrat_regular"
+                android:text="100 Left"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                android:text="100 Left" />
+                app:layout_constraintEnd_toEndOf="@id/costandQuantityView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/separatorTextView"
+                app:layout_constraintTop_toTopOf="@id/costandQuantityView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

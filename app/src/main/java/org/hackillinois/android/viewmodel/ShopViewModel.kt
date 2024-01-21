@@ -18,6 +18,8 @@ class ShopViewModel : ViewModel() {
 
     lateinit var timerObj: Timer
 
+    // var shopTabClicked by Delegates.notNull<Boolean>()
+
     fun init(isAttendee: Boolean) {
         // initial fetch
         shopLiveData = shopRepository.fetchShop()
