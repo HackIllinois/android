@@ -60,9 +60,6 @@ class ProfileFragment : Fragment() {
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
         viewModel.qr.observe(this, Observer { updateQrView(it) })
         viewModel.attendee.observe(this) { }
-
-
-
         // view model initialization
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -113,8 +110,6 @@ class ProfileFragment : Fragment() {
             viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
         }
     }
-
-
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         waveText.text = "Wave ${it.foodWave}"
         if (!pro) {
