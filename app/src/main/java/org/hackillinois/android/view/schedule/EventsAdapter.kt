@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.event_tile.view.*
-import kotlinx.android.synthetic.main.time_list_item.view.*
 import kotlinx.android.synthetic.main.shift_tile.view.*
+import kotlinx.android.synthetic.main.time_list_item.view.*
 import org.hackillinois.android.API
 import org.hackillinois.android.App
 import org.hackillinois.android.R
