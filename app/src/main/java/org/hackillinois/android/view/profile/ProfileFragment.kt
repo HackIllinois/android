@@ -1,11 +1,9 @@
 package org.hackillinois.android.view.profile
 
-import android.animation.AnimatorSet
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +18,6 @@ import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
-import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.view.MainActivity
@@ -52,7 +49,9 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!hasLoggedIn()) {
+        staff = isStaff()
+        pro = isPro()
+        if (!hasLoggedIn() or staff) {
             return
         }
         // View Model Set Up
@@ -62,8 +61,7 @@ class ProfileFragment : Fragment() {
         viewModel.qr.observe(this, Observer { updateQrView(it) })
         viewModel.attendee.observe(this) { }
 
-        staff = isStaff()
-        pro = isPro()
+
 
         // view model initialization
     }
@@ -91,13 +89,7 @@ class ProfileFragment : Fragment() {
         yourRankingText = view.findViewById(R.id.rankingTextView2)
         leaderboardIcon = view.findViewById(R.id.rankingImageView2)
         rankingPlacementText = view.findViewById(R.id.rankingPlacementTextView2)
-
-
         // displays a logout button if not logged in or if staff(staff don't have profile page)
-
-        // Element creation
-
-
         // Logout button
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
@@ -124,7 +116,6 @@ class ProfileFragment : Fragment() {
 
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
-        Log.d("Update Profile UI", "Reached profile UI")
         waveText.text = "Wave ${it.foodWave}"
         if (!pro) {
             attendeeTypeText.text = "General" // todo: need to update this later
@@ -136,11 +127,8 @@ class ProfileFragment : Fragment() {
         Glide.with(requireContext()).load(it.avatarUrl).into(avatarImage)
     }
     private fun updateQrView(qr: QR?) = qr?.let { it ->
-        Log.d("qrwidth", ""+qrCodeImage.width)
-        Log.d("qrheight", ""+qrCodeImage.height)
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
             // Retrieves qr code user info that will be encoded
-            Log.d("qrinfo: ", ""+qr.qrInfo)
             val text = "${qr.qrInfo}"
             // Creates bitmap of text
             val bitmap = generateQR(text)

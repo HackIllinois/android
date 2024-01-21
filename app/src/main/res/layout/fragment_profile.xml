@@ -143,6 +143,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/waveText2"
         app:layout_constraintHorizontal_chainStyle="packed"
+        
         app:layout_constraintStart_toStartOf="@+id/profileCard"
         app:layout_constraintTop_toBottomOf="@id/nameText2"
         tools:text="General" />
