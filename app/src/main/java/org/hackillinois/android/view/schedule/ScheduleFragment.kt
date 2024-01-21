@@ -41,6 +41,7 @@ class ScheduleFragment : Fragment() {
             this,
             Observer {
                 favoriteButton.isSelected = it ?: false
+                schedule_header.text = if (it) "Saved Events" else "Schedule"
             }
         )
 
@@ -140,11 +141,8 @@ class ScheduleFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (showingFavorites) {
-            favoriteButton.setImageResource(R.drawable.light_bookmark_filled)
-        } else {
-            favoriteButton.setImageResource(R.drawable.light_bookmark_hollow)
-        }
+        favoriteButton.setImageResource(if (showingFavorites) R.drawable.light_bookmark_filled else R.drawable.light_bookmark_hollow)
+        schedule_header.text = if (showingFavorites) "Saved Events" else "Schedule"
     }
 
     // Update "Favorites" ViewModel on click
