@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         val bottomBarButtons = listOf(
             bottomAppBar.homeButton,
             bottomAppBar.scheduleButton,
-            bottomAppBar.leaderboard,
+            bottomAppBar.shop,
             bottomAppBar.profile,
         )
 
@@ -88,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                         bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
                         bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
                         bottomAppBar.leaderboard -> switchFragment(ShopFragment(), false)
+                        bottomAppBar.shop -> switchFragment(LeaderboardFragment(), false)
                         bottomAppBar.profile -> switchFragment(ProfileFragment(), false)
                         else -> return@setOnClickListener
                     }
@@ -110,7 +111,7 @@ class MainActivity : AppCompatActivity() {
                 val bottomBarButtons = listOf(
                     bottomAppBar.homeButton,
                     bottomAppBar.scheduleButton,
-                    bottomAppBar.leaderboard,
+                    bottomAppBar.shop,
                     bottomAppBar.profile,
                 )
                 val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
