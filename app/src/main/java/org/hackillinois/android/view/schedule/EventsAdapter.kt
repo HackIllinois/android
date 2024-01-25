@@ -112,8 +112,8 @@ class EventsAdapter(
                 true -> "Asynchronous event"
             }
             sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-            sponsoredTextView.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            sponsored_marker.visibility = if (event.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            sponsoredTextView.visibility = if (event.sponsor == null) View.GONE else View.VISIBLE
+            sponsored_marker.visibility = if (event.sponsor == null) View.GONE else View.VISIBLE
             if (event.locations.isEmpty()) {
                 locationTextView.text = "N/A"
             } else {

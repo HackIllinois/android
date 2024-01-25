@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "e24cc0644f69cc729d1cdb02c1ae0503",
+    "identityHash": "c6810ed81ba5a5537bff4e50678e7706",
     "entities": [
       {
         "tableName": "qr_codes",
@@ -120,7 +120,7 @@
       },
       {
         "tableName": "events",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `locations` TEXT NOT NULL, `sponsor` TEXT NOT NULL, `eventType` TEXT NOT NULL, `points` TEXT NOT NULL, `isAsync` INTEGER NOT NULL, `isPrivate` INTEGER NOT NULL, `displayOnStaffCheckIn` INTEGER NOT NULL, PRIMARY KEY(`eventId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `locations` TEXT NOT NULL, `sponsor` TEXT, `eventType` TEXT NOT NULL, `points` TEXT NOT NULL, `isAsync` INTEGER NOT NULL, `isPrivate` INTEGER NOT NULL, `displayOnStaffCheckIn` INTEGER NOT NULL, PRIMARY KEY(`eventId`))",
         "fields": [
           {
             "fieldPath": "eventId",
@@ -162,7 +162,7 @@
             "fieldPath": "sponsor",
             "columnName": "sponsor",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "eventType",
@@ -390,7 +390,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e24cc0644f69cc729d1cdb02c1ae0503')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c6810ed81ba5a5537bff4e50678e7706')"
     ]
   }
 }

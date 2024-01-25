@@ -74,8 +74,8 @@ class EventInfoFragment : Fragment() {
             event_name.text = it.name
             event_points.text = "+ ${it.points} pts"
             event_sponsor.text = "Sponsored by ${it.sponsor}"
-            event_sponsor.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
-            sponsoredIcon.visibility = if (it.sponsor.isEmpty()) View.GONE else View.VISIBLE
+            event_sponsor.visibility = if (it.sponsor == null) View.GONE else View.VISIBLE
+            sponsoredIcon.visibility = if (it.sponsor == null) View.GONE else View.VISIBLE
             favorites_button.visibility = if (!isAttendeeViewing) View.GONE else View.VISIBLE
             if (it.locations.isEmpty()) {
                 event_location.text = "N/A"

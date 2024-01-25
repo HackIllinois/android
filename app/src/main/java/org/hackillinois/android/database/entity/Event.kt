@@ -17,12 +17,12 @@ data class Event(
     val startTime: Long,
     val endTime: Long,
     val locations: List<EventLocation>,
-    val sponsor: String,
+    val sponsor: String?,
     val eventType: String,
     val points: String,
     val isAsync: Boolean = false,
     val isPrivate: Boolean,
-    val displayOnStaffCheckIn: Boolean,
+    val displayOnStaffCheckIn: Boolean
 ) : ScheduleListItem {
 
     override fun getStartTimeMs() = startTime * 1000L
