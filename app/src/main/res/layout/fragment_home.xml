@@ -49,9 +49,10 @@
 
     <ImageView
         android:id="@+id/homeInfoImageView"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:src="@drawable/question_mark"
+        app:layout_constraintBottom_toBottomOf="@+id/countdownTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/countdownTextView"
         app:layout_constraintTop_toTopOf="@+id/countdownTextView" />
