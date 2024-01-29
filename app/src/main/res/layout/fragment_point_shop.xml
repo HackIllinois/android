@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.leaderboard.LeaderboardFragment"
-    android:background="@color/nightBlue">
+    android:background="@color/witchyPurple">
 
     <ImageView
         android:layout_width="0dp"
@@ -31,16 +31,14 @@
         android:id="@+id/title_textview_point_shop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="35dp"
         android:textSize="24sp"
         android:gravity="start"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guidelineTop"
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/palePeach"
-        android:text="@string/pointshop"
- />
+        android:text="@string/pointshop" />
 
     <TextView
         android:id="@+id/total_coin_view"
@@ -90,59 +88,69 @@
         android:id="@+id/imageview_point_shop_banner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/point_shop_banner"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/point_shop_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_textview_point_shop"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/title_textview_point_shop" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_point_shop"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_marginTop="258dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginHorizontal="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/merchButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:paddingEnd="31dp"
-        android:paddingStart="31dp"
-        android:paddingBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <TextView
         android:id="@+id/merchButton"
-        android:layout_width="165dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="11dp"
-        app:layout_constraintTop_toBottomOf="@id/imageview_point_shop_banner"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="36dp"
-        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/shop_selected_tab"
-        android:text="MERCH"
-        android:textSize="19sp"
         android:fontFamily="@font/montserrat_bold"
-        android:textColor="@color/palePeach"
-        />
+        android:gravity="center"
+        android:paddingVertical="10dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineSeparator"
+        app:layout_constraintStart_toStartOf="@+id/recyclerview_point_shop"
+        app:layout_constraintTop_toBottomOf="@id/imageview_point_shop_banner"
+        android:text="@string/merch" />
 
     <TextView
         android:id="@+id/raffleButton"
-        android:layout_width="165dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="11dp"
-        app:layout_constraintTop_toBottomOf="@id/imageview_point_shop_banner"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="36dp"
-        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/montserrat_bold"
-        android:textColor="@color/palePeach"
-        android:textSize="19sp"
-        android:text="RAFFLE"
-        />
+        android:gravity="center"
+        android:paddingVertical="10dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerview_point_shop"
+        app:layout_constraintStart_toStartOf="@+id/guidelineSeparator"
+        app:layout_constraintTop_toBottomOf="@id/imageview_point_shop_banner"
+        android:text="@string/raffle" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineSeparator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.88" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
