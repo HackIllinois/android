@@ -66,8 +66,8 @@ class MainActivity : AppCompatActivity() {
         val bottomBarButtons = listOf(
             bottomAppBar.homeButton,
             bottomAppBar.scheduleButton,
-            bottomAppBar.shop,
-            bottomAppBar.profile,
+            bottomAppBar.shopButton,
+            bottomAppBar.profileButton,
         )
 
         // make all buttons unselectedColor and then set selected button to selectedColor
@@ -87,9 +87,8 @@ class MainActivity : AppCompatActivity() {
                     when (view) {
                         bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
                         bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
-                        bottomAppBar.leaderboard -> switchFragment(ShopFragment(), false)
-                        bottomAppBar.shop -> switchFragment(LeaderboardFragment(), false)
-                        bottomAppBar.profile -> switchFragment(ProfileFragment(), false)
+                        bottomAppBar.shopButton -> switchFragment(ShopFragment(), false)
+                        bottomAppBar.profileButton -> switchFragment(ProfileFragment(), false)
                         else -> return@setOnClickListener
                     }
                 }
@@ -111,8 +110,8 @@ class MainActivity : AppCompatActivity() {
                 val bottomBarButtons = listOf(
                     bottomAppBar.homeButton,
                     bottomAppBar.scheduleButton,
-                    bottomAppBar.shop,
-                    bottomAppBar.profile,
+                    bottomAppBar.shopButton,
+                    bottomAppBar.profileButton,
                 )
                 val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
                 bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }

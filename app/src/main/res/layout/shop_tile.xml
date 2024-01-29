@@ -3,135 +3,130 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="157dp"
-    >
-
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/shopCardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="5dp"
-        >
+        android:layout_marginHorizontal="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="4dp">
+            android:layout_height="150dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineSeparator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.45" />
 
             <ImageView
                 android:id="@+id/shopItemImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerInside"
+                android:layout_marginVertical="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineSeparator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0"
                 app:srcCompat="@drawable/shop_potion_sticker" />
 
             <TextView
                 android:id="@+id/shopItemTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="20dp"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="center"
-                android:maxLines="2"
-                android:text="Super Long Test Shop Test Shop Name"
-                android:textColor="@color/midnight"
+                android:textColor="@color/darkForest"
                 app:autoSizeTextType="uniform"
-                app:autoSizeMinTextSize="3sp"
-                app:autoSizeMaxTextSize="14sp"
-                app:autoSizeStepGranularity="2sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/priceTextView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/shopItemImageView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guidelineSeparator"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.4" />
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Super Long Test Shop Test Shop Name" />
 
             <TextView
                 android:id="@+id/costandQuantityView"
-                android:layout_width="143dp"
-                android:layout_height="33dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="@drawable/rounded_dark_forest_bg"
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
-                android:maxWidth="180dp"
                 android:maxLines="1"
-                app:layout_constraintStart_toEndOf="@id/shopItemImageView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/shopItemTextView"
-                app:layout_constraintVertical_bias="0.483" />
+                app:layout_constraintBottom_toBottomOf="@id/coinImageView"
+                app:layout_constraintEnd_toEndOf="@id/quantityTextView"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/coinImageView"
+                app:layout_constraintTop_toTopOf="@+id/coinImageView"
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:id="@+id/coinImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="3.5dp"
+                android:paddingVertical="2dp"
+                android:paddingStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
                 app:layout_constraintEnd_toStartOf="@+id/priceTextView"
-                app:layout_constraintStart_toStartOf="@+id/costandQuantityView"
-                app:layout_constraintTop_toTopOf="@+id/costandQuantityView"
-                app:srcCompat="@drawable/faded_coin"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                />
+                app:layout_constraintStart_toStartOf="@+id/guidelineSeparator"
+                app:layout_constraintTop_toTopOf="@+id/priceTextView"
+                app:srcCompat="@drawable/faded_coin" />
 
             <TextView
                 android:id="@+id/priceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="7dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="4dp"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/separatorTextView"
-                app:layout_constraintStart_toEndOf="@+id/coinImageView"
-                app:layout_constraintTop_toTopOf="@id/costandQuantityView"
+                android:layout_marginHorizontal="5dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:text="1000" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/separatorTextView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/coinImageView"
+                app:layout_constraintTop_toBottomOf="@+id/shopItemTextView"
+                tools:text="1000" />
 
             <TextView
                 android:id="@+id/separatorTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="7dp"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/quantityTextView"
-                app:layout_constraintStart_toEndOf="@+id/priceTextView"
-                app:layout_constraintTop_toTopOf="@id/costandQuantityView"
                 android:fontFamily="@font/montserrat_medium"
+                android:text="@string/separator"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:text="|"
-                />
+                app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
+                app:layout_constraintEnd_toStartOf="@+id/quantityTextView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/priceTextView"
+                app:layout_constraintTop_toTopOf="@id/priceTextView" />
 
             <TextView
                 android:id="@+id/quantityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/montserrat_regular"
-                android:paddingTop="8.5dp"
-                android:paddingEnd="4dp"
-                android:text="100 Left"
+                android:paddingEnd="8dp"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/costandQuantityView"
+                app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/separatorTextView"
-                app:layout_constraintTop_toTopOf="@id/costandQuantityView" />
+                app:layout_constraintTop_toTopOf="@id/priceTextView"
+                tools:text="100 Left" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
