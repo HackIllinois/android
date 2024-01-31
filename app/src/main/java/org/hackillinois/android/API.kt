@@ -5,6 +5,7 @@ import org.hackillinois.android.model.TimesWrapper
 import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
+import org.hackillinois.android.model.profile.Ranking
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
@@ -51,6 +52,9 @@ interface API {
 
     @GET("profile/leaderboard/?limit=10")
     suspend fun leaderboard(): LeaderboardList
+
+    @GET("profile/ranking")
+    suspend fun profileRanking(): Ranking
 
     // REGISTRATION
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.QR
+import org.hackillinois.android.model.profile.Ranking
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.viewmodel.ProfileViewModel
 import java.util.*
@@ -49,6 +51,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("OnCreate", "OnCreate ran")
         staff = isStaff()
         pro = isPro()
         if (!hasLoggedIn() or staff) {
@@ -59,6 +62,12 @@ class ProfileFragment : Fragment() {
         viewModel.init()
         viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
         viewModel.qr.observe(this, Observer { updateQrView(it) })
+        viewModel.ranking.observe(
+            this,
+            Observer {
+                updateRanking(it)
+            },
+        )
         viewModel.attendee.observe(this) { }
         // view model initialization
     }
@@ -101,10 +110,16 @@ class ProfileFragment : Fragment() {
         // if user isn't a staff and has logged in (i.e. attendee), show profile
         if (hasLoggedIn() and !staff) {
             viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-            viewModel.qr.observe(
+//            viewModel.qr.observe(
+//                viewLifecycleOwner,
+//                Observer {
+//                    updateQrView(it)
+//                },
+//            )
+            viewModel.ranking.observe(
                 viewLifecycleOwner,
                 Observer {
-                    updateQrView(it)
+                    updateRanking(it)
                 },
             )
             viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
@@ -120,6 +135,11 @@ class ProfileFragment : Fragment() {
         nameText.text = it.displayName
         // load avatar image png from API using Glide
         Glide.with(requireContext()).load(it.avatarUrl).into(avatarImage)
+    }
+
+    private fun updateRanking(ranking : Ranking?) = ranking?.let { it ->
+        rankingPlacementText.text = "${ranking.ranking}"
+
     }
     private fun updateQrView(qr: QR?) = qr?.let { it ->
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {

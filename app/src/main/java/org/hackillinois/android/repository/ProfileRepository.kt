@@ -25,6 +25,8 @@ class ProfileRepository {
                 // refreshes list of profiles and reinserts into the Dao
                 val profile = App.getAPI().currentProfile()
                 val profileList = ProfileList(listOf(profile))
+                val ranking = App.getAPI().profileRanking()
+                Log.d("profile ranking:", "" + ranking.ranking)
                 Log.d("profile url: ", profile.avatarUrl)
                 Log.d("food wave:", "" + profile.foodWave)
                 profileDao.clearTableAndInsertProfiles(profileList.profiles)
