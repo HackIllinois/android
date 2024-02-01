@@ -8,7 +8,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/contentFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -49,7 +49,7 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@id/leaderboard"
+                app:layout_constraintEnd_toStartOf="@id/shop"
                 app:layout_constraintStart_toEndOf="@id/scheduleButton"
                 app:layout_constraintTop_toTopOf="@id/homeButton" />
 
@@ -60,19 +60,20 @@
                 android:background="@color/darkForest"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/leaderboard"
+                app:layout_constraintStart_toEndOf="@+id/shop"
                 app:srcCompat="@drawable/ic_profile" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/leaderboard"
+                android:id="@+id/shop"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_marginBottom="2dp"
                 android:background="@color/darkForest"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toStartOf="@id/profile"
                 app:layout_constraintStart_toEndOf="@id/placeholder"
                 app:layout_constraintTop_toTopOf="@+id/homeButton"
-                app:srcCompat="@drawable/ic_leaderboard" />
+                app:srcCompat="@drawable/ic_point_shop" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
