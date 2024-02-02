@@ -6,6 +6,7 @@ import org.hackillinois.android.model.event.EventId
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
 import org.hackillinois.android.model.profile.ProfilePoints
+import org.hackillinois.android.model.scanner.UserEventIds
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.model.version.Version
@@ -37,10 +38,10 @@ interface API {
     fun getEvent(@Path("id") id: String): Call<Event>
 
     @POST("event/checkin/")
-    suspend fun eventCheckIn(@Body body: EventCode): EventCheckInResponse
+    suspend fun eventCheckIn(@Body body: EventCode): EventCheckInResponse // todo: changed to user/scan-event/
 
     @POST("event/staff/checkin/")
-    suspend fun attendeeCheckIn(@Body body: UserEventPair): AttendeeCheckInResponse
+    suspend fun attendeeCheckIn(@Body body: UserEventPair): AttendeeCheckInResponse // todo: changed to staff/scan-attendee/
 
     // NOTIFICATIONS
 
@@ -73,6 +74,9 @@ interface API {
     @POST("staff/attendance/")
     suspend fun staffMeetingCheckIn(@Body body: MeetingEventId)
 
+    @PUT("staff/scan-attendee/")
+    suspend fun scanAttendee(@Body body: UserEventIds)
+
     // USER
 
     @GET("user/")
@@ -89,6 +93,9 @@ interface API {
 
     @GET("user/qr/")
     suspend fun qrCode(): QR
+
+    @PUT("user/scan-event/")
+    suspend fun scanEvent(@Body body: EventId)
 
     // VERSION
 

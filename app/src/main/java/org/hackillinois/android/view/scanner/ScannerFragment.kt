@@ -38,8 +38,10 @@ import org.hackillinois.android.database.entity.EventCode
 import org.hackillinois.android.database.entity.MeetingEventId
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.UserEventPair
+import org.hackillinois.android.model.event.EventId
 import org.hackillinois.android.model.profile.ProfilePoints
 import org.hackillinois.android.model.scanner.ScanStatus
+import org.hackillinois.android.model.scanner.UserEventIds
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
@@ -136,14 +138,12 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                                 viewModel.submitMeetingAttendance(MeetingEventId(eventId))
                             }
                             "attendee-check-in" -> {
-                                // todo
-                                val userId = decodeUserId(it.text)
-                                val eventId = getChipEventId()
-                                viewModel.checkInAttendee(UserEventPair(userId, eventId))
+                                val userId = decodeUserId(it.text) // todo: check
+                                val eventId = getChipEventId() // todo: check
+                                viewModel.checkInAttendee(UserEventIds(userId, eventId))
                             }
                             "add-points" -> {
-                                // todo
-                                val userId = decodeUserId(it.text)
+                                val userId = decodeUserId(it.text) // todo: check
                                 showTextInputDialog(userId)
                             }
                             else -> {
@@ -155,16 +155,15 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                         // ATTENDEE -> handle event self check in, mentor check in, and point shop scan
                         when (scanKey) {
                             "event-check-in" -> {
-                                // todo
-                                val eventId: String = it.text
-                                viewModel.checkInEvent(EventCode(eventId))
+                                val eventId: String = it.text // todo: check
+                                viewModel.checkInEvent(EventId(eventId))
                             }
                             "mentor-check-in" -> {
                                 // todo
                                 viewModel.checkInMentor()
                             }
                             "point-shop" -> {
-                                val itemInstance = decodeItemInfo(it.text)
+                                val itemInstance = decodeItemInfo(it.text) // todo: check again
                                 viewModel.purchaseItem(itemInstance)
                             }
                             else -> {

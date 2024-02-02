@@ -5,9 +5,11 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
+import org.hackillinois.android.model.event.EventId
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.profile.ProfilePoints
 import org.hackillinois.android.model.scanner.ScanStatus
+import org.hackillinois.android.model.scanner.UserEventIds
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.repository.rolesRepository
 import org.json.JSONObject
@@ -48,14 +50,15 @@ class ScannerViewModel : ViewModel() {
         }
     }
 
-    fun checkInAttendee(body: UserEventPair) {
+    fun checkInAttendee(body: UserEventIds) {
         viewModelScope.launch {
             try {
-                val response = App.getAPI().attendeeCheckIn(body)
-                val dietaryRestrictions = response.rsvpData.registrationData.attendee.dietary.joinToString()
-                val message = "Attendee has the following dietary restrictions: $dietaryRestrictions."
-                val scanStatus = ScanStatus(message, true)
-                lastScanStatus.postValue(scanStatus)
+                // todo: finish api call response
+                val response = App.getAPI().scanAttendee(body)
+//                val dietaryRestrictions = response.rsvpData.registrationData.attendee.dietary.joinToString()
+//                val message = "Attendee has the following dietary restrictions: $dietaryRestrictions."
+//                val scanStatus = ScanStatus(message, true)
+//                lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {
                 var error = e.message.toString()
                 try {
@@ -74,7 +77,6 @@ class ScannerViewModel : ViewModel() {
     fun giveAttendeePoints(body: ProfilePoints) {
         viewModelScope.launch {
             try {
-                // todo: api call
                 val profile = App.getAPI().addPoints(body)
                 val message = "+${body.points} were successfully added to ${profile.displayName}'s total score."
                 val scanStatus = ScanStatus(message, true)
@@ -94,13 +96,14 @@ class ScannerViewModel : ViewModel() {
         }
     }
 
-    fun checkInEvent(body: EventCode) {
+    fun checkInEvent(body: EventId) {
         viewModelScope.launch {
             try {
-                val response = App.getAPI().eventCheckIn(body)
-                val message = "${response.newPoints} points have been added to your total score."
-                val scanStatus = ScanStatus(message, true)
-                lastScanStatus.postValue(scanStatus)
+                // todo: finish api call response
+                val response = App.getAPI().scanEvent(body)
+//                val message = "${response.newPoints} points have been added to your total score."
+//                val scanStatus = ScanStatus(message, true)
+//                lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {
                 var error = e.message.toString()
                 try {
