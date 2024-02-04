@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
         super.onCreate(savedInstanceState)
         Log.d("OnCreate", "OnCreate ran")
         staff = isStaff()
-        //pro = isPro()
+        // pro = isPro()
         if (!hasLoggedIn() or staff) {
             return
         }
@@ -79,9 +79,6 @@ class ProfileFragment : Fragment() {
                 },
             )
         }
-
-
-
         // Log.d("isPro", ""+pro)
         // view model initialization
     }
@@ -141,7 +138,7 @@ class ProfileFragment : Fragment() {
     }
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         waveText.text = "Wave ${it.foodWave}"
-        Log.d("Profile Pro", ""+pro)
+        Log.d("Profile Pro", "" + pro)
         if (!pro) {
             attendeeTypeText.text = "General" // todo: need to update this later
         } else {
@@ -152,9 +149,8 @@ class ProfileFragment : Fragment() {
         Glide.with(requireContext()).load(it.avatarUrl).into(avatarImage)
     }
 
-    private fun updateRanking(ranking : Ranking?) = ranking?.let { it ->
+    private fun updateRanking(ranking: Ranking?) = ranking?.let { it ->
         rankingPlacementText.text = "${ranking.ranking}"
-
     }
     private fun updateQrView(qr: QR?) = qr?.let { it ->
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {

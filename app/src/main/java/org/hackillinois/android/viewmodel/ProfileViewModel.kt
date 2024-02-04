@@ -59,7 +59,7 @@ class ProfileViewModel : ViewModel() {
     fun fetchRanking() {
         viewModelScope.launch {
             try {
-                val response = App.getAPI().profileRanking();
+                val response = App.getAPI().profileRanking()
                 ranking.postValue(response)
             } catch (e: Exception) {
                 Log.e("Couldn't fetch ranking", e.toString())
