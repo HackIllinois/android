@@ -34,7 +34,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/white"
         android:text="@string/leaderboard"
- />
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_leaderboard"

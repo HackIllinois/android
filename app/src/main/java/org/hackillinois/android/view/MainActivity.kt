@@ -23,11 +23,11 @@ import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
-import org.hackillinois.android.view.leaderboard.LeaderboardFragment
 import org.hackillinois.android.view.profile.ProfileFragment
 import org.hackillinois.android.view.scanner.ScannerFragment
 import org.hackillinois.android.view.scanner.StaffScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
+import org.hackillinois.android.view.shop.ShopFragment
 import org.hackillinois.android.viewmodel.MainViewModel
 import kotlin.concurrent.thread
 
@@ -66,8 +66,8 @@ class MainActivity : AppCompatActivity() {
         val bottomBarButtons = listOf(
             bottomAppBar.homeButton,
             bottomAppBar.scheduleButton,
-            bottomAppBar.shop,
-            bottomAppBar.profile,
+            bottomAppBar.shopButton,
+            bottomAppBar.profileButton,
         )
 
         // make all buttons unselectedColor and then set selected button to selectedColor
@@ -87,8 +87,8 @@ class MainActivity : AppCompatActivity() {
                     when (view) {
                         bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
                         bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
-                        bottomAppBar.shop -> switchFragment(LeaderboardFragment(), false)
-                        bottomAppBar.profile -> switchFragment(ProfileFragment(), false)
+                        bottomAppBar.shopButton -> switchFragment(ShopFragment(), false)
+                        bottomAppBar.profileButton -> switchFragment(ProfileFragment(), false)
                         else -> return@setOnClickListener
                     }
                 }
@@ -110,8 +110,8 @@ class MainActivity : AppCompatActivity() {
                 val bottomBarButtons = listOf(
                     bottomAppBar.homeButton,
                     bottomAppBar.scheduleButton,
-                    bottomAppBar.shop,
-                    bottomAppBar.profile,
+                    bottomAppBar.shopButton,
+                    bottomAppBar.profileButton,
                 )
                 val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
                 bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
