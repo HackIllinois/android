@@ -21,6 +21,7 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.QR
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.profile.Ranking
 import org.hackillinois.android.view.MainActivity
 import org.hackillinois.android.viewmodel.ProfileViewModel
@@ -48,27 +49,40 @@ class ProfileFragment : Fragment() {
 
     private var pro = false
     var staff = false
+    private var userRoles: Roles? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("OnCreate", "OnCreate ran")
         staff = isStaff()
-        pro = isPro()
+        //pro = isPro()
         if (!hasLoggedIn() or staff) {
             return
         }
         // View Model Set Up
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        viewModel.init()
-        viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
-        viewModel.qr.observe(this, Observer { updateQrView(it) })
-        viewModel.ranking.observe(
-            this,
-            Observer {
-                updateRanking(it)
-            },
-        )
-        viewModel.attendee.observe(this) { }
+        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java).apply {
+            init()
+            currentProfileLiveData.observe(this@ProfileFragment, Observer { updateProfileUI(it) })
+            qr.observe(this@ProfileFragment, Observer { updateQrView(it) })
+            roles.observe(
+                this@ProfileFragment,
+                {
+                    userRoles = it
+                    pro = it.isPro()
+                }
+            )
+            attendee.observe(this@ProfileFragment) { }
+            ranking.observe(
+                this@ProfileFragment,
+                Observer {
+                    updateRanking(it)
+                },
+            )
+        }
+
+
+
+        // Log.d("isPro", ""+pro)
         // view model initialization
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -107,26 +121,27 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // if user isn't a staff and has logged in (i.e. attendee), show profile
-        if (hasLoggedIn() and !staff) {
-            viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+//        //if user isn't a staff and has logged in (i.e. attendee), show profile
+//        if (hasLoggedIn() and !staff) {
+//            viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 //            viewModel.qr.observe(
 //                viewLifecycleOwner,
 //                Observer {
 //                    updateQrView(it)
 //                },
 //            )
-            viewModel.ranking.observe(
-                viewLifecycleOwner,
-                Observer {
-                    updateRanking(it)
-                },
-            )
-            viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
-        }
+//            viewModel.ranking.observe(
+//                viewLifecycleOwner,
+//                Observer {
+//                    updateRanking(it)
+//                },
+//            )
+//            viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
+//        }
     }
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         waveText.text = "Wave ${it.foodWave}"
+        Log.d("Profile Pro", ""+pro)
         if (!pro) {
             attendeeTypeText.text = "General" // todo: need to update this later
         } else {

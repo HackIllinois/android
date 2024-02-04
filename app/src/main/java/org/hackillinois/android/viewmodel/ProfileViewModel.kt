@@ -10,10 +10,12 @@ import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.QR
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.profile.Ranking
 import org.hackillinois.android.repository.ProfileRepository
 import org.hackillinois.android.repository.attendeeRepository
 import org.hackillinois.android.repository.qrRepository
+import org.hackillinois.android.repository.rolesRepository
 import java.util.Timer
 import java.util.TimerTask
 class ProfileViewModel : ViewModel() {
@@ -23,9 +25,11 @@ class ProfileViewModel : ViewModel() {
     lateinit var qr: LiveData<QR>
     var ranking: MutableLiveData<Ranking> = MutableLiveData()
     lateinit var attendee: LiveData<Attendee>
+    lateinit var roles: LiveData<Roles>
     lateinit var timerObj: Timer
 
     fun init() {
+        this.roles = rolesRepository.fetch()
         fetchRanking()
         // Creates livedata for view to observe
         currentProfileLiveData = profileRepository.fetchProfile()

@@ -16,5 +16,5 @@ data class Roles(
 
     fun isStaff() = roles.contains("STAFF")
 
-    // fun isPro() = roles.contains("PRO")
+    fun isPro() = roles.contains("PRO")
 }
