@@ -43,6 +43,9 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
             if (position == 1) {
                 val topDivider: TextView = itemView.findViewById(R.id.brownDividerTop)
                 topDivider.visibility = View.VISIBLE
+            } else {
+                val topDivider: TextView = itemView.findViewById(R.id.brownDividerTop)
+                topDivider.visibility = View.GONE
             }
 
             shopItemTextView.text = item.name
