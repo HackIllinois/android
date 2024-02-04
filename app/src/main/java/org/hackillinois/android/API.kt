@@ -58,6 +58,11 @@ interface API {
     @GET("registration/attendee/")
     suspend fun attendee(): Attendee
 
+    // SHOP
+
+    @GET("shop/")
+    suspend fun shop(): List<ShopItem>
+
     // STAFF
 
     @POST("staff/attendance/")
