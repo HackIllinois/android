@@ -5,131 +5,149 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/shopCardView"
+    <TextView
+        android:id="@+id/brownDividerTop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="5dp">
+        android:layout_height="10dp"
+        android:background="@drawable/point_shop_divider"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shopTile_constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="5dp"
+        android:background="@drawable/point_shop_tile_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/brownDividerTop">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineSeparator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.45" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
 
-            <ImageView
-                android:id="@+id/shopItemImageView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:scaleType="centerInside"
-                android:layout_marginVertical="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guidelineSeparator"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/shop_potion_sticker" />
+        <ImageView
+            android:id="@+id/shopItemImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="20dp"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineSeparator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/shop_potion_sticker" />
 
-            <TextView
-                android:id="@+id/shopItemTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="@font/montserrat_semi_bold"
-                android:gravity="center"
-                android:textColor="@color/darkForest"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintBottom_toTopOf="@+id/priceTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@id/guidelineSeparator"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:text="Super Long Test Shop Test Shop Name" />
+        <TextView
+            android:id="@+id/shopItemTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:gravity="center"
+            android:textColor="@color/darkForest"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toTopOf="@+id/priceTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/guidelineSeparator"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Super Long Test Shop Test Shop Name" />
 
-            <TextView
-                android:id="@+id/costAndQuantityView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/rounded_dark_forest_bg"
-                android:fontFamily="@font/montserrat_bold"
-                android:gravity="center"
-                android:maxLines="1"
-                app:layout_constraintBottom_toBottomOf="@id/priceTextView"
-                app:layout_constraintEnd_toEndOf="@id/quantityTextView"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@id/coinImageView"
-                app:layout_constraintTop_toTopOf="@+id/priceTextView"
-                app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/costAndQuantityView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/rounded_dark_forest_bg"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="@id/priceTextView"
+            app:layout_constraintEnd_toEndOf="@id/quantityTextView"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/coinImageView"
+            app:layout_constraintTop_toTopOf="@+id/priceTextView"
+            app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/coinImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:paddingStart="10dp"
-                android:layout_marginVertical="3dp"
-                app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
-                app:layout_constraintEnd_toStartOf="@+id/priceTextView"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="@+id/guidelineSeparator"
-                app:layout_constraintTop_toTopOf="@+id/priceTextView"
-                app:srcCompat="@drawable/faded_coin" />
+        <ImageView
+            android:id="@+id/coinImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginVertical="3dp"
+            android:paddingStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
+            app:layout_constraintEnd_toStartOf="@+id/priceTextView"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/guidelineSeparator"
+            app:layout_constraintTop_toTopOf="@+id/priceTextView"
+            app:srcCompat="@drawable/faded_coin" />
 
-            <TextView
-                android:id="@+id/priceTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="5dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/separatorTextView"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/coinImageView"
-                app:layout_constraintTop_toBottomOf="@+id/shopItemTextView"
-                tools:text="1000" />
+        <TextView
+            android:id="@+id/priceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:paddingVertical="5dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/separatorTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/coinImageView"
+            app:layout_constraintTop_toBottomOf="@+id/shopItemTextView"
+            tools:text="1000" />
 
-            <TextView
-                android:id="@+id/separatorTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_medium"
-                android:text="@string/separator"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
-                app:layout_constraintEnd_toStartOf="@+id/quantityTextView"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/priceTextView"
-                app:layout_constraintTop_toTopOf="@id/priceTextView" />
+        <TextView
+            android:id="@+id/separatorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/separator"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
+            app:layout_constraintEnd_toStartOf="@+id/quantityTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/priceTextView"
+            app:layout_constraintTop_toTopOf="@id/priceTextView" />
 
-            <TextView
-                android:id="@+id/quantityTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:paddingEnd="10dp"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/separatorTextView"
-                app:layout_constraintTop_toTopOf="@id/priceTextView"
-                tools:text="100 Left" />
+        <TextView
+            android:id="@+id/quantityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:paddingEnd="10dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/separatorTextView"
+            app:layout_constraintTop_toTopOf="@id/priceTextView"
+            tools:text="100 Left" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/brownDividerBottom"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@drawable/point_shop_divider"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shopTile_constraintLayout" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

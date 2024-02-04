@@ -1,8 +1,6 @@
 package org.hackillinois.android.view.shop
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -88,7 +86,6 @@ class ShopFragment : Fragment() {
             mLayoutManager = LinearLayoutManager(context)
             this.layoutManager = mLayoutManager
             this.adapter = mAdapter
-            addDividers()
         }
 
         shopViewModel.shopLiveData.observe(
@@ -121,42 +118,6 @@ class ShopFragment : Fragment() {
 
         return view
     }
-
-    class DividerItemDecorator(context: Context) : RecyclerView.ItemDecoration() {
-        private val mDivider: Drawable = ContextCompat.getDrawable(context, R.drawable.point_shop_divider)!!
-        override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-            val dividerLeft = parent.paddingLeft
-            val dividerRight = parent.width - parent.paddingRight
-            val childCount = parent.childCount // how many items recyclerview has
-            for (i in 0..childCount - 1) { // minus 1 to account for zero index and not skip last item
-                val child = parent.getChildAt(i)
-                val params = child.layoutParams as RecyclerView.LayoutParams
-                val dividerTop = child.bottom + params.bottomMargin
-                val dividerBottom = dividerTop + mDivider.intrinsicHeight
-                mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
-                mDivider.draw(canvas)
-
-                // add divider to top of recyclerview
-                if (i == 0) {
-                    val topDividerTop = parent.paddingTop
-                    val topDividerBottom = topDividerTop + mDivider.intrinsicHeight
-                    mDivider.setBounds(dividerLeft, topDividerTop, dividerRight, topDividerBottom)
-                    mDivider.draw(canvas)
-                }
-            }
-        }
-    }
-    private fun RecyclerView.addDividers() {
-        if (layoutManager !is LinearLayoutManager) {
-            return
-        }
-
-        addItemDecoration(DividerItemDecorator(context))
-    }
-
-//    private fun updateShop(newShop: List<ShopItem>) {
-//        mAdapter.updateShop(newShop)
-//    }
 
     // Called in onCreateView within shopLiveData.observe
     private fun updateShop(newShop: List<ShopItem>) {
