@@ -15,6 +15,7 @@ object FirebaseTokenManager {
 
     fun writeToken(context: Context, token: String) {
         setIsTokenNew(context, true)
+        Log.d("FIREBASE TOKEN", token)
         val sharedPrefKey = context.getString(R.string.authorization_pref_file_key)
         val editor = context.getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE).edit()
         editor.putString(FIREBASE_TOKEN_KEY, token)
