@@ -19,8 +19,8 @@
         android:name="org.hackillinois.android.App"
         android:allowBackup="false"
         android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher_23"
-        android:roundIcon="@mipmap/ic_launcher_23_round"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
 
 
