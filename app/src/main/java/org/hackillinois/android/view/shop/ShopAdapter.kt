@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.shop
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.shop_tile.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.ShopItem
+import java.lang.Exception
 
 class ShopAdapter(private var itemList: List<ShopItem>) :
     RecyclerView.Adapter<ShopAdapter.ViewHolder>() {
@@ -54,9 +56,12 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
             val quantity = item.quantity
             quantityTextView.text = resources.getString(R.string.shopquantity, quantity)
 
-            val imageURL = item.imageURL
             val shopItemImageView: ImageView = itemView.findViewById(R.id.shopItemImageView)
-            Glide.with(context).load(imageURL).into(shopItemImageView)
+            try {
+                Glide.with(context).load(item.imageURL).into(shopItemImageView)
+            } catch (e: Exception) {
+                Log.d("Shop Glide Error", e.message.toString())
+            }
         }
     }
 
