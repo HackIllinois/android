@@ -36,12 +36,11 @@ class ShopFragment : Fragment() {
     private lateinit var merchButton: TextView
     private lateinit var raffleButton: TextView
 
-    private lateinit var merchItems: List<ShopItem>
-    private lateinit var raffleItems: List<ShopItem>
+    private var merchItems: List<ShopItem> = listOf()
+    private var raffleItems: List<ShopItem> = listOf()
 
     // Merch tab is default selected
     private var showingMerch: Boolean = true
-    private var showingRaffle: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,24 +53,6 @@ class ShopFragment : Fragment() {
         } else {
             shopViewModel.init(false)
         }
-
-        // Observes value of showMerch and updates showingMerch value accordingly
-        shopViewModel.showMerch.observe(
-            this,
-            Observer {
-                showingMerch = it ?: false
-                updateShopUI()
-            },
-        )
-
-        // Observes value of showMerch and updates showingRaffle value accordingly
-        shopViewModel.showRaffle.observe(
-            this,
-            Observer {
-                showingRaffle = it ?: false
-                updateShopUI()
-            },
-        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -92,7 +73,7 @@ class ShopFragment : Fragment() {
             viewLifecycleOwner,
             Observer {
                 // will split shop items into Merch or Raffle category
-                updateShop(it)
+                updateShopItems(it)
             },
         )
 
@@ -120,7 +101,7 @@ class ShopFragment : Fragment() {
     }
 
     // Called in onCreateView within shopLiveData.observe
-    private fun updateShop(newShop: List<ShopItem>) {
+    private fun updateShopItems(newShop: List<ShopItem>) {
         // Split the shop items into Merch and Raffle items
         merchItems = newShop.filter { !it.isRaffle }
         raffleItems = newShop.filter { it.isRaffle }
@@ -142,10 +123,8 @@ class ShopFragment : Fragment() {
             merchButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_selected_tab) }
             raffleButton.isSelected = false
             raffleButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_unselected_tab) }
-            shopViewModel.showMerch.postValue(true)
-            shopViewModel.showRaffle.postValue(false)
             showingMerch = true
-            showingRaffle = false
+            updateShopUI()
         }
     }
 
@@ -156,10 +135,8 @@ class ShopFragment : Fragment() {
             raffleButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_selected_tab) }
             merchButton.isSelected = false
             merchButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_unselected_tab) }
-            shopViewModel.showRaffle.postValue(true)
-            shopViewModel.showMerch.postValue(false)
-            showingRaffle = true
             showingMerch = false
+            updateShopUI()
         }
     }
 
