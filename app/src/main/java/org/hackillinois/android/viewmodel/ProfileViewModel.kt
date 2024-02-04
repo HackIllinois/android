@@ -7,13 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
-import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.QR
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.profile.Ranking
 import org.hackillinois.android.repository.ProfileRepository
-import org.hackillinois.android.repository.attendeeRepository
 import org.hackillinois.android.repository.qrRepository
 import org.hackillinois.android.repository.rolesRepository
 import java.util.Timer
@@ -24,7 +22,6 @@ class ProfileViewModel : ViewModel() {
     lateinit var currentProfileLiveData: LiveData<Profile>
     lateinit var qr: LiveData<QR>
     var ranking: MutableLiveData<Ranking> = MutableLiveData()
-    lateinit var attendee: LiveData<Attendee>
     lateinit var roles: LiveData<Roles>
     lateinit var timerObj: Timer
 
@@ -35,7 +32,6 @@ class ProfileViewModel : ViewModel() {
         currentProfileLiveData = profileRepository.fetchProfile()
         // Initial qr code fetching
         qr = qrRepository.fetch()
-        attendee = attendeeRepository.fetch()
 
         // should refresh QR code every 15 seconds using Timer() class
         timerObj = Timer()
@@ -48,15 +44,12 @@ class ProfileViewModel : ViewModel() {
         timerObj.scheduleAtFixedRate(timerTaskObj, 0, 15000)
     }
 
-    fun fetchCurrentProfile() {
-        currentProfileLiveData = profileRepository.fetchProfile()
-    }
     override fun onCleared() {
         super.onCleared()
         timerObj.cancel()
     }
 
-    fun fetchRanking() {
+    private fun fetchRanking() {
         viewModelScope.launch {
             try {
                 val response = App.getAPI().profileRanking()

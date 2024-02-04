@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,61 +28,31 @@ import java.util.*
 
 class ProfileFragment : Fragment() {
 
-    private lateinit var viewModel: ProfileViewModel
+    private lateinit var profileViewModel: ProfileViewModel
     private lateinit var nameText: TextView
 
-//  private lateinit var pointsText: TextView
     private lateinit var qrCodeImage: ImageView
     private lateinit var avatarImage: ImageView
-    private lateinit var leftProfileIcon: ImageView
-    private lateinit var rightProfileIcon: ImageView
-    // private lateinit var tierText: TextView
-
-    // Attendee only elements
     private lateinit var waveText: TextView
     private lateinit var attendeeTypeText: TextView
-    private lateinit var placementBannerImage: ImageView
-    private lateinit var yourRankingText: TextView
-    private lateinit var leaderboardIcon: ImageView
     private lateinit var rankingPlacementText: TextView
 
     private var pro = false
-    var staff = false
     private var userRoles: Roles? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("OnCreate", "OnCreate ran")
-        staff = isStaff()
-        // pro = isPro()
-        if (!hasLoggedIn() or staff) {
+
+        if (!hasLoggedIn() or isStaff()) {
             return
         }
-        // View Model Set Up
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java).apply {
-            init()
-            currentProfileLiveData.observe(this@ProfileFragment, Observer { updateProfileUI(it) })
-            qr.observe(this@ProfileFragment, Observer { updateQrView(it) })
-            roles.observe(
-                this@ProfileFragment,
-                {
-                    userRoles = it
-                    pro = it.isPro()
-                }
-            )
-            attendee.observe(this@ProfileFragment) { }
-            ranking.observe(
-                this@ProfileFragment,
-                Observer {
-                    updateRanking(it)
-                },
-            )
-        }
-        // Log.d("isPro", ""+pro)
-        // view model initialization
+        // View model set up and initialization
+        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        profileViewModel.init()
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (!hasLoggedIn() or (hasLoggedIn() and staff)) {
+        // if not an attendee, set the layout to be the not logged in profile
+        if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
@@ -92,59 +61,59 @@ class ProfileFragment : Fragment() {
             }
             return view
         }
+
+        // set up LiveData observers
+        profileViewModel.currentProfileLiveData.observe(
+            this@ProfileFragment,
+            Observer { updateProfileUI(it) },
+        )
+        profileViewModel.qr.observe(
+            this@ProfileFragment,
+            Observer {
+                updateQrView(it)
+            },
+        )
+        profileViewModel.roles.observe(
+            this@ProfileFragment,
+            Observer {
+                userRoles = it
+                if (userRoles != null && userRoles!!.isPro()) {
+                    pro = it.isPro()
+                    updateProTag()
+                }
+            },
+        )
+        profileViewModel.ranking.observe(
+            this@ProfileFragment,
+            Observer {
+                updateRanking(it)
+            },
+        )
+
+        // do view creation here if attendee
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
         nameText = view.findViewById(R.id.nameText2)
         qrCodeImage = view.findViewById(R.id.qrCodeImage2024)
         avatarImage = view.findViewById(R.id.avatarImage2)
-        leftProfileIcon = view.findViewById(R.id.leftProfileLogo2)
-        rightProfileIcon = view.findViewById(R.id.rightProfileLogo2)
-
-        // do view creation here if staff, else do use
         waveText = view.findViewById(R.id.waveText2)
         attendeeTypeText = view.findViewById(R.id.attendeeTypeText2)
-        placementBannerImage = view.findViewById(R.id.placementBannerImageView)
-        yourRankingText = view.findViewById(R.id.rankingTextView2)
-        leaderboardIcon = view.findViewById(R.id.rankingImageView2)
         rankingPlacementText = view.findViewById(R.id.rankingPlacementTextView2)
-        // displays a logout button if not logged in or if staff(staff don't have profile page)
-        // Logout button
+
+        // Displays the logout button in the top-right corner if an attendee
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
         logoutButton1.setOnClickListener {
             val mainActivity: MainActivity = requireActivity() as MainActivity
             mainActivity.logout()
         }
+
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        //if user isn't a staff and has logged in (i.e. attendee), show profile
-//        if (hasLoggedIn() and !staff) {
-//            viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-//            viewModel.qr.observe(
-//                viewLifecycleOwner,
-//                Observer {
-//                    updateQrView(it)
-//                },
-//            )
-//            viewModel.ranking.observe(
-//                viewLifecycleOwner,
-//                Observer {
-//                    updateRanking(it)
-//                },
-//            )
-//            viewModel.currentProfileLiveData.observe(this, Observer { updateProfileUI(it) })
-//        }
-    }
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         waveText.text = "Wave ${it.foodWave}"
-        Log.d("Profile Pro", "" + pro)
-        if (!pro) {
-            attendeeTypeText.text = "General" // todo: need to update this later
-        } else {
-            attendeeTypeText.text = "Knight"
-        }
         nameText.text = it.displayName
+        updateProTag()
+
         // load avatar image png from API using Glide
         Glide.with(requireContext()).load(it.avatarUrl).into(avatarImage)
     }
@@ -152,14 +121,18 @@ class ProfileFragment : Fragment() {
     private fun updateRanking(ranking: Ranking?) = ranking?.let { it ->
         rankingPlacementText.text = "${ranking.ranking}"
     }
+
+    private fun updateProTag() {
+        attendeeTypeText.text = if (pro) "Knight" else "General"
+    }
     private fun updateQrView(qr: QR?) = qr?.let { it ->
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
             // Retrieves qr code user info that will be encoded
-            val text = "${qr.qrInfo}"
+            val text = qr.qrInfo
             // Creates bitmap of text
             val bitmap = generateQR(text)
             // actually setting the qr code to be the generated qr code
-            qrCodeImage?.setImageBitmap(bitmap)
+            qrCodeImage.setImageBitmap(bitmap)
         }
     }
 
@@ -180,7 +153,6 @@ class ProfileFragment : Fragment() {
 
             val clear = Color.TRANSPARENT
             val solid = Color.parseColor("#662B13")
-            val black = Color.BLACK
             // creates qr code based on bitMatrix
             for (x in 0 until width) {
                 for (y in 0 until (height)) {
@@ -202,10 +174,5 @@ class ProfileFragment : Fragment() {
         val context = requireActivity().applicationContext
         val prefString = context.getString(R.string.authorization_pref_file_key)
         return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
-    }
-
-    private fun isPro(): Boolean {
-
-        return false
     }
 }
