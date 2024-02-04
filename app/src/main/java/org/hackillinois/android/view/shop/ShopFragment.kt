@@ -29,27 +29,58 @@ class ShopFragment : Fragment() {
         fun newInstance() = ShopFragment()
     }
 
-    private lateinit var viewModel: ShopViewModel
+    private lateinit var shopViewModel: ShopViewModel
     private var shop: List<ShopItem> = listOf()
     private lateinit var recyclerView: RecyclerView
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var mAdapter: ShopAdapter
 
+    private lateinit var merchButton: TextView
+    private lateinit var raffleButton: TextView
+
+    private lateinit var merchItems: List<ShopItem>
+    private lateinit var raffleItems: List<ShopItem>
+
+    // Merch tab is default selected
+    private var showingMerch: Boolean = true
+    private var showingRaffle: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
+        shopViewModel = ViewModelProvider(this).get(ShopViewModel::class.java)
 
         // pass whether the user is an attendee to the viewmodel
         if (hasLoggedIn() && isAttendee()) {
-            viewModel.init(true)
+            shopViewModel.init(true)
         } else {
-            viewModel.init(false)
+            shopViewModel.init(false)
         }
+
+        // Observes value of showMerch and updates showingMerch value accordingly
+        shopViewModel.showMerch.observe(
+            this,
+            Observer {
+                showingMerch = it ?: false
+                updateShopUI()
+            },
+        )
+
+        // Observes value of showMerch and updates showingRaffle value accordingly
+        shopViewModel.showRaffle.observe(
+            this,
+            Observer {
+                showingRaffle = it ?: false
+                updateShopUI()
+            },
+        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_point_shop, container, false)
+
+        merchButton = view.findViewById(R.id.merchButton)
+        raffleButton = view.findViewById(R.id.raffleButton)
 
         mAdapter = ShopAdapter(shop)
 
@@ -60,12 +91,16 @@ class ShopFragment : Fragment() {
             addDividers()
         }
 
-        viewModel.shopLiveData.observe(
+        shopViewModel.shopLiveData.observe(
             viewLifecycleOwner,
             Observer {
+                // will split shop items into Merch or Raffle category
                 updateShop(it)
             },
         )
+
+        merchButton.setOnClickListener(merchClickListener)
+        raffleButton.setOnClickListener(raffleClickListener)
 
         if (hasLoggedIn() && isAttendee()) {
             // set coin views visible for attendee
@@ -76,7 +111,7 @@ class ShopFragment : Fragment() {
             coinText.visibility = View.VISIBLE
             coinImg.visibility = View.VISIBLE
 
-            viewModel.profileLiveData.observe(
+            shopViewModel.profileLiveData.observe(
                 viewLifecycleOwner,
                 Observer {
                     updateCoinTotalUI(it)
@@ -119,8 +154,52 @@ class ShopFragment : Fragment() {
         addItemDecoration(DividerItemDecorator(context))
     }
 
+//    private fun updateShop(newShop: List<ShopItem>) {
+//        mAdapter.updateShop(newShop)
+//    }
+
+    // Called in onCreateView within shopLiveData.observe
     private fun updateShop(newShop: List<ShopItem>) {
-        mAdapter.updateShop(newShop)
+        // Split the shop items into Merch and Raffle items
+        merchItems = newShop.filter { !it.isRaffle }
+        raffleItems = newShop.filter { it.isRaffle }
+
+        // Update the UI based on the selected button
+        updateShopUI()
+    }
+
+    private fun updateShopUI() {
+        // if showingMerch variable is True based on selected button, show merch items. else, show raffle
+        val itemsToShow = if (showingMerch) merchItems else raffleItems
+        mAdapter.updateShop(itemsToShow)
+    }
+
+    // update merch ViewModel on click
+    private val merchClickListener = View.OnClickListener {
+        if (!merchButton.isSelected) {
+            merchButton.isSelected = true
+            merchButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_selected_tab) }
+            raffleButton.isSelected = false
+            raffleButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_unselected_tab) }
+            shopViewModel.showMerch.postValue(true)
+            shopViewModel.showRaffle.postValue(false)
+            showingMerch = true
+            showingRaffle = false
+        }
+    }
+
+    // update raffle ViewModel on click
+    private val raffleClickListener = View.OnClickListener {
+        if (!raffleButton.isSelected) {
+            raffleButton.isSelected = true
+            raffleButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_selected_tab) }
+            merchButton.isSelected = false
+            merchButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_unselected_tab) }
+            shopViewModel.showRaffle.postValue(true)
+            shopViewModel.showMerch.postValue(false)
+            showingRaffle = true
+            showingMerch = false
+        }
     }
 
     private fun updateCoinTotalUI(newProfile: Profile?) {
@@ -140,7 +219,3 @@ class ShopFragment : Fragment() {
         return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "github"
     }
 }
-
-// var itemDecoration = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
-// itemDecoration.setDrawable(getDrawable(this.context, R.drawable.leaderboard_divider)!!)
-// addItemDecoration(itemDecoration)

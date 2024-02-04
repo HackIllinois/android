@@ -49,29 +49,6 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
             val imageURL = item.imageURL
             val shopItemImageView: ImageView = itemView.findViewById(R.id.shopItemImageView)
             Glide.with(context).load(imageURL).into(shopItemImageView)
-
-            // Declaring executor to parse the URL
-            // val executor = Executors.newSingleThreadExecutor()
-            // Once the executor parses the URL and receives the image, handler will load it
-            // in the ImageView
-            // val handler = Handler(Looper.getMainLooper())
-            // Initializing the image
-//            var image: Bitmap? = null
-//            val imageURL = item.imageURL
-//            executor.execute() {
-//                try {
-//                    val `in` = java.net.URL(imageURL).openStream()
-//                    image = BitmapFactory.decodeStream(`in`)
-
-            // Only for making changes in UI
-//                    handler.post {
-//                        shopItemImageView.setImageBitmap(image)
-//                    }
-//                }
-            // If the URL doesnot point to image or any other kind of failure
-//                catch (e: Exception) {
-//                    e.printStackTrace()
-//                }
         }
     }
 

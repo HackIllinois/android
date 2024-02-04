@@ -1,6 +1,7 @@
 package org.hackillinois.android.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.ShopItem
@@ -18,7 +19,8 @@ class ShopViewModel : ViewModel() {
 
     lateinit var timerObj: Timer
 
-    // var shopTabClicked by Delegates.notNull<Boolean>()
+    var showMerch: MutableLiveData<Boolean> = MutableLiveData()
+    var showRaffle: MutableLiveData<Boolean> = MutableLiveData()
 
     fun init(isAttendee: Boolean) {
         // initial fetch
