@@ -1,9 +1,11 @@
 package org.hackillinois.android
 
 import org.hackillinois.android.database.entity.*
-import org.hackillinois.android.model.checkin.CheckIn
+import org.hackillinois.android.model.event.DietaryRestrictions
 import org.hackillinois.android.model.event.EventId
 import org.hackillinois.android.model.event.EventsList
+import org.hackillinois.android.model.event.MentorId
+import org.hackillinois.android.model.event.Points
 import org.hackillinois.android.model.leaderboard.LeaderboardList
 import org.hackillinois.android.model.profile.ProfilePoints
 import org.hackillinois.android.model.scanner.UserEventIds
@@ -24,24 +26,21 @@ interface API {
     /* Note: the endpoint @GET("auth/login/{provider}/") is not called in this file
         because the URL is directly accessed in LoginActivity.kt to redirect to OAuth */
 
-    // CHECK-IN
-
-    @POST("checkin/")
-    suspend fun checkInUser(@Body body: CheckIn): CheckIn
-
     // EVENT
 
     @GET("event/")
     suspend fun allEvents(): EventsList
 
-    @GET("event/{id}/")
-    fun getEvent(@Path("id") id: String): Call<Event>
+//    @POST("event/checkin/")
+//    suspend fun eventCheckIn(@Body body: EventCode): EventCheckInResponse // todo: changed to user/scan-event/
 
-    @POST("event/checkin/")
-    suspend fun eventCheckIn(@Body body: EventCode): EventCheckInResponse // todo: changed to user/scan-event/
+//    @POST("event/staff/checkin/")
+//    suspend fun attendeeCheckIn(@Body body: UserEventPair): AttendeeCheckInResponse // todo: changed to staff/scan-attendee/
 
-    @POST("event/staff/checkin/")
-    suspend fun attendeeCheckIn(@Body body: UserEventPair): AttendeeCheckInResponse // todo: changed to staff/scan-attendee/
+    // MENTOR
+
+    @POST("mentor/attendance/")
+    suspend fun scanMentor(@Body body: MentorId): Points
 
     // NOTIFICATIONS
 
@@ -78,7 +77,7 @@ interface API {
     suspend fun staffMeetingCheckIn(@Body body: MeetingEventId)
 
     @PUT("staff/scan-attendee/")
-    suspend fun scanAttendee(@Body body: UserEventIds)
+    suspend fun scanAttendee(@Body body: UserEventIds): DietaryRestrictions
 
     // USER
 
@@ -98,7 +97,7 @@ interface API {
     suspend fun qrCode(): QR
 
     @PUT("user/scan-event/")
-    suspend fun scanEvent(@Body body: EventId)
+    suspend fun scanEvent(@Body body: EventId): Points
 
     // VERSION
 

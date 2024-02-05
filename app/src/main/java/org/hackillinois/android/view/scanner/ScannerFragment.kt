@@ -34,11 +34,10 @@ import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.EventCode
 import org.hackillinois.android.database.entity.MeetingEventId
 import org.hackillinois.android.database.entity.Roles
-import org.hackillinois.android.database.entity.UserEventPair
 import org.hackillinois.android.model.event.EventId
+import org.hackillinois.android.model.event.MentorId
 import org.hackillinois.android.model.profile.ProfilePoints
 import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.scanner.UserEventIds
@@ -56,7 +55,6 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
     private var chipIdToEventId: MutableMap<Int, String> = mutableMapOf()
 
     private lateinit var codeScanner: CodeScanner
-    private var alertDialog: AlertDialog? = null
     private lateinit var chipGroup: ChipGroup
     private lateinit var chipTag: TextView
 
@@ -138,13 +136,14 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                                 viewModel.submitMeetingAttendance(MeetingEventId(eventId))
                             }
                             "attendee-check-in" -> {
-                                val userId = decodeUserId(it.text) // todo: check
+                                val userToken = extractUserToken(it.text) // todo: check
                                 val eventId = getChipEventId() // todo: check
-                                viewModel.checkInAttendee(UserEventIds(userId, eventId))
+                                Log.d("USEREVENTPAIR", "$userToken, $eventId")
+                                viewModel.checkInAttendee(UserEventIds(userToken, eventId))
                             }
                             "add-points" -> {
-                                val userId = decodeUserId(it.text) // todo: check
-                                showTextInputDialog(userId)
+                                val userToken = extractUserToken(it.text) // todo: check
+                                showTextInputDialog(userToken)
                             }
                             else -> {
                                 displayToast(R.string.something_went_wrong_message)
@@ -155,15 +154,15 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                         // ATTENDEE -> handle event self check in, mentor check in, and point shop scan
                         when (scanKey) {
                             "event-check-in" -> {
-                                val eventId: String = it.text // todo: check
+                                val eventId: String = it.text // todo: check QR encoding
                                 viewModel.checkInEvent(EventId(eventId))
                             }
                             "mentor-check-in" -> {
-                                // todo
-                                viewModel.checkInMentor()
+                                val mentorId: String = it.text // todo: check QR encoding
+                                viewModel.checkInMentor(MentorId(mentorId))
                             }
                             "point-shop" -> {
-                                val itemInstance = decodeItemInfo(it.text) // todo: check again
+                                val itemInstance = extractItemInfo(it.text) // todo: check again
                                 viewModel.purchaseItem(itemInstance)
                             }
                             else -> {
@@ -268,12 +267,12 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         }
     }
 
-    private fun decodeUserId(qrString: String): String {
+    private fun extractUserToken(qrString: String): String {
         val splitOnEquals = qrString.split("=")
         return splitOnEquals.last()
     }
 
-    private fun decodeItemInfo(qrString: String): ItemInstance {
+    private fun extractItemInfo(qrString: String): ItemInstance {
         val qrStringTrimmed = qrString.replace("\"", "")
         val uri = Uri.parse(qrStringTrimmed)
         val itemId = uri.getQueryParameter("itemId") ?: "null"
@@ -285,7 +284,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         return chipIdToEventId[chipGroup.checkedChipId] ?: "0b8ea2a94ba4224c075f016256fbddfa" // default check-in TODO: update for 2024
     }
 
-    private fun showTextInputDialog(userId: String) {
+    private fun showTextInputDialog(userToken: String) {
         Handler(Looper.getMainLooper()).post {
             val builder = AlertDialog.Builder(context)
             val dialogView: View = layoutInflater.inflate(R.layout.dialog_input, null)
@@ -296,7 +295,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                 .setPositiveButton("OK") { dialog, id ->
                     // Retrieve the input text
                     val userInput = editText.text.toString()
-                    parseAndAddPoints(userId, userInput)
+                    parseAndAddPoints(userToken, userInput)
                 }
                 .setCancelable(false)
                 .setNegativeButton("Cancel") { dialog, id ->
@@ -313,12 +312,12 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         }
     }
 
-    private fun parseAndAddPoints(userId: String, userInput: String) {
+    private fun parseAndAddPoints(userToken: String, userInput: String) {
         val trimmedInput = userInput.trim()
         var points = 0
         try {
             points = trimmedInput.toInt()
-            viewModel.giveAttendeePoints(ProfilePoints(userId, points))
+            viewModel.giveAttendeePoints(ProfilePoints(userToken, points))
         } catch (e: Exception) {
             displayToast(R.string.user_input_points_message)
             codeScanner.startPreview()
