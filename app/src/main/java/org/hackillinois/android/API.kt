@@ -66,6 +66,9 @@ interface API {
 
     // SHOP
 
+    @GET("shop/")
+    suspend fun shop(): List<ShopItem>
+
     @POST("shop/item/buy/")
     suspend fun buyShopItem(@Body body: ItemInstance)
 

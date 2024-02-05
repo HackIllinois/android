@@ -3,6 +3,7 @@
 
 <!--    colors for specific purposes       -->
     <color name="white">#FFFFFF</color>
+    <color name="white40PercentOpaque">#66FFFFFF</color>
     <color name="scannerBorderColor">#A5DAD5</color>
     <color name="textShadowColor">#d7d4b8</color>
     <color name="primaryGrayColor">#212121</color>
@@ -44,6 +45,7 @@
     <color name="aquaGreen">#A5DAD5</color>
     <color name="eveningGrass">#ACCEBE</color>
     <color name="darkForest">#0D3F41</color>
+    <color name="darkForest50PercentOpaque">#800D3F41</color>
     <color name="dragonBlood">#A61E00</color>
     <color name="wandWood">#964C1A</color>
     <color name="burntBark">#662B13</color>
@@ -61,5 +63,7 @@
     <color name="mistyMint">#84BCB9</color>
     <color name="errorPink">#C62A6C</color>
     <color name="gray">#737373</color>
+    <color name="coinTotalColor">#2A2A2A</color>
+    <color name="tabSelectedColor">#D84177</color>
 
 </resources>

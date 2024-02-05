@@ -66,6 +66,14 @@
         <item quantity="other">%d pts</item>
     </plurals>
 
+    <!--    Shop Fragment   -->
+    <string name="pointshop">POINT SHOP</string>
+    <string name="shopquantity">%d Left</string>
+    <string name="blank">---</string>
+    <string name="separator">|</string>
+    <string name="merch">MERCH</string>
+    <string name="raffle">RAFFLE</string>
+
     <!--   Profile Fragment   -->
     <string name="profile">PROFILE</string>
     <string name="diet_restrictions">Dietary Restrictions</string>
@@ -98,6 +106,7 @@
     <!--   Dialog Fragments   -->
     <string name="prize_obtained">Prize Obtained!</string>
     <string name="points_earned">Points Earned!</string>
+
 
 
 </resources>

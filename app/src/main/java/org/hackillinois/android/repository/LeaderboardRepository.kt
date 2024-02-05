@@ -15,6 +15,7 @@ class LeaderboardRepository {
     fun fetchLeaderboard(): LiveData<List<Leaderboard>> {
         // 'refreshAll()' coroutine is called only when leaderboard button on bottom app bar clicked
         refreshAll()
+        // locally stored database
         val lb = leaderboardDao.getLeaderboard()
         Log.d("LEADERBOARD CALL", lb.value.toString())
         return lb
