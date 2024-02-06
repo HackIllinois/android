@@ -5,26 +5,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/nightBlue">
+    android:background="@color/witchyPurple">
 
     <ImageView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
-        android:layout_marginBottom="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/dark_fantasy_bg_2024"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/home_bg"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
 
     <TextView
-        android:id="@+id/title_textview_leaderboard"
+        android:id="@+id/title_textview_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="35dp"
-        android:layout_marginTop="22dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="start"
         android:text="@string/profile"
@@ -32,55 +39,42 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/guidelineTop" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/logout_layout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/logout_textview"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_textview_leaderboard"
+        android:layout_marginHorizontal="30dp"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:gravity="center"
+        android:text="@string/not_logged_in_message"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintVertical_bias="0.40"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_textview_profile" />
 
-        <TextView
-            android:id="@+id/logout_textview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:gravity="center"
-            android:text="@string/not_logged_in_message"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            app:cornerRadius="24dp"
-            android:backgroundTint="@color/midnight"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:paddingHorizontal="22dp"
-            android:paddingVertical="8dp"
-            android:text="@string/profile_login"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logout_textview"
-            tools:ignore="TouchTargetSizeCheck" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logout_button"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:cornerRadius="24dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/white"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:paddingHorizontal="30dp"
+        android:text="@string/profile_login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logout_textview"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

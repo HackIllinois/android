@@ -76,24 +76,17 @@
 
     <!--   Profile Fragment   -->
     <string name="profile">PROFILE</string>
-    <string name="diet_restrictions">Dietary Restrictions</string>
-    <string name="vegetarian">Vegetarian</string>
-    <string name="vegan">Vegan</string>
-    <string name="gluten_free">Gluten Free</string>
-    <string name="other">Other</string>
-    <string name="none">None</string>
-    <string name="dairy_free">Lactose Intolerant</string>
-    <string name="nut_allergy">Nut Allergy</string>
+    <string name="your_ranking">Your Ranking</string>
+    <string name="dashes">--</string>
     <!--   not logged in   -->
     <string name="profile_login">Login</string>
-    <string name="not_logged_in_message">You need to login as an attendee to see your profile.</string>
+    <string name="not_logged_in_message">You need to log in as an attendee in order to see your profile.</string>
 
     <!--   Scanner Fragments   -->
     <string name="attendance">ATTENDANCE</string>
     <string name="staff_meeting">Meeting Attendance</string>
     <string name="staff_checkin">Attendee Check-In</string>
     <string name="scanner_not_logged_in_message">You must log in to use this feature! Go to the Profile tab to logout.</string>
-
 
 
 </resources>

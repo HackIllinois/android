@@ -13,7 +13,9 @@ import java.lang.Exception
 class ProfileRepository {
     private val profileDao = App.database.profileDao()
     fun fetchProfile(): LiveData<Profile> {
+        // make api call to get profile
         refresh()
+        // get profile from Room database
         val profile = profileDao.getProfile()
         return profile
     }
