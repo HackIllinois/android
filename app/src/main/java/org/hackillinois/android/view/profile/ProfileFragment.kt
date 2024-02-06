@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,8 +101,8 @@ class ProfileFragment : Fragment() {
         rankingPlacementText = view.findViewById(R.id.rankingPlacementTextView)
 
         // Displays the logout button in the top-right corner if an attendee
-        val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)
-        logoutButton1.setOnClickListener {
+        val logoutButton = view.findViewById<ImageButton>(R.id.logoutButton)
+        logoutButton.setOnClickListener {
             val mainActivity: MainActivity = requireActivity() as MainActivity
             mainActivity.logout()
         }

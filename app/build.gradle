@@ -109,10 +109,6 @@ dependencies {
     implementation 'com.budiyev.android:code-scanner:2.1.0'
     implementation 'com.google.zxing:core:3.3.3'
 
-    // Internet Image Loading ( For avatar URLs)
-    implementation 'com.squareup.picasso:picasso:2.8'
-    implementation 'com.pixplicity.sharp:library:1.1.0'
-
     // Retrofit
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
