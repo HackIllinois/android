@@ -92,12 +92,12 @@ class ProfileFragment : Fragment() {
 
         // do view creation here if attendee
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        nameText = view.findViewById(R.id.nameText2)
+        nameText = view.findViewById(R.id.nameText)
         qrCodeImage = view.findViewById(R.id.qrCodeImage2024)
-        avatarImage = view.findViewById(R.id.avatarImage2)
-        waveText = view.findViewById(R.id.waveText2)
-        attendeeTypeText = view.findViewById(R.id.attendeeTypeText2)
-        rankingPlacementText = view.findViewById(R.id.rankingPlacementTextView2)
+        avatarImage = view.findViewById(R.id.avatarImage)
+        waveText = view.findViewById(R.id.waveText)
+        attendeeTypeText = view.findViewById(R.id.attendeeTypeText)
+        rankingPlacementText = view.findViewById(R.id.rankingPlacementTextView)
 
         // Displays the logout button in the top-right corner if an attendee
         val logoutButton1 = view.findViewById<ImageButton>(R.id.logoutButton)

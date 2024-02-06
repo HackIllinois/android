@@ -78,18 +78,18 @@
 
 
     <ImageView
-        android:id="@+id/avatarImage2"
+        android:id="@+id/avatarImage"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginVertical="5dp"
-        app:layout_constraintBottom_toTopOf="@id/nameText2"
-        app:layout_constraintEnd_toStartOf="@id/rightProfileLogo2"
-        app:layout_constraintStart_toEndOf="@id/leftProfileLogo2"
+        app:layout_constraintBottom_toTopOf="@id/nameText"
+        app:layout_constraintEnd_toStartOf="@id/rightProfileLogo"
+        app:layout_constraintStart_toEndOf="@id/leftProfileLogo"
         app:layout_constraintTop_toBottomOf="@+id/profileText"
         tools:srcCompat="@drawable/avatar_image_svg" />
 
     <ImageView
-        android:id="@+id/rightProfileLogo2"
+        android:id="@+id/rightProfileLogo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -101,7 +101,7 @@
 
 
     <ImageView
-        android:id="@+id/leftProfileLogo2"
+        android:id="@+id/leftProfileLogo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -112,7 +112,7 @@
         app:srcCompat="@drawable/profile_left_symbol" />
 
     <TextView
-        android:id="@+id/nameText2"
+        android:id="@+id/nameText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="18dp"
@@ -128,7 +128,7 @@
         tools:text="Hackaroni Steve" />
 
     <TextView
-        android:id="@+id/attendeeTypeText2"
+        android:id="@+id/attendeeTypeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -141,15 +141,15 @@
         android:paddingVertical="3dp"
         android:textColor="@color/transparentWhite"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/waveText2"
+        app:layout_constraintEnd_toStartOf="@+id/waveText"
         app:layout_constraintHorizontal_chainStyle="packed"
         
         app:layout_constraintStart_toStartOf="@+id/profileCard"
-        app:layout_constraintTop_toBottomOf="@id/nameText2"
+        app:layout_constraintTop_toBottomOf="@id/nameText"
         tools:text="General" />
 
     <TextView
-        android:id="@+id/waveText2"
+        android:id="@+id/waveText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -162,8 +162,8 @@
         android:textColor="@color/transparentWhite"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/profileCard"
-        app:layout_constraintStart_toEndOf="@+id/attendeeTypeText2"
-        app:layout_constraintTop_toBottomOf="@id/nameText2"
+        app:layout_constraintStart_toEndOf="@+id/attendeeTypeText"
+        app:layout_constraintTop_toBottomOf="@id/nameText"
         tools:text="Wave 1" />
 
     <!--
@@ -197,7 +197,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/profileCard"
         app:layout_constraintStart_toStartOf="@id/profileCard"
-        app:layout_constraintTop_toBottomOf="@+id/waveText2"
+        app:layout_constraintTop_toBottomOf="@+id/waveText"
         app:layout_constraintVertical_bias="0.5"
         />
 
@@ -214,7 +214,7 @@
         app:srcCompat="@drawable/profile_placement_banner_svg" />
 
     <TextView
-        android:id="@+id/rankingTextView2"
+        android:id="@+id/rankingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -229,21 +229,21 @@
         app:layout_constraintVertical_bias="0.18" />
 
     <ImageView
-        android:id="@+id/rankingImageView2"
+        android:id="@+id/rankingImageView"
         android:layout_width="20dp"
         android:layout_height="0dp"
         android:layout_marginVertical="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rankingPlacementTextView2"
-        app:layout_constraintEnd_toStartOf="@+id/rankingPlacementTextView2"
+        app:layout_constraintBottom_toBottomOf="@+id/rankingPlacementTextView"
+        app:layout_constraintEnd_toStartOf="@+id/rankingPlacementTextView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@+id/placementBannerImageView"
-        app:layout_constraintTop_toTopOf="@+id/rankingPlacementTextView2"
+        app:layout_constraintTop_toTopOf="@+id/rankingPlacementTextView"
         app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/profile_ranking_symbol" />
 
     <TextView
-        android:id="@+id/rankingPlacementTextView2"
+        android:id="@+id/rankingPlacementTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -255,8 +255,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/placementBannerImageView"
         app:layout_constraintEnd_toEndOf="@+id/placementBannerImageView"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/rankingImageView2"
-        app:layout_constraintTop_toBottomOf="@+id/rankingTextView2"
+        app:layout_constraintStart_toEndOf="@+id/rankingImageView"
+        app:layout_constraintTop_toBottomOf="@+id/rankingTextView"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
