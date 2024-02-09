@@ -39,5 +39,4 @@ class StaffScannerFragment : Fragment() {
 
         return view
     }
-
 }
