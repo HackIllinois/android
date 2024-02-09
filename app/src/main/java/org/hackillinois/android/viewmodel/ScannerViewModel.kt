@@ -8,7 +8,6 @@ import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.event.EventId
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.MentorId
-import org.hackillinois.android.model.profile.ProfilePoints
 import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.scanner.UserEventIds
 import org.hackillinois.android.model.shop.ItemInstance
@@ -68,28 +67,6 @@ class ScannerViewModel : ViewModel() {
                     }
                 } catch (e: Exception) { }
                 Log.e("CHECK IN ATTENDEE ERROR", error)
-                val scanStatus = ScanStatus("Scan failed: $error", false)
-                lastScanStatus.postValue(scanStatus)
-            }
-        }
-    }
-
-    fun giveAttendeePoints(body: ProfilePoints) {
-        viewModelScope.launch {
-            try {
-                val response = App.getAPI().addPoints(body)
-                val message = "+${body.points} were successfully added to ${response.displayName}'s total score."
-                val scanStatus = ScanStatus(message, true)
-                lastScanStatus.postValue(scanStatus)
-            } catch (e: Exception) {
-                var error = e.message.toString()
-                try {
-                    if (e is HttpException) {
-                        val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
-                        error = jsonObject.optString("error", e.message.toString())
-                    }
-                } catch (e: Exception) { }
-                Log.e("ADD POINTS ERROR", error)
                 val scanStatus = ScanStatus("Scan failed: $error", false)
                 lastScanStatus.postValue(scanStatus)
             }
