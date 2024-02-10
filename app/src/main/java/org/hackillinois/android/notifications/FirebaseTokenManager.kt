@@ -33,7 +33,7 @@ object FirebaseTokenManager {
             val token = readToken(context)
             GlobalScope.launch(Dispatchers.IO) {
                 try {
-                    App.getAPI().sendUserToken(DeviceToken(token))
+                    App.getAPI().sendNotificationToken(DeviceToken(token))
                     writeToken(context, DEFAULT_FIREBASE_TOKEN)
                     setIsTokenNew(context, false)
                 } catch (e: Exception) {
