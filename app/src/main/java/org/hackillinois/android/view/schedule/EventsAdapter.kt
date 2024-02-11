@@ -102,8 +102,7 @@ class EventsAdapter(
             ongoingTextView.visibility = if (event.isCurrentlyHappening()) View.VISIBLE else View.GONE
             coverSquare.visibility = if (event.isCurrentlyHappening()) View.VISIBLE else View.GONE
 
-            // TODO: change from "event.isPrivate" to "event.isPro"
-            proTag.visibility = if (event.isPrivate) View.VISIBLE else View.GONE
+            proTag.visibility = if (event.isPro) View.VISIBLE else View.GONE
 
             titleTextView.text = event.name
 
@@ -111,9 +110,14 @@ class EventsAdapter(
                 false -> "${event.getStartTimeOfDay()} - ${event.getEndTimeOfDay()}"
                 true -> "Asynchronous event"
             }
-            sponsoredTextView.text = "Sponsored by ${event.sponsor}"
-            sponsoredTextView.visibility = if (event.sponsor == null) View.GONE else View.VISIBLE
-            sponsored_marker.visibility = if (event.sponsor == null) View.GONE else View.VISIBLE
+            if (event.sponsor == null || event.sponsor == "" || event.sponsor == "None") {
+                sponsoredTextView.visibility = View.GONE
+                sponsored_marker.visibility = View.GONE
+            } else {
+                sponsoredTextView.text = "Sponsored by ${event.sponsor}"
+                sponsoredTextView.visibility = View.VISIBLE
+                sponsored_marker.visibility = View.VISIBLE
+            }
             if (event.locations.isEmpty()) {
                 locationTextView.text = "N/A"
             } else {
@@ -161,6 +165,7 @@ class EventsAdapter(
                 if (button.isSelected) {
                     FavoritesManager.favoriteEvent(context, event)
                     call = api.followEvent(EventId(event.eventId))
+                    Log.d("following eventId:", event.eventId)
                     val toast = Toast.makeText(context, R.string.schedule_snackbar_notifications_on, Toast.LENGTH_SHORT)
                     toast.show()
                 } else {

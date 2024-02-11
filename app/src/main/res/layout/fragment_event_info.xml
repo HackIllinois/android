@@ -79,7 +79,8 @@
         android:textSize="13sp"
         android:background="@drawable/rounded_witchy_purple"
         android:paddingHorizontal="10dp"
-        android:paddingVertical="3dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="4dp"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/event_name"
@@ -166,14 +167,15 @@
         android:id="@+id/event_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/montserrat_semi_bold"
         android:textColor="@color/white"
         android:textSize="13sp"
         android:background="@drawable/rounded_wand_wood"
         android:paddingHorizontal="8dp"
-        android:paddingVertical="3dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="4dp"
         app:layout_constraintStart_toEndOf="@+id/event_type"
         app:layout_constraintTop_toBottomOf="@id/event_name"
         app:layout_constraintBottom_toBottomOf="@+id/event_type"
@@ -181,16 +183,45 @@
         tools:text="+10 pts" />
 
     <TextView
+        android:id="@+id/proTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="13sp"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="4dp"
+        android:background="@drawable/rounded_pro"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/event_points"
+        app:layout_constraintTop_toBottomOf="@id/event_name"
+        android:visibility="visible"
+        android:text="@string/knights" />
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@id/event_location"
+        android:background="@drawable/map_border"
+        />
+
+    <TextView
         android:id="@+id/event_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="15dp"
         android:layout_marginHorizontal="20dp"
         android:fontFamily="@font/montserrat_regular"
         android:textColor="@color/midnight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_location"
+        app:layout_constraintTop_toBottomOf="@+id/map"
         tools:text="@string/lorem_ipsum" />
 
     <androidx.constraintlayout.widget.Guideline

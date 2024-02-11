@@ -22,7 +22,9 @@ data class Event(
     val points: String,
     val isAsync: Boolean = false,
     val isPrivate: Boolean,
-    val displayOnStaffCheckIn: Boolean
+    val displayOnStaffCheckIn: Boolean,
+    val mapImageUrl: String?,
+    val isPro: Boolean
 ) : ScheduleListItem {
 
     override fun getStartTimeMs() = startTime * 1000L

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
@@ -73,9 +74,15 @@ class EventInfoFragment : Fragment() {
         event?.let {
             event_name.text = it.name
             event_points.text = "+ ${it.points} pts"
-            event_sponsor.text = "Sponsored by ${it.sponsor}"
-            event_sponsor.visibility = if (it.sponsor == null) View.GONE else View.VISIBLE
-            sponsoredIcon.visibility = if (it.sponsor == null) View.GONE else View.VISIBLE
+            if (event.sponsor == null || event.sponsor == "" || event.sponsor == "None") {
+                event_sponsor.visibility = View.GONE
+                sponsoredIcon.visibility = View.GONE
+            } else {
+                event_sponsor.text = "Sponsored by ${event.sponsor}"
+                event_sponsor.visibility = View.VISIBLE
+                sponsoredIcon.visibility = View.VISIBLE
+            }
+            proTag.visibility = if (event.isPro) View.VISIBLE else View.GONE
             favorites_button.visibility = if (!isAttendeeViewing) View.GONE else View.VISIBLE
             if (it.locations.isEmpty()) {
                 event_location.text = "N/A"
@@ -90,6 +97,10 @@ class EventInfoFragment : Fragment() {
             }
             event_time.text = if (it.isAsync) "Asynchronous event" else "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
             event_description.text = it.description
+            context?.let { it1 -> Glide.with(it1).load(event.mapImageUrl).into(map) }
+//            if (event.mapImageUrl?.contains("png") == true) {
+//                context?.let { it1 -> Glide.with(it1).load(event.mapImageUrl).into(map) }
+//            }
             if (it.eventType == "QNA") {
                 event_type.text = "Q&A"
             } else {
