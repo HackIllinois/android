@@ -73,6 +73,7 @@
     <string name="separator">|</string>
     <string name="merch">MERCH</string>
     <string name="raffle">RAFFLE</string>
+    <string name="unlimited">Unlimited</string>
 
     <!--   Profile Fragment   -->
     <string name="profile">PROFILE</string>
