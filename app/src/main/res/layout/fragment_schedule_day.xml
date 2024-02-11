@@ -3,14 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
     >
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:paddingTop="0dp"
-        android:paddingBottom="125dp"
-        android:clipToPadding="false"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +16,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/activity_schedule_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="125dp"
+            />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
