@@ -1,9 +1,11 @@
 package org.hackillinois.android.view.schedule
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -49,7 +51,7 @@ class EventInfoFragment : Fragment() {
             Observer { event ->
                 currentEvent = event
                 updateEventUI(currentEvent)
-            }
+            },
         )
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
     }
@@ -57,7 +59,7 @@ class EventInfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
         view.exit_button.setOnClickListener { activity?.onBackPressed() }
@@ -97,10 +99,12 @@ class EventInfoFragment : Fragment() {
             }
             event_time.text = if (it.isAsync) "Asynchronous event" else "${it.getStartTimeOfDay()} - ${it.getEndTimeOfDay()}"
             event_description.text = it.description
-            context?.let { it1 -> Glide.with(it1).load(event.mapImageUrl).into(map) }
-//            if (event.mapImageUrl?.contains("png") == true) {
-//                context?.let { it1 -> Glide.with(it1).load(event.mapImageUrl).into(map) }
-//            }
+
+            // display mapImageUrl
+            var mapImageUrl = event.mapImageUrl.toString()
+            mapImageUrl = mapImageUrl.replace("svg", "png")
+            context?.let { it1 -> Glide.with(it1).load(mapImageUrl).into(map as ImageView) }
+
             if (it.eventType == "QNA") {
                 event_type.text = "Q&A"
             } else {

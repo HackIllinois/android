@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.event_tile.view.*
+import kotlinx.android.synthetic.main.fragment_event_info.event_type
 import kotlinx.android.synthetic.main.shift_tile.view.*
 import kotlinx.android.synthetic.main.time_list_item.view.*
 import org.hackillinois.android.API
@@ -132,30 +133,15 @@ class EventsAdapter(
             eventDescriptionTextView.text = event.description
             pointsView.text = "+ ${event.points} pts"
 
-            // @todo sloppy, clean up
-            when (event.eventType) {
-                "MEAL" -> {
-                    eventType.setText(R.string.mealText)
-                }
-                "SPEAKER" -> {
-                    eventType.setText(R.string.speakerText)
-                }
-                "WORKSHOP" -> {
-                    eventType.setText(R.string.workshopText)
-                }
-                "MINIEVENT" -> {
-                    eventType.setText(R.string.miniEventText)
-                }
-                "QNA" -> {
-                    eventType.setText(R.string.qnaText)
-                }
-                "OTHER" -> {
-                    eventType.setText(R.string.otherText)
-                }
-                else -> {
-                    eventType.visibility = View.GONE
-                }
+            // format and show eventType
+            if (event.eventType == "QNA") {
+                eventType.text = "Q&A"
+            } else {
+                val eventTypeString = event.eventType.lowercase()
+                eventType.text = eventTypeString.replaceFirst(eventTypeString.first(), eventTypeString.first().uppercaseChar())
             }
+
+            // handle favoriting the bookmark and api calls
             bookmarkButton.isSelected = FavoritesManager.isFavoritedEvent(context, event.eventId)
             bookmarkButton.setOnClickListener { button ->
                 button.isSelected = !button.isSelected
