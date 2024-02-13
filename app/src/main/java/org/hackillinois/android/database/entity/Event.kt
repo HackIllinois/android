@@ -3,7 +3,6 @@ package org.hackillinois.android.database.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.google.android.gms.maps.model.LatLng
 import org.hackillinois.android.database.Converters
 import org.hackillinois.android.view.schedule.ScheduleListItem
 import java.util.*
@@ -83,15 +82,3 @@ data class EventLocation(
     val longitude: Double,
     val tags: List<String> = listOf()
 )
-
-data class IndoorMapAndDirectionInfo(
-    val locationDescription: String,
-    val indoorMapResource: Int,
-    val latLng: LatLng
-)
-
-data class EventCode(val code: String)
-
-data class MeetingEventId(val eventId: String)
-
-data class UserEventPair(val userToken: String, val eventId: String)

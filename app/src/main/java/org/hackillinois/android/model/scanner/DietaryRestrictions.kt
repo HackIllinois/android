@@ -1,3 +1,3 @@
-package org.hackillinois.android.model.event
+package org.hackillinois.android.model.scanner
 
 data class DietaryRestrictions(val dietaryRestrictions: List<String>)

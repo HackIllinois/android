@@ -14,7 +14,7 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.model.event.EventId
+import org.hackillinois.android.model.scanner.EventId
 import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.view.MainActivity
 import retrofit2.Call

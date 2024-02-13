@@ -1,14 +1,14 @@
 package org.hackillinois.android
 
 import org.hackillinois.android.database.entity.*
-import org.hackillinois.android.model.event.DietaryRestrictions
-import org.hackillinois.android.model.event.EventId
 import org.hackillinois.android.model.event.EventsList
-import org.hackillinois.android.model.event.MentorId
-import org.hackillinois.android.model.event.Points
 import org.hackillinois.android.model.leaderboard.LeaderboardList
 import org.hackillinois.android.model.profile.Ranking
-import org.hackillinois.android.model.scanner.UserEventIds
+import org.hackillinois.android.model.scanner.DietaryRestrictions
+import org.hackillinois.android.model.scanner.EventId
+import org.hackillinois.android.model.scanner.MentorId
+import org.hackillinois.android.model.scanner.Points
+import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.model.version.Version
@@ -30,12 +30,6 @@ interface API {
 
     @GET("event/")
     suspend fun allEvents(): EventsList
-
-//    @POST("event/checkin/")
-//    suspend fun eventCheckIn(@Body body: EventCode): EventCheckInResponse // todo: changed to user/scan-event/
-
-//    @POST("event/staff/checkin/")
-//    suspend fun attendeeCheckIn(@Body body: UserEventPair): AttendeeCheckInResponse // todo: changed to staff/scan-attendee/
 
     // MENTOR
 
@@ -74,10 +68,10 @@ interface API {
     // STAFF
 
     @POST("staff/attendance/")
-    suspend fun staffMeetingCheckIn(@Body body: MeetingEventId)
+    suspend fun staffMeetingCheckIn(@Body body: EventId)
 
     @PUT("staff/scan-attendee/")
-    suspend fun scanAttendee(@Body body: UserEventIds): DietaryRestrictions
+    suspend fun scanAttendee(@Body body: UserEventPair): DietaryRestrictions
 
     // USER
 

@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,12 +29,11 @@ import com.google.zxing.BarcodeFormat
 import kotlinx.android.synthetic.main.fragment_scanner.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Event
-import org.hackillinois.android.database.entity.MeetingEventId
 import org.hackillinois.android.database.entity.Roles
-import org.hackillinois.android.model.event.EventId
-import org.hackillinois.android.model.event.MentorId
+import org.hackillinois.android.model.scanner.EventId
+import org.hackillinois.android.model.scanner.MentorId
 import org.hackillinois.android.model.scanner.ScanStatus
-import org.hackillinois.android.model.scanner.UserEventIds
+import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.viewmodel.ScannerViewModel
 
@@ -98,7 +96,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
 
         viewModel.allEvents.observe(this) {
             // Filter out all the relevant details
-            listOfEvents = it.events.filter { event -> event.displayOnStaffCheckIn == true }.toMutableList()
+            listOfEvents = it.events.filter { event -> event.displayOnStaffCheckIn }.toMutableList()
             setUpChipGroup(listOfEvents!!, inflater)
         }
 
@@ -122,19 +120,17 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
 
                 // handle logic when a QR code is scanned
                 decodeCallback = DecodeCallback {
-                    Log.d("QR", it.text)
                     if (userRoles != null && userRoles!!.isStaff()) {
                         // STAFF -> handle scanning for meeting attendance or attendee check in
                         when (scanKey) {
                             "meeting-attendance" -> {
                                 val eventId: String = it.text
-                                viewModel.submitMeetingAttendance(MeetingEventId(eventId))
+                                viewModel.submitMeetingAttendance(EventId(eventId))
                             }
                             "attendee-check-in" -> {
-                                val userToken = extractUserToken(it.text) // todo: check
-                                val eventId = getChipEventId() // todo: check
-                                Log.d("USEREVENTPAIR", "$userToken, $eventId")
-                                viewModel.checkInAttendee(UserEventIds(userToken, eventId))
+                                val userToken = extractUserToken(it.text)
+                                val eventId = getChipEventId()
+                                viewModel.checkInAttendee(UserEventPair(userToken, eventId))
                             }
                             else -> {
                                 displayToast(R.string.something_went_wrong_message)
@@ -145,15 +141,15 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                         // ATTENDEE -> handle event self check in, mentor check in, and point shop scan
                         when (scanKey) {
                             "event-check-in" -> {
-                                val eventId: String = it.text // todo: check QR encoding
+                                val eventId: String = it.text
                                 viewModel.checkInEvent(EventId(eventId))
                             }
                             "mentor-check-in" -> {
-                                val mentorId: String = it.text // todo: check QR encoding
+                                val mentorId: String = it.text
                                 viewModel.checkInMentor(MentorId(mentorId))
                             }
                             "point-shop" -> {
-                                val itemInstance = extractItemInfo(it.text) // todo: check again
+                                val itemInstance = extractItemInfo(it.text)
                                 viewModel.purchaseItem(itemInstance)
                             }
                             else -> {
@@ -220,7 +216,9 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         // Go through all the events and add a chip for it
         for ((idx, event) in listOfEvents.withIndex()) {
             val chip = inflater.inflate(R.layout.staff_scanner_chip, chipGroup, false) as Chip
-            chip.text = event.name
+            var eventName = event.name
+            eventName = eventName.replace("Late Night ", "")
+            chip.text = eventName
             val chipId = ViewCompat.generateViewId()
             if (idx == 0) firstChipId = chipId
             chip.id = chipId
@@ -271,7 +269,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
     }
 
     private fun getChipEventId(): String {
-        return chipIdToEventId[chipGroup.checkedChipId] ?: "0b8ea2a94ba4224c075f016256fbddfa" // default check-in TODO: update for 2024
+        return chipIdToEventId[chipGroup.checkedChipId] ?: "ca7927242bcf76b9ee8c5e210a587a98" // default to check-in TODO: update every year
     }
 
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
