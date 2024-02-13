@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "afa24420ee99f9757a10c6b1939437f2",
+    "identityHash": "64145a0d233925fd28a80a38316cd145",
     "entities": [
       {
         "tableName": "qr_codes",
@@ -120,7 +120,7 @@
       },
       {
         "tableName": "events",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `locations` TEXT NOT NULL, `sponsor` TEXT NOT NULL, `eventType` TEXT NOT NULL, `points` TEXT NOT NULL, `isAsync` INTEGER NOT NULL, `isPrivate` INTEGER NOT NULL, `displayOnStaffCheckIn` INTEGER NOT NULL, PRIMARY KEY(`eventId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `locations` TEXT NOT NULL, `sponsor` TEXT, `eventType` TEXT NOT NULL, `points` TEXT NOT NULL, `isAsync` INTEGER NOT NULL, `isPrivate` INTEGER NOT NULL, `displayOnStaffCheckIn` INTEGER NOT NULL, `mapImageUrl` TEXT, `isPro` INTEGER NOT NULL, PRIMARY KEY(`eventId`))",
         "fields": [
           {
             "fieldPath": "eventId",
@@ -162,7 +162,7 @@
             "fieldPath": "sponsor",
             "columnName": "sponsor",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "eventType",
@@ -191,6 +191,18 @@
           {
             "fieldPath": "displayOnStaffCheckIn",
             "columnName": "displayOnStaffCheckIn",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mapImageUrl",
+            "columnName": "mapImageUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isPro",
+            "columnName": "isPro",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -337,6 +349,62 @@
         "foreignKeys": []
       },
       {
+        "tableName": "shifts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`eventId` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `locations` TEXT NOT NULL, `isAsync` INTEGER NOT NULL, PRIMARY KEY(`eventId`))",
+        "fields": [
+          {
+            "fieldPath": "eventId",
+            "columnName": "eventId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "startTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endTime",
+            "columnName": "endTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locations",
+            "columnName": "locations",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isAsync",
+            "columnName": "isAsync",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "eventId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
         "tableName": "shop",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`itemId` TEXT NOT NULL, `name` TEXT NOT NULL, `price` INTEGER NOT NULL, `isRaffle` INTEGER NOT NULL, `quantity` INTEGER NOT NULL, `imageURL` TEXT NOT NULL, PRIMARY KEY(`itemId`))",
         "fields": [
@@ -390,7 +458,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'afa24420ee99f9757a10c6b1939437f2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '64145a0d233925fd28a80a38316cd145')"
     ]
   }
 }
