@@ -14,9 +14,10 @@ import org.hackillinois.android.database.entity.*
         Roles::class,
         Profile::class,
         Leaderboard::class,
-        Shift::class
+        Shift::class,
+        ShopItem::class
     ],
-    version = 10
+    version = 1
 )
 
 abstract class Database : RoomDatabase() {
@@ -27,6 +28,6 @@ abstract class Database : RoomDatabase() {
     abstract fun rolesDao(): RolesDao
     abstract fun profileDao(): ProfileDao
     abstract fun leaderboardDao(): LeaderboardDao
-
     abstract fun shiftDao(): ShiftDao
+    abstract fun shopDao(): ShopDao
 }

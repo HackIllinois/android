@@ -15,6 +15,7 @@ data class Profile(
     var points: Int,
     var userId: String,
     var foodWave: Int,
+    var coins: Int,
 ) {
     @PrimaryKey
     var key = 1
