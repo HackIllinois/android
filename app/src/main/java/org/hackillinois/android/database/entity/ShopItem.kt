@@ -5,16 +5,13 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import org.hackillinois.android.database.Converters
 
-@Entity(tableName = "roles")
+@Entity(tableName = "shop")
 @TypeConverters(Converters::class)
-data class Roles(
-    var id: String,
-    var roles: List<String>
-) {
-    @PrimaryKey
-    var key = 1
-
-    fun isStaff() = roles.contains("STAFF")
-
-    fun isPro() = roles.contains("PRO")
-}
+data class ShopItem(
+    @PrimaryKey val itemId: String,
+    var name: String,
+    var price: Int,
+    var isRaffle: Boolean,
+    var quantity: Int,
+    var imageURL: String,
+)

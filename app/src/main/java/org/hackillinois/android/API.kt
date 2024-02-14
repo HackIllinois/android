@@ -5,6 +5,7 @@ import org.hackillinois.android.model.checkin.CheckIn
 import org.hackillinois.android.model.event.EventId
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
+import org.hackillinois.android.model.profile.Ranking
 import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
@@ -53,10 +54,18 @@ interface API {
     @GET("profile/leaderboard/?limit=10")
     suspend fun leaderboard(): LeaderboardList
 
+    @GET("profile/ranking")
+    suspend fun profileRanking(): Ranking
+
     // REGISTRATION
 
     @GET("registration/attendee/")
     suspend fun attendee(): Attendee
+
+    // SHOP
+
+    @GET("shop/")
+    suspend fun shop(): List<ShopItem>
 
     // STAFF
 
