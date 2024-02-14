@@ -20,7 +20,6 @@ import org.hackillinois.android.viewmodel.EventInfoViewModel
 class EventInfoFragment : Fragment() {
     private lateinit var viewModel: EventInfoViewModel
 
-    private val siebelLatLng = LatLng(40.1138356, -88.2249052)
     private lateinit var eventId: String
     private var isAttendeeViewing: Boolean = false
     private var currentEvent: Event? = null
@@ -61,7 +60,9 @@ class EventInfoFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
-        view.exit_button.setOnClickListener { activity?.onBackPressed() }
+        view.exit_button.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStackImmediate()
+        }
         view.favorites_button.setOnClickListener {
             if (viewModel.changeFavoritedState()) {
                 val toast = Toast.makeText(context, R.string.schedule_snackbar_notifications_on, Toast.LENGTH_SHORT)

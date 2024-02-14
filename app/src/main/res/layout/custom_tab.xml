@@ -24,7 +24,8 @@
     <TextView
         android:id="@+id/tab_day_of_week"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:fontFamily="@font/montserrat_semi_bold"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
         android:textColor="#072C2E"
         android:textSize="14sp"
         android:text="FRI"
@@ -34,8 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

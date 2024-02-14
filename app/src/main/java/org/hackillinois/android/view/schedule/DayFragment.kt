@@ -59,7 +59,7 @@ class DayFragment : Fragment(), EventClickListener {
             else -> viewModel?.fridayShiftsLiveData
         }
 
-        isAttendeeViewing = viewModel?.isAttendeeViewing ?: false
+        isAttendeeViewing = viewModel?.isAttendeeViewing ?: true
         mAdapter = EventsAdapter(listOf(), this, isAttendeeViewing)
 
         liveEventData?.observe(
@@ -69,7 +69,7 @@ class DayFragment : Fragment(), EventClickListener {
                     currentEvents = it
                     updateEvents(currentEvents)
                 }
-            }
+            },
         )
 
         liveShiftData?.observe(
@@ -81,7 +81,7 @@ class DayFragment : Fragment(), EventClickListener {
                         mAdapter.updateEvents(insertTimeItems(currentShifts))
                     }
                 }
-            }
+            },
         )
 
         viewModel?.showFavorites?.observe(
@@ -89,7 +89,7 @@ class DayFragment : Fragment(), EventClickListener {
             Observer {
                 showFavorites = it
                 updateEvents(currentEvents)
-            }
+            },
         )
 
         viewModel?.showShifts?.observe(
@@ -101,14 +101,14 @@ class DayFragment : Fragment(), EventClickListener {
                 } else {
                     updateEvents(currentEvents)
                 }
-            }
+            },
         )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_day, container, false)
 

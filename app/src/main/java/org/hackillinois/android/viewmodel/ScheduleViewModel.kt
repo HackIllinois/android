@@ -47,7 +47,7 @@ class ScheduleViewModel : ViewModel() {
 
     var showFavorites: MutableLiveData<Boolean> = MutableLiveData()
     var showShifts: MutableLiveData<Boolean> = MutableLiveData()
-    var isAttendeeViewing: Boolean = false
+    var isAttendeeViewing: Boolean = true
 
     fun init() {
         fridayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayStart, fridayEnd)

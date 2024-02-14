@@ -6,8 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Shift
-import org.hackillinois.android.database.helpers.EventLocation
-import org.hackillinois.android.model.event.ShiftsList
 
 class ShiftRepository {
     private val shiftDao = App.database.shiftDao()
@@ -20,7 +18,7 @@ class ShiftRepository {
         // ensures database operation happens on the IO dispatcher
         withContext(Dispatchers.IO) {
             try {
-                 val shifts = App.getAPI().allShifts().shifts
+                val shifts = App.getAPI().allShifts().shifts
                 Log.d("Shifts Fetched", shifts.toString())
                 shiftDao.clearTableAndInsertShifts(shifts)
             } catch (e: Exception) {

@@ -2,6 +2,7 @@ package org.hackillinois.android.view.schedule
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -42,19 +43,21 @@ class ScheduleFragment : Fragment() {
             Observer {
                 favoriteButton.isSelected = it ?: false
                 schedule_header.text = if (it) "Saved Events" else "Schedule"
-            }
+            },
         )
 
         scheduleViewModel.showShifts.observe(
             this,
             Observer {
                 shift_header.isSelected = it ?: false
-            }
+            },
         )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
+
+        Log.d("ONCREATEVIEW", "")
 
         // Link tab/day selection to the ViewPager
         view.scheduleContainer.adapter = SectionsPagerAdapter(childFragmentManager)
@@ -68,9 +71,11 @@ class ScheduleFragment : Fragment() {
         scheduleBackground.setImageResource(R.drawable.dark_fantasy_bg_2024)
         // TODO: Check if Guests should be able to fav
         if (isStaff() || !hasLoggedIn()) {
+            Log.d("ISSTAFF", scheduleViewModel.isAttendeeViewing.toString())
             scheduleViewModel.isAttendeeViewing = false
             favoriteButton.visibility = View.GONE
         } else {
+            Log.d("ISATTENDEE", scheduleViewModel.isAttendeeViewing.toString())
             scheduleViewModel.isAttendeeViewing = true
             favoriteButton.visibility = View.VISIBLE
             favoriteButton.setOnClickListener(favScheduleClickListener)
@@ -153,7 +158,7 @@ class ScheduleFragment : Fragment() {
                 when (isSelected) {
                     true -> R.drawable.light_bookmark_filled
                     else -> R.drawable.light_bookmark_hollow
-                }
+                },
             )
         }
         scheduleViewModel.showFavorites.postValue(favoriteButton.isSelected)
