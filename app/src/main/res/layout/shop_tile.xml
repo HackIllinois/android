@@ -30,13 +30,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.45" />
+            app:layout_constraintGuide_percent="0.44" />
 
         <ImageView
             android:id="@+id/shopItemImageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="5dp"
             android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelineSeparator"
@@ -52,6 +52,7 @@
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/montserrat_semi_bold"
             android:gravity="center"
+            android:textSize="16sp"
             android:textColor="@color/darkForest"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toTopOf="@+id/priceTextView"
