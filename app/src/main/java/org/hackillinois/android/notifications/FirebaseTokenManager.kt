@@ -37,7 +37,7 @@ object FirebaseTokenManager {
                     writeToken(context, DEFAULT_FIREBASE_TOKEN)
                     setIsTokenNew(context, false)
                 } catch (e: Exception) {
-                    Log.e("sendTokenToServer", e.toString())
+                    Log.e("Send token to API error", e.toString())
                 }
             }
         }
