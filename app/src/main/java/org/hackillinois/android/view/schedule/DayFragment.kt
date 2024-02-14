@@ -2,7 +2,6 @@ package org.hackillinois.android.view.schedule
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import kotlinx.android.synthetic.main.fragment_schedule_day.refresh_container
 import kotlinx.android.synthetic.main.fragment_schedule_day.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
@@ -26,7 +23,6 @@ class DayFragment : Fragment(), EventClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var mAdapter: EventsAdapter
     private lateinit var mLayoutManager: RecyclerView.LayoutManager
-    private lateinit var refreshContainer: SwipeRefreshLayout
 
     private var currentEvents: List<Event> = listOf()
     private var currentShifts: List<Shift> = listOf()
@@ -70,8 +66,6 @@ class DayFragment : Fragment(), EventClickListener {
             this,
             Observer { events ->
                 events?.let {
-                    Log.d("LiveEventData", "Observed update")
-                    refreshContainer.isRefreshing = false
                     currentEvents = it
                     updateEvents(currentEvents)
                 }
@@ -117,13 +111,6 @@ class DayFragment : Fragment(), EventClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_day, container, false)
-
-        refreshContainer = view.findViewById(R.id.refresh_container)
-        refreshContainer.setOnRefreshListener {
-            // Log.d("Refreshing", "Signal to refresh events receieved.")
-            val viewModel = parentFragment?.let { ViewModelProvider(it).get(ScheduleViewModel::class.java) }
-            viewModel?.init()
-        }
 
         recyclerView = view.activity_schedule_recyclerview.apply {
             mLayoutManager = LinearLayoutManager(context)
