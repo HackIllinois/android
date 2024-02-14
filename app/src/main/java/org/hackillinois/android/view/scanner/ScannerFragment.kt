@@ -204,7 +204,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
 
     private fun setUpChipGroup(listOfEvents: MutableList<Event>, inflater: LayoutInflater) {
         // Move the check-in to the first index
-        val index = listOfEvents.indexOfFirst { event -> event.name == "Check-in" }
+        val index = listOfEvents.indexOfFirst { event -> event.name.contains("Check-in") }
         if (index >= 0) {
             val event = listOfEvents[index]
             listOfEvents.removeAt(index)
@@ -217,7 +217,8 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
         for ((idx, event) in listOfEvents.withIndex()) {
             val chip = inflater.inflate(R.layout.staff_scanner_chip, chipGroup, false) as Chip
             var eventName = event.name
-            eventName = eventName.replace("Late Night ", "")
+            eventName = eventName.replace("Midnight ", "")
+            eventName = eventName.replace("Official ", "")
             chip.text = eventName
             val chipId = ViewCompat.generateViewId()
             if (idx == 0) firstChipId = chipId
