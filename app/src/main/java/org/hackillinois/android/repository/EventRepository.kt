@@ -6,17 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
-import org.hackillinois.android.model.event.AttendeeCheckInResponse
-import org.hackillinois.android.model.event.AttendeeData
-import org.hackillinois.android.model.event.EventCode
-import org.hackillinois.android.model.event.MeetingCheckInResponse
-import org.hackillinois.android.model.event.MeetingEventId
-import org.hackillinois.android.model.event.RSVPData
-import org.hackillinois.android.model.event.RegistrationData
-import org.hackillinois.android.model.event.StaffCheckInResponse
-import org.hackillinois.android.model.event.UserEventPair
-import org.json.JSONObject
-import retrofit2.HttpException
 
 class EventRepository {
     private val eventDao = App.database.eventDao()

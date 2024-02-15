@@ -14,10 +14,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.hackillinois.android.API
 import org.hackillinois.android.App
 import org.hackillinois.android.R
@@ -27,7 +25,6 @@ import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.auth.JWT
 import org.hackillinois.android.model.user.FavoritesResponse
-import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {
     private val authUriTemplate: String = "https://adonix.hackillinois.org/auth/login/%s/?device=android"
