@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
@@ -21,10 +21,11 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.profile.ProfileFragment
-import org.hackillinois.android.view.scanner.ScannerFragment
+import org.hackillinois.android.view.scanner.AttendeeScannerFragment
 import org.hackillinois.android.view.scanner.StaffScannerFragment
 import org.hackillinois.android.view.schedule.ScheduleFragment
 import org.hackillinois.android.view.shop.ShopFragment
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     private var currentSelection = 0
     private var onScanner = false
+    private var userRoles: Roles? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupBottomAppBar()
-        setupCodeEntrySheet()
+        setupScannerButton()
 
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
@@ -52,6 +54,12 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java).apply {
             init()
             val owner = this@MainActivity
+            roles.observe(
+                this@MainActivity,
+                Observer {
+                    userRoles = it
+                },
+            )
         }
         updateFirebaseToken()
     }
@@ -74,9 +82,8 @@ class MainActivity : AppCompatActivity() {
         bottomBarButtons.forEach { button ->
             button.setOnClickListener { view ->
                 val newSelection = bottomBarButtons.indexOf(button)
-                if (onScanner) {
-                    onScanner = false
-                }
+                onScanner = false
+
                 if (newSelection != currentSelection) {
                     currentSelection = newSelection
 
@@ -96,16 +103,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupCodeEntrySheet() {
+    private fun setupScannerButton() {
         code_entry_fab.setOnClickListener {
-            // set currentSelection to invalid index since scanner was selected
-            currentSelection = -1
-
-            // check if user is staff or attendee
+            // ensure that user is staff or attendee
             if (!hasLoggedIn()) {
                 val toast = Toast.makeText(applicationContext, getString(R.string.scanner_not_logged_in_message), Toast.LENGTH_LONG)
                 toast.show()
             } else {
+                // set currentSelection to invalid index since scanner was selected
+                currentSelection = -1
+
+                val attendeeScannerFragment = AttendeeScannerFragment()
+                val staffScannerFragment = StaffScannerFragment()
+
                 // set all bottom bar buttons to be the unselected color
                 val bottomBarButtons = listOf(
                     bottomAppBar.homeButton,
@@ -116,19 +126,13 @@ class MainActivity : AppCompatActivity() {
                 val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
                 bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
 
-                // if staff, send them to fragment to select meeting attendance or attendee check-in
-                // if attendee, send them right to the scanner fragment
-                val scannerFragment = ScannerFragment()
-                val staffScannerFragment = StaffScannerFragment()
-                if (isStaff()) {
-                    // check if already on scanner attendance page for staff
-                    if (!onScanner) {
+                // if not already on scanner selection page, switch fragment to scanner selection page
+                if (!onScanner) {
+                    if (isStaff()) {
                         switchFragment(staffScannerFragment, false)
+                    } else {
+                        switchFragment(attendeeScannerFragment, false)
                     }
-                } else {
-                    switchFragment(scannerFragment, true)
-                    bottomAppBar.visibility = View.INVISIBLE
-                    code_entry_fab.visibility = View.INVISIBLE
                 }
             }
             onScanner = true
