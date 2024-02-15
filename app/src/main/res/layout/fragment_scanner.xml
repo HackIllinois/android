@@ -38,17 +38,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
         android:background="@null"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guidelineTop"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_close_white" />
 
     <!-- staff check-in buttons -->
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/staffChipGroup"
+        android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,12 +56,34 @@
         app:singleSelection="true"
         app:selectionRequired="true"
         app:checkedChip="@id/chip1"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="5dp"
+        android:paddingHorizontal="15dp"
         android:visibility="invisible">
-
     </com.google.android.material.chip.ChipGroup>
 
+    <TextView
+        android:id="@+id/chipTag_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="14sp"
+        android:textColor="@color/darkForest"
+        android:background="@drawable/rounded_white_bg"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="7dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrScannerClose"
+        android:visibility="invisible"
+        tools:text="Mentor" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.04" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

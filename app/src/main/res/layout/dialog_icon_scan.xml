@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_simple_scan"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/less_rounded_white_bg"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageIconDialog_imageView"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/prize_bag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleIconDialog_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/darkBrown"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageIconDialog_imageView"
+        tools:text="+100 points!" />
+
+    <TextView
+        android:id="@+id/subtitleIconDialog_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:fontFamily="@font/montserrat_medium"
+        android:paddingHorizontal="26dp"
+        android:textColor="@color/darkBrown"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleIconDialog_textView"
+        tools:text="Impromptu cat cafe" />
+
+    <TextView
+        android:id="@+id/dividerIconDialog"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="18dp"
+        android:background="@color/mistyMint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtitleIconDialog_textView" />
+
+    <TextView
+        android:id="@+id/okIconDialog_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:text="@string/dialog_ok"
+        android:textColor="@color/darkForest"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dividerIconDialog" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

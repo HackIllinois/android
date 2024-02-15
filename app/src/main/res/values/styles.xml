@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/floralMauve</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
 
         <item name="android:windowBackground">@color/witchyPurple</item> <!-- for loading background -->
@@ -37,7 +37,7 @@
         <item name="chipBackgroundColor">@color/chip_background_selector</item>
         <item name="chipSurfaceColor">@color/chip_background_selector</item>
         <item name="android:textColor">@color/chip_text_selector</item>
-        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeWidth">1.5dp</item>
         <item name="chipStrokeColor">@color/white</item>
     </style>
 

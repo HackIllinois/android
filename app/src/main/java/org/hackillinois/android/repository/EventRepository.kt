@@ -52,69 +52,6 @@ class EventRepository {
     }
 
     companion object {
-//        TODO: Use this function
-//        private fun getEventCodeMessage(response: AttendeeCheckInResponse): String {
-//            var responseString: String = ""
-//            Log.d("RESPONSE STATUS", response.status.toString())
-//            when (response.status) {
-//                "Success" -> responseString = "Success! You received ${response.newPoints} points."
-//                "InvalidCode" -> responseString = "This code doesn't seem to be correct."
-//                "InvalidTime" -> responseString = "Make sure you have the right time."
-//                "AlreadyCheckedIn" -> responseString = "Looks like you're already checked in."
-//                else -> responseString = "Something isn't quite right."
-//            }
-//            return responseString
-//        }
-
-        suspend fun checkInEvent(eventId: String): AttendeeCheckInResponse {
-            var apiResponse = AttendeeCheckInResponse(-1, -1, "")
-
-            withContext(Dispatchers.IO) {
-                try {
-                    apiResponse = App.getAPI().eventCheckIn(EventCode(eventId))
-                } catch (e: Exception) {
-                    Log.e("ATTENDEE EVENT CHECK IN", e.toString())
-                }
-            }
-            return apiResponse
-        }
-
-        suspend fun checkInMeeting(eventId: String): MeetingCheckInResponse {
-            var apiResponse = MeetingCheckInResponse("")
-
-            withContext(Dispatchers.IO) {
-                try {
-                    val body = MeetingEventId(eventId)
-                    App.getAPI().staffMeetingCheckIn(body)
-                    apiResponse.status = "Success! Your meeting attendance has been recorded!"
-                } catch (e: Exception) {
-                    var error = "Unknown error"
-                    if (e is HttpException) {
-                        val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
-                        error = jsonObject.optString("error", "Unknown error")
-                    }
-                    apiResponse.status = "Scan failed: $error"
-                    Log.d("STAFF MEETING CHECK IN ERROR", apiResponse.status)
-                }
-            }
-            return apiResponse
-        }
-
-        suspend fun checkInAttendee(userToken: String, eventId: String): StaffCheckInResponse {
-            val userTokenEventIdPair = UserEventPair(userToken, eventId)
-            var apiResponse = StaffCheckInResponse(-1, -1, "", RSVPData("", false, RegistrationData(AttendeeData(listOf()))))
-
-            withContext(Dispatchers.IO) {
-                try {
-                    apiResponse = App.getAPI().staffEventCheckIn(userTokenEventIdPair)
-                } catch (e: Exception) {
-                    Log.e("STAFF EVENT CHECK IN", e.toString())
-                    apiResponse.status = "Something isn't quite right."
-                }
-            }
-            return apiResponse
-        }
-
         const val MILLIS_IN_SECOND = 1000L
         val instance: EventRepository by lazy { EventRepository() }
     }

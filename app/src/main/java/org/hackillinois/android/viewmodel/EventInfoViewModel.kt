@@ -14,7 +14,7 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
-import org.hackillinois.android.model.event.EventId
+import org.hackillinois.android.model.scanner.EventId
 import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.repository.rolesRepository
