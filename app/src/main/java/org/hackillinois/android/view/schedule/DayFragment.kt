@@ -2,6 +2,7 @@ package org.hackillinois.android.view.schedule
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,14 +63,30 @@ class DayFragment : Fragment(), EventClickListener {
         isAttendeeViewing = viewModel?.isAttendeeViewing ?: true
         mAdapter = EventsAdapter(listOf(), this, isAttendeeViewing)
 
+        viewModel?.showShifts?.observe(
+            this,
+            Observer {
+                showShifts = it
+                if (showShifts) {
+                    Log.d("Observe showShifts", "Switching to SHIFTS")
+                    mAdapter.updateEvents(insertTimeItems(currentShifts))
+                } else {
+                    Log.d("Observe showShifts", "Switching to SCHEDULE")
+                    updateEvents(currentEvents)
+                }
+            }
+        )
+
         liveEventData?.observe(
             this,
             Observer { events ->
                 events?.let {
                     currentEvents = it
-                    updateEvents(currentEvents)
+                    if (isAttendeeViewing || !showShifts) {
+                        updateEvents(currentEvents)
+                    }
                 }
-            },
+            }
         )
 
         liveShiftData?.observe(
@@ -81,34 +98,24 @@ class DayFragment : Fragment(), EventClickListener {
                         mAdapter.updateEvents(insertTimeItems(currentShifts))
                     }
                 }
-            },
+            }
         )
 
-        viewModel?.showFavorites?.observe(
-            this,
-            Observer {
-                showFavorites = it
-                updateEvents(currentEvents)
-            },
-        )
-
-        viewModel?.showShifts?.observe(
-            this,
-            Observer {
-                showShifts = it
-                if (showShifts) {
-                    mAdapter.updateEvents(insertTimeItems(currentShifts))
-                } else {
+        if (isAttendeeViewing) {
+            viewModel?.showFavorites?.observe(
+                this,
+                Observer {
+                    showFavorites = it
                     updateEvents(currentEvents)
                 }
-            },
-        )
+            )
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_day, container, false)
 
