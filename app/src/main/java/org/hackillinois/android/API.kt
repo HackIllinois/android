@@ -83,7 +83,7 @@ interface API {
     @GET("user/")
     suspend fun user(): User
 
-    @PUT("user/follow/")
+    @GET("user/following/")
     suspend fun favoriteEvents(): FavoritesResponse
 
     @PUT("user/follow/")
