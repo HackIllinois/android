@@ -1,8 +1,6 @@
 package org.hackillinois.android
 
 import org.hackillinois.android.database.entity.*
-import org.hackillinois.android.model.event.AttendeeCheckInResponse
-import org.hackillinois.android.model.event.EventCode
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.ShiftsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
@@ -36,12 +34,6 @@ interface API {
 
     @GET("staff/shift/")
     suspend fun allShifts(): ShiftsList
-
-    @GET("event/{id}/")
-    fun getEvent(@Path("id") id: String): Call<Event>
-
-    @POST("event/checkin/")
-    suspend fun eventCheckIn(@Body id: EventCode): AttendeeCheckInResponse
 
     // MENTOR
 
