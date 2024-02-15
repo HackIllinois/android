@@ -73,14 +73,6 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val jwt = JWT(token)
                 val api = App.getAPI(token)
-                withContext(Dispatchers.IO) {
-                    try {
-                        // TODO httpException 405
-                        // api.updateNotificationTopics()
-                    } catch (e: SocketTimeoutException) {
-                        Log.e("LoginActivity", "Notifications update timed out!")
-                    }
-                }
 
                 // verify user's roles are correct
                 if (getOAuthProvider() == "google") {

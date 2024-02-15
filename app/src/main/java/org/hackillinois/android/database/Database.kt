@@ -17,7 +17,7 @@ import org.hackillinois.android.database.entity.*
         Shift::class,
         ShopItem::class,
     ],
-    version = 2,
+    version = 3,
 )
 
 abstract class Database : RoomDatabase() {
