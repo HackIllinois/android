@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateFirebaseToken() {
         FirebaseApp.initializeApp(applicationContext)
-        FirebaseMessaging.getInstance().getToken().addOnSuccessListener { firebaseToken ->
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { firebaseToken ->
             Log.d("MainActivity", firebaseToken)
             FirebaseTokenManager.writeToken(applicationContext, firebaseToken)
             FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
