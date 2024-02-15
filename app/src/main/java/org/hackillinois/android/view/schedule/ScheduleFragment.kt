@@ -37,6 +37,7 @@ class ScheduleFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
+        scheduleViewModel.initEvents()
         // Observe "Favorites" LiveData
         scheduleViewModel.showFavorites.observe(
             this,
@@ -81,6 +82,7 @@ class ScheduleFragment : Fragment() {
             favoriteButton.setOnClickListener(favScheduleClickListener)
         }
         if (isStaff()) {
+            scheduleViewModel.initShifts()
             shift_header.visibility = View.VISIBLE
             val context = requireActivity().applicationContext
             schedule_header.background = ContextCompat.getDrawable(context, R.drawable.schedule_underline)

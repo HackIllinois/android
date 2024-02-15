@@ -1,8 +1,8 @@
 package org.hackillinois.android.view.schedule
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,20 +44,12 @@ class DayFragment : Fragment(), EventClickListener {
         val sectionNumber = arguments?.getInt(ARG_SECTION_NUM) ?: 0
 
         val viewModel = parentFragment?.let { ViewModelProvider(it).get(ScheduleViewModel::class.java) }
-        viewModel?.init()
 
         val liveEventData = when (sectionNumber) {
             0 -> viewModel?.fridayEventsLiveData
             1 -> viewModel?.saturdayEventsLiveData
             2 -> viewModel?.sundayEventsLiveData
             else -> viewModel?.fridayEventsLiveData
-        }
-
-        val liveShiftData = when (sectionNumber) {
-            0 -> viewModel?.fridayShiftsLiveData
-            1 -> viewModel?.saturdayShiftsLiveData
-            2 -> viewModel?.sundayShiftsLiveData
-            else -> viewModel?.fridayShiftsLiveData
         }
 
         isAttendeeViewing = viewModel?.isAttendeeViewing ?: true
@@ -68,10 +60,10 @@ class DayFragment : Fragment(), EventClickListener {
             Observer {
                 showShifts = it
                 if (showShifts) {
-                    Log.d("Observe showShifts", "Switching to SHIFTS")
+                    // Log.d("Observe showShifts", "Switching to SHIFTS")
                     mAdapter.updateEvents(insertTimeItems(currentShifts))
                 } else {
-                    Log.d("Observe showShifts", "Switching to SCHEDULE")
+                    // Log.d("Observe showShifts", "Switching to SCHEDULE")
                     updateEvents(currentEvents)
                 }
             }
@@ -89,17 +81,25 @@ class DayFragment : Fragment(), EventClickListener {
             }
         )
 
-        liveShiftData?.observe(
-            this,
-            Observer { shifts ->
-                shifts?.let {
-                    currentShifts = it
-                    if (showShifts) {
-                        mAdapter.updateEvents(insertTimeItems(currentShifts))
+        if (isStaff()) {
+            val liveShiftData = when (sectionNumber) {
+                0 -> viewModel?.fridayShiftsLiveData
+                1 -> viewModel?.saturdayShiftsLiveData
+                2 -> viewModel?.sundayShiftsLiveData
+                else -> viewModel?.fridayShiftsLiveData
+            }
+            liveShiftData?.observe(
+                this,
+                Observer { shifts ->
+                    shifts?.let {
+                        currentShifts = it
+                        if (showShifts) {
+                            mAdapter.updateEvents(insertTimeItems(currentShifts))
+                        }
                     }
                 }
-            }
-        )
+            )
+        }
 
         if (isAttendeeViewing) {
             viewModel?.showFavorites?.observe(
@@ -168,6 +168,12 @@ class DayFragment : Fragment(), EventClickListener {
         }
 
         return newList
+    }
+
+    private fun isStaff(): Boolean {
+        val context = requireActivity().applicationContext
+        val prefString = context.getString(R.string.authorization_pref_file_key)
+        return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
     }
 
     companion object {

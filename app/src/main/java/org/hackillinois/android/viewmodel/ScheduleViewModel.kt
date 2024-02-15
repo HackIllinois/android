@@ -49,16 +49,20 @@ class ScheduleViewModel : ViewModel() {
     var showShifts: MutableLiveData<Boolean> = MutableLiveData()
     var isAttendeeViewing: Boolean = true
 
-    fun init() {
+    fun initEvents() {
         fridayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayStart, fridayEnd)
         saturdayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayEnd, saturdayEnd)
         sundayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(saturdayEnd, sundayEnd)
+        viewModelScope.launch {
+            eventRepository.refreshAllEvents()
+        }
+    }
 
+    fun initShifts() {
         fridayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(fridayStart, fridayEnd)
         saturdayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(fridayEnd, saturdayEnd)
         sundayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(saturdayEnd, sundayEnd)
         viewModelScope.launch {
-            eventRepository.refreshAllEvents()
             shiftRepository.refreshAllShifts()
         }
     }
