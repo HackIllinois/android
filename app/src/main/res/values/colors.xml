@@ -66,9 +66,8 @@
     <color name="lightOrange">#FFC95B</color>
     <color name="mistyMint">#84BCB9</color>
     <color name="errorPink">#C62A6C</color>
+    <color name="gray">#737373</color>
     <color name="coinTotalColor">#2A2A2A</color>
     <color name="tabSelectedColor">#D84177</color>
-
-
 
 </resources>

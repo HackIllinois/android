@@ -1,11 +1,16 @@
 package org.hackillinois.android.view
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
@@ -42,6 +47,34 @@ class LoginActivity : AppCompatActivity() {
 
         guestLoginBtn.setOnClickListener {
             launchMainActivity()
+        }
+
+        // request notification permission, if not already permitted
+        if (Build.VERSION.SDK_INT > 32) {
+            checkForNotificationPermission()
+        }
+    }
+
+    private fun checkForNotificationPermission() {
+        when {
+            ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.POST_NOTIFICATIONS)
+                == PackageManager.PERMISSION_GRANTED -> {
+                // nothing to be done
+            }
+            else -> {
+                val requestNotificationPermission =
+                    registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                        if (!isGranted) {
+                            Log.e("NOTIFS PERMISSION", "denied")
+                        }
+                    }
+                // You can directly ask for the permission.
+                try {
+                    requestNotificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+                } catch (e: java.lang.Exception) {
+                    Log.e("NOTIFS PERMISSION ERROR", "${e.message}")
+                }
+            }
         }
     }
 

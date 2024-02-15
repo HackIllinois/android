@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Button Color -->
+    <item android:top="8dp">
+        <shape  android:shape="rectangle">
+            <stroke android:color="@color/mediumBrown" android:width="4dp" />
+            <solid android:color="@color/aquaGreen" />
+            <corners android:radius="15dp" />
+
+
+        </shape>
+
+    </item>
+
+
+</layer-list>

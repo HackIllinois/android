@@ -54,7 +54,11 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
             priceTextView.text = item.price.toString()
 
             val quantity = item.quantity
-            quantityTextView.text = resources.getString(R.string.shopquantity, quantity)
+            if (item.isRaffle) {
+                quantityTextView.text = resources.getString(R.string.unlimited)
+            } else {
+                quantityTextView.text = resources.getString(R.string.shopquantity, quantity)
+            }
 
             val shopItemImageView: ImageView = itemView.findViewById(R.id.shopItemImageView)
             try {
