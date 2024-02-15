@@ -5,95 +5,86 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/nightBlue">
+    android:background="@color/witchyPurple">
 
 
     <ImageView
+        android:id="@+id/scheduleBackground"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:layout_marginBottom="0dp"
+        android:src="@drawable/dark_fantasy_bg_2024"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/home_bg"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/StarButton"
-        android:layout_width="30dp"
-        android:layout_height="28.5dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_star_border"
-        android:background="@null"
+        android:id="@+id/lightBookmarkButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="25dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/light_bookmark_hollow"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/schedule_header" />
 
     <TextView
         android:id="@+id/schedule_header"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="30dp"
-        android:textSize="24sp"
-        android:gravity="start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="35dp"
         android:fontFamily="@font/montserrat_bold"
-        android:textFontWeight="700"
+        android:gravity="start"
+        android:text="@string/schedule_header"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:text="@string/schedule_header"
+        android:textSize="24sp"
+        android:paddingBottom="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
-
-        />
+    <TextView
+        android:id="@+id/shift_header"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="35dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="end"
+        android:text="@string/shift_header"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:paddingBottom="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/scheduleDays"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="29dp"
+        android:layout_marginEnd="16dp"
         android:background="#00000000"
+        app:tabPaddingStart="20dp"
+        app:tabPaddingEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/schedule_header"
-        app:tabPaddingBottom="13dp"
-        app:tabIndicatorFullWidth="true"
-        app:tabSelectedTextColor="@color/white"
-        app:tabIndicatorHeight="5dp"
-        app:tabIndicatorColor="@color/white"
-        app:tabIndicator="@drawable/tab_indicator"
-        app:tabTextAppearance="@style/TabTextAppearance"
-        app:tabTextColor="@color/white"
+        app:tabIndicatorHeight="0px"
         app:tabRippleColor="@android:color/transparent"
+        app:tabMaxWidth="125dp"
+        app:tabMinWidth="115dp"
         >
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabFriday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/friday" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabSaturday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/saturday" />
-
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabSunday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sunday" />
-
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -101,14 +92,18 @@
         android:id="@+id/scheduleContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scheduleDays" />
 
-
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

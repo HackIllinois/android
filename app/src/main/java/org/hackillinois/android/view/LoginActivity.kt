@@ -14,10 +14,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.hackillinois.android.API
 import org.hackillinois.android.App
 import org.hackillinois.android.R
@@ -27,7 +25,6 @@ import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.auth.JWT
 import org.hackillinois.android.model.user.FavoritesResponse
-import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {
     private val authUriTemplate: String = "https://adonix.hackillinois.org/auth/login/%s/?device=android"
@@ -106,14 +103,6 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val jwt = JWT(token)
                 val api = App.getAPI(token)
-                withContext(Dispatchers.IO) {
-                    try {
-                        // TODO httpException 405
-                        // api.updateNotificationTopics()
-                    } catch (e: SocketTimeoutException) {
-                        Log.e("LoginActivity", "Notifications update timed out!")
-                    }
-                }
 
                 // verify user's roles are correct
                 if (getOAuthProvider() == "google") {
@@ -158,7 +147,7 @@ class LoginActivity : AppCompatActivity() {
                 val response: FavoritesResponse = api.favoriteEvents()
                 // loop through favorited event ids, wrap as Event object, and store in SharedPreferences
                 for (eventId in response.following) {
-                    val dummyEvent = Event(eventId, "", "", 0, 0, emptyList(), "", "", "0", false, false, false)
+                    val dummyEvent = Event(eventId, "", "", 0, 0, emptyList(), "", "", "0", false, false, false, "", false)
                     FavoritesManager.favoriteEvent(applicationContext, dummyEvent)
                 }
                 Log.d("Fetched favorites", response.toString())

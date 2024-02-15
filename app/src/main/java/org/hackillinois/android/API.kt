@@ -2,6 +2,7 @@ package org.hackillinois.android
 
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.event.EventsList
+import org.hackillinois.android.model.event.ShiftsList
 import org.hackillinois.android.model.leaderboard.LeaderboardList
 import org.hackillinois.android.model.profile.Ranking
 import org.hackillinois.android.model.scanner.DietaryRestrictions
@@ -30,6 +31,9 @@ interface API {
 
     @GET("event/")
     suspend fun allEvents(): EventsList
+
+    @GET("staff/shift/")
+    suspend fun allShifts(): ShiftsList
 
     // MENTOR
 

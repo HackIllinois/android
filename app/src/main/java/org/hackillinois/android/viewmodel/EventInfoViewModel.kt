@@ -41,7 +41,7 @@ class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun changeFavoritedState() {
+    fun changeFavoritedState(): Boolean {
         var favorited = isFavorited.value ?: false
         favorited = !favorited
 
@@ -60,6 +60,7 @@ class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
             FavoritesManager.unfavoriteEvent(app.applicationContext, event.value)
             call = api.unfollowEvent(EventId(event.value!!.eventId))
         }
+
         call.enqueue(object : Callback<FavoritesResponse> {
             override fun onResponse(call: Call<FavoritesResponse>, response: Response<FavoritesResponse>) {
                 if (response.isSuccessful) {
@@ -71,5 +72,6 @@ class EventInfoViewModel(val app: Application) : AndroidViewModel(app) {
                 Log.d("FOLLOW/UNFOLLOW FAILURE", t.toString())
             }
         })
+        return favorited
     }
 }

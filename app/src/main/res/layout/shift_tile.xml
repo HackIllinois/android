@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/shiftCoverSquare"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@color/cinnamonMilk"
+        app:layout_constraintTop_toBottomOf="@id/shiftOngoingTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="24dp"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/shiftOngoingTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/rounded_dark_forest_top"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingStart="24dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="@string/ongoing"
+        android:textColor="@color/cinnamonMilk"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="13dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="12dp"
+        app:cardBackgroundColor="@color/churnedButter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shiftOngoingTextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/shiftTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/midnight"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Shift Name" />
+
+            <ImageView
+                android:id="@+id/shift_time_icon"
+                android:layout_width="18dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_clock"
+                app:layout_constraintBottom_toBottomOf="@+id/shiftTimeSpanText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/shiftTimeSpanText" />
+
+
+            <TextView
+                android:id="@+id/shiftTimeSpanText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="72dp"
+                android:textSize="14sp"
+                android:lineSpacingExtra="3sp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:textColor="@color/midnight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/shift_time_icon"
+                app:layout_constraintTop_toBottomOf="@id/shiftTitleTextView"
+                tools:text="5:00 - 7:00" />
+
+            <ImageView
+                android:id="@+id/shift_map_marker"
+                android:layout_width="18dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="15dp"
+                app:layout_constraintBottom_toBottomOf="@+id/shiftLocationTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/shiftLocationTextView"
+                app:srcCompat="@drawable/ic_map_marker_outline" />
+
+            <TextView
+                android:id="@+id/shiftLocationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/montserrat_semi_bold"
+                android:textColor="@color/midnight"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/shift_map_marker"
+                app:layout_constraintTop_toBottomOf="@id/shiftTimeSpanText"
+                tools:text="location" />
+
+            <TextView
+                android:id="@+id/shiftDescriptionTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="16dp"
+                android:maxEms="100"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/midnight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shift_map_marker"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="@string/lorem_ipsum" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+</androidx.constraintlayout.widget.ConstraintLayout>

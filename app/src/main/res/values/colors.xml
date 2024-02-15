@@ -12,6 +12,7 @@
     <color name="colorAccent">#E35058</color>
     <color name="starColor">#ED9B21</color>
     <color name="primaryTextColor">#08151B</color>
+    <color name="proTagColor">#6D9CA0</color>
     <color name="selectedAppBarIcon">#ACCEBE</color> <!--   For bottom tab icons     -->
     <color name="unselectedAppBarIcon">#FFFFFF</color> <!--   For bottom tab icons     -->
 

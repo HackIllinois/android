@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,7 +29,8 @@
                 android:layout_height="48dp"
                 android:background="@color/darkForest"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/scheduleButton"
+                app:layout_constraintEnd_toStartOf="@+id/scheduleButton"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_home" />
@@ -39,8 +41,9 @@
                 android:layout_height="48dp"
                 android:background="@color/darkForest"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@id/placeholder"
-                app:layout_constraintStart_toEndOf="@id/homeButton"
+                app:layout_constraintEnd_toStartOf="@+id/placeholder"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/homeButton"
                 app:srcCompat="@drawable/ic_today" />
 
             <View
@@ -49,17 +52,20 @@
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@id/shopButton"
-                app:layout_constraintStart_toEndOf="@id/scheduleButton"
+                app:layout_constraintEnd_toStartOf="@+id/shopButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/scheduleButton"
                 app:layout_constraintTop_toTopOf="@id/homeButton" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/profileButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
                 android:background="@color/darkForest"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/shopButton"
                 app:srcCompat="@drawable/ic_profile" />
 
@@ -70,8 +76,9 @@
                 android:layout_marginBottom="2dp"
                 android:background="@color/darkForest"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@id/profileButton"
-                app:layout_constraintStart_toEndOf="@id/placeholder"
+                app:layout_constraintEnd_toStartOf="@+id/profileButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/placeholder"
                 app:layout_constraintTop_toTopOf="@+id/homeButton"
                 app:srcCompat="@drawable/ic_point_shop" />
         </androidx.constraintlayout.widget.ConstraintLayout>

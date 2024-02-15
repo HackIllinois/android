@@ -6,25 +6,19 @@ import androidx.room.TypeConverters
 import org.hackillinois.android.database.Converters
 import org.hackillinois.android.database.helpers.EventLocation
 import org.hackillinois.android.view.schedule.ScheduleListItem
-import java.util.*
+import java.util.Calendar
+import java.util.TimeZone
 
-@Entity(tableName = "events")
+@Entity(tableName = "shifts")
 @TypeConverters(Converters::class)
-data class Event(
+data class Shift(
     @PrimaryKey val eventId: String,
     val name: String,
     val description: String,
     val startTime: Long,
     val endTime: Long,
     val locations: List<EventLocation>,
-    val sponsor: String?,
-    val eventType: String,
-    val points: String,
-    val isAsync: Boolean = false,
-    val isPrivate: Boolean,
-    val displayOnStaffCheckIn: Boolean,
-    val mapImageUrl: String?,
-    val isPro: Boolean
+    val isAsync: Boolean = false
 ) : ScheduleListItem {
 
     override fun getStartTimeMs() = startTime * 1000L
@@ -35,11 +29,6 @@ data class Event(
 
     override fun getEndTimeOfDay(): String {
         return getTimeOfDay(endTime)
-    }
-
-    fun isCurrentlyHappening(): Boolean {
-        val currentTime = System.currentTimeMillis()
-        return startTime * 1000L <= currentTime && currentTime <= endTime * 1000L
     }
 
     private fun getTimeOfDay(time: Long): String {
@@ -57,24 +46,9 @@ data class Event(
             else -> String.format("%d:%02d PM", hour % 12, minutes)
         }
     }
-
-    fun getLocationDescriptionsAsString(): String? {
-        if (locations.isEmpty()) {
-            return null
-        }
-
-        var list = locations[0].description
-        if (locations.size > 2) {
-            list += ","
-        }
-        for (i in 1 until locations.size - 1) {
-            list += String.format(" %s,", locations[i].description)
-        }
-        if (locations.size > 1) {
-            list += String.format(" and %s", locations[locations.size - 1].description)
-        }
-        return list
+    fun isCurrentlyHappening(): Boolean {
+        val currentTime = System.currentTimeMillis()
+        return startTime * 1000L <= currentTime && currentTime <= endTime * 1000L
     }
-
-    override fun getType() = 1
+    override fun getType() = 2
 }
