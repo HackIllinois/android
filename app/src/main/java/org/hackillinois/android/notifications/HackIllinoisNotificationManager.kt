@@ -61,8 +61,8 @@ object HackIllinoisNotificationManager {
         val builder = Notification.Builder(context).apply {
             setContentTitle(title)
             setContentText(body)
-            setSmallIcon(R.drawable.logo)
-            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.logo))
+            setSmallIcon(R.mipmap.ic_launcher)
+            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher))
         }
 
         // In Oreo and above, every notification must be associated with a notification channel

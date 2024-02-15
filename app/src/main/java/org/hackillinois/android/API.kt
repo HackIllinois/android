@@ -38,8 +38,8 @@ interface API {
 
     // NOTIFICATIONS
 
-    @POST("notifications/device/")
-    suspend fun sendUserToken(@Body body: DeviceToken): DeviceToken
+    @POST("notification/")
+    suspend fun sendNotificationToken(@Body body: DeviceToken)
 
     // PROFILE
 
