@@ -3,13 +3,21 @@ package org.hackillinois.android.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
 
 class EventRepository {
     private val eventDao = App.database.eventDao()
 
+    fun fetchEvents(): LiveData<List<Event>> {
+        // make api call to fetch events
+        refreshAllEvents()
+        // get events from Room database
+        val events = eventDao.getAllEvents()
+        return events
+    }
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
         return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
     }
@@ -26,13 +34,12 @@ class EventRepository {
         return eventDao.getEventsAfter(currentTime / 1000L)
     }
 
-    suspend fun refreshAllEvents() {
+    fun refreshAllEvents() {
         // ensures database operation happens on the IO dispatcher
-        withContext(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.IO) {
             try {
                 val events = App.getAPI().allEvents().events
                 Log.d("Events Fetched", events.toString())
-                // TODO FavoritesManager.updateFavoriteNotifications(, eventDao.getAllEventsList(), events)
                 eventDao.clearTableAndInsertEvents(events)
             } catch (e: Exception) {
                 Log.e("REFRESH EVENTS", e.toString())

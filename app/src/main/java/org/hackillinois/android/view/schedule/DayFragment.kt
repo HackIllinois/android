@@ -33,11 +33,6 @@ class DayFragment : Fragment(), EventClickListener {
 
     private var listState: Parcelable? = null
 
-    override fun onResume() {
-        super.onResume()
-        mAdapter.notifyDataSetChanged()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

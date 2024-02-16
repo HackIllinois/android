@@ -58,8 +58,6 @@ class ScheduleFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_schedule, container, false)
 
-        Log.d("ONCREATEVIEW", "")
-
         // Link tab/day selection to the ViewPager
         view.scheduleContainer.adapter = SectionsPagerAdapter(childFragmentManager)
         view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
@@ -70,7 +68,7 @@ class ScheduleFragment : Fragment() {
         shift_header = view.findViewById(R.id.shift_header)
         scheduleBackground = view.findViewById(R.id.scheduleBackground)
         scheduleBackground.setImageResource(R.drawable.dark_fantasy_bg_2024)
-        // TODO: Check if Guests should be able to fav
+
         if (isStaff() || !hasLoggedIn()) {
             Log.d("ISSTAFF", scheduleViewModel.isAttendeeViewing.toString())
             scheduleViewModel.isAttendeeViewing = false

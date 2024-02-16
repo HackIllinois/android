@@ -50,12 +50,10 @@ class ScheduleViewModel : ViewModel() {
     var isAttendeeViewing: Boolean = true
 
     fun initEvents() {
+        eventRepository.fetchEvents()
         fridayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayStart, fridayEnd)
         saturdayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayEnd, saturdayEnd)
         sundayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(saturdayEnd, sundayEnd)
-        viewModelScope.launch {
-            eventRepository.refreshAllEvents()
-        }
     }
 
     fun initShifts() {

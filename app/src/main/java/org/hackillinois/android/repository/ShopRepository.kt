@@ -17,7 +17,6 @@ class ShopRepository {
         refreshAll()
         // locally stored database
         val lb = shopDao.getShop()
-        Log.d("SHOP CALL", lb.value.toString())
         return lb
     }
 
