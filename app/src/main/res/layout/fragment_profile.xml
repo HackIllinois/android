@@ -188,7 +188,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/profileCard"
         app:layout_constraintTop_toTopOf="@+id/profileCard"
-        app:layout_constraintVertical_bias="0.78"
+        app:layout_constraintVertical_bias="0.77"
         app:srcCompat="@drawable/profile_placement_banner_svg" />
 
     <TextView
