@@ -76,9 +76,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/rounded_dark_forest_transparent"
-            android:fontFamily="@font/montserrat_bold"
-            android:gravity="center"
-            android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="@id/priceTextView"
             app:layout_constraintEnd_toEndOf="@id/quantityTextView"
             app:layout_constraintHorizontal_bias="1.0"
@@ -136,7 +133,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="1dp"
             android:fontFamily="@font/montserrat_regular"
             android:paddingEnd="10dp"
             android:textColor="@color/white"
@@ -147,6 +143,18 @@
             app:layout_constraintStart_toEndOf="@+id/separatorTextView"
             app:layout_constraintTop_toTopOf="@id/priceTextView"
             tools:text="100 Left" />
+
+        <TextView
+            android:id="@+id/shopItemListenerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/rounded_transparent"
+            app:layout_constraintBottom_toBottomOf="@id/priceTextView"
+            app:layout_constraintEnd_toEndOf="@id/quantityTextView"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/coinImageView"
+            app:layout_constraintTop_toTopOf="@+id/priceTextView"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

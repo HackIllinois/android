@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.shop_tile.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.ShopItem
-import java.lang.Exception
 
 class ShopAdapter(private var itemList: List<ShopItem>) :
     RecyclerView.Adapter<ShopAdapter.ViewHolder>() {
@@ -41,6 +41,11 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
 
     private fun bind(item: ShopItem, itemView: View, position: Int) {
         itemView.apply {
+            // set on click listener on item price + quantity "button" section
+            shopItemListenerView.setOnClickListener {
+                Toast.makeText(itemView.context, R.string.shop_toast_text, Toast.LENGTH_SHORT).show()
+            }
+
             // set the top brown divider for the first item to be visible
             if (position == 1) {
                 val topDivider: TextView = itemView.findViewById(R.id.brownDividerTop)

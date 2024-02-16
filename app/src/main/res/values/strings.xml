@@ -76,6 +76,7 @@
     <string name="merch">MERCH</string>
     <string name="raffle">RAFFLE</string>
     <string name="unlimited">Unlimited</string>
+    <string name="shop_toast_text">Head to the Point Shop location to scan and buy items!</string>
 
     <!--   Profile Fragment   -->
     <string name="profile">PROFILE</string>
