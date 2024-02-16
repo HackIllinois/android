@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_event_info.*
 import kotlinx.android.synthetic.main.fragment_event_info.view.*
 import org.hackillinois.android.R
@@ -39,18 +42,29 @@ class EventInfoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
-        isAttendeeViewing = arguments?.getBoolean(IS_ATTENDEE_VIEWING) ?: false
-        viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
-        viewModel.init(eventId)
-        viewModel.event.observe(
+
+        // override back button being pressed to reload in bottom nav bar
+        activity?.onBackPressedDispatcher?.addCallback(
             this,
-            Observer { event ->
-                currentEvent = event
-                updateEventUI(currentEvent)
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    closeEventInfoPage()
+                }
             },
         )
-        viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
+
+        // set bottom app bar invisible
+        val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+        appBar.visibility = View.INVISIBLE
+        scannerBtn.visibility = View.INVISIBLE
+
+        // get bundle arguments and set up viewModel
+        eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
+        isAttendeeViewing = arguments?.getBoolean(IS_ATTENDEE_VIEWING) ?: false
+
+        viewModel = ViewModelProviders.of(this).get(EventInfoViewModel::class.java)
+        viewModel.init(eventId)
     }
 
     override fun onCreateView(
@@ -59,8 +73,20 @@ class EventInfoFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
+
+        // set up observers
+        viewModel.event.observe(
+            this,
+            Observer { event ->
+                currentEvent = event
+                updateEventUI(currentEvent)
+            },
+        )
+        viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
+
+        // set onClickListeners
         view.exit_button.setOnClickListener {
-            activity?.supportFragmentManager?.popBackStackImmediate()
+            closeEventInfoPage()
         }
         view.favorites_button.setOnClickListener {
             if (viewModel.changeFavoritedState()) {
@@ -120,5 +146,14 @@ class EventInfoFragment : Fragment() {
                 if (isFavorited) R.drawable.dark_bookmark_filled else R.drawable.dark_bookmark_hollow
             favorites_button.setImageResource(imageResource)
         }
+    }
+
+    private fun closeEventInfoPage() {
+        // set bottom app bar visible again and pop scanner fragment from the backstack
+        val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+        appBar.visibility = View.VISIBLE
+        scannerBtn.visibility = View.VISIBLE
+        activity?.supportFragmentManager?.popBackStackImmediate()
     }
 }

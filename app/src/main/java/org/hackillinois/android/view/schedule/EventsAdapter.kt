@@ -92,7 +92,9 @@ class EventsAdapter(
 
     private fun bindEventItem(event: Event, itemView: View) {
         itemView.apply {
-            setOnClickListener { eventClickListener.openEventInfoActivity(event) }
+            setOnClickListener {
+                eventClickListener.openEventInfoActivity(event)
+            }
 
             if (!isAttendeeViewing) {
                 bookmarkButton.visibility = View.GONE
