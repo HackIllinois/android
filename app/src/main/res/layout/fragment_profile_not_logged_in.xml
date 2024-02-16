@@ -15,8 +15,6 @@
         android:src="@drawable/dark_fantasy_bg_2024"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +33,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:gravity="start"
         android:text="@string/profile"
-        android:textColor="@color/white"
+        android:textColor="@color/palePeach"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

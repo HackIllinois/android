@@ -187,8 +187,8 @@ class ScheduleFragment : Fragment() {
         // Log.d("shift_header.isSelected", "${shift_header.isSelected}")
         shift_header.setBackgroundResource(0)
         schedule_header.setBackgroundResource(R.drawable.schedule_underline)
-        schedule_header.setTextColor(getResources().getColor(R.color.white))
-        shift_header.setTextColor(getResources().getColor(R.color.white))
+        schedule_header.setTextColor(getResources().getColor(R.color.palePeach))
+        shift_header.setTextColor(getResources().getColor(R.color.palePeach))
         scheduleBackground.setImageResource(R.drawable.dark_fantasy_bg_2024)
         for (i in 0 until scheduleDays.tabCount) {
             val tab = scheduleDays.getTabAt(i)
