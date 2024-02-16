@@ -75,7 +75,7 @@
             android:id="@+id/costAndQuantityView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/rounded_dark_forest_bg"
+            android:background="@drawable/rounded_dark_forest_transparent"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:maxLines="1"
