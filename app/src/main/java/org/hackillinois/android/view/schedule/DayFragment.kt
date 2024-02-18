@@ -70,7 +70,7 @@ class DayFragment : Fragment(), EventClickListener {
                                 viewModel?.isLoaded?.postValue(true)
                             }
                         }
-                    }
+                    },
                 )
             }, 100L)
         } else {
@@ -97,7 +97,7 @@ class DayFragment : Fragment(), EventClickListener {
                         // Log.d("Observe showShifts", "Switching to SCHEDULE")
                         updateEvents(currentEvents)
                     }
-                }
+                },
             )
             view.postDelayed({
                 liveShiftData?.observe(
@@ -109,7 +109,7 @@ class DayFragment : Fragment(), EventClickListener {
                                 mAdapter.updateEvents(insertTimeItems(currentShifts))
                             }
                         }
-                    }
+                    },
                 )
             }, 100)
         }
@@ -120,7 +120,7 @@ class DayFragment : Fragment(), EventClickListener {
                 Observer {
                     showFavorites = it
                     updateEvents(currentEvents)
-                }
+                },
             )
         }
     }
@@ -128,7 +128,7 @@ class DayFragment : Fragment(), EventClickListener {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_day, container, false)
         return view
