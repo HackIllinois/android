@@ -35,9 +35,11 @@ class DayFragment : Fragment(), EventClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val sectionNumber = arguments?.getInt(ARG_SECTION_NUM) ?: 0
-
         val viewModel = parentFragment?.let { ViewModelProvider(it).get(ScheduleViewModel::class.java) }
 
         val liveEventData = when (sectionNumber) {
@@ -48,33 +50,33 @@ class DayFragment : Fragment(), EventClickListener {
         }
 
         isAttendeeViewing = viewModel?.isAttendeeViewing ?: true
-        mAdapter = EventsAdapter(listOf(), this, isAttendeeViewing)
+        val isLoaded = viewModel?.isLoaded?.value ?: false
+        mAdapter = EventsAdapter(listOf(), this, isAttendeeViewing, isLoaded)
+        recyclerView = view.activity_schedule_recyclerview.apply {
+            mLayoutManager = LinearLayoutManager(context)
+            this.layoutManager = mLayoutManager
+            this.adapter = mAdapter
+        }
 
-        viewModel?.showShifts?.observe(
-            this,
-            Observer {
-                showShifts = it
-                if (showShifts) {
-                    // Log.d("Observe showShifts", "Switching to SHIFTS")
-                    mAdapter.updateEvents(insertTimeItems(currentShifts))
-                } else {
-                    // Log.d("Observe showShifts", "Switching to SCHEDULE")
-                    updateEvents(currentEvents)
-                }
-            }
-        )
-
-        liveEventData?.observe(
-            this,
-            Observer { events ->
-                events?.let {
-                    currentEvents = it
-                    if (isAttendeeViewing || !showShifts) {
-                        updateEvents(currentEvents)
+        if (currentEvents.isEmpty()) {
+            view.postDelayed({
+                liveEventData?.observe(
+                    this,
+                    Observer { events ->
+                        events?.let {
+                            if (currentEvents.isEmpty() && (isAttendeeViewing || !showShifts)) {
+                                currentEvents = it
+                                updateEvents(currentEvents)
+                                viewModel?.isLoaded?.postValue(true)
+                            }
+                        }
                     }
-                }
-            }
-        )
+                )
+            }, 100L)
+        } else {
+            updateEvents(currentEvents)
+            viewModel?.isLoaded?.postValue(true)
+        }
 
         if (isStaff()) {
             val liveShiftData = when (sectionNumber) {
@@ -83,17 +85,33 @@ class DayFragment : Fragment(), EventClickListener {
                 2 -> viewModel?.sundayShiftsLiveData
                 else -> viewModel?.fridayShiftsLiveData
             }
-            liveShiftData?.observe(
+            viewModel?.showShifts?.observe(
                 this,
-                Observer { shifts ->
-                    shifts?.let {
-                        currentShifts = it
-                        if (showShifts) {
-                            mAdapter.updateEvents(insertTimeItems(currentShifts))
-                        }
+                Observer {
+                    showShifts = it
+                    if (showShifts) {
+                        // Log.d("Observe showShifts", "Switching to SHIFTS")
+                        mAdapter.animateItems = false
+                        mAdapter.updateEvents(insertTimeItems(currentShifts))
+                    } else {
+                        // Log.d("Observe showShifts", "Switching to SCHEDULE")
+                        updateEvents(currentEvents)
                     }
                 }
             )
+            view.postDelayed({
+                liveShiftData?.observe(
+                    this,
+                    Observer { shifts ->
+                        shifts?.let {
+                            currentShifts = it
+                            if (showShifts) {
+                                mAdapter.updateEvents(insertTimeItems(currentShifts))
+                            }
+                        }
+                    }
+                )
+            }, 100)
         }
 
         if (isAttendeeViewing) {
@@ -113,25 +131,13 @@ class DayFragment : Fragment(), EventClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_day, container, false)
-
-        recyclerView = view.activity_schedule_recyclerview.apply {
-            mLayoutManager = LinearLayoutManager(context)
-            this.layoutManager = mLayoutManager
-            this.adapter = mAdapter
-        }
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (listState != null) {
-            mLayoutManager.onRestoreInstanceState(listState)
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        listState = mLayoutManager.onSaveInstanceState()
+    override fun onSaveInstanceState(state: Bundle) {
+        super.onSaveInstanceState(state)
+        // Save list state
+        state.putParcelable("recyclerview", mLayoutManager.onSaveInstanceState())
     }
 
     override fun openEventInfoActivity(event: Event) {

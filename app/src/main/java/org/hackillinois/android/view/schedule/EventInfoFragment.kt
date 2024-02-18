@@ -50,7 +50,7 @@ class EventInfoFragment : Fragment() {
                 override fun handleOnBackPressed() {
                     closeEventInfoPage()
                 }
-            },
+            }
         )
 
         // set bottom app bar invisible
@@ -70,7 +70,7 @@ class EventInfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_event_info, container, false)
 
@@ -80,7 +80,7 @@ class EventInfoFragment : Fragment() {
             Observer { event ->
                 currentEvent = event
                 updateEventUI(currentEvent)
-            },
+            }
         )
         viewModel.isFavorited.observe(this, Observer { updateFavoritedUI(it) })
 
@@ -149,11 +149,6 @@ class EventInfoFragment : Fragment() {
     }
 
     private fun closeEventInfoPage() {
-        // set bottom app bar visible again and pop scanner fragment from the backstack
-        val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
-        appBar.visibility = View.VISIBLE
-        scannerBtn.visibility = View.VISIBLE
         activity?.supportFragmentManager?.popBackStackImmediate()
     }
 }

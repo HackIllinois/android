@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.event_tile.view.*
@@ -26,9 +27,11 @@ import retrofit2.Response
 class EventsAdapter(
     private var itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener,
-    private val isAttendeeViewing: Boolean
+    private val isAttendeeViewing: Boolean,
+    private val isLoaded: Boolean
 ) : RecyclerView.Adapter<EventsAdapter.ViewHolder>(), EventClickListener {
     private lateinit var context: Context
+    var animateItems = true
 
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
 
@@ -50,7 +53,6 @@ class EventsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = itemList[position]
-
         if (item.getType() == 1) {
             val event = item as Event
             bindEventItem(event, holder.itemView)
@@ -61,6 +63,21 @@ class EventsAdapter(
             val timeListItem = item as TimeListItem
             bindTimeItem(timeListItem, holder.itemView)
         }
+        if (!isLoaded && animateItems) {
+            val animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.fade_in)
+            animation.startOffset = position * 100L
+            holder.itemView.startAnimation(animation)
+        }
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                animateItems = false
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
+        super.onAttachedToRecyclerView(recyclerView)
     }
 
     private fun bindShiftItem(shift: Shift, itemView: View) {

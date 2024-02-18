@@ -16,6 +16,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_schedule.scheduleDays
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
@@ -35,24 +37,6 @@ class ScheduleFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
-        scheduleViewModel.initEvents()
-        // Observe "Favorites" LiveData
-        scheduleViewModel.showFavorites.observe(
-            this,
-            Observer {
-                favoriteButton.isSelected = it ?: false
-                schedule_header.text = if (it) "Saved Events" else "Schedule"
-            },
-        )
-
-        scheduleViewModel.showShifts.observe(
-            this,
-            Observer {
-                shift_header.isSelected = it ?: false
-            },
-        )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,6 +44,7 @@ class ScheduleFragment : Fragment() {
 
         // Link tab/day selection to the ViewPager
         view.scheduleContainer.adapter = SectionsPagerAdapter(childFragmentManager)
+        view.scheduleContainer.offscreenPageLimit = 2
         view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
         view.scheduleDays.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
         setupCustomTabs(view.scheduleDays)
@@ -69,6 +54,30 @@ class ScheduleFragment : Fragment() {
         scheduleBackground = view.findViewById(R.id.scheduleBackground)
         scheduleBackground.setImageResource(R.drawable.dark_fantasy_bg_2024)
 
+        // set bottom app bar visible again and pop scanner fragment from the backstack
+        val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+        appBar.visibility = View.VISIBLE
+        scannerBtn.visibility = View.VISIBLE
+
+        scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
+        scheduleViewModel.initEvents()
+        // Observe "Favorites" LiveData
+        scheduleViewModel.showFavorites.observe(
+            this,
+            Observer {
+                favoriteButton.isSelected = it ?: false
+                favoriteButton.setImageResource(if (showingFavorites) R.drawable.light_bookmark_filled else R.drawable.light_bookmark_hollow)
+                schedule_header.text = if (it) "Saved Events" else "Schedule"
+            }
+        )
+
+        scheduleViewModel.showShifts.observe(
+            this,
+            Observer {
+                shift_header.isSelected = it ?: false
+            }
+        )
         if (isStaff() || !hasLoggedIn()) {
             Log.d("ISSTAFF", scheduleViewModel.isAttendeeViewing.toString())
             scheduleViewModel.isAttendeeViewing = false
@@ -144,12 +153,6 @@ class ScheduleFragment : Fragment() {
         override fun getPageTitle(position: Int): CharSequence? { return null }
     }
 
-    override fun onResume() {
-        super.onResume()
-        favoriteButton.setImageResource(if (showingFavorites) R.drawable.light_bookmark_filled else R.drawable.light_bookmark_hollow)
-        schedule_header.text = if (showingFavorites) "Saved Events" else "Schedule"
-    }
-
     // Update "Favorites" ViewModel on click
     private val favScheduleClickListener = OnClickListener {
         favoriteButton.apply {
@@ -158,7 +161,7 @@ class ScheduleFragment : Fragment() {
                 when (isSelected) {
                     true -> R.drawable.light_bookmark_filled
                     else -> R.drawable.light_bookmark_hollow
-                },
+                }
             )
         }
         scheduleViewModel.showFavorites.postValue(favoriteButton.isSelected)

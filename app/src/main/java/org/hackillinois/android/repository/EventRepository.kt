@@ -9,15 +9,12 @@ import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
 
 class EventRepository {
+    init {
+        Log.d("EventRepository", "eventRepository instance created")
+    }
+
     private val eventDao = App.database.eventDao()
 
-    fun fetchEvents(): LiveData<List<Event>> {
-        // make api call to fetch events
-        refreshAllEvents()
-        // get events from Room database
-        val events = eventDao.getAllEvents()
-        return events
-    }
     fun fetchEventsHappeningAtTime(time: Long): LiveData<List<Event>> {
         return eventDao.getAllEventsHappeningAtTime(time / MILLIS_IN_SECOND)
     }
@@ -39,7 +36,7 @@ class EventRepository {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val events = App.getAPI().allEvents().events
-                Log.d("Events Fetched", events.toString())
+                Log.d("Events Fetched", events[0].toString())
                 eventDao.clearTableAndInsertEvents(events)
             } catch (e: Exception) {
                 Log.e("REFRESH EVENTS", e.toString())

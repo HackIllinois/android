@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import org.hackillinois.android.database.entity.Attendee
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.database.entity.User
-import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.repository.ProfileRepository
 import org.hackillinois.android.repository.ShopRepository
 import org.hackillinois.android.repository.attendeeRepository
@@ -19,7 +18,6 @@ class MainViewModel : ViewModel() {
 
     private val shopRepository = ShopRepository.instance
     private val profileRepository = ProfileRepository.instance
-    private val eventRepository = EventRepository.instance
 
     fun init() {
         attendee = attendeeRepository.fetch()
@@ -29,6 +27,5 @@ class MainViewModel : ViewModel() {
         // fetch shop, schedule, and profile initially to reduce UI lag
         shopRepository.fetchShop()
         profileRepository.fetchProfile()
-        eventRepository.fetchEvents()
     }
 }
