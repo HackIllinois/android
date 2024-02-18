@@ -125,6 +125,8 @@ class DayFragment : Fragment(), EventClickListener {
                 this,
                 Observer {
                     showFavorites = it
+                    mAdapter.isLoaded = false
+                    mAdapter.animateItems = true
                     updateEvents(currentEvents)
                 },
             )
