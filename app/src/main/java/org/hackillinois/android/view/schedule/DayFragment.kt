@@ -59,20 +59,23 @@ class DayFragment : Fragment(), EventClickListener {
         }
 
         if (currentEvents.isEmpty()) {
-            view.postDelayed({
-                liveEventData?.observe(
-                    this,
-                    Observer { events ->
-                        events?.let {
-                            if (currentEvents.isEmpty() && (isAttendeeViewing || !showShifts)) {
-                                currentEvents = it
-                                updateEvents(currentEvents)
-                                viewModel?.isLoaded?.postValue(true)
+            view.postDelayed(
+                {
+                    liveEventData?.observe(
+                        this,
+                        Observer { events ->
+                            events?.let {
+                                if (currentEvents.isEmpty() && (isAttendeeViewing || !showShifts)) {
+                                    currentEvents = it
+                                    updateEvents(currentEvents)
+                                    viewModel?.isLoaded?.postValue(true)
+                                }
                             }
-                        }
-                    },
-                )
-            }, 100L)
+                        },
+                    )
+                },
+                100L,
+            )
         } else {
             updateEvents(currentEvents)
             viewModel?.isLoaded?.postValue(true)
@@ -99,19 +102,22 @@ class DayFragment : Fragment(), EventClickListener {
                     }
                 },
             )
-            view.postDelayed({
-                liveShiftData?.observe(
-                    this,
-                    Observer { shifts ->
-                        shifts?.let {
-                            currentShifts = it
-                            if (showShifts) {
-                                mAdapter.updateEvents(insertTimeItems(currentShifts))
+            view.postDelayed(
+                {
+                    liveShiftData?.observe(
+                        this,
+                        Observer { shifts ->
+                            shifts?.let {
+                                currentShifts = it
+                                if (showShifts) {
+                                    mAdapter.updateEvents(insertTimeItems(currentShifts))
+                                }
                             }
-                        }
-                    },
-                )
-            }, 100)
+                        },
+                    )
+                },
+                100,
+            )
         }
 
         if (isAttendeeViewing) {
