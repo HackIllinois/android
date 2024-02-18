@@ -122,8 +122,8 @@ class ScannerViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 Log.d("ITEMINSTANCE", body.toString())
-                App.getAPI().buyShopItem(body)
-                val message = "You have successfully redeemed your points at the Point Shop!"
+                val itemName = App.getAPI().buyShopItem(body)
+                val message = "You have successfully redeemed ${itemName.itemName} from the Point Shop!"
                 val scanStatus = ScanStatus(message, true)
                 lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {

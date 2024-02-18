@@ -11,6 +11,7 @@ import org.hackillinois.android.model.scanner.MentorId
 import org.hackillinois.android.model.scanner.Points
 import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
+import org.hackillinois.android.model.shop.ItemName
 import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
@@ -67,7 +68,7 @@ interface API {
     suspend fun shop(): List<ShopItem>
 
     @POST("shop/item/buy/")
-    suspend fun buyShopItem(@Body body: ItemInstance)
+    suspend fun buyShopItem(@Body body: ItemInstance): ItemName
 
     // STAFF
 
@@ -82,7 +83,7 @@ interface API {
     @GET("user/")
     suspend fun user(): User
 
-    @PUT("user/follow/")
+    @GET("user/following/")
     suspend fun favoriteEvents(): FavoritesResponse
 
     @PUT("user/follow/")

@@ -1,9 +1,8 @@
 package org.hackillinois.android.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.repository.EventRepository
 import org.hackillinois.android.repository.ShiftRepository
@@ -37,32 +36,27 @@ class ScheduleViewModel : ViewModel() {
         timeInMillis = 1708927199000
     }.timeInMillis
 
-    lateinit var fridayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
-    lateinit var saturdayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
-    lateinit var sundayEventsLiveData: LiveData<List<org.hackillinois.android.database.entity.Event>>
+    var fridayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayStart, fridayEnd)
+    var saturdayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayEnd, saturdayEnd)
+    var sundayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(saturdayEnd, sundayEnd)
 
-    lateinit var fridayShiftsLiveData: LiveData<List<org.hackillinois.android.database.entity.Shift>>
-    lateinit var saturdayShiftsLiveData: LiveData<List<org.hackillinois.android.database.entity.Shift>>
-    lateinit var sundayShiftsLiveData: LiveData<List<org.hackillinois.android.database.entity.Shift>>
+    var fridayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(fridayStart, fridayEnd)
+    var saturdayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(fridayEnd, saturdayEnd)
+    var sundayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(saturdayEnd, sundayEnd)
 
     var showFavorites: MutableLiveData<Boolean> = MutableLiveData()
     var showShifts: MutableLiveData<Boolean> = MutableLiveData()
     var isAttendeeViewing: Boolean = true
+    val isLoaded: MutableLiveData<Boolean> = MutableLiveData()
 
     fun initEvents() {
-        fridayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayStart, fridayEnd)
-        saturdayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayEnd, saturdayEnd)
-        sundayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(saturdayEnd, sundayEnd)
-        viewModelScope.launch {
+        GlobalScope.launch {
             eventRepository.refreshAllEvents()
         }
     }
 
     fun initShifts() {
-        fridayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(fridayStart, fridayEnd)
-        saturdayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(fridayEnd, saturdayEnd)
-        sundayShiftsLiveData = shiftRepository.fetchShiftsHappeningBetweenTimes(saturdayEnd, sundayEnd)
-        viewModelScope.launch {
+        GlobalScope.launch {
             shiftRepository.refreshAllShifts()
         }
     }

@@ -4,20 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:background="@drawable/dark_fantasy_bg_2024"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
-            android:src="@drawable/dark_fantasy_bg_2024"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
@@ -31,11 +24,12 @@
 
         <ImageButton
             android:id="@+id/favorites_button"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="26dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="14dp"
             android:paddingTop="2dp"
             android:paddingHorizontal="4dp"
+            android:scaleType="centerCrop"
             android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/event_name"

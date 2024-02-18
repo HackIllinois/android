@@ -76,6 +76,7 @@
     <string name="merch">MERCH</string>
     <string name="raffle">RAFFLE</string>
     <string name="unlimited">Unlimited</string>
+    <string name="shop_toast_text">Head to the Point Shop location to scan and buy items!</string>
 
     <!--   Profile Fragment   -->
     <string name="profile">PROFILE</string>
@@ -88,16 +89,15 @@
     <!--   Scanner Fragments   -->
     <string name="attendance">ATTENDANCE</string>
     <string name="staff_meeting">Meeting Attendance</string>
-    <string name="staff_checkin">Attendee Check-In</string>
     <string name="scanner_not_logged_in_message">You must log in to use this feature! Go to the Profile tab to logout.</string>
     <string name="knights">Knights</string>
     <string name="pro">Pro</string>
     <string name="scanner">SCANNER</string>
     <string name="meeting_attendance">Meeting Attendance</string>
-    <string name="attendee_checkin">Attendee Check In</string>
+    <string name="attendee_checkin">Attendee Check-In</string>
     <string name="add_points">Add Points</string>
-    <string name="mentor_checkin">Mentor Check In</string>
-    <string name="event_checkin">Event Check In</string>
+    <string name="mentor_checkin">Mentor Check-In</string>
+    <string name="event_checkin">Event Check-In</string>
     <string name="point_shop_scan">Point Shop Scan</string>
     <string name="scanner_invalid_item_qr_message">Unrecognized item QR code, tap screen to try again.</string>
     <string name="something_went_wrong_message">Something went wrong, please try again.</string>

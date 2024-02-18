@@ -19,14 +19,14 @@ class CountdownManager(val listener: CountDownListener) {
         timeInMillis = 1708736400000
     }
 
-    // 02-25-2024 9:00:00
+    // 02-25-2024 7:00:00
     private val hackingEndTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1708873200000
+        timeInMillis = 1708866000000
     }
 
     private var times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
-    private val titles = listOf("HACKILLINOIS BEGINS IN", "HACKING BEGINS IN", "HACKING ENDS IN", "MEMORIES MADE")
+    private val titles = listOf("HACKILLINOIS BEGINS IN", "HACKING BEGINS IN", "HACKING ENDS IN", "QUEST COMPLETE")
 
     private var timer: CountDownTimer? = null
     private var state = 0
