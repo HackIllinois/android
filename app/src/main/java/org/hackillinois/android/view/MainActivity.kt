@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         val startFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.contentFrame, startFragment).commit()
 
-//        val hasLoggedIn = hasLoggedIn()
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java).apply {
             init()
         }
@@ -168,7 +167,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun hasLoggedIn(): Boolean {
+    private fun hasLoggedIn(): Boolean {
         return JWTUtilities.readJWT(applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 
