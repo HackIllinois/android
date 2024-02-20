@@ -37,8 +37,8 @@
 
         <ImageButton
             android:id="@+id/exit_button"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:padding="4dp"
@@ -51,7 +51,7 @@
 
         <TextView
             android:id="@+id/event_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="15dp"
@@ -59,8 +59,9 @@
             android:textColor="@color/midnight"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/exit_button"
+            app:layout_constraintEnd_toStartOf="@id/favorites_button"
             tools:text="Event Name" />
 
         <TextView
