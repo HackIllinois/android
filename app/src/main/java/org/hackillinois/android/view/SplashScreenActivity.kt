@@ -23,6 +23,7 @@ import kotlinx.coroutines.withContext
 import org.hackillinois.android.App
 import org.hackillinois.android.BuildConfig
 import org.hackillinois.android.R
+import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
 import java.util.concurrent.CountDownLatch
 import kotlin.concurrent.thread
@@ -198,7 +199,22 @@ class SplashScreenActivity : AppCompatActivity() {
         alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(buttonColor)
     }
 
+    private fun logout() {
+        JWTUtilities.clearJWT(applicationContext)
+        Log.d("HERE", "HERE")
+
+        thread {
+            FavoritesManager.clearFavorites(this)
+            val prefString = applicationContext.getString(R.string.authorization_pref_file_key)
+            applicationContext.getSharedPreferences(prefString, Context.MODE_PRIVATE).edit()
+                .remove("provider").apply()
+            App.database.clearAllTables()
+            App.getAPI("")
+        }
+    }
+
     private fun showUpdatePopup() {
+        logout()
         splashAnimationView.pauseAnimation()
         splashAnimationView.visibility = View.INVISIBLE
         val builder = AlertDialog.Builder(this)
