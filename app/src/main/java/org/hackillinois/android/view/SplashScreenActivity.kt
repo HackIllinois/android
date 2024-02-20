@@ -201,7 +201,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun logout() {
         JWTUtilities.clearJWT(applicationContext)
-        Log.d("HERE", "HERE")
 
         thread {
             FavoritesManager.clearFavorites(this)
