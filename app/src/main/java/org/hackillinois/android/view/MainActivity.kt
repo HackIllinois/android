@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
@@ -21,7 +20,6 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.FavoritesManager
 import org.hackillinois.android.common.JWTUtilities
-import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.notifications.FirebaseTokenManager
 import org.hackillinois.android.view.home.HomeFragment
 import org.hackillinois.android.view.profile.ProfileFragment
@@ -38,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     private var currentSelection = 0
     private var onScanner = false
-    private var userRoles: Roles? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,13 +50,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java).apply {
             init()
-            val owner = this@MainActivity
-            roles.observe(
-                this@MainActivity,
-                Observer {
-                    userRoles = it
-                },
-            )
         }
         updateFirebaseToken()
     }

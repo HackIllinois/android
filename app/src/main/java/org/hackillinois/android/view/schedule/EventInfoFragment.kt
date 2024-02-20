@@ -54,11 +54,12 @@ class EventInfoFragment : Fragment() {
         )
 
         // set bottom app bar invisible
-        val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
-        appBar.visibility = View.INVISIBLE
-        scannerBtn.visibility = View.INVISIBLE
-
+        val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+        if (appBar != null && scannerBtn != null) {
+            appBar.visibility = View.INVISIBLE
+            scannerBtn.visibility = View.INVISIBLE
+        }
         // get bundle arguments and set up viewModel
         eventId = arguments?.getString(EVENT_ID_KEY) ?: ""
         isAttendeeViewing = arguments?.getBoolean(IS_ATTENDEE_VIEWING) ?: false

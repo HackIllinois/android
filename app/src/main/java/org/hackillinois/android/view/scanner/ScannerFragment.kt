@@ -337,10 +337,12 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
 
     private fun closeScannerPage() {
         // set bottom app bar visible again and pop scanner fragment from the backstack
-        val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
-        appBar.visibility = View.VISIBLE
-        scannerBtn.visibility = View.VISIBLE
+        val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+        if (appBar != null && scannerBtn != null) {
+            appBar.visibility = View.VISIBLE
+            scannerBtn.visibility = View.VISIBLE
+        }
         activity?.supportFragmentManager?.popBackStackImmediate()
     }
 

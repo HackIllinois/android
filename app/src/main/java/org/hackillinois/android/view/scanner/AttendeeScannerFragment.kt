@@ -16,14 +16,16 @@ class AttendeeScannerFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_attendee_scanner, container, false)
 
         // get bottom app bar and scanner button views from the MainActivity
-        val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+        val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
 
         // when event check in button is clicked
         val eventCheckInButton = view.findViewById<Button>(R.id.eventCheckInBtn)
         eventCheckInButton.setOnClickListener {
-            appBar.visibility = View.INVISIBLE
-            scannerBtn.visibility = View.INVISIBLE
+            if (appBar != null && scannerBtn != null) {
+                appBar.visibility = View.INVISIBLE
+                scannerBtn.visibility = View.INVISIBLE
+            }
             val scannerFragment = ScannerFragment.newInstance("event-check-in")
             (context as MainActivity).switchFragment(scannerFragment, true)
         }
@@ -31,8 +33,10 @@ class AttendeeScannerFragment : Fragment() {
         // when mentor check in button is clicked
         val mentorCheckInButton = view.findViewById<Button>(R.id.mentorCheckInBtn)
         mentorCheckInButton.setOnClickListener {
-            appBar.visibility = View.INVISIBLE
-            scannerBtn.visibility = View.INVISIBLE
+            if (appBar != null && scannerBtn != null) {
+                appBar.visibility = View.INVISIBLE
+                scannerBtn.visibility = View.INVISIBLE
+            }
             val scannerFragment = ScannerFragment.newInstance("mentor-check-in")
             (context as MainActivity).switchFragment(scannerFragment, true)
         }
@@ -40,8 +44,10 @@ class AttendeeScannerFragment : Fragment() {
         // when point shop button is clicked
         val pointShopButton = view.findViewById<Button>(R.id.pointShopBtn)
         pointShopButton.setOnClickListener {
-            appBar.visibility = View.INVISIBLE
-            scannerBtn.visibility = View.INVISIBLE
+            if (appBar != null && scannerBtn != null) {
+                appBar.visibility = View.INVISIBLE
+                scannerBtn.visibility = View.INVISIBLE
+            }
             val scannerFragment = ScannerFragment.newInstance("point-shop")
             (context as MainActivity).switchFragment(scannerFragment, true)
         }

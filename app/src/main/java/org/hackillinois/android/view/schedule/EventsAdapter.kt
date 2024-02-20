@@ -28,7 +28,7 @@ class EventsAdapter(
     private var itemList: List<ScheduleListItem>,
     private val eventClickListener: EventClickListener,
     private val isAttendeeViewing: Boolean,
-    private val isLoaded: Boolean
+    var isLoaded: Boolean
 ) : RecyclerView.Adapter<EventsAdapter.ViewHolder>(), EventClickListener {
     private lateinit var context: Context
     var animateItems = true

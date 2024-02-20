@@ -55,10 +55,12 @@ class ScheduleFragment : Fragment() {
         scheduleBackground.setImageResource(R.drawable.dark_fantasy_bg_2024)
 
         // set bottom app bar visible again and pop scanner fragment from the backstack
-        val appBar = activity!!.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val scannerBtn = activity!!.findViewById<FloatingActionButton>(R.id.code_entry_fab)
-        appBar.visibility = View.VISIBLE
-        scannerBtn.visibility = View.VISIBLE
+        val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+        if (appBar != null && scannerBtn != null) {
+            appBar.visibility = View.VISIBLE
+            scannerBtn.visibility = View.VISIBLE
+        }
 
         scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
         scheduleViewModel.initEvents()

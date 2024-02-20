@@ -39,7 +39,7 @@
     <string name="login_or_label">- OR -</string>
 
     <!--    Home Fragment   -->
-    <string name="home_banner">HACKILLINOIS BEGINS IN...</string>
+    <string name="home_banner">HACKILLINOIS BEGINS IN…</string>
     <string name="days_label">DAYS</string>
     <string name="hours_label">HOURS</string>
     <string name="minutes_label">MINUTES</string>
@@ -52,7 +52,7 @@
     <string name="friday">FRI\n23</string>
     <string name="saturday">SAT\n24</string>
     <string name="sunday">SUN\n25</string>
-    <string name="schedule_snackbar_notifications_on">Notifications are on for this event!\nMake sure push notifications are enabled.</string>
+    <string name="schedule_snackbar_notifications_on">Notifications on for this event! Make sure app enables notifs.</string>
     <string name="mealText">Meal</string>
     <string name="speakerText">Speaker</string>
     <string name="workshopText">Workshop</string>
