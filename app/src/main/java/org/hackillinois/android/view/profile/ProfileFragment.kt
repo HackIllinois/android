@@ -40,6 +40,16 @@ class ProfileFragment : Fragment() {
     private var pro = false
     private var userRoles: Roles? = null
 
+    override fun onPause() {
+        super.onPause()
+        profileViewModel.stopTimer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        profileViewModel.startTimer()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -65,13 +75,13 @@ class ProfileFragment : Fragment() {
         // set up LiveData observers
         profileViewModel.currentProfileLiveData.observe(
             this@ProfileFragment,
-            Observer { updateProfileUI(it) },
+            Observer { updateProfileUI(it) }
         )
         profileViewModel.qr.observe(
             this@ProfileFragment,
             Observer {
                 updateQrView(it)
-            },
+            }
         )
         profileViewModel.roles.observe(
             this@ProfileFragment,
@@ -81,13 +91,13 @@ class ProfileFragment : Fragment() {
                     pro = it.isPro()
                     updateProTag()
                 }
-            },
+            }
         )
         profileViewModel.ranking.observe(
             this@ProfileFragment,
             Observer {
                 updateRanking(it)
-            },
+            }
         )
 
         // do view creation here if attendee
