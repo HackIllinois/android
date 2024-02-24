@@ -1,9 +1,9 @@
 # The Official HackIllinois Android App
 [![Build Status](https://github.com/hackillinois/android/workflows/CI/badge.svg)](https://github.com/HackIllinois/android/actions)
 
-<img src="screenshots/welcome_screen_2023.png" height="360"/> <img src="screenshots/loading_screen_2023.png" height="360"/> <img src="screenshots/home_screen_2023.png" height="360"/> <img src="screenshots/card_screen_2023.png" height="360"/> 
+<img src="screenshots/welcome_screen_2024.jpg" height="360"/> <img src="screenshots/loading_screen_2024.jpg" height="360"/> <img src="screenshots/home_screen_2024.jpg" height="360"/> <img src="screenshots/schedule_screen_2024.jpg" height="360"/> 
 
-<img src="screenshots/schedule_screen_2023.png" height="360"/> <img src="screenshots/profile_screen_2023.png" height="360"/> <img src="screenshots/leaderboard_screen_2023.png" height="360"/> <img src="screenshots/scanner_screen_2023.png" height="360"/>
+<img src="screenshots/card_screen_2024.jpg" height="360"/> <img src="screenshots/scanner_screen_2024.jpg" height="360"/> <img src="screenshots/point_shop_screen_2024.jpg" height="360"/> <img src="screenshots/profile_screen_2024.jpg" height="360"/>
 
 [<img src="https://freelogopng.com/images/all_img/1664287128google-play-store-logo-png.png" height="45">](https://play.google.com/store/apps/details?id=org.hackillinois.android.release)
 
