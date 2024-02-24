@@ -42,6 +42,7 @@ class ProfileViewModel : ViewModel() {
             timerObj = Timer()
             val timerTaskObj: TimerTask = object : TimerTask() {
                 override fun run() {
+                    Log.d("QR FETCH", "...")
                     qr = qrRepository.fetch()
                 }
             }

@@ -42,12 +42,16 @@ class ProfileFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        profileViewModel.stopTimer()
+        if (isAttendee()) {
+            profileViewModel.stopTimer()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        profileViewModel.startTimer()
+        if (isAttendee()) {
+            profileViewModel.startTimer()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -184,5 +188,11 @@ class ProfileFragment : Fragment() {
         val context = requireActivity().applicationContext
         val prefString = context.getString(R.string.authorization_pref_file_key)
         return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
+    }
+
+    private fun isAttendee(): Boolean {
+        val context = requireActivity().applicationContext
+        val prefString = context.getString(R.string.authorization_pref_file_key)
+        return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "github"
     }
 }
