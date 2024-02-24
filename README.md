@@ -9,7 +9,7 @@
 
 ## Development Setup
 * Download and install [Android Studio](https://developer.android.com/studio)
-* Download and install [Git](https://git-scm.com/downloads) and [GitHub Desktop](https://desktop.github.com/)
+* Download and install [Git](https://git-scm.com/downloads) and [GitHub Desktop](https://desktop.github.com/) (optional)
 
 ## Installation
 1. Clone the repository.
@@ -32,3 +32,5 @@
 
 5. Back in the cloned project in Android Studio, create an `app/google-services.json` file.
      - You can get a copy of this file from one of the developers
+
+**Note: steps 3 & 4 are only necessary if the app uses the Google Maps API for the schedule event cards (current 2024 version doesn't)**
