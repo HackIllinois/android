@@ -42,6 +42,16 @@ class ShopFragment : Fragment() {
     // Merch tab is default selected
     private var showingMerch: Boolean = true
 
+    override fun onPause() {
+        super.onPause()
+        shopViewModel.stopTimer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        shopViewModel.startTimer()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

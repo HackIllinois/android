@@ -64,7 +64,7 @@ interface API {
 
     // SHOP
 
-    @GET("shop/")
+    @GET("shop/v2/")
     suspend fun shop(): List<ShopItem>
 
     @POST("shop/item/buy/")
@@ -92,7 +92,7 @@ interface API {
     @PUT("user/unfollow/")
     fun unfollowEvent(@Body eventId: EventId): Call<FavoritesResponse>
 
-    @GET("user/qr/")
+    @GET("user/v2-qr/")
     suspend fun qrCode(): QR
 
     @PUT("user/scan-event/")

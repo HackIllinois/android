@@ -40,6 +40,20 @@ class ProfileFragment : Fragment() {
     private var pro = false
     private var userRoles: Roles? = null
 
+    override fun onPause() {
+        super.onPause()
+        if (isAttendee()) {
+            profileViewModel.stopTimer()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isAttendee()) {
+            profileViewModel.startTimer()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -65,13 +79,13 @@ class ProfileFragment : Fragment() {
         // set up LiveData observers
         profileViewModel.currentProfileLiveData.observe(
             this@ProfileFragment,
-            Observer { updateProfileUI(it) },
+            Observer { updateProfileUI(it) }
         )
         profileViewModel.qr.observe(
             this@ProfileFragment,
             Observer {
                 updateQrView(it)
-            },
+            }
         )
         profileViewModel.roles.observe(
             this@ProfileFragment,
@@ -81,13 +95,13 @@ class ProfileFragment : Fragment() {
                     pro = it.isPro()
                     updateProTag()
                 }
-            },
+            }
         )
         profileViewModel.ranking.observe(
             this@ProfileFragment,
             Observer {
                 updateRanking(it)
-            },
+            }
         )
 
         // do view creation here if attendee
@@ -174,5 +188,11 @@ class ProfileFragment : Fragment() {
         val context = requireActivity().applicationContext
         val prefString = context.getString(R.string.authorization_pref_file_key)
         return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
+    }
+
+    private fun isAttendee(): Boolean {
+        val context = requireActivity().applicationContext
+        val prefString = context.getString(R.string.authorization_pref_file_key)
+        return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "github"
     }
 }
