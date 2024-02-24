@@ -24,8 +24,8 @@ android {
         applicationId "org.hackillinois.android"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 60
-        versionName "2024.2.2"
+        versionCode 61
+        versionName "2024.3.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
