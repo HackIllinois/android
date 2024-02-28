@@ -45,6 +45,7 @@ class CountdownManager(val listener: CountDownListener) {
         // if past the last timestamp, don't start another timer
         if (state >= times.size) {
             listener.updateTitle(titles[titles.size - 1]) // set to be last title
+            listener.updateTime(0)
             return
         }
 
