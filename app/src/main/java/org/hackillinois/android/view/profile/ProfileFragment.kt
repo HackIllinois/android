@@ -16,6 +16,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import kotlinx.android.synthetic.main.fragment_point_shop.coin_total_textview
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
@@ -57,7 +58,7 @@ class ProfileFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (!hasLoggedIn() or isStaff()) {
+        if (!hasLoggedIn()) {
             return
         }
         // View model set up and initialization
@@ -66,7 +67,7 @@ class ProfileFragment : Fragment() {
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // if not an attendee, set the layout to be the not logged in profile
-        if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
+        if (!hasLoggedIn()) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
             val logoutButton = view.findViewById<Button>(R.id.logout_button)
             logoutButton.setOnClickListener {
@@ -77,10 +78,23 @@ class ProfileFragment : Fragment() {
         }
 
         // set up LiveData observers
-        profileViewModel.currentProfileLiveData.observe(
-            this@ProfileFragment,
-            Observer { updateProfileUI(it) }
-        )
+        if (true) {
+            profileViewModel.currentProfileLiveData.observe(
+                this@ProfileFragment,
+                Observer {
+                    updateProfileUI(it)
+                    updateStaffPoints(it)
+                }
+            )
+        } else {
+            profileViewModel.currentProfileLiveData.observe(
+                this@ProfileFragment,
+                Observer {
+                    updateProfileUI(it)
+//                updateStaffPoints(it)
+                }
+            )
+        }
         profileViewModel.qr.observe(
             this@ProfileFragment,
             Observer {
@@ -91,42 +105,77 @@ class ProfileFragment : Fragment() {
             this@ProfileFragment,
             Observer {
                 userRoles = it
-                if (userRoles != null && userRoles!!.isPro()) {
+                if (userRoles != null && userRoles!!.isPro() && false) {
                     pro = it.isPro()
                     updateProTag()
                 }
             }
         )
+
         profileViewModel.ranking.observe(
             this@ProfileFragment,
             Observer {
-                updateRanking(it)
+//                updateRanking(it)
             }
         )
 
         // do view creation here if attendee
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        nameText = view.findViewById(R.id.nameText)
-        qrCodeImage = view.findViewById(R.id.qrCodeImage2024)
-        avatarImage = view.findViewById(R.id.avatarImage)
-        waveText = view.findViewById(R.id.waveText)
-        attendeeTypeText = view.findViewById(R.id.attendeeTypeText)
-        rankingPlacementText = view.findViewById(R.id.rankingPlacementTextView)
 
-        // Displays the logout button in the top-right corner if an attendee
-        val logoutButton = view.findViewById<ImageButton>(R.id.logoutButton)
-        logoutButton.setOnClickListener {
-            val mainActivity: MainActivity = requireActivity() as MainActivity
-            mainActivity.logout()
+        if (true) {
+            val view = inflater.inflate(R.layout.fragment_profile_staff, container, false)
+            nameText = view.findViewById(R.id.nameText)
+            qrCodeImage = view.findViewById(R.id.qrCodeImage2024)
+            avatarImage = view.findViewById(R.id.avatarImage)
+            waveText = view.findViewById(R.id.waveText)
+            attendeeTypeText = view.findViewById(R.id.attendeeTypeText)
+            rankingPlacementText = view.findViewById(R.id.rankingPlacementTextView)
+
+            val logoutButton = view.findViewById<ImageButton>(R.id.logoutButton)
+            logoutButton.setOnClickListener {
+                val mainActivity: MainActivity = requireActivity() as MainActivity
+                mainActivity.logout()
+            }
+
+            return view
+
+        } else { // attendee page
+            val view = inflater.inflate(R.layout.fragment_profile, container, false)
+            nameText = view.findViewById(R.id.nameText)
+            qrCodeImage = view.findViewById(R.id.qrCodeImage2024)
+            avatarImage = view.findViewById(R.id.avatarImage)
+            waveText = view.findViewById(R.id.waveText)
+            attendeeTypeText = view.findViewById(R.id.attendeeTypeText)
+            rankingPlacementText = view.findViewById(R.id.rankingPlacementTextView)
+
+            val logoutButton = view.findViewById<ImageButton>(R.id.logoutButton)
+            logoutButton.setOnClickListener {
+                val mainActivity: MainActivity = requireActivity() as MainActivity
+                mainActivity.logout()
+            }
+
+            return view
         }
 
-        return view
+
+        // Displays the logout button in the top-right corner if an attendee
+
+
+//        return view
     }
 
     private fun updateProfileUI(profile: Profile?) = profile?.let { it ->
         waveText.text = "Wave ${it.foodWave}"
         nameText.text = it.displayName
-        updateProTag()
+        if (true) {
+            waveText.text = "";
+            attendeeTypeText.text = "Staff"
+        }
+        if (true) {
+
+        } else {
+            updateProTag()
+
+        }
 
         // load avatar image png from API using Glide
         Glide.with(requireContext()).load(it.avatarUrl).into(avatarImage)
@@ -134,6 +183,12 @@ class ProfileFragment : Fragment() {
 
     private fun updateRanking(ranking: Ranking?) = ranking?.let { it ->
         rankingPlacementText.text = "${ranking.ranking}"
+    }
+
+    private fun updateStaffPoints(newProfile: Profile) {
+        if (newProfile != null) {
+            rankingPlacementText.text = String.format("%,d", newProfile.points)
+        }
     }
 
     private fun updateProTag() {
