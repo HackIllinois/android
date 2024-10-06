@@ -82,6 +82,9 @@
     <string name="profile">PROFILE PAGE</string>
     <string name="your_ranking">Your Ranking</string>
     <string name="dashes">--</string>
+
+    <!--   staff profile prototyping   -->
+    <string name="your_points">Your Points</string>
     <!--   not logged in   -->
     <string name="profile_login">Login</string>
     <string name="not_logged_in_message">You need to log in as an attendee in order to see your profile.</string>
