@@ -21,9 +21,9 @@ data class Attendee(
             firstName.isNotEmpty() || lastName.isNotEmpty() -> "$firstName $lastName".trim()
             else -> "Attendee"
         }
+}
 //    val diet: Array<String>
 //        get() = when {
 //            dietary.isEmpty() || dietary[0] == "None" -> arrayOf("None")
 //            else -> dietary
 //        }
-}
