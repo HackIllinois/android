@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
 
+// test comment
 class EventRepository {
     init {
         Log.d("EventRepository", "eventRepository instance created")
