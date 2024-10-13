@@ -52,6 +52,7 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
+    // test PR comment - sneh
     fun stopTimer() {
         if (isTimerRunning && ::timerObj.isInitialized) {
             timerObj.cancel()
