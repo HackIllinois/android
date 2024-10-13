@@ -8,7 +8,7 @@ import org.hackillinois.android.notifications.HackIllinoisNotificationManager
 import org.hackillinois.android.notifications.HackIllinoisNotificationManager.cancelEventNotification
 import org.hackillinois.android.notifications.HackIllinoisNotificationManager.scheduleEventNotification
 
-//sruthi's change
+// sruthi's change
 class FavoritesManager {
     companion object {
         fun favoriteEvent(context: Context, event: Event?) = event?.let {
