@@ -86,7 +86,7 @@ interface API {
     suspend fun favoriteEvents(): FavoritesResponse
 
     @PUT("user/follow/{eventId}/")
-    fun followEvent(@Path ("eventId") event : EventId): Call<FavoritesResponse>
+    fun followEvent(@Path("eventId") event: EventId): Call<FavoritesResponse>
 
     @PUT("user/unfollow/")
     fun unfollowEvent(@Body eventId: EventId): Call<FavoritesResponse>
