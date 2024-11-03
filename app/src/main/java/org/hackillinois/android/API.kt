@@ -92,7 +92,7 @@ interface API {
     @PUT("user/unfollow/")
     fun unfollowEvent(@Body eventId: EventId): Call<FavoritesResponse>
 
-    @GET("user/v2-qr/")
+    @GET("user/qr/")
     suspend fun qrCode(): QR
 
     @PUT("user/scan-event/")
