@@ -63,8 +63,7 @@ interface API {
     suspend fun attendee(): Attendee
 
     // SHOP
-
-    @GET("shop/v2/")
+    @GET("shop/")
     suspend fun shop(): List<ShopItem>
 
     @POST("shop/item/buy/")
@@ -86,8 +85,8 @@ interface API {
     @GET("user/following/")
     suspend fun favoriteEvents(): FavoritesResponse
 
-    @PUT("user/follow/")
-    fun followEvent(@Body eventId: EventId): Call<FavoritesResponse>
+    @PUT("user/follow/{eventId}/")
+    fun followEvent(@Path ("eventId") event : EventId): Call<FavoritesResponse>
 
     @PUT("user/unfollow/")
     fun unfollowEvent(@Body eventId: EventId): Call<FavoritesResponse>
