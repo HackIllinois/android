@@ -68,7 +68,7 @@ interface API {
     suspend fun shop(): List<ShopItem>
 
     @POST("shop/item/buy/")
-    suspend fun buyShopItem(@Body body: ItemInstance): ItemName
+    suspend fun buyShopItem(@Body body: ItemInstance): List<ShopItem>
 
     // STAFF
 
@@ -89,8 +89,8 @@ interface API {
     @PUT("user/follow/")
     fun followEvent(@Body eventId: EventId): Call<FavoritesResponse>
 
-    @PUT("user/unfollow/")
-    fun unfollowEvent(@Body eventId: EventId): Call<FavoritesResponse>
+    @DELETE("user/unfollow/{eventId}")
+    fun unfollowEvent(@Path("eventId") eventId: EventId): Call<FavoritesResponse>
 
     @GET("user/v2-qr/")
     suspend fun qrCode(): QR
