@@ -12,7 +12,6 @@ import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.repository.rolesRepository
-import
 import org.json.JSONObject
 import retrofit2.HttpException
 import kotlin.Exception
