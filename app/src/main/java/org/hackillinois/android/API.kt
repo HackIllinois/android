@@ -11,7 +11,6 @@ import org.hackillinois.android.model.scanner.MentorId
 import org.hackillinois.android.model.scanner.Points
 import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
-import org.hackillinois.android.model.shop.ItemName
 import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
@@ -68,7 +67,7 @@ interface API {
     suspend fun shop(): List<ShopItem>
 
     @POST("shop/item/buy/")
-    suspend fun buyShopItem(@Body body: ItemInstance): ItemName
+    suspend fun buyShopItem(@Body body: ItemInstance): ShopItem
 
     // STAFF
 
@@ -89,8 +88,8 @@ interface API {
     @PUT("user/follow/")
     fun followEvent(@Body eventId: EventId): Call<FavoritesResponse>
 
-    @PUT("user/unfollow/")
-    fun unfollowEvent(@Body eventId: EventId): Call<FavoritesResponse>
+    @DELETE("user/unfollow/{eventId}")
+    fun unfollowEvent(@Path("eventId") eventId: EventId): Call<FavoritesResponse>
 
     @GET("user/v2-qr/")
     suspend fun qrCode(): QR

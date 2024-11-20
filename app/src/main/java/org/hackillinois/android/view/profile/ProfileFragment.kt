@@ -66,9 +66,25 @@ class ProfileFragment : Fragment() {
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // if not an attendee, set the layout to be the not logged in profile
-        if (!hasLoggedIn() or (hasLoggedIn() and isStaff())) {
+        if (!hasLoggedIn()) {
             val view = inflater.inflate(R.layout.fragment_profile_not_logged_in, container, false)
-            val logoutButton = view.findViewById<Button>(R.id.logout_button)
+            val loginButton = view.findViewById<Button>(R.id.login_button)
+            loginButton.setOnClickListener {
+                val mainActivity: MainActivity = requireActivity() as MainActivity
+                mainActivity.logout()
+            }
+            return view
+        }
+        if (isStaff()) {
+            val view = inflater.inflate(R.layout.fragment_profile_staff, container, false)
+            val loginButton = view.findViewById<Button>(R.id.login_button)
+            loginButton.setOnClickListener {
+//                Log.d("Staff Logout", "Attempting Logout")
+                val mainActivity: MainActivity = requireActivity() as MainActivity
+                mainActivity.logout()
+            }
+
+            val logoutButton = view.findViewById<ImageButton>(R.id.logoutButton)
             logoutButton.setOnClickListener {
                 val mainActivity: MainActivity = requireActivity() as MainActivity
                 mainActivity.logout()
