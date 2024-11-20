@@ -68,7 +68,7 @@ interface API {
     suspend fun shop(): List<ShopItem>
 
     @POST("shop/item/buy/")
-    suspend fun buyShopItem(@Body body: ItemInstance): List<ShopItem>
+    suspend fun buyShopItem(@Body body: ItemInstance): ShopItem
 
     // STAFF
 
