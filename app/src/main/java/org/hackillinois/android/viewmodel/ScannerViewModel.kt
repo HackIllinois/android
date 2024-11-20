@@ -40,7 +40,7 @@ class ScannerViewModel : ViewModel() {
                 try {
                     if (e is HttpException) {
                         val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
-                        error = jsonObject.optString("error", e.message.toString())
+                        error = jsonObject.optString("message", e.message.toString())
                     }
                 } catch (e: Exception) { }
                 Log.e("STAFF MEETING ERROR", error)
@@ -64,7 +64,7 @@ class ScannerViewModel : ViewModel() {
                 try {
                     if (e is HttpException) {
                         val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
-                        error = jsonObject.optString("error", e.message.toString())
+                        error = jsonObject.optString("message", e.message.toString())
                     }
                 } catch (e: Exception) { }
                 Log.e("CHECK IN ATTENDEE ERROR", error)
@@ -86,7 +86,7 @@ class ScannerViewModel : ViewModel() {
                 try {
                     if (e is HttpException) {
                         val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
-                        error = jsonObject.optString("error", e.message.toString())
+                        error = jsonObject.optString("message", e.message.toString())
                     }
                 } catch (e: Exception) { }
                 Log.e("CHECK IN EVENT ERROR", error)
@@ -108,7 +108,7 @@ class ScannerViewModel : ViewModel() {
                 try {
                     if (e is HttpException) {
                         val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
-                        error = jsonObject.optString("error", e.message.toString())
+                        error = jsonObject.optString("message", e.message.toString())
                     }
                 } catch (e: Exception) { }
                 Log.e("CHECK IN MENTOR ERROR", error)
@@ -131,7 +131,7 @@ class ScannerViewModel : ViewModel() {
                 try {
                     if (e is HttpException) {
                         val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
-                        error = jsonObject.optString("error", e.message.toString())
+                        error = jsonObject.optString("message", e.message.toString())
                     }
                 } catch (e: Exception) { }
                 Log.e("PURCHASE ITEM ERROR", error)
