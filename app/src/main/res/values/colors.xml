@@ -48,4 +48,10 @@
     <color name="coinTotalColor">#2A2A2A</color>
     <color name="tabSelectedColor">#D84177</color>
 
+<!--      2025 color palette      -->
+    <color name="cream">#F5F0DD</color>
+    <color name="black">#000000</color>
+
+
+
 </resources>

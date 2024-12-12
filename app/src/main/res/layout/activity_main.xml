@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,39 +16,70 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:backgroundTint="@color/darkForest">
+        app:backgroundTint="@color/cream">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/homeButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@color/darkForest"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/cream"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/scheduleButton"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_home" />
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:tint="@color/black"
+                app:srcCompat="@drawable/home_icon" />
+
+            <TextView
+                android:id="@+id/homeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="44dp"
+                android:gravity="center"
+                android:text="@string/home_icon"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/homeButton"
+                app:layout_constraintTop_toTopOf="@id/homeButton" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/scheduleButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@color/darkForest"
+                android:background="@color/cream"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toStartOf="@+id/placeholder"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/homeButton"
-                app:srcCompat="@drawable/ic_today" />
+                app:srcCompat="@drawable/calendar_icon" />
+
+            <TextView
+                android:id="@+id/calendarText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:gravity="center"
+                android:text="@string/schedule_icon"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/scheduleButton"
+                app:layout_constraintTop_toTopOf="@id/scheduleButton" />
 
             <View
                 android:id="@+id/placeholder"
-                android:layout_width="70dp"
+                android:layout_width="72dp"
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
@@ -61,39 +93,69 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/darkForest"
+                android:background="@color/cream"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/shopButton"
-                app:srcCompat="@drawable/ic_profile" />
+                app:srcCompat="@drawable/profile_icon" />
+
+            <TextView
+                android:id="@+id/profileText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:text="@string/profile_icon"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/profileButton"
+                app:layout_constraintTop_toTopOf="@id/profileButton" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/shopButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginBottom="2dp"
-                android:background="@color/darkForest"
+                android:background="@color/cream"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toStartOf="@+id/profileButton"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/placeholder"
                 app:layout_constraintTop_toTopOf="@+id/homeButton"
-                app:srcCompat="@drawable/ic_point_shop" />
+                app:srcCompat="@drawable/prizes_icon" />
+
+            <TextView
+                android:id="@+id/prizesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:text="@string/prizes_icon"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/shopButton"
+                app:layout_constraintTop_toTopOf="@id/shopButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/code_entry_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:backgroundTint="@color/white"
-        app:layout_anchor="@id/bottomAppBar"
-        app:srcCompat="@drawable/qr_icon"
-        app:tint="@color/selectedAppBarIcon"/>
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:backgroundTint="@color/cream"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="30dp"
+        app:fabCustomSize="72dp"
+        app:maxImageSize="50dp"
+        app:srcCompat="@drawable/camera_icon" />
 
-<!--    <FrameLayout-->
+
+
+    <!--    <FrameLayout-->
 <!--        android:id="@+id/codeEntrySheet"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
