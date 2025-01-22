@@ -91,7 +91,7 @@ interface API {
     @DELETE("user/unfollow/{eventId}")
     fun unfollowEvent(@Path("eventId") eventId: EventId): Call<FavoritesResponse>
 
-    @GET("user/v2-qr/")
+    @GET("user/qr/")
     suspend fun qrCode(): QR
 
     @PUT("user/scan-event/")
