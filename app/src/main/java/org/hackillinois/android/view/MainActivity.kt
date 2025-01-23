@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity() {
             FirebaseTokenManager.sendTokenToServerIfNew(applicationContext)
         }
     }
-
+    // rebuild comment
     fun logout() {
         JWTUtilities.clearJWT(applicationContext)
 
