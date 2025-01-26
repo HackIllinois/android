@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_point_shop.coin_total_textview
+import kotlinx.android.synthetic.main.fragment_point_shop.number_of_coins_textview
 import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
@@ -92,8 +92,8 @@ class ShopFragment : Fragment() {
 
         if (hasLoggedIn() && isAttendee()) {
             // set coin views visible for attendee
-            val coinBg: TextView = view.findViewById(R.id.total_coin_view)
-            val coinText: TextView = view.findViewById(R.id.coin_total_textview)
+            val coinBg: TextView = view.findViewById(R.id.number_of_coins_background)
+            val coinText: TextView = view.findViewById(R.id.number_of_coins_textview)
             val coinImg: ImageView = view.findViewById(R.id.coin_imageview)
             coinBg.visibility = View.VISIBLE
             coinText.visibility = View.VISIBLE
@@ -130,9 +130,9 @@ class ShopFragment : Fragment() {
     private val merchClickListener = View.OnClickListener {
         if (!merchButton.isSelected) {
             merchButton.isSelected = true
-            merchButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_selected_tab) }
+            merchButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.point_shop_selected_background) }
             raffleButton.isSelected = false
-            raffleButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_unselected_tab) }
+            raffleButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.point_shop_unselected_background) }
             showingMerch = true
             updateShopUI()
         }
@@ -142,9 +142,9 @@ class ShopFragment : Fragment() {
     private val raffleClickListener = View.OnClickListener {
         if (!raffleButton.isSelected) {
             raffleButton.isSelected = true
-            raffleButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_selected_tab) }
+            raffleButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.point_shop_selected_background) }
             merchButton.isSelected = false
-            merchButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.shop_unselected_tab) }
+            merchButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.point_shop_unselected_background) }
             showingMerch = false
             updateShopUI()
         }
@@ -152,7 +152,7 @@ class ShopFragment : Fragment() {
 
     private fun updateCoinTotalUI(newProfile: Profile?) {
         if (newProfile != null) {
-            coin_total_textview.text = String.format("%,d", newProfile.coins)
+            number_of_coins_textview.text = String.format("%,d", newProfile.coins)
         }
     }
 
