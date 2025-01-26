@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.schedule
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,8 +20,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_schedule.scheduleDays
-import kotlinx.android.synthetic.main.fragment_schedule.view.*
+import kotlinx.android.synthetic.main.fragment_copy_schedule.scheduleDays
+import kotlinx.android.synthetic.main.fragment_copy_schedule.view.*
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.viewmodel.ScheduleViewModel
@@ -40,7 +41,7 @@ class ScheduleFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_schedule, container, false)
+        val view = inflater.inflate(R.layout.fragment_copy_schedule, container, false) //changed by sruthi
 
         // Link tab/day selection to the ViewPager
         view.scheduleContainer.adapter = SectionsPagerAdapter(childFragmentManager)
@@ -52,7 +53,8 @@ class ScheduleFragment : Fragment() {
         schedule_header = view.findViewById(R.id.schedule_header)
         shift_header = view.findViewById(R.id.shift_header)
         scheduleBackground = view.findViewById(R.id.scheduleBackground)
-        scheduleBackground.setImageResource(R.drawable.dark_fantasy_bg_2024)
+        scheduleBackground.setImageResource(R.drawable.saved_events_background)
+        scheduleBackground.alpha = 0.8f // Set opacity by sruthi
 
         // set bottom app bar visible again and pop scanner fragment from the backstack
         val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
@@ -94,12 +96,19 @@ class ScheduleFragment : Fragment() {
             scheduleViewModel.initShifts()
             shift_header.visibility = View.VISIBLE
             val context = requireActivity().applicationContext
+
+            //added here by sruthi
+            schedule_header.setTextColor(getResources().getColor(R.color.ivoryBlush)) //added by sruthi
+            shift_header.setTextColor(getResources().getColor(R.color.deepTeal)) //added by sruthi
+
             schedule_header.background = ContextCompat.getDrawable(context, R.drawable.schedule_underline)
             shift_header.setOnClickListener(shiftScheduleClickListener)
             schedule_header.setOnClickListener(eventScheduleClickListener)
+
         } else {
             shift_header.visibility = View.GONE
             schedule_header.setBackgroundResource(0)
+
         }
 
         // If hackathon is underway, change tab to current day
@@ -111,7 +120,7 @@ class ScheduleFragment : Fragment() {
             else -> 0
         }
         view.scheduleDays.getTabAt(view.scheduleContainer.currentItem)?.customView?.background =
-            context?.let { ContextCompat.getDrawable(it, R.drawable.tab_selected) }
+            context?.let { ContextCompat.getDrawable(it, R.drawable.vase_selected) }
 
         return view
     }
@@ -126,14 +135,42 @@ class ScheduleFragment : Fragment() {
             tabLayout.addTab(tab)
         }
 
+        //sruthi added
+        // Set initial state: make unselected tabs semi-transparent
+        for (i in 0 until tabLayout.tabCount) {
+            val tab = tabLayout.getTabAt(i)
+            if (tab != null && !tab.isSelected) {
+                val customView = tab.customView
+                val dayOfMonthText = customView?.findViewById<TextView>(R.id.tab_day_of_month)
+                val dayOfWeekText = customView?.findViewById<TextView>(R.id.tab_day_of_week)
+
+                // Set semi-transparent text for unselected tabs
+                val unselectedColor = Color.argb(128, 7, 44, 46) // 50% opacity
+                dayOfMonthText?.setTextColor(unselectedColor)
+                dayOfWeekText?.setTextColor(unselectedColor)
+            }
+        }
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                val tabDrawable = if (showingShifts) R.drawable.tab_selected_light else R.drawable.tab_selected
+                val tabDrawable = if (showingShifts) R.drawable.vase_selected else R.drawable.vase_selected
                 tab.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
+                // Set text color to fully opaque, added by sruthi
+                val dayOfMonthText = tab.customView?.findViewById<TextView>(R.id.tab_day_of_month)
+                val dayOfWeekText = tab.customView?.findViewById<TextView>(R.id.tab_day_of_week)
+                val selectedColor = ContextCompat.getColor(requireContext(), R.color.ivoryBlush)
+                dayOfMonthText?.setTextColor(selectedColor)
+                dayOfWeekText?.setTextColor(selectedColor)
             }
             override fun onTabUnselected(tab: TabLayout.Tab) {
-                val tabDrawable = if (showingShifts) R.drawable.tab_unselected_light else R.drawable.tab_unselected
+                val tabDrawable = if (showingShifts) R.drawable.vase_unselected else R.drawable.vase_unselected
                 tab.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
+                // Set text color to semi-transparent
+                val dayOfMonthText = tab.customView?.findViewById<TextView>(R.id.tab_day_of_month)
+                val dayOfWeekText = tab.customView?.findViewById<TextView>(R.id.tab_day_of_week)
+
+                val unselectedColor = ContextCompat.getColor(requireContext(), R.color.goldenBrown)
+                dayOfMonthText?.setTextColor(unselectedColor)
+                dayOfWeekText?.setTextColor(unselectedColor)
             }
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
@@ -172,14 +209,14 @@ class ScheduleFragment : Fragment() {
 
     private val shiftScheduleClickListener = OnClickListener {
         // Log.d("shift_header.isSelected", "${shift_header.isSelected}")
-        shift_header.setBackgroundResource(R.drawable.shift_underline)
+        shift_header.setBackgroundResource(R.drawable.schedule_underline)
         schedule_header.setBackgroundResource(0)
-        schedule_header.setTextColor(getResources().getColor(R.color.burntBark))
-        shift_header.setTextColor(getResources().getColor(R.color.burntBark))
-        scheduleBackground.setImageResource(R.drawable.light_fantasy_bg_2024)
+        schedule_header.setTextColor(getResources().getColor(R.color.deepTeal)) //added by sruthi
+        shift_header.setTextColor(getResources().getColor(R.color.ivoryBlush))
+        scheduleBackground.setImageResource(R.drawable.shift_background) //changed by sruthi
         for (i in 0 until scheduleDays.tabCount) {
             val tab = scheduleDays.getTabAt(i)
-            val tabDrawable = if (tab?.isSelected == true) R.drawable.tab_selected_light else R.drawable.tab_unselected_light
+            val tabDrawable = if (tab?.isSelected == true) R.drawable.vase_selected else R.drawable.vase_unselected
             tab?.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
         }
         scheduleViewModel.showShifts.postValue(true)
@@ -190,12 +227,12 @@ class ScheduleFragment : Fragment() {
         // Log.d("shift_header.isSelected", "${shift_header.isSelected}")
         shift_header.setBackgroundResource(0)
         schedule_header.setBackgroundResource(R.drawable.schedule_underline)
-        schedule_header.setTextColor(getResources().getColor(R.color.palePeach))
-        shift_header.setTextColor(getResources().getColor(R.color.palePeach))
-        scheduleBackground.setImageResource(R.drawable.dark_fantasy_bg_2024)
+        schedule_header.setTextColor(getResources().getColor(R.color.ivoryBlush))
+        shift_header.setTextColor(getResources().getColor(R.color.deepTeal))
+        scheduleBackground.setImageResource(R.drawable.saved_events_background)
         for (i in 0 until scheduleDays.tabCount) {
             val tab = scheduleDays.getTabAt(i)
-            val tabDrawable = if (tab?.isSelected == true) R.drawable.tab_selected else R.drawable.tab_unselected
+            val tabDrawable = if (tab?.isSelected == true) R.drawable.vase_selected else R.drawable.vase_unselected
             tab?.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
         }
         scheduleViewModel.showShifts.postValue(false)
