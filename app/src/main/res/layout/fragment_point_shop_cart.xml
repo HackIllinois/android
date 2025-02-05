@@ -88,12 +88,12 @@
             android:src="@drawable/point_shop_sticker"
             android:adjustViewBounds="true"
             android:layout_marginStart="16dp"
-            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintWidth_percent="0.35"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/image_view_sticker2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintVertical_bias="0.15"
             app:layout_constraintHorizontal_chainStyle="spread" />
 
         <ImageView
@@ -103,8 +103,8 @@
             android:layout_marginEnd="16dp"
             android:src="@drawable/point_shop_sticker"
             android:adjustViewBounds="true"
-            app:layout_constraintWidth_percent="0.4"
-            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintWidth_percent="0.35"
+            app:layout_constraintVertical_bias="0.15"
             app:layout_constraintStart_toEndOf="@id/image_view_sticker1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -116,8 +116,9 @@
             android:id="@+id/image_view_sticker1_symbol"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.13"
-            app:layout_constraintHeight_percent="0.13"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintVertical_bias="0.4"
             android:src="@drawable/point_shop_sticker_symbol"
             app:layout_constraintStart_toStartOf="@id/image_view_sticker1"
             app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
@@ -128,144 +129,748 @@
             android:id="@+id/image_view_sticker2_symbol"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.13"
-            app:layout_constraintHeight_percent="0.13"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintVertical_bias="0.4"
             android:src="@drawable/point_shop_sticker_symbol"
             app:layout_constraintStart_toStartOf="@id/image_view_sticker2"
             app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
             app:layout_constraintBottom_toBottomOf="@id/image_view_sticker2"
             app:layout_constraintTop_toTopOf="@id/image_view_sticker2" />
 
+        <ImageView
+            android:id="@+id/image_view_close1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/point_shop_close"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker1"
+            app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
+            app:layout_constraintHeight_percent="0.035"
+            app:layout_constraintWidth_percent="0.035"
+            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintStart_toStartOf="@id/image_view_sticker1"
+            app:layout_constraintTop_toTopOf="@id/image_view_sticker1" />
 
+        <ImageView
+            android:id="@+id/image_view_close2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/point_shop_close"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker2"
+            app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
+            app:layout_constraintHeight_percent="0.035"
+            app:layout_constraintWidth_percent="0.035"
+            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintHorizontal_bias="0.07"
+            app:layout_constraintStart_toStartOf="@id/image_view_sticker2"
+            app:layout_constraintTop_toTopOf="@id/image_view_sticker2" />
+
+        <TextView
+            android:id="@+id/text_view_sticker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/sticker"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker1"
+            app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
+            app:layout_constraintStart_toStartOf="@id/image_view_sticker1"
+            app:layout_constraintTop_toTopOf="@id/image_view_sticker1"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias="0.5" />
+
+        <ImageView
+            android:id="@+id/image_view_number_bar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/point_shop_number_bar"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker1"
+            app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
+            app:layout_constraintStart_toStartOf="@id/image_view_sticker1"
+            app:layout_constraintTop_toTopOf="@id/image_view_sticker1"
+            app:layout_constraintVertical_bias="0.85" />
+
+
+        <!-- Borders -->
+        <ImageView
+            android:id="@+id/border1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/point_shop_borders"
+            app:layout_constraintStart_toStartOf="@id/image_view_number_bar1"
+            app:layout_constraintEnd_toEndOf="@id/image_view_number_bar1"
+            app:layout_constraintTop_toTopOf="@id/image_view_number_bar1"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar1" />
+
+        <!-- Minus Button -->
+        <TextView
+            android:id="@+id/button_minus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/minus"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="9sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/image_view_number_bar1"
+            app:layout_constraintEnd_toStartOf="@id/border1"
+            app:layout_constraintTop_toTopOf="@id/image_view_number_bar1"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar1" />
+
+        <!-- Number Text -->
+        <TextView
+            android:id="@+id/number_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/one"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/border1"
+            app:layout_constraintTop_toTopOf="@id/image_view_number_bar1"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar1"
+            app:layout_constraintEnd_toEndOf="@id/border1" />
+
+        <!-- Plus Button -->
+        <TextView
+            android:id="@+id/button_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus"
+            android:textSize="9sp"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/border1"
+            app:layout_constraintTop_toTopOf="@id/image_view_number_bar1"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar1"
+            app:layout_constraintEnd_toEndOf="@id/image_view_number_bar1" />
+
+        <TextView
+            android:id="@+id/text_view_sticker2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/sticker"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker2"
+            app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
+            app:layout_constraintStart_toStartOf="@id/image_view_sticker2"
+            app:layout_constraintTop_toTopOf="@id/image_view_sticker2"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintHorizontal_bias="0.5" />
+
+        <ImageView
+            android:id="@+id/image_view_number_bar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/point_shop_number_bar"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker2"
+            app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
+            app:layout_constraintStart_toStartOf="@id/image_view_sticker2"
+            app:layout_constraintTop_toTopOf="@id/image_view_sticker2"
+            app:layout_constraintVertical_bias="0.85" />
+
+
+        <!-- Borders -->
+        <ImageView
+            android:id="@+id/border2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/point_shop_borders"
+            app:layout_constraintStart_toStartOf="@id/image_view_number_bar2"
+            app:layout_constraintEnd_toEndOf="@id/image_view_number_bar2"
+            app:layout_constraintTop_toTopOf="@id/image_view_number_bar2"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar2" />
+
+        <!-- Minus Button -->
+        <TextView
+            android:id="@+id/button_minus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/minus"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="9sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/image_view_number_bar2"
+            app:layout_constraintEnd_toStartOf="@id/border2"
+            app:layout_constraintTop_toTopOf="@id/image_view_number_bar2"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar2" />
+
+        <!-- Number Text -->
+        <TextView
+            android:id="@+id/number_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/one"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/border2"
+            app:layout_constraintTop_toTopOf="@id/image_view_number_bar2"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar2"
+            app:layout_constraintEnd_toEndOf="@id/border2" />
+
+        <!-- Plus Button -->
+        <TextView
+            android:id="@+id/button_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus"
+            android:textSize="9sp"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/border2"
+            app:layout_constraintTop_toTopOf="@id/image_view_number_bar2"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar2"
+            app:layout_constraintEnd_toEndOf="@id/image_view_number_bar2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/image_view_sticker3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/point_shop_sticker"
-            android:adjustViewBounds="true"
-            app:layout_constraintWidth_percent="0.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/image_view_sticker4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.55"
-            app:layout_constraintHorizontal_chainStyle="spread" />
-
-        <ImageView
-            android:id="@+id/image_view_sticker4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/point_shop_sticker"
-            android:adjustViewBounds="true"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintWidth_percent="0.4"
-            app:layout_constraintVertical_bias="0.55"
-            app:layout_constraintStart_toEndOf="@id/image_view_sticker3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="70dp"
+            tools:layout_editor_absoluteY="16dp">
 
-        <ImageView
-            android:id="@+id/image_view_sticker3_symbol"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.13"
-            app:layout_constraintHeight_percent="0.13"
-            android:src="@drawable/point_shop_sticker_symbol"
-            app:layout_constraintStart_toStartOf="@id/image_view_sticker3"
-            app:layout_constraintEnd_toEndOf="@id/image_view_sticker3"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker3"
-            app:layout_constraintTop_toTopOf="@id/image_view_sticker3" />
+            <ImageView
+                android:id="@+id/image_view_sticker3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/point_shop_sticker"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.45"
+                app:layout_constraintEnd_toStartOf="@id/image_view_sticker4"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.35" />
 
-        <ImageView
-            android:id="@+id/image_view_sticker4_symbol"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.13"
-            app:layout_constraintHeight_percent="0.13"
-            android:src="@drawable/point_shop_sticker_symbol"
-            app:layout_constraintStart_toStartOf="@id/image_view_sticker4"
-            app:layout_constraintEnd_toEndOf="@id/image_view_sticker4"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker4"
-            app:layout_constraintTop_toTopOf="@id/image_view_sticker4" />
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/image_view_sticker5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/point_shop_sticker"
-            android:layout_marginStart="16dp"
-            android:adjustViewBounds="true"
-            app:layout_constraintWidth_percent="0.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/image_view_sticker6"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.91"
-            app:layout_constraintHorizontal_chainStyle="spread" />
-
-        <ImageView
-            android:id="@+id/image_view_sticker6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/point_shop_sticker"
-            android:adjustViewBounds="true"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintWidth_percent="0.4"
-            app:layout_constraintVertical_bias="0.91"
-            app:layout_constraintStart_toEndOf="@id/image_view_sticker5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/image_view_sticker4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/point_shop_sticker"
+                app:layout_constraintVertical_bias="0.45"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_view_sticker3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.35" />
 
 
+            <ImageView
+                android:id="@+id/image_view_sticker3_symbol"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/point_shop_sticker_symbol"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker3"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker3"
+                app:layout_constraintHeight_percent="0.1"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker3"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker3"
+                app:layout_constraintWidth_percent="0.1"
+                app:layout_constraintVertical_bias="0.4"/>
 
-        <ImageView
-            android:id="@+id/image_view_sticker6_symbol"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.13"
-            app:layout_constraintHeight_percent="0.13"
-            android:src="@drawable/point_shop_sticker_symbol"
-            app:layout_constraintStart_toStartOf="@id/image_view_sticker6"
-            app:layout_constraintEnd_toEndOf="@id/image_view_sticker6"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker6"
-            app:layout_constraintTop_toTopOf="@id/image_view_sticker6" />
+            <ImageView
+                android:id="@+id/image_view_sticker4_symbol"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/point_shop_sticker_symbol"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker4"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker4"
+                app:layout_constraintHeight_percent="0.1"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker4"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker4"
+                app:layout_constraintWidth_percent="0.1"
+                app:layout_constraintVertical_bias="0.4"/>
 
-        <ImageView
-            android:id="@+id/image_view_sticker5_symbol"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.13"
-            app:layout_constraintHeight_percent="0.13"
-            android:src="@drawable/point_shop_sticker_symbol"
-            app:layout_constraintStart_toStartOf="@id/image_view_sticker5"
-            app:layout_constraintEnd_toEndOf="@id/image_view_sticker5"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker5"
-            app:layout_constraintTop_toTopOf="@id/image_view_sticker5" />
+            <ImageView
+                android:id="@+id/image_view_close3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/point_shop_close"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker3"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker3"
+                app:layout_constraintHeight_percent="0.035"
+                app:layout_constraintHorizontal_bias="0.07"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker3"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker3"
+                app:layout_constraintVertical_bias="0.05"
+                app:layout_constraintWidth_percent="0.035" />
+
+            <ImageView
+                android:id="@+id/image_view_close4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/point_shop_close"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker4"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker4"
+                app:layout_constraintHeight_percent="0.035"
+                app:layout_constraintHorizontal_bias="0.07"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker4"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker4"
+                app:layout_constraintVertical_bias="0.05"
+                app:layout_constraintWidth_percent="0.035" />
+
+            <TextView
+                android:id="@+id/text_view_sticker3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/sticker"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker3"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker3"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker3"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker3"
+                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/image_view_number_bar3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/point_shop_number_bar"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker3"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker3"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker3"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker3"
+                app:layout_constraintVertical_bias="0.85" />
 
 
+            <!-- Borders -->
+            <ImageView
+                android:id="@+id/border3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:src="@drawable/point_shop_borders"
+                app:layout_constraintStart_toStartOf="@id/image_view_number_bar3"
+                app:layout_constraintEnd_toEndOf="@id/image_view_number_bar3"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar3"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar3" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Minus Button -->
+            <TextView
+                android:id="@+id/button_minus3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minus"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="@id/image_view_number_bar3"
+                app:layout_constraintEnd_toStartOf="@id/border3"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar3"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar3" />
 
+            <!-- Number Text -->
+            <TextView
+                android:id="@+id/number_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/one"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="@id/border3"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar3"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar3"
+                app:layout_constraintEnd_toEndOf="@id/border3" />
+
+            <!-- Plus Button -->
+            <TextView
+                android:id="@+id/button_plus3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plus"
+                android:textSize="9sp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/border3"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar3"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar3"
+                app:layout_constraintEnd_toEndOf="@id/image_view_number_bar3" />
+
+            <TextView
+                android:id="@+id/text_view_sticker4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/sticker"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker4"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker4"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker4"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker4"
+                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/image_view_number_bar4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/point_shop_number_bar"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker4"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker4"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker4"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker4"
+                app:layout_constraintVertical_bias="0.85" />
+
+
+            <!-- Borders -->
+            <ImageView
+                android:id="@+id/border4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:src="@drawable/point_shop_borders"
+                app:layout_constraintStart_toStartOf="@id/image_view_number_bar4"
+                app:layout_constraintEnd_toEndOf="@id/image_view_number_bar4"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar4"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar4" />
+
+            <!-- Minus Button -->
+            <TextView
+                android:id="@+id/button_minus4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minus"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="@id/image_view_number_bar4"
+                app:layout_constraintEnd_toStartOf="@id/border4"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar4"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar4" />
+
+            <!-- Number Text -->
+            <TextView
+                android:id="@+id/number_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/one"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="@id/border4"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar4"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar4"
+                app:layout_constraintEnd_toEndOf="@id/border4" />
+
+            <!-- Plus Button -->
+            <TextView
+                android:id="@+id/button_plus4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plus"
+                android:textSize="9sp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/border4"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar4"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar4"
+                app:layout_constraintEnd_toEndOf="@id/image_view_number_bar4" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="84dp"
+            tools:layout_editor_absoluteY="134dp">
+
+            <ImageView
+                android:id="@+id/image_view_sticker5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/point_shop_sticker"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/image_view_sticker6"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.75"
+                app:layout_constraintWidth_percent="0.35" />
+
+            <ImageView
+                android:id="@+id/image_view_sticker6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/point_shop_sticker"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_view_sticker5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.75"
+                app:layout_constraintWidth_percent="0.35" />
+
+
+            <ImageView
+                android:id="@+id/image_view_sticker6_symbol"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/point_shop_sticker_symbol"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker6"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker6"
+                app:layout_constraintHeight_percent="0.1"
+                app:layout_constraintVertical_bias="0.4"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker6"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker6"
+                app:layout_constraintWidth_percent="0.1" />
+
+            <ImageView
+                android:id="@+id/image_view_sticker5_symbol"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/point_shop_sticker_symbol"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker5"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker5"
+                app:layout_constraintHeight_percent="0.1"
+                app:layout_constraintVertical_bias="0.4"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker5"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker5"
+                app:layout_constraintWidth_percent="0.1" />
+
+            <ImageView
+                android:id="@+id/image_view_close5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/point_shop_close"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker5"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker5"
+                app:layout_constraintHeight_percent="0.035"
+                app:layout_constraintHorizontal_bias="0.07"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker5"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker5"
+                app:layout_constraintVertical_bias="0.05"
+                app:layout_constraintWidth_percent="0.035" />
+
+            <ImageView
+                android:id="@+id/image_view_close6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/point_shop_close"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker6"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker6"
+                app:layout_constraintHeight_percent="0.035"
+                app:layout_constraintHorizontal_bias="0.07"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker6"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker6"
+                app:layout_constraintVertical_bias="0.05"
+                app:layout_constraintWidth_percent="0.035" />
+
+            <TextView
+                android:id="@+id/text_view_sticker5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/sticker"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker5"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker5"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker5"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker5"
+                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/image_view_number_bar5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/point_shop_number_bar"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker5"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker5"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker5"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker5"
+                app:layout_constraintVertical_bias="0.85" />
+
+
+            <!-- Borders -->
+            <ImageView
+                android:id="@+id/border5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:src="@drawable/point_shop_borders"
+                app:layout_constraintStart_toStartOf="@id/image_view_number_bar5"
+                app:layout_constraintEnd_toEndOf="@id/image_view_number_bar5"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar5"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar5" />
+
+            <!-- Minus Button -->
+            <TextView
+                android:id="@+id/button_minus5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minus"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="@id/image_view_number_bar5"
+                app:layout_constraintEnd_toStartOf="@id/border5"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar5"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar5" />
+
+            <!-- Number Text -->
+            <TextView
+                android:id="@+id/number_text5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/one"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="@id/border5"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar5"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar5"
+                app:layout_constraintEnd_toEndOf="@id/border5" />
+
+            <!-- Plus Button -->
+            <TextView
+                android:id="@+id/button_plus5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plus"
+                android:textSize="9sp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/border5"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar5"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar5"
+                app:layout_constraintEnd_toEndOf="@id/image_view_number_bar5" />
+
+            <TextView
+                android:id="@+id/text_view_sticker6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/sticker"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker6"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker6"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker6"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker6"
+                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/image_view_number_bar6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/point_shop_number_bar"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_sticker6"
+                app:layout_constraintEnd_toEndOf="@id/image_view_sticker6"
+                app:layout_constraintStart_toStartOf="@id/image_view_sticker6"
+                app:layout_constraintTop_toTopOf="@id/image_view_sticker6"
+                app:layout_constraintVertical_bias="0.85" />
+
+
+            <!-- Borders -->
+            <ImageView
+                android:id="@+id/border6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:src="@drawable/point_shop_borders"
+                app:layout_constraintStart_toStartOf="@id/image_view_number_bar6"
+                app:layout_constraintEnd_toEndOf="@id/image_view_number_bar6"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar6"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar6" />
+
+            <!-- Minus Button -->
+            <TextView
+                android:id="@+id/button_minus6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minus"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="9sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="@id/image_view_number_bar6"
+                app:layout_constraintEnd_toStartOf="@id/border6"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar6"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar6" />
+
+            <!-- Number Text -->
+            <TextView
+                android:id="@+id/number_text6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/one"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="@id/border6"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar6"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar6"
+                app:layout_constraintEnd_toEndOf="@id/border6" />
+
+            <!-- Plus Button -->
+            <TextView
+                android:id="@+id/button_plus6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plus"
+                android:textSize="9sp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/black"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/border6"
+                app:layout_constraintTop_toTopOf="@id/image_view_number_bar6"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar6"
+                app:layout_constraintEnd_toEndOf="@id/image_view_number_bar6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ImageView
+        android:id="@+id/redeemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/point_shop_redeem"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        />
 
 
 
