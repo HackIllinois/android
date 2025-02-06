@@ -135,6 +135,35 @@
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
         app:layout_constraintBottom_toBottomOf="@id/image_view_sticker2"
         app:layout_constraintTop_toTopOf="@id/image_view_sticker2" />
+    <TextView
+        android:id="@+id/text_view_sticker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/sticker"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_sticker1"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
+        app:layout_constraintStart_toStartOf="@id/image_view_sticker1"
+        app:layout_constraintTop_toTopOf="@id/image_view_sticker1"
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <TextView
+        android:id="@+id/text_view_sticker2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/sticker"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_sticker2"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
+        app:layout_constraintStart_toStartOf="@id/image_view_sticker2"
+        app:layout_constraintTop_toTopOf="@id/image_view_sticker2"
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.5" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -207,6 +236,53 @@
             app:layout_constraintEnd_toEndOf="@id/image_view_sticker5"
             app:layout_constraintBottom_toBottomOf="@id/image_view_sticker5"
             app:layout_constraintTop_toTopOf="@id/image_view_sticker5" />
+
+        <TextView
+            android:id="@+id/text_view_sticker3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/sticker"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker3"
+            app:layout_constraintEnd_toEndOf="@id/image_view_sticker3"
+            app:layout_constraintStart_toStartOf="@id/image_view_sticker3"
+            app:layout_constraintTop_toTopOf="@id/image_view_sticker3"
+            app:layout_constraintVertical_bias="0.125"
+            app:layout_constraintHorizontal_bias="0.5" />
+
+        <TextView
+            android:id="@+id/text_view_sticker4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/sticker"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker4"
+            app:layout_constraintEnd_toEndOf="@id/image_view_sticker4"
+            app:layout_constraintStart_toStartOf="@id/image_view_sticker4"
+            app:layout_constraintTop_toTopOf="@id/image_view_sticker4"
+            app:layout_constraintVertical_bias="0.125"
+            app:layout_constraintHorizontal_bias="0.5" />
+
+        <TextView
+            android:id="@+id/text_view_sticker5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/sticker"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker5"
+            app:layout_constraintEnd_toEndOf="@id/image_view_sticker5"
+            app:layout_constraintStart_toStartOf="@id/image_view_sticker5"
+            app:layout_constraintTop_toTopOf="@id/image_view_sticker5"
+            app:layout_constraintVertical_bias="0.125"
+            app:layout_constraintHorizontal_bias="0.5" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

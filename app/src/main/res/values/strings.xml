@@ -82,6 +82,9 @@
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="one">1</string>
+    <string name="back">BACK</string>
+    <string name="scan">SCAN HERE TO \nCOMPLETE PURCHASE</string>
+
 
 
     <!--   Profile Fragment   -->

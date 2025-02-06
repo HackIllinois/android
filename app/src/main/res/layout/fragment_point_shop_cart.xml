@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/title_textview_point_shop"
+        android:id="@+id/title_textview_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
@@ -70,9 +70,9 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintVertical_bias="0.75"
-        app:layout_constraintBottom_toBottomOf="@id/title_textview_point_shop"
+        app:layout_constraintBottom_toBottomOf="@id/title_textview_cart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/title_textview_point_shop"
+        app:layout_constraintTop_toTopOf="@id/title_textview_cart"
         android:text="@string/blank"
         android:visibility="invisible"/>
 
