@@ -41,7 +41,7 @@ class ScheduleFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_copy_schedule, container, false) //changed by sruthi
+        val view = inflater.inflate(R.layout.fragment_copy_schedule, container, false) // changed by sruthi
 
         // link tab/day selection to the ViewPager
         view.scheduleContainer.adapter = SectionsPagerAdapter(childFragmentManager)
@@ -72,7 +72,7 @@ class ScheduleFragment : Fragment() {
             Observer {
                 favoriteButton.isSelected = it ?: false
                 favoriteButton.setImageResource(if (showingFavorites) R.drawable.light_bookmark_filled else R.drawable.light_bookmark_hollow)
-//                schedule_header.text = if (it) "Saved Events" else "Schedule"
+                // schedule_header.text = if (it) "Saved Events" else "Schedule"
             }
         )
 
