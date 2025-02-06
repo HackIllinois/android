@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
-    android:background="@drawable/dark_fantasy_bg_2024"
+    android:background="@drawable/saved_events_background"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/favorites_button"
@@ -56,7 +56,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/midnight"
+            android:textColor="@color/deepMahogany"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,9 +71,9 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_semi_bold"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="13sp"
-            android:background="@drawable/rounded_witchy_purple"
+            android:background="@drawable/rounded_wand_wood"
             android:paddingHorizontal="10dp"
             android:paddingTop="3dp"
             android:paddingBottom="4dp"
@@ -103,8 +103,8 @@
             android:layout_marginEnd="72dp"
             android:textSize="14sp"
             android:lineSpacingExtra="3sp"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:textColor="@color/midnight"
+            android:fontFamily="@font/montserrat_medium"
+            android:textColor="@color/darkForest"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/event_time_icon"
@@ -119,7 +119,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/event_sponsor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/event_sponsor"
-            app:srcCompat="@drawable/ic_building_marker_outline" />
+            app:srcCompat="@drawable/architecture_icon" />
 
         <TextView
             android:id="@+id/event_sponsor"
@@ -129,8 +129,8 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="6dp"
             android:textSize="13sp"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:textColor="@color/midnight"
+            android:fontFamily="@font/montserrat_medium"
+            android:textColor="@color/darkForest"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/sponsoredIcon"
             app:layout_constraintTop_toBottomOf="@id/event_time"
@@ -144,7 +144,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/event_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/event_location"
-            app:srcCompat="@drawable/ic_map_marker_outline" />
+            app:srcCompat="@drawable/flag" />
 
         <TextView
             android:id="@+id/event_location"
@@ -152,8 +152,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginStart="6dp"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:textColor="@color/midnight"
+            android:fontFamily="@font/montserrat_medium"
+            android:textColor="@color/darkForest"
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@+id/location_icon"
             app:layout_constraintTop_toBottomOf="@+id/event_sponsor"
@@ -166,9 +166,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_semi_bold"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="13sp"
-            android:background="@drawable/rounded_wand_wood"
+            android:background="@drawable/rounded_brown"
             android:paddingHorizontal="8dp"
             android:paddingTop="3dp"
             android:paddingBottom="4dp"
@@ -191,7 +191,7 @@
             android:paddingBottom="4dp"
             android:background="@drawable/rounded_pro"
             android:fontFamily="@font/montserrat_semi_bold"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@id/event_points"
             app:layout_constraintTop_toBottomOf="@id/event_name"
             android:visibility="visible"
@@ -214,7 +214,7 @@
             android:layout_marginHorizontal="20dp"
             android:textSize="15sp"
             android:fontFamily="@font/montserrat_regular"
-            android:textColor="@color/midnight"
+            android:textColor="@color/darkSeaGreen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/map"

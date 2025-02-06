@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="7dp"
-                android:background="@drawable/orange_tab"
+                android:background="@drawable/orange_tab_new"
                 android:fontFamily="@font/montserrat_semi_bold"
                 android:gravity="center_vertical|center_horizontal"
                 android:paddingHorizontal="10dp"

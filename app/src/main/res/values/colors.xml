@@ -35,6 +35,16 @@
     <color name="wandWood">#964C1A</color>
     <color name="burntBark">#662B13</color>
     <color name="deepTeal">#0A3A3C</color>
+    <color name="darkSeaGreen">#0E3F41</color>
+
+    <color name="autumnSpice">#DE8E45</color>
+
+    <color name="mutedTeal">#84BCB9</color>
+
+    <color name="rustWood">#C5673F</color>
+
+
+
     <color name="pinkSkies">#F9D7E6</color>
     <color name="darkMagic">#1D2644</color>
     <color name="floralMauve">#A977AB</color>
@@ -49,7 +59,6 @@
 
     <color name="goldenBrown">#AC7B46</color>
 
-    <color name="amberOrange">#DE8E45</color>
     <color name="terraCotta">#C5673F</color>
 
 
@@ -62,7 +71,6 @@
 
 <!--    2025 Color Palette -->
     <color name="soothingEucalyptus">#84BCB9</color>
-    <color name="softOrange">#DE8E45</color>
     <color name="robustOrange">#C5673F</color>
     <color name="floralRed">#903D2B</color>
     <color name="greenYellow">#F9C126</color>
