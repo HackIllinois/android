@@ -41,9 +41,8 @@ class ScheduleFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_copy_schedule, container, false) // changed by sruthi
+        val view = inflater.inflate(R.layout.fragment_copy_schedule, container, false)
 
-        // link tab/day selection to the ViewPager
         view.scheduleContainer.adapter = SectionsPagerAdapter(childFragmentManager)
         view.scheduleContainer.offscreenPageLimit = 2
         view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
@@ -54,9 +53,8 @@ class ScheduleFragment : Fragment() {
         shift_header = view.findViewById(R.id.shift_header)
         scheduleBackground = view.findViewById(R.id.scheduleBackground)
         scheduleBackground.setImageResource(R.drawable.saved_events_background)
-        scheduleBackground.alpha = 0.8f // Set opacity by sruthi
+        scheduleBackground.alpha = 0.8f
 
-        // set bottom app bar visible again and pop scanner fragment from the backstack
         val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
         val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
         if (appBar != null && scannerBtn != null) {
@@ -66,13 +64,11 @@ class ScheduleFragment : Fragment() {
 
         scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
         scheduleViewModel.initEvents()
-        // Observe "Favorites" LiveData
         scheduleViewModel.showFavorites.observe(
             this,
             Observer {
                 favoriteButton.isSelected = it ?: false
                 favoriteButton.setImageResource(if (showingFavorites) R.drawable.light_bookmark_filled else R.drawable.light_bookmark_hollow)
-                // schedule_header.text = if (it) "Saved Events" else "Schedule"
             }
         )
 
@@ -97,9 +93,8 @@ class ScheduleFragment : Fragment() {
             shift_header.visibility = View.VISIBLE
             val context = requireActivity().applicationContext
 
-            // added here by sruthi
-            schedule_header.setTextColor(getResources().getColor(R.color.ivoryBlush)) // added by sruthi
-            shift_header.setTextColor(getResources().getColor(R.color.deepTeal)) // added by sruthi
+            schedule_header.setTextColor(getResources().getColor(R.color.ivoryBlush))
+            shift_header.setTextColor(getResources().getColor(R.color.deepTeal))
 
             schedule_header.background = ContextCompat.getDrawable(context, R.drawable.schedule_underline)
             shift_header.setOnClickListener(shiftScheduleClickListener)
@@ -111,7 +106,6 @@ class ScheduleFragment : Fragment() {
 
         }
 
-        // If hackathon is underway, change tab to current day
         val time = System.currentTimeMillis()
         view.scheduleContainer.currentItem = when {
             time < scheduleViewModel.fridayEnd -> 0
@@ -135,8 +129,6 @@ class ScheduleFragment : Fragment() {
             tabLayout.addTab(tab)
         }
 
-        // sruthi added
-        // Set initial state: make unselected tabs semi-transparent
         for (i in 0 until tabLayout.tabCount) {
             val tab = tabLayout.getTabAt(i)
             if (tab != null && !tab.isSelected) {
@@ -144,8 +136,7 @@ class ScheduleFragment : Fragment() {
                 val dayOfMonthText = customView?.findViewById<TextView>(R.id.tab_day_of_month)
                 val dayOfWeekText = customView?.findViewById<TextView>(R.id.tab_day_of_week)
 
-                // Set semi-transparent text for unselected tabs
-                val unselectedColor = Color.argb(128, 7, 44, 46) // 50% opacity
+                val unselectedColor = ContextCompat.getColor(requireContext(), R.color.goldenBrown)
                 dayOfMonthText?.setTextColor(unselectedColor)
                 dayOfWeekText?.setTextColor(unselectedColor)
             }
@@ -154,7 +145,7 @@ class ScheduleFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val tabDrawable = if (showingShifts) R.drawable.vase_selected else R.drawable.vase_selected
                 tab.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
-                // Set text color to fully opaque, added by sruthi
+
                 val dayOfMonthText = tab.customView?.findViewById<TextView>(R.id.tab_day_of_month)
                 val dayOfWeekText = tab.customView?.findViewById<TextView>(R.id.tab_day_of_week)
                 val selectedColor = ContextCompat.getColor(requireContext(), R.color.ivoryBlush)
@@ -164,7 +155,7 @@ class ScheduleFragment : Fragment() {
             override fun onTabUnselected(tab: TabLayout.Tab) {
                 val tabDrawable = if (showingShifts) R.drawable.vase_unselected else R.drawable.vase_unselected
                 tab.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
-                // Set text color to semi-transparent
+
                 val dayOfMonthText = tab.customView?.findViewById<TextView>(R.id.tab_day_of_month)
                 val dayOfWeekText = tab.customView?.findViewById<TextView>(R.id.tab_day_of_week)
 
@@ -185,14 +176,12 @@ class ScheduleFragment : Fragment() {
         return view
     }
 
-    // Construct DayFragments for ViewPager
     inner class SectionsPagerAdapter constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int) = DayFragment.newInstance(position)
         override fun getCount() = 3
         override fun getPageTitle(position: Int): CharSequence? { return null }
     }
 
-    // Update "Favorites" ViewModel on click
     private val favScheduleClickListener = OnClickListener {
         favoriteButton.apply {
             isSelected = !favoriteButton.isSelected
@@ -208,12 +197,11 @@ class ScheduleFragment : Fragment() {
     }
 
     private val shiftScheduleClickListener = OnClickListener {
-        // Log.d("shift_header.isSelected", "${shift_header.isSelected}")
         shift_header.setBackgroundResource(R.drawable.schedule_underline)
         schedule_header.setBackgroundResource(0)
-        schedule_header.setTextColor(getResources().getColor(R.color.deepTeal)) // added by sruthi
+        schedule_header.setTextColor(getResources().getColor(R.color.deepTeal))
         shift_header.setTextColor(getResources().getColor(R.color.ivoryBlush))
-        scheduleBackground.setImageResource(R.drawable.shift_background) // changed by sruthi
+        scheduleBackground.setImageResource(R.drawable.shift_background)
         for (i in 0 until scheduleDays.tabCount) {
             val tab = scheduleDays.getTabAt(i)
             val tabDrawable = if (tab?.isSelected == true) R.drawable.vase_selected else R.drawable.vase_unselected
@@ -224,7 +212,6 @@ class ScheduleFragment : Fragment() {
     }
 
     private val eventScheduleClickListener = OnClickListener {
-        // Log.d("shift_header.isSelected", "${shift_header.isSelected}")
         shift_header.setBackgroundResource(0)
         schedule_header.setBackgroundResource(R.drawable.schedule_underline)
         schedule_header.setTextColor(getResources().getColor(R.color.ivoryBlush))
@@ -246,7 +233,7 @@ class ScheduleFragment : Fragment() {
     }
 
     private fun hasLoggedIn(): Boolean {
-        // Reads JWT and checks if it is equal to an empty JWT
         return JWTUtilities.readJWT(requireActivity().applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 }
+
