@@ -18,10 +18,10 @@ class PinkAnimatedButton : androidx.appcompat.widget.AppCompatButton {
             val dpAsPixels30 = (30 * scale + 0.5f).toInt()
             if (event.action == MotionEvent.ACTION_DOWN) {
                 setPadding(0, dpAsPixels30, 0, dpAsPixels20)
-                setBackgroundResource(R.drawable.pink_scanner_button_pressed)
+                setBackgroundResource(R.drawable.moderateOrange_scanner_button_pressed)
             } else if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
                 setPadding(0, dpAsPixels20, 0, dpAsPixels30)
-                setBackgroundResource(R.drawable.pink_scanner_button)
+                setBackgroundResource(R.drawable.moderateOrange_scanner_button)
             }
         }
         return super.onTouchEvent(event)

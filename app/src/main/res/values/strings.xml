@@ -39,7 +39,7 @@
     <string name="login_or_label">- OR -</string>
 
     <!--    Home Fragment   -->
-    <string name="home_banner">HACKILLINOIS BEGINS IN…</string>
+    <string name="home_banner">BEFORE HACKILLINOIS</string>
     <string name="days_label">DAYS</string>
     <string name="hours_label">HOURS</string>
     <string name="minutes_label">MINUTES</string>
