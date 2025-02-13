@@ -103,6 +103,7 @@
     <string name="something_went_wrong_message">Something went wrong, please try again.</string>
     <string name="user_input_points_message">Please enter a valid whole number.</string>
     <string name="dialog_ok">OK</string>
+    <string name="point_shop">Points Shop</string>
 
     <!--   Dialog Fragments   -->
     <string name="prize_obtained">Prize Obtained!</string>

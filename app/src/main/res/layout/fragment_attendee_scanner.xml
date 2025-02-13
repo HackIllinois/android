@@ -36,7 +36,7 @@
         android:id="@+id/eventCheckInBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/moderateOrange_scanner_button"
+        android:background="@drawable/moderateorange_scanner_button"
         android:paddingTop="20dp"
         android:paddingBottom="30dp"
         android:text="@string/event_checkin"

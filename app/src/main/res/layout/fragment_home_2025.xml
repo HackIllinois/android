@@ -39,13 +39,32 @@
             android:layout_marginTop="0dp"
             android:adjustViewBounds="false"
             android:scaleType="fitXY"
-            android:src="@drawable/home_stage0_svg" />
+            android:src="@drawable/home_background1_svg" />
+
+        <ImageView
+            android:id="@+id/homeBackgroundTagsImageView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginHorizontal="0dp"
+            android:layout_marginTop="0dp"
+            android:adjustViewBounds="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/home_tags_svg"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <!--            app:layout_constraintBottom_toTopOf="@id/guideline_home2"-->
         <!--        app:layout_constraintLeft_toLeftOf="parent"-->
         <!--        app:layout_constraintRight_toRightOf="parent"-->
         <!--        app:layout_constraintTop_toTopOf="parent" />-->
         </RelativeLayout>
+<!--    android:layout_marginHorizontal="20dp"-->
+<!--    android:layout_marginTop="8dp"-->
+
+<!--            app:layout_constraintBottom_toTopOf="@id/guideline_home2" -->
+<!--    app:layout_constraintTop_toBottomOf="@+id/countdownConstraintLayout"-->
+
 
     <ImageView
         android:id="@+id/homeInfoImageView"

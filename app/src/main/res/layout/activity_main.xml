@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/contentFrame"
@@ -91,7 +92,10 @@
         app:backgroundTint="@color/white"
         app:layout_anchor="@id/bottomAppBar"
         app:srcCompat="@drawable/qr_icon"
-        app:tint="@color/selectedAppBarIcon"/>
+        app:tint="@color/selectedAppBarIcon"
+        app:fabCradleMargin="0dp"
+        app:fabCradleVerticalOffset="0dp"
+        app:fabAlignmentMode="center"/>
 
 <!--    <FrameLayout-->
 <!--        android:id="@+id/codeEntrySheet"-->

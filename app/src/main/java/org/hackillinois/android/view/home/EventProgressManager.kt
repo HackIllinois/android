@@ -9,7 +9,7 @@ import java.util.*
 class EventProgressManager(val listener: CountDownListener) {
 
     // CORRECT TIMES ARE NOT SET YET
-    // 02-23-2024 15:30:00
+    // 02-28-2025 :00:00
     private val checkInTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         timeInMillis = 1708723800000

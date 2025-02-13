@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import org.hackillinois.android.R
 import org.hackillinois.android.common.TimeInfo
 import org.hackillinois.android.viewmodel.HomeViewModel
+import androidx.core.view.WindowCompat
 
 class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgressManager.CountDownListener {
 
@@ -30,7 +31,6 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
     }
 
@@ -42,19 +42,19 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
         minutesValue = view.findViewById(R.id.minutesValue)
         countdownTextView = view.findViewById(R.id.countdownTextView)
         homeBackgroundImageView = view.findViewById(R.id.homeBackgroundImageView)
-//        homeBackgroundTagsImageView = view.findViewById(R.id.homeBackgroundTagsImageView)
+        homeBackgroundTagsImageView = view.findViewById(R.id.homeBackgroundTagsImageView)
         infoButton = view.findViewById(R.id.homeInfoImageView)
 //
         // set info button's functionality to toggle tag descriptions on home page when pressed on/off
-//        infoButton.setOnClickListener {
-//            if (homeBackgroundTagsImageView.visibility == View.INVISIBLE) {
-//                homeBackgroundTagsImageView.visibility = View.VISIBLE
-//                infoButton.setImageResource(R.drawable.question_mark_toggled)
-//            } else {
-//                homeBackgroundTagsImageView.visibility = View.INVISIBLE
-//                infoButton.setImageResource(R.drawable.question_mark)
-//            }
-//        }
+        infoButton.setOnClickListener {
+            if (homeBackgroundTagsImageView.visibility == View.INVISIBLE) {
+                homeBackgroundTagsImageView.visibility = View.VISIBLE
+                infoButton.setImageResource(R.drawable.question_mark_toggled)
+            } else {
+                homeBackgroundTagsImageView.visibility = View.INVISIBLE
+                infoButton.setImageResource(R.drawable.question_mark)
+            }
+        }
 
         return view
     }
