@@ -1,5 +1,6 @@
 package org.hackillinois.android
 
+import okhttp3.ResponseBody
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.ShiftsList
@@ -67,6 +68,15 @@ interface API {
 
     @POST("shop/item/buy/")
     suspend fun buyShopItem(@Body body: ItemInstance): ShopItem
+
+    @POST("shop/cart/{itemId}")
+    fun addItemCart(@Path("itemId") itemId : String) : Call<ResponseBody>
+
+    @GET("shop/cart/")
+    suspend fun getCart(): Cart
+
+    @GET("shop/cart/qr/")
+    suspend fun getCartQRCode(): QRResponse
 
     // STAFF
 

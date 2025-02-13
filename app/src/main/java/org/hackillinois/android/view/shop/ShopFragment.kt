@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_point_shop.number_of_coins_textview
 import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
+import android.util.Log
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
@@ -74,7 +75,7 @@ class ShopFragment : Fragment() {
         mAdapter = ShopAdapter(shop)
 
         recyclerView = view.recyclerview_point_shop.apply {
-            mLayoutManager = LinearLayoutManager(context)
+            mLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             this.layoutManager = mLayoutManager
             this.adapter = mAdapter
         }
@@ -107,8 +108,22 @@ class ShopFragment : Fragment() {
             )
         }
 
+        val cartTextView: TextView = view.findViewById(R.id.text_view_cart)
+        cartTextView.bringToFront()
+
+        cartTextView.setOnClickListener {
+            Log.d("ShopFragment", "Cart image clicked")
+            val cartFragment = CartFragment()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.contentFrame, cartFragment)
+            transaction.addToBackStack(null) // Optional, for back navigation
+            transaction.commit()
+        }
+
         return view
     }
+
+
 
     // Called in onCreateView within shopLiveData.observe
     private fun updateShopItems(newShop: List<ShopItem>) {

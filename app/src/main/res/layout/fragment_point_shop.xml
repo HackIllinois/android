@@ -32,19 +32,25 @@
         app:layout_constraintTop_toTopOf="@id/image_view_counter"
         app:layout_constraintVertical_bias="0.30"/>
 
-    <ImageView
-        android:id="@+id/image_view_cart"
+    <TextView
+        android:id="@+id/text_view_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/point_shop_cart_symbol"
+        android:background="@drawable/point_shop_cart_symbol"
+        android:text="@string/cart"
+        android:textColor="@color/magenta"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:paddingBottom="2.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.452" />
+        app:layout_constraintVertical_bias="0.44" />
 
-    <ImageView
+        <ImageView
         android:id="@+id/image_view_cloud_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,24 +100,26 @@
 
     <ImageView
         android:id="@+id/image_view_sticker1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.3"
         android:src="@drawable/point_shop_sticker"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.636" />
 
     <ImageView
         android:id="@+id/image_view_sticker2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.3"
         android:src="@drawable/point_shop_sticker"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.777"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.636" />
@@ -147,7 +155,7 @@
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
         app:layout_constraintStart_toStartOf="@id/image_view_sticker1"
         app:layout_constraintTop_toTopOf="@id/image_view_sticker1"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="0.125"
         app:layout_constraintHorizontal_bias="0.5" />
 
     <TextView
@@ -162,133 +170,162 @@
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
         app:layout_constraintStart_toStartOf="@id/image_view_sticker2"
         app:layout_constraintTop_toTopOf="@id/image_view_sticker2"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="0.125"
         app:layout_constraintHorizontal_bias="0.5" />
 
+    <TextView
+        android:id="@+id/costAndQuantityView1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/point_shop_sticker_coin_bg"
+        app:layout_constraintBottom_toBottomOf="@id/priceTextView1"
+        app:layout_constraintEnd_toEndOf="@id/quantityTextView1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/coinImageView1"
+        app:layout_constraintTop_toTopOf="@+id/priceTextView1"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/coinImageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginVertical="3dp"
+        android:paddingStart="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceTextView1"
+        app:layout_constraintEnd_toStartOf="@+id/priceTextView1"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/image_view_sticker1"
+        app:layout_constraintTop_toTopOf="@+id/priceTextView1"
+        app:srcCompat="@drawable/point_shop_currency" />
 
-        <ImageView
-            android:id="@+id/image_view_sticker3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/point_shop_sticker"
-            app:layout_constraintWidth_percent="0.3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/image_view_sticker4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.9"
-            app:layout_constraintHorizontal_chainStyle="spread" />
+    <TextView
+        android:id="@+id/priceTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_sticker1"
+        app:layout_constraintEnd_toStartOf="@+id/separatorTextView1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintStart_toEndOf="@+id/coinImageView1"
+        app:layout_constraintTop_toBottomOf="@+id/image_view_sticker1_symbol"
+        tools:text="100" />
 
-        <ImageView
-            android:id="@+id/image_view_sticker4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/point_shop_sticker"
-            app:layout_constraintWidth_percent="0.3"
-            app:layout_constraintVertical_bias="0.9"
-            app:layout_constraintStart_toEndOf="@id/image_view_sticker3"
-            app:layout_constraintEnd_toStartOf="@id/image_view_sticker5"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/separatorTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/separator"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceTextView1"
+        app:layout_constraintEnd_toStartOf="@+id/quantityTextView1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/priceTextView1"
+        app:layout_constraintTop_toTopOf="@id/priceTextView1" />
 
-        <ImageView
-            android:id="@+id/image_view_sticker5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/point_shop_sticker"
-            app:layout_constraintWidth_percent="0.3"
-            app:layout_constraintVertical_bias="0.9"
-            app:layout_constraintStart_toEndOf="@id/image_view_sticker4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/quantityTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:paddingEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceTextView1"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/separatorTextView1"
+        app:layout_constraintTop_toTopOf="@id/priceTextView1"
+        tools:text="50 Left" />
 
-        <ImageView
-            android:id="@+id/image_view_sticker4_symbol"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/point_shop_sticker_symbol"
-            app:layout_constraintStart_toStartOf="@id/image_view_sticker3"
-            app:layout_constraintEnd_toEndOf="@id/image_view_sticker5"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker4"
-            app:layout_constraintTop_toTopOf="@id/image_view_sticker4" />
+    <TextView
+        android:id="@+id/costAndQuantityView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/point_shop_sticker_coin_bg"
+        app:layout_constraintBottom_toBottomOf="@id/priceTextView2"
+        app:layout_constraintEnd_toEndOf="@id/quantityTextView2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/coinImageView2"
+        app:layout_constraintTop_toTopOf="@+id/priceTextView2"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/image_view_sticker3_symbol"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/point_shop_sticker_symbol"
-            app:layout_constraintStart_toStartOf="@id/image_view_sticker3"
-            app:layout_constraintEnd_toEndOf="@id/image_view_sticker3"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker3"
-            app:layout_constraintTop_toTopOf="@id/image_view_sticker3" />
+    <ImageView
+        android:id="@+id/coinImageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginVertical="3dp"
+        android:paddingStart="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceTextView2"
+        app:layout_constraintEnd_toStartOf="@+id/priceTextView2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/image_view_sticker2"
+        app:layout_constraintTop_toTopOf="@+id/priceTextView2"
+        app:srcCompat="@drawable/point_shop_currency" />
 
-        <ImageView
-            android:id="@+id/image_view_sticker5_symbol"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/point_shop_sticker_symbol"
-            app:layout_constraintStart_toStartOf="@id/image_view_sticker5"
-            app:layout_constraintEnd_toEndOf="@id/image_view_sticker5"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker5"
-            app:layout_constraintTop_toTopOf="@id/image_view_sticker5" />
+    <TextView
+        android:id="@+id/priceTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_sticker2"
+        app:layout_constraintEnd_toStartOf="@+id/separatorTextView2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintStart_toEndOf="@+id/coinImageView2"
+        app:layout_constraintTop_toBottomOf="@+id/image_view_sticker2_symbol"
+        tools:text="100" />
 
-        <TextView
-            android:id="@+id/text_view_sticker3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_medium"
-            android:text="@string/sticker"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker3"
-            app:layout_constraintEnd_toEndOf="@id/image_view_sticker3"
-            app:layout_constraintStart_toStartOf="@id/image_view_sticker3"
-            app:layout_constraintTop_toTopOf="@id/image_view_sticker3"
-            app:layout_constraintVertical_bias="0.125"
-            app:layout_constraintHorizontal_bias="0.5" />
+    <TextView
+        android:id="@+id/separatorTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/separator"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceTextView2"
+        app:layout_constraintEnd_toStartOf="@+id/quantityTextView2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/priceTextView2"
+        app:layout_constraintTop_toTopOf="@id/priceTextView2" />
 
-        <TextView
-            android:id="@+id/text_view_sticker4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_medium"
-            android:text="@string/sticker"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker4"
-            app:layout_constraintEnd_toEndOf="@id/image_view_sticker4"
-            app:layout_constraintStart_toStartOf="@id/image_view_sticker4"
-            app:layout_constraintTop_toTopOf="@id/image_view_sticker4"
-            app:layout_constraintVertical_bias="0.125"
-            app:layout_constraintHorizontal_bias="0.5" />
-
-        <TextView
-            android:id="@+id/text_view_sticker5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_medium"
-            android:text="@string/sticker"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_sticker5"
-            app:layout_constraintEnd_toEndOf="@id/image_view_sticker5"
-            app:layout_constraintStart_toStartOf="@id/image_view_sticker5"
-            app:layout_constraintTop_toTopOf="@id/image_view_sticker5"
-            app:layout_constraintVertical_bias="0.125"
-            app:layout_constraintHorizontal_bias="0.5" />
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
+    <TextView
+        android:id="@+id/quantityTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:paddingEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceTextView2"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/separatorTextView2"
+        app:layout_constraintTop_toTopOf="@id/priceTextView2"
+        tools:text="50 Left" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"
@@ -353,20 +390,34 @@
         android:text="@string/blank"
         android:visibility="invisible"/>
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerview_point_shop"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginHorizontal="20dp"-->
+<!--        android:clipToPadding="false"-->
+<!--        android:paddingBottom="120dp"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.075"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/merchButton"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_point_shop"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="20dp"
-        android:clipToPadding="false"
-        android:paddingBottom="120dp"
+        android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/merchButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.80" />
+    />
+
 
     <TextView
         android:id="@+id/merchButton"
@@ -389,7 +440,7 @@
         android:id="@+id/raffleButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
+        android:layout_marginHorizontal="15dp"
         android:layout_marginTop="53dp"
         android:background="@drawable/point_shop_unselected_background"
         android:fontFamily="@font/montserrat_bold"

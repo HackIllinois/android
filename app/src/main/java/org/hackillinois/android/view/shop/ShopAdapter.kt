@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.shop_tile.view.*
+import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.ShopItem
 
@@ -22,7 +23,7 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
     // onCreateViewHolder used to display scrollable list of items
     // implemented as part of RecyclerView's adapter, responsible for creating new ViewHolder objects
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutResource = R.layout.shop_tile
+        val layoutResource = R.layout.point_shop_tile
         val view = LayoutInflater.from(parent.context).inflate(layoutResource, parent, false)
         val viewHolder = ViewHolder(view)
         context = parent.context
@@ -37,25 +38,14 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
         // populating views within ViewHolder with data from 'item'
         // position is zero-indexed but we want the leaderboard to start at 1
         bind(item, holder.itemView, position + 1)
+
+
     }
 
     private fun bind(item: ShopItem, itemView: View, position: Int) {
         itemView.apply {
-            // set on click listener on item price + quantity "button" section
-            shopItemListenerView.setOnClickListener {
-                Toast.makeText(itemView.context, R.string.shop_toast_text, Toast.LENGTH_SHORT).show()
-            }
-
-            // set the top brown divider for the first item to be visible
-            if (position == 1) {
-                val topDivider: TextView = itemView.findViewById(R.id.brownDividerTop)
-                topDivider.visibility = View.VISIBLE
-            } else {
-                val topDivider: TextView = itemView.findViewById(R.id.brownDividerTop)
-                topDivider.visibility = View.GONE
-            }
-
-            shopItemTextView.text = item.name
+            val textViewSticker: TextView = findViewById(R.id.text_view_sticker)
+            textViewSticker.text = item.name
             priceTextView.text = item.price.toString()
 
             val quantity = item.quantity
@@ -65,14 +55,22 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
                 quantityTextView.text = resources.getString(R.string.shopquantity, quantity)
             }
 
-            val shopItemImageView: ImageView = itemView.findViewById(R.id.shopItemImageView)
+            val shopItemImageView: ImageView = itemView.findViewById(R.id.image_view_sticker_symbol)
             try {
                 Glide.with(context).load(item.imageURL).into(shopItemImageView)
             } catch (e: Exception) {
                 Log.d("Shop Glide Error", e.message.toString())
             }
+            val plusButton: ImageView = findViewById(R.id.plusButton)
+            plusButton.setOnClickListener {
+                Log.d("CartDebug", "Plus button clicked!")
+                App.getAPI().addItemCart(item.itemId)
+            }
+
+            }
+
         }
-    }
+
 
     fun updateShop(shopItem: List<ShopItem>) {
         this.itemList = shopItem

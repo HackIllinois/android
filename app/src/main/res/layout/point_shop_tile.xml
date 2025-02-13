@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp">
+
+
+    <ImageView
+        android:id="@+id/image_view_sticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/point_shop_sticker"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/plusButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/point_shop_plus_button"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_sticker"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker"
+        app:layout_constraintStart_toStartOf="@id/image_view_sticker"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintVertical_bias="0.2"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/image_view_sticker_symbol"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:src="@drawable/point_shop_sticker_symbol"
+        app:layout_constraintStart_toStartOf="@id/image_view_sticker"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_sticker"
+        app:layout_constraintTop_toTopOf="@id/image_view_sticker" />
+
+    <TextView
+        android:id="@+id/text_view_sticker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/sticker"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_sticker"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker"
+        app:layout_constraintStart_toStartOf="@id/image_view_sticker"
+        app:layout_constraintTop_toTopOf="@id/image_view_sticker"
+        app:layout_constraintVertical_bias="0.125"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:gravity="center"
+        android:scrollHorizontally="false"
+        />
+
+
+    <TextView
+        android:id="@+id/costAndQuantityView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/point_shop_sticker_coin_bg"
+        app:layout_constraintBottom_toBottomOf="@id/priceTextView"
+        app:layout_constraintEnd_toEndOf="@id/quantityTextView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/coinImageView"
+        app:layout_constraintTop_toTopOf="@+id/priceTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/coinImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginVertical="3dp"
+        android:paddingStart="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
+        app:layout_constraintEnd_toStartOf="@+id/priceTextView"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/image_view_sticker"
+        app:layout_constraintTop_toTopOf="@+id/priceTextView"
+        app:srcCompat="@drawable/point_shop_currency" />
+
+    <TextView
+        android:id="@+id/priceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_sticker"
+        app:layout_constraintEnd_toStartOf="@+id/separatorTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintStart_toEndOf="@+id/coinImageView"
+        app:layout_constraintTop_toBottomOf="@+id/image_view_sticker_symbol"
+        tools:text="100" />
+
+    <TextView
+        android:id="@+id/separatorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/separator"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
+        app:layout_constraintEnd_toStartOf="@+id/quantityTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/priceTextView"
+        app:layout_constraintTop_toTopOf="@id/priceTextView" />
+
+    <TextView
+        android:id="@+id/quantityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:paddingEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/separatorTextView"
+        app:layout_constraintTop_toTopOf="@id/priceTextView"
+        tools:text="50 Left" />
+
+    <TextView
+        android:id="@+id/shopItemListenerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rounded_transparent"
+        app:layout_constraintBottom_toBottomOf="@id/priceTextView"
+        app:layout_constraintEnd_toEndOf="@id/quantityTextView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/coinImageView"
+        app:layout_constraintTop_toTopOf="@+id/priceTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
