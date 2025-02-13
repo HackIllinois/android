@@ -2,6 +2,7 @@ package org.hackillinois.android.view.shop
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_point_shop.number_of_coins_textview
 import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
-import android.util.Log
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile

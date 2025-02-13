@@ -70,7 +70,7 @@ interface API {
     suspend fun buyShopItem(@Body body: ItemInstance): ShopItem
 
     @POST("shop/cart/{itemId}")
-    fun addItemCart(@Path("itemId") itemId: String) : Call<ResponseBody>
+    fun addItemCart(@Path("itemId") itemId: String): Call<ResponseBody>
 
     @GET("shop/cart/")
     suspend fun getCart(): Cart

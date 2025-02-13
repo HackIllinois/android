@@ -37,8 +37,6 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
         // populating views within ViewHolder with data from 'item'
         // position is zero-indexed but we want the leaderboard to start at 1
         bind(item, holder.itemView, position + 1)
-
-
     }
 
     private fun bind(item: ShopItem, itemView: View, position: Int) {
@@ -65,9 +63,7 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
                 Log.d("CartDebug", "Plus button clicked!")
                 App.getAPI().addItemCart(item.itemId)
             }
-
         }
-
     }
 
     fun updateShop(shopItem: List<ShopItem>) {

@@ -10,15 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.ShopItem
 
-
 class CartFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var cartAdapter: CartAdapter
     private var cartItems: List<Pair<ShopItem, Int>> = listOf()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_point_shop_cart, container, false)
 
         recyclerView = view.findViewById(R.id.recyclerview_point_shop)
@@ -45,9 +47,7 @@ class CartFragment : Fragment() {
                 .commit()
         }
 
-
         return view
-
     }
 
     private fun fetchCartData() {
