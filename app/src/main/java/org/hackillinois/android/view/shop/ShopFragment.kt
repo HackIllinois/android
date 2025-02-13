@@ -66,7 +66,11 @@ class ShopFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_point_shop, container, false)
 
         merchButton = view.findViewById(R.id.merchButton)
@@ -119,11 +123,8 @@ class ShopFragment : Fragment() {
             transaction.addToBackStack(null) // Optional, for back navigation
             transaction.commit()
         }
-
         return view
     }
-
-
 
     // Called in onCreateView within shopLiveData.observe
     private fun updateShopItems(newShop: List<ShopItem>) {
@@ -145,9 +146,19 @@ class ShopFragment : Fragment() {
     private val merchClickListener = View.OnClickListener {
         if (!merchButton.isSelected) {
             merchButton.isSelected = true
-            merchButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.point_shop_selected_background) }
+            merchButton.background = this.context?.let { it1 ->
+                ContextCompat.getDrawable(
+                    it1,
+                    R.drawable.point_shop_selected_background
+                )
+            }
             raffleButton.isSelected = false
-            raffleButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.point_shop_unselected_background) }
+            raffleButton.background = this.context?.let { it1 ->
+                ContextCompat.getDrawable(
+                    it1,
+                    R.drawable.point_shop_unselected_background
+                )
+            }
             showingMerch = true
             updateShopUI()
         }
@@ -157,9 +168,19 @@ class ShopFragment : Fragment() {
     private val raffleClickListener = View.OnClickListener {
         if (!raffleButton.isSelected) {
             raffleButton.isSelected = true
-            raffleButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.point_shop_selected_background) }
+            raffleButton.background = this.context?.let { it1 ->
+                ContextCompat.getDrawable(
+                    it1,
+                    R.drawable.point_shop_selected_background
+                )
+            }
             merchButton.isSelected = false
-            merchButton.background = this.context?.let { it1 -> ContextCompat.getDrawable(it1, R.drawable.point_shop_unselected_background) }
+            merchButton.background = this.context?.let { it1 ->
+                ContextCompat.getDrawable(
+                    it1,
+                    R.drawable.point_shop_unselected_background
+                )
+            }
             showingMerch = false
             updateShopUI()
         }
@@ -179,6 +200,7 @@ class ShopFragment : Fragment() {
     private fun isAttendee(): Boolean {
         val context = requireActivity().applicationContext
         val prefString = context.getString(R.string.authorization_pref_file_key)
-        return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "github"
+        return context.getSharedPreferences(prefString, Context.MODE_PRIVATE)
+            .getString("provider", "") ?: "" == "github"
     }
 }

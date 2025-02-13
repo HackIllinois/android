@@ -66,9 +66,9 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
                 App.getAPI().addItemCart(item.itemId)
             }
 
-            }
-
         }
+
+    }
 
     fun updateShop(shopItem: List<ShopItem>) {
         this.itemList = shopItem
