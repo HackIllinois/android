@@ -19,25 +19,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.185" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.82" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/dark_fantasy_bg_2024"
+        android:src="@drawable/olympus_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/logoutButton"
@@ -63,17 +65,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
+
     <ImageView
         android:id="@+id/profileCard"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="350dp"
+        android:layout_height="410dp"
         android:layout_marginHorizontal="26dp"
         app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.403"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guidelineMiddle"
-        app:srcCompat="@drawable/profile_card_bg" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/fire" />
 
+    <ImageView
+        android:id="@+id/blueStand"
+        android:layout_width="350dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="-30dp"
+        app:layout_constraintEnd_toEndOf="@id/profileCard"
+        app:layout_constraintHorizontal_bias="0.777"
+        app:layout_constraintStart_toStartOf="@id/profileCard"
+        app:layout_constraintTop_toBottomOf="@id/profileCard"
+        app:srcCompat="@drawable/blue_stand" />
 
     <ImageView
         android:id="@+id/avatarImage"
@@ -82,8 +97,10 @@
         android:layout_marginVertical="5dp"
         app:layout_constraintBottom_toTopOf="@id/nameText"
         app:layout_constraintEnd_toStartOf="@id/rightProfileLogo"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toEndOf="@id/leftProfileLogo"
         app:layout_constraintTop_toBottomOf="@+id/profileText"
+        app:layout_constraintVertical_bias="1.0"
         tools:srcCompat="@drawable/avatar_image_svg" />
 
     <ImageView
@@ -120,76 +137,86 @@
         android:textSize="23sp"
         app:layout_constraintBottom_toBottomOf="@+id/profileCard"
         app:layout_constraintEnd_toEndOf="@+id/profileCard"
+        app:layout_constraintHorizontal_bias="0.194"
         app:layout_constraintStart_toStartOf="@+id/profileCard"
         app:layout_constraintTop_toTopOf="@+id/profileCard"
-        app:layout_constraintVertical_bias="0.175"
+        app:layout_constraintVertical_bias="0.365"
         tools:text="Hackaroni Steve" />
 
-    <TextView
-        android:id="@+id/attendeeTypeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/rounded_pink_bg"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center"
-        android:maxLines="1"
-        android:paddingHorizontal="10dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="4dp"
-        android:textColor="@color/transparentWhite"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/waveText"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        
-        app:layout_constraintStart_toStartOf="@+id/profileCard"
-        app:layout_constraintTop_toBottomOf="@id/nameText"
-        tools:text="General" />
+    <FrameLayout
+        android:id="@+id/rankSection"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:background="@color/teal"
+        android:elevation="4dp"
+        android:paddingVertical="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="-10dp"
+        app:layout_constraintTop_toBottomOf="@id/blueStand">
 
-    <TextView
-        android:id="@+id/waveText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_pink_bg"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center"
-        android:maxLines="1"
-        android:paddingHorizontal="10dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="4dp"
-        android:textColor="@color/transparentWhite"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/profileCard"
-        app:layout_constraintStart_toEndOf="@+id/attendeeTypeText"
-        app:layout_constraintTop_toBottomOf="@id/nameText"
-        tools:text="Wave 1" />
+        <LinearLayout
+            android:id="@+id/rankBadges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/attendeeTypeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/rounded_pink_bg"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/transparentWhite"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/waveText"
+
+                app:layout_constraintHorizontal_chainStyle="packed"
+                tools:layout_editor_absoluteY="609dp"
+                tools:text="General" />
+
+            <TextView
+                android:id="@+id/waveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:background="@drawable/rounded_pink_bg"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/transparentWhite"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/attendeeTypeText"
+                tools:layout_editor_absoluteY="596dp"
+                tools:text="Wave 1" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/qrCodeImage2024"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="178dp"
+        android:layout_height="171dp"
         android:layout_marginHorizontal="35dp"
         android:layout_marginVertical="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/placementBannerImageView"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/profileCard"
+        app:layout_constraintHorizontal_bias="0.401"
         app:layout_constraintStart_toStartOf="@id/profileCard"
-        app:layout_constraintTop_toBottomOf="@+id/waveText"
-        app:layout_constraintVertical_bias="0.5" />
-
-    <ImageView
-        android:id="@+id/placementBannerImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/profileCard"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/profileCard"
-        app:layout_constraintTop_toTopOf="@+id/profileCard"
-        app:layout_constraintVertical_bias="0.77"
-        app:srcCompat="@drawable/profile_placement_banner_svg" />
+        tools:layout_editor_absoluteY="91dp" />
 
     <TextView
         android:id="@+id/rankingTextView"
@@ -200,11 +227,8 @@
         android:text="@string/your_ranking"
         android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/placementBannerImageView"
-        app:layout_constraintEnd_toEndOf="@+id/placementBannerImageView"
-        app:layout_constraintStart_toStartOf="@+id/placementBannerImageView"
-        app:layout_constraintTop_toTopOf="@+id/placementBannerImageView"
-        app:layout_constraintVertical_bias="0.18" />
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="74dp" />
 
     <ImageView
         android:id="@+id/rankingImageView"
@@ -213,9 +237,7 @@
         android:layout_marginVertical="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/rankingPlacementTextView"
         app:layout_constraintEnd_toStartOf="@+id/rankingPlacementTextView"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/placementBannerImageView"
         app:layout_constraintTop_toTopOf="@+id/rankingPlacementTextView"
         app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/profile_ranking_symbol" />
@@ -224,17 +246,13 @@
         android:id="@+id/rankingPlacementTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="1dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center_horizontal"
         android:text="@string/dashes"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/placementBannerImageView"
-        app:layout_constraintEnd_toEndOf="@+id/placementBannerImageView"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/rankingImageView"
-        app:layout_constraintTop_toBottomOf="@+id/rankingTextView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/rankingTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
