@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import kotlinx.android.synthetic.main.fragment_profile.profileBackground
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
@@ -145,6 +147,7 @@ class ProfileFragment : Fragment() {
         updateProTag()
 
         // load avatar image png from API using Glide
+        Log.d("avatarUrl: ", "" + avatarImage)
         Glide.with(requireContext()).load(it.avatarUrl).into(avatarImage)
     }
 
