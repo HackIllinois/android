@@ -15,7 +15,3 @@ data class ShopItem(
     var quantity: Int,
     var imageURL: String,
 )
-
-
-
-
