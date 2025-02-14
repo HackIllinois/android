@@ -42,15 +42,15 @@ class AttendeeScannerFragment : Fragment() {
         }
 
         // when point shop button is clicked
-        val pointShopButton = view.findViewById<Button>(R.id.pointShopBtn)
-        pointShopButton.setOnClickListener {
-            if (appBar != null && scannerBtn != null) {
-                appBar.visibility = View.INVISIBLE
-                scannerBtn.visibility = View.INVISIBLE
-            }
-            val scannerFragment = ScannerFragment.newInstance("point-shop")
-            (context as MainActivity).switchFragment(scannerFragment, true)
-        }
+//        val pointShopButton = view.findViewById<Button>(R.id.pointShopBtn)
+//        pointShopButton.setOnClickListener {
+//            if (appBar != null && scannerBtn != null) {
+//                appBar.visibility = View.INVISIBLE
+//                scannerBtn.visibility = View.INVISIBLE
+//            }
+//            val scannerFragment = ScannerFragment.newInstance("point-shop")
+//            (context as MainActivity).switchFragment(scannerFragment, true)
+//        }
 
         return view
     }
