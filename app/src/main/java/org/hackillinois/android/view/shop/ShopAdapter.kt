@@ -7,17 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.shop_tile.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import okhttp3.ResponseBody
 import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.ShopItem
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
-class ShopAdapter(private var itemList: List<ShopItem>) :
+class ShopAdapter(private var itemList: List<ShopItem>, private val buyItemListener : OnBuyItemListener) :
     RecyclerView.Adapter<ShopAdapter.ViewHolder>() {
     private lateinit var context: Context
     inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
+
+
 
     // onCreateViewHolder used to display scrollable list of items
     // implemented as part of RecyclerView's adapter, responsible for creating new ViewHolder objects
@@ -59,9 +68,45 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
                 Log.d("Shop Glide Error", e.message.toString())
             }
             val plusButton: ImageView = findViewById(R.id.plusButton)
+
+//            plusButton.setOnClickListener {
+//                Log.d("CartDebug", "Plus button clicked!")
+//                Log.d("Item ID: ", ""+item.itemId)
+//                App.getAPI().addItemCart(item.itemId).enqueue(object : Callback<ResponseBody> {
+//                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//                        if (response.isSuccessful) {
+//                            Log.d("CartDebug", "Item added to cart successfully!: ${response.code()}, ${response.message()}, ${response.body().toString()}")
+//                        } else {
+//                            Log.e("CartDebug", "Failed to add item: ${response.code()}")
+//                        }
+//                    }
+//
+//                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                        Log.e("CartDebug", "Error adding item to cart", t)
+//                    }
+//                })
+//            }
+//            plusButton.setOnClickListener {
+//                Log.d("CartDebug", "Plus button clicked!")
+//                Log.d("Item ID: ", ""+item.itemId)
+//                itemView.findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
+//                    try {
+//                        val response = App.getAPI().addItemCart(item.itemId)
+//                        if (response.isSuccessful) {
+//                            val cartResponse = response.body()
+//                            Log.d("CartDebug", "Item added: $cartResponse")
+//                        } else {
+//                            Log.e("CartDebug", "Failed to add item: ${response.code()}")
+//                        }
+//                    } catch (e: Exception) {
+//                        Log.e("CartDebug", "Error adding item to cart", e)
+//                    }
+//                } ?: Log.e("CartDebug", "No LifecycleOwner found for itemView")
+//            }
             plusButton.setOnClickListener {
                 Log.d("CartDebug", "Plus button clicked!")
-                App.getAPI().addItemCart(item.itemId)
+                Log.d("Item ID: ", ""+item.itemId)
+                buyItemListener.onBuyItem(item)
             }
         }
     }
@@ -69,5 +114,9 @@ class ShopAdapter(private var itemList: List<ShopItem>) :
     fun updateShop(shopItem: List<ShopItem>) {
         this.itemList = shopItem
         notifyDataSetChanged()
+    }
+
+    interface OnBuyItemListener {
+        fun onBuyItem(item : ShopItem)
     }
 }

@@ -30,11 +30,12 @@ class App : Application() {
                 return if (apiInitialized) apiInternal else getAPI("")
             }
 
-            Log.d("TOKEN", token)
+            Log.d("APPTOKEN", token)
 
             val interceptor = { chain: Interceptor.Chain ->
                 val newRequest = chain.request().newBuilder()
-                    .addHeader("Authorization", token)
+                    .addHeader("Authorization", "Bearer $token")
+                    .addHeader("Accept", "application/json")
                     .build()
                 chain.proceed(newRequest)
             }

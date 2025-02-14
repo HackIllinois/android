@@ -16,6 +16,7 @@ import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface API {
@@ -70,7 +71,7 @@ interface API {
     suspend fun buyShopItem(@Body body: ItemInstance): ShopItem
 
     @POST("shop/cart/{itemId}")
-    fun addItemCart(@Path("itemId") itemId: String): Call<ResponseBody>
+    suspend fun addItemCart(@Path("itemId") itemId: String): Response<ResponseBody>
 
     @GET("shop/cart/")
     suspend fun getCart(): Cart

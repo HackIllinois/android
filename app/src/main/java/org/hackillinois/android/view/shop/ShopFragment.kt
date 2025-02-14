@@ -12,17 +12,20 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_point_shop.number_of_coins_textview
 import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
+import kotlinx.coroutines.launch
+import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.ShopItem
 import org.hackillinois.android.viewmodel.ShopViewModel
 
-class ShopFragment : Fragment() {
+class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
 
     companion object {
         fun newInstance() = ShopFragment()
@@ -76,7 +79,7 @@ class ShopFragment : Fragment() {
         merchButton = view.findViewById(R.id.merchButton)
         raffleButton = view.findViewById(R.id.raffleButton)
 
-        mAdapter = ShopAdapter(shop)
+        mAdapter = ShopAdapter(shop, this)
 
         recyclerView = view.recyclerview_point_shop.apply {
             mLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -202,5 +205,22 @@ class ShopFragment : Fragment() {
         val prefString = context.getString(R.string.authorization_pref_file_key)
         return context.getSharedPreferences(prefString, Context.MODE_PRIVATE)
             .getString("provider", "") ?: "" == "github"
+    }
+
+    override fun onBuyItem(item: ShopItem) {
+        // Implement your buying logic here (e.g., make a network call)
+        lifecycleScope.launch {
+            try {
+                val response = App.getAPI().addItemCart(item.itemId)
+                if (response.isSuccessful) {
+                    // Update UI or local data with the new cart state
+                    Log.d("CartDebug", "Item added: ${response.body()}")
+                } else {
+                    Log.e("CartDebug", "Failed to add item: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("CartDebug", "Error adding item to cart", e)
+            }
+        }
     }
 }
