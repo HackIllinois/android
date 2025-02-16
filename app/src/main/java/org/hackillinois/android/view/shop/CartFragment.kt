@@ -1,13 +1,18 @@
 package org.hackillinois.android.view.shop
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
+import org.hackillinois.android.App
 import org.hackillinois.android.R
+import org.hackillinois.android.database.entity.Cart
 import org.hackillinois.android.database.entity.ShopItem
 
 class CartFragment : Fragment() {
@@ -51,11 +56,32 @@ class CartFragment : Fragment() {
     }
 
     private fun fetchCartData() {
-        // random example to see the layout
-        cartItems = listOf(
-            Pair(ShopItem("1", "T-Shirt", 10, false, 1, "https://example.com/tshirt.png"), 2),
-            Pair(ShopItem("2", "Sticker", 5, false, 1, "https://example.com/sticker.png"), 3)
-        )
-        cartAdapter.updateCart(cartItems)
+        lifecycleScope.launch {
+            try {
+                // First, get all available shop items
+                val shopItems: List<ShopItem> = App.getAPI().shop()
+
+                // Next, get the cart from the API
+                val cart: Cart = App.getAPI().getCart()
+                val items = mutableListOf<Pair<ShopItem, Int>>()
+
+                // Iterate over the map of itemId -> quantity from the cart.
+                for ((itemId, quantity) in cart.items) {
+                    // Look up the ShopItem from the shopItems list using itemId
+                    val shopItem = shopItems.find { it.itemId == itemId }
+                    if (shopItem != null) {
+                        items.add(Pair(shopItem, quantity))
+                    } else {
+                        Log.e("CartFragment", "ShopItem not found for itemId: $itemId")
+                    }
+                }
+                cartItems = items
+                cartAdapter.updateCart(cartItems)
+            } catch (e: Exception) {
+                Log.e("CartFragment", "Error fetching cart items", e)
+            }
+        }
     }
+
+
 }

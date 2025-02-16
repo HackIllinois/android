@@ -37,8 +37,10 @@
 
     <TextView
         android:id="@+id/text_view_sticker"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:scrollHorizontally="false"
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/sticker"
         android:textSize="16sp"
