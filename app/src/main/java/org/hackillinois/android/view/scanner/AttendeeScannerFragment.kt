@@ -40,9 +40,6 @@ class AttendeeScannerFragment : Fragment() {
             val scannerFragment = ScannerFragment.newInstance("mentor-check-in")
             (context as MainActivity).switchFragment(scannerFragment, true)
         }
-
-
-
         return view
     }
 }

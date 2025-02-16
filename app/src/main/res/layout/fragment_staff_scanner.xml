@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
 
-    <org.hackillinois.android.view.scanner.buttons.PinkAnimatedButton
+    <org.hackillinois.android.view.scanner.buttons.ModerateOrangeAnimatedButton
         android:id="@+id/staffMeetingBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

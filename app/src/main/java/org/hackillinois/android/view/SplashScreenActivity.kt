@@ -37,7 +37,7 @@ class SplashScreenActivity : AppCompatActivity() {
     private var needsToUpdate = false
     private var hasInternet = true
     private var hasClickedOrAnimFinish = false
-    private lateinit var splashBackground : ImageView
+    private lateinit var splashBackground: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

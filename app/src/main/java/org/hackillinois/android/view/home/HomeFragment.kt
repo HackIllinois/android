@@ -8,10 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import org.hackillinois.android.R
 import org.hackillinois.android.common.TimeInfo
+import org.hackillinois.android.R
 import org.hackillinois.android.viewmodel.HomeViewModel
-import androidx.core.view.WindowCompat
 
 class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgressManager.CountDownListener {
 

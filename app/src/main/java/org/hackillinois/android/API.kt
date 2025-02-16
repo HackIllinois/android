@@ -70,7 +70,7 @@ interface API {
     suspend fun buyShopItem(@Body body: ItemInstance): ShopItem
 
     @POST("shop/cart/redeem/")
-    suspend fun redeemCart(@Body body: QRCode) : Cart
+    suspend fun redeemCart(@Body body: QRCode): Cart
 
     // STAFF
 

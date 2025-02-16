@@ -33,9 +33,9 @@ import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.scanner.EventId
 import org.hackillinois.android.model.scanner.MentorId
+import org.hackillinois.android.model.scanner.QRCode
 import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.scanner.UserEventPair
-import org.hackillinois.android.model.scanner.QRCode
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.viewmodel.ScannerViewModel
 

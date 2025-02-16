@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import org.hackillinois.android.R
 
-class PinkAnimatedButton : androidx.appcompat.widget.AppCompatButton {
+class ModerateOrangeAnimatedButton : androidx.appcompat.widget.AppCompatButton {
     constructor(context: Context?) : super(context!!) {}
     constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs) {}
     constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(context!!, attrs, defStyle) {
