@@ -49,7 +49,7 @@
             android:layout_marginTop="0dp"
             android:adjustViewBounds="false"
             android:scaleType="centerInside"
-            android:src="@drawable/home_tags_svg"
+            android:src="@drawable/home_tags_svg_flipped"
             android:visibility="invisible"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

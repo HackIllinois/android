@@ -10,6 +10,7 @@ import org.hackillinois.android.model.scanner.EventId
 import org.hackillinois.android.model.scanner.MentorId
 import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.scanner.UserEventPair
+import org.hackillinois.android.model.scanner.QRCode
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.repository.rolesRepository
 import org.json.JSONObject
@@ -46,6 +47,30 @@ class ScannerViewModel : ViewModel() {
                 Log.e("STAFF MEETING ERROR", error)
                 val scanStatus = ScanStatus("Scan failed: $error", false)
                 lastScanStatus.postValue(scanStatus)
+
+            }
+        }
+    }
+
+    fun redeemAttendeeCart(body : QRCode) {
+        viewModelScope.launch {
+            try {
+                App.getAPI().redeemCart(body)
+                val message = "Attendee successfully redeemed cart at Point Shop."
+                val scanStatus = ScanStatus(message, true)
+                lastScanStatus.postValue(scanStatus)
+            } catch (e: Exception) {
+                var error = e.message.toString()
+                try {
+                    if (e is HttpException) {
+                        val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
+                        error = jsonObject.optString("message", e.message.toString())
+                    }
+                } catch (e: Exception) { }
+                Log.e("Failed to redeem cart", error)
+                val scanStatus = ScanStatus("Scan failed: $error", false)
+                lastScanStatus.postValue(scanStatus)
+
             }
         }
     }
@@ -70,6 +95,7 @@ class ScannerViewModel : ViewModel() {
                 Log.e("CHECK IN ATTENDEE ERROR", error)
                 val scanStatus = ScanStatus("Scan failed: $error", false)
                 lastScanStatus.postValue(scanStatus)
+
             }
         }
     }
@@ -92,6 +118,7 @@ class ScannerViewModel : ViewModel() {
                 Log.e("CHECK IN EVENT ERROR", error)
                 val scanStatus = ScanStatus("Scan failed: $error", false)
                 lastScanStatus.postValue(scanStatus)
+
             }
         }
     }
@@ -114,6 +141,7 @@ class ScannerViewModel : ViewModel() {
                 Log.e("CHECK IN MENTOR ERROR", error)
                 val scanStatus = ScanStatus("Scan failed: $error", false)
                 lastScanStatus.postValue(scanStatus)
+
             }
         }
     }
@@ -133,10 +161,11 @@ class ScannerViewModel : ViewModel() {
                         val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
                         error = jsonObject.optString("message", e.message.toString())
                     }
-                } catch (e: Exception) { }
-                Log.e("PURCHASE ITEM ERROR", error)
-                val scanStatus = ScanStatus("Scan failed: $error", false)
-                lastScanStatus.postValue(scanStatus)
+                } catch (e: Exception) {
+                    Log.e("PURCHASE ITEM ERROR", error)
+                    val scanStatus = ScanStatus("Scan failed: $error", false)
+                    lastScanStatus.postValue(scanStatus)
+                }
             }
         }
     }

@@ -9,50 +9,50 @@ import java.util.*
 class EventProgressManager(val listener: CountDownListener) {
 
     // CORRECT TIMES ARE NOT SET YET
-    // 02-28-2025 :00:00
+    // 02-28-2025 : 14:30
     private val checkInTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1708723800000
+        timeInMillis = 1740774600000
     }
 
-    // 02-23-2024 16:00:00
+    // 02-28-2025 : 15:00
     private val scavengerHuntTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1708725600000
+        timeInMillis = 1740776400000
     }
 
-    // 02-23-2024 18:00:00
+    // 02-28-2025 : 17:00
     private val openingCeremonyTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1708732800000
+        timeInMillis = 1740783600000
     }
 
-    // 02-23-2024 19:00:00
+    // 02-28-2025 : 18:00
     private val hackingTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1708736400000
+        timeInMillis = 1740787200000
     }
 
-    // 02-25-2024 11:00:00
+    // 03-02-2025 11:30
     private val projectShowcaseTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1708880400000
+        timeInMillis = 1740936600000
     }
 
-    // 02-25-2024 15:00:00
+    // 03-02-2025 15:00
     private val closingCeremonyTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1708894800000
+        timeInMillis = 1740949200000
     }
 
-    // 02-25-2024 16:00:00
+    // 03-02-2025 16:00
     private val afterHackathonTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1708898400000
+        timeInMillis = 1740952800000
     }
 
     private var times = listOf(checkInTime, scavengerHuntTime, openingCeremonyTime, hackingTime, projectShowcaseTime, closingCeremonyTime, afterHackathonTime)
-    private var backgrounds = listOf(R.drawable.home_stage0_svg, R.drawable.home_check_in_bg, R.drawable.home_scavenger_hunt_bg, R.drawable.home_opening_bg, R.drawable.home_hacking_bg, R.drawable.home_project_showcase_bg, R.drawable.home_closing_bg, R.drawable.home_final_bg)
+    private var backgrounds = listOf(R.drawable.home_background1_svg, R.drawable.home_background2_svg, R.drawable.home_background3_svg, R.drawable.home_background3_svg, R.drawable.home_background4_svg, R.drawable.home_background5_svg, R.drawable.home_background6_svg, R.drawable.home_background6_svg)
     private var timer: CountDownTimer? = null
     private var state = 0
 

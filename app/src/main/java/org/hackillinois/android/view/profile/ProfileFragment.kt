@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -159,6 +160,7 @@ class ProfileFragment : Fragment() {
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
             // Retrieves qr code user info that will be encoded
             val text = qr.qrInfo
+            Log.d("Attendee QR Code: ", ""+text)
             // Creates bitmap of text
             val bitmap = generateQR(text)
             // actually setting the qr code to be the generated qr code
