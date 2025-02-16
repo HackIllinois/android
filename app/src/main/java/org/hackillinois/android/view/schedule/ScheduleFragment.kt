@@ -29,7 +29,7 @@ class ScheduleFragment : Fragment() {
 
     private lateinit var shift_header: TextView
     private lateinit var schedule_header: TextView
-    private lateinit var favoriteButton: ImageButton
+    private lateinit var saved_header: TextView
     private lateinit var scheduleViewModel: ScheduleViewModel
     private lateinit var scheduleBackground: ImageView
     private var showingFavorites: Boolean = false
@@ -46,9 +46,10 @@ class ScheduleFragment : Fragment() {
         view.scheduleContainer.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(view.scheduleDays))
         view.scheduleDays.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view.scheduleContainer))
         setupCustomTabs(view.scheduleDays)
-        favoriteButton = view.findViewById(R.id.lightBookmarkButton)
         schedule_header = view.findViewById(R.id.schedule_header)
         shift_header = view.findViewById(R.id.shift_header)
+        saved_header = view.findViewById(R.id.saved_header)
+
         scheduleBackground = view.findViewById(R.id.scheduleBackground)
         scheduleBackground.setImageResource(R.drawable.saved_events_background)
         scheduleBackground.alpha = 0.8f
@@ -63,8 +64,7 @@ class ScheduleFragment : Fragment() {
         scheduleViewModel.showFavorites.observe(
             this,
             Observer {
-                favoriteButton.isSelected = it ?: false
-                favoriteButton.setImageResource(if (showingFavorites) R.drawable.light_bookmark_filled else R.drawable.light_bookmark_hollow)
+                saved_header.isSelected = it ?: false
             }
         )
         scheduleViewModel.showShifts.observe(
@@ -76,26 +76,36 @@ class ScheduleFragment : Fragment() {
         if (isStaff() || !hasLoggedIn()) {
             Log.d("ISSTAFF", scheduleViewModel.isAttendeeViewing.toString())
             scheduleViewModel.isAttendeeViewing = false
-            favoriteButton.visibility = View.GONE
+            saved_header.visibility = View.VISIBLE
+            shift_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.deepTeal))
+            schedule_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.ivoryBlush))
+            shift_header.setBackgroundResource(0)
+            schedule_header.setBackgroundResource(R.drawable.schedule_underline)
+            scheduleBackground.setImageResource(R.drawable.saved_events_background)
+
         } else {
             Log.d("ISATTENDEE", scheduleViewModel.isAttendeeViewing.toString())
             scheduleViewModel.isAttendeeViewing = true
-            favoriteButton.visibility = View.VISIBLE
-            favoriteButton.setOnClickListener(favScheduleClickListener)
+            saved_header.visibility = View.VISIBLE
+            saved_header.setOnClickListener(favScheduleClickListener)
         }
         if (isStaff()) {
             scheduleViewModel.initShifts()
             shift_header.visibility = View.VISIBLE
+            saved_header.visibility = View.GONE
+
             val context = requireActivity().applicationContext
             schedule_header.setTextColor(getResources().getColor(R.color.ivoryBlush))
             shift_header.setTextColor(getResources().getColor(R.color.deepTeal))
             schedule_header.background = ContextCompat.getDrawable(context, R.drawable.schedule_underline)
             shift_header.setOnClickListener(shiftScheduleClickListener)
-            schedule_header.setOnClickListener(eventScheduleClickListener)
+
         } else {
             shift_header.visibility = View.GONE
+            saved_header.visibility = View.VISIBLE
             schedule_header.setBackgroundResource(0)
         }
+
         val time = System.currentTimeMillis()
         view.scheduleContainer.currentItem = when {
             time < scheduleViewModel.fridayEnd -> 0
@@ -105,11 +115,20 @@ class ScheduleFragment : Fragment() {
         }
         view.scheduleDays.getTabAt(view.scheduleContainer.currentItem)?.customView?.background =
             context?.let { ContextCompat.getDrawable(it, R.drawable.vase_selected) }
+
+        schedule_header.setOnClickListener(eventScheduleClickListener)
+        saved_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.deepTeal))
+        shift_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.deepTeal))
+        schedule_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.ivoryBlush))
+        shift_header.setBackgroundResource(0)
+        schedule_header.setBackgroundResource(R.drawable.schedule_underline)
+        scheduleBackground.setImageResource(R.drawable.saved_events_background)
+
         return view
     }
 
     private fun setupCustomTabs(tabLayout: TabLayout) {
-        val tabDayOfMonth = arrayOf("23", "24", "25")
+        val tabDayOfMonth = arrayOf("28", "29", "30")
         val tabDayOfWeek = arrayOf("FRI", "SAT", "SUN")
         for (i in tabDayOfMonth.indices) {
             val tab = tabLayout.newTab()
@@ -165,19 +184,26 @@ class ScheduleFragment : Fragment() {
         override fun getPageTitle(position: Int): CharSequence? { return null }
     }
 
-    private val favScheduleClickListener = OnClickListener {
-        favoriteButton.apply {
-            isSelected = !favoriteButton.isSelected
-            setImageResource(
-                when (isSelected) {
-                    true -> R.drawable.light_bookmark_filled
-                    else -> R.drawable.light_bookmark_hollow
-                }
-            )
-        }
-        scheduleViewModel.showFavorites.postValue(favoriteButton.isSelected)
-        showingFavorites = favoriteButton.isSelected
+private val favScheduleClickListener = OnClickListener {
+    if (!saved_header.isSelected) {
+        saved_header.isSelected = true
+
+        saved_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.ivoryBlush))
+        schedule_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.deepTeal))
+
+        saved_header.setBackgroundResource(R.drawable.schedule_underline)
+        schedule_header.setBackgroundResource(0)
+
+        scheduleViewModel.showFavorites.postValue(true)
+        showingFavorites = true
+
+        scheduleViewModel.initEvents()
+        view?.scheduleContainer?.adapter = SectionsPagerAdapter(childFragmentManager)
+        view?.scheduleContainer?.adapter?.notifyDataSetChanged()
+
+        Log.d("ScheduleFragment", "Switched to Saved events")
     }
+}
 
     private val shiftScheduleClickListener = OnClickListener {
         shift_header.setBackgroundResource(R.drawable.schedule_underline)
@@ -195,18 +221,43 @@ class ScheduleFragment : Fragment() {
     }
 
     private val eventScheduleClickListener = OnClickListener {
-        shift_header.setBackgroundResource(0)
-        schedule_header.setBackgroundResource(R.drawable.schedule_underline)
-        schedule_header.setTextColor(getResources().getColor(R.color.ivoryBlush))
-        shift_header.setTextColor(getResources().getColor(R.color.deepTeal))
-        scheduleBackground.setImageResource(R.drawable.saved_events_background)
-        for (i in 0 until scheduleDays.tabCount) {
-            val tab = scheduleDays.getTabAt(i)
-            val tabDrawable = if (tab?.isSelected == true) R.drawable.vase_selected else R.drawable.vase_unselected
-            tab?.customView?.background = context?.let { ContextCompat.getDrawable(it, tabDrawable) }
+        Log.d("ScheduleFragment", "Schedule clicked, saved_header.isSelected = ${saved_header.isSelected}, showingShifts = $showingShifts")
+
+        if (isStaff()) {
+            if (showingShifts) {
+                shift_header.isSelected = false
+                schedule_header.isSelected = true
+                showingShifts = false
+                shift_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.deepTeal))
+                schedule_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.ivoryBlush))
+                shift_header.setBackgroundResource(0)
+                schedule_header.setBackgroundResource(R.drawable.schedule_underline)
+                scheduleBackground.setImageResource(R.drawable.saved_events_background)
+                scheduleViewModel.showShifts.postValue(false)
+                scheduleViewModel.initEvents()
+                view?.scheduleContainer?.adapter = SectionsPagerAdapter(childFragmentManager)
+                view?.scheduleContainer?.adapter?.notifyDataSetChanged()
+
+                Log.d("ScheduleFragment", "Staff: Switched from Shifts to Full Schedule")
+            }
+        } else {
+            if (saved_header.isSelected) {
+                saved_header.isSelected = false
+                schedule_header.isSelected = true
+                saved_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.deepTeal))
+                schedule_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.ivoryBlush))
+                saved_header.setBackgroundResource(0)
+                schedule_header.setBackgroundResource(R.drawable.schedule_underline)
+                scheduleViewModel.showFavorites.postValue(false)
+                showingFavorites = false
+
+                scheduleViewModel.initEvents()
+                view?.scheduleContainer?.adapter = SectionsPagerAdapter(childFragmentManager)
+                view?.scheduleContainer?.adapter?.notifyDataSetChanged()
+
+                Log.d("ScheduleFragment", "Attendee: Switched from Saved to Full Schedule")
+            }
         }
-        scheduleViewModel.showShifts.postValue(false)
-        showingShifts = false
     }
 
     private fun isStaff(): Boolean {
@@ -219,3 +270,4 @@ class ScheduleFragment : Fragment() {
         return JWTUtilities.readJWT(requireActivity().applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 }
+

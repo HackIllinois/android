@@ -21,17 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/lightBookmarkButton"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="25dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/light_bookmark_hollow"
-        app:layout_constraintBottom_toBottomOf="@+id/schedule_header"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/schedule_header" />
-
     <TextView
         android:id="@+id/schedule_header"
         android:layout_width="wrap_content"
@@ -58,6 +47,22 @@
         android:fontFamily="@font/montserrat_extra_bold"
         android:gravity="end"
         android:text="@string/shift_header"
+        android:textAllCaps="true"
+        android:textColor="@color/palePeach"
+        android:textSize="24sp"
+        android:paddingBottom="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guidelineTop" />
+
+    <TextView
+        android:id="@+id/saved_header"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="35dp"
+        android:fontFamily="@font/montserrat_extra_bold"
+        android:gravity="end"
+        android:text="@string/saved_header"
         android:textAllCaps="true"
         android:textColor="@color/palePeach"
         android:textSize="24sp"
