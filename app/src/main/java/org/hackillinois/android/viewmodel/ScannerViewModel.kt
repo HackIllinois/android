@@ -1,9 +1,9 @@
 package org.hackillinois.android.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.*
 import kotlin.Exception
 import kotlinx.coroutines.launch
+import android.util.Log
+import androidx.lifecycle.*
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.event.EventsList
