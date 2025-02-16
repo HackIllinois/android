@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -82,7 +81,6 @@ class ScheduleFragment : Fragment() {
             shift_header.setBackgroundResource(0)
             schedule_header.setBackgroundResource(R.drawable.schedule_underline)
             scheduleBackground.setImageResource(R.drawable.saved_events_background)
-
         } else {
             Log.d("ISATTENDEE", scheduleViewModel.isAttendeeViewing.toString())
             scheduleViewModel.isAttendeeViewing = true
@@ -99,7 +97,6 @@ class ScheduleFragment : Fragment() {
             shift_header.setTextColor(getResources().getColor(R.color.deepTeal))
             schedule_header.background = ContextCompat.getDrawable(context, R.drawable.schedule_underline)
             shift_header.setOnClickListener(shiftScheduleClickListener)
-
         } else {
             shift_header.visibility = View.GONE
             saved_header.visibility = View.VISIBLE
@@ -184,26 +181,26 @@ class ScheduleFragment : Fragment() {
         override fun getPageTitle(position: Int): CharSequence? { return null }
     }
 
-private val favScheduleClickListener = OnClickListener {
-    if (!saved_header.isSelected) {
-        saved_header.isSelected = true
+    private val favScheduleClickListener = OnClickListener {
+        if (!saved_header.isSelected) {
+            saved_header.isSelected = true
 
-        saved_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.ivoryBlush))
-        schedule_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.deepTeal))
+            saved_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.ivoryBlush))
+            schedule_header.setTextColor(ContextCompat.getColor(requireContext(), R.color.deepTeal))
 
-        saved_header.setBackgroundResource(R.drawable.schedule_underline)
-        schedule_header.setBackgroundResource(0)
+            saved_header.setBackgroundResource(R.drawable.schedule_underline)
+            schedule_header.setBackgroundResource(0)
 
-        scheduleViewModel.showFavorites.postValue(true)
-        showingFavorites = true
+            scheduleViewModel.showFavorites.postValue(true)
+            showingFavorites = true
 
-        scheduleViewModel.initEvents()
-        view?.scheduleContainer?.adapter = SectionsPagerAdapter(childFragmentManager)
-        view?.scheduleContainer?.adapter?.notifyDataSetChanged()
+            scheduleViewModel.initEvents()
+            view?.scheduleContainer?.adapter = SectionsPagerAdapter(childFragmentManager)
+            view?.scheduleContainer?.adapter?.notifyDataSetChanged()
 
-        Log.d("ScheduleFragment", "Switched to Saved events")
+            Log.d("ScheduleFragment", "Switched to Saved events")
+        }
     }
-}
 
     private val shiftScheduleClickListener = OnClickListener {
         shift_header.setBackgroundResource(R.drawable.schedule_underline)
@@ -270,4 +267,3 @@ private val favScheduleClickListener = OnClickListener {
         return JWTUtilities.readJWT(requireActivity().applicationContext) != JWTUtilities.DEFAULT_JWT
     }
 }
-
