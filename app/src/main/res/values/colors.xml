@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!--    colors for specific purposes       -->
+<!--    colors for specific purposes, changed nothing       -->
     <color name="white">#FFFFFF</color>
     <color name="white40PercentOpaque">#66FFFFFF</color>
     <color name="scannerBorderColor">#A5DAD5</color>
