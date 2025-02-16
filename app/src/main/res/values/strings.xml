@@ -107,6 +107,7 @@
     <!--   Dialog Fragments   -->
     <string name="prize_obtained">Prize Obtained!</string>
     <string name="points_earned">Points Earned!</string>
+    <string name="rank">Rank</string>
 
 
 </resources>

@@ -55,5 +55,8 @@
     <color name="floralRed">#903D2B</color>
     <color name="greenYellow">#F9C126</color>
     <color name="teal">#48A4A4</color>
+    <color name="transparentAqua">#9ABEBE</color>
+    <color name="maroon">#612547</color>
+    <color name="black">#000000</color>
 
 </resources>

@@ -104,12 +104,12 @@
         app:layout_constraintStart_toStartOf="@+id/leftProfileLogo"
         app:layout_constraintTop_toBottomOf="@+id/profileText"
         app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@drawable/ellipse_profile" />
+        app:srcCompat="@drawable/ellipse_profile" />
 
 
     <ImageView
         android:id="@+id/avatarImage"
-        android:layout_width="164dp"
+        android:layout_width="150dp"
         android:layout_height="179dp"
         android:layout_marginVertical="5dp"
         android:elevation="5dp"
@@ -149,7 +149,7 @@
         android:layout_marginHorizontal="18dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:textColor="@color/burntBark"
+        android:textColor="@color/black"
         android:textSize="23sp"
         app:layout_constraintBottom_toBottomOf="@+id/profileCard"
         app:layout_constraintEnd_toEndOf="@+id/profileCard"
@@ -176,63 +176,118 @@
             android:id="@+id/rankBadges"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
-            android:paddingBottom="8dp">
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/attendeeTypeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/rounded_pink_bg"
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
                 android:maxLines="1"
-                android:paddingHorizontal="10dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="4dp"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
                 android:textColor="@color/transparentWhite"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@+id/waveText"
-
+                android:textSize="18sp"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                tools:layout_editor_absoluteY="609dp"
                 tools:text="General" />
 
             <TextView
                 android:id="@+id/waveText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="8dp"
+
                 android:background="@drawable/rounded_pink_bg"
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
                 android:maxLines="1"
-                android:paddingHorizontal="10dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="4dp"
-                android:textColor="@color/transparentWhite"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/attendeeTypeText"
-                tools:layout_editor_absoluteY="596dp"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 tools:text="Wave 1" />
-
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rankValues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginTop="55dp">
+
+            <TextView
+                android:id="@+id/rankText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/transparentWhite"
+                android:textSize="18sp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:text="@string/rank">
+
+            </TextView>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rank_frame"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/rankValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textColor="@color/maroon"
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="12dp"
+                    android:paddingBottom="6dp"
+                    tools:text="221"/>
+            </FrameLayout>
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/greekDesign"
             android:layout_width="match_parent"
-            android:layout_height="166dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="184dp"
             android:elevation="5dp"
             android:scaleType="fitXY"
             android:src="@drawable/greek_squares"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rankSection" />
+            app:layout_constraintTop_toTopOf="@id/rankSection"
+            app:layout_constraintBottom_toBottomOf="@id/rankSection"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/innerFlame"
+        app:srcCompat="@drawable/inside_flame"
+        android:layout_width="300dp"
+        android:layout_height="230dp"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginVertical="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/blueStand"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/profileCard"
+        app:layout_constraintStart_toStartOf="@id/profileCard"
+        app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
     <ImageView
         android:id="@+id/qrCodeImage2024"
@@ -245,42 +300,5 @@
         app:layout_constraintEnd_toEndOf="@id/profileCard"
         app:layout_constraintStart_toStartOf="@id/profileCard"
         app:layout_constraintTop_toBottomOf="@+id/nameText" />
-
-    <TextView
-        android:id="@+id/rankingTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="@string/your_ranking"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        tools:layout_editor_absoluteX="13dp"
-        tools:layout_editor_absoluteY="74dp" />
-
-    <ImageView
-        android:id="@+id/rankingImageView"
-        android:layout_width="20dp"
-        android:layout_height="0dp"
-        android:layout_marginVertical="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rankingPlacementTextView"
-        app:layout_constraintEnd_toStartOf="@+id/rankingPlacementTextView"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintTop_toTopOf="@+id/rankingPlacementTextView"
-        app:layout_constraintVertical_bias="0.5"
-        app:srcCompat="@drawable/profile_ranking_symbol" />
-
-    <TextView
-        android:id="@+id/rankingPlacementTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="1dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center_horizontal"
-        android:text="@string/dashes"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/rankingImageView"
-        app:layout_constraintTop_toBottomOf="@+id/rankingTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
