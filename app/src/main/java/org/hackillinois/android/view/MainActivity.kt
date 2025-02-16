@@ -56,19 +56,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomAppBar() {
         // by default, home button is selected
-        val selectedIconColor = ContextCompat.getColor(this, R.color.selectedAppBarIcon)
-        val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
+        val selectedIconColor = ContextCompat.getColor(this, R.color.black)
+        val unselectedIconColor = ContextCompat.getColor(this, R.color.black)
 
+        // Set default icons (assume these are your unselected drawables)
+        bottomAppBar.homeButton.setImageResource(R.drawable.battle_png)
+        bottomAppBar.scheduleButton.setImageResource(R.drawable.schedule_png)
+        bottomAppBar.shopButton.setImageResource(R.drawable.shop_png)
+        bottomAppBar.profileButton.setImageResource(R.drawable.profile_png)
+
+        // Set default color filter on home button (as it's selected by default)
         bottomAppBar.homeButton.setColorFilter(selectedIconColor)
 
         val bottomBarButtons = listOf(
             bottomAppBar.homeButton,
             bottomAppBar.scheduleButton,
             bottomAppBar.shopButton,
-            bottomAppBar.profileButton,
+            bottomAppBar.profileButton
         )
 
-        // make all buttons unselectedColor and then set selected button to selectedColor
+        // Set click listeners for each button.
         bottomBarButtons.forEach { button ->
             button.setOnClickListener { view ->
                 val newSelection = bottomBarButtons.indexOf(button)
@@ -77,15 +84,31 @@ class MainActivity : AppCompatActivity() {
                 if (newSelection != currentSelection) {
                     currentSelection = newSelection
 
-                    // change icon colors
+                    // Reset all buttons: set unselected drawable and color filter.
+                    bottomAppBar.homeButton.setImageResource(R.drawable.battle_png)
+                    bottomAppBar.scheduleButton.setImageResource(R.drawable.schedule_png)
+                    bottomAppBar.shopButton.setImageResource(R.drawable.shop_png)
+                    bottomAppBar.profileButton.setImageResource(R.drawable.profile_png)
                     bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
-                    (view as ImageButton).setColorFilter(selectedIconColor)
 
+                    // Set the clicked button to selected drawable and color filter.
                     when (view) {
-                        bottomAppBar.homeButton -> switchFragment(HomeFragment(), false)
-                        bottomAppBar.scheduleButton -> switchFragment(ScheduleFragment(), false)
-                        bottomAppBar.shopButton -> switchFragment(ShopFragment(), false)
-                        bottomAppBar.profileButton -> switchFragment(ProfileFragment(), false)
+                        bottomAppBar.homeButton -> {
+                            bottomAppBar.homeButton.setImageResource(R.drawable.battle_underlined_png)
+                            switchFragment(HomeFragment(), false)
+                        }
+                        bottomAppBar.scheduleButton -> {
+                            bottomAppBar.scheduleButton.setImageResource(R.drawable.schedule_underlined_png)
+                            switchFragment(ScheduleFragment(), false)
+                        }
+                        bottomAppBar.shopButton -> {
+                            bottomAppBar.shopButton.setImageResource(R.drawable.shop_underlined_png)
+                            switchFragment(ShopFragment(), false)
+                        }
+                        bottomAppBar.profileButton -> {
+                            bottomAppBar.profileButton.setImageResource(R.drawable.profile_underlined_png)
+                            switchFragment(ProfileFragment(), false)
+                        }
                         else -> return@setOnClickListener
                     }
                 }
@@ -113,7 +136,7 @@ class MainActivity : AppCompatActivity() {
                     bottomAppBar.shopButton,
                     bottomAppBar.profileButton,
                 )
-                val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
+                val unselectedIconColor = ContextCompat.getColor(this, R.color.black)
                 bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
 
                 // if not already on scanner selection page, switch fragment to scanner selection page

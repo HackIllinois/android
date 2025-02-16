@@ -15,6 +15,12 @@
     <string name="need_internet_title">Internet Required</string>
     <string name="need_internet_message">You must be connected to the internet in order to use the HackIllinois app. Please retry once you have verified your connection.</string>
 
+    <!--   Appbar   -->
+    <string name="home_icon">Home</string>
+    <string name="schedule_icon">Schedule</string>
+    <string name="prizes_icon">Prizes</string>
+    <string name="profile_icon">Profile</string>
+
     <!--    Onboarding Fragment   -->
     <string name="onboarding_get_started">Get Started</string>
     <string name="onboarding_welcome_title">Welcome!</string>
