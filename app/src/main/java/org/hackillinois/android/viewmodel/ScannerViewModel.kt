@@ -17,7 +17,6 @@ import org.hackillinois.android.repository.rolesRepository
 import org.json.JSONObject
 import retrofit2.HttpException
 
-
 class ScannerViewModel : ViewModel() {
     var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
     lateinit var roles: LiveData<Roles>
