@@ -14,13 +14,16 @@
     <color name="primaryTextColor">#08151B</color>
     <color name="proTagColor">#6D9CA0</color>
     <color name="selectedAppBarIcon">#ACCEBE</color> <!--   For bottom tab icons     -->
+<<<<<<< HEAD
 
+=======
+    <color name="unselectedAppBarIcon">#FFFFFF</color> <!--   For bottom tab icons     -->
+>>>>>>> aad9a312 (trying to fix color again)
 <!--      2023 color palette (from leaderboard)       -->
     <color name="nightBlue">#0D387C</color>
     <color name="cloudMist">#C9D2E5</color>
     <color name="midnight">#1D2644</color>
     <color name="colorChecked">#0D3F41</color>
-
 <!--      2024 color palette      -->
     <color name="transparentWhite">#DAFFFFFF</color>
     <color name="cinnamonMilk">#FFF8F5</color>
@@ -35,15 +38,9 @@
     <color name="burntBark">#662B13</color>
     <color name="deepTeal">#0A3A3C</color>
     <color name="darkSeaGreen">#0E3F41</color>
-
     <color name="autumnSpice">#DE8E45</color>
-
     <color name="mutedTeal">#84BCB9</color>
-
     <color name="rustWood">#C5673F</color>
-
-
-
     <color name="pinkSkies">#F9D7E6</color>
     <color name="darkMagic">#1D2644</color>
     <color name="floralMauve">#A977AB</color>
@@ -53,25 +50,18 @@
     <color name="palePeach">#FFF8F5</color>
     <color name="ivoryBlush">#FFF4E9</color>
     <color name="deepMahogany">#6D291A</color>
-
     <color name="black">#000000</color>
-
     <color name="goldenBrown">#AC7B46</color>
-
     <color name="terraCotta">#C5673F</color>
-
-
     <color name="mediumPink">#DC8AA9</color>
     <color name="lightOrange">#FFC95B</color>
     <color name="mistyMint">#84BCB9</color>
     <color name="errorPink">#C62A6C</color>
     <color name="coinTotalColor">#2A2A2A</color>
     <color name="tabSelectedColor">#D84177</color>
-
 <!--    2025 Color Palette -->
     <color name="soothingEucalyptus">#84BCB9</color>
     <color name="robustOrange">#C5673F</color>
     <color name="floralRed">#903D2B</color>
     <color name="greenYellow">#F9C126</color>
-
 </resources>
