@@ -1,3 +1,3 @@
 package org.hackillinois.android.model.scanner
 
-data class UserEventPair(val attendeeJWT: String, val eventId: String)
+data class UserEventPair(val eventId: String, val attendeeQRCode: String)

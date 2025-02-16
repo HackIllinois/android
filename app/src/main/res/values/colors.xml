@@ -54,5 +54,12 @@
     <color name="robustOrange">#C5673F</color>
     <color name="floralRed">#903D2B</color>
     <color name="greenYellow">#F9C126</color>
+    <color name="soothingTan">#E0C69F</color>
+    
+<!--    Scanner Colors -->
+    <color name="moderateOrange">#E3A748</color>
+    <color name="burntBrown">#8C3712</color>
+    <color name="burntBrownBorder">#C5673F</color>
+    <color name="tealButtonBorder">#0E3F41</color>
 
 </resources>
