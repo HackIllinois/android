@@ -89,7 +89,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="1dp"
-            android:src="@drawable/convert_hourglass"
+            android:src="@drawable/hourglass"
             app:layout_constraintBottom_toBottomOf="@+id/event_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/event_time" />
