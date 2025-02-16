@@ -205,8 +205,7 @@ class ProfileFragment : Fragment() {
     private fun isStaff(): Boolean {
         val context = requireActivity().applicationContext
         val prefString = context.getString(R.string.authorization_pref_file_key)
-        return (context.getSharedPreferences(prefString, Context.MODE_PRIVATE)
-            .getString("provider", "") ?: "") == "google"
+        return (context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "") == "google"
     }
 
     private fun isAttendee(): Boolean {

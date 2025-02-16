@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "64145a0d233925fd28a80a38316cd145",
+    "identityHash": "f39906469f336ff1fd8c3c6c6f1907a4",
     "entities": [
       {
         "tableName": "qr_codes",
@@ -250,7 +250,7 @@
       },
       {
         "tableName": "profiles",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` TEXT NOT NULL, `displayName` TEXT NOT NULL, `discordTag` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `points` INTEGER NOT NULL, `userId` TEXT NOT NULL, `foodWave` INTEGER NOT NULL, `coins` INTEGER NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` TEXT NOT NULL, `userId` TEXT NOT NULL, `avatrUrl` TEXT NOT NULL, `discordTag` TEXT NOT NULL, `displayName` TEXT NOT NULL, `foodWave` INTEGER NOT NULL, `points` INTEGER NOT NULL, `pointsAccumulated` INTEGER NOT NULL, `key` INTEGER NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
           {
             "fieldPath": "_id",
@@ -259,8 +259,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "displayName",
-            "columnName": "displayName",
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "avatrUrl",
+            "columnName": "avatrUrl",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -271,20 +277,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "avatarUrl",
-            "columnName": "avatarUrl",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "points",
-            "columnName": "points",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "userId",
-            "columnName": "userId",
+            "fieldPath": "displayName",
+            "columnName": "displayName",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -295,8 +289,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "coins",
-            "columnName": "coins",
+            "fieldPath": "points",
+            "columnName": "points",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pointsAccumulated",
+            "columnName": "pointsAccumulated",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -458,7 +458,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '64145a0d233925fd28a80a38316cd145')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f39906469f336ff1fd8c3c6c6f1907a4')"
     ]
   }
 }
