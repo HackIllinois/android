@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomAppBar() {
         // by default, home button is selected
         val selectedIconColor = ContextCompat.getColor(this, R.color.selectedAppBarIcon)
-        val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
+        val unselectedIconColor = ContextCompat.getColor(this, R.color.black)
 
         bottomAppBar.homeButton.setColorFilter(selectedIconColor)
 
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                     bottomAppBar.shopButton,
                     bottomAppBar.profileButton,
                 )
-                val unselectedIconColor = ContextCompat.getColor(this, R.color.unselectedAppBarIcon)
+                val unselectedIconColor = ContextCompat.getColor(this, R.color.black)
                 bottomBarButtons.forEach { (it as ImageButton).setColorFilter(unselectedIconColor) }
 
                 // if not already on scanner selection page, switch fragment to scanner selection page
