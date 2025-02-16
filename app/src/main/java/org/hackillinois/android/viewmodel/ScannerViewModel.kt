@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.event.EventsList
@@ -18,7 +19,6 @@ import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.repository.rolesRepository
 import org.json.JSONObject
 import retrofit2.HttpException
-import kotlinx.coroutines.launch
 
 class ScannerViewModel : ViewModel() {
     var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
