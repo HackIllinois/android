@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/contentFrame"
@@ -106,8 +107,6 @@
         app:fabCustomSize="72dp"
         app:maxImageSize="40dp"
         app:srcCompat="@drawable/camera_png" />
-
-
 
     <!--    <FrameLayout-->
 <!--        android:id="@+id/codeEntrySheet"-->

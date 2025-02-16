@@ -48,10 +48,22 @@
     <color name="coinTotalColor">#2A2A2A</color>
     <color name="tabSelectedColor">#D84177</color>
 
-<!--      2025 color palette      -->
+<!--    2025 Color Palette -->
+    <color name="soothingEucalyptus">#84BCB9</color>
+    <color name="softOrange">#DE8E45</color>
+    <color name="robustOrange">#C5673F</color>
+    <color name="floralRed">#903D2B</color>
+    <color name="greenYellow">#F9C126</color>
+    <color name="soothingTan">#E0C69F</color>
+    
+<!--    Scanner Colors -->
+    <color name="moderateOrange">#E3A748</color>
+    <color name="burntBrown">#8C3712</color>
+    <color name="burntBrownBorder">#C5673F</color>
+    <color name="tealButtonBorder">#0E3F41</color>
+  
+  <!--      2025 color palette      -->
     <color name="cream">#F5F0DD</color>
     <color name="black">#000000</color>
-
-
 
 </resources>

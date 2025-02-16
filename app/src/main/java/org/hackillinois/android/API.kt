@@ -9,6 +9,7 @@ import org.hackillinois.android.model.scanner.DietaryRestrictions
 import org.hackillinois.android.model.scanner.EventId
 import org.hackillinois.android.model.scanner.MentorId
 import org.hackillinois.android.model.scanner.Points
+import org.hackillinois.android.model.scanner.QRCode
 import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.model.user.FavoritesResponse
@@ -62,12 +63,14 @@ interface API {
     suspend fun attendee(): Attendee
 
     // SHOP
-
-    @GET("shop/v2/")
+    @GET("shop/")
     suspend fun shop(): List<ShopItem>
 
     @POST("shop/item/buy/")
     suspend fun buyShopItem(@Body body: ItemInstance): ShopItem
+
+    @POST("shop/cart/redeem/")
+    suspend fun redeemCart(@Body body: QRCode): Cart
 
     // STAFF
 
@@ -85,13 +88,13 @@ interface API {
     @GET("user/following/")
     suspend fun favoriteEvents(): FavoritesResponse
 
-    @PUT("user/follow/")
-    fun followEvent(@Body eventId: EventId): Call<FavoritesResponse>
+    @PUT("user/follow/{eventId}/")
+    fun followEvent(@Path("eventId") event: EventId): Call<FavoritesResponse>
 
     @DELETE("user/unfollow/{eventId}")
     fun unfollowEvent(@Path("eventId") eventId: EventId): Call<FavoritesResponse>
 
-    @GET("user/v2-qr/")
+    @GET("user/qr/")
     suspend fun qrCode(): QR
 
     @PUT("user/scan-event/")
