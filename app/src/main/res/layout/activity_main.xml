@@ -32,6 +32,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="16dp"
                 android:background="@color/cream"
+                app:maxImageSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/scheduleButton"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -48,6 +49,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@color/cream"
+                app:maxImageSize="30dp"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toStartOf="@+id/placeholder"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -72,6 +74,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="16dp"
                 android:background="@color/cream"
+                app:maxImageSize="30dp"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -85,6 +88,7 @@
                 android:layout_height="48dp"
                 android:layout_marginBottom="2dp"
                 android:background="@color/cream"
+                app:maxImageSize="30dp"
                 app:layout_constraintBottom_toBottomOf="@id/homeButton"
                 app:layout_constraintEnd_toStartOf="@+id/profileButton"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -105,7 +109,7 @@
         android:layout_marginBottom="30dp"
         android:layout_marginTop="20dp"
         app:fabCustomSize="72dp"
-        app:maxImageSize="40dp"
+        app:maxImageSize="30dp"
         app:srcCompat="@drawable/camera_png" />
 
     <!--    <FrameLayout-->
