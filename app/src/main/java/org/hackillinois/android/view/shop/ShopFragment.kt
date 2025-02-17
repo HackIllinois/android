@@ -15,8 +15,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_point_shop.number_of_coins_textview
 import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
+import kotlinx.android.synthetic.main.shop_tile.view.priceTextView
+import kotlinx.android.synthetic.main.shop_tile.view.quantityTextView
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.R
@@ -36,6 +39,15 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var mAdapter: ShopAdapter
+
+    private lateinit var sticker1ImageView: ImageView
+    private lateinit var sticker2ImageView: ImageView
+    private lateinit var sticker1TextView: TextView
+    private lateinit var sticker2TextView: TextView
+    private lateinit var priceTextView1: TextView
+    private lateinit var priceTextView2: TextView
+    private lateinit var quantityTextView1: TextView
+    private lateinit var quantityTextView2: TextView
 
     private lateinit var merchButton: TextView
     private lateinit var raffleButton: TextView
@@ -76,22 +88,29 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_point_shop, container, false)
 
+        sticker1ImageView = view.findViewById(R.id.image_view_sticker1_symbol)
+        sticker2ImageView = view.findViewById(R.id.image_view_sticker2_symbol)
+        sticker1TextView = view.findViewById(R.id.text_view_sticker1)
+        sticker2TextView = view.findViewById(R.id.text_view_sticker2)
+        priceTextView1 = view.findViewById(R.id.priceTextView1)
+        priceTextView2 = view.findViewById(R.id.priceTextView2)
+        quantityTextView1 = view.findViewById(R.id.quantityTextView1)
+        quantityTextView2 = view.findViewById(R.id.quantityTextView2)
+
         merchButton = view.findViewById(R.id.merchButton)
         raffleButton = view.findViewById(R.id.raffleButton)
 
-        mAdapter = ShopAdapter(shop, this)
+        recyclerView = view.recyclerview_point_shop
 
-        recyclerView = view.recyclerview_point_shop.apply {
-            mLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            this.layoutManager = mLayoutManager
-            this.adapter = mAdapter
-        }
+
 
         shopViewModel.shopLiveData.observe(
             viewLifecycleOwner,
-            Observer {
-                // will split shop items into Merch or Raffle category
-                updateShopItems(it)
+            Observer { shopItems ->
+                // Split the shop items into Merch or Raffle category
+                updateShopItems(shopItems)
+                updateShopUI()
+
             },
         )
 
@@ -134,15 +153,38 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
         // Split the shop items into Merch and Raffle items
         merchItems = newShop.filter { !it.isRaffle }
         raffleItems = newShop.filter { it.isRaffle }
-
-        // Update the UI based on the selected button
-        updateShopUI()
     }
+
 
     private fun updateShopUI() {
         // if showingMerch variable is True based on selected button, show merch items. else, show raffle
         val itemsToShow = if (showingMerch) merchItems else raffleItems
-        mAdapter.updateShop(itemsToShow)
+        val recyclerViewItems =
+            if (itemsToShow.size > 2) itemsToShow.subList(2, itemsToShow.size) else listOf()
+
+        recyclerView.apply {
+            mLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            this.layoutManager = mLayoutManager
+            mAdapter = ShopAdapter(recyclerViewItems, this@ShopFragment)
+            this.adapter = mAdapter
+        }
+        // Update the stickers with the first two items
+        if (itemsToShow.isNotEmpty()) {
+            val firstItem = itemsToShow[0]
+            Glide.with(requireContext()).load(firstItem.imageURL).into(sticker1ImageView)
+            sticker1TextView.text = firstItem.name
+            priceTextView1.text = firstItem.price.toString()
+            quantityTextView1.text = if (firstItem.isRaffle) resources.getString(R.string.unlimited) else resources.getString(R.string.shopquantity, firstItem.quantity)
+        }
+
+        if (itemsToShow.size >= 2) {
+            val secondItem = itemsToShow[1]
+            Glide.with(requireContext()).load(secondItem.imageURL).into(sticker2ImageView)
+            sticker2TextView.text = secondItem.name
+            priceTextView2.text = secondItem.price.toString()
+            quantityTextView2.text = if (secondItem.isRaffle) resources.getString(R.string.unlimited) else resources.getString(R.string.shopquantity, secondItem.quantity)
+        }
+
     }
 
     // update merch ViewModel on click
@@ -206,6 +248,7 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
         return context.getSharedPreferences(prefString, Context.MODE_PRIVATE)
             .getString("provider", "") ?: "" == "github"
     }
+
 
     override fun onBuyItem(item: ShopItem) {
         // Implement your buying logic here (e.g., make a network call)

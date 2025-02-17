@@ -126,8 +126,8 @@
 
     <ImageView
         android:id="@+id/image_view_sticker1_symbol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
         android:src="@drawable/point_shop_sticker_symbol"
         app:layout_constraintStart_toStartOf="@id/image_view_sticker1"
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
@@ -136,8 +136,8 @@
 
     <ImageView
         android:id="@+id/image_view_sticker2_symbol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
         android:src="@drawable/point_shop_sticker_symbol"
         app:layout_constraintStart_toStartOf="@id/image_view_sticker2"
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
@@ -145,11 +145,13 @@
         app:layout_constraintTop_toTopOf="@id/image_view_sticker2" />
     <TextView
         android:id="@+id/text_view_sticker1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:scrollHorizontally="false"
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/sticker"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/image_view_sticker1"
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
@@ -160,11 +162,13 @@
 
     <TextView
         android:id="@+id/text_view_sticker2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_medium"
+        android:gravity="center"
+        android:scrollHorizontally="false"
         android:text="@string/sticker"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/image_view_sticker2"
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
@@ -326,6 +330,32 @@
         app:layout_constraintStart_toEndOf="@+id/separatorTextView2"
         app:layout_constraintTop_toTopOf="@id/priceTextView2"
         tools:text="50 Left" />
+
+    <ImageView
+        android:id="@+id/plusButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/point_shop_plus_button"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_sticker1"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
+        app:layout_constraintStart_toStartOf="@id/image_view_sticker1"
+        app:layout_constraintTop_toTopOf="@id/image_view_sticker1"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintVertical_bias="0.3"
+        />
+
+    <ImageView
+        android:id="@+id/plusButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/point_shop_plus_button"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_sticker2"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
+        app:layout_constraintStart_toStartOf="@id/image_view_sticker2"
+        app:layout_constraintTop_toTopOf="@id/image_view_sticker2"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintVertical_bias="0.3"
+        />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"

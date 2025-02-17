@@ -15,7 +15,7 @@ import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Cart
 import org.hackillinois.android.database.entity.ShopItem
 
-class CartFragment : Fragment() {
+class CartFragment : Fragment(), CartAdapter.OnBuyItemListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var cartAdapter: CartAdapter
@@ -31,7 +31,7 @@ class CartFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerview_point_shop)
         recyclerView.layoutManager = GridLayoutManager(context, 2)
 
-        cartAdapter = CartAdapter(cartItems)
+        cartAdapter = CartAdapter(cartItems, this)
         recyclerView.adapter = cartAdapter
 
         fetchCartData()
@@ -79,6 +79,23 @@ class CartFragment : Fragment() {
                 cartAdapter.updateCart(cartItems)
             } catch (e: Exception) {
                 Log.e("CartFragment", "Error fetching cart items", e)
+            }
+        }
+    }
+
+    override fun onBuyItem(item: ShopItem) {
+        lifecycleScope.launch {
+            try {
+                val response = App.getAPI().addItemCart(item.itemId)
+                if (response.isSuccessful) {
+                    // Update UI or local data with the new cart state
+                    fetchCartData()
+                    Log.d("CartDebug", "Item added: ${response.body()}")
+                } else {
+                    Log.e("CartDebug", "Failed to add item: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e("CartDebug", "Error adding item to cart", e)
             }
         }
     }
