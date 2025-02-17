@@ -4,7 +4,7 @@
     <!-- Button Color -->
     <item android:top="8dp">
         <shape  android:shape="rectangle">
-            <stroke android:color="@color/mediumBrown" android:width="4dp" />
+            <stroke android:color="@color/tealButtonBorder" android:width="4dp" />
             <solid android:color="@color/aquaGreen" />
             <corners android:radius="15dp" />
 
