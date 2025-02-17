@@ -9,6 +9,7 @@ import org.hackillinois.android.model.scanner.DietaryRestrictions
 import org.hackillinois.android.model.scanner.EventId
 import org.hackillinois.android.model.scanner.MentorId
 import org.hackillinois.android.model.scanner.Points
+import org.hackillinois.android.model.scanner.QRCode
 import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.model.user.FavoritesResponse
@@ -67,6 +68,9 @@ interface API {
 
     @POST("shop/item/buy/")
     suspend fun buyShopItem(@Body body: ItemInstance): ShopItem
+
+    @POST("shop/cart/redeem/")
+    suspend fun redeemCart(@Body body: QRCode): Cart
 
     // STAFF
 

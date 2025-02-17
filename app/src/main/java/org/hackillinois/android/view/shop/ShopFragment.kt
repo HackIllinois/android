@@ -152,7 +152,7 @@ class ShopFragment : Fragment() {
 
     private fun updateCoinTotalUI(newProfile: Profile?) {
         if (newProfile != null) {
-            coin_total_textview.text = String.format("%,d", newProfile.coins)
+            coin_total_textview.text = String.format("%,d", newProfile.pointsAccumulated)
         }
     }
 

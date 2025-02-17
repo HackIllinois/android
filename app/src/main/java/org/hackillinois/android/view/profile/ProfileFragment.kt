@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -127,7 +128,7 @@ class ProfileFragment : Fragment() {
         avatarImage = view.findViewById(R.id.avatarImage)
         waveText = view.findViewById(R.id.waveText)
         attendeeTypeText = view.findViewById(R.id.attendeeTypeText)
-        rankingPlacementText = view.findViewById(R.id.rankingPlacementTextView)
+        rankingPlacementText = view.findViewById(R.id.rankValue)
 
         // Displays the logout button in the top-right corner if an attendee
         val logoutButton = view.findViewById<ImageButton>(R.id.logoutButton)
@@ -145,6 +146,7 @@ class ProfileFragment : Fragment() {
         updateProTag()
 
         // load avatar image png from API using Glide
+        Log.d("avatarUrl: ", "" + avatarImage)
         Glide.with(requireContext()).load(it.avatarUrl).into(avatarImage)
     }
 
@@ -159,6 +161,7 @@ class ProfileFragment : Fragment() {
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
             // Retrieves qr code user info that will be encoded
             val text = qr.qrInfo
+            Log.d("Attendee QR Code: ", "" + text)
             // Creates bitmap of text
             val bitmap = generateQR(text)
             // actually setting the qr code to be the generated qr code
@@ -182,7 +185,7 @@ class ProfileFragment : Fragment() {
                 multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints)
 
             val clear = Color.TRANSPARENT
-            val solid = Color.parseColor("#662B13")
+            val solid = Color.parseColor("#000000")
             // creates qr code based on bitMatrix
             for (x in 0 until width) {
                 for (y in 0 until (height)) {
@@ -203,7 +206,7 @@ class ProfileFragment : Fragment() {
     private fun isStaff(): Boolean {
         val context = requireActivity().applicationContext
         val prefString = context.getString(R.string.authorization_pref_file_key)
-        return context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "" == "google"
+        return (context.getSharedPreferences(prefString, Context.MODE_PRIVATE).getString("provider", "") ?: "") == "google"
     }
 
     private fun isAttendee(): Boolean {
