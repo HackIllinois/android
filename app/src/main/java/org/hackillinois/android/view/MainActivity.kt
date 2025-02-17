@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomAppBar() {
         // by default, home button is selected
+
         val selectedIconColor = ContextCompat.getColor(this, R.color.black)
         val unselectedIconColor = ContextCompat.getColor(this, R.color.black)
 

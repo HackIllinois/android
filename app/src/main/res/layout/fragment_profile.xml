@@ -159,6 +159,7 @@
         app:layout_constraintVertical_bias="0.365"
         tools:text="Hackaroni Steve" />
 
+
     <FrameLayout
         android:id="@+id/rankSection"
         android:layout_width="300dp"
