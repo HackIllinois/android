@@ -51,7 +51,6 @@ class CartAdapter(private var cartItems: List<Pair<ShopItem, Int>>, private val 
                 Log.d("Item ID: ", "" + item.itemId)
                 buyItemListener.onBuyItem(item)
             }
-
         }
     }
 

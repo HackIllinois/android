@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_point_shop.number_of_coins_textview
 import kotlinx.android.synthetic.main.fragment_point_shop.view.recyclerview_point_shop
-import kotlinx.android.synthetic.main.shop_tile.view.priceTextView
-import kotlinx.android.synthetic.main.shop_tile.view.quantityTextView
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
 import org.hackillinois.android.R
@@ -35,7 +33,6 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
     }
 
     private lateinit var shopViewModel: ShopViewModel
-    private var shop: List<ShopItem> = listOf()
     private lateinit var recyclerView: RecyclerView
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var mAdapter: ShopAdapter
@@ -102,15 +99,12 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
 
         recyclerView = view.recyclerview_point_shop
 
-
-
         shopViewModel.shopLiveData.observe(
             viewLifecycleOwner,
             Observer { shopItems ->
                 // Split the shop items into Merch or Raffle category
                 updateShopItems(shopItems)
                 updateShopUI()
-
             },
         )
 
@@ -155,7 +149,6 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
         raffleItems = newShop.filter { it.isRaffle }
     }
 
-
     private fun updateShopUI() {
         // if showingMerch variable is True based on selected button, show merch items. else, show raffle
         val itemsToShow = if (showingMerch) merchItems else raffleItems
@@ -184,7 +177,6 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
             priceTextView2.text = secondItem.price.toString()
             quantityTextView2.text = if (secondItem.isRaffle) resources.getString(R.string.unlimited) else resources.getString(R.string.shopquantity, secondItem.quantity)
         }
-
     }
 
     // update merch ViewModel on click
@@ -248,7 +240,6 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
         return context.getSharedPreferences(prefString, Context.MODE_PRIVATE)
             .getString("provider", "") ?: "" == "github"
     }
-
 
     override fun onBuyItem(item: ShopItem) {
         // Implement your buying logic here (e.g., make a network call)
