@@ -85,7 +85,7 @@
     <string name="shop_toast_text">Head to the Point Shop location to scan and buy items!</string>
 
     <!--   Profile Fragment   -->
-    <string name="profile">PROFILE PAGE</string>
+    <string name="profile">PROFILE</string>
     <string name="your_ranking">Your Ranking</string>
     <string name="dashes">--</string>
     <!--   not logged in   -->
@@ -114,6 +114,7 @@
     <!--   Dialog Fragments   -->
     <string name="prize_obtained">Prize Obtained!</string>
     <string name="points_earned">Points Earned!</string>
+    <string name="rank">Rank</string>
 
 
 </resources>
