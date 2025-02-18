@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:elevation="0dp">
+
+
+
+
+    <ImageView
+        android:id="@+id/image_view_sticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/point_shop_sticker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+ />
+
+
+    <ImageView
+        android:id="@+id/image_view_sticker_symbol"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:src="@drawable/point_shop_sticker_symbol"
+        app:layout_constraintStart_toStartOf="@id/image_view_sticker"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_sticker"
+        app:layout_constraintTop_toTopOf="@id/image_view_sticker" />
+
+
+
+    <TextView
+        android:id="@+id/text_view_sticker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:scrollHorizontally="false"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/sticker"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_sticker"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker"
+        app:layout_constraintStart_toStartOf="@id/image_view_sticker"
+        app:layout_constraintTop_toTopOf="@id/image_view_sticker"
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/image_view_number_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/point_shop_number_bar"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_sticker"
+        app:layout_constraintEnd_toEndOf="@id/image_view_sticker"
+        app:layout_constraintStart_toStartOf="@id/image_view_sticker"
+        app:layout_constraintTop_toTopOf="@id/image_view_sticker"
+        app:layout_constraintVertical_bias="0.9" />
+
+
+    <!-- Borders -->
+    <ImageView
+        android:id="@+id/border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:src="@drawable/point_shop_borders"
+        app:layout_constraintStart_toStartOf="@id/image_view_number_bar"
+        app:layout_constraintEnd_toEndOf="@id/image_view_number_bar"
+        app:layout_constraintTop_toTopOf="@id/image_view_number_bar"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar" />
+
+    <!-- Minus Button -->
+
+    <!-- Number Text -->
+
+    <TextView
+        android:id="@+id/button_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="@string/minus"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_plus"
+        app:layout_constraintEnd_toStartOf="@id/border"
+        app:layout_constraintStart_toStartOf="@id/image_view_number_bar"
+        app:layout_constraintTop_toTopOf="@id/image_view_number_bar"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/number_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/one"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/border"
+        app:layout_constraintTop_toTopOf="@id/image_view_number_bar"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar"
+        app:layout_constraintEnd_toEndOf="@id/border" />
+
+    <!-- Plus Button -->
+    <TextView
+        android:id="@+id/button_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plus"
+        android:textSize="11sp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:elevation="10dp"
+        app:layout_constraintStart_toEndOf="@id/border"
+        app:layout_constraintTop_toTopOf="@id/image_view_number_bar"
+        app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar"
+        app:layout_constraintEnd_toEndOf="@id/image_view_number_bar" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

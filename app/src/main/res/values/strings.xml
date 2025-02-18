@@ -84,6 +84,16 @@
     <string name="raffle">RAFFLE</string>
     <string name="unlimited">Unlimited</string>
     <string name="shop_toast_text">Head to the Point Shop location to scan and buy items!</string>
+    <string name="cart">CART</string>
+    <string name="sticker">Sticker</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="one">1</string>
+    <string name="back">BACK</string>
+    <string name="scan">SCAN HERE TO \nCOMPLETE PURCHASE</string>
+    <string name="out_of_stock">OUT OF STOCK</string>
+
+
 
     <!--   Profile Fragment   -->
     <string name="profile">PROFILE</string>

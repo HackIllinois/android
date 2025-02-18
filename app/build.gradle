@@ -129,6 +129,9 @@ dependencies {
 
     // Swipe-to-refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //Json Parsing
+    implementation 'com.google.code.gson:gson:2.8.9'
 }
 
 apply plugin: 'com.google.gms.google-services'
