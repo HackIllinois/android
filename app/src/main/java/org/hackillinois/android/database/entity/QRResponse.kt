@@ -1,3 +1,3 @@
 package org.hackillinois.android.database.entity
 
-data class QRResponse(val qrCode: String)
+data class QRResponse(val QRCode: String)

@@ -1,8 +1,10 @@
 package org.hackillinois.android.view.shop
 
 import android.content.Context
+import android.graphics.Rect
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.TouchDelegate
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,14 +13,37 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.ShopItem
-import org.hackillinois.android.view.shop.ShopAdapter.OnBuyItemListener
 
-class CartAdapter(private var cartItems: List<Pair<ShopItem, Int>>, private val buyItemListener: OnBuyItemListener) :
-    RecyclerView.Adapter<CartAdapter.ViewHolder>() {
+class CartAdapter(
+    private var cartItems: List<Pair<ShopItem, Int>>,
+    private val listener: OnQuantityChangeListener
+) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
-    inner class ViewHolder(parent: View) : RecyclerView.ViewHolder(parent)
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val textViewSticker: TextView = view.findViewById(R.id.text_view_sticker)
+        val quantityTextView: TextView = view.findViewById(R.id.number_text)
+        val shopItemImageView: ImageView = view.findViewById(R.id.image_view_sticker_symbol)
+        val plusButton: TextView = view.findViewById(R.id.button_plus)
+        val minusButton: TextView = view.findViewById(R.id.button_minus)
+    }
+
+    private fun expandTouchArea(targetView: View, extraPadding: Int) {
+        val parentView = targetView.parent as? ViewGroup ?: return
+        parentView.post {
+            val rect = Rect()
+            targetView.getHitRect(rect)
+            rect.top -= extraPadding
+            rect.left -= extraPadding
+            rect.bottom += extraPadding
+            rect.right += extraPadding
+
+            // Ensure we do not override existing touch delegates
+            parentView.touchDelegate = TouchDelegate(rect, targetView)
+            parentView.requestLayout()  // Refresh layout so it applies
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -31,27 +56,25 @@ class CartAdapter(private var cartItems: List<Pair<ShopItem, Int>>, private val 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val (item, quantity) = cartItems[position]
-        bind(item, quantity, holder.itemView)
-    }
+        holder.textViewSticker.text = item.name
+        holder.quantityTextView.text = quantity.toString()
+        Glide.with(context).load(item.imageURL).into(holder.shopItemImageView)
 
-    private fun bind(item: ShopItem, quantity: Int, itemView: View) {
-        itemView.apply {
-            val textViewSticker: TextView = findViewById(R.id.text_view_sticker)
-            textViewSticker.text = item.name
-            val quantiyTextView: TextView = findViewById(R.id.number_text)
-            quantiyTextView.text = quantity.toString()
-
-            val shopItemImageView: ImageView = findViewById(R.id.image_view_sticker_symbol)
-            Glide.with(context).load(item.imageURL).into(shopItemImageView)
-
-            val plusButton: TextView = findViewById(R.id.button_plus)
-
-            plusButton.setOnClickListener {
-                Log.d("CartDebug", "Plus button clicked!")
-                Log.d("Item ID: ", "" + item.itemId)
-                buyItemListener.onBuyItem(item)
-            }
+        // Increase quantity using plus button
+        holder.plusButton.setOnClickListener {
+            val newQuantity = quantity + 1
+            listener.onIncreaseQuantity(item, newQuantity)
         }
+
+        expandTouchArea(holder.plusButton, 100)
+
+        // Decrease quantity using minus button (allowing 0)
+        holder.minusButton.setOnClickListener {
+            val newQuantity = quantity - 1
+            listener.onDecreaseQuantity(item, newQuantity)
+        }
+
+        expandTouchArea(holder.minusButton, 100)
     }
 
     fun updateCart(newCartItems: List<Pair<ShopItem, Int>>) {
@@ -59,7 +82,8 @@ class CartAdapter(private var cartItems: List<Pair<ShopItem, Int>>, private val 
         notifyDataSetChanged()
     }
 
-    interface OnBuyItemListener {
-        fun onBuyItem(item: ShopItem)
+    interface OnQuantityChangeListener {
+        fun onIncreaseQuantity(item: ShopItem, newQuantity: Int)
+        fun onDecreaseQuantity(item: ShopItem, newQuantity: Int)
     }
 }

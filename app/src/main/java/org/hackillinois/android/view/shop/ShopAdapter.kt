@@ -70,7 +70,7 @@ class ShopAdapter(private var itemList: List<ShopItem>, private val buyItemListe
     }
 
     fun updateShop(shopItem: List<ShopItem>) {
-        this.itemList = shopItem
+        this.itemList = shopItem.sortedBy { it.quantity == 0 } // Move out-of-stock items to the end
         notifyDataSetChanged()
     }
 

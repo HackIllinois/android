@@ -2,9 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_margin="5dp" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:elevation="0dp">
 
 
 
@@ -76,21 +79,25 @@
         app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar" />
 
     <!-- Minus Button -->
+
+    <!-- Number Text -->
+
     <TextView
         android:id="@+id/button_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/minus"
         android:fontFamily="@font/montserrat_bold"
-        android:textSize="11sp"
-        android:textColor="@color/black"
         android:gravity="center"
-        app:layout_constraintStart_toStartOf="@id/image_view_number_bar"
+        android:text="@string/minus"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_plus"
         app:layout_constraintEnd_toStartOf="@id/border"
+        app:layout_constraintStart_toStartOf="@id/image_view_number_bar"
         app:layout_constraintTop_toTopOf="@id/image_view_number_bar"
-        app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar" />
+        app:layout_constraintVertical_bias="1.0" />
 
-    <!-- Number Text -->
     <TextView
         android:id="@+id/number_text"
         android:layout_width="wrap_content"
@@ -115,6 +122,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/black"
         android:gravity="center"
+        android:elevation="10dp"
         app:layout_constraintStart_toEndOf="@id/border"
         app:layout_constraintTop_toTopOf="@id/image_view_number_bar"
         app:layout_constraintBottom_toBottomOf="@id/image_view_number_bar"

@@ -79,6 +79,9 @@ interface API {
     @GET("shop/cart/qr/")
     suspend fun getCartQRCode(): QRResponse
 
+    @DELETE("shop/cart/{itemId}")
+    suspend fun removeItemCart(@Path("itemId") itemId: String): Response<ResponseBody>
+
     // STAFF
 
     @POST("staff/attendance/")

@@ -67,7 +67,7 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
     override fun onResume() {
         super.onResume()
         shopViewModel.startTimer()
-        updateShopUI()
+//        updateShopUI()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,8 +113,8 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
             viewLifecycleOwner,
             Observer { shopItems ->
                 // Split the shop items into Merch or Raffle category
-                updateShopItems(shopItems)
                 updateShopUI()
+                updateShopItems(shopItems)
             },
         )
 
@@ -160,40 +160,90 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
 
     // Called in onCreateView within shopLiveData.observe
     private fun updateShopItems(newShop: List<ShopItem>) {
-        // Split the shop items into Merch and Raffle items
-        merchItems = newShop.filter { !it.isRaffle }
-        raffleItems = newShop.filter { it.isRaffle }
+        // Split shop items into categories
+        merchItems = newShop.filter { !it.isRaffle }.sortedBy { it.quantity == 0 }
+        raffleItems = newShop.filter { it.isRaffle }.sortedBy { it.quantity == 0 }
+
+        // **Update only the RecyclerView items**
+        val recyclerViewItems = if (showingMerch) {
+            if (merchItems.size > 2) merchItems.subList(2, merchItems.size) else listOf()
+        } else {
+            raffleItems
+        }
+
+        // Update adapter
+        mAdapter.updateShop(recyclerViewItems)
     }
 
+
+
     private fun updateShopUI() {
-        // if showingMerch variable is True based on selected button, show merch items. else, show raffle
-        val itemsToShow = if (showingMerch) merchItems else raffleItems
+        // Sort items so that out-of-stock items are pushed to the end
+        val sortedItems = if (showingMerch) {
+            merchItems.sortedBy { it.quantity == 0 }
+        } else {
+            raffleItems.sortedBy { it.quantity == 0 }
+        }
+
+        // Ensure first two items are always displayed in the fixed sticker views
+        if (sortedItems.isNotEmpty()) {
+            val firstItem = sortedItems[0]
+            updateStickerView(firstItem, sticker1ImageView, sticker1TextView, priceTextView1, quantityTextView1)
+        } else {
+            clearStickerView(sticker1ImageView, sticker1TextView, priceTextView1, quantityTextView1)
+        }
+
+        if (sortedItems.size >= 2) {
+            val secondItem = sortedItems[1]
+            updateStickerView(secondItem, sticker2ImageView, sticker2TextView, priceTextView2, quantityTextView2)
+        } else {
+            clearStickerView(sticker2ImageView, sticker2TextView, priceTextView2, quantityTextView2)
+        }
+
+        // RecyclerView should only show items *after* the first two
         val recyclerViewItems =
-            if (itemsToShow.size > 2) itemsToShow.subList(2, itemsToShow.size) else listOf()
+            if (sortedItems.size > 2) sortedItems.subList(2, sortedItems.size) else listOf()
 
         recyclerView.apply {
             mLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            this.layoutManager = mLayoutManager
+            layoutManager = mLayoutManager
             mAdapter = ShopAdapter(recyclerViewItems, this@ShopFragment)
-            this.adapter = mAdapter
-        }
-        // Update the stickers with the first two items
-        if (itemsToShow.isNotEmpty()) {
-            val firstItem = itemsToShow[0]
-            Glide.with(requireContext()).load(firstItem.imageURL).into(sticker1ImageView)
-            sticker1TextView.text = firstItem.name
-            priceTextView1.text = firstItem.price.toString()
-            quantityTextView1.text = if (firstItem.isRaffle) resources.getString(R.string.unlimited) else resources.getString(R.string.shopquantity, firstItem.quantity)
-        }
-
-        if (itemsToShow.size >= 2) {
-            val secondItem = itemsToShow[1]
-            Glide.with(requireContext()).load(secondItem.imageURL).into(sticker2ImageView)
-            sticker2TextView.text = secondItem.name
-            priceTextView2.text = secondItem.price.toString()
-            quantityTextView2.text = if (secondItem.isRaffle) resources.getString(R.string.unlimited) else resources.getString(R.string.shopquantity, secondItem.quantity)
+            adapter = mAdapter
         }
     }
+
+    // Helper function to update a sticker view
+    private fun updateStickerView(
+        item: ShopItem,
+        imageView: ImageView,
+        textView: TextView,
+        priceView: TextView,
+        quantityView: TextView
+    ) {
+        Glide.with(requireContext()).load(item.imageURL).into(imageView)
+        textView.text = item.name
+        priceView.text = item.price.toString()
+        quantityView.text = when {
+            item.isRaffle -> resources.getString(R.string.unlimited)
+            item.quantity == 0 -> resources.getString(R.string.out_of_stock)
+            else -> resources.getString(R.string.shopquantity, item.quantity)
+        }
+    }
+
+    // Helper function to clear sticker views if not enough items are available
+    private fun clearStickerView(
+        imageView: ImageView,
+        textView: TextView,
+        priceView: TextView,
+        quantityView: TextView
+    ) {
+        imageView.setImageDrawable(null)
+        textView.text = ""
+        priceView.text = ""
+        quantityView.text = ""
+    }
+
+
 
     // update merch ViewModel on click
     private val merchClickListener = View.OnClickListener {
@@ -268,7 +318,7 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
                     Toast.makeText(requireContext(), "${item.name} redeemed successfully!", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("CartDebug", "Failed to add item: ${response.code()}")
-                    Toast.makeText(requireContext(), "Failed to add itme: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Failed to add item: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e("CartDebug", "Error adding item to cart", e)
