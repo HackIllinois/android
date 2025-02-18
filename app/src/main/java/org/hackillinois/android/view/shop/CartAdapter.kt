@@ -37,7 +37,6 @@ class CartAdapter(
             rect.left -= extraPadding
             rect.bottom += extraPadding
             rect.right += extraPadding
-
             parentView.touchDelegate = TouchDelegate(rect, targetView)
             parentView.requestLayout()  // Refresh layout so it applies
         }
