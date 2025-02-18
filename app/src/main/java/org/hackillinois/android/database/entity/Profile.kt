@@ -9,13 +9,13 @@ import org.hackillinois.android.database.Converters
 @TypeConverters(Converters::class)
 data class Profile(
     var _id: String,
-    var displayName: String,
-    var discordTag: String,
-    var avatarUrl: String,
-    var points: Int,
     var userId: String,
+    var avatarUrl: String,
+    var discordTag: String,
+    var displayName: String,
     var foodWave: Int,
-    var coins: Int,
+    var points: Int,
+    var pointsAccumulated: Int
 ) {
     @PrimaryKey
     var key = 1

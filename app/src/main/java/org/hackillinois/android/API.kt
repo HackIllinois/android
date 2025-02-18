@@ -10,6 +10,7 @@ import org.hackillinois.android.model.scanner.DietaryRestrictions
 import org.hackillinois.android.model.scanner.EventId
 import org.hackillinois.android.model.scanner.MentorId
 import org.hackillinois.android.model.scanner.Points
+import org.hackillinois.android.model.scanner.QRCode
 import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.model.user.FavoritesResponse
@@ -81,6 +82,9 @@ interface API {
 
     @DELETE("shop/cart/{itemId}")
     suspend fun removeItemCart(@Path("itemId") itemId: String): Response<ResponseBody>
+
+    @POST("shop/cart/redeem/")
+    suspend fun redeemCart(@Body body: QRCode): Cart
 
     // STAFF
 

@@ -12,25 +12,25 @@ class ScheduleViewModel : ViewModel() {
     private val eventRepository = EventRepository.instance
     private val shiftRepository = ShiftRepository.instance
 
-    // 2/23/24 00:00:00
+    // 2/28/25 00:00:00
     val fridayStart = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         timeInMillis = 1740722400000
     }.timeInMillis
 
-    // 2/23/24 23:59:59
+    // 2/28/25 23:59:59
     val fridayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         timeInMillis = 1740808799000
     }.timeInMillis
 
-    // 2/24/24 23:59:59
+    // 2/29/25 23:59:59
     val saturdayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         timeInMillis = 1740895199000
     }.timeInMillis
 
-    // 2/25/24 23:59:59
+    // 2/30/25 23:59:59
     val sundayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         timeInMillis = 1740895199000
