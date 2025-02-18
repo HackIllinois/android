@@ -2,12 +2,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.*
+import com.google.gson.JsonParser
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import org.hackillinois.android.App
 import org.hackillinois.android.database.entity.QRResponse
 import retrofit2.HttpException
-import com.google.gson.JsonParser
 
 class RedeemViewModel : ViewModel() {
 

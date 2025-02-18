@@ -153,10 +153,8 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
         plusButton1.setOnClickListener { buyFirstItem() }
         plusButton2.setOnClickListener { buySecondItem() }
 
-
         return view
     }
-
 
     // Called in onCreateView within shopLiveData.observe
     private fun updateShopItems(newShop: List<ShopItem>) {
@@ -174,8 +172,6 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
         // Update adapter
         mAdapter.updateShop(recyclerViewItems)
     }
-
-
 
     private fun updateShopUI() {
         // Sort items so that out-of-stock items are pushed to the end
@@ -242,8 +238,6 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
         priceView.text = ""
         quantityView.text = ""
     }
-
-
 
     // update merch ViewModel on click
     private val merchClickListener = View.OnClickListener {

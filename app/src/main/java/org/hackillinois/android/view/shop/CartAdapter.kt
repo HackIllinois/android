@@ -2,7 +2,6 @@ package org.hackillinois.android.view.shop
 
 import android.content.Context
 import android.graphics.Rect
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.TouchDelegate
 import android.view.View
@@ -39,7 +38,6 @@ class CartAdapter(
             rect.bottom += extraPadding
             rect.right += extraPadding
 
-            // Ensure we do not override existing touch delegates
             parentView.touchDelegate = TouchDelegate(rect, targetView)
             parentView.requestLayout()  // Refresh layout so it applies
         }

@@ -43,10 +43,13 @@ class RedeemFragment : Fragment() {
 
         // Initialize and observe the ViewModel
         redeemViewModel = ViewModelProvider(this).get(RedeemViewModel::class.java)
-        redeemViewModel.qrCodeLiveData.observe(viewLifecycleOwner, Observer { qrString ->
-            Log.d("RedeemFragment", "Updated QR Code: $qrString")
-            updateQRView(qrString)
-        })
+        redeemViewModel.qrCodeLiveData.observe(
+            viewLifecycleOwner,
+            Observer { qrString ->
+                Log.d("RedeemFragment", "Updated QR Code: $qrString")
+                updateQRView(qrString)
+            }
+        )
 
         redeemViewModel.errorLiveData.observe(viewLifecycleOwner) { errorMessage ->
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
