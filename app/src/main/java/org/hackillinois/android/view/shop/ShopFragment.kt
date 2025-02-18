@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -55,6 +56,9 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
     // Merch tab is default selected
     private var showingMerch: Boolean = true
 
+    private lateinit var miniTile1: View
+    private lateinit var miniTile2: View
+
     override fun onPause() {
         super.onPause()
         shopViewModel.stopTimer()
@@ -63,6 +67,7 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
     override fun onResume() {
         super.onResume()
         shopViewModel.startTimer()
+        updateShopUI()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,6 +103,11 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
         raffleButton = view.findViewById(R.id.raffleButton)
 
         recyclerView = view.recyclerview_point_shop
+
+        val plusButton1: ImageView = view.findViewById(R.id.plusButton1)
+        val plusButton2: ImageView = view.findViewById(R.id.plusButton2)
+//        miniTile1 = view.findViewById(R.id.mini_tile_1)
+//        miniTile2 = view.findViewById(R.id.mini_tile_2)
 
         shopViewModel.shopLiveData.observe(
             viewLifecycleOwner,
@@ -139,8 +149,14 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
             transaction.addToBackStack(null) // Optional, for back navigation
             transaction.commit()
         }
+
+        plusButton1.setOnClickListener { buyFirstItem() }
+        plusButton2.setOnClickListener { buySecondItem() }
+
+
         return view
     }
+
 
     // Called in onCreateView within shopLiveData.observe
     private fun updateShopItems(newShop: List<ShopItem>) {
@@ -249,12 +265,32 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
                 if (response.isSuccessful) {
                     // Update UI or local data with the new cart state
                     Log.d("CartDebug", "Item added: ${response.body()}")
+                    Toast.makeText(requireContext(), "${item.name} redeemed successfully!", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("CartDebug", "Failed to add item: ${response.code()}")
+                    Toast.makeText(requireContext(), "Failed to add itme: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e("CartDebug", "Error adding item to cart", e)
+                Toast.makeText(requireContext(), "Failed to add item: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+            updateShopUI()
+        }
+    }
+
+    private fun buyFirstItem() {
+        if (merchItems.isNotEmpty()) {
+            val firstItem = merchItems[0]
+            Log.d("ShopFragment", "Buying: ${firstItem.name}")
+            onBuyItem(firstItem)
+        }
+    }
+
+    private fun buySecondItem() {
+        if (merchItems.size >= 2) {
+            val secondItem = merchItems[1]
+            Log.d("ShopFragment", "Buying: ${secondItem.name}")
+            onBuyItem(secondItem)
         }
     }
 }

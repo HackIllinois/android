@@ -37,20 +37,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/point_shop_cart_symbol"
-        android:text="@string/cart"
-        android:textColor="@color/magenta"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:textSize="14sp"
         android:paddingBottom="2.5dp"
+        android:text="@string/cart"
+        android:textColor="@color/magenta"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
+        app:layout_constraintVertical_bias="0.463" />
 
-        <ImageView
+    <ImageView
         android:id="@+id/image_view_cloud_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -143,22 +143,25 @@
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
         app:layout_constraintBottom_toBottomOf="@id/image_view_sticker2"
         app:layout_constraintTop_toTopOf="@id/image_view_sticker2" />
+
     <TextView
         android:id="@+id/text_view_sticker1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
         android:gravity="center"
         android:scrollHorizontally="false"
-        android:fontFamily="@font/montserrat_medium"
         android:text="@string/sticker"
-        android:textSize="14sp"
         android:textColor="@color/white"
+        android:textSize="10sp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="@id/image_view_sticker1"
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/image_view_sticker1"
         app:layout_constraintTop_toTopOf="@id/image_view_sticker1"
-        app:layout_constraintVertical_bias="0.125"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintVertical_bias="0.125" />
 
     <TextView
         android:id="@+id/text_view_sticker2"
@@ -168,14 +171,16 @@
         android:gravity="center"
         android:scrollHorizontally="false"
         android:text="@string/sticker"
-        android:textSize="14sp"
         android:textColor="@color/white"
+        android:textSize="10sp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="@id/image_view_sticker2"
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/image_view_sticker2"
         app:layout_constraintTop_toTopOf="@id/image_view_sticker2"
-        app:layout_constraintVertical_bias="0.125"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintVertical_bias="0.125" />
 
     <TextView
         android:id="@+id/costAndQuantityView1"
@@ -336,26 +341,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/point_shop_plus_button"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_sticker1"
+        app:layout_constraintBottom_toBottomOf="@+id/image_view_sticker1"
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker1"
+        app:layout_constraintHorizontal_bias="0.961"
         app:layout_constraintStart_toStartOf="@id/image_view_sticker1"
         app:layout_constraintTop_toTopOf="@id/image_view_sticker1"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintVertical_bias="0.3"
-        />
+        app:layout_constraintVertical_bias="0.319" />
 
     <ImageView
         android:id="@+id/plusButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/point_shop_plus_button"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_sticker2"
+        app:layout_constraintBottom_toBottomOf="@+id/image_view_sticker2"
         app:layout_constraintEnd_toEndOf="@id/image_view_sticker2"
+        app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="@id/image_view_sticker2"
         app:layout_constraintTop_toTopOf="@id/image_view_sticker2"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintVertical_bias="0.3"
-        />
+        app:layout_constraintVertical_bias="0.327" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"
