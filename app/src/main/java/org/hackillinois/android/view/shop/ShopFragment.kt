@@ -285,7 +285,7 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
 
     private fun updateCoinTotalUI(newProfile: Profile?) {
         if (newProfile != null) {
-            coin_total_textview.text = String.format("%,d", newProfile.pointsAccumulated)
+            number_of_coins_textview.text = String.format("%,d", newProfile.pointsAccumulated)
         }
     }
 
