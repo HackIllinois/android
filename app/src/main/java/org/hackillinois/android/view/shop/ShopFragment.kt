@@ -25,7 +25,9 @@ import org.hackillinois.android.R
 import org.hackillinois.android.common.JWTUtilities
 import org.hackillinois.android.database.entity.Profile
 import org.hackillinois.android.database.entity.ShopItem
+import org.hackillinois.android.view.scanner.SimpleScanDialogFragment
 import org.hackillinois.android.viewmodel.ShopViewModel
+import org.json.JSONObject
 
 class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
 
@@ -285,7 +287,7 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
 
     private fun updateCoinTotalUI(newProfile: Profile?) {
         if (newProfile != null) {
-            coin_total_textview.text = String.format("%,d", newProfile.pointsAccumulated)
+            number_of_coins_textview.text = String.format("%,d", newProfile.pointsAccumulated)
         }
     }
 
@@ -307,16 +309,27 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
             try {
                 val response = App.getAPI().addItemCart(item.itemId)
                 if (response.isSuccessful) {
-                    // Update UI or local data with the new cart state
                     Log.d("CartDebug", "Item added: ${response.body()}")
                     Toast.makeText(requireContext(), "${item.name} redeemed successfully!", Toast.LENGTH_SHORT).show()
                 } else {
-                    Log.e("CartDebug", "Failed to add item: ${response.code()}")
-                    Toast.makeText(requireContext(), "Failed to add item: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    val errorMessage: String = try {
+                        val errorBody = response.errorBody()?.string()
+                        if (!errorBody.isNullOrEmpty()) {
+                            // Assuming your error JSON contains a "message" field
+                            val jsonObject = JSONObject(errorBody)
+                            jsonObject.optString("message", "Failed to add item: ${response.code()}")
+                        } else {
+                            "Failed to add item: ${response.code()}"
+                        }
+                    } catch (e: Exception) {
+                        "Failed to add item: ${response.code()}"
+                    }
+                    Log.e("CartDebug", "Failed to add item: $errorMessage")
+                    showSimpleDialogFragment("Error", errorMessage)
                 }
             } catch (e: Exception) {
                 Log.e("CartDebug", "Error adding item to cart", e)
-                Toast.makeText(requireContext(), "Failed to add item: ${e.message}", Toast.LENGTH_SHORT).show()
+                showSimpleDialogFragment("Error", "Failed to add item: ${e.message}")
             }
             updateShopUI()
         }
@@ -336,5 +349,22 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
             Log.d("ShopFragment", "Buying: ${secondItem.name}")
             onBuyItem(secondItem)
         }
+    }
+
+    private fun showSimpleDialogFragment(title: String, subtitle: String) {
+        val args = Bundle().apply {
+            putString("KEY_TITLE", title)
+            putString("KEY_SUBTITLE", subtitle)
+        }
+        // Reuse your SimpleScanDialogFragment if it fits your needs;
+        // otherwise, you can create a similar ShopErrorDialogFragment.
+        val dialog = SimpleScanDialogFragment()
+        dialog.arguments = args
+        dialog.setSimpleOKButtonListener(object : SimpleScanDialogFragment.OnSimpleOKButtonSelected {
+            override fun continueScanningAfterSimpleDialog() {
+                // Optionally perform an action after dismissal (or leave empty)
+            }
+        })
+        dialog.show(requireActivity().supportFragmentManager, "SimpleScanDialogFragment")
     }
 }

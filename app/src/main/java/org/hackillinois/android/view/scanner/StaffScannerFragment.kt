@@ -1,6 +1,7 @@
 package org.hackillinois.android.view.scanner
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,7 @@ class StaffScannerFragment : Fragment() {
                 appBar.visibility = View.INVISIBLE
                 scannerBtn.visibility = View.INVISIBLE
             }
+            Log.d("Staff Scanner Fragment: ", "Attempting to open scanner fragment")
             val scannerFragment = ScannerFragment.newInstance("point-shop")
             (context as MainActivity).switchFragment(scannerFragment, true)
         }

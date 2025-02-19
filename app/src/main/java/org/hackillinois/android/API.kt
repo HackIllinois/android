@@ -1,5 +1,6 @@
 package org.hackillinois.android
 
+import RedeemCart
 import okhttp3.ResponseBody
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.event.EventsList
@@ -84,7 +85,7 @@ interface API {
     suspend fun removeItemCart(@Path("itemId") itemId: String): Response<ResponseBody>
 
     @POST("shop/cart/redeem/")
-    suspend fun redeemCart(@Body body: QRCode): Cart
+    suspend fun redeemCart(@Body body: QRCode): RedeemCart
 
     // STAFF
 

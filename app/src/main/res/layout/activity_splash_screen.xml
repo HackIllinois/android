@@ -9,9 +9,8 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:alpha="0.3"
         android:scaleType="fitXY"
-        android:src="@drawable/scanner_background_svg"
+        android:src="@drawable/olympus_splashscreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
