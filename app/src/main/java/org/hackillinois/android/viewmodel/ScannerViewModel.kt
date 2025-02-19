@@ -9,7 +9,6 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
-import org.hackillinois.android.database.entity.Cart
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.scanner.EventId
@@ -82,7 +81,6 @@ class ScannerViewModel : ViewModel() {
                 lastScanStatus.postValue(ScanStatus("Scan failed: $error", false))
             }
         }
-
     }
 
     fun checkInAttendee(body: UserEventPair) {
