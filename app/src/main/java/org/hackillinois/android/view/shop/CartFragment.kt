@@ -14,6 +14,8 @@ import org.hackillinois.android.App
 import org.hackillinois.android.R
 import org.hackillinois.android.database.entity.Cart
 import org.hackillinois.android.database.entity.ShopItem
+import org.hackillinois.android.view.scanner.SimpleScanDialogFragment
+import org.json.JSONObject
 
 class CartFragment : Fragment(), CartAdapter.OnQuantityChangeListener {
 
@@ -85,10 +87,24 @@ class CartFragment : Fragment(), CartAdapter.OnQuantityChangeListener {
                     Log.d("CartDebug", "Item added: ${response.body()}")
                     fetchCartData() // Refresh cart
                 } else {
-                    Log.e("CartDebug", "Failed to add item: ${response.code()}")
+                    // Extract error message from response.errorBody()
+                    val errorMessage = try {
+                        val errorBody = response.errorBody()?.string()
+                        if (!errorBody.isNullOrEmpty()) {
+                            val jsonObject = JSONObject(errorBody)
+                            jsonObject.optString("message", "Failed to add item: ${response.code()}")
+                        } else {
+                            "Failed to add item: ${response.code()}"
+                        }
+                    } catch (e: Exception) {
+                        "Failed to add item: ${response.code()}"
+                    }
+                    Log.e("CartDebug", "Failed to add item: $errorMessage")
+                    showErrorDialog("Error", errorMessage)
                 }
             } catch (e: Exception) {
                 Log.e("CartDebug", "Error adding item to cart", e)
+                showErrorDialog("Error", "Failed to add item: ${e.message}")
             }
         }
     }
@@ -116,5 +132,20 @@ class CartFragment : Fragment(), CartAdapter.OnQuantityChangeListener {
                 Log.e("CartDebug", "Error removing item from cart", e)
             }
         }
+    }
+
+    private fun showErrorDialog(title: String, message: String) {
+        val args = Bundle().apply {
+            putString("KEY_TITLE", title)
+            putString("KEY_SUBTITLE", message)
+        }
+        val dialog = SimpleScanDialogFragment()
+        dialog.arguments = args
+        dialog.setSimpleOKButtonListener(object : SimpleScanDialogFragment.OnSimpleOKButtonSelected {
+            override fun continueScanningAfterSimpleDialog() {
+                // Optionally perform an action here (e.g. refresh the cart), or leave empty.
+            }
+        })
+        dialog.show(requireActivity().supportFragmentManager, "CartErrorDialogFragment")
     }
 }

@@ -5,122 +5,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="0dp">
+    android:paddingBottom="16dp">
 
+    <!-- Main Content -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/contentFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!-- BottomAppBar with raised notch -->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="72dp"
         android:layout_gravity="bottom"
-        app:backgroundTint="@color/cream">
+        app:backgroundTint="@color/cream"
+        app:fabCradleMargin="12dp"
+        app:fabCradleRoundedCornerRadius="14dp"
+        app:fabCradleVerticalOffset="6dp"
+        app:fabAlignmentMode="center">
 
+        <!-- Container for Icons -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:paddingTop="8dp">
 
+            <!-- Guideline to position icons higher -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineIcons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_begin="4dp"
+                android:orientation="horizontal" />
 
+            <!-- Home Button -->
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/homeButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="16dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
                 android:background="@color/cream"
-                app:maxImageSize="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/scheduleButton"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="spread"
-                app:tint="@color/black"
-                app:srcCompat="@drawable/battle_png" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/guidelineIcons"
+                app:maxImageSize="24dp"
+                app:srcCompat="@drawable/battle_png"
+                app:tint="@color/black" />
 
-
+            <!-- Schedule Button -->
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/scheduleButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
                 android:background="@color/cream"
-                app:maxImageSize="30dp"
-                app:layout_constraintBottom_toBottomOf="@id/homeButton"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/placeholder"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/homeButton"
+                app:layout_constraintTop_toBottomOf="@id/guidelineIcons"
+                app:maxImageSize="24dp"
                 app:srcCompat="@drawable/schedule_png" />
 
-
+            <!-- Invisible Spacer for FAB notch -->
             <View
                 android:id="@+id/placeholder"
                 android:layout_width="72dp"
                 android:layout_height="0dp"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toStartOf="@+id/shopButton"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintTop_toBottomOf="@id/guidelineIcons"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/scheduleButton"
-                app:layout_constraintTop_toTopOf="@id/homeButton" />
+                app:layout_constraintEnd_toStartOf="@+id/shopButton" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/profileButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/cream"
-                app:maxImageSize="30dp"
-                app:layout_constraintBottom_toBottomOf="@id/homeButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/shopButton"
-                app:srcCompat="@drawable/profile_png" />
-
-
+            <!-- Shop Button -->
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/shopButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginBottom="2dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
                 android:background="@color/cream"
-                app:maxImageSize="30dp"
-                app:layout_constraintBottom_toBottomOf="@id/homeButton"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/profileButton"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/placeholder"
-                app:layout_constraintTop_toTopOf="@+id/homeButton"
+                app:layout_constraintTop_toBottomOf="@id/guidelineIcons"
+                app:maxImageSize="24dp"
                 app:srcCompat="@drawable/shop_png" />
+
+            <!-- Profile Button -->
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/profileButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/cream"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/shopButton"
+                app:layout_constraintTop_toBottomOf="@id/guidelineIcons"
+                app:maxImageSize="24dp"
+                app:srcCompat="@drawable/profile_png" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
+    <!-- FloatingActionButton anchored to BottomAppBar -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/code_entry_fab"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_anchor="@id/bottomAppBar"
+        app:layout_anchorGravity="center"
         app:backgroundTint="@color/cream"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginTop="20dp"
-        app:fabCustomSize="72dp"
+        app:fabCustomSize="60dp"
         app:maxImageSize="30dp"
         app:srcCompat="@drawable/camera_png" />
-
-    <!--    <FrameLayout-->
-<!--        android:id="@+id/codeEntrySheet"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center_horizontal"-->
-<!--        app:layout_anchor="@+id/contentFrame"-->
-<!--        app:layout_anchorGravity="center"-->
-<!--        android:visibility="gone"-->
-<!--        <include layout="@layout/layout_event_code_dialog" />-->
-<!--    />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

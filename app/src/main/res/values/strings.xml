@@ -25,7 +25,7 @@
     <string name="onboarding_get_started">Get Started</string>
     <string name="onboarding_welcome_title">Welcome!</string>
     <string name="onboarding_welcome_description">Swipe to see what our app has to offer!</string>
-    <string name="onboarding_countdown_title">Countdown</string>
+    <string name="onboarding_countdown_title">Overview</string>
     <string name="onboarding_countdown_description">View the hackathon’s major events and how much time is left to hack!</string>
     <string name="onboarding_schedule_title">Schedule</string>
     <string name="onboarding_schedule_description">See the times and details of all of our events.</string>
@@ -34,7 +34,11 @@
     <string name="onboarding_profile_title">Profile</string>
     <string name="onboarding_profile_description">View your QR code, food wave, and other personal information.</string>
     <string name="onboarding_shop_title">Point Shop</string>
-    <string name="onboarding_shop_description">View the available prizes you can redeem using your earned coins!</string>
+    <string name="onboarding_shop_description">View the available prizes you can redeem using your earned points!</string>
+    <string name="onboarding_check_in_title">Check-in</string>
+    <string name="onboarding_check_in_description">Quickly scan QR code to check in to events and earn points!</string>
+    <string name="onboarding_cart_title">Cart</string>
+    <string name="onboarding_cart_description">Modify your prize inventory before redemption.</string>
 
     <!--    Login Activity   -->
     <string name="welcome_login">WELCOME TO</string>

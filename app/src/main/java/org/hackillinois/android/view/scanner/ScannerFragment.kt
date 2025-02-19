@@ -136,6 +136,12 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                                 val eventId = getChipEventId()
                                 viewModel.checkInAttendee(UserEventPair(eventId, userToken))
                             }
+                            "point-shop" -> {
+                                Log.d("Shop Raw Text: ", "" + it.text)
+                                val QRCode: String = it.text
+                                Log.d("Point Text: ", QRCode)
+                                viewModel.redeemAttendeeCart(QRCode(QRCode))
+                            }
                             else -> {
                                 displayToast(R.string.something_went_wrong_message)
                                 closeScannerPage()
@@ -152,12 +158,6 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                                 val mentorId: String = it.text
                                 Log.d("Mentor Text: ", "" + mentorId)
                                 viewModel.checkInMentor(MentorId(mentorId))
-                            }
-                            "point-shop" -> {
-                                Log.d("Shop Raw Text: ", "" + it.text)
-                                val QRCode: String = it.text
-                                Log.d("Point Text: ", QRCode)
-                                viewModel.redeemAttendeeCart(QRCode(QRCode))
                             }
                             else -> {
                                 displayToast(R.string.something_went_wrong_message)
@@ -347,13 +347,22 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
 
     private fun closeScannerPage() {
         // set bottom app bar visible again and pop scanner fragment from the backstack
-        val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
-        if (appBar != null && scannerBtn != null) {
-            appBar.visibility = View.VISIBLE
-            scannerBtn.visibility = View.VISIBLE
+//        val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+//        val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+//        if (appBar != null && scannerBtn != null) {
+//            appBar.visibility = View.VISIBLE
+//            scannerBtn.visibility = View.VISIBLE
+//        }
+//        activity?.supportFragmentManager?.popBackStackImmediate()
+        activity?.runOnUiThread {
+            val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+            val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+            if (appBar != null && scannerBtn != null) {
+                appBar.visibility = View.VISIBLE
+                scannerBtn.visibility = View.VISIBLE
+            }
+            activity?.supportFragmentManager?.popBackStackImmediate()
         }
-        activity?.supportFragmentManager?.popBackStackImmediate()
     }
 
     override fun continueScanningAfterSimpleDialog() {
