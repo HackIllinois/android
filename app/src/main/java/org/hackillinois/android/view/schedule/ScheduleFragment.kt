@@ -125,7 +125,7 @@ class ScheduleFragment : Fragment() {
     }
 
     private fun setupCustomTabs(tabLayout: TabLayout) {
-        val tabDayOfMonth = arrayOf("28", "29", "30")
+        val tabDayOfMonth = arrayOf("28", "1", "2")
         val tabDayOfWeek = arrayOf("FRI", "SAT", "SUN")
         for (i in tabDayOfMonth.indices) {
             val tab = tabLayout.newTab()
