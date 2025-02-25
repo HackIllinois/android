@@ -52,7 +52,7 @@ class EventProgressManager(val listener: CountDownListener) {
     }
 
     private var times = listOf(checkInTime, scavengerHuntTime, openingCeremonyTime, hackingTime, projectShowcaseTime, closingCeremonyTime, afterHackathonTime)
-    private var backgrounds = listOf(R.drawable.home_background1_svg, R.drawable.home_background2_svg, R.drawable.home_background3_svg, R.drawable.home_background3_svg, R.drawable.home_background4_svg, R.drawable.home_background5_svg, R.drawable.home_background6_svg, R.drawable.home_background6_svg)
+    private var backgrounds = listOf(R.drawable.home_stage1, R.drawable.home_stage2, R.drawable.home_stage3, R.drawable.home_stage3, R.drawable.home_stage4, R.drawable.home_stage5, R.drawable.home_stage6, R.drawable.home_stage7)
     private var timer: CountDownTimer? = null
     private var state = 0
 
