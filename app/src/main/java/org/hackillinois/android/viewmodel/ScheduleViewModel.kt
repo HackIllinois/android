@@ -21,19 +21,19 @@ class ScheduleViewModel : ViewModel() {
     // 2/28/25 23:59:59
     val fridayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1740808799000
+        timeInMillis = 1740812400000
     }.timeInMillis
 
-    // 2/29/25 23:59:59
+    // 3/1/25 23:59:59
     val saturdayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
         timeInMillis = 1740895199000
     }.timeInMillis
 
-    // 2/30/25 23:59:59
+    // 3/2/25 23:59:59
     val sundayEnd = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1740895199000
+        timeInMillis = 1740981599000
     }.timeInMillis
 
     var fridayEventsLiveData = eventRepository.fetchEventsHappeningBetweenTimes(fridayStart, fridayEnd)

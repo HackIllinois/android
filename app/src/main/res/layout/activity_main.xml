@@ -2,7 +2,6 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="16dp">
@@ -31,7 +30,7 @@
             android:layout_height="match_parent"
             android:paddingTop="8dp">
 
-            <!-- Guideline to position icons higher -->
+            <!-- Guideline to position icons slightly higher -->
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineIcons"
                 android:layout_width="wrap_content"
@@ -43,15 +42,16 @@
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/homeButton"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:layout_marginBottom="5dp"
                 android:background="@color/cream"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/scheduleButton"
-                app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/guidelineIcons"
-                app:maxImageSize="24dp"
                 app:srcCompat="@drawable/battle_png"
                 app:tint="@color/black" />
 
@@ -59,14 +59,16 @@
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/scheduleButton"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:layout_marginBottom="5dp"
                 android:background="@color/cream"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/placeholder"
                 app:layout_constraintStart_toEndOf="@+id/homeButton"
                 app:layout_constraintTop_toBottomOf="@id/guidelineIcons"
-                app:maxImageSize="24dp"
                 app:srcCompat="@drawable/schedule_png" />
 
             <!-- Invisible Spacer for FAB notch -->
@@ -84,21 +86,26 @@
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/shopButton"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:layout_marginBottom="5dp"
                 android:background="@color/cream"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/profileButton"
                 app:layout_constraintStart_toEndOf="@+id/placeholder"
                 app:layout_constraintTop_toBottomOf="@id/guidelineIcons"
-                app:maxImageSize="24dp"
                 app:srcCompat="@drawable/shop_png" />
 
             <!-- Profile Button -->
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/profileButton"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
                 android:background="@color/cream"
@@ -106,7 +113,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/shopButton"
                 app:layout_constraintTop_toBottomOf="@id/guidelineIcons"
-                app:maxImageSize="24dp"
                 app:srcCompat="@drawable/profile_png" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -119,12 +125,11 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:layout_anchor="@id/bottomAppBar"
-        app:layout_anchorGravity="center"
+        app:layout_anchorGravity="bottom|center"
         app:backgroundTint="@color/cream"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="20dp"
         app:fabCustomSize="60dp"
-        app:maxImageSize="30dp"
         app:srcCompat="@drawable/camera_png" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

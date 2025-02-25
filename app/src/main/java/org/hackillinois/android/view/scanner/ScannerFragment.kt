@@ -138,7 +138,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                             }
                             "point-shop" -> {
                                 Log.d("Shop Raw Text: ", "" + it.text)
-                                val QRCode: String = it.text
+                                val QRCode: String = extractUserToken(it.text)
                                 Log.d("Point Text: ", QRCode)
                                 viewModel.redeemAttendeeCart(QRCode(QRCode))
                             }

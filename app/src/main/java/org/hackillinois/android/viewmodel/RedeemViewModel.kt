@@ -27,8 +27,8 @@ class RedeemViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response: QRResponse = App.getAPI().getCartQRCode()
-                val extractedQRCode = extractQRString(response.QRCode)
-                _qrCodeLiveData.postValue(extractedQRCode)
+//                val extractedQRCode = extractQRString(response.QRCode)
+                _qrCodeLiveData.postValue(response.QRCode)
             } catch (e: HttpException) {
                 val errorMessage = extractErrorMessage(e.response()?.errorBody())
                 _errorLiveData.postValue("Error: $errorMessage")

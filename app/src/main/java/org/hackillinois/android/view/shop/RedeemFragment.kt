@@ -51,6 +51,8 @@ class RedeemFragment : Fragment() {
             }
         )
 
+        Toast.makeText(requireContext(), "Go to the Point Shop front desk to redeem!", Toast.LENGTH_LONG).show()
+
         redeemViewModel.errorLiveData.observe(viewLifecycleOwner) { errorMessage ->
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
@@ -77,7 +79,7 @@ class RedeemFragment : Fragment() {
 
         try {
             val bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, width, height, hints)
-            val clear = Color.TRANSPARENT
+            val clear = Color.WHITE
             val solid = Color.BLACK
             for (x in 0 until width) {
                 for (y in 0 until height) {

@@ -155,7 +155,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun updateProTag() {
-        attendeeTypeText.text = if (pro) "Knight" else "General"
+        attendeeTypeText.text = if (pro) "Olympian" else "General"
     }
     private fun updateQrView(qr: QR?) = qr?.let { it ->
         if (qrCodeImage.width > 0 && qrCodeImage.height > 0) {
