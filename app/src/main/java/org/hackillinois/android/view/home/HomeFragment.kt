@@ -30,12 +30,11 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home_2025, container, false)
 
         daysValue = view.findViewById(R.id.daysValue)
         hoursValue = view.findViewById(R.id.hoursValue)
@@ -44,7 +43,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
         homeBackgroundImageView = view.findViewById(R.id.homeBackgroundImageView)
         homeBackgroundTagsImageView = view.findViewById(R.id.homeBackgroundTagsImageView)
         infoButton = view.findViewById(R.id.homeInfoImageView)
-
+//
         // set info button's functionality to toggle tag descriptions on home page when pressed on/off
         infoButton.setOnClickListener {
             if (homeBackgroundTagsImageView.visibility == View.INVISIBLE) {
@@ -63,21 +62,21 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
         super.onStart()
         isActive = true
         countDownManager.start()
-        eventProgressManager.start()
+//        eventProgressManager.start()
     }
 
     override fun onPause() {
         super.onPause()
         isActive = false
         countDownManager.onPause()
-        eventProgressManager.onPause()
+//        eventProgressManager.onPause()
     }
 
     override fun onResume() {
         super.onResume()
         isActive = true
         countDownManager.onResume()
-        eventProgressManager.onResume()
+//        eventProgressManager.onResume()
     }
 
     override fun onStop() {
@@ -103,7 +102,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
 
     override fun updateBackground(newBackgroundResource: Int) {
         if (isActive) {
-            homeBackgroundImageView.setImageResource(newBackgroundResource)
+//            homeBackgroundImageView.setImageResource(newBackgroundResource)
         }
     }
 

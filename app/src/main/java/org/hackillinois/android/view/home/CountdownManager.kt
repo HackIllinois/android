@@ -10,7 +10,7 @@ class CountdownManager(val listener: CountDownListener) {
     // 02-23-2024 15:30:00
     private val eventStartTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1708723800000
+        timeInMillis = 1740722400000 // 1708723800000
     }
 
     // 02-23-2024 19:00:00

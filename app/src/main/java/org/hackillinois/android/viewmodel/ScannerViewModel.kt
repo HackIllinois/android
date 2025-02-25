@@ -1,20 +1,25 @@
 package org.hackillinois.android.viewmodel
 
+import RedeemCart
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.hackillinois.android.App
-import org.hackillinois.android.database.entity.*
+import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.scanner.EventId
 import org.hackillinois.android.model.scanner.MentorId
+import org.hackillinois.android.model.scanner.QRCode
 import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.repository.rolesRepository
 import org.json.JSONObject
 import retrofit2.HttpException
-import kotlin.Exception
 
 class ScannerViewModel : ViewModel() {
     var lastScanStatus: MutableLiveData<ScanStatus> = MutableLiveData()
@@ -46,6 +51,34 @@ class ScannerViewModel : ViewModel() {
                 Log.e("STAFF MEETING ERROR", error)
                 val scanStatus = ScanStatus("Scan failed: $error", false)
                 lastScanStatus.postValue(scanStatus)
+            }
+        }
+    }
+
+    fun redeemAttendeeCart(body: QRCode) {
+        viewModelScope.launch {
+            try {
+                val response: RedeemCart = App.getAPI().redeemCart(body)
+                val items = response.items
+
+                val redeemedMessage = if (items.isEmpty()) {
+                    "No items redeemed."
+                } else {
+                    items.filter { it.quantity > 0 }
+                        .joinToString(separator = ", ") { "${it.name}: ${it.quantity}" }
+                }
+                val message = "Redeemed items: $redeemedMessage"
+                lastScanStatus.postValue(ScanStatus(message, true))
+            } catch (e: Exception) {
+                var error = e.message.toString()
+                try {
+                    if (e is HttpException) {
+                        val jsonObject = JSONObject(e.response()?.errorBody()?.string() ?: "")
+                        error = jsonObject.optString("message", e.message.toString())
+                    }
+                } catch (ex: Exception) { }
+                Log.e("Failed to redeem cart", error)
+                lastScanStatus.postValue(ScanStatus("Scan failed: $error", false))
             }
         }
     }
@@ -123,7 +156,7 @@ class ScannerViewModel : ViewModel() {
             try {
                 Log.d("ITEMINSTANCE", body.toString())
                 val item = App.getAPI().buyShopItem(body)
-                val message = "You have successfully redeemed ${item.name} from the Point Shop!"
+                val message = "You have successfully added ${item.name} to your cart!"
                 val scanStatus = ScanStatus(message, true)
                 lastScanStatus.postValue(scanStatus)
             } catch (e: Exception) {
@@ -133,10 +166,11 @@ class ScannerViewModel : ViewModel() {
                         val jsonObject = JSONObject("" + e.response()?.errorBody()?.string())
                         error = jsonObject.optString("message", e.message.toString())
                     }
-                } catch (e: Exception) { }
-                Log.e("PURCHASE ITEM ERROR", error)
-                val scanStatus = ScanStatus("Scan failed: $error", false)
-                lastScanStatus.postValue(scanStatus)
+                } catch (e: Exception) {
+                    Log.e("PURCHASE ITEM ERROR", error)
+                    val scanStatus = ScanStatus("Scan failed: $error", false)
+                    lastScanStatus.postValue(scanStatus)
+                }
             }
         }
     }

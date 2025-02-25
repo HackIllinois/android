@@ -1,5 +1,7 @@
 package org.hackillinois.android
 
+import RedeemCart
+import okhttp3.ResponseBody
 import org.hackillinois.android.database.entity.*
 import org.hackillinois.android.model.event.EventsList
 import org.hackillinois.android.model.event.ShiftsList
@@ -9,12 +11,14 @@ import org.hackillinois.android.model.scanner.DietaryRestrictions
 import org.hackillinois.android.model.scanner.EventId
 import org.hackillinois.android.model.scanner.MentorId
 import org.hackillinois.android.model.scanner.Points
+import org.hackillinois.android.model.scanner.QRCode
 import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
 import org.hackillinois.android.model.user.FavoritesResponse
 import org.hackillinois.android.model.version.Version
 import org.hackillinois.android.notifications.DeviceToken
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface API {
@@ -67,6 +71,21 @@ interface API {
 
     @POST("shop/item/buy/")
     suspend fun buyShopItem(@Body body: ItemInstance): ShopItem
+
+    @POST("shop/cart/{itemId}")
+    suspend fun addItemCart(@Path("itemId") itemId: String): Response<ResponseBody>
+
+    @GET("shop/cart/")
+    suspend fun getCart(): Cart
+
+    @GET("shop/cart/qr/")
+    suspend fun getCartQRCode(): QRResponse
+
+    @DELETE("shop/cart/{itemId}")
+    suspend fun removeItemCart(@Path("itemId") itemId: String): Response<ResponseBody>
+
+    @POST("shop/cart/redeem/")
+    suspend fun redeemCart(@Body body: QRCode): RedeemCart
 
     // STAFF
 

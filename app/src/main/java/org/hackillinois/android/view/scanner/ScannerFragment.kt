@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ import org.hackillinois.android.database.entity.Event
 import org.hackillinois.android.database.entity.Roles
 import org.hackillinois.android.model.scanner.EventId
 import org.hackillinois.android.model.scanner.MentorId
+import org.hackillinois.android.model.scanner.QRCode
 import org.hackillinois.android.model.scanner.ScanStatus
 import org.hackillinois.android.model.scanner.UserEventPair
 import org.hackillinois.android.model.shop.ItemInstance
@@ -128,9 +130,17 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                                 viewModel.submitMeetingAttendance(EventId(eventId))
                             }
                             "attendee-check-in" -> {
+                                Log.d("Attendee Code: ", "" + it.text)
                                 val userToken = extractUserToken(it.text)
+                                Log.d("User Token: ", userToken)
                                 val eventId = getChipEventId()
-                                viewModel.checkInAttendee(UserEventPair(userToken, eventId))
+                                viewModel.checkInAttendee(UserEventPair(eventId, userToken))
+                            }
+                            "point-shop" -> {
+                                Log.d("Shop Raw Text: ", "" + it.text)
+                                val QRCode: String = it.text
+                                Log.d("Point Text: ", QRCode)
+                                viewModel.redeemAttendeeCart(QRCode(QRCode))
                             }
                             else -> {
                                 displayToast(R.string.something_went_wrong_message)
@@ -146,11 +156,8 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
                             }
                             "mentor-check-in" -> {
                                 val mentorId: String = it.text
+                                Log.d("Mentor Text: ", "" + mentorId)
                                 viewModel.checkInMentor(MentorId(mentorId))
-                            }
-                            "point-shop" -> {
-                                val itemInstance = extractItemInfo(it.text)
-                                viewModel.purchaseItem(itemInstance)
                             }
                             else -> {
                                 displayToast(R.string.something_went_wrong_message)
@@ -257,8 +264,11 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
     }
 
     private fun extractUserToken(qrString: String): String {
-        val splitOnEquals = qrString.split("=")
-        return splitOnEquals.last()
+//        val splitOnEquals = qrString.split("=")
+//        return splitOnEquals.last()
+        val uri = Uri.parse(qrString)
+        val encodedQuery = uri.encodedQuery ?: return ""
+        return encodedQuery.substringAfter("qr=")
     }
 
     private fun extractItemInfo(qrString: String): ItemInstance {
@@ -270,7 +280,7 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
     }
 
     private fun getChipEventId(): String {
-        return chipIdToEventId[chipGroup.checkedChipId] ?: "ca7927242bcf76b9ee8c5e210a587a98" // default to check-in TODO: update every year
+        return chipIdToEventId[chipGroup.checkedChipId] ?: "728eeef366eea4ba1702c4d74a1b8915" // default to check-in TODO: update every year
     }
 
     private fun displayStaffScanResult(lastScanStatus: ScanStatus?) = lastScanStatus?.let {
@@ -337,13 +347,22 @@ class ScannerFragment : Fragment(), SimpleScanDialogFragment.OnSimpleOKButtonSel
 
     private fun closeScannerPage() {
         // set bottom app bar visible again and pop scanner fragment from the backstack
-        val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
-        if (appBar != null && scannerBtn != null) {
-            appBar.visibility = View.VISIBLE
-            scannerBtn.visibility = View.VISIBLE
+//        val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+//        val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+//        if (appBar != null && scannerBtn != null) {
+//            appBar.visibility = View.VISIBLE
+//            scannerBtn.visibility = View.VISIBLE
+//        }
+//        activity?.supportFragmentManager?.popBackStackImmediate()
+        activity?.runOnUiThread {
+            val appBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+            val scannerBtn = activity?.findViewById<FloatingActionButton>(R.id.code_entry_fab)
+            if (appBar != null && scannerBtn != null) {
+                appBar.visibility = View.VISIBLE
+                scannerBtn.visibility = View.VISIBLE
+            }
+            activity?.supportFragmentManager?.popBackStackImmediate()
         }
-        activity?.supportFragmentManager?.popBackStackImmediate()
     }
 
     override fun continueScanningAfterSimpleDialog() {

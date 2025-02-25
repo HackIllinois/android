@@ -15,11 +15,17 @@
     <string name="need_internet_title">Internet Required</string>
     <string name="need_internet_message">You must be connected to the internet in order to use the HackIllinois app. Please retry once you have verified your connection.</string>
 
+    <!--   Appbar   -->
+    <string name="home_icon">Home</string>
+    <string name="schedule_icon">Schedule</string>
+    <string name="prizes_icon">Prizes</string>
+    <string name="profile_icon">Profile</string>
+
     <!--    Onboarding Fragment   -->
     <string name="onboarding_get_started">Get Started</string>
     <string name="onboarding_welcome_title">Welcome!</string>
     <string name="onboarding_welcome_description">Swipe to see what our app has to offer!</string>
-    <string name="onboarding_countdown_title">Countdown</string>
+    <string name="onboarding_countdown_title">Overview</string>
     <string name="onboarding_countdown_description">View the hackathon’s major events and how much time is left to hack!</string>
     <string name="onboarding_schedule_title">Schedule</string>
     <string name="onboarding_schedule_description">See the times and details of all of our events.</string>
@@ -28,7 +34,11 @@
     <string name="onboarding_profile_title">Profile</string>
     <string name="onboarding_profile_description">View your QR code, food wave, and other personal information.</string>
     <string name="onboarding_shop_title">Point Shop</string>
-    <string name="onboarding_shop_description">View the available prizes you can redeem using your earned coins!</string>
+    <string name="onboarding_shop_description">View the available prizes you can redeem using your earned points!</string>
+    <string name="onboarding_check_in_title">Check-in</string>
+    <string name="onboarding_check_in_description">Quickly scan QR code to check in to events and earn points!</string>
+    <string name="onboarding_cart_title">Cart</string>
+    <string name="onboarding_cart_description">Modify your prize inventory before redemption.</string>
 
     <!--    Login Activity   -->
     <string name="welcome_login">WELCOME TO</string>
@@ -39,7 +49,7 @@
     <string name="login_or_label">- OR -</string>
 
     <!--    Home Fragment   -->
-    <string name="home_banner">HACKILLINOIS BEGINS IN…</string>
+    <string name="home_banner">BEFORE HACKILLINOIS</string>
     <string name="days_label">DAYS</string>
     <string name="hours_label">HOURS</string>
     <string name="minutes_label">MINUTES</string>
@@ -78,9 +88,19 @@
     <string name="raffle">RAFFLE</string>
     <string name="unlimited">Unlimited</string>
     <string name="shop_toast_text">Head to the Point Shop location to scan and buy items!</string>
+    <string name="cart">CART</string>
+    <string name="sticker">Sticker</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="one">1</string>
+    <string name="back">BACK</string>
+    <string name="scan">SCAN HERE TO \nCOMPLETE PURCHASE</string>
+    <string name="out_of_stock">OUT OF STOCK</string>
+
+
 
     <!--   Profile Fragment   -->
-    <string name="profile">PROFILE PAGE</string>
+    <string name="profile">PROFILE</string>
     <string name="your_ranking">Your Ranking</string>
     <string name="dashes">--</string>
     <!--   not logged in   -->
@@ -104,10 +124,12 @@
     <string name="something_went_wrong_message">Something went wrong, please try again.</string>
     <string name="user_input_points_message">Please enter a valid whole number.</string>
     <string name="dialog_ok">OK</string>
+    <string name="point_shop">Points Shop</string>
 
     <!--   Dialog Fragments   -->
     <string name="prize_obtained">Prize Obtained!</string>
     <string name="points_earned">Points Earned!</string>
+    <string name="rank">Rank</string>
 
 
 </resources>
