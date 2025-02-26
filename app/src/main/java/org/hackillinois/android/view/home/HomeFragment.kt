@@ -62,21 +62,21 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
         super.onStart()
         isActive = true
         countDownManager.start()
-//        eventProgressManager.start()
+        eventProgressManager.start()
     }
 
     override fun onPause() {
         super.onPause()
         isActive = false
         countDownManager.onPause()
-//        eventProgressManager.onPause()
+        eventProgressManager.onPause()
     }
 
     override fun onResume() {
         super.onResume()
         isActive = true
         countDownManager.onResume()
-//        eventProgressManager.onResume()
+        eventProgressManager.onResume()
     }
 
     override fun onStop() {
@@ -102,7 +102,7 @@ class HomeFragment : Fragment(), CountdownManager.CountDownListener, EventProgre
 
     override fun updateBackground(newBackgroundResource: Int) {
         if (isActive) {
-//            homeBackgroundImageView.setImageResource(newBackgroundResource)
+            homeBackgroundImageView.setImageResource(newBackgroundResource)
         }
     }
 

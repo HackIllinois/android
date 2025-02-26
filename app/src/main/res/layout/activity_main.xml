@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="16dp">
+    android:layout_height="match_parent">
 
     <!-- Main Content -->
     <androidx.fragment.app.FragmentContainerView
@@ -131,5 +130,8 @@
         android:layout_marginTop="20dp"
         app:fabCustomSize="60dp"
         app:srcCompat="@drawable/camera_png" />
+
+<!--    android:layout_alignParentBottom="true"-->
+<!--    android:layout_alignParentEnd="true"-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
