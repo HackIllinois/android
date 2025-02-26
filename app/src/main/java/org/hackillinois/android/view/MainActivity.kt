@@ -7,8 +7,13 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
@@ -39,8 +44,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
+
+        ViewCompat.setOnApplyWindowInsetsListener(bottomAppBar) { view, insets ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            // Convert 16dp to pixels (you can change this value as needed)
+            val extraMargin = (0 * resources.displayMetrics.density).toInt()
+            view.updateLayoutParams<CoordinatorLayout.LayoutParams> {
+                bottomMargin = systemBarsInsets.bottom + extraMargin
+            }
+            insets
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(contentFrame) { view, insets ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            // Your BottomAppBar has a fixed height of 72dp.
+            val bottomAppBarHeightPx = (36 * resources.displayMetrics.density).toInt()
+            view.updatePadding(bottom = bottomAppBarHeightPx + systemBarsInsets.bottom)
+            insets
+        }
 
         setupBottomAppBar()
         setupScannerButton()
