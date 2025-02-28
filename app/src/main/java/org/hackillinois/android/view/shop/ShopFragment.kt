@@ -160,15 +160,14 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
 
     // Called in onCreateView within shopLiveData.observe
     private fun updateShopItems(newShop: List<ShopItem>) {
-        // Split shop items into categories
         merchItems = newShop.filter { !it.isRaffle }.sortedBy { it.quantity == 0 }
         raffleItems = newShop.filter { it.isRaffle }.sortedBy { it.quantity == 0 }
 
-        // **Update only the RecyclerView items**
+        // Update only the RecyclerView items: skip the first two fixed items for both tabs
         val recyclerViewItems = if (showingMerch) {
             if (merchItems.size > 2) merchItems.subList(2, merchItems.size) else listOf()
         } else {
-            raffleItems
+            if (raffleItems.size > 2) raffleItems.subList(2, raffleItems.size) else listOf()
         }
 
         // Update adapter
@@ -336,16 +335,26 @@ class ShopFragment : Fragment(), ShopAdapter.OnBuyItemListener {
     }
 
     private fun buyFirstItem() {
-        if (merchItems.isNotEmpty()) {
-            val firstItem = merchItems[0]
+        val sortedItems = if (showingMerch) {
+            merchItems.sortedBy { it.quantity == 0 }
+        } else {
+            raffleItems.sortedBy { it.quantity == 0 }
+        }
+        if (sortedItems.isNotEmpty()) {
+            val firstItem = sortedItems[0]
             Log.d("ShopFragment", "Buying: ${firstItem.name}")
             onBuyItem(firstItem)
         }
     }
 
     private fun buySecondItem() {
-        if (merchItems.size >= 2) {
-            val secondItem = merchItems[1]
+        val sortedItems = if (showingMerch) {
+            merchItems.sortedBy { it.quantity == 0 }
+        } else {
+            raffleItems.sortedBy { it.quantity == 0 }
+        }
+        if (sortedItems.size >= 2) {
+            val secondItem = sortedItems[1]
             Log.d("ShopFragment", "Buying: ${secondItem.name}")
             onBuyItem(secondItem)
         }
