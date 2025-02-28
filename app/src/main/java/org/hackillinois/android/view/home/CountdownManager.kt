@@ -7,10 +7,10 @@ import java.util.*
 
 class CountdownManager(val listener: CountDownListener) {
 
-    // 02-28-2025 : 14:30
+    // 02-28-2025 : 18:00
     private val eventStartTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1740774600000 // 1708723800000
+        timeInMillis = 1740774600000
     }
 
     // 02-28-2025 : 18:00
@@ -19,10 +19,10 @@ class CountdownManager(val listener: CountDownListener) {
         timeInMillis = 1740787200000
     }
 
-    // 03-02-2025 11:30
+    // 03-02-2025 7:00
     private val hackingEndTime: Calendar = Calendar.getInstance().apply {
         timeZone = TimeZone.getTimeZone("America/Chicago")
-        timeInMillis = 1740936600000
+        timeInMillis = 1740920400000
     }
 
     private var times = listOf(eventStartTime, hackingStartTime, hackingEndTime)
